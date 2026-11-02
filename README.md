@@ -19,3 +19,7 @@ python3 scripts/make_team_packet.py private/original private/team-folder-01.zip 
 ```
 
 Pass multiple folder numbers to package an assignment. Omit `--folders` to package all 25 folders. Use a new output filename for each build. The builder checks the frozen delivery manifest, preserves the original example bytes and filenames, and includes the rubric, instructions, a blank answer sheet and file checksums. Send the same archive to people rating the same assignment. Each returns their own completed sheet privately.
+
+## Reference anchoring study
+
+[Replication plan for VeriBench formal specification coverage](docs/reference-anchoring-plan.md). The plan measures whether a gold reference helps a judge distinguish full from partial coverage and whether equally valid formalizations get different scores.
