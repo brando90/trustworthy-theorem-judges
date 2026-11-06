@@ -1,0 +1,522 @@
+{
+  "condition": "P_local_qwen9_nonthinking_v2",
+  "artifacts": [
+    {
+      "artifact": "T01_G0",
+      "task": "T01",
+      "generator": "G0",
+      "generation_status": "completed",
+      "statement_sha256": "c7365f1c710e5303a1c160a50452b22030391b7c90a782be5cc7a4f854744a15",
+      "context_sha256": "198a298c0001348644d891d636d4ba1d4ee89ed3ed60e70632844e34afd92ac1",
+      "target": 0,
+      "target_status": "bounded_search_unsuccessful",
+      "J0": null,
+      "J0_status": "failed",
+      "J1": 0.0,
+      "J1_status": "completed",
+      "constant_0.0": 0.0,
+      "constant_0.5": 0.5,
+      "constant_0.8": 0.8,
+      "constant_1.0": 1.0
+    },
+    {
+      "artifact": "T01_G1",
+      "task": "T01",
+      "generator": "G1",
+      "generation_status": "completed",
+      "statement_sha256": "c7365f1c710e5303a1c160a50452b22030391b7c90a782be5cc7a4f854744a15",
+      "context_sha256": "198a298c0001348644d891d636d4ba1d4ee89ed3ed60e70632844e34afd92ac1",
+      "target": 0,
+      "target_status": "bounded_search_unsuccessful",
+      "J0": null,
+      "J0_status": "failed",
+      "J1": 0.0,
+      "J1_status": "completed",
+      "constant_0.0": 0.0,
+      "constant_0.5": 0.5,
+      "constant_0.8": 0.8,
+      "constant_1.0": 1.0
+    },
+    {
+      "artifact": "T02_G0",
+      "task": "T02",
+      "generator": "G0",
+      "generation_status": "completed",
+      "statement_sha256": "7f8ef5107f90d3b3fabc44345dc9f9caeffe14616d6c8c05f50eba9711ed8511",
+      "context_sha256": "c93375339116ef09d5ae3a6f3cbc29ec315d976904e870f4799083f879aaec94",
+      "target": null,
+      "target_status": "invalid_context",
+      "J0": 0.0,
+      "J0_status": "completed",
+      "J1": 0.0,
+      "J1_status": "completed",
+      "constant_0.0": 0.0,
+      "constant_0.5": 0.5,
+      "constant_0.8": 0.8,
+      "constant_1.0": 1.0
+    },
+    {
+      "artifact": "T02_G1",
+      "task": "T02",
+      "generator": "G1",
+      "generation_status": "completed",
+      "statement_sha256": "fd798be72461b1ca6b522a8f260e06038dac832c7a0e625b84004db15c283530",
+      "context_sha256": "eab525d87ec6efc6b399b8b7ba88c192978d97c98cb8a2472a9eade0e10c34a8",
+      "target": null,
+      "target_status": "invalid_context",
+      "J0": 0.0,
+      "J0_status": "completed",
+      "J1": 0.0,
+      "J1_status": "completed",
+      "constant_0.0": 0.0,
+      "constant_0.5": 0.5,
+      "constant_0.8": 0.8,
+      "constant_1.0": 1.0
+    },
+    {
+      "artifact": "T03_G0",
+      "task": "T03",
+      "generator": "G0",
+      "generation_status": "completed",
+      "statement_sha256": "1d4eb36e7cef46f3cbb43c4a3c2c989c5c903a75be1b6aab211b1a27d5ae5a5e",
+      "context_sha256": "2742a315260d04672ff57e108b5d8b42eac6ffeca32a11284335cb462fe9182a",
+      "target": null,
+      "target_status": "invalid_context",
+      "J0": 0.0,
+      "J0_status": "completed",
+      "J1": 0.0,
+      "J1_status": "completed",
+      "constant_0.0": 0.0,
+      "constant_0.5": 0.5,
+      "constant_0.8": 0.8,
+      "constant_1.0": 1.0
+    },
+    {
+      "artifact": "T03_G1",
+      "task": "T03",
+      "generator": "G1",
+      "generation_status": "completed",
+      "statement_sha256": "803470606f616ed832298b0dfb80c3281337c7d620a475caa3c83d0b4663285c",
+      "context_sha256": "942cb11aa52e7562db4b300d247ccbde1cc01359a5779b8955e8317ee94e3628",
+      "target": null,
+      "target_status": "invalid_context",
+      "J0": 0.0,
+      "J0_status": "completed",
+      "J1": 0.0,
+      "J1_status": "completed",
+      "constant_0.0": 0.0,
+      "constant_0.5": 0.5,
+      "constant_0.8": 0.8,
+      "constant_1.0": 1.0
+    },
+    {
+      "artifact": "T04_G0",
+      "task": "T04",
+      "generator": "G0",
+      "generation_status": "completed",
+      "statement_sha256": "cd93855e14089312c71f4f6c9b01554598cd70c20c946b251d834e4b08ac67e4",
+      "context_sha256": "00acf68b0a39ff9f4d3155dbc94a0d21e15e853f556a652662e2e7098b948a32",
+      "target": 0,
+      "target_status": "bounded_search_unsuccessful",
+      "J0": 0.0,
+      "J0_status": "completed",
+      "J1": 0.0,
+      "J1_status": "completed",
+      "constant_0.0": 0.0,
+      "constant_0.5": 0.5,
+      "constant_0.8": 0.8,
+      "constant_1.0": 1.0
+    },
+    {
+      "artifact": "T04_G1",
+      "task": "T04",
+      "generator": "G1",
+      "generation_status": "completed",
+      "statement_sha256": "d76c1df6b024d5482343dc195142fd58306a2267d162dc7bf88a3afc52bcc967",
+      "context_sha256": "f9ebb6ca4abc139e8c219415519b7592777a00047ba2f92163b8396a889242e0",
+      "target": null,
+      "target_status": "invalid_context",
+      "J0": 0.0,
+      "J0_status": "completed",
+      "J1": 0.0,
+      "J1_status": "completed",
+      "constant_0.0": 0.0,
+      "constant_0.5": 0.5,
+      "constant_0.8": 0.8,
+      "constant_1.0": 1.0
+    }
+  ],
+  "availability": {
+    "declared_artifacts": 8,
+    "task_families": 4,
+    "generated_statements": 8,
+    "unique_statement_hashes": 7,
+    "unique_context_hashes": 7,
+    "target_available": 3,
+    "target_successes": 0,
+    "target_failures": 3,
+    "missing_targets": 5,
+    "observed_target_classes": [
+      0
+    ]
+  },
+  "judges": {
+    "J0": {
+      "observed_pairs": 1,
+      "declared_artifacts": 8,
+      "brier": 0.0,
+      "full_denominator_brier_bounds": [
+        0.0,
+        0.875
+      ],
+      "mean_probability": 0.0,
+      "mean_target": 0,
+      "mean_signed_bias": 0.0,
+      "mae_descriptive": 0.0,
+      "brier_bootstrap": {
+        "interval95": [
+          0.0,
+          0.0
+        ],
+        "valid_resamples": 6843,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      },
+      "correlations": {
+        "spearman": null,
+        "kendall": null,
+        "pearson": null,
+        "auroc": null,
+        "reason": "fewer than two observed outcome or forecast values"
+      }
+    },
+    "J1": {
+      "observed_pairs": 3,
+      "declared_artifacts": 8,
+      "brier": 0.0,
+      "full_denominator_brier_bounds": [
+        0.0,
+        0.625
+      ],
+      "mean_probability": 0.0,
+      "mean_target": 0,
+      "mean_signed_bias": 0.0,
+      "mae_descriptive": 0.0,
+      "brier_bootstrap": {
+        "interval95": [
+          0.0,
+          0.0
+        ],
+        "valid_resamples": 9375,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      },
+      "correlations": {
+        "spearman": null,
+        "kendall": null,
+        "pearson": null,
+        "auroc": null,
+        "reason": "fewer than two observed outcome or forecast values"
+      }
+    }
+  },
+  "baselines": {
+    "0.0": {
+      "observed_pairs": 3,
+      "declared_artifacts": 8,
+      "brier": 0.0,
+      "full_denominator_brier_bounds": [
+        0.0,
+        0.625
+      ],
+      "mean_probability": 0.0,
+      "mean_target": 0,
+      "mean_signed_bias": 0.0,
+      "mae_descriptive": 0.0,
+      "brier_bootstrap": {
+        "interval95": [
+          0.0,
+          0.0
+        ],
+        "valid_resamples": 9375,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      },
+      "correlations": {
+        "spearman": null,
+        "kendall": null,
+        "pearson": null,
+        "auroc": null,
+        "reason": "fewer than two observed outcome or forecast values"
+      }
+    },
+    "0.5": {
+      "observed_pairs": 3,
+      "declared_artifacts": 8,
+      "brier": 0.25,
+      "full_denominator_brier_bounds": [
+        0.09375,
+        0.71875
+      ],
+      "mean_probability": 0.5,
+      "mean_target": 0,
+      "mean_signed_bias": 0.5,
+      "mae_descriptive": 0.5,
+      "brier_bootstrap": {
+        "interval95": [
+          0.25,
+          0.25
+        ],
+        "valid_resamples": 9375,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      },
+      "correlations": {
+        "spearman": null,
+        "kendall": null,
+        "pearson": null,
+        "auroc": null,
+        "reason": "fewer than two observed outcome or forecast values"
+      }
+    },
+    "0.8": {
+      "observed_pairs": 3,
+      "declared_artifacts": 8,
+      "brier": 0.6400000000000001,
+      "full_denominator_brier_bounds": [
+        0.24000000000000005,
+        0.865
+      ],
+      "mean_probability": 0.8,
+      "mean_target": 0,
+      "mean_signed_bias": 0.8,
+      "mae_descriptive": 0.8,
+      "brier_bootstrap": {
+        "interval95": [
+          0.6400000000000001,
+          0.6400000000000001
+        ],
+        "valid_resamples": 9375,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      },
+      "correlations": {
+        "spearman": null,
+        "kendall": null,
+        "pearson": null,
+        "auroc": null,
+        "reason": "fewer than two observed outcome or forecast values"
+      }
+    },
+    "1.0": {
+      "observed_pairs": 3,
+      "declared_artifacts": 8,
+      "brier": 1.0,
+      "full_denominator_brier_bounds": [
+        0.375,
+        1.0
+      ],
+      "mean_probability": 1.0,
+      "mean_target": 0,
+      "mean_signed_bias": 1.0,
+      "mae_descriptive": 1.0,
+      "brier_bootstrap": {
+        "interval95": [
+          1.0,
+          1.0
+        ],
+        "valid_resamples": 9375,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      },
+      "correlations": {
+        "spearman": null,
+        "kendall": null,
+        "pearson": null,
+        "auroc": null,
+        "reason": "fewer than two observed outcome or forecast values"
+      }
+    }
+  },
+  "paired_comparisons": {
+    "J0_minus_constant_0.0": {
+      "difference": 0.0,
+      "observed_pairs": 1,
+      "bootstrap": {
+        "interval95": [
+          0.0,
+          0.0
+        ],
+        "valid_resamples": 6843,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      }
+    },
+    "J0_minus_constant_0.5": {
+      "difference": -0.25,
+      "observed_pairs": 1,
+      "bootstrap": {
+        "interval95": [
+          -0.25,
+          -0.25
+        ],
+        "valid_resamples": 6843,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      }
+    },
+    "J0_minus_constant_0.8": {
+      "difference": -0.6400000000000001,
+      "observed_pairs": 1,
+      "bootstrap": {
+        "interval95": [
+          -0.6400000000000001,
+          -0.6400000000000001
+        ],
+        "valid_resamples": 6843,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      }
+    },
+    "J0_minus_constant_1.0": {
+      "difference": -1.0,
+      "observed_pairs": 1,
+      "bootstrap": {
+        "interval95": [
+          -1.0,
+          -1.0
+        ],
+        "valid_resamples": 6843,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      }
+    },
+    "J1_minus_constant_0.0": {
+      "difference": 0.0,
+      "observed_pairs": 3,
+      "bootstrap": {
+        "interval95": [
+          0.0,
+          0.0
+        ],
+        "valid_resamples": 9375,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      }
+    },
+    "J1_minus_constant_0.5": {
+      "difference": -0.25,
+      "observed_pairs": 3,
+      "bootstrap": {
+        "interval95": [
+          -0.25,
+          -0.25
+        ],
+        "valid_resamples": 9375,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      }
+    },
+    "J1_minus_constant_0.8": {
+      "difference": -0.6400000000000001,
+      "observed_pairs": 3,
+      "bootstrap": {
+        "interval95": [
+          -0.6400000000000001,
+          -0.6400000000000001
+        ],
+        "valid_resamples": 9375,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      }
+    },
+    "J1_minus_constant_1.0": {
+      "difference": -1.0,
+      "observed_pairs": 3,
+      "bootstrap": {
+        "interval95": [
+          -1.0,
+          -1.0
+        ],
+        "valid_resamples": 9375,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      }
+    },
+    "J1_minus_J0": {
+      "difference": 0.0,
+      "observed_pairs": 1,
+      "bootstrap": {
+        "interval95": [
+          0.0,
+          0.0
+        ],
+        "valid_resamples": 6843,
+        "draws": 10000,
+        "unit": "four source-task families, paired configurations",
+        "interpretation": "conditional descriptive interval; four purposively selected families cannot establish population precision",
+        "p_val": "n/a"
+      }
+    }
+  },
+  "repeat_variability": [],
+  "cost": {
+    "provider_cost_usd": 0,
+    "reserved_calls": 38,
+    "reserved_output_tokens": 39936,
+    "observed_output_tokens_terminal_records": 2714,
+    "calls_without_terminal_token_counts": 0,
+    "thinking_characters_terminal_records": 0,
+    "call_status_counts": {
+      "completed": 36,
+      "failed": 2
+    },
+    "failure_category_counts": {
+      "none": 36,
+      "output_token_budget": 2
+    },
+    "wall_seconds": 498.2880189418793,
+    "run_status": "completed"
+  },
+  "inputs": {
+    "artifacts.json": "51bdac132c7a1be0e79bb4180761473cae30e681a46dcfcc0c761e47bd629c31",
+    "forecasts.json": "494ba1998ecaeba80d8bddacc85ee33a691e1cef8677a6823fae038f2b016a48",
+    "targets.json": "6ccd8189265c228fa544040f321119ef4763a35ed98c1d1d7b10a1f1db5ac5a5",
+    "run_state.json": "4d2c7f8f826f3868938ba22bf1fd17cf97bf1c7a9f15b4eace0c1f914eaa572a",
+    "done.json": "1b1ef36d2ad48c96547dfd4292a04f8f585f7ad74231617b2ec3b741a62957a1"
+  },
+  "verdict": "feasibility only; no validated replacement or judge winner",
+  "proper_loss_controls": {
+    "oracle": 0,
+    "constant_half": 0.25,
+    "complement": 1
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "conditions": [
+    "P_local_qwen9_v1",
+    "P_local_qwen9_nonthinking_v2"
+  ],
+  "verdict": "no validated judge; local feasibility failed to provide outcome variation and sufficient valid outputs",
+  "attempted_artifacts": 8,
+  "unique_statement_hashes": 7,
+  "unique_context_source_hashes": 7,
+  "well_formed_artifacts": 3,
+  "unique_well_formed_statements": 2,
+  "source_task_families": 4,
+  "families_with_available_targets": 2,
+  "successful_targets": 0,
+  "invalid_candidates": 5,
+  "primary_forecasts_planned": 16,
+  "primary_forecasts_available": 14,
+  "shared_calls": 46,
+  "shared_requested_output_tokens": 49152,
+  "shared_observed_output_tokens": 9777,
+  "shared_wall_seconds": 905.6199820041656,
+  "provider_cost_usd": 0,
+  "thinking_characters_v1": 26390,
+  "thinking_characters_v2": 0,
+  "reporting_qualification": "post-outcome support-count clarification; frozen analysis code and losses unchanged",
+  "judge_support": {
+    "J0": {
+      "paired_artifacts": 1,
+      "observed_families": 1,
+      "valid_bootstrap_draws": 6843,
+      "dropped_empty_draws": 3157,
+      "inferential_interval": null,
+      "reason": "insufficient family support and constant outcomes/forecasts"
+    },
+    "J1": {
+      "paired_artifacts": 3,
+      "observed_families": 2,
+      "valid_bootstrap_draws": 9375,
+      "dropped_empty_draws": 625,
+      "inferential_interval": null,
+      "reason": "insufficient family support and constant outcomes/forecasts"
+    }
+  },
+  "roles": {
+    "preflight": {
+      "calls": 16,
+      "completed": 14,
+      "requested_output_tokens": 14336,
+      "observed_output_tokens": 7431
+    },
+    "generation": {
+      "calls": 8,
+      "completed": 8,
+      "requested_output_tokens": 12288,
+      "observed_output_tokens": 409
+    },
+    "forecast": {
+      "calls": 16,
+      "completed": 14,
+      "requested_output_tokens": 10240,
+      "observed_output_tokens": 1594
+    },
+    "proof_search": {
+      "calls": 6,
+      "completed": 6,
+      "requested_output_tokens": 12288,
+      "observed_output_tokens": 343
+    }
+  },
+  "model": "qwen3.5:9b-q4_K_M",
+  "model_digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+  "independent_counterexamples": {
+    "post_outcome_diagnostic": true,
+    "target_outcomes_unchanged": true,
+    "selection": "two unique well-formed statement cases; duplicate T01_G1 shares T01_G0 statement/context hashes",
+    "model_calls": 0,
+    "rows": [
+      {
+        "artifact": "T01_G0",
+        "statement_sha256": "c7365f1c710e5303a1c160a50452b22030391b7c90a782be5cc7a4f854744a15",
+        "context_sha256": "198a298c0001348644d891d636d4ba1d4ee89ed3ed60e70632844e34afd92ac1",
+        "independent_counterexample_checked": true,
+        "status": "accepted",
+        "proof_sha256": "6e5092163b0441de8bffa06ade77a3e5398db0bb9294ab26d6a015812f64e0ed",
+        "receipt_sha256": "9dc75eba8c088af154152b594ca96d5daed22cdfa2ae08632f9834af5fb6f321"
+      },
+      {
+        "artifact": "T04_G0",
+        "statement_sha256": "cd93855e14089312c71f4f6c9b01554598cd70c20c946b251d834e4b08ac67e4",
+        "context_sha256": "00acf68b0a39ff9f4d3155dbc94a0d21e15e853f556a652662e2e7098b948a32",
+        "independent_counterexample_checked": true,
+        "status": "accepted",
+        "proof_sha256": "658f2290f247badce38e4fdfc61306f0b04c605d2a6ba9bd94cc577b7026b8a0",
+        "receipt_sha256": "a018ea29fa7fa0bcec90298fcbf512422bad167ad70442a448261ce7e6cfeb34"
+      }
+    ],
+    "all_counterexamples_checked": true,
+    "interpretation": "A checked counterexample separately demonstrates non-entailment for that exact statement; bounded search failure alone never does."
+  }
+}

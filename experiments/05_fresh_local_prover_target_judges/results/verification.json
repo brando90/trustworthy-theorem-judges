@@ -1,0 +1,25 @@
+{
+  "all_pass": true,
+  "conditions": [
+    {
+      "condition": "P_local_qwen9_v1",
+      "frozen_files": 12,
+      "call_receipts": 8,
+      "freeze_matches": true
+    },
+    {
+      "condition": "P_local_qwen9_nonthinking_v2",
+      "frozen_files": 13,
+      "call_receipts": 38,
+      "freeze_matches": true
+    }
+  ],
+  "artifact_rows": 8,
+  "primary_forecast_rows": 16,
+  "forecast_seal_precedes_model_target_calls": true,
+  "shared_calls": 46,
+  "shared_requested_tokens": 49152,
+  "shared_elapsed_seconds": 905.6199820041656,
+  "provider_cost_usd": 0,
+  "note": "Exact receipt checks; no new inference, no proof-search retries."
+}

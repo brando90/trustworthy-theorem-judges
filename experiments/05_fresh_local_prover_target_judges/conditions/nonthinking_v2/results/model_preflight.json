@@ -1,0 +1,45 @@
+{
+  "checks": [
+    {
+      "identity": "preflight_J0_reproduce0",
+      "passed": true,
+      "kind": "probability_reproduction"
+    },
+    {
+      "identity": "preflight_J0_reproduce1",
+      "passed": true,
+      "kind": "probability_reproduction"
+    },
+    {
+      "identity": "preflight_J0_semantic0",
+      "passed": true,
+      "kind": "acceptance_semantics"
+    },
+    {
+      "identity": "preflight_J0_semantic1",
+      "passed": true,
+      "kind": "acceptance_semantics"
+    },
+    {
+      "identity": "preflight_J1_reproduce0",
+      "passed": true,
+      "kind": "probability_reproduction"
+    },
+    {
+      "identity": "preflight_J1_reproduce1",
+      "passed": true,
+      "kind": "probability_reproduction"
+    },
+    {
+      "identity": "preflight_J1_semantic0",
+      "passed": true,
+      "kind": "acceptance_semantics"
+    },
+    {
+      "identity": "preflight_J1_semantic1",
+      "passed": true,
+      "kind": "acceptance_semantics"
+    }
+  ],
+  "all_pass": true
+}
