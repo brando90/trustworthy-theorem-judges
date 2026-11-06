@@ -1,0 +1,35 @@
+{
+  "description": "Phase 0: zero-call transfer check of experiment 03's frozen probability map to Core-614 tasks outside Tiny-256; historical target and unbound historical judge.",
+  "version": "phase0_transfer_v1_11-06-2026",
+  "veribench_main_revision": "ec1f9b2a44",
+  "tiny256_source_revision": "be287d9bb2f7bd35ba6db1b8735c9ba10d00eade",
+  "experiment03_results": "experiments/03_prover_target_fsc_judge/results/retrospective.json",
+  "experiment03_config": "experiments/03_prover_target_fsc_judge/config.json",
+  "frozen_map_condition": "all_agents",
+  "frozen_map_coefficients": [-7.402941748053847, 9.463768107149697],
+  "frozen_constant": 0.800781,
+  "baseline_ridge_candidates": [0.0, 0.01, 0.1, 1.0],
+  "baseline_selection_metric": "validation_brier",
+  "primary_outcome": "first_pass",
+  "retry_converted_runs": {
+    "150_core614_dt_security238_claude_code_11-01-2026": ["S077"],
+    "153_core614_dt_security238_astra_11-01-2026": ["S063", "S072"]
+  },
+  "core614_batches": {
+    "144_core614_dt_first_batch_claude_code_11-01-2026": ["claude_code", "first_batch"],
+    "147_core614_dt_batch1_codex_11-01-2026": ["codex", "first_batch"],
+    "148_core614_dt_batch1_fable_5_1_11-01-2026": ["fable51", "first_batch"],
+    "149_core614_dt_batch1_astra_11-01-2026": ["astra", "first_batch"],
+    "150_core614_dt_security238_claude_code_11-01-2026": ["claude_code", "security"],
+    "151_core614_dt_security238_codex_11-01-2026": ["codex", "security"],
+    "152_core614_dt_security238_fable_5_1_11-01-2026": ["fable51", "security"],
+    "153_core614_dt_security238_astra_11-01-2026": ["astra", "security"]
+  },
+  "rating_system_names": {"claude_code": "claude_code", "codex": "codex", "fable51": "t2_fable51", "astra": "t2_astra"},
+  "theorem_regex": "^[ \\t]*(?:@\\[[^\\]]*\\][ \\t]*)?(?:(?:private|protected|noncomputable)[ \\t]+)*(?:theorem|lemma)[ \\t]+\\S",
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 11062026,
+  "new_model_call_cap": 0,
+  "measured_inference_cost_usd": 0,
+  "fresh_test": false
+}
