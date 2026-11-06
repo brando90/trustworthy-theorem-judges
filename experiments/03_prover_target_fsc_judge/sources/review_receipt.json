@@ -1,0 +1,29 @@
+{
+  "requested_tier": "light",
+  "rounds": 1,
+  "reviewed_commit": "6b288c71e09a2233e6465b6910ccfc7547e6ad8d",
+  "protocol_commit": "24c9152",
+  "reviewed_commit_preservation": "private bundle; unpublished revision replaced to remove editable source locator from public history",
+  "actual_model": "claude-fable-5-1",
+  "effort_cli_verified": "max",
+  "server_effort_echo": "not separately exposed",
+  "permissions": "bypassPermissions",
+  "route": "claude.ai Max subscription; provider-key variables removed",
+  "reviewer_verdict": "PASS",
+  "reviewer_critical_issues": 0,
+  "reviewer_major_issues": 2,
+  "builder_resolution": "FIXED",
+  "unresolved_critical_issues": 0,
+  "unresolved_major_issues": 0,
+  "private_evidence_sha256": {
+    "verdict.md": "13a826d873dc63559c93cc05a2a495682571188bba57307c2a80f2844deeb72c",
+    "stream.jsonl": "a6e7d163ddf015ee5f1b5c8bee565191385d1bda335721a369f82e63022fe53e",
+    "launch.json": "8bec41174a033f8484d561f3e88f6a5fc68afdf3eb4fa6f0760993079093d3a3",
+    "active_cli_evidence.json": "57649f9d54b16d27b70507ccbedbfae0dcec70dbce28fb9a51f77a58f81e1791",
+    "done.json": "8bd99ec3856bf8c1af6eb6dfed980602e9d06f4e7fd19f97849c8e736cd88eed",
+    "reviewed_revision.bundle": "5f2e9bb3bbeb4444048fa5d48735bb02e5d9d5346cd91003523b12af2bcaa27a"
+  },
+  "completed_date": "11-06-2026",
+  "new_measured_forecast_calls": 0,
+  "new_measured_prover_calls": 0
+}
