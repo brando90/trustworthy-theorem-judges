@@ -10,6 +10,7 @@
 - [Main LaTeX source](00_main.tex), with numbered files for each section
 - [Methodology](../../experiments/02_probabilistic_ordinal_judge/README.md)
 - [Historical evidence](../../experiments/01_legacy_veribench_judge/README.md)
+- [Separate prover-target fallback study](../../experiments/03_prover_target_fsc_judge/README.md): retrospective operational forecasting results and a prospective protocol; these are not fresh human-study results in this draft.
 
 Run `python3 scripts/build_paper.py` from the repository root. The build uses temporary storage and refreshes `00_main.pdf` only after a successful compile without overfull boxes or unresolved references. Do not edit the official [vendor sources](vendor/README.md). The current seven-page draft uses the official anonymous submission mode, with references beginning on page seven after more than six pages of body content. It is a working draft, not a submitted paper or a completed empirical study. Submit the anonymous PDF, not an identifying repository archive.
 

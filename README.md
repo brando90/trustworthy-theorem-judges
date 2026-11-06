@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/README.md>
 
-**TLDR:** This project studies artificial-intelligence (AI), agent, and large language model (LLM) judges for formal specification coverage (FSC). It contains a prospective human-rating methodology, historical VeriBench judge evidence, and an AAAI-27 workshop paper draft; fresh validation results are pending human data.
+**TLDR:** This project studies artificial-intelligence (AI), agent, and large language model (LLM) judges for formal specification coverage (FSC). It contains a prospective human-rating methodology, a prover-outcome forecasting study, historical VeriBench judge evidence, and an AAAI-27 workshop paper draft. Fresh validation remains pending.
 
 Given original Python source, a candidate Lean formalization, and a gold reference, can a judge predict how qualified humans rate the candidate's coverage of the required specifications? A gold statement may follow from several candidate statements together. Proof correctness and statement coverage are different properties.
 
@@ -14,10 +14,13 @@ This repository owns the AI/agent/LLM judge study. VeriBench's intended evaluati
 
 - [Study methodology and collection design](experiments/02_probabilistic_ordinal_judge/README.md): predict the six-category conditional human-rating distribution with the ranked probability score as the primary loss; correlations are secondary diagnostics.
 - [Historical results and provenance](experiments/01_legacy_veribench_judge/README.md): preserved aggregate receipts, limitations, and a clear separation from new validation.
+- [Prover-outcome forecasting study](experiments/03_prover_target_fsc_judge/README.md): predict acceptance by a specified proof-search procedure with Brier loss. A retrospective analysis using saved results is complete; fresh statement-only validation remains pending.
 - [AAAI-27 workshop paper](paper_latex/AAAI_2027_Evaluation_AI_Scientists/README.md): anonymous LaTeX source and compiled PDF using the official author kit.
 - [Experiment index](experiments/README.md): status, scope, and next evidence needed.
 
 The starting collection design has **896 tasks, four solver configurations, and 24 distinct raters** (eight for training/validation and 16 for the final audit). Collect three ratings per artifact and eight total on a 128-task audit subset. Separate training/validation artifacts from fresh final-audit outputs: **14,848 individual ratings** in total. These are planning counts, not a precision guarantee or a completed collection. The pilot must establish feasibility, thresholds, and uncertainty before the test is opened.
+
+The prover-target study requires no human ratings for its operational target. This changes the question: predicting proof-search success under a specified procedure and budget does not establish agreement with experts. A valid checked proof establishes the formal implication checked; an unsuccessful search does not establish that the implication is false. Historical prover acceptance also includes proof and adapter checks that differ from statement coverage, as documented in the study's source audit.
 
 ## Verify and build
 
