@@ -5,6 +5,8 @@
 
 **Status, 11-06-2026:** plan only. Nothing has run: 0 model calls, 0 prover searches, $0. This plan follows [experiment 03](../03_prover_target_fsc_judge/README.md) (`03_prover_target_fsc_judge`) and supersedes its 12-pair pilot sketch where the two differ, because VeriBench work completed on 11-06-2026 changed the binding constraint.
 
+**Addendum, 11-06-2026:** Phase 0 ran under its [frozen protocol](PROTOCOL_phase0.md); see [its results](RESULTS_phase0_transfer.md). The plan text below is unchanged.
+
 ## Goal and decision
 
 Experiment 03 showed that saved formal specification coverage (FSC) ratings, passed through a fitted probability map, predict historical prover acceptance better than a constant (test Brier loss 0.107 versus 0.165, paired difference -0.058 [-0.087, -0.031], 512 artifacts from 128 tasks, p-val=n/a). An artifact is one solver run on one task. Three limitations block naming a validated judge: the historical target has integrity gaps, the test was retrospective with task families crossing splits, and no exact judge identity is bound to each saved rating.

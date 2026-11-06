@@ -56,13 +56,32 @@ def key(task):
 
 
 def lean_features(text, regex, gold_theorems):
+    """Deviation 1 (post-freeze, outcome-blind): a missing gold count gives ratio 0 and is counted."""
+    missing_gold = int(not gold_theorems)
     if text is None:
-        return {'thm_ratio': 0.0, 'log_lines': 0.0, 'missing_file': 1}
+        return {'thm_ratio': 0.0, 'log_lines': 0.0, 'missing_file': 1, 'missing_gold_count': missing_gold}
     body = text.decode('utf-8', errors='replace')
     n_thm = len(re.findall(regex, body, flags=re.MULTILINE))
     lines = sum(1 for line in body.splitlines() if line.strip())
-    assert gold_theorems > 0
-    return {'thm_ratio': min(1.0, n_thm / gold_theorems), 'log_lines': float(np.log1p(lines)), 'missing_file': 0}
+    ratio = min(1.0, n_thm / gold_theorems) if gold_theorems else 0.0
+    return {'thm_ratio': ratio, 'log_lines': float(np.log1p(lines)), 'missing_file': 0, 'missing_gold_count': missing_gold}
+
+
+def gold_counts(rows, field):
+    """Deviation 1: a row without its own gold count uses the task's largest count recorded for another solver."""
+    best = {}
+    for r in rows:
+        if r[field].strip():
+            best[key(r['task'])] = max(best.get(key(r['task']), 0), int(r[field]))
+    filled = 0
+    out = []
+    for r in rows:
+        if r[field].strip():
+            out.append(int(r[field]))
+        else:
+            out.append(best.get(key(r['task']), 0))
+            filled += key(r['task']) in best
+    return out, filled
 
 
 def fit_map(x, y, ridge):
@@ -86,13 +105,14 @@ def load_tiny(repo, cfg):
     scores = {r['cell']: r for r in json.loads(repo.show(rev, E140))}
     assert len(labels) == len(scores) == 1024 and {r['run'] for r in labels} == set(scores)
     rows, sha_mismatch = [], 0
-    for r in labels:
+    golds, _ = gold_counts(labels, 'k_gold')
+    for r, gold in zip(labels, golds):
         cell = f"{E138}{r['solver']}/{r['task']}/"
         text = repo.show(rev, cell + 'solver.lean', record=False, missing_ok=True)
         receipt = repo.show(rev, cell + 'receipt.json', record=False, missing_ok=True)
         if text is not None and receipt is not None:
             sha_mismatch += json.loads(receipt).get('solver_lean_sha256') != sha(text)
-        feats = lean_features(text, cfg['theorem_regex'], int(r['k_gold']))
+        feats = lean_features(text, cfg['theorem_regex'], gold)
         rows.append({'task': r['task'], 'solver': r['solver'], 'fsc': float(scores[r['run']]['tc']),
                      'y': int(r['counted_all5']), **feats})
     return rows, sha_mismatch
@@ -107,6 +127,10 @@ def load_core(repo, cfg):
         assert k not in ratings
         ratings[k] = d['FSC_cov']
     rows, sha_checked, sha_mismatch = [], 0, 0
+    raw = {exp: list(csv.DictReader(io.StringIO(repo.show(rev, f'experiments/{exp}/lean_entailment/E_LEAN_CHECKED.csv').decode())))
+           for exp in cfg['core614_batches']}
+    golds, filled = gold_counts([r for exp in raw for r in raw[exp]], 'gold_theorems')
+    gold_iter = iter(golds)
     for exp, (solver, batch) in cfg['core614_batches'].items():
         base = f'experiments/{exp}/'
         manifests = {}
@@ -115,7 +139,8 @@ def load_core(repo, cfg):
                 manifests.update(json.loads(repo.show(rev, name)).get(solver, {}))
         converted = set(cfg['retry_converted_runs'].get(exp, []))
         seen = set()
-        for r in csv.DictReader(io.StringIO(repo.show(rev, base + 'lean_entailment/E_LEAN_CHECKED.csv').decode())):
+        for r in raw[exp]:
+            gold = next(gold_iter)
             final = int(r['E_lean'])
             assert final in (0, 1)
             if r['mod'] in converted:
@@ -127,13 +152,13 @@ def load_core(repo, cfg):
                 sha_mismatch += manifests[r['task']] != sha(text)
             fsc = ratings[(key(r['task']), cfg['rating_system_names'][solver])]
             assert fsc is not None and 0 <= fsc <= 1
-            feats = lean_features(text, cfg['theorem_regex'], int(r['gold_theorems']))
+            feats = lean_features(text, cfg['theorem_regex'], gold)
             rows.append({'task': r['task'], 'solver': solver, 'batch': batch, 'fsc': float(fsc),
                          'y': 0 if r['mod'] in converted else final, 'y_final': final, **feats})
         assert seen == converted, (exp, converted - seen)
     pairs = [(key(r['task']), r['solver']) for r in rows]
     assert len(pairs) == len(set(pairs)), 'duplicate (task, solver) rows'
-    return rows, sha_checked, sha_mismatch
+    return rows, sha_checked, sha_mismatch, filled
 
 
 def corr(x, y):
@@ -218,7 +243,7 @@ def main():
     assert abs(cond['training_prevalence'] - cfg['frozen_constant']) < 5e-7
 
     tiny, tiny_sha_mismatch = load_tiny(repo, cfg)
-    core, core_sha_checked, core_sha_mismatch = load_core(repo, cfg)
+    core, core_sha_checked, core_sha_mismatch, core_gold_filled = load_core(repo, cfg)
     splits = {k: set(v) for k, v in json.loads(SPLIT.read_text()).items()}
     order = sorted({r['task'] for r in tiny}, key=lambda t: sha((e03cfg['split_salt'] + ':' + t).encode()))
     counts = e03cfg['task_counts']
@@ -294,6 +319,9 @@ def main():
         'core614_candidate_files_missing': int(sum(r['missing_file'] for r in core)),
         'core614_candidate_sha_checked': core_sha_checked, 'core614_candidate_sha_mismatch': core_sha_mismatch,
         'core614_tiny256_task_overlap': 0,
+        'deviation1_core614_gold_count_filled_from_task': core_gold_filled,
+        'deviation1_core614_rows_without_own_gold_count': int(sum(r['missing_gold_count'] for r in core)),
+        'deviation1_tiny256_rows_without_own_gold_count': int(sum(r['missing_gold_count'] for r in tiny)),
         'primary_positives_first_pass': int(y.sum()), 'final_positives': int(sum(r['y_final'] for r in core)),
         'refit_gap_vs_frozen_map': refit_gap, 'baseline_fits': fits, 'solver_prevalence': solver_prev,
         'controls': controls, 'conditions': results, 'rating_bands_pooled': bands,
