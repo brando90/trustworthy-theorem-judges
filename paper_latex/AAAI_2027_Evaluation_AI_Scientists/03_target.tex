@@ -1,0 +1,43 @@
+% TLDR: Define inputs, the human population, and ordinal forecasts without conflating proof validity.
+\section{Target and Measurement Conditions}
+\label{sec:target}
+For task $t$ and solver configuration $a$, let
+\begin{equation}
+ z_{ta}=(x_t,\widehat y_{ta},y_t^*),
+ \qquad R_{tah}\in\{0,1,2,3,4,5\}.
+\end{equation}
+Here $x_t$ is the original Python source and task contract, $\widehat y_{ta}$ is the candidate Lean artifact, $y_t^*$ is the reference, and $h$ identifies a human rater.
+The normalized scalar rating is $R_{tah}/5$.
+The main study displays the complete candidate and reference artifacts to raters and the judge, including any proof bodies or \texttt{sorry} placeholders.
+Both receive identical input contents; the rendered view is recorded, and proof completion is a separate variable rather than the coverage target.
+
+\subsection{What coverage means}
+A formal specification is a theorem statement considered without its proof.
+Coverage concerns the required statements and the domains and assumptions under which they hold.
+A candidate may cover a reference statement with a stronger statement or with several statements together.
+Counting theorem names or measuring textual overlap cannot establish this implication.
+Conversely, narrowing a precondition can remove required cases even when a theorem's conclusion is unchanged.
+Proof completion is recorded separately from statement coverage.
+
+The source program constrains the intended behavior but does not automatically resolve a conflict between implementation behavior, task requirements, and the reference.
+The protocol records such conflicts for independent inspection rather than silently choosing one input as infallible.
+Conditioning on a reference makes the rating task more concrete; it can also make both humans and a judge prefer the reference's representation.
+Reference sensitivity is therefore a measurement condition to test, not an assumed benefit of adding the reference.
+
+\subsection{The human distribution}
+Let $\mathcal H$ denote a specified population of qualified Lean and formal-methods experts using the same rubric.
+The target is the probability mass function
+\begin{equation}
+ p^*(r\mid z)=\Pr_{h\sim\mathcal H}(R_h(z)=r).
+\end{equation}
+This definition requires a recruitment frame and a rating procedure, including allowed assistance, time guidance, and treatment of ambiguous inputs.
+It does not make a convenience sample representative of all experts.
+The empirical distribution from a fixed recruited panel is a different, narrower target; both must be labeled when reported.
+
+The judge predicts $q_\theta(r\mid z)$, a nonnegative vector of six probabilities summing to one.
+The initial interface elicits those six probabilities explicitly as structured output; it does not infer them from token likelihoods or the frequency of repeated scalar answers.
+Any subsequently fitted probability mapping is trained on training ratings and selected on validation ratings, with its family and constraints recorded as a separate candidate condition.
+Its expected normalized rating is $\mu_q(z)=\sum_{r=0}^5(r/5)q_\theta(r\mid z)$.
+Each individual human rating is retained, including disagreement.
+A histogram of stochastic scalar judge outputs does not by itself represent the human distribution: model-call instability and human disagreement have different sources.
+The proposed probability-vector interface is consequently a new judge condition, not a reinterpretation of an old scalar score.

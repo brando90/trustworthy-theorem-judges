@@ -1,0 +1,82 @@
+% TLDR: Explain what additional data buys and how dependence constrains precision claims.
+\section{Precision, Selection, and Decision Rules}
+\label{sec:inference}
+The three dimensions of the study address different uncertainties.
+More distinct tasks cover a broader set of inputs and increase the precision of task-averaged comparisons.
+More solver configurations probe different output distributions.
+More distinct raters probe variation between raters, whereas more ratings of one artifact sharpen information about that artifact's rating distribution.
+The product of these counts is not the number of independent observations.
+
+\subsection{A transparent planning calculation}
+As an illustration, suppose the human-specific contribution to normalized loss has standard deviation $0.10$.
+For independent, representative raters, the normal-approximation 95\% half-width of that contribution would be
+\begin{equation}
+ 1.96\frac{0.10}{\sqrt H}
+ =\begin{cases}0.080,&H=6,\\0.049,&H=16.\end{cases}
+\end{equation}
+This is a hypothetical component of uncertainty, not an observed total interval.
+If repeated ratings share a human-specific effect, thousands of ratings by the same few raters do not remove it.
+The calculation motivates recruiting more distinct raters, while the actual allocation must be checked against pilot variance and workload.
+
+Increasing ratings per artifact from three to eight reduces an independent mean's standard-error factor by $\sqrt{3/8}\approx0.61$.
+That is a 39\% reduction under the stated independence and common-variance approximation, not a guaranteed 39\% reduction in the final study interval.
+Balanced reuse of raters creates cross-artifact dependence, and an exact finite-panel analysis differs from independent population sampling.
+These conditions are why the dense subset supplements broad task coverage instead of replacing it.
+
+For correlations, Fisher's approximation for independent bivariate-normal pairs is
+\begin{equation}
+ \operatorname{SE}(\operatorname{atanh}\widehat\rho)\approx1/\sqrt{n-3}.
+\end{equation}
+In the actual study, multiple outputs share a task and ratings share a rater; substituting $n=14{,}848$ into that formula is invalid.
+Nor can additional data be expected to raise the true correlation: it improves estimation of whatever association exists.
+We therefore size the study against paired proper-loss precision and expert variation, and report correlation intervals under a dependence-aware analysis.
+
+\subsection{Estimating distribution error}
+The raw RPS includes the disagreement term in Equation~\ref{eq:decomposition}.
+For a fixed artifact and threshold, let $X_h=\mathbf1\{R_h\leq c\}$ and let $s_X^2$ be the sample variance with denominator $m-1$.
+Under independent draws from the specified expert population,
+\begin{equation}
+ \widehat D_c=(Q_c-\overline X)^2-\frac{s_X^2}{m}
+ \label{eq:corrected}
+\end{equation}
+is unbiased for $(Q_c-P_c)^2$.
+The subtraction removes the variance of the empirical human cumulative probability.
+We average across thresholds and then artifacts.
+Individual corrected estimates can be negative and are not clipped before aggregation.
+Their intervals, rather than the sign of an individual estimate, determine what distribution error remains compatible with the data.
+
+If the estimand instead concerns a fixed panel of $H$ raters sampled uniformly without replacement, the subtraction is $(1-m/H)s_X^2/m$.
+That correction targets the finite-panel mean, not the wider population automatically.
+More complicated assignment and nonresponse require corresponding design-based or model-based adjustments.
+The dense subset makes this diagnostic more informative but cannot remove uncertainty about unrepresented experts.
+
+\subsection{Uncertainty and comparison}
+Crossed task and rater identities require inference that respects both sources of dependence.
+Methods for resampling crossed arrays motivate independent reweighting of identities under appropriate assumptions \citep{owen2012bootstrapping}.
+The exact sparse-assignment procedure, coverage checks, and treatment of small rater counts must be specified using pilot data before the test is inspected.
+We report fixed-panel analyses separately from analyses extending to an expert population.
+Task resampling estimates variation over tasks like those in the benchmark; for the complete fixed benchmark it is not uncertainty caused by missing benchmark task identities.
+The four chosen solver configurations remain fixed in the primary analysis.
+
+Primary comparisons use paired, artifact-weighted RPS differences between a constant training-estimated distribution, a fixed rubric/reference-assisted judge, a correlation-selected judge, and an RPS-selected judge.
+We also include a non-LLM theorem-count baseline to test whether a semantic model improves on a simple structural cue.
+Let $v=\min(1,N_{\mathrm{candidate}}/N_{\mathrm{reference}})$ count theorem statements without inspecting their proofs.
+For $u=5v$, place probability $1-(u-\lfloor u\rfloor)$ at $\lfloor u\rfloor$ and the remaining mass at the next category, with all mass at five when $u=5$.
+This defines an ordinal probability forecast for comparison; it does not assert that counts establish coverage.
+A reference with no countable statements is flagged as an invalid baseline input rather than silently assigned a score.
+The declaration-counting rule is fixed in the pilot.
+Each probabilistic condition must produce the same six-category output format.
+Converting a historical scalar judge into a probability forecast is a new baseline condition and must be documented.
+Matched artifacts and rating assignments reduce unnecessary comparison noise.
+Unequal model calls, tokens, and runtime must be reported rather than hidden as equivalent budgets.
+
+The constant forecast tests whether input-dependent predictions add information beyond the training rating frequencies.
+The count baseline tests whether a cheap structural signal explains the apparent gain.
+The fixed-rubric condition tests the benefit of fitting or selection, while the correlation-selected condition tests the choice of selection objective.
+For the last contrast, both selection procedures must search the same predefined candidate set with the same information access and computational budget.
+Otherwise, an observed difference could reflect search resources or a different model family rather than the objective.
+
+The pilot must set a minimum meaningful improvement, a tolerable distribution error, repeat-instability and failure limits, and the corresponding interval rule.
+If a claim requires success on all four configurations, inference must account for those four simultaneous claims.
+These thresholds are currently unset; a statistically nonzero improvement alone is not the proposed definition of practical success.
+Later changes after test inspection require fresh evidence or an explicitly exploratory label.

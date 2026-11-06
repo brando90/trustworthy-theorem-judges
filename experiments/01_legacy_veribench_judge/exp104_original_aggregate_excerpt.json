@@ -1,0 +1,163 @@
+{
+  "_description": "Aggregate-only extraction; original raw-float ranks, superseded for rank reporting by the tie-preserving addendum. Not a byte-exact copy of CV_RESULTS.json.",
+  "created": "2026-09-29T06:43:58.569783+00:00",
+  "primary": {
+    "repetition": 1,
+    "k": 5,
+    "agreement": {
+      "n_items": 75,
+      "n_tasks": 25,
+      "spearman": 0.6015329503968101,
+      "kendall_tau_b": 0.4959575089707467,
+      "pearson": 0.6209403969515832,
+      "icc_A1": 0.5929211610688728,
+      "icc_C1": 0.617756815590338,
+      "mae": 0.21066666666666664,
+      "mean_pred": 0.6186666666666666,
+      "mean_target": 0.5253333333333334,
+      "bootstrap": {
+        "spearman": {
+          "lo": 0.2855777310939387,
+          "hi": 0.8343916434539769,
+          "sd": 0.14144492951478357,
+          "draws_used": 10000
+        },
+        "kendall_tau_b": {
+          "lo": 0.22332150998840772,
+          "hi": 0.7173654082336688,
+          "sd": 0.126225194093092,
+          "draws_used": 10000
+        },
+        "pearson": {
+          "lo": 0.2913711574383506,
+          "hi": 0.8406231893017692,
+          "sd": 0.14641606193688753,
+          "draws_used": 10000
+        },
+        "icc_A1": {
+          "lo": 0.27671737440654326,
+          "hi": 0.789528041819534,
+          "sd": 0.1325868290087975,
+          "draws_used": 10000
+        }
+      },
+      "entropy_bits_0p1_bins": 2.7559350096932222,
+      "modal_share": 0.3466666666666667
+    },
+    "ensemble_per_pass_stability": {
+      "items_with_2plus_repeats": 75,
+      "mean_repeat_sd": 0.019039839379225546,
+      "p90_repeat_sd": 0.05477225575051661,
+      "max_repeat_sd": 0.21908902300206645,
+      "test_retest_icc_O1": 0.9792208036893126,
+      "retest_k": 5
+    },
+    "complete_fraction": {
+      "sol_high": 1.0,
+      "opus55_max": 1.0
+    },
+    "items_with_score": 75,
+    "statuses": {
+      "sol_high": {
+        "COMPLETE": 375
+      },
+      "opus55_max": {
+        "COMPLETE": 375
+      }
+    }
+  },
+  "rep2": {
+    "repetition": 2,
+    "k": 5,
+    "agreement": {
+      "n_items": 75,
+      "n_tasks": 25,
+      "spearman": 0.6535967174272205,
+      "kendall_tau_b": 0.5463072371983808,
+      "pearson": 0.6769683754127505,
+      "icc_A1": 0.6513803263053914,
+      "icc_C1": 0.6746750454770951,
+      "mae": 0.19022222222222224,
+      "mean_pred": 0.6106666666666665,
+      "mean_target": 0.5253333333333334,
+      "bootstrap": {
+        "spearman": {
+          "lo": 0.3600944990461636,
+          "hi": 0.8620856269675035,
+          "sd": 0.12952617040786632,
+          "draws_used": 10000
+        },
+        "kendall_tau_b": {
+          "lo": 0.29251068896338706,
+          "hi": 0.7555848393007047,
+          "sd": 0.11844511571174011,
+          "draws_used": 10000
+        },
+        "pearson": {
+          "lo": 0.40819797238954253,
+          "hi": 0.8645438763962018,
+          "sd": 0.1173540353726026,
+          "draws_used": 10000
+        },
+        "icc_A1": {
+          "lo": 0.3924524944431201,
+          "hi": 0.8156782974687476,
+          "sd": 0.10858856508628614,
+          "draws_used": 10000
+        }
+      },
+      "entropy_bits_0p1_bins": 2.8075436968525103,
+      "modal_share": 0.3333333333333333
+    },
+    "ensemble_per_pass_stability": {
+      "items_with_2plus_repeats": 75,
+      "mean_repeat_sd": 0.015799136189131188,
+      "p90_repeat_sd": 0.04999999999999999,
+      "max_repeat_sd": 0.42720018726587655,
+      "test_retest_icc_O1": 0.9685728263446814,
+      "retest_k": 4
+    },
+    "complete_fraction": {
+      "sol_high": 1.0,
+      "opus55_max": 0.9973333333333333
+    },
+    "items_with_score": 75,
+    "statuses": {
+      "sol_high": {
+        "COMPLETE": 375
+      },
+      "opus55_max": {
+        "COMPLETE": 374,
+        "NONCLEAN_FINISH": 1
+      }
+    }
+  },
+  "average_of_repetitions": {
+    "spearman": {
+      "value": 0.6275648339120152,
+      "lo": 0.32647758062397103,
+      "hi": 0.84584385427183
+    },
+    "kendall_tau_b": {
+      "value": 0.5211323730845637,
+      "lo": 0.263124859281175,
+      "hi": 0.7309468305484094
+    },
+    "pearson": {
+      "value": 0.6489543861821668,
+      "lo": 0.3517577298280281,
+      "hi": 0.8506745330280989
+    },
+    "icc_A1": {
+      "value": 0.6221507436871321,
+      "lo": 0.334574615082397,
+      "hi": 0.800371670216241
+    }
+  },
+  "human_loo_spearman": {
+    "all": 0.7641869792950824,
+    "ordinary": 0.7046479039224064,
+    "without_ambiguous": 0.8134376320938812,
+    "e100_heldout": 0.7465949777800955
+  }
+}

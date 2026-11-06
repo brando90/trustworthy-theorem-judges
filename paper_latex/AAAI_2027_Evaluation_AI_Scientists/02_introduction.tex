@@ -1,0 +1,39 @@
+% TLDR: Motivate evaluating the measurement instrument and state the prospective contribution.
+\section{Introduction}
+% Move 1: concrete research context.
+AI agents increasingly produce artifacts whose quality cannot be reduced to whether their code executes.
+A formalization agent, for example, can produce a Lean program and prove every theorem it states while omitting a required property of the original Python program.
+An evaluation instrument must distinguish successful proof construction from adequate specification of the task.
+This distinction matters when scientific agents use formal artifacts as evidence: correctness of a weak claim does not establish completeness of the intended claim.
+
+% Move 2: existing practice and its useful contribution.
+Large language models (LLMs) can compare candidate artifacts with instructions and references at a scale that expert review cannot easily match.
+Prior work on LLM judges demonstrates useful human agreement while identifying position, verbosity, and self-preference effects \citep{zheng2023judging}.
+In the present setting, the immediate target is formal specification coverage (FSC): whether candidate theorem statements express the properties required by the task, potentially through logical implication rather than textual similarity.
+Human ratings provide an operational comparison for this semantic assessment.
+
+% Move 3: the remaining measurement problem.
+Correlation alone leaves the central question unresolved.
+A judge can preserve the ordering of artifacts while systematically assigning higher scores than experts.
+Two judges can also have identical pooled score distributions while assigning those scores to different artifacts.
+Furthermore, averaging all expert ratings into one target erases whether a particular artifact produces consensus or disagreement.
+These are distinct failures, and collecting more ratings does not repair the choice of an unsuitable objective.
+
+% Move 4: central approach.
+We therefore define the target as a conditional distribution over six ordinal human ratings and evaluate probability forecasts with a proper scoring rule.
+The judge receives the source program, candidate formalization, and reference, together with a fixed rubric.
+It predicts how qualified experts following that rubric would distribute their ratings.
+Normalized ranked probability score (RPS) gives an explicit objective for this target; correlations remain useful summaries of expected scores, rather than a substitute for distributional agreement.
+
+% Move 5: concrete contribution.
+This paper specifies the corresponding data collection, selection, and evaluation protocol.
+It distinguishes the number of tasks, the number of solver configurations, the total number of human raters, and the number of ratings assigned to an artifact.
+The starting design covers all 896 tasks of a fixed VeriBench release and four named solver configurations, while preserving separate evidence for unseen tasks, excluded solver configurations, and unseen experts.
+We also preserve historical judge results with their uncertainty and exposure limitations instead of treating them as fresh validation.
+
+% Move 6: scope and evidence status.
+The contribution is a prospective methodology and historical case study, not a completed claim that a new judge works.
+Proper scoring rules and dependence-aware inference are established tools; our contribution is their operational use for FSC, with auditable inputs, splits, controls, and a collection budget.
+The project concerns AI, agent, and LLM judges.
+A separate prover judge may use AI to search for an implication proof, but the proof checker determines whether that implication was established.
+Human agreement and a checked proof answer different questions, and a proof-search timeout establishes neither equivalence nor non-entailment.

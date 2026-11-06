@@ -1,0 +1,31 @@
+# Project instructions
+
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/AGENTS.md>
+
+**TLDR:** Keep judge methodology, historical evidence, and fresh results distinct. This public project studies AI/agent/LLM judges for formal specification coverage; VeriBench's prover judge is a separate evaluation route.
+
+## Shared rules
+
+At each non-trivial task, refresh `~/agents-config` with `git pull --ff-only` (preserve concurrent work), read `INDEX_RULES.md`, then its Hard Rule details and matching triggers. If absent, clone <https://github.com/brando90/agents-config>. Follow explicit user decisions and existing funding, privacy, and model pins. Model-reviewer quality assurance is opt-in; deterministic verification always applies. Keep this file and `CLAUDE.md` byte-identical.
+
+## Scientific contract
+
+- Read the relevant experiment's README, configuration, and source receipts before writing a definition or number. Preserve provenance and denominator, split, uncertainty, bias, and missingness. Historical results do not validate a new judge.
+- Judge inputs are the original Python source, candidate Lean artifact, and gold reference. State exactly which proof bodies are visible. Formal specification coverage evaluates statements, not success at proving them.
+- The prospective judge predicts six probabilities over ratings 0–5. The primary loss is normalized ranked probability score, averaged within artifact and then equally over artifacts. Preserve individual human ratings and ordinal order; correlations alone do not establish distributional or absolute agreement.
+- Split by task family, solver identity, and rater identity as specified in the plan. Keep sealed test ratings sealed during selection. Record prior exposure, model/version, harness, effort, prompt, aggregation, failures, and artifact hashes.
+- A prover establishes an implication only with a checked proof; a timeout remains unresolved. This repository does not silently replace VeriBench's scorer.
+- Treat sample sizes and thresholds as planned until verified. New human data and paid inference are separate execution work with their own frozen manifest and budgets.
+
+## Files and privacy
+
+- Put experiment-specific configuration, scripts, aggregate evidence, and reports together under `experiments/NN_descriptive_setup/`; update `experiments/README.md`.
+- This repository is public. Keep participant identities, individual rating sheets, consent, private packets, credentials, and sealed ratings in ignored `private/` or the approved restricted store. Import only authorized aggregate historical evidence.
+- Preserve the existing packet builder's byte-exact delivery contract and source snapshots. Do not rewrite a delivered packet in place.
+- Use “rating” for data, “rater” for people, and “judge” for the model. Prefer “judge selection” and “judge–human agreement”; do not introduce certification claims from human agreement.
+
+## Paper and verification
+
+Use `paper_latex/AAAI_2027_Evaluation_AI_Scientists/`, one file per section and one sentence per source line. Preserve the official vendor style bytes. Keep the submission PDF anonymous and new outcomes explicitly pending. Source comments should link numerical claims to receipts.
+
+Run `python3 scripts/check_project.py`, the experiment's design validator, `python3 scripts/build_paper.py`, and `git diff --check`. Inspect the PDF after substantive edits; commit its current version with the source. Inspect the exact staged diff for private data and secrets, preserve concurrent work, and follow the shared landing rule after requested review and checks pass.

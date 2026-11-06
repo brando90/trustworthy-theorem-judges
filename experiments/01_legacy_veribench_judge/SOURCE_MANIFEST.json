@@ -1,0 +1,109 @@
+{
+  "description": "Historical aggregate import from immutable source commit; source repository remains private and is not linked publicly. No individual or per-item ratings, solver artifacts, sealed data, or credentials imported. Original source retained unchanged.",
+  "import_date": "11-06-2026",
+  "source_commit": "be287d9bb2f7bd35ba6db1b8735c9ba10d00eade",
+  "source_files": {
+    "test_receipt": {
+      "path": "experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/results/TEST_RECEIPT.json",
+      "sha256": "5275998f818c604cfc300a227fc8dd547807dc82c1cfda46a8c9babed19b3dcd"
+    },
+    "original_csv": {
+      "path": "research_archive/experiments/results_exp16_linear_calibration/calibration_results.csv",
+      "sha256": "2c990433b66ed46df328ecab56b30840a03e344d0abd63769201ddbf2a612119"
+    },
+    "cv_results": {
+      "path": "research_archive/experiments/104_fsc_judge_5fold_cross_validation_all_75_expert_labels/results/CV_RESULTS.json",
+      "sha256": "ec5601db9e59cd9cef87d2e5e0e867ae1742225f93a6e50cfd094f3bc948178d"
+    },
+    "cv_report": {
+      "path": "research_archive/experiments/104_fsc_judge_5fold_cross_validation_all_75_expert_labels/results.md",
+      "sha256": "15a412d6c0a96e75a3eb038ae897f37b1c04d79e1b710dbfcb1efb3dd930bd9d"
+    },
+    "cv_items": {
+      "path": "research_archive/experiments/104_fsc_judge_5fold_cross_validation_all_75_expert_labels/results/per_item_oof.csv",
+      "sha256": "ccd1679d3dc093d824efb233bb9d886da93016891e186ce0bc3f0918e4494290"
+    },
+    "items": {
+      "path": "experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/items.jsonl",
+      "sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c"
+    },
+    "explainer": {
+      "path": "experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/JUDGE_EXPLAINER.md",
+      "sha256": "cb8e7e0080a33a0cb5818d8e0fe2e4e586475b21af5ac1277e16ae8c2caae760"
+    },
+    "metrics": {
+      "path": "experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/scripts/metrics.py",
+      "sha256": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7"
+    },
+    "ensemble": {
+      "path": "experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/scripts/ensemble.py",
+      "sha256": "ae6f21e134aa48868b105a9ee6c41298e6763ac2589818bce727b5a09822320a"
+    },
+    "provenance": {
+      "path": "experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/PROVENANCE_75_rated_items_09-30-2026.md",
+      "sha256": "7717349949e40e4ca42b0b6de45db3f4e23c7023f0bd545a9b7c76eac5db1530"
+    },
+    "paper_original": {
+      "path": "paper_latex/TMLR_2026_VeriBench/98_4_appendix_human_judge_alignment.tex",
+      "sha256": "94af170d1fbacd6058cb8e03dd0f22a8530dbb8de5b4dc0e959bfc6e8601dc6e"
+    },
+    "paper_selected": {
+      "path": "paper_latex/TMLR_2026_VeriBench/98_4a_appendix_validated_coverage_judge.tex",
+      "sha256": "b7e614c79eb9bd5a065baa4640e42f2065baf377d3b7907d45d6f2a8e58c497f"
+    },
+    "paper_title": {
+      "path": "paper_latex/TMLR_2026_VeriBench/00_main_tmlr_2026.tex",
+      "sha256": "395c9386ff676b4f60db5c595ba22adb18cac88e0b5a4ab5a1d648dc7f95b2be"
+    }
+  },
+  "byte_exact_copies": {
+    "exp100_TEST_RECEIPT.json": "test_receipt",
+    "original_cv2_aggregate_results.csv": "original_csv"
+  },
+  "extractions": {
+    "exp104_original_aggregate_excerpt.json": {
+      "source": "cv_results",
+      "selectors": [
+        "created",
+        "primary.repetition|k|agreement|ensemble_per_pass_stability|complete_fraction|items_with_score|statuses",
+        "rep2.repetition|k|agreement|ensemble_per_pass_stability|complete_fraction|items_with_score|statuses",
+        "average_of_repetitions",
+        "human_loo_spearman"
+      ],
+      "omitted": "All per-item arrays, individual ratings, conventions and expenditure details."
+    },
+    "exp104_tie_preserving_addendum.md": {
+      "source": "cv_report",
+      "byte_slice": "From unique exact heading ## Addendum 09-29-2026 (experiment 102 main session): rounding before ranking to end; retained verbatim."
+    }
+  },
+  "human_rating_availability_counts": {
+    "train": {
+      "3": 18,
+      "2": 12
+    },
+    "val": {
+      "2": 6,
+      "3": 9
+    },
+    "test": {
+      "2": 12,
+      "3": 18
+    },
+    "all": {
+      "3": 45,
+      "2": 30
+    }
+  },
+  "verification_scope": "Artifact integrity and provenance checked; source model inference was not rerun.",
+  "post_hoc_aggregate_analysis": {
+    "date": "11-06-2026",
+    "result": "POSTHOC_ERROR_INTERVALS_11-06-2026.json",
+    "script": "scripts/recompute_error_intervals.py",
+    "inputs": [
+      "cv_items",
+      "items"
+    ],
+    "scope": "Only mean absolute error and mean bias intervals on the historical test and ordinary-reference subset; full-precision targets restore means rounded by the old CSV; no new calls or ratings."
+  }
+}

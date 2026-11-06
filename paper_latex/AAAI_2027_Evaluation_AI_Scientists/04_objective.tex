@@ -1,0 +1,73 @@
+% TLDR: State and derive the proper ordinal objective and its relation to distribution error.
+\section{A Distribution-Sensitive Objective}
+\label{sec:objective}
+Proper scoring rules reward accurate probability forecasts in expectation \citep{gneiting2007strictly}.
+For the cumulative probabilities $Q_c=\sum_{r=0}^c q_r$, we use the loss
+\begin{equation}
+ S(q,r)=\frac{1}{5}\sum_{c=0}^{4}
+       \bigl(Q_c-\mathbf{1}\{r\leq c\}\bigr)^2.
+ \label{eq:rps}
+\end{equation}
+The factor $1/5$ places RPS on $[0,1]$.
+The ordered thresholds retain the ordinal structure: probability placed many categories away from an observed rating incurs more cumulative error than probability placed in an adjacent category.
+Equal threshold weights are an explicit design choice, not a claim that every practical consequence of a rating is equally spaced.
+
+Let $P_c=\Pr(R\leq c\mid z)$.
+For each threshold, expansion of the squared error gives
+\begin{align}
+ \mathbb E[S(q,R)\mid z]
+ &=D(q,p^*)+U(p^*),\\
+ D(q,p^*)&=\frac{1}{5}\sum_{c=0}^{4}(Q_c-P_c)^2,\\
+ U(p^*)&=\frac{1}{5}\sum_{c=0}^{4}P_c(1-P_c).
+ \label{eq:decomposition}
+\end{align}
+The first term measures conditional distribution error; the second is the loss remaining even for a perfect forecast of a disagreeing expert population.
+Because the cumulative probabilities determine all six category probabilities, the unrestricted expected-loss minimizer is uniquely $q=p^*$.
+This fact justifies the target of selection.
+It does not guarantee that a particular model class, prompt search, or finite sample will attain that target.
+
+For equal category spacing on $[0,1]$, the one-dimensional Wasserstein distance is
+\begin{equation}
+ W_1(q,p^*)=\frac{1}{5}\sum_{c=0}^{4}|Q_c-P_c|.
+\end{equation}
+Cauchy--Schwarz gives $W_1(q,p^*)^2\leq D(q,p^*)$.
+Thus small excess expected RPS bounds an interpretable distribution distance.
+More generally, for a normalized $L$-Lipschitz utility function $f$, the expectation gap is at most $L W_1$.
+This connects a distributional claim to uses such as estimating the mean rating, without requiring a separate match of every moment.
+
+\subsection{Why correlation or a pooled divergence is insufficient}
+Consider human scores $(0,0.25,0.5)$ and judge scores $(0.5,0.75,1)$.
+Pearson and rank correlations are one, although every score differs by $0.5$.
+Alternatively, permuting predictions among artifacts preserves the marginal score histogram while destroying itemwise agreement.
+A divergence between pooled histograms misses that failure.
+The required comparison is conditional on the same artifact, then averaged across artifacts.
+
+Logarithmic loss is another proper objective and connects to Kullback--Leibler divergence, but it ignores category order and diverges when the judge assigns zero probability to an observed category.
+With few ratings per artifact, directly estimating an entire human probability vector and plugging it into a divergence is also noisy.
+RPS can instead score each individual rating without declaring a sparse empirical histogram to be the true human distribution.
+We retain logarithmic loss only as an optional prespecified sensitivity analysis with a documented probability-floor policy.
+
+\subsection{Selection and artifact weighting}
+For $n$ artifacts, with assigned rater set $\mathcal H_i$ of size $m_i$, define
+\begin{equation}
+ \widehat L(\theta)=\frac1n\sum_{i=1}^{n}
+       \frac1{m_i}\sum_{h\in\mathcal H_i}S(q_\theta(z_i),R_{ih}).
+ \label{eq:empirical}
+\end{equation}
+Candidate construction uses training data; selection minimizes this loss on validation data.
+Artifacts receiving additional diagnostic ratings retain the same total weight as other artifacts.
+All candidates, prompt changes, and fitted score mappings are recorded because repeated model selection can overfit a validation criterion \citep{cawley2010overfitting}.
+Final test ratings do not enter this process.
+
+\subsection{A worked distinction between uncertainty sources}
+Suppose, illustratively, that half of the qualified raters assign category zero to one artifact and half assign category five.
+The correct human forecast places probability $1/2$ on each endpoint, so every cumulative probability $P_c$ equals $1/2$ for $c=0,\ldots,4$.
+Its expected RPS is $0.25$, entirely due to human disagreement.
+A judge that always assigns all probability to category zero has expected RPS $0.50$: its additional distribution error is $0.25$.
+Both forecasts can be perfectly reproducible across repeated judge calls.
+The deterministic endpoint forecast is therefore stable but worse at predicting the human distribution.
+
+These numbers are an exact illustrative calculation, not observed study results.
+They show why a low model-repeat standard deviation cannot replace the proper-loss comparison and why a positive raw RPS cannot by itself imply a defective judge.
+The same distinction applies when interpreting the dense subset: additional raters estimate the human cumulative probabilities more precisely, while additional judge calls estimate the variability of the probability forecast.
+The two replication budgets answer different questions and must be reported separately.

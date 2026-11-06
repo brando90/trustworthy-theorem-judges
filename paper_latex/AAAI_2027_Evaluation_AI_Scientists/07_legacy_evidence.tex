@@ -1,0 +1,74 @@
+% TLDR: Preserve exact historical scalar evidence and its exposed-test limitations.
+\section{Historical VeriBench Evidence}
+\label{sec:legacy}
+% Provenance: experiments/01_legacy_veribench_judge/SOURCE_MANIFEST.json; source commit be287d9bb2f7bd35ba6db1b8735c9ba10d00eade.
+The historical archive contains several distinct analyses that must not be pooled or described as one original result.
+An early analysis reports Pearson correlation $0.703349$ on 72 scored artifacts from a 75-artifact, 25-task pool.
+It uses a GPT-5.3-Codex judge with an isotonic score mapping fitted on training folds, against the mean of one expert's two earlier-prompt passes.
+Its Spearman and Kendall values are $0.321143$ and $0.265060$.
+These are two-fold task-split validation results without a separate test counterpart; the aggregate receipt does not supply confidence intervals.
+
+A later selected ensemble, source experiment 100, uses GPT-6 Sol with high reasoning effort and Claude Opus 5.5 with maximum compute effort through the historical Vals model gateway.
+For each member it takes the median of three calls, then averages the two medians: six calls per completed scalar score.
+It uses human rating instructions, training-derived conventions, and training examples.
+The 25 tasks are split 10/5/10 into training, validation, and test, retaining each task's three candidates together.
+The human target is the mean of available ratings from a three-expert panel, divided by five.
+Of the 30 test artifacts, 18 have three expert ratings and 12 have two.
+
+% Provenance: exp100_TEST_RECEIPT.json; all intervals below copied, not rerun.
+\begin{table}[t]
+\centering
+\begin{tabular}{lrr}
+\toprule
+Statistic & Estimate & 95\% interval \\
+\midrule
+Spearman $\rho$ & 0.826 & [0.316, 0.966] \\
+Kendall $\tau_b$ & 0.698 & [0.216, 0.913] \\
+Pearson $r$ & 0.858 & [0.707, 0.941] \\
+ICC(A,1) & 0.727 & [0.391, 0.890] \\
+\bottomrule
+\end{tabular}
+\caption{Historical selected ensemble: 30 artifacts from ten test tasks.
+Intervals are percentile task bootstraps with 10,000 requested draws.
+ICC(A,1) is single-score absolute-agreement intraclass correlation.
+The split had prior exposure; these are not fresh-study results.}
+\label{tab:legacy}
+\end{table}
+
+The headline correlations in Table~\ref{tab:legacy} coexist with normalized mean absolute error $0.201111$ and mean bias $+0.181111$, with judge mean $0.653333$ and human mean $0.472222$.
+Bias is the judge rating minus the expert mean, so a positive value indicates greater leniency.
+% Provenance: POSTHOC_ERROR_INTERVALS_11-06-2026.json, newly computed from old data, not original receipt.
+A separately labeled post hoc task bootstrap of the frozen historical data gives 95\% intervals [0.130, 0.273] for absolute error and [0.099, 0.262] for bias.
+It uses 10,000 draws and reproduces the original point estimates; it is new analysis of old data, not new human evidence.
+No new significance test is asserted for these quantities.
+
+Excluding two test tasks whose references were placeholders when rated leaves 24 artifacts from eight tasks.
+On that ordinary-reference subset, Spearman correlation is $0.652$ with interval [$-0.166$, $0.916$], and Pearson correlation is $0.835$ with interval [0.454, 0.958].
+The mean bias rises to $+0.205556$, from judge mean $0.566667$ and human mean $0.361111$.
+The subset correlation intervals use 1,998 nondegenerate draws out of 2,000 requested task bootstraps.
+Reference quality therefore changes both the interpretation and the uncertainty of the headline association.
+
+The reported mean repeat standard deviation, $0.020488$, also needs its original unit.
+It is computed from three per-pass averages, each combining one call from each model.
+It is not the standard deviation of repeated executions of the complete six-call median-based ensemble.
+The archive supplies no interval for that repeat statistic.
+
+For context, the archived leave-one-expert-out comparison reports Spearman correlation $0.764$ over all 75 artifacts and $0.747$ over the 45 validation-plus-test artifacts of experiment 100.
+These compare one expert with the other available experts and have no uncertainty intervals in the imported aggregate.
+Their task sets and targets differ from the 30-artifact test comparison in Table~\ref{tab:legacy}; they cannot establish that the selected judge exceeds human agreement on a matched test set.
+
+Several limitations prevent clean transfer claims.
+Candidate-generation records trace 74 of 75 files to three single-call, zero-shot samples per task from Claude 3.7 Sonnet at temperature $0.7$, with one source receipt missing.
+These are repeated samples of one older model, not three different coding agents.
+The source receipt discloses prior exposure to the test ratings in earlier experiments and an initial descriptive audit; the exact total number of exposed judge versions and resulting selection inflation are not established by the inspected records.
+Nine references changed statement content between rating and earlier judging, although experiment 100 restored rating-era inputs.
+The reconstruction remains ambiguous for five tasks whose references changed during the rating window; six test artifacts from two tasks carry that ambiguity flag.
+The source appendix also reports three test items whose rating sheet linked a different candidate artifact.
+Excluding either group raises test agreement in the source analysis, but does not repair the original evidence or justify replacing its full denominator.
+Neither adding raters to those files nor narrowing their intervals would erase these provenance limits.
+
+Finally, a separate five-fold automated recipe, source experiment 104, reports tie-preserving Spearman correlation $0.603$ [0.287, 0.836] over all 75 artifacts and 25 tasks, with Kendall $0.498$ and Pearson $0.621$.
+Its original floating-point calculation gave Spearman $0.601533$; the published addendum preserves mathematical ties before ranking.
+This evaluates fold-specific recipe fits, not the frozen selected ensemble.
+The archive retains both versions and their labels.
+All of this historical evidence concerns scalar LLM judges; none measures the proposed probability forecasts or validates a prover judge.
