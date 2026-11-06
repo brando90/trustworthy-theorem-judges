@@ -3,7 +3,7 @@
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/04_fresh_prover_target_judge_validation/results.md>
 
 **Status:** Phase 0 DONE; Phases 1–4 PENDING (gated on statement-only context yield and the measured prover route).
-**Last updated:** 11-06-2026 16:20 PST
+**Last updated:** 11-06-2026 15:00 PST
 
 | Phase | State | Result |
 |---|---|---|
