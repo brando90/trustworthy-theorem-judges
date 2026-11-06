@@ -1,0 +1,478 @@
+**Yes—your goal is now a coherent statistical learning problem: predict the distribution of ratings that qualified humans would assign to the same submission, then test whether that prediction transfers to new tasks, agents, and people.**
+
+That is a stronger and more useful goal than maximizing correlation. It also changes my earlier data recommendation: **five fixed humans can define a reference panel, but they do not establish generalization to new experts.** For that broader goal, I would recruit more distinct humans and ask each to rate fewer files.
+
+I’ll address your three questions directly, then give one concrete starting design.
+
+## 1. Why is this approach mathematically justified?
+
+### The crucial distinction: match distributions conditional on the submission
+
+Keep your notation:
+
+\[
+z=(x_{\mathrm{input}},y_{\mathrm{pred}},y^*).
+\]
+
+Define
+
+\[
+p^*(r\mid z)
+=
+\Pr(\text{a qualified expert assigns rating }r\text{ to }z),
+\]
+
+under a specified rubric and expert population. Your judge predicts
+
+\[
+q_\theta(r\mid z),\qquad r\in\{0,1,2,3,4,5\}.
+\]
+
+Your objective is to make these distributions close **for the same \(z\)**, averaged over the submissions you care about.
+
+This qualification matters even if you compare every moment or use KL divergence. Consider:
+
+| Submission group | Human rating | AI rating |
+|---|---:|---:|
+| Half the submissions | 0 | 5 |
+| Other half | 5 | 0 |
+
+The pooled AI and human distributions are identical. Their means, variances, skewness, kurtosis, and every other moment match. Pooled KL divergence is zero.
+
+**Yet every AI judgment is wrong.**
+
+Therefore, the target should be
+
+\[
+\boxed{
+\mathcal D(\theta)
+=
+\mathbb E_z\!\left[
+D\!\left(p^*(\cdot\mid z),q_\theta(\cdot\mid z)\right)
+\right].
+}
+\]
+
+Compare the distributions **within each submission**, then average. Do not pool all ratings before comparing.
+
+A scatterplot of AI mean versus human mean remains useful, especially with the identity line \(y=x\), but it discards disagreement around those means. More sophisticated dependence measures do not solve this automatically: a judge can depend strongly on human scores while consistently reversing or distorting them.
+
+### Yes, this really is probabilistic classification
+
+Your “we could even do classification” observation is correct. There are six possible rating categories, so the judge can output six probabilities:
+
+\[
+q_\theta(z)=(q_0,q_1,q_2,q_3,q_4,q_5),
+\qquad
+\sum_{k=0}^{5}q_k=1.
+\]
+
+The categories are ordered, making this **probabilistic ordinal prediction**.
+
+The intended interpretation is “the probabilities of different human ratings.” Repeated stochastic LLM scores do not automatically have that interpretation; those probabilities themselves must be learned or calibrated against human data.
+
+### KL is justified—but I prefer an ordinal proper loss here
+
+Forward KL is a principled choice because
+
+\[
+\mathbb E_{R\sim p^*}[-\log q_\theta(R\mid z)]
+=
+\underbrace{\mathsf H(p^*(\cdot\mid z))}_{\text{independent of }\theta}
++
+D_{\mathrm{KL}}(p^*\|q_\theta).
+\]
+
+Thus, minimizing expected cross-entropy minimizes forward KL. You can train using individual human ratings without first knowing the complete human distribution.
+
+However, ordinary cross-entropy does not use the ordering of the categories, and it becomes infinite if the judge assigns zero probability to an observed rating. Proper scoring rules offer alternatives that target the full distribution. [sites.stat.washington.edu](https://sites.stat.washington.edu/people/raftery/Research/PDF/Gneiting2007jasa.pdf?utm_source=chatgpt.com)
+
+**My recommendation is the normalized ranked probability score, or RPS.** This is the discrete version of the CRPS we discussed, specialized to your six ordered categories.
+
+Define cumulative probabilities
+
+\[
+Q_c=\sum_{k=0}^{c}q_k,
+\qquad c=0,\ldots,4.
+\]
+
+Then, for an observed human rating \(r\),
+
+\[
+\boxed{
+S_{\mathrm{RPS}}(q,r)
+=
+\frac15\sum_{c=0}^{4}
+\left(Q_c-\mathbf1\{r\le c\}\right)^2.
+}
+\]
+
+This loss lies in \([0,1]\). It scores the predicted probabilities of all five threshold events: rating at most 0, at most 1, and so on. Using cumulative probabilities is what makes it sensitive to the ordering. [sites.stat.washington.edu](https://sites.stat.washington.edu/people/raftery/Research/PDF/Gneiting2007jasa.pdf?utm_source=chatgpt.com)
+
+### The equation that justifies the objective
+
+Let \(P_c\) be the corresponding cumulative human probabilities. Expanding the squares gives
+
+\[
+\boxed{
+\mathbb E_{R\sim p^*}S_{\mathrm{RPS}}(q,R)
+=
+\underbrace{\frac15\sum_{c=0}^{4}(Q_c-P_c)^2}
+_{\text{distributional prediction error}}
++
+\underbrace{\frac15\sum_{c=0}^{4}P_c(1-P_c)}
+_{\text{human disagreement}}.
+}
+\]
+
+The second term does not depend on your judge. Therefore, minimizing expected RPS minimizes the first term, whose unrestricted optimum is exactly
+
+\[
+q(\cdot\mid z)=p^*(\cdot\mid z).
+\]
+
+That answers your first question: **the population optimization objective has precisely the distribution you want as its optimum.**
+
+There is also a connection to an interpretable distance. For ratings normalized by dividing by 5,
+
+\[
+W_1(q,p^*)=\frac15\sum_{c=0}^{4}|Q_c-P_c|.
+\]
+
+By Cauchy–Schwarz,
+
+\[
+\boxed{
+W_1(q,p^*)^2
+\le
+\underbrace{
+\mathbb E_{p^*}S_{\mathrm{RPS}}(q,R)
+-
+\mathbb E_{p^*}S_{\mathrm{RPS}}(p^*,R)
+}_{\text{excess RPS}}.
+}
+\]
+
+So reducing excess RPS controls a distance between the complete conditional rating distributions.
+
+**This establishes that the objective is appropriate. It does not establish that a particular model, prompt optimizer, or dataset will achieve low error.** That is what the evaluation must determine.
+
+### What about matching all moments?
+
+With six known possible values, normalization plus the first five raw moments identifies the distribution in principle. But learning six probabilities—or five cumulative probabilities—is more direct.
+
+Mean, variance, skewness, and kurtosis alone generally do not identify a six-category distribution. More importantly, even matching every moment must happen conditionally on the submission. The reversed-grades example defeats pooled moment matching.
+
+### The practical training objective
+
+For artifact \(i\), let \(H_i\) be its assigned raters and \(m_i=|H_i|\). Optimize
+
+\[
+\hat\theta
+=
+\arg\min_\theta
+\frac1n\sum_{i=1}^{n}
+\frac1{m_i}\sum_{h\in H_i}
+S_{\mathrm{RPS}}\!\left(q_\theta(\cdot\mid z_i),r_{ih}\right).
+\]
+
+Average within each artifact first, then across artifacts. This prevents heavily annotated artifacts from automatically dominating.
+
+Randomly assigned individual ratings can estimate this objective. **You do not need an accurately reconstructed human histogram for every training artifact before learning**, just as probabilistic classification does not require knowing the true class probabilities for every training example.
+
+## 2. How do we justify \(T,A,H\), and generalization across them?
+
+Your idea of holding out fractions of all three dimensions is right, with two conditions:
+
+1. Hold out **identities**, not merely individual tensor cells.
+2. State which population those held-out identities represent.
+
+For humans, I would define the population as something like:
+
+> Qualified Lean/formal-methods reviewers who receive the specified task information, reference, and grading instructions.
+
+That is a much clearer target than “humans” generally.
+
+### What each holdout establishes
+
+| Desired claim | What must be unavailable during development |
+|---|---|
+| New-task performance | Entire task identities; related variants should stay together |
+| New-agent performance | The held-out agent’s labeled outputs, including during validation |
+| New-human performance | All labels from the held-out people |
+| All three simultaneously | Test examples combining held-out tasks, an excluded agent, and held-out humans |
+
+Randomly splitting \(R_{tah}\) cells can leave the same task, agent, human, and even candidate artifact on both sides. That does not test the generalization you described.
+
+Also, repeated optimization against validation scores makes that validation set part of development. Keep a final test set untouched after selecting prompts, models, calibration, and reporting thresholds. Model selection can itself overfit finite validation data. [jmlr.org](https://www.jmlr.org/papers/v11/cawley10a.html?utm_source=chatgpt.com)
+
+### Why there is no universally sufficient \(T,A,H\)
+
+The coworker’s three-letter equation becomes useful once interpreted as **uncertainty in an estimated average loss**, rather than the judge’s actual error.
+
+For illustration, suppose we have a balanced, fully crossed study and a random-effects model with independent task, agent, human, and interaction effects. Writing \(T,A,H\) for the **evaluation-set counts** in this equation,
+
+\[
+\begin{aligned}
+\operatorname{Var}(\widehat{\mathcal L})
+={}&
+\frac{\sigma_T^2}{T}
++
+\frac{\sigma_A^2}{A}
++
+\frac{\sigma_H^2}{H}\\
+&+
+\frac{\sigma_{TA}^2}{TA}
++
+\frac{\sigma_{TH}^2}{TH}
++
+\frac{\sigma_{AH}^2}{AH}
++
+\frac{\sigma_{\mathrm{res}}^2}{TAH}.
+\end{aligned}
+\]
+
+Here \(\mathcal L\) is mean judging loss, and the variance components describe how that loss changes across tasks, agents, people, and their combinations.
+
+This explains the allocation decision:
+
+- Large task variability calls for more distinct tasks.
+- Large human variability calls for more distinct humans.
+- Large agent variability calls for more different systems.
+- Large generation variability calls for additional outputs from the same task–agent pairs.
+
+**Thousands of reviews by the same five people do not become thousands of independent samples of people.**
+
+For a sparse assignment design, use the actual assignment structure rather than mechanically substituting counts into the balanced formula. Uncertainty calculations must respect the crossed dependence; naïvely bootstrapping individual ratings can be misleading. [arxiv.org](https://arxiv.org/abs/0712.1111?utm_source=chatgpt.com)
+
+### How a pilot turns this into a human-count decision
+
+Suppose a pilot estimates that the standard deviation of human-specific average-loss effects is \(\sigma_H=0.10\). The human component of a normal-approximation 95% half-width would be
+
+\[
+w_H\approx1.96\frac{\sigma_H}{\sqrt{H_{\mathrm{test}}}}.
+\]
+
+That gives:
+
+| Distinct held-out humans | Approximate human component of the half-width |
+|---:|---:|
+| 6 | 0.080 |
+| 16 | 0.049 |
+
+Equivalently,
+
+\[
+H_{\mathrm{test}}
+\gtrsim
+\left(\frac{1.96\sigma_H}{w_H}\right)^2.
+\]
+
+**These are illustrative calculations, not measured variance estimates.** They concern only the human component, not the entire interval; small-sample intervals can also be wider.
+
+This is the justification I would use for choosing \(H\): estimate the relevant variance, specify acceptable precision, and calculate the required count. If the human-effect SD doubles, maintaining the same precision requires about four times as many humans under this model.
+
+### What a conservative three-dimension bound says
+
+There is also a useful theoretical check. In an idealized complete-grid experiment, assume:
+
+- A frozen judge;
+- Independent iid samples of task, agent, and human identities;
+- A bounded loss in \([0,1]\), determined by those identities.
+
+Changing one task, agent, or human changes the grid-average loss by at most \(1/T\), \(1/A\), or \(1/H\). McDiarmid’s inequality then gives
+
+\[
+\boxed{
+\mathcal L
+\le
+\widehat{\mathcal L}
++
+\sqrt{
+\frac{\ln(1/\delta)}2
+\left(\frac1T+\frac1A+\frac1H\right)
+}
+}
+\]
+
+with probability at least \(1-\delta\). Additional random generation and rating steps require accounting for their randomness too. [people.eecs.berkeley.edu](https://people.eecs.berkeley.edu/~bartlett/courses/281b-sp08/13.pdf?utm_source=chatgpt.com)
+
+This bound is deliberately conservative. Its value here is to show why a large product \(TAH\) does not automatically imply strong generalization across all three dimensions.
+
+It also exposes the limitation of \(A=4\): **four named systems provide limited evidence about a population of future systems**, regardless of how many task outputs you collect. Furthermore, the four systems you deliberately select are not automatically iid samples from such a population.
+
+### My revised concrete starting design
+
+For the broader goal you now describe, I recommend the following **initial budget**, adjusted after a pilot.
+
+I am still using **896 as the task count from your supplied plan**, conditional on that being the size of the chosen benchmark release.
+
+| Quantity | Starting recommendation |
+|---|---|
+| \(|T|\): benchmark tasks | **896, all included in the final audit** |
+| Development task split | **64 training + 64 validation** |
+| Tasks untouched during development | **768** |
+| \(|A|\): required agent configurations | **4: Claude Code, Codex, Gemini, Grok**, with configurations frozen |
+| \(|H|\): distinct qualified people | **24 total: 8 development + 16 untouched audit experts** |
+| \(m\): ratings per artifact | **3 randomly assigned distinct humans** |
+| Dense distribution-diagnostic subset | **128 randomly selected untouched tasks**, all four agents, **8 ratings per artifact** |
+| Final candidate outputs | **One fresh output per task–agent pair initially** |
+
+Why these choices?
+
+**64 training and 64 validation tasks** are a starting allocation for prompt/model/calibration selection with an already pretrained judge. They provide 512 development artifacts across four agents while preserving a large unseen-task test set. They are not a demonstrated sample-complexity requirement for training a new model. Expand development data if learning curves warrant it, before inspecting the final test results.
+
+**24 humans instead of five** reflects your changed target. More independent people help assess transfer across people. Sparse ratings keep their workloads manageable. The eight development raters can support grouped human cross-validation during selection; the sixteen audit raters remain entirely separate.
+
+**Three ratings per artifact** support estimation of the proper-loss objective. The denser subset provides better diagnostics of disagreement and conditional rating distributions. Neither three nor eight votes should be described as the exact distribution of the entire expert population.
+
+### Annotation budget
+
+| Component | Reviews |
+|---|---:|
+| Development | \(128\times4\times3=1{,}536\) |
+| Final audit across all tasks and agents | \(896\times4\times3=10{,}752\) |
+| Add five ratings on the dense subset, bringing each artifact from three to eight | \(128\times4\times5=2{,}560\) |
+| **Total** | **14,848 reviews** |
+
+This is fewer reviews than my earlier 28,160 proposal, while involving more distinct humans. With balanced assignment, each audit expert would perform about **832 reviews**. That remains a substantial commitment, so the pilot should measure review time as well as variability.
+
+The change is possible because a proper-loss evaluation uses individual votes directly; it does not require every expert to rate every artifact.
+
+### How to test agent transfer with the four required agents
+
+Evaluate two things separately:
+
+1. **The main judge**, developed using all four agents’ development outputs.
+2. **Four leave-one-agent-out judges**, each developed without one agent’s labeled outputs in either training or validation.
+
+Evaluate each excluded-agent judge on:
+
+\[
+\boxed{
+768\text{ untouched tasks}
+\times
+\text{the excluded agent}
+\times
+\text{untouched audit humans}.
+}
+\]
+
+Each fold therefore tests all three unseen dimensions simultaneously. The same collected audit labels can be reused, so these additional judge fits need not multiply annotation costs.
+
+The supported claim would be:
+
+> The judging procedure transferred to each of the four evaluated agent configurations when developed on the other three.
+
+This evaluates the **development procedure**. It does not independently validate a final judge trained on all four against arbitrary future agents. A prospective evaluation on a genuinely new system or release would strengthen that claim.
+
+### What happens to the earlier “approximately 0.05” margin?
+
+For independent bounded artifact-level losses **conditional on a fixed panel/protocol**, the 768-task calculation is
+
+\[
+\sqrt{\frac{\ln(4/0.05)}{2(768)}}\approx0.0534.
+\]
+
+That explains why preserving a large unseen-task set is attractive. But **this is not the total uncertainty for the new population-level design**. Human selection, task-family dependence, and claims about unseen agents require their own treatment.
+
+I would not present the old 0.04945 margin as a guarantee of distribution matching across new tasks, agents, and humans.
+
+## 3. What would make a reviewer or committee believe this?
+
+I would organize the evidence around four explicit questions.
+
+### A. Does the objective measure the stated target?
+
+Present the RPS decomposition above. It establishes that the loss targets the complete conditional human-rating distribution.
+
+Keep individual ratings, including disagreements. Do not replace them all with an adjudicated consensus score and then claim to have modeled disagreement. Research on annotation disagreement supports preserving information that majority-vote labels can discard, although formal-specification grading needs its own validation. [ACL Anthology](https://aclanthology.org/2022.tacl-1.6/?utm_source=chatgpt.com)
+
+Also distinguish:
+
+- **Predicted rating spread:** should reflect human disagreement.
+- **Instability across repeated judge calls:** should be small enough for dependable use.
+
+A stable probability vector can correctly predict substantial human disagreement.
+
+### B. Does the learned judge improve on independent data?
+
+At minimum, compare:
+
+| Method | Purpose |
+|---|---|
+| Constant rating-distribution baseline | Detects whether the judge uses submission-specific information |
+| Fixed rubric/reference-assisted judge | Establishes the untuned baseline |
+| Correlation-selected judge | Tests the approach you originally proposed |
+| RPS-selected judge | Tests whether the objective change improves the intended target |
+
+Use the same candidate artifacts and ratings for paired comparisons. Report the primary proper-loss result and uncertainty, not just the largest correlation.
+
+For absolute distributional closeness, there is an additional detail: **raw RPS includes human disagreement**, and distance to a three-vote histogram includes finite-human sampling noise. Neither is automatically pure judge error.
+
+Independent human ratings can help estimate that noise. For example, at one threshold let \(X_h=\mathbf1\{R_h\le c\}\). Under independent human draws from the target population,
+
+\[
+\mathbb E\left[
+(Q_c-\bar X)^2-\frac{s_X^2}{m}
+\right]
+=
+(Q_c-P_c)^2.
+\]
+
+Thus a noise-corrected squared-CDF discrepancy can be estimated from multiple ratings. Such estimates can be negative on individual items because of sampling noise; aggregate them and report uncertainty. Reusing humans across artifacts still requires dependence-aware inference.
+
+That is a stronger basis for a distributional-error claim than treating a tiny empirical histogram as ground truth.
+
+### C. Does performance transfer in the ways claimed?
+
+Report separate results for:
+
+- Fresh outputs across the entire fixed benchmark.
+- The 768 unseen tasks.
+- The independent audit raters.
+- Each agent individually.
+- Each leave-one-agent-out transfer experiment.
+
+Show the four agent-transfer results rather than hiding a weak agent in a pooled average. If the claim is that all four meet a threshold, use uncertainty statements appropriate for that simultaneous claim.
+
+The uncertainty should respect task and human identities. Four agent folds are not thousands of independent agent observations.
+
+This level of specificity is warranted: broader empirical work on LLM judges has found substantial variation across evaluation tasks, models, and human expertise. [arxiv.org](https://arxiv.org/abs/2406.18403?utm_source=chatgpt.com)
+
+### D. Does human agreement correspond to actual formal-specification quality?
+
+This is essential for VeriBench. Humans and the AI could agree because they share the same mistaken reference or grading shortcut.
+
+Add a separately reported set of controlled specification changes:
+
+| Change | Expected response |
+|---|---|
+| Remove a necessary specification obligation | Coverage should decrease |
+| Strengthen a precondition to exclude required difficult inputs | Coverage/domain score should decrease |
+| Replace a specification with a semantically equivalent formulation | Score should remain similar |
+| Add irrelevant or vacuous statements | They should not earn meaningful coverage credit |
+| Supply a faulty or incomplete reference | The judge should expose the discrepancy where possible |
+| Preserve the specifications while changing proof completion | Coverage should remain distinct from proof completion |
+
+Use mechanically checked implications or counterexamples where available to establish the expected relationship. A correct but unproven specification should not lose coverage credit merely because its proof is absent.
+
+This connects “matches experts” to the capability you actually want to measure.
+
+### How I would frame the contribution
+
+I would frame the study as:
+
+> We develop a reference-assisted probabilistic judge of formal-specification coverage, optimize it using a proper ordinal scoring loss, and evaluate transfer to held-out tasks, experts, and agent configurations. Controlled specification perturbations assess whether agreement with experts tracks the intended semantic properties.
+
+The proper scoring rule itself is established methodology. Your contribution would be the **effective formal-specification judge, the expert-rated evaluation data, and credible evidence of semantic validity and transfer**.
+
+A reviewer does not need a promise about every future agent or every possible expert. They need a clearly defined target, an appropriate objective, an honest independent evaluation, and results strong enough to support the stated scope.
+
+## TL;DR
+
+1. **Your intuition is right when the distributions are matched conditional on the same submission.** Pooled histograms or moments can match perfectly while every judgment is wrong.
+2. **Use probabilistic ordinal learning.** Forward KL/cross-entropy is justified; I recommend RPS because it respects the ordered 0–5 scale and is bounded. Its excess expected loss equals a distance between conditional rating distributions.
+3. **Your broader generalization goal changes the human design.** My starting recommendation is **all 896 tasks, four agent configurations, and 24 experts: eight development plus sixteen held out**.
+4. **Start with 64 training tasks, 64 validation tasks, and 768 untouched tasks.** Collect three ratings per artifact, with eight ratings on a random 128-task audit subset: **14,848 reviews**.
+5. **Those are planning numbers, not proven sufficient counts.** Use pilot variance and prespecified precision requirements to revise them. Run leave-one-agent-out experiments for joint transfer, and retain semantic checks so that human agreement supports the actual formal-specification claim.

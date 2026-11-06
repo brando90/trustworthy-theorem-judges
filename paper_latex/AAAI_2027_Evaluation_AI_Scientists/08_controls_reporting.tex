@@ -1,0 +1,41 @@
+% TLDR: Distinguish semantic validity controls, reportable outcomes, and private data.
+\section{Semantic Controls and Reporting}
+\label{sec:controls}
+Agreement with experts using a faulty reference can reproduce the same error rather than measure coverage correctly.
+We therefore accompany the random audit with controls whose semantic relationship is checked independently wherever possible.
+These controls do not receive the random audit's sampling interpretation, and their counts and selection process are reported separately.
+
+Removing a necessary obligation should reduce coverage, provided no remaining statement already implies it.
+Narrowing a precondition should reduce coverage when it excludes inputs required by the task.
+Equivalent formulations should receive similar ratings, while adding irrelevant or vacuous statements should not increase meaningful coverage.
+Changing proof bodies without changing statements should preserve a statement-coverage rating.
+An incomplete or false reference should trigger discrepancy reporting where the evidence supports it.
+The exact tolerances and control counts are pilot decisions, not assumed measured properties of the judge.
+
+For equivalence controls, compilation of two programs is insufficient.
+The relevant implications must preserve domains, assumptions, and obligation weights.
+For negative controls, a counterexample should establish that the removed obligation is not already entailed.
+AI can assist in constructing these certificates, but checker acceptance and the assumptions of the certificate must be recorded.
+Unresolved cases remain unresolved rather than being converted into negative examples by a timeout.
+
+The reference-anchoring study is a separate controlled comparison within this research program.
+It varies reference representation and proof visibility while holding the intended obligations and candidate artifact fixed.
+Its labels, estimand, and pilot counts must not be substituted for those of the main conditional-rating study.
+Likewise, the human-rating study does not change an existing benchmark's prover-based scoring implementation.
+
+\subsection{What the final report must contain}
+The primary table will report RPS, paired baseline differences, and confidence intervals for all 896 audit tasks, the 128 seen tasks with fresh outputs, the 768 held-out tasks, and each solver configuration.
+The four excluded-solver fits have their own transfer table and denominators.
+Distribution-error diagnostics on the dense subset, means, signed bias, absolute error, Pearson correlation, Spearman correlation, and Kendall correlation supplement these results.
+Human--human agreement is computed on matched artifacts, and the prediction mean is not confused with the full probability vector.
+
+A separate repeatability panel reports variation across repeated probability vectors and expected scores, the number of full judge executions, and the aggregation policy.
+A stable but wrong judge can pass a repeatability check, while a correct prediction of human disagreement can intentionally be broad.
+The paper must keep these statements separate.
+Missing and failed calls appear with their original denominator; because RPS is bounded, worst- and best-case completion bounds can show whether missingness could reverse a conclusion.
+
+Public evidence consists of the protocol, configurations, input manifests where distributable, analysis code, and authorized aggregate results.
+Participant identities, contact information, consent, individual rating sheets, and sealed test ratings remain in restricted storage.
+Opaque analysis identifiers preserve the assignment structure without exposing identities.
+Any eventual release of individual ratings requires the corresponding consent and release decision.
+The historical import preserves immutable aggregate receipts and hashes, with post hoc calculations labeled separately.

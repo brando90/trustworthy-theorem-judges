@@ -1,0 +1,129 @@
+{
+ "written": "2026-09-28T23:16:23.663294+00:00",
+ "ensemble": "test_H2_sol_plus_H2_opus",
+ "members": [
+  "p5_test_H2_sol_high",
+  "p5_test_H2_opus55_max"
+ ],
+ "git_head": "135a9875125937c6f1539551f152975ce2b99b28",
+ "ensemble_sha256": "88e2f1d71b030581a8957e7614340003dcbf9794cde23d2dc8ce01f16e053c2c",
+ "all_items": {
+  "n_items": 30,
+  "n_tasks": 10,
+  "spearman": 0.8257225989118299,
+  "kendall_tau_b": 0.6982172064922637,
+  "pearson": 0.8578437715344676,
+  "icc_A1": 0.7272897294580392,
+  "icc_C1": 0.8515064218802388,
+  "mae": 0.20111111111111107,
+  "mean_pred": 0.6533333333333335,
+  "mean_target": 0.47222222222222227,
+  "bootstrap": {
+   "spearman": {
+    "lo": 0.31624958889857546,
+    "hi": 0.9656157338707165,
+    "sd": 0.17607021743657938,
+    "draws_used": 10000
+   },
+   "kendall_tau_b": {
+    "lo": 0.21551214478068803,
+    "hi": 0.913038226212666,
+    "sd": 0.1884305698633034,
+    "draws_used": 10000
+   },
+   "pearson": {
+    "lo": 0.7068432465680113,
+    "hi": 0.9412114649701103,
+    "sd": 0.06310687072975447,
+    "draws_used": 10000
+   },
+   "icc_A1": {
+    "lo": 0.39105585266656184,
+    "hi": 0.8900031442077002,
+    "sd": 0.1267175017651747,
+    "draws_used": 10000
+   }
+  },
+  "entropy_bits_0p1_bins": 2.464083511770376,
+  "modal_share": 0.4
+ },
+ "ordinary_items": {
+  "n_items": 24,
+  "n_tasks": 8,
+  "spearman": 0.6519167962975153,
+  "kendall_tau_b": 0.5132701190790696,
+  "pearson": 0.8346530070645136,
+  "icc_A1": 0.5797859913088171,
+  "icc_C1": 0.7604805099289039,
+  "mae": 0.2305555555555556,
+  "mean_pred": 0.5666666666666668,
+  "mean_target": 0.36111111111111116,
+  "bootstrap": {
+   "spearman": {
+    "lo": -0.16624099088251326,
+    "hi": 0.9160770236263203,
+    "sd": 0.29506121987891526,
+    "draws_used": 1998
+   },
+   "kendall_tau_b": {
+    "lo": -0.20140446059124087,
+    "hi": 0.8345467795449427,
+    "sd": 0.2786304984651476,
+    "draws_used": 1998
+   },
+   "pearson": {
+    "lo": 0.4537427188777923,
+    "hi": 0.9578653338094597,
+    "sd": 0.16002731245981394,
+    "draws_used": 1998
+   },
+   "icc_A1": {
+    "lo": 0.16923761079882002,
+    "hi": 0.7743052437346323,
+    "sd": 0.14510775630568507,
+    "draws_used": 2000
+   }
+  },
+  "entropy_bits_0p1_bins": 2.177694271103767,
+  "modal_share": 0.5
+ },
+ "stability": {
+  "items_with_2plus_repeats": 30,
+  "mean_repeat_sd": 0.020487757950563228,
+  "p90_repeat_sd": 0.05773502691896258,
+  "max_repeat_sd": 0.17320508075688773,
+  "test_retest_icc_O1": 0.9774941795291884,
+  "retest_k": 3
+ },
+ "per_pass_spearman": {
+  "per_pass": [
+   0.813634632225585,
+   0.8216801503304008,
+   0.8368024279535465
+  ],
+  "mean": 0.8240390701698441,
+  "sd": 0.011762655602789197
+ },
+ "controls": {
+  "p5_test_H2_sol_high": {
+   "minref": true,
+   "oracle": true,
+   "shuffled": true,
+   "vacuous": true
+  },
+  "p5_test_H2_opus55_max": {
+   "minref": true,
+   "oracle": true,
+   "shuffled": true,
+   "vacuous": true
+  }
+ },
+ "test_gate": {
+  "spearman_ge_0p45": true,
+  "spearman_lo_gt_0p20": true,
+  "icc_A1_ge_0p40": true,
+  "mean_repeat_sd_le_0p10": true,
+  "p90_repeat_sd_le_0p20": true
+ },
+ "note": "One-shot test of the validation winner (mean of H2 on GPT-6 Sol high and H2 on Claude Opus 5.5 max). Test labels were historically exposed by experiments 75 and 83 and summarized descriptively in Phase 0; no configuration choice used them."
+}

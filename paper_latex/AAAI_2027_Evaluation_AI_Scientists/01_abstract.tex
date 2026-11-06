@@ -1,0 +1,16 @@
+% TLDR: Abstract distinguishes a prospective protocol from historical evidence.
+\begin{abstract}
+% Context and problem.
+Artificial intelligence (AI) judges are useful evaluation instruments only to the extent that their ratings measure the intended property.
+For formal specification coverage, a high correlation with experts does not establish agreement about score levels or disagreement between experts on individual artifacts.
+% Proposed approach.
+We specify a study in which a judge predicts the six-category human-rating distribution conditional on Python source, a candidate Lean formalization, and a gold reference.
+The primary objective is normalized ranked probability score, with correlations and absolute error retained as diagnostics.
+% Concrete design and evidence status.
+A prospective design covers 896 benchmark tasks and four solver configurations, with 24 distinct experts and a starting budget of 14,848 individual ratings.
+Separate task, solver, and expert holdouts test different transfer claims, while controlled specification changes test whether human agreement reflects the intended construct.
+Historical VeriBench evidence motivates the design: a 30-artifact, ten-task test has Spearman correlation 0.826, but its 95\% task-bootstrap interval is [0.316, 0.966] and its normalized judge-minus-expert mean bias is +0.181.
+% Scope and limitation.
+Those previously exposed data do not validate the proposed judge; fresh human collection and the prospective results remain pending.
+The contribution is a reproducible measurement protocol that separates predictive agreement, semantic validity, and uncertainty about both.
+\end{abstract}

@@ -221,3 +221,12 @@ __marimo__/
 
 # Local human-rating packets, responses, and personal sheet links
 /private/
+
+# Local paper build and review intermediates; keep the final PDF tracked.
+paper_latex/**/_build/
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
