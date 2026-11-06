@@ -1,0 +1,229 @@
+{
+  "created_utc": "2026-11-06T23:17:29.337543+00:00",
+  "condition": "P_local_qwen9_nonthinking_v2",
+  "parent_freeze_sha256": "fb7bf1c4e6f43f9e5bc886885f0ab4fa73ba5c1f934a62e95d699ce8472d69ae",
+  "files": {
+    "config.json": "c2e33b78bc1295d7cc202d8f2ba4472ef0a780ad5c028e5ba673656bcc0dd5dc",
+    "PROTOCOL.md": "a4a684d43c032024168734c91073ca59d9e4bc8a24cb4b26460a5c0856e4d4ce",
+    "results/target_checks.json": "ccf1b6d18032b7b6eb6469ef3e85a842dc860769a69f04d054bf9a94330bfc58",
+    "sources/provenance.json": "bc44d2b3ad08382984cc970d2c20c03cb2d0f97af2f2e15c0645727c87885e33",
+    "scripts/analyze.py": "e3657725223edac089311d5ff3d321a33578ea48cc817320ac8481cba491792e",
+    "scripts/checker.py": "fa866a97319da345abd862f0b55603fb6d5fefea1fb2fd24c38b48d6f4ffa7aa",
+    "scripts/freeze.py": "96dd7f3f3f61cc8784b7a643dea6e5adf58d33595fc5dbf96146f634b1e88523",
+    "scripts/run.py": "de4b610338572f23c28e7d86f5547d45b5edf4be14a9573a99482bd959e060ce",
+    "prompts/generate_G0.md": "9f684411965ea486fb18e15016ed555ae2bbd2a80039c15390b7fc0e177212da",
+    "prompts/generate_G1.md": "707f253f3b98faf1060505db085ac3d3c70bc209f987bb2fb547c7eb1e8eee1c",
+    "prompts/judge_J0.md": "7d25ffb8e50b8bc1803d88f5bf3331ed6bcd884fa67e5ee77c1689c5eb23caa5",
+    "prompts/judge_J1.md": "aefa4408eef542c4e750404b9d3c354299552a0142515e015dc5aca780b150ab",
+    "prompts/prover.md": "65673cd1b8289edb3eace3e57a876872e6f8225dfb8801d2e51e0ecdc630efe7"
+  },
+  "runtime_dependencies": {
+    "/Users/brandomiranda/veribench/veribench_dataset/lean_src/lake-manifest.json": "d99caf0bc025deb50cb467cb84af15464d248fde48e72aea336191efde4ceef1",
+    "/Users/brandomiranda/veribench/veribench_dataset/lean_src/lean-toolchain": "f3d6c7b78f8d6f91e250079899d9309c5d7a020bbedb4e8b4871508f24ee4d2c",
+    "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean": "c89073b8a577a5914ead7b740d2ad996af1ad5ad5b4bfc2825e0bce2f01b6aa4",
+    "/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/lake-manifest.json": "8e487d07c17f2e721735d2b036bd254e0d40de593d18961c018d9fc503cd80d0",
+    "/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean/Mathlib.olean": "cc50b16435940379eabdab6ad29ce4451ad29415a5ae39ca215494d2771edcfc",
+    "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean/Lean.olean": "642724702c12b0fcb5bf7d63e31ec0a5fa270201391b2c0b6d7b5d0efe255c2a",
+    "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean/Init.olean": "4914dd4930059d8591928a6e1bd1f73bba00242f3402138c4346e2777dd0f882"
+  },
+  "mathlib_revision": "79e94a093aff4a60fb1b1f92d9681e407124c2ca",
+  "lean_version": "Lean (version 4.22.0, arm64-apple-darwin23.6.0, commit ba2cbbf09d4978f416e0ebd1fceeebc2c4138c05, Release)",
+  "ollama_version": "0.40.8",
+  "model_digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+  "private_case_manifest_sha256": "54ac6bb648b9147d7a911f1448ee44485bdb52bdf383ba4671527d214b37a705",
+  "planned_calls": {
+    "preflight_J0_reproduce0": {
+      "num_predict": 256,
+      "role": "preflight"
+    },
+    "preflight_J0_reproduce1": {
+      "num_predict": 256,
+      "role": "preflight"
+    },
+    "preflight_J0_semantic0": {
+      "num_predict": 256,
+      "role": "preflight"
+    },
+    "preflight_J0_semantic1": {
+      "num_predict": 256,
+      "role": "preflight"
+    },
+    "preflight_J1_reproduce0": {
+      "num_predict": 1024,
+      "role": "preflight"
+    },
+    "preflight_J1_reproduce1": {
+      "num_predict": 1024,
+      "role": "preflight"
+    },
+    "preflight_J1_semantic0": {
+      "num_predict": 1024,
+      "role": "preflight"
+    },
+    "preflight_J1_semantic1": {
+      "num_predict": 1024,
+      "role": "preflight"
+    },
+    "generate_T01_G0": {
+      "num_predict": 1024,
+      "role": "generation"
+    },
+    "forecast_T01_G0_J0_0": {
+      "num_predict": 256,
+      "role": "forecast"
+    },
+    "forecast_T01_G0_J1_0": {
+      "num_predict": 1024,
+      "role": "forecast"
+    },
+    "prove_T01_G0_0": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "prove_T01_G0_1": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "generate_T01_G1": {
+      "num_predict": 2048,
+      "role": "generation"
+    },
+    "forecast_T01_G1_J0_0": {
+      "num_predict": 256,
+      "role": "forecast"
+    },
+    "forecast_T01_G1_J1_0": {
+      "num_predict": 1024,
+      "role": "forecast"
+    },
+    "prove_T01_G1_0": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "prove_T01_G1_1": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "generate_T02_G0": {
+      "num_predict": 1024,
+      "role": "generation"
+    },
+    "forecast_T02_G0_J0_0": {
+      "num_predict": 256,
+      "role": "forecast"
+    },
+    "forecast_T02_G0_J1_0": {
+      "num_predict": 1024,
+      "role": "forecast"
+    },
+    "prove_T02_G0_0": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "prove_T02_G0_1": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "generate_T02_G1": {
+      "num_predict": 2048,
+      "role": "generation"
+    },
+    "forecast_T02_G1_J0_0": {
+      "num_predict": 256,
+      "role": "forecast"
+    },
+    "forecast_T02_G1_J1_0": {
+      "num_predict": 1024,
+      "role": "forecast"
+    },
+    "prove_T02_G1_0": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "prove_T02_G1_1": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "generate_T03_G0": {
+      "num_predict": 1024,
+      "role": "generation"
+    },
+    "forecast_T03_G0_J0_0": {
+      "num_predict": 256,
+      "role": "forecast"
+    },
+    "forecast_T03_G0_J1_0": {
+      "num_predict": 1024,
+      "role": "forecast"
+    },
+    "prove_T03_G0_0": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "prove_T03_G0_1": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "generate_T03_G1": {
+      "num_predict": 2048,
+      "role": "generation"
+    },
+    "forecast_T03_G1_J0_0": {
+      "num_predict": 256,
+      "role": "forecast"
+    },
+    "forecast_T03_G1_J1_0": {
+      "num_predict": 1024,
+      "role": "forecast"
+    },
+    "prove_T03_G1_0": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "prove_T03_G1_1": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "generate_T04_G0": {
+      "num_predict": 1024,
+      "role": "generation"
+    },
+    "forecast_T04_G0_J0_0": {
+      "num_predict": 256,
+      "role": "forecast"
+    },
+    "forecast_T04_G0_J1_0": {
+      "num_predict": 1024,
+      "role": "forecast"
+    },
+    "prove_T04_G0_0": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "prove_T04_G0_1": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "generate_T04_G1": {
+      "num_predict": 2048,
+      "role": "generation"
+    },
+    "forecast_T04_G1_J0_0": {
+      "num_predict": 256,
+      "role": "forecast"
+    },
+    "forecast_T04_G1_J1_0": {
+      "num_predict": 1024,
+      "role": "forecast"
+    },
+    "prove_T04_G1_0": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    },
+    "prove_T04_G1_1": {
+      "num_predict": 2048,
+      "role": "proof_search"
+    }
+  },
+  "code_commit_before_freeze": "c2d216b2769308f2b9d302756bec6bfba231b91d"
+}

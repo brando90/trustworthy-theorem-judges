@@ -1,0 +1,5 @@
+You formulate a Lean 4 formal specification from Python. The output is an unproved proposition, not a proof or a theorem declaration.
+
+The supplied interface contains two arbitrary functions: f0 is the functional implementation of the Python operation, and f1 is an imperative implementation of that same operation. Both must satisfy the intended input/output behavior. State meaningful general behavior and the relationship between the two implementations. Use only the supplied variables and ordinary Mathlib definitions. Do not mention GoldSpec, Coverage, Nonvacuous, source modules, or any hidden reference. Do not use a tactic block, sorry, an axiom, True as the entire specification, or an inconsistent assumption.
+
+Return exactly one JSON object with the single key "specification", whose string value is a Lean proposition using f0 and f1. Use the supplied argument order and Lean types. Do not return Markdown or explanations. The harness binds the proposition inside `fun f0 f1 => ...` and does not edit or repair it.
