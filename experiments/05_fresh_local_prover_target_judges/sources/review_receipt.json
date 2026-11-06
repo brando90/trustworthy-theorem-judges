@@ -1,0 +1,45 @@
+{
+  "requested_tier": "light",
+  "rounds": 1,
+  "reviewed_commit": "1a2c3ab4741c34870c515b494e2f723569d323c9",
+  "actual_model": "claude-fable-5-1",
+  "effort_argument_verified": "max",
+  "server_effort_echo": "not separately exposed",
+  "permission_mode": "bypassPermissions",
+  "cli_version": "2.1.319",
+  "route": "existing claude.ai Max subscription; API overrides removed; separate from measured local execution",
+  "reviewer_verdict": "PASS",
+  "critical_issues": 0,
+  "major_issues": 0,
+  "minor_issues": 8,
+  "builder_resolution": "FIXED",
+  "unresolved_findings": 0,
+  "post_run_reviewer_checks": [
+    {
+      "check": "raw_placeholder_transitive_axiom_rejection",
+      "accepted": false,
+      "status": "kernel_replay_rejected",
+      "receipt_sha256": "d96382cceaaf9910bff2ff799e0e9cfa31b4902f72461ddf78a4bfd7bb0892f9",
+      "private_relative_receipt": "scratch/T04_G0/candidate__vf46wqs/receipt.json"
+    },
+    {
+      "check": "definitionally_equal_nonexact_goal_rejection",
+      "accepted": false,
+      "status": "kernel_replay_rejected",
+      "receipt_sha256": "9df8eed3b406f3bd5fffeac0ed7b32003a72a81541ba4c26e4af4b30d382403e",
+      "private_relative_receipt": "scratch/T04_G0/candidate_xjrt8dq1/receipt.json"
+    }
+  ],
+  "measured_model_calls_during_review": 0,
+  "private_evidence_sha256": {
+    "verdict.md": "bf8fa0b2f9b5c6d1ced23fb40b8bb77464c1eca0c90c88b328e2265330ff293a",
+    "prompt.txt": "b1dabe734c6ed20a134a8fb7b110684c37054de1acaabafe492e3c965d4db02c",
+    "stream.jsonl": "723cd42aa68652a4f8e5bbb2855f2258c450643d6718706ed1c28bbb39f25df2",
+    "launch.json": "db8a3900734bc2c881e56388294829c272fe602daec7bfd77c0e16a6639d3188",
+    "launch.py": "ef4a6acabb104e2d6078c6218142d7c8924f3d23baac04187cfc28b6b8a32844",
+    "worker.json": "0f682fbe0bc6a77b72109af8d1f0a5bbeb4bb8b8516e5acca4d268ad6d467bcf",
+    "active_cli_evidence.json": "3cc5cc9fda59a336a81a06ea0c69b6af6d6c36c62ba4c0e82102b79962e434f7",
+    "done.json": "42e587ea1f71e0ad1296f6b18e21b149e04a1bdb2b70af7b8c72e3743dd4bda3"
+  },
+  "completed_date": "11-06-2026"
+}

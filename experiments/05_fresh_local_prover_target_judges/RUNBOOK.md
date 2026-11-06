@@ -1,6 +1,10 @@
 <!-- TLDR: Recompute reports and audit immutable receipts; do not replay a completed model condition. -->
 # Reproduction and receipt audit
 
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/05_fresh_local_prover_target_judges/RUNBOOK.md>
+
+**Companion notes:** [Google Doc](https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws)
+
 The public repository contains code, prompts, model/dependency hashes, opaque artifact rows and aggregates. Exact input and proof reproduction requires authorized access to ignored `private/fresh_prover_target/`. Source snapshots are pinned committed blobs from the private VeriBench repositories; no dirty shared checkout file is an input. Four selected contexts reproduce their original exported hashes and reference-name inventories. Fifteen deterministic controls include faithful implication, consistency, counterexample, inconsistent-premise rejection, wrong goal, added axiom, placeholder, native oracle, forged log and proof-body invariance.
 
 ## Recompute existing reports
@@ -9,8 +13,7 @@ From the project root, with the original private receipts present:
 
 ```bash
 python3 experiments/05_fresh_local_prover_target_judges/scripts/verify_receipts.py
-uv run --python 3.12 --with numpy==2.4.2 --with scipy==1.17.0 python experiments/05_fresh_local_prover_target_judges/conditions/nonthinking_v2/scripts/analyze.py
-python3 experiments/05_fresh_local_prover_target_judges/scripts/report.py
+uv run --python 3.12 --with numpy==2.4.2 --with scipy==1.17.0 python experiments/05_fresh_local_prover_target_judges/scripts/recompute.py
 python3 scripts/check_project.py
 git diff --check
 ```

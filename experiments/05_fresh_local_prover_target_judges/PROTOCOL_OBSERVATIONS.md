@@ -1,0 +1,20 @@
+<!-- TLDR: Record post-run protocol limitations and review corrections without changing either frozen condition. -->
+# Post-run protocol observations
+
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/05_fresh_local_prover_target_judges/PROTOCOL_OBSERVATIONS.md>
+
+Added after the one requested review on 11-06-2026. The original and recovery protocols, prompts, analyzers and runtime code remain byte-identical to their pre-call snapshots. These observations qualify the executed conditions; they do not repair or rerun them.
+
+1. **Proof elaboration scope was underspecified to the models.** The checker elaborates candidate proofs outside `namespace Natural`, without `open Natural`. Two of six proof attempts (`prove_T01_G0_1` and `prove_T04_G0_1`) used unqualified `GoldSpec` and failed on an unknown identifier. The prover and judge prompts did not disclose this scope detail. This is a concrete limitation of the executed target, not evidence of task difficulty or general model capability. Separate counterexamples establish false coverage for both unique valid statements, so merely fixing the name cannot change their semantic non-entailment. The recorded bounded-search outcomes stay unchanged. A future condition should disclose or normalize the elaboration scope before its freeze.
+
+2. **Duplicate statements were not byte-identical proof-search replays.** The immutable statement/context hashes agree for T01_G0 and T01_G1, but fixed-tactic errors contain randomly named `candidate_*` paths. Those error tails enter prover prompts. The two consistency requests therefore had different input hashes and prompt-token counts (898 and 899); the coverage requests also differ in bytes while both use 1,255 prompt tokens. Both goals generated different proofs. These are separate search attempts with shared semantic input, not controlled repeated inference or evidence about repeat variability. A future condition should strip irrelevant temporary paths before freezing prompts.
+
+3. **Control layers differ.** Three controls (`placeholder_rejected`, `native_oracle_rejected`, `audit_forgery_rejected`) stop at the text filter with `proof_guard_rejected`; they do not exercise kernel replay. `proof_body_invariance` checks identical context-source hashes. The other eleven controls exercise Lean compilation or trusted replay acceptance. During this single review, separate scratch checks also rejected a raw `sorry` theorem via `sorryAx`, and rejected a definitionally equal but non-exact goal type. Those are post-run reviewer diagnostics, not additional preflight controls or measured model calls; see [the review receipt](sources/review_receipt.json).
+
+4. **Counterexamples were authored after outcomes.** The builder (Codex) wrote the two counterexample proof terms after the frozen outcomes, then checked them through the same strict independent kernel replay. The reviewer separately replayed the evidence. These are post-outcome semantic diagnostics, never judge inputs, predeclared success cases, or replacements for the operational target.
+
+5. **Use the safe recomputation entry point.** The preserved v1 analyzer writes `results.md`; it predates the consolidated report. The new `scripts/recompute.py` redirects that historical output to `results/v1_results.md`, fixes its relative link, and preserves the consolidated report. It also qualifies the recovery's mechanical bootstrap rendering without altering its frozen calculation or JSON statistics. Use the [runbook](RUNBOOK.md), not the historical analyzers directly.
+
+The no-winner conclusion remains unchanged: five invalid statements and only three operational zeros, representing two unique well-formed statements, cannot validate a probability judge. Hypothetical missing-loss bounds are not confidence intervals or semantic scores for malformed artifacts.
+
+**TLDR-end:** [ttj: fresh local prover-target judges] The single review identified concrete scope, prompt-stability and reporting limitations. They are disclosed additively; no frozen measurement was changed.

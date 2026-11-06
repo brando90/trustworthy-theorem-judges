@@ -1,0 +1,27 @@
+{
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "generation_tamper_rejected",
+      "passed": true
+    },
+    {
+      "check": "target_tamper_rejected",
+      "passed": true
+    },
+    {
+      "check": "projection_tamper_rejected",
+      "passed": true
+    },
+    {
+      "check": "source_tamper_rejected",
+      "passed": true
+    },
+    {
+      "check": "stale_narrative_rejected",
+      "passed": true
+    }
+  ],
+  "model_calls": 0,
+  "method": "in-memory receipt perturbations; frozen files unchanged"
+}

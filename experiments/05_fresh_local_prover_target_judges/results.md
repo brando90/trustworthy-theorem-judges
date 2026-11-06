@@ -1,6 +1,10 @@
 <!-- TLDR: The completed local pilot did not validate a judge: malformed statements and a single observed outcome class prevent a nontrivial comparison. -->
 # Fresh local prover-target judge results
 
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/05_fresh_local_prover_target_judges/results.md>
+
+**Companion notes:** [Google Doc](https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws)
+
 **Status, 11-06-2026: completed local feasibility test; no validated judge or winner.** The original thinking-enabled condition failed preflight. Its separately frozen non-thinking recovery finished all declared cells, but five statements were malformed and all three available bounded-prover outcomes were 0. Every parsed judge probability was also 0. The prespecified constant-zero baseline matches both judges.
 
 ## Complete artifact ledger
@@ -39,7 +43,9 @@ Inferential intervals are unavailable. J0 has one observed family and J1 has two
 
 The new local condition requires independently checked proofs of both candidate consistency and implication to every exported reference obligation. Its immutable statements, separate trusted kernel replay, exact goal types and axiom filter passed four source-context replays and fifteen designed controls. All six local-model proof attempts on the three valid artifacts returned parseable proof JSON but their proof terms were rejected; the fixed tactics also failed. Therefore these outcomes are bounded-search failures. A failed search alone says nothing conclusive about semantic entailment.
 
-Separate post-outcome diagnostics checked 2/2 counterexamples for the unique well-formed statements. Each certificate also supplies satisfying candidate functions, so these cases are consistent but do not imply the gold. The duplicate T01_G1 shares the exact T01_G0 statement/context hashes. These diagnostics never entered judge inputs and do not alter any operational target. See [diagnostic hashes](results/diagnostics.json).
+The builder (Codex) wrote the proof terms after the frozen outcomes. Separate post-outcome diagnostics checked 2/2 counterexamples for the unique well-formed statements. Each certificate also supplies satisfying candidate functions, so these cases are consistent but do not imply the gold. The duplicate T01_G1 shares the exact T01_G0 statement/context hashes. These diagnostics never entered judge inputs and do not alter any operational target. See [diagnostic hashes](results/diagnostics.json).
+
+The executed procedure also has two prompt limitations: proof terms are elaborated outside `namespace Natural`, which the judge/prover prompts did not disclose, and random temporary paths enter error feedback. Two proof attempts failed on unqualified `GoldSpec`; duplicate statements therefore did not receive byte-identical proof requests. Three adversarial controls exercise only the text filter, not kernel replay. These details and the separate reviewer checks are recorded in [post-run protocol observations](PROTOCOL_OBSERVATIONS.md); frozen protocols and outcomes are unchanged.
 
 This is a distinct local prover condition, not VeriBench experiment169’s Pi/Gemini target. Source169 retains all 100 cases: 14 emitted contexts and 86 unresolved. This pilot selected four emitted cases for simple interfaces and makes no natural-population, frontier-model or unseen-task-family claim. The larger family-disjoint evaluation in [experiment04](../04_fresh_prover_target_judge_validation/PLAN.md) remains unfinished.
 

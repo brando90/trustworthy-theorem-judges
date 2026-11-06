@@ -14,24 +14,34 @@ def main():
   'unique_context_source_hashes':v2['availability']['unique_context_hashes'],
   'well_formed_artifacts':len(available),'unique_well_formed_statements':len({a['statement_sha256'] for a in artifacts if a['id'] in available}),
   'source_task_families':4,'families_with_available_targets':len({a['task_id'] for a in artifacts if a['id'] in available}),
-  'successful_targets':v2['availability']['target_successes'],'invalid_candidates':8-len(available),
+  'successful_targets':v2['availability']['target_successes'],'invalid_candidates':sum(t['status']=='invalid_context' for t in targets),
   'primary_forecasts_planned':16,'primary_forecasts_available':sum(r['J0'] is not None for r in v2['artifacts'])+sum(r['J1'] is not None for r in v2['artifacts']),
   'shared_calls':verification['shared_calls'],'shared_requested_output_tokens':verification['shared_requested_tokens'],
   'shared_observed_output_tokens':sum(a['cost']['observed_output_tokens_terminal_records'] for a in [v1,v2]),
   'shared_wall_seconds':verification['shared_elapsed_seconds'],'provider_cost_usd':0,
   'thinking_characters_v1':v1['cost']['thinking_characters_terminal_records'],'thinking_characters_v2':v2['cost']['thinking_characters_terminal_records'],
   'reporting_qualification':'post-outcome support-count clarification; frozen analysis code and losses unchanged','judge_support':{},'roles':{},'model':'qwen3.5:9b-q4_K_M','model_digest':read(ROOT/'config.json')['model_digest']}
+ # Guard the preserved narrative against stale literals if a different receipt set is supplied.
+ expected={'attempted_artifacts':8,'unique_statement_hashes':7,'unique_context_source_hashes':7,'well_formed_artifacts':3,'unique_well_formed_statements':2,'source_task_families':4,'families_with_available_targets':2,'successful_targets':0,'invalid_candidates':5,'primary_forecasts_planned':16,'primary_forecasts_available':14}
+ assert all(summary[k]==v for k,v in expected.items()),'Narrative support changed; update the report before rendering'
+ assert [v2['judges'][j]['brier_bootstrap']['valid_resamples'] for j in ['J0','J1']]==[6843,9375]
+ assert [v2['judges'][j]['observed_pairs'] for j in ['J0','J1']]==[1,3]
+ assert all(r['target'] in {0,None} and r['J0'] in {0,None} and r['J1'] in {0,None} for r in v2['artifacts'])
  calls=[r for s in states for r in s['calls'].values()]
  for role in ['preflight','generation','forecast','proof_search']:
   rs=[r for r in calls if r['role']==role];summary['roles'][role]={'calls':len(rs),'completed':sum(r['status']=='completed' for r in rs),'requested_output_tokens':sum(r['num_predict'] for r in rs),'observed_output_tokens':sum(r.get('eval_count') or 0 for r in rs)}
  for j,stat in v2['judges'].items():
   available_rows=[r for r in v2['artifacts'] if r[j] is not None and r['target'] is not None]
   summary['judge_support'][j]={'paired_artifacts':len(available_rows),'observed_families':len({r['task'] for r in available_rows}),'valid_bootstrap_draws':stat['brier_bootstrap']['valid_resamples'],'dropped_empty_draws':10000-stat['brier_bootstrap']['valid_resamples'],'inferential_interval':None,'reason':'insufficient family support and constant outcomes/forecasts'}
+ assert {k:v['calls'] for k,v in summary['roles'].items()}=={'preflight':16,'generation':8,'forecast':16,'proof_search':6}
+ assert v1['cost']['reserved_calls']==8 and v1['cost']['call_status_counts']=={'completed':6,'failed':2}
+ assert v2['cost']['reserved_calls']==38 and v2['cost']['call_status_counts']=={'completed':36,'failed':2}
+ assert read(ROOT/'sources/provenance.json')['source_population']=={'attempted':100,'emitted':14,'unresolved':86}
  diagnostics=ROOT/'results/diagnostics.json'
  if diagnostics.exists():summary['independent_counterexamples']=read(diagnostics)
  (ROOT/'results/summary.json').write_text(json.dumps(summary,indent=2)+'\n')
  rows=['<!-- TLDR: The completed local pilot did not validate a judge: malformed statements and a single observed outcome class prevent a nontrivial comparison. -->',
- '# Fresh local prover-target judge results','',
+ '# Fresh local prover-target judge results','','**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/05_fresh_local_prover_target_judges/results.md>','','**Companion notes:** [Google Doc](https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws)','',
  '**Status, 11-06-2026: completed local feasibility test; no validated judge or winner.** The original thinking-enabled condition failed preflight. Its separately frozen non-thinking recovery finished all declared cells, but five statements were malformed and all three available bounded-prover outcomes were 0. Every parsed judge probability was also 0. The prespecified constant-zero baseline matches both judges.','',
  '## Complete artifact ledger','',
  'There were eight generation attempts on four purposively selected, previously exposed task families, with seven unique statement/context-source hashes. Only three artifacts were well formed: two duplicate statements from one task plus one statement from another. Thus there are two unique well-formed statements on two families, not eight independent test items.','',
@@ -50,8 +60,9 @@ def main():
  '## Target interpretation and controls','',
  'The new local condition requires independently checked proofs of both candidate consistency and implication to every exported reference obligation. Its immutable statements, separate trusted kernel replay, exact goal types and axiom filter passed four source-context replays and fifteen designed controls. All six local-model proof attempts on the three valid artifacts returned parseable proof JSON but their proof terms were rejected; the fixed tactics also failed. Therefore these outcomes are bounded-search failures. A failed search alone says nothing conclusive about semantic entailment.','']
  if diagnostics.exists():
-  d=read(diagnostics);rows.append(f"Separate post-outcome diagnostics checked {sum(r['independent_counterexample_checked'] for r in d['rows'])}/{len(d['rows'])} counterexamples for the unique well-formed statements. Each certificate also supplies satisfying candidate functions, so these cases are consistent but do not imply the gold. The duplicate T01_G1 shares the exact T01_G0 statement/context hashes. These diagnostics never entered judge inputs and do not alter any operational target. See [diagnostic hashes](results/diagnostics.json).")
- rows+=['','This is a distinct local prover condition, not VeriBench experiment169’s Pi/Gemini target. Source169 retains all 100 cases: 14 emitted contexts and 86 unresolved. This pilot selected four emitted cases for simple interfaces and makes no natural-population, frontier-model or unseen-task-family claim. The larger family-disjoint evaluation in [experiment04](../04_fresh_prover_target_judge_validation/PLAN.md) remains unfinished.','',
+  d=read(diagnostics);rows.append(f"The builder (Codex) wrote the proof terms after the frozen outcomes. Separate post-outcome diagnostics checked {sum(r['independent_counterexample_checked'] for r in d['rows'])}/{len(d['rows'])} counterexamples for the unique well-formed statements. Each certificate also supplies satisfying candidate functions, so these cases are consistent but do not imply the gold. The duplicate T01_G1 shares the exact T01_G0 statement/context hashes. These diagnostics never entered judge inputs and do not alter any operational target. See [diagnostic hashes](results/diagnostics.json).")
+ rows+=['','The executed procedure also has two prompt limitations: proof terms are elaborated outside `namespace Natural`, which the judge/prover prompts did not disclose, and random temporary paths enter error feedback. Two proof attempts failed on unqualified `GoldSpec`; duplicate statements therefore did not receive byte-identical proof requests. Three adversarial controls exercise only the text filter, not kernel replay. These details and the separate reviewer checks are recorded in [post-run protocol observations](PROTOCOL_OBSERVATIONS.md); frozen protocols and outcomes are unchanged.','',
+ 'This is a distinct local prover condition, not VeriBench experiment169’s Pi/Gemini target. Source169 retains all 100 cases: 14 emitted contexts and 86 unresolved. This pilot selected four emitted cases for simple interfaces and makes no natural-population, frontier-model or unseen-task-family claim. The larger family-disjoint evaluation in [experiment04](../04_fresh_prover_target_judge_validation/PLAN.md) remains unfinished.','',
  '## Shared accounting and audit','',
  f"Both conditions together reserved {summary['shared_calls']}/56 calls and {summary['shared_requested_output_tokens']:,}/81,920 requested output tokens, with {summary['shared_observed_output_tokens']:,} observed output tokens in terminal receipts. Provider charges were $0; measured execution elapsed {summary['shared_wall_seconds']:.2f} seconds ({summary['shared_wall_seconds']/60:.2f} minutes), excluding preparation and review. Hardware use is not an end-to-end cost-saving result. No cap was reset and no failed measured cell was retried.",'',
  'The first condition used eight preflight calls, with six completed responses and two output-token failures; it generated no fresh artifact. The recovery used 38 calls: eight preflight, eight generation, sixteen forecast and six proof requests. Its preflight passed all eight checks. Actual model/server identities, combined token counts and thinking-character counts are retained; the server did not expose separate thinking-token counts.','',
