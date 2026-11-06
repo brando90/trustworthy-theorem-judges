@@ -1,0 +1,64 @@
+{
+  "condition": "P_local_qwen9_v1",
+  "model": "qwen3.5:9b-q4_K_M",
+  "model_digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+  "ollama_version": "0.40.8",
+  "endpoint": "http://127.0.0.1:11434",
+  "temperature": 0.2,
+  "top_p": 0.95,
+  "top_k": 20,
+  "presence_penalty": 0.0,
+  "num_ctx": 8192,
+  "call_timeout_seconds": 180,
+  "execution_wall_seconds": 14400,
+  "maximum_calls": 56,
+  "maximum_generated_tokens_reserved": 81920,
+  "provider_cost_cap_usd": 0,
+  "generator": {
+    "G0": {
+      "think": false,
+      "num_predict": 1024
+    },
+    "G1": {
+      "think": true,
+      "num_predict": 2048
+    }
+  },
+  "judge": {
+    "J0": {
+      "think": false,
+      "num_predict": 256
+    },
+    "J1": {
+      "think": true,
+      "num_predict": 2048
+    }
+  },
+  "prover": {
+    "think": true,
+    "num_predict": 2048
+  },
+  "task_ids": [
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+  ],
+  "repeat_artifacts": [
+    "T01_G0",
+    "T03_G1"
+  ],
+  "base_seed": 11062026,
+  "fixed_baselines": [
+    0.5,
+    0.8,
+    1.0
+  ],
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 11062026,
+  "fresh_statement_artifacts": true,
+  "fresh_task_families_relative_to_experiment03": false,
+  "independent_model_families": false,
+  "fitted_or_selected_on_target_outcomes": false,
+  "reference_population_validation": false
+}

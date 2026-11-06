@@ -1,0 +1,190 @@
+{
+  "veribench_revision": "ec1f9b2a4455549ba98a4fdf94c9d30bf3a0522d",
+  "infinity_revision": "36a4d8b54aca7133e381601f285ffa4b7f82b28c",
+  "source_population": {
+    "attempted": 100,
+    "emitted": 14,
+    "unresolved": 86
+  },
+  "selected_source_tasks": 4,
+  "selection": "purposive, two functions, no adapter, standard-axiom source witnesses; not a representative sample",
+  "sources": [
+    {
+      "repository": "veribench",
+      "revision": "ec1f9b2a4455549ba98a4fdf94c9d30bf3a0522d",
+      "source": "experiments/169_natural_output_prover_fsc_validation_11-06-2026/scripts/vb169_service/trusted_checker.py",
+      "destination": "dependencies/trusted_checker.py",
+      "sha256": "70f9737ee79e8e48953e5d27e6ddfa558b278b5760b5ebf5959ab9c3cb436a4e",
+      "bytes": 11952
+    },
+    {
+      "repository": "veribench",
+      "revision": "ec1f9b2a4455549ba98a4fdf94c9d30bf3a0522d",
+      "source": "experiments/169_natural_output_prover_fsc_validation_11-06-2026/scripts/lean/KernelReplayStrictSupport.lean",
+      "destination": "dependencies/KernelReplayStrictSupport.lean",
+      "sha256": "01e14ef41c447809601d768642b6748ba0454c82c63a2da55b45d7c01f4b06c0",
+      "bytes": 4748
+    },
+    {
+      "repository": "veribench",
+      "revision": "ec1f9b2a4455549ba98a4fdf94c9d30bf3a0522d",
+      "source": "experiments/169_natural_output_prover_fsc_validation_11-06-2026/scripts/natural_contexts/export_contexts.py",
+      "destination": "dependencies/export_contexts.py",
+      "sha256": "2708a255d232808a4cd6f5ca20def6f38d2dabeea413f6a00bbb159546056282",
+      "bytes": 35123
+    },
+    {
+      "repository": "veribench",
+      "revision": "ec1f9b2a4455549ba98a4fdf94c9d30bf3a0522d",
+      "source": "experiments/169_natural_output_prover_fsc_validation_11-06-2026/scripts/natural_contexts/lean/ExtractSupport.lean",
+      "destination": "dependencies/ExtractSupport.lean",
+      "sha256": "048df831ec84b9d77f1fe66c66f48622b80110edbe0c5f1102d2a59207471d0a",
+      "bytes": 25788
+    },
+    {
+      "repository": "veribench",
+      "revision": "ec1f9b2a4455549ba98a4fdf94c9d30bf3a0522d",
+      "source": "experiments/169_natural_output_prover_fsc_validation_11-06-2026/results/natural_contexts/full100_ledger.json",
+      "destination": "source/full100_ledger.json",
+      "sha256": "05deac04006443b5f2554ceedd701cb5112c867f79bad564c90d4889c8a4cb39",
+      "bytes": 6133910
+    },
+    {
+      "repository": "veribench-inf",
+      "revision": "36a4d8b54aca7133e381601f285ffa4b7f82b28c",
+      "source": "experiments/13_tiny256_pi_prover_detection_false_alarm_11-04-2026/scripts/ProofOnly.lean",
+      "destination": "dependencies/ProofOnly.lean",
+      "sha256": "ace92a5da7a0f64f732f76f473a2c9c10292e3c7ba9beef1a6d8dc12505cc2a9",
+      "bytes": 517
+    },
+    {
+      "repository": "veribench",
+      "revision": "ec1f9b2a4455549ba98a4fdf94c9d30bf3a0522d",
+      "source": "experiments/169_natural_output_prover_fsc_validation_11-06-2026/results/natural_contexts/cases/W1_024/Context.lean",
+      "destination": "cases/T01/OriginalContext.lean",
+      "sha256": "e49afd5872427ee21c15982a26a025629ed38cb9788a74e5c412b97decdb14c2",
+      "bytes": 2469
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "veribench_dataset/lean_src/veribench/easy_set/12_MyStringLength.lean",
+      "destination": "cases/T01/GoldSource.lean",
+      "sha256": "a89ad2cb5dccacf7b9f7034c4c9713d0e14ef535e0588ac3cf313bfc3c273776",
+      "bytes": 6844
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "experiments/138_tiny256_dt_10-31-2026/cells/codex/easy_set__12_mystringlength/solver.lean",
+      "destination": "cases/T01/OldAgentSource.lean",
+      "sha256": "fb87a9dca87828c50ca054217284656e3c419c886d950662b25c4303eabcf476",
+      "bytes": 2050
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "veribench_dataset/py_src/easy_set/12_MyStringLength.py",
+      "destination": "cases/T01/Input.py",
+      "sha256": "f97784db0e2da6b78ff38fea313dcdb595f25838b444fa3f1edcf5d858d38950",
+      "bytes": 1125
+    },
+    {
+      "repository": "veribench",
+      "revision": "ec1f9b2a4455549ba98a4fdf94c9d30bf3a0522d",
+      "source": "experiments/169_natural_output_prover_fsc_validation_11-06-2026/results/natural_contexts/cases/W1_101/Context.lean",
+      "destination": "cases/T02/OriginalContext.lean",
+      "sha256": "b9a777eeefad43989e9b58456a9380bddfa4bee63e56748e6bfe39b23258effe",
+      "bytes": 4230
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "veribench_dataset/lean_src/veribench/humaneval_set/humaneval_29_filter_by_prefix.lean",
+      "destination": "cases/T02/GoldSource.lean",
+      "sha256": "7373f57ea13ff2cea3d5fac5b38776621de65fbb554177b45dd7e7be0a052d8a",
+      "bytes": 9315
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "experiments/138_tiny256_dt_10-31-2026/cells/codex/humaneval_set__humaneval_29_filter_by_prefix/solver.lean",
+      "destination": "cases/T02/OldAgentSource.lean",
+      "sha256": "74541fa1c3066ab43ce137ec6a7b2a076e3d4053078af219c55dab3b2fa47a3d",
+      "bytes": 4720
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "veribench_dataset/py_src/humaneval_set/humaneval_29_filter_by_prefix.py",
+      "destination": "cases/T02/Input.py",
+      "sha256": "14c302892965ae5190483d71352add5a45835a8fbee94ce62206dac1809021b4",
+      "bytes": 1157
+    },
+    {
+      "repository": "veribench",
+      "revision": "ec1f9b2a4455549ba98a4fdf94c9d30bf3a0522d",
+      "source": "experiments/169_natural_output_prover_fsc_validation_11-06-2026/results/natural_contexts/cases/W4_021/Context.lean",
+      "destination": "cases/T03/OriginalContext.lean",
+      "sha256": "77fad778c1fa7d9d1b363449db9597996145f8d9faad6a425e8f2a424a161b0a",
+      "bytes": 4293
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "veribench_dataset/lean_src/veribench/security_set/security_6858/safe/61_unsafeUriDelegation_safe.lean",
+      "destination": "cases/T03/GoldSource.lean",
+      "sha256": "c645f9755634bf525a6974c1d6ff8a8c7a56df2222bf67d50e50f23b151b8875",
+      "bytes": 5602
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "experiments/138_tiny256_dt_10-31-2026/cells/claude_code/security_set__security_6858__safe__61_unsafeuridelegation_safe/solver.lean",
+      "destination": "cases/T03/OldAgentSource.lean",
+      "sha256": "92bbe35bb5ea0ce33757cfe7d610977552157b9e03581b8d04be2e5023cd7527",
+      "bytes": 6258
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "veribench_dataset/py_src/security_set/security_6858/safe/61_unsafeUriDelegation_safe.py",
+      "destination": "cases/T03/Input.py",
+      "sha256": "4271a416939a7e1571c27196c767a81bd9dbc0ac1adfe7b73b67644bf3ad0800",
+      "bytes": 806
+    },
+    {
+      "repository": "veribench",
+      "revision": "ec1f9b2a4455549ba98a4fdf94c9d30bf3a0522d",
+      "source": "experiments/169_natural_output_prover_fsc_validation_11-06-2026/results/natural_contexts/cases/W3_015/Context.lean",
+      "destination": "cases/T04/OriginalContext.lean",
+      "sha256": "d894a0dd9498853c822adf2995cf20fa84deb19a050d2f807e9ea85b916d5252",
+      "bytes": 3696
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "veribench_dataset/lean_src/veribench/security_set/security_6858/safe/143_unsafeSameOriginCheck_safe.lean",
+      "destination": "cases/T04/GoldSource.lean",
+      "sha256": "0420df6ec55ce89e15f07d0721bd8c1012e66bafb8e72844427c90a3317d094b",
+      "bytes": 6643
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "experiments/138_tiny256_dt_10-31-2026/cells/codex/security_set__security_6858__safe__143_unsafesameorigincheck_safe/solver.lean",
+      "destination": "cases/T04/OldAgentSource.lean",
+      "sha256": "cd86cf7328902144bd97c28dcfc27a78f33e646513cf424f10b26f5c13197fca",
+      "bytes": 4683
+    },
+    {
+      "repository": "veribench",
+      "revision": "32aebee0754944de7ad15d595911ea76b779f8cc",
+      "source": "veribench_dataset/py_src/security_set/security_6858/safe/143_unsafeSameOriginCheck_safe.py",
+      "destination": "cases/T04/Input.py",
+      "sha256": "a776d979c7e2cbe2ffd0ec1ecd6a8c4a874566820f1ba551240c2cfcac33fee1",
+      "bytes": 978
+    }
+  ],
+  "private_case_manifest_sha256": "54ac6bb648b9147d7a911f1448ee44485bdb52bdf383ba4671527d214b37a705"
+}

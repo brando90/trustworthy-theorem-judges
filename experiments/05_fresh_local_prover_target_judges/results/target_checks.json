@@ -1,0 +1,141 @@
+{
+  "source_replay": [
+    {
+      "id": "T01",
+      "status": "emitted",
+      "context_sha256": "e49afd5872427ee21c15982a26a025629ed38cb9788a74e5c412b97decdb14c2",
+      "roundtrip_exact": true,
+      "witness_standard_axioms": true,
+      "all_source_names_match": true
+    },
+    {
+      "id": "T02",
+      "status": "emitted",
+      "context_sha256": "b9a777eeefad43989e9b58456a9380bddfa4bee63e56748e6bfe39b23258effe",
+      "roundtrip_exact": true,
+      "witness_standard_axioms": true,
+      "all_source_names_match": true
+    },
+    {
+      "id": "T03",
+      "status": "emitted",
+      "context_sha256": "77fad778c1fa7d9d1b363449db9597996145f8d9faad6a425e8f2a424a161b0a",
+      "roundtrip_exact": true,
+      "witness_standard_axioms": true,
+      "all_source_names_match": true
+    },
+    {
+      "id": "T04",
+      "status": "emitted",
+      "context_sha256": "d894a0dd9498853c822adf2995cf20fa84deb19a050d2f807e9ea85b916d5252",
+      "roundtrip_exact": true,
+      "witness_standard_axioms": true,
+      "all_source_names_match": true
+    }
+  ],
+  "controls": [
+    {
+      "name": "valid_implication",
+      "expected": true,
+      "accepted": true,
+      "status": "accepted"
+    },
+    {
+      "name": "consistency_witness",
+      "expected": true,
+      "accepted": true,
+      "status": "accepted"
+    },
+    {
+      "name": "weak_spec_has_counterexample",
+      "expected": true,
+      "accepted": true,
+      "status": "accepted"
+    },
+    {
+      "name": "weak_spec_cannot_use_true_proof",
+      "expected": false,
+      "accepted": false,
+      "status": "proof_rejected"
+    },
+    {
+      "name": "false_premise_implication_is_insufficient",
+      "expected": true,
+      "accepted": true,
+      "status": "accepted"
+    },
+    {
+      "name": "false_premise_witness_denied",
+      "expected": false,
+      "accepted": false,
+      "status": "proof_rejected"
+    },
+    {
+      "name": "inconsistency_independently_proved",
+      "expected": true,
+      "accepted": true,
+      "status": "accepted"
+    },
+    {
+      "name": "wrong_goal_rejected_on_replay",
+      "expected": false,
+      "accepted": false,
+      "status": "kernel_replay_rejected"
+    },
+    {
+      "name": "unused_new_axiom_rejected_on_replay",
+      "expected": false,
+      "accepted": false,
+      "status": "kernel_replay_rejected"
+    },
+    {
+      "name": "placeholder_rejected",
+      "expected": false,
+      "accepted": false,
+      "status": "proof_guard_rejected"
+    },
+    {
+      "name": "native_oracle_rejected",
+      "expected": false,
+      "accepted": false,
+      "status": "proof_guard_rejected"
+    },
+    {
+      "name": "audit_forgery_rejected",
+      "expected": false,
+      "accepted": false,
+      "status": "proof_guard_rejected"
+    },
+    {
+      "name": "proof_body_invariance",
+      "expected": true,
+      "accepted": true,
+      "status": "identical_context_hash",
+      "sha256": "e69ee87368116f2873d4d5a7111a8eaa4c48edfe0e198d9b3d52a95ef6c0b4d3"
+    },
+    {
+      "name": "new_statement_parser_binds_reference_exactly",
+      "expected": true,
+      "accepted": true,
+      "status": "accepted"
+    },
+    {
+      "name": "new_statement_consistency_witness",
+      "expected": true,
+      "accepted": true,
+      "status": "accepted"
+    }
+  ],
+  "all_pass": true,
+  "model_calls": 0,
+  "scope": "four selected source contexts and designed acceptance controls; no fresh outcome measured",
+  "pre_admission_control_repairs": [
+    {
+      "control": "new_statement_consistency_witness",
+      "initial_proof": "decide without unfolding the statement",
+      "failure": "Lean could not synthesize the required Decidable instance",
+      "fix": "explicit witnesses and simp after unfolding AgentSpec",
+      "model_calls": 0
+    }
+  ]
+}
