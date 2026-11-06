@@ -5,7 +5,7 @@
 
 A formal specification is an unproved theorem statement. The proposed judge predicts the probability that a specified bounded prover finds and validates a proof that the candidate specifications imply the reference specifications, usually a conjunction including `Pre -> Post`. A single observed outcome is exactly 0 or 1; a benchmark mean and a predicted probability lie in `[0,1]`. A failed attempt is operational 0, not proof of non-entailment.
 
-The first execution reuses 1,024 historical Tiny256 artifacts and learns a probability map from saved judge-produced formal specification coverage scores to saved five-condition prover acceptance. It compares the map with a training-prevalence baseline, with task separation and four leave-one-agent-out fits. The data were previously exposed, and the old acceptance rule includes candidate-proof checks, so this is a retrospective feasibility result rather than a fresh statement-only judge validation.
+The first execution reuses 1,024 historical Tiny256 artifacts and learns a probability map from saved judge-produced scalar formal specification coverage (FSC) ratings to saved five-condition prover acceptance. It compares the map with a training-prevalence baseline, with task separation and four leave-one-agent-out fits. The data were previously exposed, and the old acceptance rule includes candidate-proof checks, so this is a retrospective feasibility result rather than a fresh statement-only judge validation.
 
 - [Results](RESULTS.md): aggregate metrics and uncertainty, generated from saved receipts.
 - [Protocol](PROTOCOL.md): estimand, Brier loss, splits, controls, limitations and smallest future pilot.

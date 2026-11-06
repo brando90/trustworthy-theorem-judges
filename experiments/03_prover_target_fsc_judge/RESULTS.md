@@ -1,4 +1,4 @@
-<!-- TLDR: A probability map of historical judge-produced formal specification coverage scores predicts historical prover acceptance better than a prevalence constant; this is retrospective operational forecasting only. -->
+<!-- TLDR: A probability map of historical judge-produced scalar formal specification coverage (FSC) ratings predicts historical prover acceptance better than a prevalence constant; this is retrospective operational forecasting only. -->
 # Experiment 03: retrospective prover-target results
 
 On 512 historical test artifacts from 128 tasks, a fitted probability map lowers Brier loss by 0.058 relative to the training-prevalence baseline (difference -0.058 [-0.087, -0.031], mapped minus constant; p-val=n/a).
@@ -9,7 +9,7 @@ This is a zero-call reanalysis of the archived Tiny256 condition, not a new Veri
 
 Source join: 1024 artifacts, 256 task identities, four historical solver configurations, 0 missing joins. Hash split: 64 train, 64 validation, 128 test tasks. The pooled fit has 256 training and 256 validation artifacts. Ridge selected by validation Brier loss: 0.0. Training-prevalence forecast: 0.800781. The test has 405 observed successes.
 
-The map fits logistic log loss on training outcomes, with its ridge strength selected by validation Brier loss. Ridge zero wins all five comparisons; the other tested penalties shrink the slope substantially. This coarse grid does not establish effective regularization selection, and it is retained unchanged. No test refit or threshold search is performed. Historical judge-produced formal specification coverage scores are input features; they were not elicited as prover-success probabilities. The raw scalar row is a diagnostic numerical comparison. Mean absolute error is descriptive only: it is not a proper probability score and is not used for selection.
+The map fits logistic log loss on training outcomes, with its ridge strength selected by validation Brier loss. Ridge zero wins all five comparisons; the other tested penalties shrink the slope substantially. This coarse grid does not establish effective regularization selection, and it is retained unchanged. No test refit or threshold search is performed. Historical judge-produced scalar formal specification coverage (FSC) ratings are input features; they were not elicited as prover-success probabilities. The raw scalar row is a diagnostic numerical comparison. Mean absolute error is descriptive only: it is not a proper probability score and is not used for selection.
 
 ## Pooled retrospective test
 
@@ -51,7 +51,7 @@ These counts describe source revisions of the operational acceptance rule. They 
 
 A name-based family heuristic finds 28 families crossing splits and 26/128 test tasks with a training or validation sibling. It groups security vulnerability number/stem pairs, heap-sort variants and HumanEval numbered variants; exact code is `posthoc_diagnostics` in `scripts/analyze.py`. This is not a complete semantic family classification. The original split and all fits remain unchanged; family transfer and family-independent uncertainty are not established.
 
-Forecast accuracy varies by the original judge-produced score. The following descriptive bands were added after review, not used for selection; small bands and shared tasks limit inference. The near-zero pooled bias conceals overprediction in the 0.9 band. No new probability mapping was fitted to these diagnostics.
+Forecast accuracy varies by the original judge-produced scalar FSC rating. The following descriptive bands were added after review, not used for selection; small bands and shared tasks limit inference. The near-zero pooled bias conceals overprediction in the 0.9 band. No new probability mapping was fitted to these diagnostics.
 
 | Original score | Artifacts | Task identities | Successes | Mean forecast | Observed rate |
 |---|---:|---:|---:|---:|---:|
@@ -69,12 +69,12 @@ Forecast accuracy varies by the original judge-produced score. The following des
 - The source checker’s name matching and axiom checks do not establish statement/adapter faithfulness. Its source flags 51/789 accepted natural artifacts with some hypothesis-independent reference proofs (two with all), by a text heuristic. The analogous names-and-axioms gate accepted 155/212 constructed invalid bridges; a forged-audit weakness is explicitly applicable to the source145 pipeline. A scan found no printing/audit-string patterns in 1,023 bridges, but candidate solver files were not scanned. These are integrity limitations, not a measured semantic error rate on the 1,024 artifacts; see SOURCE_AUDIT.md.
 - Source outcomes include candidate-proof axiom filters, representation choices and variable historical authoring budgets; the exact deployed prover model/effort was not recorded in the source 142 protocol. The `tc` manifest does not bind an exact judge model per artifact. Source140 already reported feature-versus-precursor-outcome associations, and source142 does not establish whether bridge authors saw `tc`. These limitations preclude an exact modern model comparison.
 - No human ratings, candidate code, private task identities or per-artifact outputs are exported. The protected source blobs and exact split manifest remain under ignored `private/prover_target/`.
-- New measured model calls: 0. Incremental measured-inference cost: $0. Producing the historical judge-score feature had a prior cost; this analysis does not measure end-to-end cost savings. Funding pause remains in force; exact gate paths/hashes are in `sources/funding_gate.json`, and its scoped exceptions were not expanded.
+- New measured model calls: 0. Incremental measured-inference cost: $0. Producing the historical judge-rating feature had a prior cost; this analysis does not measure end-to-end cost savings. Funding pause remains in force; exact gate paths/hashes are in `sources/funding_gate.json`, and its scoped exceptions were not expanded.
 
 ## Decision
 
 The retrospective screening criterion is met: the pooled paired interval is below zero. This supports further study of a cheap operational forecasting target. It does not establish that a new language-model probability judge works, that the target equals semantic entailment, or that the human-rating study can be replaced without changing its question.
 
-Copy-ready collaborator message: “I tested a no-new-call fallback: learn the probability that a fixed prover accepts a specification implication. Historical coverage scores contain useful predictive signal, but the current labels depend on proof and adapter rules, so the next study needs a faithful statement-only protocol and a fresh test.”
+Copy-ready collaborator message: “I tested a no-new-call fallback: learn the probability that a fixed prover accepts a specification implication. Historical coverage ratings contain useful predictive signal, but the current outcomes depend on proof and adapter rules, so the next study needs a faithful statement-only protocol and a fresh test.”
 
 **TLDR-end:** [ttj: prover-target study] A zero-call retrospective probability map improves prediction of saved prover acceptance. The deliverable is an operational forecasting feasibility result, not fresh semantic or human validation.
