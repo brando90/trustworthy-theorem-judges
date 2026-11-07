@@ -59,3 +59,7 @@ Start with CPU-only cached-data work; GPUs are unnecessary for the fixed-pool ex
 Directory contents: this design; `PROTOCOL_FROZEN.md`/`protocol.json`; `HEAD_PROTOCOL.md`/`head_protocol.json`; `source_audit.json`; `MATH_AND_NOTE.md`; `HANDOFF_VALS_CODEX.md`; `CKPT_objective_comparison.md`; `RESULTS.md`; `DATA_INVENTORY.md`; reproducible import, metrics, fitting, verification and report code in `scripts/`; and aggregate results/terminal receipts in `results/`. This folder remains active for future fresh-human confirmation; the cached conditions are finished. Original image and exact request are preserved in ignored canonical `private/06_information_loss_vs_correlation_judge_selection/inputs/`, with SHA-256 provenance. Keep raw ratings and private solver artifacts there too, never in this public experiment folder.
 
 Reference: Gneiting and Raftery (2007), [Strictly Proper Scoring Rules, Prediction, and Estimation](https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf). It establishes the proper-score framework; it does not establish that CE wins this dataset or every downstream metric.
+
+## New notebook follow-up, 11-07-2026
+
+The [distance extension](followup_11-07-2026/RESULTS.md) adds Wasserstein and Gaussian-kernel selection to the same cached sample; neither resolves an advantage over Spearman. See the [focused literature check](followup_11-07-2026/LITERATURE.md) and [remaining-work prompt](followup_11-07-2026/FOLLOWUP_PROMPT.md). The original selection and fitting conditions remain unchanged.

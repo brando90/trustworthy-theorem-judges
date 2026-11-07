@@ -1,0 +1,27 @@
+{
+  "started_at": "2026-11-07T17:26:27.385429+00:00",
+  "command": [
+    "/usr/bin/python3",
+    "/lfs/skampere3/0/brando9/ttj06_distance_1107/experiment/followup_11-07-2026/scripts/run_distances.py",
+    "--data",
+    "/lfs/skampere3/0/brando9/ttj06_cached_objectives_11-06-2026/private/dataset.json",
+    "--out",
+    "/lfs/skampere3/0/brando9/ttj06_distance_1107/experiment/followup_11-07-2026/results",
+    "--private-out",
+    "/lfs/skampere3/0/brando9/ttj06_distance_1107/private"
+  ],
+  "source_commit": "b012238f1bfb4b7362d71e32e566a65ec73060ee",
+  "dataset_sha256": "b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0",
+  "protocol_sha256": "0ebb9ae77dd5844159c9e9676fd7aff5e895eb2eef2aacb3c1dfb896e4f02824",
+  "script_sha256": "37ff316fdff185530718c18d86acac4bc766e14fb9aed8ba975768ed40265017",
+  "max_wall_seconds": 600,
+  "max_cpu_threads": 1,
+  "host": "skampere3.stanford.edu",
+  "new_inference_calls": 0,
+  "provider_cost_usd": 0,
+  "exit_code": 0,
+  "status": "COMPLETE",
+  "finished_at": "2026-11-07T17:26:36.862549+00:00",
+  "elapsed_seconds": 9.476964049972594,
+  "results_sha256": "30560948bae3bba8a279d8d72de5c461a253a55c9214ca43023e12c502b8b640"
+}
