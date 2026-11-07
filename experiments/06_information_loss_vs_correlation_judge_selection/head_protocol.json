@@ -1,0 +1,20 @@
+{
+  "description": "Exploratory matched probability-head condition, specified after histogram result",
+  "fitting_objectives": [
+    "ce",
+    "brier",
+    "rps",
+    "pearson"
+  ],
+  "l2_strengths": [
+    0.001,
+    0.01
+  ],
+  "validation_objective": "rps",
+  "maxiter": 300,
+  "maxfun": 600,
+  "epsilon": 1e-06,
+  "bootstrap_draws": 1000,
+  "expected_fits": 900,
+  "freeze_time": "2026-11-06T23:14:29.358352-08:00"
+}
