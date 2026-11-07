@@ -33,3 +33,5 @@ Run `python3 scripts/check_project.py`, the experiment's design validator, `pyth
 ## Sister repo
 
 Sister repo: https://github.com/brando90/judges-dont-need-psychometrics-or-corr (general position paper: distribution matching, not correlation, for LLM judges). This repo is its concrete application. Keep claims and terminology consistent across both; cross-link rather than duplicate.
+
+Origin: working on this study is what led to the position paper. We realized we were doing something odd: fitting judges to maximize correlation with humans, even though correlation has severe drawbacks as a metric (Pearson captures only linearity, Spearman only rank order, neither the full human-rating distribution).
