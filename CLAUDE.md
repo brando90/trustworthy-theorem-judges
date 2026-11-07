@@ -29,3 +29,7 @@ At each non-trivial task, refresh `~/agents-config` with `git pull --ff-only` (p
 Use `paper_latex/AAAI_2027_Evaluation_AI_Scientists/`, one file per section and one sentence per source line. Preserve the official vendor style bytes. Keep the submission PDF anonymous and new outcomes explicitly pending. Source comments should link numerical claims to receipts.
 
 Run `python3 scripts/check_project.py`, the experiment's design validator, `python3 scripts/build_paper.py`, and `git diff --check`. Inspect the PDF after substantive edits; commit its current version with the source. Inspect the exact staged diff for private data and secrets, preserve concurrent work, and follow the shared landing rule after requested review and checks pass.
+
+## Sister repo
+
+Sister repo: https://github.com/brando90/judges-dont-need-psychometrics-or-corr (general position paper: distribution matching, not correlation, for LLM judges). This repo is its concrete application. Keep claims and terminology consistent across both; cross-link rather than duplicate.

@@ -6,6 +6,10 @@
 
 Given original Python source, a candidate Lean formalization, and a gold reference, can a judge predict how qualified humans rate the candidate's coverage of the required specifications? A gold statement may follow from several candidate statements together. Proof correctness and statement coverage are different properties.
 
+## Sister repo
+
+[judges-dont-need-psychometrics-or-corr](https://github.com/brando90/judges-dont-need-psychometrics-or-corr) is the general position paper behind this project: evaluate LLM judges by matching the human score distribution (e.g. KL divergence), not by correlation or psychometrics. This repo is its concrete application to theorem/formalization judges.
+
 ## Project boundary
 
 This repository owns the AI/agent/LLM judge study. VeriBench's intended evaluation direction is a **prover judge**: AI may guide proof search, while the prover checks whether the required implication has been established. A search timeout is unresolved, not evidence of non-entailment. This documentation records that project boundary; it does not change VeriBench's scorer or relabel its historical LLM-based results.
