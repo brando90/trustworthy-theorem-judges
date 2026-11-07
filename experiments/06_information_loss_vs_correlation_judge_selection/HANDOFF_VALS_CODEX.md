@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/06_information_loss_vs_correlation_judge_selection/HANDOFF_VALS_CODEX.md>
 
-**TLDR:** Take over this experiment on Brando's Vals/work Codex account and execute the cached-data comparison, using a persistent Stanford host for overnight work if needed. Produce the objective-by-held-out-metric matrix, not merely a plan. The user explicitly requested this handoff because the prior account reportedly had 2% allowance remaining. The experiment has not been launched by the preparing account.
+**TLDR:** The requested takeover and both cached-data comparisons are now complete. Read `RESULTS.md` and `CKPT_objective_comparison.md` first; do not restart completed runs. The instructions below preserve the original handoff and methodology. New human confirmation and a stable correlation-fitting comparator remain future conditions.
 
 SNAP PRE-APPROVAL (Brando, 2026-09-14): you run with full access (permission prompts and sandbox bypassed). Every command, install, Docker/GPU use, file and git operation (branch, commit, push, PR, merge per Rule 46) and every budgeted experiment call needed for this task is already approved. Never stop to ask for permission or confirmation; treat any approval step as granted, proceed, and log what you did. Pause only for a real blocker (missing credential, exhausted budget, a human-only login step).
 

@@ -2,9 +2,9 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/06_information_loss_vs_correlation_judge_selection/README.md>
 
-**TLDR:** Compare the objective used to choose or fit a judge while holding data, candidate capacity and search budget fixed. Evaluate every resulting judge with the same held-out probability and correlation metrics. This is a prepared exploratory study, not an empirical result.
+**TLDR:** Compare the objective used to choose or fit a judge while holding data, candidate capacity and search budget fixed. Evaluate every resulting judge with the same held-out probability and correlation metrics. Both cached-data conditions are complete; [RESULTS.md](RESULTS.md) reports their findings and limitations.
 
-Created 11-06-2026 at Brando Miranda's request. Existing-account allowance is reportedly 2%; the priority is a durable handoff to his Vals/work Codex account. The user requested execution with current data, including overnight Stanford cluster work if useful, followed by confirmation with new human ratings. No overnight process has been launched by this preparation step.
+Created 11-06-2026 at Brando Miranda's request; executed on the Vals/work continuation with a deterministic CPU job on Stanford skampere3. The frozen primary histogram comparison and the separate matched probability-head follow-up completed with zero new model calls. The primary comparison did not resolve a cross-entropy selection advantage; the head comparison has a substantial Pearson nonconvergence limitation. See the full report before interpreting either result.
 
 ## Question and predictions
 
@@ -56,6 +56,6 @@ Ranking human ratings is not the same target as a distribution over rankings. Pr
 
 Start with CPU-only cached-data work; GPUs are unnecessary for the fixed-pool experiment. For an overnight job, the continuation agent should use an eligible persistent Stanford host, verify gateway/access, inspect available resources, and preserve one writer and a bounded watchdog. User authorization covers this work on existing clusters; it does not lift existing measured-inference funding pauses or buy credits. An initial cached-data batch can be capped at eight wall-clock hours, eight CPU threads and $0 provider inference, with per-fold checkpoints and a full declared manifest. Do not consume the entire night if the analysis finishes sooner.
 
-Directory contents: this design; `MATH_AND_NOTE.md`; `HANDOFF_VALS_CODEX.md`; `CKPT_objective_comparison.md`; `RESULTS.md`; `DATA_INVENTORY.md`; and `scripts/check_objectives.py`. Original image and exact request are preserved in ignored canonical `private/06_information_loss_vs_correlation_judge_selection/inputs/`, with SHA-256 provenance. Keep raw ratings and private solver artifacts there too, never in this public experiment folder.
+Directory contents: this design; `PROTOCOL_FROZEN.md`/`protocol.json`; `HEAD_PROTOCOL.md`/`head_protocol.json`; `source_audit.json`; `MATH_AND_NOTE.md`; `HANDOFF_VALS_CODEX.md`; `CKPT_objective_comparison.md`; `RESULTS.md`; `DATA_INVENTORY.md`; reproducible import, metrics, fitting, verification and report code in `scripts/`; and aggregate results/terminal receipts in `results/`. This folder remains active for future fresh-human confirmation; the cached conditions are finished. Original image and exact request are preserved in ignored canonical `private/06_information_loss_vs_correlation_judge_selection/inputs/`, with SHA-256 provenance. Keep raw ratings and private solver artifacts there too, never in this public experiment folder.
 
 Reference: Gneiting and Raftery (2007), [Strictly Proper Scoring Rules, Prediction, and Estimation](https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf). It establishes the proper-score framework; it does not establish that CE wins this dataset or every downstream metric.
