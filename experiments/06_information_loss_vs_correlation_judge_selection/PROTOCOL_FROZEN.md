@@ -1,0 +1,25 @@
+# Frozen cached-data comparison
+
+**TLDR:** Version 1 compares eight selection objectives over five fixed historical three-repeat histograms; it does not train a language model.
+
+Frozen before the first empirical comparison; machine settings are in `protocol.json` and code revision in the execution receipt.
+The historical source and private dataset hashes are in `source_audit.json`.
+No native probability forecasts are available.
+
+- Primary estimand: average over five seeded partitions of held-out cross-entropy (CE) for CE selection minus Spearman selection. Negative favors CE selection. No acceptance threshold or confirmatory hypothesis test is claimed; p-val=n/a.
+- Pool order and deterministic exact-score tie-break: H0 Sol, H0 Opus, H1 Sol, H2 Sol, H2 Opus. These are fixed cached model/prompt configurations, not newly trained models. Prior selection on these ratings prevents an independent test claim.
+- Five outer folds keep all members of each task family together. Group binary search and both bisection tasks, the four sorting tasks, and the two heap tasks; all other tasks are separate families. This is a conservative limited grouping, not a proof of complete semantic independence.
+- The four inner folds partition each outer-training set. There are no fitted parameters in the histogram condition: selection pools predictions from all four inner held-out parts. This is mathematically equivalent to using the complete outer-training set as the selection set. It is not nested model fitting.
+- Every task has three artifacts. Average losses over available expert ratings within artifact and then tasks; this equals equal-artifact weighting here. Correlations pool artifacts within the relevant split, comparing expected rating to human mean. They are not within-task ranking correlations or a distribution over rankings.
+- Expected ratings are rounded to 12 decimals solely to preserve mathematical ties. Scores use six categories 0–5; score means, mean absolute error and bias use normalization by five. The user-weighted probability distance and total variation distance use sparse empirical human frequencies, not a known population distribution.
+- Apply the same `(1-6*epsilon)*q+epsilon` to all candidate histograms. Primary epsilon is 1e-6; report 1e-8 and 1e-4 sensitivities and unmodified zero-support counts. CE and forward Kullback–Leibler divergence select the same candidate; assert this for each outer selection.
+- Run all eight objectives, all five seeds, all five folds. Report every selected-candidate frequency and all held-out metrics. Constants give undefined correlations, never zero; undefined selection candidates are ineligible, with pool-order fallback only if all are undefined, counted explicitly.
+- Uncertainty: 1,000 paired bootstrap draws of the 19 task families, with all artifacts and raters attached. Reuse each draw across objectives and seeds. Conditional intervals retain selected forecasts. The primary selection-refit interval reruns CE and Spearman selection within each fixed partition under resampled family multiplicities. Duplicates stay in their family's original fold. These intervals include neither new human/AI ratings, upstream prompt selection, nor uncertainty over different family definitions; the refit interval adds candidate-selection variability but does not retrain upstream models. Retain and count invalid draws, with no replacement retries.
+- Sensitivities, all with the same selection/evaluation recipe: epsilon values above; exclude placeholder references; additionally exclude ambiguous references. The original historical split is separate: select on its 15 validation artifacts, evaluate its 30 test artifacts, without fitting on the old training split. These sensitivities have point estimates only and are not a new primary outcome.
+- References: a train-only constant probability-distribution baseline in each outer fold; descriptive leave-one-expert-out agreement and raw repeated-score variability. These do not join the candidate pool or alter the primary comparison.
+- Scope: only cached fixed-pool selection is executed in version 1. Matched fitting/optimization of distribution heads is a distinct later condition. Results cannot establish superiority for training an LLM, native probability judges, new solvers, new raters, or fresh data.
+- Resources: one deterministic CPU job on skampere3, one computational thread, eight-hour maximum, no GPU or new provider inference. The coordinating Vals/work Codex session owns implementation and publication. Remote scientific execution is ordinary Python, not another model session.
+
+Preflight: official SNAP health check passed reachability, Python and authentication. Its low-percentage disk flags leave 97 GiB local and 144 GiB shared free, sufficient for this under-100-MB job. Claude profile installation/symlink failures do not affect a Python-only job; no shared host settings are changed.
+
+**TLDR-end:** [ttj: objective comparison] The frozen result is a paired retrospective selection comparison, with explicit probability-estimation and prior-exposure limits.
