@@ -1,0 +1,40 @@
+{
+  "started_at": "2026-11-09T04:52:09.165359+00:00",
+  "command": [
+    "/usr/bin/python3",
+    "/lfs/skampere3/0/brando9/ttj06_training_1108/training_followup_11-08-2026/scripts/run_training.py",
+    "--data",
+    "/lfs/skampere3/0/brando9/ttj06_cached_objectives_11-06-2026/private/dataset.json",
+    "--out",
+    "/lfs/skampere3/0/brando9/ttj06_training_1108/training_followup_11-08-2026/results",
+    "--private-out",
+    "/lfs/skampere3/0/brando9/ttj06_training_1108/private"
+  ],
+  "source_commit": "6e8f609011e539ca41e7e1e0015f8458513d3fa2",
+  "dataset_sha256": "b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0",
+  "protocol_sha256": "7ef12e892c4ed3d31feb34b507ce7d5f0921ddb4771e6af63349b2446af226cd",
+  "source_hashes": {
+    "training_followup_11-08-2026/scripts/check_mixtures.py": "9269fc8ddc161a50d52b54ac516b42c16f6a2cab974cc3ca2d0349114e58bf64",
+    "training_followup_11-08-2026/scripts/mixture_models.py": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+    "training_followup_11-08-2026/scripts/run_training.py": "d70651a63eedafe2d0a184c73afde33f09295789be344cb48f3235ab8035239e",
+    "training_followup_11-08-2026/scripts/supervise.py": "91d7d1c43a633c36ed88a7f01d7a865c5aabb27d7e4c097eecb70ebda42081e7",
+    "training_followup_11-08-2026/scripts/verify_training.py": "360a05589833b46a693b7b3f08ab0092e6089354b383746ad4903e3469fda68e",
+    "training_followup_11-08-2026/scripts/weighted_softmax.py": "bc4f18f2aa3a9a737f992785778a495a6d78d957c79a2eea3b183ffaf7dbd20f",
+    "training_followup_11-08-2026/protocol.json": "7ef12e892c4ed3d31feb34b507ce7d5f0921ddb4771e6af63349b2446af226cd",
+    "training_followup_11-08-2026/PROTOCOL.md": "0677cbe5f578f2917f8df5b147893465579f2018fdca5baf581f2546e728dd60",
+    "scripts/metrics.py": "c7b55eadbd258dbae156c7bb99a84647c3bf197f1188dca5a55726cb81ee4e49",
+    "scripts/run_cached.py": "b77701b6455d5efa0387a9a82e5135fdfd057d39eeccb05e9946b84fc7bfa50d"
+  },
+  "max_wall_seconds": 7200,
+  "max_cpu_threads": 1,
+  "host": "skampere3.stanford.edu",
+  "new_inference_calls": 0,
+  "provider_cost_usd": 0,
+  "execution": "ordinary Python; no model client or API; local LFS files only",
+  "child_pid": 2561248,
+  "exit_code": 0,
+  "status": "COMPLETE",
+  "finished_at": "2026-11-09T04:53:05.453582+00:00",
+  "elapsed_seconds": 56.287566835060716,
+  "results_sha256": "7bbead25ee3577cb5cbd2e5f41264f9a4953bd7eb360b962b93d0dbe66396ee2"
+}
