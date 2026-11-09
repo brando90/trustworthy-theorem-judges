@@ -22,7 +22,7 @@ The [prospective probabilistic-judge design](../02_probabilistic_ordinal_judge/R
 - The original approved email names the coordinator's personal sheet and full assignment. The new individual drafts propose the necessary recipient-specific changes; their text approval and dispatch are still separate from this migration.
 - Existing participant records, assignments, returned sheets and delivery receipts moved without changing their contents. New roster decisions and dispatch preparation are recorded separately under `private/09_human_rating_collection/preparation_11-09-2026/`; use that active preparation record instead of treating the imported historical roster as current.
 - The renamed packet has **25 task folders and 125 candidate files**. The team builder creates a separate blank answer sheet while preserving candidate, Python and reference bytes. A successful archive build does not establish recipient-specific delivery readiness.
-- The current preparation record still lists four recipient sheet-permission checks as incomplete. Before sending, finish the recipient, sheet-access, assignment, attachment and approval checks. This migration did not inspect sealed ratings or establish collection completion.
+- All seven recipient sheet-permission checks are complete; the eighth return route is private CSV by email. The private review freezes eight exact recipient messages and original attachment hashes. Team text/send approval and human completion remain outstanding; access verification did not inspect sealed ratings or establish completion.
 
 ## Files
 

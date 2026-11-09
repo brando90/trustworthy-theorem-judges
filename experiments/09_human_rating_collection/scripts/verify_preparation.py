@@ -46,9 +46,22 @@ def main():
         assert roster[row['rater_id']]['current_status'] == 'qualified'
     queue = json.loads((PREP / 'DISPATCH_QUEUE.json').read_text())
     assert len(queue) == 8
+    review = json.loads((PREP / 'REVIEW_TEAM_EMAILS_MANIFEST.json').read_text())
+    assert digest(PREP / 'REVIEW_TEAM_EMAILS.md') == review['review_sha256']
+    messages = {item['rater_id']: item for item in review['messages']}
+    assert len(messages) == len(review['messages']) == len(queue)
+    permissions = json.loads((PREP / 'receipts/TEAM_PERMISSION_CHECKS.json').read_text())
+    assert not permissions['not_yet_verified']
+    expected_sheet_ids = set()
     for item in queue:
         headers = json.loads((PREP / item['headers']).read_text())
         body = (PREP / item['body']).read_text()
+        approved_candidate = messages[item['rater_id']]
+        assert digest(PREP / item['body']) == approved_candidate['body_sha256']
+        assert digest(PREP / item['headers']) == approved_candidate['headers_sha256']
+        assert digest(Path(headers['attachment'])) == approved_candidate['attachment_sha256']
+        assert headers['to'] == approved_candidate['to']
+        assert headers['subject'] == approved_candidate['subject']
         assert headers['new_message'] and not headers['reply_message_id']
         assert Path(headers['attachment']).is_file()
         assert headers['to'] == roster[item['rater_id']]['delivery_email']
@@ -58,6 +71,7 @@ def main():
         assert sheet['sheet_url'] not in body
         if headers['sheet_url']:
             assert headers['sheet_url'] in body
+            expected_sheet_ids.add(item['rater_id'])
         if item['kind'] == 'setN':
             with ZipFile(headers['attachment']) as z:
                 files = [n for n in z.namelist() if '/agent_lean/' in n and n.endswith('.lean')]
@@ -65,7 +79,9 @@ def main():
                 actual_folders = {Path(n).parts[1] for n in files}
                 expected_folders = {r['task_folder'] for r in assignments if r['rater_id'] == item['rater_id']}
                 assert actual_folders == expected_folders
+    assert set(permissions['verified_editor_permissions']) == expected_sheet_ids
     print('PASS: approved archive, 125 sheet identities, four delivered slots, eight individual drafts.')
+    print('PASS: frozen review hashes and all seven recorded editor-access checks; live access may change.')
     print('No scores entered, no test ratings inspected, no collaborator messages sent by this check.')
 
 

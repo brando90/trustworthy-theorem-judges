@@ -19,6 +19,8 @@ The active preparation record is `private/09_human_rating_collection/preparation
 - The updated personal email was delivered as a new message, with the original ZIP and authorized deadline. Its inbox attachment hash was verified.
 - Delivered team assignments are preserved, including their original filenames and slot numbers. Do not rerun the historical random assignment script over them.
 - Two task emails and six warm-up emails are prepared individually, with each recipient's original packet and return route. They are unsent drafts for text review.
+- All seven team Google Sheets have verified restricted editor access through the signed-in owner browser. The eighth recipient uses the existing private CSV return route. No permissions or rating values were changed.
+- The private `REVIEW_TEAM_EMAILS.md` contains all eight exact messages; its manifest freezes the body, header and attachment hashes. Two drafts name the required sign-in account because it differs from the delivery address.
 - The declined participant was removed from active assignment capacity using the user's explicit correction. Previously invited people are not counted as consenting raters.
 - Original packet dates remain historical. The newly authorized email deadline supersedes them; the delivered ZIPs are not rewritten.
 
@@ -35,6 +37,6 @@ Before using this protocol, read the [required judge-development context](JUDGE_
 
 ## Remaining collection work
 
-The inherited delivery ledger records four of the 50 required folder assignments as delivered, not completed. Other consenting participants still need their warm-up status resolved before primary assignments. Recruitment and completed human ratings cannot be substituted by packet preparation. Review the concrete individual drafts before authorizing team delivery; refresh sheet access and completion metadata at dispatch time. Existing editor permissions were verified for three team sheets; four further checks remain incomplete after browser timeouts and unavailable connector credentials. The eighth recipient uses a private CSV return route.
+The inherited delivery ledger records four of the 50 required folder assignments as delivered, not completed. Other consenting participants still need their warm-up status resolved before primary assignments. Recruitment and completed human ratings cannot be substituted by packet preparation. All seven sheet-access checks are complete. Scoped owner-inbox searches for recent participant rating replies found no new matching replies; that does not establish whether a sheet is complete. Review the concrete individual drafts before authorizing team delivery, then reconcile any intervening replies or completion metadata without opening sealed scores.
 
 Run `python3 experiments/09_human_rating_collection/scripts/verify_preparation.py` on the coordinator's machine to check the frozen packet, identity mapping, assignment continuity, and proposed messages. The private data are deliberately absent from public clones.
