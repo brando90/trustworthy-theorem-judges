@@ -1,0 +1,54 @@
+{
+  "version": "weighted_training_v1_11-08-2026",
+  "dataset_sha256": "b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0",
+  "candidate_order": [
+    "H0_sol",
+    "H0_opus",
+    "H1_sol",
+    "H2_sol",
+    "H2_opus"
+  ],
+  "seeds": [
+    11062026,
+    11062027,
+    11062028,
+    11062029,
+    11062030
+  ],
+  "outer_folds": 5,
+  "inner_folds": 4,
+  "epsilon": 1e-06,
+  "mixture_objectives": [
+    "weighted_pmf",
+    "pearson"
+  ],
+  "softmax_objectives": [
+    "weighted_pmf",
+    "ce",
+    "brier",
+    "rps"
+  ],
+  "l2_strengths": [
+    0.001,
+    0.01
+  ],
+  "validation_objective": "rps",
+  "softmax_optimizer": {
+    "maxiter": 1000,
+    "maxfun": 2000,
+    "ftol": 1e-12,
+    "gtol": 1e-07
+  },
+  "bootstrap_draws": 1000,
+  "bootstrap_seed": 1108202606,
+  "mixture_refit_bootstrap_draws": 1000,
+  "expected_mixture_fits": 50,
+  "expected_softmax_fits": 900,
+  "expected_softmax_choices": 100,
+  "max_wall_seconds": 7200,
+  "max_cpu_threads": 1,
+  "new_inference_calls": 0,
+  "provider_cost_usd": 0,
+  "primary_contrast": "mixture weighted_pmf training minus mixture pearson training in held-out weighted_pmf distance",
+  "freeze_time": "2026-11-09T04:43:29.205824+00:00"
+}

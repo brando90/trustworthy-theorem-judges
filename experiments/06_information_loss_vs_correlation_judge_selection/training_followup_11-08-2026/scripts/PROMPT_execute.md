@@ -1,0 +1,10 @@
+<!-- TLDR: Execute and verify the frozen weighted-PMF training follow-up using only its existing historical dataset. -->
+# Execution and continuation prompt
+
+SNAP PRE-APPROVAL (Brando, 2026-09-14): you run with full access (permission prompts and sandbox bypassed). Every command, install, Docker/GPU use, file and git operation (branch, commit, push, PR, merge per Rule 46) and every budgeted experiment call needed for this task is already approved. Never stop to ask for permission or confirmation; treat any approval step as granted, proceed, and log what you did. Pause only for a real blocker (missing credential, exhausted budget, a human-only login step).
+
+User request: “Resume weighted PMF training and the stable correlation baseline using current data. Compare both on the same held-out metrics and save the protocol, prompts, results, and checkpoint. Go!”
+
+Read the current project instructions, PROTOCOL.md, protocol.json, MATH_baseline.md and CKPT_training_followup.md. Preserve preceding experiment 06 conditions. Inspect the owned session and receipts before starting or recovering; never duplicate a running fit. Verify input/source hashes and synthetic controls before empirical execution. Run scripts/supervise.py with the historical dataset, private output destination and frozen source revision. Complete the entire manifest, including retained nonconverged fits and invalid resamples, within the two-hour/one-CPU/zero-new-inference cap. This work fits small numerical probability models; it does not call an LLM or access sealed data.
+
+After completion, run the independent verifier. Reconstruct all saved forecasts, check exact splits/preprocessing, aggregate all metrics and paired intervals, and record denominator and missingness. Write RESULTS_training.md and update results.md/checkpoint, retaining the distinction between matched mixture comparison and softmax extension. Keep private per-artifact data out of Git. Publish the owned result after deterministic checks and notify Brando; update the existing methodology companion. If interrupted, retain runtime and checkpoint evidence and resume only the missing authorized step.

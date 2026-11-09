@@ -1,0 +1,17 @@
+{
+  "status": "PASS_FOR_SCOPED_CPU_JOB",
+  "host": "skampere3",
+  "route": "existing SSH master; shared gateway guard preserved",
+  "filesystem": "LFS readable/writable; more than 1100 GiB free for a sub-100-MB job",
+  "afs": "token renewed with aklog; valid Kerberos and AFS in health audit",
+  "dependencies": {
+    "python": "3.12.3",
+    "numpy": "1.26.4",
+    "scipy": "1.11.4"
+  },
+  "controls": "controls_preflight.json; both PASS",
+  "broad_health_failures": "percentage-based disk thresholds and model-client/symlink setup are not required by this ordinary Python job; no other owner files changed",
+  "allocation": "one CPU thread, no GPU",
+  "approval_mode": "full access; no routine approvals; ordinary code does not launch a model client",
+  "runtime_read_write_verified": true
+}

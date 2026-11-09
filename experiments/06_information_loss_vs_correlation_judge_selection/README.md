@@ -63,3 +63,7 @@ Reference: Gneiting and Raftery (2007), [Strictly Proper Scoring Rules, Predicti
 ## New notebook follow-up, 11-07-2026
 
 The [distance extension](followup_11-07-2026/RESULTS.md) adds Wasserstein and Gaussian-kernel selection to the same cached sample; neither resolves an advantage over Spearman. See the [focused literature check](followup_11-07-2026/LITERATURE.md) and [remaining-work prompt](followup_11-07-2026/FOLLOWUP_PROMPT.md). The [11-07-2026 notes](followup_11-07-2026/NOTES_11-07-2026_correlation_vs_loss.md) record the handwritten transcription and the cited synthesis on correlation versus proper-loss selection. The original selection and fitting conditions remain unchanged.
+
+## Weighted training follow-up — 11-08-2026
+
+[Separate frozen protocol](training_followup_11-08-2026/PROTOCOL.md): weighted squared probability training versus a globally solved Pearson mixture in the same model class, plus four matched softmax objectives. See the [phase README](training_followup_11-08-2026/README.md) and [live results](training_followup_11-08-2026/results.md). The historical results above remain unchanged.
