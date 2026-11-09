@@ -141,3 +141,9 @@ python3 experiments/01_legacy_veribench_judge/scripts/recompute_error_intervals.
 
 The continued private paper's title is *VeriBench: An End-to-End Autoformalization Benchmark for AI Coding Agents in Lean 4*, verified in `paper_latex/TMLR_2026_VeriBench/00_main_tmlr_2026.tex` at the source commit.
 No public bibliographic identifier was established by this import; cite these archived aggregates directly unless a public paper reference is separately verified.
+
+## Historical judge-selection decision, relocated 11-09-2026
+
+The [10-07-2026 decision memo](JUDGE_SELECTION_DECISION_10-07-2026.md) moved here from VeriBench without changing its bytes; its [migration receipt](JUDGE_SELECTION_MIGRATION_11-09-2026.json) records the source revision, path and digest. It preserves the decision to keep rating set N evaluation-only and consider a separate task-disjoint selection pool later. Its old status, recommendations and numerical summaries are historical records, not a new experiment or a replacement for the [current prospective design](../02_probabilistic_ordinal_judge/README.md) and [active human-rating collection](../09_human_rating_collection/README.md).
+
+This relocation covers only the standalone decision memo. The larger historical judge experiments remain in VeriBench; the migration receipt records their candidate destinations and retained code, data and provenance dependencies. No judging runtime or experimental result changed.

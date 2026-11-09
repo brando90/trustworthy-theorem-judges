@@ -1,0 +1,75 @@
+{
+  "migration_date": "11-09-2026",
+  "scope": "Historical judge-selection decision memo only; no experiment, metric, split, packet or rating changed.",
+  "source_repository": "brando90/veribench",
+  "source_commit": "78e1337b27a7e9469168d257457a83afd3306062",
+  "source_path": "experiments/ideas/judge_selection_with_new_human_ratings/README.md",
+  "destination_repository": "brando90/trustworthy-theorem-judges",
+  "destination_path": "experiments/01_legacy_veribench_judge/JUDGE_SELECTION_DECISION_10-07-2026.md",
+  "sha256": "65fe3512bb48c809d0486109ed94acf10c563bed92a4f2574c15f4f039b06f8f",
+  "bytes": 5300,
+  "copy_mode": "byte-exact historical record",
+  "source_disposition": "README redirect; frozen historical references remain unchanged.",
+  "local_source_matches_recorded_main": true,
+  "historical_decision": "Keep set N evaluation-only; consider a separate task-disjoint selection pool later.",
+  "current_collection_home": "experiments/09_human_rating_collection",
+  "current_prospective_design_home": "experiments/02_probabilistic_ordinal_judge",
+  "privacy": "Memo contains aggregate historical summaries and no participant identities, individual ratings, private packets or sealed outcomes.",
+  "remaining_veribench_inventory": [
+    {
+      "path": "experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test",
+      "tracked_files": 3733,
+      "intended_owner": "trustworthy-theorem-judges",
+      "remaining_reason": "Historical judge configuration and inputs are read by other studies; individual ratings and private-source content need separate handling. Only its test receipt was already imported into experiment 01."
+    },
+    {
+      "path": "experiments/106_simulated_expert_raters_icl_from_human_labels_leave_one_agent_out_fsc_judge",
+      "tracked_files": 1488,
+      "intended_owner": "trustworthy-theorem-judges",
+      "remaining_reason": "Historical analysis and worker consumers remain; its retained next phase depends on sealed human-rating collection."
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool",
+      "tracked_files": 23,
+      "intended_owner": "trustworthy-theorem-judges",
+      "remaining_reason": "Includes item-level pool and feature manifests from private source data; retain those in restricted storage and separately review aggregate reports for public export."
+    },
+    {
+      "path": "experiments/122_fsc_judge_gemini_vs_local_open_models_human_set",
+      "tracked_files": 60,
+      "intended_owner": "trustworthy-theorem-judges",
+      "remaining_reason": "Judge-comparison code and evidence require a separate dependency and privacy audit; not transferred with this memo."
+    },
+    {
+      "path": "experiments/117_fsc_judge_vs_prover_entailment_correlation_75_human_rated_items",
+      "intended_owner": "split by purpose",
+      "remaining_reason": "Contains prover harness code imported by experiment 118; retain the formal engine in VeriBench and separate judge-specific analysis only after updating consumers."
+    },
+    {
+      "path": "experiments/132_gold_rewrite_swap_fsc_judge_anchoring_check",
+      "tracked_files": 55,
+      "intended_owner": "trustworthy-theorem-judges for judge analysis",
+      "remaining_reason": "Judge anchoring study also carries formal reference variants and frozen source evidence; requires a separate dependency and privacy audit."
+    },
+    {
+      "path": "experiments/133_alternate_gold_kernel_checked_swap_fsc_judge_anchoring_check",
+      "tracked_files": 59,
+      "intended_owner": "trustworthy-theorem-judges for judge analysis",
+      "remaining_reason": "Judge anchoring study also carries kernel-checked reference variants and frozen source evidence; requires a separate dependency and privacy audit."
+    }
+  ],
+  "remaining_inventory_evidence": {
+    "revision": "78e1337b27a7e9469168d257457a83afd3306062",
+    "paths": [
+      "experiments/README.md",
+      "experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test",
+      "experiments/106_simulated_expert_raters_icl_from_human_labels_leave_one_agent_out_fsc_judge",
+      "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool",
+      "experiments/122_fsc_judge_gemini_vs_local_open_models_human_set",
+      "experiments/117_fsc_judge_vs_prover_entailment_correlation_75_human_rated_items",
+      "experiments/132_gold_rewrite_swap_fsc_judge_anchoring_check",
+      "experiments/133_alternate_gold_kernel_checked_swap_fsc_judge_anchoring_check"
+    ],
+    "scope": "Tracked-file inventory, exact-blob comparison against both destination repositories, and committed consumer documentation; no remote runtime status or sealed ratings inspected."
+  }
+}
