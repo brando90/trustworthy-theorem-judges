@@ -2,6 +2,8 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/06_information_loss_vs_correlation_judge_selection/README.md>
 
+**Canonical home moved, 11-09-2026:** This chat's general objective-comparison work now belongs to [judges-dont-need-psychometrics-or-corr, experiment 03](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/MIGRATION_11-09-2026.md). Its `historical_exp06/` preserves all 83 public files, including the distance and weighted-training follow-ups; the private store moved there with a compatibility link here. Continue objective research and checkpoint updates in that project. Files below remain frozen historical provenance, and `scripts/import_cached.py` remains available for experiment 07's existing importer dependency. No scientific condition was rerun or relabeled by this relocation.
+
 **TLDR:** Compare the objective used to choose or fit a judge while holding data, candidate capacity and search budget fixed. Evaluate every resulting judge with the same held-out probability and correlation metrics. Both cached-data conditions are complete; [RESULTS.md](RESULTS.md) reports their findings and limitations.
 
 Created 11-06-2026 at Brando Miranda's request; executed on the Vals/work continuation with a deterministic CPU job on Stanford skampere3. The frozen primary histogram comparison and the separate matched probability-head follow-up completed with zero new model calls. The primary comparison did not resolve a cross-entropy selection advantage; the head comparison has a substantial Pearson nonconvergence limitation. See the full report before interpreting either result.
