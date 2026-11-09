@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "independent_fitted_forecasts": 450,
+  "independent_metric_entries": 693,
+  "max_probability_error": 2.220446049250313e-16,
+  "max_metric_error": 6.217248937900877e-15,
+  "max_paired_interval_error": 0.0,
+  "scope": "Independent scalar probability/loss reconstruction and SciPy correlations from the exact frozen float64 mean arrays; saved paired interval endpoints checked, bootstrap fits not independently rerun.",
+  "source_dataset_sha256": "b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0",
+  "original_verifier_outcome": "Failed on a baseline rank diagnostic: scalar summation versus BLAS rounded tied means differently. No measured outputs, fits, selection or frozen code were changed.",
+  "rank_roundoff_discrepancies": [
+    {
+      "pearson": 2.220446049250313e-16,
+      "spearman": 0.0005849202071153137,
+      "kendall_tau_b": 0.0016578809266071248
+    },
+    {
+      "pearson": 1.1102230246251565e-16,
+      "spearman": 0.0013142760650938778,
+      "kendall_tau_b": 0.0021231222446283504
+    },
+    {
+      "pearson": 1.1102230246251565e-16,
+      "spearman": 6.111880394632507e-05,
+      "kendall_tau_b": 0.00048295448800794727
+    },
+    {
+      "pearson": 1.1102230246251565e-16,
+      "spearman": 0.0013142760650938778,
+      "kendall_tau_b": 0.0021231222446283504
+    },
+    {
+      "pearson": 1.1102230246251565e-16,
+      "spearman": 0.0008582034787808501,
+      "kendall_tau_b": 0.003062271752564072
+    },
+    {
+      "pearson": 2.220446049250313e-16,
+      "spearman": 0.0020634392546990954,
+      "kendall_tau_b": 0.003380937492895475
+    },
+    {
+      "pearson": 0.0,
+      "spearman": 5.8854033155864016e-05,
+      "kendall_tau_b": 0.0005381672967957329
+    },
+    {
+      "pearson": 2.220446049250313e-16,
+      "spearman": 0.0016742595758161283,
+      "kendall_tau_b": 0.004726231489691257
+    },
+    {
+      "pearson": 2.220446049250313e-16,
+      "spearman": 0.0007358201828961963,
+      "kendall_tau_b": 0.0029103054007420526
+    },
+    {
+      "pearson": 0.0,
+      "spearman": 0.00038194768789057143,
+      "kendall_tau_b": 0.0018687523919312943
+    },
+    {
+      "pearson": 0.0,
+      "spearman": 0.00038194768789057143,
+      "kendall_tau_b": 0.0018687523919312943
+    }
+  ],
+  "rank_policy": "Average ranks of the exact float64 expected means, with no extra rounding, matching frozen metrics.py. Baseline rank diagnostics can depend on last-bit summation."
+}

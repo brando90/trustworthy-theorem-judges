@@ -4,6 +4,8 @@
 
 **TLDR:** Fit methods 2 and 4 on the existing historical human ratings using the same five cached judge configurations, probability family and validation criterion. This is an offline retrospective probability-mixture experiment, not new semantic judge inference or validation on the incoming human collection.
 
+Completed: the primary RPS difference is unresolved; validation selected method 4. See the [result and publication-scope receipt](results/ELIGIBILITY.json).
+
 The [study definition](PROTOCOL.md) and [machine configuration](protocol.json) are fixed before fitting and test scoring. [Results](results.md) record actual completion and evidence. The [checkpoint](CKPT_practical_judge.md) carries execution state. All individual ratings, source-row traces and per-artifact forecasts remain in the approved private store.
 
 The sister repository's [completed CE-versus-Pearson study](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/RESULTS_comparison.md) already fixes the numerical Pearson failure in a probability-mixture family. This experiment reuses its exact solver and adds a distinct ranked probability score (RPS) training condition, the original train/validation/test split, and common validation-selected shrinkage. It does not revise that completed study's cross-entropy (CE) primary endpoint or five-partition results.

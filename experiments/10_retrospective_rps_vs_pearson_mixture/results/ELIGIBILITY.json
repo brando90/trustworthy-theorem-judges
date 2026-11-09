@@ -1,0 +1,744 @@
+{
+  "artifact_hashes": {
+    "results/bootstrap_fit_receipts.json.gz": "a816ca46d36e8175e9102dfeb53c65f8e07c72ff117c3a05082085972290103e",
+    "results/bootstrap_ledger.json": "03b62a02e601c2f33840a496e6ba337f4897d3c4cee80777650b6918945a5ff5",
+    "results/export_verification.json": "8aabda1a30df8e6ad8d1ff2c9992499537f0e45b081263e39656c6008df935cb",
+    "results/fit_receipts.json": "ebe10c48f9ba1a24a3dcaa623ea9ff75443609d59c095b4958e58deb1f28cde7",
+    "results/progress.json": "009fb047a8972d989e64cec60a87a4fd5c44665e68415a004086823d23b3a03b",
+    "results/results.json": "da877e5e1c22a8f4d40d2163589baa0aab78ad8286c8e17376cdb5125a95b83a",
+    "results/selected_models.json": "10e222c2eae2621881f899aec7d75a37bd50b0444798bd2aaf529cd75332ef0f",
+    "results/verification.json": "f8f272624d89d51548943e880df390e1a661b1438cbb18de5449494a54d9bba4"
+  },
+  "artifact_rater_count_histogram": {
+    "2": 30,
+    "3": 45
+  },
+  "cached_configurations": 5,
+  "cached_draws_per_artifact_configuration": 3,
+  "cached_scalar_ratings_missing": 0,
+  "cached_scalar_ratings_observed": 1125,
+  "condition": "retrospective original-split five-configuration simplex mixture; method 2 Pearson versus method 4 normalized RPS",
+  "counts": {
+    "test": {
+      "artifacts": 30,
+      "families": 9,
+      "ratings": 78,
+      "tasks": 10
+    },
+    "total": {
+      "artifacts": 75,
+      "families": 19,
+      "ratings": 195,
+      "tasks": 25
+    },
+    "train": {
+      "artifacts": 30,
+      "families": 9,
+      "ratings": 78,
+      "tasks": 10
+    },
+    "val": {
+      "artifacts": 15,
+      "families": 5,
+      "ratings": 39,
+      "tasks": 5
+    }
+  },
+  "data_sha256": "b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0",
+  "evaluator": {
+    "environment": {
+      "numpy": "2.2.6",
+      "python": "3.11.6",
+      "scipy": "1.16.3"
+    },
+    "freeze_sha256": "9ee06c9e2d5baf46307a77ffa82714fa3a6b0ef1a441a4e90747553a4ed74710",
+    "new_calls": 0,
+    "provider_cost_usd": 0,
+    "version": "FREEZE.json and its per-file SHA256 values"
+  },
+  "execution": {
+    "cpu_threads": 1,
+    "elapsed_seconds": 31.840996540966444,
+    "exit_code": 0,
+    "pid": "not captured; completed successfully",
+    "private_log": "private/10_retrospective_rps_vs_pearson_mixture/RUN_11-09-2026.log",
+    "start_notification": "not sent before this short run; coordinator will send verified completion notice"
+  },
+  "harness": "Pinned experiment-100 judge_run.py uses experiment-95 Vals gateway client and recovery adapter; one rating request per repetition. Config-specific rendering adds H1 training-derived convention notes and H2 leave-task-out training demonstrations. No new calls.",
+  "human_rating_slots": 225,
+  "human_ratings_missing": 30,
+  "human_ratings_observed": 195,
+  "input_visibility": "Pinned prompts.py render() reads full annotation-era Python source, reference Lean text and candidate Lean text; no proof-body stripping for H0/H1/H2. Existing bodies and placeholders, if present, are visible. Rubric scores specification statements. This run reads cached scalar ratings only.",
+  "premeasurement_commit": "d34052eb0ab4272b33dda28f2f8f6cc6cb014c53",
+  "prior_exposure": [
+    "historical test outcomes previously inspected before this protocol",
+    "task-family overlap across original splits",
+    "all three observed expert columns recur across splits",
+    "upstream prompt/model search fixed; its selection uncertainty not resampled",
+    "three cached draws per configuration fixed; not resampled",
+    "incoming set-N collection not read or used"
+  ],
+  "publication_eligibility": "Eligible only as exploratory retrospective probability-mixture evidence. Not fresh human validation, a new semantic LLM, deployed VeriBench FSC validation, or a replacement of the public-paper condition.",
+  "scale": {
+    "forecast": "six probabilities; floor 1e-6 then normalize",
+    "mean_score_diagnostics": "divide by 5 to [0,1]",
+    "primary": "normalized RPS: five cumulative thresholds; average per human within artifact, then equally across artifacts",
+    "ratings": "ordinal integers 0,1,2,3,4,5",
+    "secondary": [
+      "CE natural logarithms",
+      "TVD to artifact empirical human histogram"
+    ]
+  },
+  "source_commit": "be287d9bb2f7bd35ba6db1b8735c9ba10d00eade",
+  "source_files_hash_verified": 1478,
+  "source_hash_manifest_sha256": "80989c4a6050c783b8b9d3d3c44a0983455c1d9f5662b293c2c9e2fd139ba9da",
+  "source_hash_mismatches": 0,
+  "split_membership_private_sha256": "539963beaa194af424072b4af8754f461f8781c78a13edf0f35dfc420f89498d",
+  "uncertainty": {
+    "coverage": "descriptive retrospective sensitivity; no claim of fresh coverage under prompt selection, rater population or new solver distribution",
+    "invalid_draws": "two draws have no validation artifacts; retained, not replaced",
+    "kind": "paired joint-family percentile bootstrap with original split labels, fit and validation reselection",
+    "p_value": null,
+    "paired_correlation_valid_draws": 1960,
+    "requested_draws": 2000,
+    "valid_primary_draws": 1998
+  },
+  "upstream_configurations": {
+    "H0_opus": [
+      {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_opus55_max",
+        "note": "Human-mirror judge with Claude Opus 5.5 at compute_effort=max (the no-fallback selector's registry default, sent explicitly); adaptive thinking; no fallback models.",
+        "rubric": "H0_human_mirror",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_opus55_max",
+        "note": "Human-mirror judge with Claude Opus 5.5 at compute_effort=max (the no-fallback selector's registry default, sent explicitly); adaptive thinking; no fallback models.",
+        "rubric": "H0_human_mirror",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      }
+    ],
+    "H0_sol": [
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_sol_high",
+        "note": "Human-mirror judge: the raters' own instructions and the same three files, annotation-era reference; GPT-6 Sol high through the Vals gateway.",
+        "reasoning_effort": "high",
+        "rubric": "H0_human_mirror",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_sol_high",
+        "note": "Human-mirror judge: the raters' own instructions and the same three files, annotation-era reference; GPT-6 Sol high through the Vals gateway.",
+        "reasoning_effort": "high",
+        "rubric": "H0_human_mirror",
+        "selector": "openai/gpt-6-sol-high"
+      }
+    ],
+    "H1_sol": [
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H1_sol_high",
+        "note": "Iteration 1: H0 human-mirror plus four rater-convention notes derived only from the training-split disagreements of w1_H0_sol_high; GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H1_human_mirror_rater_conventions",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H1_sol_high",
+        "note": "Iteration 1: H0 human-mirror plus four rater-convention notes derived only from the training-split disagreements of w1_H0_sol_high; GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H1_human_mirror_rater_conventions",
+        "selector": "openai/gpt-6-sol-high"
+      }
+    ],
+    "H2_opus": [
+      {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 12,
+        "max_tokens": 32000,
+        "name": "H2_opus55_max",
+        "note": "Iteration 3: one change from H2_sol_high, the judge model (Claude Opus 5.5 at compute_effort=max, adaptive thinking, no fallback).",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 12,
+        "max_tokens": 32000,
+        "name": "H2_opus55_max",
+        "note": "Iteration 3: one change from H2_sol_high, the judge model (Claude Opus 5.5 at compute_effort=max, adaptive thinking, no fallback).",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 12,
+        "max_tokens": 32000,
+        "name": "H2_opus55_max",
+        "note": "Iteration 3: one change from H2_sol_high, the judge model (Claude Opus 5.5 at compute_effort=max, adaptive thinking, no fallback).",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      }
+    ],
+    "H2_sol": [
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H2_sol_high",
+        "note": "Iteration 2: H1 plus four expert-rated leave-task-out examples from other training tasks (fixed target quantiles 0.1/0.4/0.7/0.95, one per task); GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H2_sol_high",
+        "note": "Iteration 2: H1 plus four expert-rated leave-task-out examples from other training tasks (fixed target quantiles 0.1/0.4/0.7/0.95, one per task); GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H2_sol_high",
+        "note": "Iteration 2: H1 plus four expert-rated leave-task-out examples from other training tasks (fixed target quantiles 0.1/0.4/0.7/0.95, one per task); GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "openai/gpt-6-sol-high"
+      }
+    ]
+  },
+  "upstream_manifests": [
+    {
+      "code_sha256": {
+        "analyze_run.py": "537eff251e30676ce775932883ef1caa1a11151d3274b2e5b141c38a285dc6c0",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "build_phase6_inputs.py": "7cd85552c27aef477d13320a6c4f540ecf31a78e917b7ee698c3518df00c6444",
+        "common.py": "1ee8d9342b3c8a6fd85b12aca2a5fa4870c703ff65b824752d644dc21908909d",
+        "ensemble.py": "ae6f21e134aa48868b105a9ee6c41298e6763ac2589818bce727b5a09822320a",
+        "freeze_and_receipt.py": "5d593984880b331a1e857f605c97d288ef66cf50a73f31308418bd71b6d8ee15",
+        "judge_run.py": "ca46f74af3bd1d782045b4d99139b43c1df889d631d6737914f636f7ea57d027",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "phase6_analyze.py": "df03c14ea4d19e2fc9c66b48b21080151f3ff46362957adab120a55ed98e5dea",
+        "phase6_ensemble.py": "a5bb79510c9423c5cfad1b8f3bcc90481045edaf026149061064a166efba99d1",
+        "prompts.py": "6cc681a6de53125f31e6897b47579cdf4816ad4e707cba9e951f46547165ebd8",
+        "sanitize_manifests.py": "a917151927f8e75396de8fc566654955e77687fd3f9feab6859e834339ad1920",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_opus55_max",
+        "note": "Human-mirror judge with Claude Opus 5.5 at compute_effort=max (the no-fallback selector's registry default, sent explicitly); adaptive thinking; no fallback models.",
+        "rubric": "H0_human_mirror",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      },
+      "config_sha256": "8318ae0d72e3d78ffa24b8b5d650a982767ef908cd2cf5e16dd9d0bad011c1cd",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "bcdc292173a515c7771fa09f625605040a3c56a2d733bdbcca3122e2d83b0c2d",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "80cb48fcb66b7fef6bbe131eca43238bdbca564bfb83101d98f67cdb579569b9",
+      "repeats": 3,
+      "rubric_fingerprint": "c5e638a4032b298617ac364c2c0a5d042775981ad8f9e4140e166e22a13f7114",
+      "run_id": "ab_H0_opus",
+      "split": "heldout"
+    },
+    {
+      "code_sha256": {
+        "analyze_run.py": "537eff251e30676ce775932883ef1caa1a11151d3274b2e5b141c38a285dc6c0",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "build_phase6_inputs.py": "7cd85552c27aef477d13320a6c4f540ecf31a78e917b7ee698c3518df00c6444",
+        "common.py": "1ee8d9342b3c8a6fd85b12aca2a5fa4870c703ff65b824752d644dc21908909d",
+        "ensemble.py": "ae6f21e134aa48868b105a9ee6c41298e6763ac2589818bce727b5a09822320a",
+        "freeze_and_receipt.py": "5d593984880b331a1e857f605c97d288ef66cf50a73f31308418bd71b6d8ee15",
+        "judge_run.py": "f651781d1b6aec5ed86a53f20b4cec3100d3608c3fbb42f4723afbe2cfc03496",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "phase6_analyze.py": "df03c14ea4d19e2fc9c66b48b21080151f3ff46362957adab120a55ed98e5dea",
+        "phase6_ensemble.py": "a5bb79510c9423c5cfad1b8f3bcc90481045edaf026149061064a166efba99d1",
+        "prompts.py": "6cc681a6de53125f31e6897b47579cdf4816ad4e707cba9e951f46547165ebd8",
+        "sanitize_manifests.py": "a917151927f8e75396de8fc566654955e77687fd3f9feab6859e834339ad1920",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_sol_high",
+        "note": "Human-mirror judge: the raters' own instructions and the same three files, annotation-era reference; GPT-6 Sol high through the Vals gateway.",
+        "reasoning_effort": "high",
+        "rubric": "H0_human_mirror",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      "config_sha256": "eff52f70ff7de6971b24b58c7af9abc3d9a383e02556a9a2bf7ed61636d9ea52",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "785ed838e94a76e76757d11bebb0fb68aa48cc7c3292a2d7161c28a6db53b26e",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "7924c36442cdb1d4e1650c26e37e9901a279905aa15c5012fc7352052b04aaba",
+      "repeats": 3,
+      "rubric_fingerprint": "c5e638a4032b298617ac364c2c0a5d042775981ad8f9e4140e166e22a13f7114",
+      "run_id": "ab_H0_sol",
+      "split": "heldout"
+    },
+    {
+      "code_sha256": {
+        "analyze_run.py": "537eff251e30676ce775932883ef1caa1a11151d3274b2e5b141c38a285dc6c0",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "build_phase6_inputs.py": "7cd85552c27aef477d13320a6c4f540ecf31a78e917b7ee698c3518df00c6444",
+        "common.py": "1ee8d9342b3c8a6fd85b12aca2a5fa4870c703ff65b824752d644dc21908909d",
+        "ensemble.py": "ae6f21e134aa48868b105a9ee6c41298e6763ac2589818bce727b5a09822320a",
+        "freeze_and_receipt.py": "5d593984880b331a1e857f605c97d288ef66cf50a73f31308418bd71b6d8ee15",
+        "heldout_ablation.py": "bcab59fe4c1caf2c354bd96d0732cba0c2dc0dacc51582e1a2bb4cd5bd388abc",
+        "judge_run.py": "f651781d1b6aec5ed86a53f20b4cec3100d3608c3fbb42f4723afbe2cfc03496",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "phase6_analyze.py": "df03c14ea4d19e2fc9c66b48b21080151f3ff46362957adab120a55ed98e5dea",
+        "phase6_ensemble.py": "a5bb79510c9423c5cfad1b8f3bcc90481045edaf026149061064a166efba99d1",
+        "prompts.py": "6cc681a6de53125f31e6897b47579cdf4816ad4e707cba9e951f46547165ebd8",
+        "sanitize_manifests.py": "a917151927f8e75396de8fc566654955e77687fd3f9feab6859e834339ad1920",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f",
+        "verify_numbers.py": "b912141c19d5d1614a6865d9ffa290f71de65eebf6443a6e5b9c0b914839d8c6"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H1_sol_high",
+        "note": "Iteration 1: H0 human-mirror plus four rater-convention notes derived only from the training-split disagreements of w1_H0_sol_high; GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H1_human_mirror_rater_conventions",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      "config_sha256": "e2077d5ef21a065cff2f5a4fc5f6dd20197c3b07c0dbb0c4b9b7e153d790530c",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "a499c405cb8e83d6a83a7e7b132399841e5572d4845971cb6e907598e7914c14",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "7924c36442cdb1d4e1650c26e37e9901a279905aa15c5012fc7352052b04aaba",
+      "repeats": 3,
+      "rubric_fingerprint": "bb2bd6cea787b42e65cde691292f96863787c0cbddce4d1b4f83bbdccb6dc716",
+      "run_id": "ab_H1_sol",
+      "split": "heldout"
+    },
+    {
+      "code_sha256": {
+        "analyze_run.py": "d4f9a2b4b399ca1367dfa9bf95886162183dd435d6f1891f41fe0d1889da68cd",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "common.py": "797b1e5032c00e467f3cea203d9682a0ab0fc7afab87566719e3a508876b4671",
+        "judge_run.py": "6ab507c799142da10f6affdebc33fee43cdf12d590d01af85b72bf3c52237385",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "prompts.py": "ef77ed14718f1d17ed70d6d1d0d7ec3a0f04fcabbe857a374a7a71ce1df7aa72",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H1_sol_high",
+        "note": "Iteration 1: H0 human-mirror plus four rater-convention notes derived only from the training-split disagreements of w1_H0_sol_high; GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H1_human_mirror_rater_conventions",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      "config_sha256": "e2077d5ef21a065cff2f5a4fc5f6dd20197c3b07c0dbb0c4b9b7e153d790530c",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "9adbe8fc558551080122e94905ea148d9368d09e9a6480156d8ae98a8da7a573",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "7924c36442cdb1d4e1650c26e37e9901a279905aa15c5012fc7352052b04aaba",
+      "repeats": 3,
+      "rubric_fingerprint": "bb2bd6cea787b42e65cde691292f96863787c0cbddce4d1b4f83bbdccb6dc716",
+      "run_id": "p3_i1_H1_sol_high",
+      "split": "train"
+    },
+    {
+      "code_sha256": {
+        "analyze_run.py": "537eff251e30676ce775932883ef1caa1a11151d3274b2e5b141c38a285dc6c0",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "common.py": "797b1e5032c00e467f3cea203d9682a0ab0fc7afab87566719e3a508876b4671",
+        "judge_run.py": "f979547e6d381001429847ff64ca3f690f7c440b5685742125028f833ff5aec9",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "prompts.py": "c523f1f90be12c4f3ec171703f5c86c1758e042781221557539c486a8aee61dd",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H2_sol_high",
+        "note": "Iteration 2: H1 plus four expert-rated leave-task-out examples from other training tasks (fixed target quantiles 0.1/0.4/0.7/0.95, one per task); GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      "config_sha256": "791805bb9edc12076e968818b53499d371a8510f386fc325ed054d38bff8dd02",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "3f0513cff790b0e66006a91cf5db8d6e0cb34dc21ceec0f57ec051cf5b748d86",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "7924c36442cdb1d4e1650c26e37e9901a279905aa15c5012fc7352052b04aaba",
+      "repeats": 3,
+      "rubric_fingerprint": "469a2ac3875c1ffc2efaa75290c5c854151191e87fefe76cd5abfc9f219b36c9",
+      "run_id": "p3_i2_H2_sol_high",
+      "split": "train"
+    },
+    {
+      "code_sha256": {
+        "analyze_run.py": "537eff251e30676ce775932883ef1caa1a11151d3274b2e5b141c38a285dc6c0",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "common.py": "797b1e5032c00e467f3cea203d9682a0ab0fc7afab87566719e3a508876b4671",
+        "judge_run.py": "aad3936a38089865cb5963e16fc9d71b33bb7b7660034dd8772918600f01d0dd",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "prompts.py": "c523f1f90be12c4f3ec171703f5c86c1758e042781221557539c486a8aee61dd",
+        "sanitize_manifests.py": "a917151927f8e75396de8fc566654955e77687fd3f9feab6859e834339ad1920",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 12,
+        "max_tokens": 32000,
+        "name": "H2_opus55_max",
+        "note": "Iteration 3: one change from H2_sol_high, the judge model (Claude Opus 5.5 at compute_effort=max, adaptive thinking, no fallback).",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      },
+      "config_sha256": "224d869c6553a395d8c60f85b8c0ad91bead7ba7b1d9c78cf9293bf19d0fa8c2",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "8ec5014a606a4b3c50044bc26023c9fa5711d3026b5b95eb73eb48602406d65e",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "80cb48fcb66b7fef6bbe131eca43238bdbca564bfb83101d98f67cdb579569b9",
+      "repeats": 3,
+      "rubric_fingerprint": "469a2ac3875c1ffc2efaa75290c5c854151191e87fefe76cd5abfc9f219b36c9",
+      "run_id": "p3_i3_H2_opus55_max",
+      "split": "train"
+    },
+    {
+      "code_sha256": {
+        "analyze_run.py": "537eff251e30676ce775932883ef1caa1a11151d3274b2e5b141c38a285dc6c0",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "common.py": "797b1e5032c00e467f3cea203d9682a0ab0fc7afab87566719e3a508876b4671",
+        "ensemble.py": "ae6f21e134aa48868b105a9ee6c41298e6763ac2589818bce727b5a09822320a",
+        "freeze_and_receipt.py": "64156543bc8bed557cfbf8e19652f0740df9aae6563ab6eebf896bdc32309b69",
+        "judge_run.py": "aad3936a38089865cb5963e16fc9d71b33bb7b7660034dd8772918600f01d0dd",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "prompts.py": "c523f1f90be12c4f3ec171703f5c86c1758e042781221557539c486a8aee61dd",
+        "sanitize_manifests.py": "a917151927f8e75396de8fc566654955e77687fd3f9feab6859e834339ad1920",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 12,
+        "max_tokens": 32000,
+        "name": "H2_opus55_max",
+        "note": "Iteration 3: one change from H2_sol_high, the judge model (Claude Opus 5.5 at compute_effort=max, adaptive thinking, no fallback).",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      },
+      "config_sha256": "224d869c6553a395d8c60f85b8c0ad91bead7ba7b1d9c78cf9293bf19d0fa8c2",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "30c3979db4eb2204d8e44796c5d6ba4a53fc11624a90a88a603da55b961d460e",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "80cb48fcb66b7fef6bbe131eca43238bdbca564bfb83101d98f67cdb579569b9",
+      "repeats": 3,
+      "rubric_fingerprint": "469a2ac3875c1ffc2efaa75290c5c854151191e87fefe76cd5abfc9f219b36c9",
+      "run_id": "p4_val_H2_opus55_max",
+      "split": "val"
+    },
+    {
+      "code_sha256": {
+        "analyze_run.py": "537eff251e30676ce775932883ef1caa1a11151d3274b2e5b141c38a285dc6c0",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "common.py": "797b1e5032c00e467f3cea203d9682a0ab0fc7afab87566719e3a508876b4671",
+        "ensemble.py": "ae6f21e134aa48868b105a9ee6c41298e6763ac2589818bce727b5a09822320a",
+        "freeze_and_receipt.py": "64156543bc8bed557cfbf8e19652f0740df9aae6563ab6eebf896bdc32309b69",
+        "judge_run.py": "aad3936a38089865cb5963e16fc9d71b33bb7b7660034dd8772918600f01d0dd",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "prompts.py": "c523f1f90be12c4f3ec171703f5c86c1758e042781221557539c486a8aee61dd",
+        "sanitize_manifests.py": "a917151927f8e75396de8fc566654955e77687fd3f9feab6859e834339ad1920",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H2_sol_high",
+        "note": "Iteration 2: H1 plus four expert-rated leave-task-out examples from other training tasks (fixed target quantiles 0.1/0.4/0.7/0.95, one per task); GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      "config_sha256": "791805bb9edc12076e968818b53499d371a8510f386fc325ed054d38bff8dd02",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "631880deb156f164b96029df42322f5d07329d4897c467eca1f01746dafe2857",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "7924c36442cdb1d4e1650c26e37e9901a279905aa15c5012fc7352052b04aaba",
+      "repeats": 3,
+      "rubric_fingerprint": "469a2ac3875c1ffc2efaa75290c5c854151191e87fefe76cd5abfc9f219b36c9",
+      "run_id": "p4_val_H2_sol_high",
+      "split": "val"
+    },
+    {
+      "code_sha256": {
+        "analyze_run.py": "537eff251e30676ce775932883ef1caa1a11151d3274b2e5b141c38a285dc6c0",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "build_phase6_inputs.py": "7cd85552c27aef477d13320a6c4f540ecf31a78e917b7ee698c3518df00c6444",
+        "common.py": "738344af8b797e807e6f265be0c979f25f85662242f3c04c50d1d719de910e08",
+        "ensemble.py": "ae6f21e134aa48868b105a9ee6c41298e6763ac2589818bce727b5a09822320a",
+        "freeze_and_receipt.py": "5d593984880b331a1e857f605c97d288ef66cf50a73f31308418bd71b6d8ee15",
+        "judge_run.py": "223e0cb5ff8d545323c4703104c4056848c71cdea37279a73b0fff17decd2920",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "phase6_analyze.py": "a770171a87fd31663b2d493ace6b9ab8224ecaa17ec2a9ae4cdfff70d57fbb29",
+        "prompts.py": "c523f1f90be12c4f3ec171703f5c86c1758e042781221557539c486a8aee61dd",
+        "sanitize_manifests.py": "a917151927f8e75396de8fc566654955e77687fd3f9feab6859e834339ad1920",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 12,
+        "max_tokens": 32000,
+        "name": "H2_opus55_max",
+        "note": "Iteration 3: one change from H2_sol_high, the judge model (Claude Opus 5.5 at compute_effort=max, adaptive thinking, no fallback).",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      },
+      "config_sha256": "224d869c6553a395d8c60f85b8c0ad91bead7ba7b1d9c78cf9293bf19d0fa8c2",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "a2e4169dc8fc5a5d8e0e44d099eac24fb64b4964bb56d28ede0bc1d7c9324ee1",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "80cb48fcb66b7fef6bbe131eca43238bdbca564bfb83101d98f67cdb579569b9",
+      "repeats": 3,
+      "rubric_fingerprint": "469a2ac3875c1ffc2efaa75290c5c854151191e87fefe76cd5abfc9f219b36c9",
+      "run_id": "p5_test_H2_opus55_max",
+      "split": "test"
+    },
+    {
+      "code_sha256": {
+        "analyze_run.py": "537eff251e30676ce775932883ef1caa1a11151d3274b2e5b141c38a285dc6c0",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "build_phase6_inputs.py": "7cd85552c27aef477d13320a6c4f540ecf31a78e917b7ee698c3518df00c6444",
+        "common.py": "738344af8b797e807e6f265be0c979f25f85662242f3c04c50d1d719de910e08",
+        "ensemble.py": "ae6f21e134aa48868b105a9ee6c41298e6763ac2589818bce727b5a09822320a",
+        "freeze_and_receipt.py": "5d593984880b331a1e857f605c97d288ef66cf50a73f31308418bd71b6d8ee15",
+        "judge_run.py": "223e0cb5ff8d545323c4703104c4056848c71cdea37279a73b0fff17decd2920",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "phase6_analyze.py": "a770171a87fd31663b2d493ace6b9ab8224ecaa17ec2a9ae4cdfff70d57fbb29",
+        "prompts.py": "c523f1f90be12c4f3ec171703f5c86c1758e042781221557539c486a8aee61dd",
+        "sanitize_manifests.py": "a917151927f8e75396de8fc566654955e77687fd3f9feab6859e834339ad1920",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H2_sol_high",
+        "note": "Iteration 2: H1 plus four expert-rated leave-task-out examples from other training tasks (fixed target quantiles 0.1/0.4/0.7/0.95, one per task); GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      "config_sha256": "791805bb9edc12076e968818b53499d371a8510f386fc325ed054d38bff8dd02",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "53d9489d1913744ace323bb2e4e5ac267803c6f513970ee0a7e4b13596335fe0",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "7924c36442cdb1d4e1650c26e37e9901a279905aa15c5012fc7352052b04aaba",
+      "repeats": 3,
+      "rubric_fingerprint": "469a2ac3875c1ffc2efaa75290c5c854151191e87fefe76cd5abfc9f219b36c9",
+      "run_id": "p5_test_H2_sol_high",
+      "split": "test"
+    },
+    {
+      "code_sha256": {
+        "analyze_run.py": "d4f9a2b4b399ca1367dfa9bf95886162183dd435d6f1891f41fe0d1889da68cd",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "common.py": "797b1e5032c00e467f3cea203d9682a0ab0fc7afab87566719e3a508876b4671",
+        "judge_run.py": "6ab507c799142da10f6affdebc33fee43cdf12d590d01af85b72bf3c52237385",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "prompts.py": "ffa00f56e6ca60c2e5a00ac081bd8eafe5517343aa5c33aea7b005d0892923d4",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_opus55_max",
+        "note": "Human-mirror judge with Claude Opus 5.5 at compute_effort=max (the no-fallback selector's registry default, sent explicitly); adaptive thinking; no fallback models.",
+        "rubric": "H0_human_mirror",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      },
+      "config_sha256": "8318ae0d72e3d78ffa24b8b5d650a982767ef908cd2cf5e16dd9d0bad011c1cd",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "674bcd9be46c749637ca0a1f3609e253daa813b797a86ea6ecad60836a44cb0b",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "80cb48fcb66b7fef6bbe131eca43238bdbca564bfb83101d98f67cdb579569b9",
+      "repeats": 3,
+      "rubric_fingerprint": "c5e638a4032b298617ac364c2c0a5d042775981ad8f9e4140e166e22a13f7114",
+      "run_id": "w1_H0_opus55_max",
+      "split": "train"
+    },
+    {
+      "code_sha256": {
+        "analyze_run.py": "d4f9a2b4b399ca1367dfa9bf95886162183dd435d6f1891f41fe0d1889da68cd",
+        "build_inputs.py": "4c33ee77cf56c764b3c04f31a37fe3ebc65d08daf498239b3366188d35089fc8",
+        "common.py": "797b1e5032c00e467f3cea203d9682a0ab0fc7afab87566719e3a508876b4671",
+        "judge_run.py": "6ab507c799142da10f6affdebc33fee43cdf12d590d01af85b72bf3c52237385",
+        "metrics.py": "2eb82f9ebc8af9803b198a2c7538985e799b30e5ba38ebf8a4514c23098205b7",
+        "phase0_audit.py": "f16985f673a4a72850bceebd0f5c7438edb9f5d279698fcb06b91eb6117b29ce",
+        "prompts.py": "ffa00f56e6ca60c2e5a00ac081bd8eafe5517343aa5c33aea7b005d0892923d4",
+        "test_offline.py": "284d1138854818d871e23734d2354d666fc739d09c7097e09f73a26a87d73b3f"
+      },
+      "config": {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_sol_high",
+        "note": "Human-mirror judge: the raters' own instructions and the same three files, annotation-era reference; GPT-6 Sol high through the Vals gateway.",
+        "reasoning_effort": "high",
+        "rubric": "H0_human_mirror",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      "config_sha256": "eff52f70ff7de6971b24b58c7af9abc3d9a383e02556a9a2bf7ed61636d9ea52",
+      "gateway_client_sha256": "cd715c361d7cab4f916ab726e247a99d3dc2a91ff474ca5bb08ff6aca075b3d3",
+      "gateway_recovery_adapter_sha256": "1d2d630517274d19b765806c78c5f70dbd21fb61d52e506e39bd9d8b20271ba2",
+      "items_sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "manifest_sha256": "63ffde1b1261d0fafcce97e1736232a079ba96275939d19e328abb63bb8883af",
+      "rater_instructions_sha256": "eb58587f3a9a0d971fa4005b3c27f87d9da678fce79ab9e4dc5a1de21e3e2f7c",
+      "registry_model_sha256": "7924c36442cdb1d4e1650c26e37e9901a279905aa15c5012fc7352052b04aaba",
+      "repeats": 3,
+      "rubric_fingerprint": "c5e638a4032b298617ac364c2c0a5d042775981ad8f9e4140e166e22a13f7114",
+      "run_id": "w1_H0_sol_high",
+      "split": "train"
+    }
+  ],
+  "veribench_boundary": "Both VeriBench papers use formal-prover FSC with no LLM fallback. This is a separately labeled human-rating mixture study.",
+  "veribench_sync_receipt": "https://github.com/brando90/veribench/blob/24bce07d14f560a65b0b3167c5b1137c1daf0cee/paper_support/public_v1_dt_11-06-2026/PUBLIC_DT_JUDGE_SYNC_11-09-2026.md",
+  "verification": {
+    "independent_fitted_forecasts": 450,
+    "independent_metric_entries": 693,
+    "max_metric_error": 6.217248937900877e-15,
+    "max_paired_interval_error": 0.0,
+    "max_probability_error": 2.220446049250313e-16,
+    "original_verifier_outcome": "Failed on a baseline rank diagnostic: scalar summation versus BLAS rounded tied means differently. No measured outputs, fits, selection or frozen code were changed.",
+    "rank_policy": "Average ranks of the exact float64 expected means, with no extra rounding, matching frozen metrics.py. Baseline rank diagnostics can depend on last-bit summation.",
+    "rank_roundoff_discrepancies": [
+      {
+        "kendall_tau_b": 0.0016578809266071248,
+        "pearson": 2.220446049250313e-16,
+        "spearman": 0.0005849202071153137
+      },
+      {
+        "kendall_tau_b": 0.0021231222446283504,
+        "pearson": 1.1102230246251565e-16,
+        "spearman": 0.0013142760650938778
+      },
+      {
+        "kendall_tau_b": 0.00048295448800794727,
+        "pearson": 1.1102230246251565e-16,
+        "spearman": 6.111880394632507e-05
+      },
+      {
+        "kendall_tau_b": 0.0021231222446283504,
+        "pearson": 1.1102230246251565e-16,
+        "spearman": 0.0013142760650938778
+      },
+      {
+        "kendall_tau_b": 0.003062271752564072,
+        "pearson": 1.1102230246251565e-16,
+        "spearman": 0.0008582034787808501
+      },
+      {
+        "kendall_tau_b": 0.003380937492895475,
+        "pearson": 2.220446049250313e-16,
+        "spearman": 0.0020634392546990954
+      },
+      {
+        "kendall_tau_b": 0.0005381672967957329,
+        "pearson": 0.0,
+        "spearman": 5.8854033155864016e-05
+      },
+      {
+        "kendall_tau_b": 0.004726231489691257,
+        "pearson": 2.220446049250313e-16,
+        "spearman": 0.0016742595758161283
+      },
+      {
+        "kendall_tau_b": 0.0029103054007420526,
+        "pearson": 2.220446049250313e-16,
+        "spearman": 0.0007358201828961963
+      },
+      {
+        "kendall_tau_b": 0.0018687523919312943,
+        "pearson": 0.0,
+        "spearman": 0.00038194768789057143
+      },
+      {
+        "kendall_tau_b": 0.0018687523919312943,
+        "pearson": 0.0,
+        "spearman": 0.00038194768789057143
+      }
+    ],
+    "scope": "Independent scalar probability/loss reconstruction and SciPy correlations from the exact frozen float64 mean arrays; saved paired interval endpoints checked, bootstrap fits not independently rerun.",
+    "source_dataset_sha256": "b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0",
+    "status": "passed"
+  }
+}

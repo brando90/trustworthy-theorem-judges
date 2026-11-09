@@ -1,0 +1,3423 @@
+{
+  "bootstrap_draws": 2000,
+  "bootstrap_fit_requests": 23976,
+  "bootstrap_selection_counts": {
+    "best_cached": 550,
+    "constant": 1,
+    "equal_mixture": 142,
+    "method2_pearson": 214,
+    "method4_rps": 1091
+  },
+  "bootstrap_shrinkage_counts": {
+    "method2_pearson": {
+      "0.0": 194,
+      "0.1": 449,
+      "0.25": 735,
+      "0.5": 453,
+      "0.75": 132,
+      "1.0": 35
+    },
+    "method4_rps": {
+      "0.0": 824,
+      "0.1": 805,
+      "0.25": 277,
+      "0.5": 49,
+      "0.75": 26,
+      "1.0": 17
+    }
+  },
+  "bootstrap_valid_draws": 1998,
+  "counts": {
+    "test": {
+      "artifacts": 30,
+      "families": 9,
+      "ratings": 78,
+      "tasks": 10
+    },
+    "total": {
+      "artifacts": 75,
+      "families": 19,
+      "ratings": 195,
+      "tasks": 25
+    },
+    "train": {
+      "artifacts": 30,
+      "families": 9,
+      "ratings": 78,
+      "tasks": 10
+    },
+    "val": {
+      "artifacts": 15,
+      "families": 5,
+      "ratings": 39,
+      "tasks": 5
+    }
+  },
+  "dataset_sha256": "b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0",
+  "elapsed_seconds": 31.840996540966444,
+  "environment": {
+    "numpy": "2.2.6",
+    "python": "3.11.6",
+    "scipy": "1.16.3"
+  },
+  "fixed_prediction_intervals": {
+    "best_cached": {
+      "bias": {
+        "high": 0.12617008548078346,
+        "low": -0.12222171362138114,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 1.5597005826446524,
+        "low": 1.0809965847227543,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 10.980142396816802,
+        "low": 7.465281855197627,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.19611172989550119,
+        "low": 0.09442815749187952,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.6535747896263662,
+        "low": 0.3085901635137397,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 0.39635316725984737,
+        "low": 0.19483920223040813,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": 0.7638294563401401,
+        "low": 0.013347897577177319,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kl": {
+        "high": 10.331523717489418,
+        "low": 6.927886085042946,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.26227712400291164,
+        "low": 0.13587024639232384,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.10259574907067719,
+        "low": 0.028928285206735408,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.32030571114523126,
+        "low": 0.1700831164744325,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": 0.8880024103755668,
+        "low": 0.16178090928510375,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.4428449992953957,
+        "low": 0.30729163625354605,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.2559762233947742,
+        "low": 0.13765353814169484,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": 0.8679490900449637,
+        "low": 0.04068791746691983,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "tvd": {
+        "high": 0.8057438957121532,
+        "low": 0.5555553422540624,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.37394704136704243,
+        "low": 0.2247155054415915,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    },
+    "constant": {
+      "bias": {
+        "high": 0.2772702991452992,
+        "low": -0.09845293209876542,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 0.8822579966329966,
+        "low": 0.802335390946502,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 1.9518815135988137,
+        "low": 1.689426412077466,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.19053456790123452,
+        "low": 0.08520696159122085,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.5633333333333334,
+        "low": 0.5633333333333331,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 2.220446049250313e-16,
+        "low": 0.0,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": null,
+        "low": null,
+        "p_value": null,
+        "undefined_draws": 2000,
+        "valid_draws": 0
+      },
+      "kl": {
+        "high": 1.3863869662467656,
+        "low": 1.022149590386936,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.36133750000000003,
+        "low": 0.1550772005772006,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.14408765432098772,
+        "low": 0.04188783068783068,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.37958872072849853,
+        "low": 0.20466502530432024,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": null,
+        "low": null,
+        "p_value": null,
+        "undefined_draws": 2000,
+        "valid_draws": 0
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.43650264594287796,
+        "low": 0.29190204945509857,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.2360216049382716,
+        "low": 0.14043162303907916,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": null,
+        "low": null,
+        "p_value": null,
+        "undefined_draws": 2000,
+        "valid_draws": 0
+      },
+      "tvd": {
+        "high": 0.7222916666666667,
+        "low": 0.600462962962963,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.2771880511463845,
+        "low": 0.1452839271229028,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    },
+    "equal_mixture": {
+      "bias": {
+        "high": 0.23630659324482725,
+        "low": 0.03735338295999106,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 1.2662281140218268,
+        "low": 0.8174936740134137,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 8.690440436688707,
+        "low": 4.9863143476926775,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.16927610259584866,
+        "low": 0.06688148724434759,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.7766742626472093,
+        "low": 0.43107448709693236,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 0.3737391697720457,
+        "low": 0.16943160761790838,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": 0.8845798144691105,
+        "low": 0.251408179897817,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kl": {
+        "high": 8.068442389367485,
+        "low": 4.399464314980211,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.24827318359837697,
+        "low": 0.12920226519399788,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.07538801116417163,
+        "low": 0.02679592786925338,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.27456877222063863,
+        "low": 0.1636944955336037,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": 0.9256812825387359,
+        "low": 0.555000426031082,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.4114317714432313,
+        "low": 0.2586143383723977,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.2200975319618227,
+        "low": 0.11610591747411293,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": 0.959709935909014,
+        "low": 0.37573937040903427,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "tvd": {
+        "high": 0.7174833052262205,
+        "low": 0.45757624514918643,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.31059421446455593,
+        "low": 0.16154014939208786,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    },
+    "method2_pearson": {
+      "bias": {
+        "high": 0.20261270070695372,
+        "low": 0.021405423953740763,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 1.0370555846069798,
+        "low": 0.6914172829602628,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 2.253687170363036,
+        "low": 1.507096341576982,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.12260637164847772,
+        "low": 0.04663990397087768,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.7201219537592354,
+        "low": 0.44759781244809754,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 0.27441747356088475,
+        "low": 0.13360775475349915,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": 0.8920543193120074,
+        "low": 0.2873150246557834,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kl": {
+        "high": 1.6697264155417706,
+        "low": 0.9250291641002318,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.21432340914135775,
+        "low": 0.10553651001123113,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.05472433729780244,
+        "low": 0.018245240190266788,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.23393231386407468,
+        "low": 0.13507494239925025,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": 0.9511087394182275,
+        "low": 0.6227145600813605,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.35015192559419406,
+        "low": 0.2159627354072499,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.17407507557796578,
+        "low": 0.09560247225051217,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": 0.9637813417176483,
+        "low": 0.3886522615175151,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "tvd": {
+        "high": 0.6580023515662369,
+        "low": 0.44451451153996224,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.2612551450030869,
+        "low": 0.12183795459630943,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    },
+    "method4_rps": {
+      "bias": {
+        "high": 0.19603786127768105,
+        "low": 0.009379607100571655,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 1.0591195457328708,
+        "low": 0.7570523052176268,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 2.7571855920508432,
+        "low": 1.7802692266565572,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.12535516994893467,
+        "low": 0.05493306934150405,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.7330812383796197,
+        "low": 0.4183165579849093,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 0.32859566463291645,
+        "low": 0.1578588065952469,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": 0.8818202598163938,
+        "low": 0.28777238335108,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kl": {
+        "high": 2.1608859146940924,
+        "low": 1.2317787922314474,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.2114007003396835,
+        "low": 0.1072262680811301,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.05598001186693434,
+        "low": 0.019586262143143403,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.2366009546913455,
+        "low": 0.13995092268074677,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": 0.9431313105367237,
+        "low": 0.5380857318791564,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.35405531438534155,
+        "low": 0.23437801038182748,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.1773611927797951,
+        "low": 0.10159132319959913,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": 0.9586638694370845,
+        "low": 0.4050574149906401,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "tvd": {
+        "high": 0.6546454879595196,
+        "low": 0.45378988535625886,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.2744396669098108,
+        "low": 0.14534643682767323,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    },
+    "validation_selected": {
+      "bias": {
+        "high": 0.19603786127768105,
+        "low": 0.009379607100571655,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 1.0591195457328708,
+        "low": 0.7570523052176268,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 2.7571855920508432,
+        "low": 1.7802692266565572,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.12535516994893467,
+        "low": 0.05493306934150405,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.7330812383796197,
+        "low": 0.4183165579849093,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 0.32859566463291645,
+        "low": 0.1578588065952469,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": 0.8818202598163938,
+        "low": 0.28777238335108,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kl": {
+        "high": 2.1608859146940924,
+        "low": 1.2317787922314474,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.2114007003396835,
+        "low": 0.1072262680811301,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.05598001186693434,
+        "low": 0.019586262143143403,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.2366009546913455,
+        "low": 0.13995092268074677,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": 0.9431313105367237,
+        "low": 0.5380857318791564,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.35405531438534155,
+        "low": 0.23437801038182748,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.1773611927797951,
+        "low": 0.10159132319959913,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": 0.9586638694370845,
+        "low": 0.4050574149906401,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "tvd": {
+        "high": 0.6546454879595196,
+        "low": 0.45378988535625886,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.2744396669098108,
+        "low": 0.14534643682767323,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    }
+  },
+  "freeze_sha256": "9ee06c9e2d5baf46307a77ffa82714fa3a6b0ef1a441a4e90747553a4ed74710",
+  "inference_calls": 0,
+  "literal_compliance": "No prompt or raw semantic judge was changed; the cache supplies scalar ratings only.",
+  "metrics": {
+    "test": {
+      "best_cached": {
+        "bias": 0.01444449777782451,
+        "brier": 1.303696581542044,
+        "ce": 9.132987219141695,
+        "empirical_cdf_squared_distance": 0.13981374889992887,
+        "empirical_disagreement": 0.05092592592592594,
+        "entropy": 0.601329824635435,
+        "human_mean": 0.4722222222222222,
+        "human_sd": 0.2815411730080797,
+        "judge_mean": 0.48666672000004674,
+        "judge_sd": 0.31418138371935217,
+        "kendall_tau_b": 0.46704044859817084,
+        "kl": 8.53165739450626,
+        "mae": 0.18999907556011328,
+        "mse": 0.06077732326487773,
+        "nrmse": 0.24653057267786835,
+        "pearson": 0.663652142056822,
+        "root_mean_cdf_distance": 0.37391676734258505,
+        "rps": 0.19073967482585477,
+        "spearman": 0.591419579605035,
+        "tvd": 0.6722215555588554,
+        "weighted_pmf": 0.29814640557157956
+      },
+      "cached_H0_opus": {
+        "bias": 0.18777681778257788,
+        "brier": 1.455547214883429,
+        "ce": 10.373844588335395,
+        "empirical_cdf_squared_distance": 0.22203527334899992,
+        "empirical_disagreement": 0.05092592592592594,
+        "entropy": 0.601329824635435,
+        "human_mean": 0.4722222222222222,
+        "human_sd": 0.2815411730080797,
+        "judge_mean": 0.6599990400048001,
+        "judge_sd": 0.3198823255083942,
+        "kendall_tau_b": 0.5291783838222816,
+        "kl": 9.772514763699958,
+        "mae": 0.2722206444521556,
+        "mse": 0.11203608578694921,
+        "nrmse": 0.3347179197278646,
+        "pearson": 0.5819127761293238,
+        "root_mean_cdf_distance": 0.47120618984580404,
+        "rps": 0.27296119927492585,
+        "spearman": 0.6590875120024868,
+        "tvd": 0.7499987777836999,
+        "weighted_pmf": 0.34135613581852214
+      },
+      "cached_H0_sol": {
+        "bias": 0.01444449777782451,
+        "brier": 1.303696581542044,
+        "ce": 9.132987219141695,
+        "empirical_cdf_squared_distance": 0.13981374889992887,
+        "empirical_disagreement": 0.05092592592592594,
+        "entropy": 0.601329824635435,
+        "human_mean": 0.4722222222222222,
+        "human_sd": 0.2815411730080797,
+        "judge_mean": 0.48666672000004674,
+        "judge_sd": 0.31418138371935217,
+        "kendall_tau_b": 0.46704044859817084,
+        "kl": 8.53165739450626,
+        "mae": 0.18999907556011328,
+        "mse": 0.06077732326487773,
+        "nrmse": 0.24653057267786835,
+        "pearson": 0.663652142056822,
+        "root_mean_cdf_distance": 0.37391676734258505,
+        "rps": 0.19073967482585477,
+        "spearman": 0.591419579605035,
+        "tvd": 0.6722215555588554,
+        "weighted_pmf": 0.29814640557157956
+      },
+      "cached_H1_sol": {
+        "bias": 0.17666577778221343,
+        "brier": 1.3148074778404368,
+        "ce": 9.122743499861729,
+        "empirical_cdf_squared_distance": 0.16129493482830215,
+        "empirical_disagreement": 0.05092592592592594,
+        "entropy": 0.601329824635435,
+        "human_mean": 0.4722222222222222,
+        "human_sd": 0.2815411730080797,
+        "judge_mean": 0.6488880000044356,
+        "judge_sd": 0.3154910672907539,
+        "kendall_tau_b": 0.6254675670403341,
+        "kl": 8.521413675226292,
+        "mae": 0.21888768445050227,
+        "mse": 0.06803636800767143,
+        "nrmse": 0.2608378193584501,
+        "pearson": 0.7991923014781687,
+        "root_mean_cdf_distance": 0.40161540661222417,
+        "rps": 0.21222086075422808,
+        "spearman": 0.7674311840396411,
+        "tvd": 0.6666657111159,
+        "weighted_pmf": 0.29814643273167835
+      },
+      "cached_H2_opus": {
+        "bias": 0.17666577555995341,
+        "brier": 1.2629556296946367,
+        "ce": 8.709695826554427,
+        "empirical_cdf_squared_distance": 0.1449987207540562,
+        "empirical_disagreement": 0.05092592592592594,
+        "entropy": 0.601329824635435,
+        "human_mean": 0.4722222222222222,
+        "human_sd": 0.2815411730080797,
+        "judge_mean": 0.6488879977821755,
+        "judge_sd": 0.31360713872819457,
+        "kendall_tau_b": 0.719181633679714,
+        "kl": 8.108366001918988,
+        "mae": 0.19444343333833117,
+        "mse": 0.05662904785907024,
+        "nrmse": 0.2379685858660135,
+        "pearson": 0.8618806894034696,
+        "root_mean_cdf_distance": 0.3807869755572743,
+        "rps": 0.19592464667998213,
+        "spearman": 0.8397119558549796,
+        "tvd": 0.6388880333376222,
+        "weighted_pmf": 0.2858005185373752
+      },
+      "cached_H2_sol": {
+        "bias": 0.1833323977826201,
+        "brier": 1.248141118580518,
+        "ce": 8.446427392438057,
+        "empirical_cdf_squared_distance": 0.15240607112475252,
+        "empirical_disagreement": 0.05092592592592594,
+        "entropy": 0.601329824635435,
+        "human_mean": 0.4722222222222222,
+        "human_sd": 0.2815411730080797,
+        "judge_mean": 0.6555546200048423,
+        "judge_sd": 0.31929515577811773,
+        "kendall_tau_b": 0.6653286720771214,
+        "kl": 7.845097567802617,
+        "mae": 0.20555429111742896,
+        "mse": 0.06374007911894003,
+        "nrmse": 0.2524679764226347,
+        "pearson": 0.8403468870358609,
+        "root_mean_cdf_distance": 0.39039220167000327,
+        "rps": 0.20333199705067842,
+        "spearman": 0.8114476719440639,
+        "tvd": 0.6277769777819445,
+        "weighted_pmf": 0.280862453103174
+      },
+      "constant": {
+        "bias": 0.09111111111111114,
+        "brier": 0.8391975308641972,
+        "ce": 1.8050504991840202,
+        "empirical_cdf_squared_distance": 0.13268518518518518,
+        "empirical_disagreement": 0.05092592592592594,
+        "entropy": 0.601329824635435,
+        "human_mean": 0.4722222222222222,
+        "human_sd": 0.2815411730080797,
+        "judge_mean": 0.5633333333333331,
+        "judge_sd": 2.220446049250313e-16,
+        "kendall_tau_b": null,
+        "kl": 1.2037206745485856,
+        "mae": 0.2486666666666667,
+        "mse": 0.08756666666666667,
+        "nrmse": 0.29591665493288255,
+        "pearson": null,
+        "root_mean_cdf_distance": 0.3642597770619001,
+        "rps": 0.18361111111111114,
+        "spearman": null,
+        "tvd": 0.6649999999999999,
+        "weighted_pmf": 0.21322753772290812
+      },
+      "equal_mixture": {
+        "bias": 0.1477770533370379,
+        "brier": 1.0601437795951216,
+        "ce": 6.918247130833303,
+        "empirical_cdf_squared_distance": 0.12197691512063959,
+        "empirical_disagreement": 0.05092592592592594,
+        "entropy": 0.601329824635435,
+        "human_mean": 0.4722222222222222,
+        "human_sd": 0.2815411730080797,
+        "judge_mean": 0.6199992755592599,
+        "judge_sd": 0.2915433082050791,
+        "kendall_tau_b": 0.6699922224651356,
+        "kl": 6.316917306197867,
+        "mae": 0.19533235644928676,
+        "mse": 0.052605492912380085,
+        "nrmse": 0.22935887362903595,
+        "pearson": 0.8131892492855682,
+        "root_mean_cdf_distance": 0.3492519364593983,
+        "rps": 0.17290284104656548,
+        "spearman": 0.8243279063223161,
+        "tvd": 0.59666632444618,
+        "weighted_pmf": 0.24180136707277752
+      },
+      "method2_pearson": {
+        "bias": 0.1225983441883362,
+        "brier": 0.8813900373536812,
+        "ce": 1.9235561206926106,
+        "empirical_cdf_squared_distance": 0.08655373085668408,
+        "empirical_disagreement": 0.05092592592592594,
+        "entropy": 0.601329824635435,
+        "human_mean": 0.4722222222222222,
+        "human_sd": 0.2815411730080797,
+        "judge_mean": 0.5948205664105584,
+        "judge_sd": 0.21947285296347543,
+        "kendall_tau_b": 0.6900927181891814,
+        "kl": 1.3222262960571762,
+        "mae": 0.1636451318167711,
+        "mse": 0.03620518511128716,
+        "nrmse": 0.19027660158644616,
+        "pearson": 0.8598302792445981,
+        "root_mean_cdf_distance": 0.2942001544130867,
+        "rps": 0.13747965678261,
+        "spearman": 0.8318476658801043,
+        "tvd": 0.559829295781348,
+        "weighted_pmf": 0.19183084644865658
+      },
+      "method4_rps": {
+        "bias": 0.1145445131815072,
+        "brier": 0.9261410881631387,
+        "ce": 2.3200759611196853,
+        "empirical_cdf_squared_distance": 0.09179502532612839,
+        "empirical_disagreement": 0.05092592592592594,
+        "entropy": 0.601329824635435,
+        "human_mean": 0.4722222222222222,
+        "human_sd": 0.2815411730080797,
+        "judge_mean": 0.5867667354037295,
+        "judge_sd": 0.2584543086747696,
+        "kendall_tau_b": 0.6800550059246115,
+        "kl": 1.71874613648425,
+        "mae": 0.16301126760319448,
+        "mse": 0.03748368577472359,
+        "nrmse": 0.19360703957946257,
+        "pearson": 0.8362532560328771,
+        "root_mean_cdf_distance": 0.3029769386044561,
+        "rps": 0.14272095125205433,
+        "spearman": 0.8307137404904096,
+        "tvd": 0.5638278758952805,
+        "weighted_pmf": 0.20892229642072788
+      },
+      "validation_selected": {
+        "bias": 0.1145445131815072,
+        "brier": 0.9261410881631387,
+        "ce": 2.3200759611196853,
+        "empirical_cdf_squared_distance": 0.09179502532612839,
+        "empirical_disagreement": 0.05092592592592594,
+        "entropy": 0.601329824635435,
+        "human_mean": 0.4722222222222222,
+        "human_sd": 0.2815411730080797,
+        "judge_mean": 0.5867667354037295,
+        "judge_sd": 0.2584543086747696,
+        "kendall_tau_b": 0.6800550059246115,
+        "kl": 1.71874613648425,
+        "mae": 0.16301126760319448,
+        "mse": 0.03748368577472359,
+        "nrmse": 0.19360703957946257,
+        "pearson": 0.8362532560328771,
+        "root_mean_cdf_distance": 0.3029769386044561,
+        "rps": 0.14272095125205433,
+        "spearman": 0.8307137404904096,
+        "tvd": 0.5638278758952805,
+        "weighted_pmf": 0.20892229642072788
+      }
+    },
+    "train": {
+      "best_cached": {
+        "bias": -0.067777753333191,
+        "brier": 1.2148084593139776,
+        "ce": 8.7495877538349,
+        "empirical_cdf_squared_distance": 0.1742580963071741,
+        "empirical_disagreement": 0.046111111111111124,
+        "entropy": 0.5763371515412657,
+        "human_mean": 0.5633333333333331,
+        "human_sd": 0.287691964897643,
+        "judge_mean": 0.49555558000014227,
+        "judge_sd": 0.29093969673910464,
+        "kendall_tau_b": 0.3447914135838056,
+        "kl": 8.173250602293633,
+        "mae": 0.23444379778076443,
+        "mse": 0.09092539467207035,
+        "nrmse": 0.30153838009790784,
+        "pearson": 0.48434899443338886,
+        "root_mean_cdf_distance": 0.4174423269233417,
+        "rps": 0.22036920741828517,
+        "spearman": 0.47536207836617295,
+        "tvd": 0.6333326555587333,
+        "weighted_pmf": 0.28394905680516774
+      },
+      "cached_H0_opus": {
+        "bias": 0.014443980002237861,
+        "brier": 1.1592531222769036,
+        "ce": 8.078431164477188,
+        "empirical_cdf_squared_distance": 0.14536930223329256,
+        "empirical_disagreement": 0.046111111111111124,
+        "entropy": 0.5763371515412657,
+        "human_mean": 0.5633333333333331,
+        "human_sd": 0.287691964897643,
+        "judge_mean": 0.5777773133355711,
+        "judge_sd": 0.3002861305589452,
+        "kendall_tau_b": 0.40109355699740734,
+        "kl": 7.502094012935919,
+        "mae": 0.19444366000375773,
+        "mse": 0.0636662293388733,
+        "nrmse": 0.2523216782975123,
+        "pearson": 0.6336436163678312,
+        "root_mean_cdf_distance": 0.38127326451417043,
+        "rps": 0.19148041334440366,
+        "spearman": 0.5464326649721932,
+        "tvd": 0.5999995666689667,
+        "weighted_pmf": 0.25925775248453636
+      },
+      "cached_H0_sol": {
+        "bias": -0.067777753333191,
+        "brier": 1.2148084593139776,
+        "ce": 8.7495877538349,
+        "empirical_cdf_squared_distance": 0.1742580963071741,
+        "empirical_disagreement": 0.046111111111111124,
+        "entropy": 0.5763371515412657,
+        "human_mean": 0.5633333333333331,
+        "human_sd": 0.287691964897643,
+        "judge_mean": 0.49555558000014227,
+        "judge_sd": 0.29093969673910464,
+        "kendall_tau_b": 0.3447914135838056,
+        "kl": 8.173250602293633,
+        "mae": 0.23444379778076443,
+        "mse": 0.09092539467207035,
+        "nrmse": 0.30153838009790784,
+        "pearson": 0.48434899443338886,
+        "root_mean_cdf_distance": 0.4174423269233417,
+        "rps": 0.22036920741828517,
+        "spearman": 0.47536207836617295,
+        "tvd": 0.6333326555587333,
+        "weighted_pmf": 0.28394905680516774
+      },
+      "cached_H1_sol": {
+        "bias": 0.06333257333701343,
+        "brier": 1.2259191333934147,
+        "ce": 8.305128489446027,
+        "empirical_cdf_squared_distance": 0.14240631630788217,
+        "empirical_disagreement": 0.046111111111111124,
+        "entropy": 0.5763371515412657,
+        "human_mean": 0.5633333333333331,
+        "human_sd": 0.287691964897643,
+        "judge_mean": 0.6266659066703468,
+        "judge_sd": 0.29444059242469345,
+        "kendall_tau_b": 0.44635530534324186,
+        "kl": 7.728791337904758,
+        "mae": 0.18555466667122228,
+        "mse": 0.06514767259856713,
+        "nrmse": 0.2552404211690757,
+        "pearson": 0.6394025659225456,
+        "root_mean_cdf_distance": 0.37736761428066684,
+        "rps": 0.18851742741899324,
+        "spearman": 0.5674870835428352,
+        "tvd": 0.6388882000036555,
+        "weighted_pmf": 0.2925908852018073
+      },
+      "cached_H2_opus": {
+        "bias": 0.07444362000411792,
+        "brier": 1.214807614880111,
+        "ce": 8.44732214216702,
+        "empirical_cdf_squared_distance": 0.13944323705007627,
+        "empirical_disagreement": 0.046111111111111124,
+        "entropy": 0.5763371515412657,
+        "human_mean": 0.5633333333333331,
+        "human_sd": 0.287691964897643,
+        "judge_mean": 0.6377769533374511,
+        "judge_sd": 0.3163117447728052,
+        "kendall_tau_b": 0.5704533748052434,
+        "kl": 7.870984990625751,
+        "mae": 0.17888774445016228,
+        "mse": 0.061740177636728004,
+        "nrmse": 0.24847570834334692,
+        "pearson": 0.6957196600043023,
+        "root_mean_cdf_distance": 0.3734209917105307,
+        "rps": 0.18555434816118735,
+        "spearman": 0.668469482474964,
+        "tvd": 0.6111104111145778,
+        "weighted_pmf": 0.29259055804494927
+      },
+      "cached_H2_sol": {
+        "bias": 0.05666596000346679,
+        "brier": 1.262955563028689,
+        "ce": 8.698797757076399,
+        "empirical_cdf_squared_distance": 0.15722097779051994,
+        "empirical_disagreement": 0.046111111111111124,
+        "entropy": 0.5763371515412657,
+        "human_mean": 0.5633333333333331,
+        "human_sd": 0.287691964897643,
+        "judge_mean": 0.6199992933368002,
+        "judge_sd": 0.3016725325049838,
+        "kendall_tau_b": 0.4469477780852592,
+        "kl": 8.122460605535133,
+        "mae": 0.19666560444973338,
+        "mse": 0.08025865971046266,
+        "nrmse": 0.28329959355859063,
+        "pearson": 0.5572458392045675,
+        "root_mean_cdf_distance": 0.3965110058882602,
+        "rps": 0.20333208890163104,
+        "spearman": 0.5261844817841781,
+        "tvd": 0.6388881222261555,
+        "weighted_pmf": 0.2950598395247258
+      },
+      "constant": {
+        "bias": 1.4802973661668754e-17,
+        "brier": 0.8174074074074074,
+        "ce": 1.7426051331387977,
+        "empirical_cdf_squared_distance": 0.1274506172839506,
+        "empirical_disagreement": 0.046111111111111124,
+        "entropy": 0.5763371515412657,
+        "human_mean": 0.5633333333333331,
+        "human_sd": 0.287691964897643,
+        "judge_mean": 0.5633333333333331,
+        "judge_sd": 2.220446049250313e-16,
+        "kendall_tau_b": null,
+        "kl": 1.1662679815975314,
+        "mae": 0.24577777777777782,
+        "mse": 0.08276666666666667,
+        "nrmse": 0.28769196489764304,
+        "pearson": null,
+        "root_mean_cdf_distance": 0.3570022650963865,
+        "rps": 0.1735617283950618,
+        "spearman": null,
+        "tvd": 0.6537037037037037,
+        "weighted_pmf": 0.22319135802469134
+      },
+      "equal_mixture": {
+        "bias": 0.028221676002728995,
+        "brier": 0.9154042058096911,
+        "ce": 5.507560692378615,
+        "empirical_cdf_squared_distance": 0.10267350504431506,
+        "empirical_disagreement": 0.046111111111111124,
+        "entropy": 0.5763371515412657,
+        "human_mean": 0.5633333333333331,
+        "human_sd": 0.287691964897643,
+        "judge_mean": 0.5915550093360622,
+        "judge_sd": 0.26729728369932526,
+        "kendall_tau_b": 0.3768153400582772,
+        "kl": 4.9312235408373475,
+        "mae": 0.16955501289157163,
+        "mse": 0.05056418418189739,
+        "nrmse": 0.22486481312534737,
+        "pearson": 0.6791141758606791,
+        "root_mean_cdf_distance": 0.3204270666537318,
+        "rps": 0.14878461615542615,
+        "spearman": 0.5303647665033665,
+        "tvd": 0.5255556599996091,
+        "weighted_pmf": 0.20888805391124407
+      },
+      "method2_pearson": {
+        "bias": 0.025949262983893537,
+        "brier": 0.8137640236402822,
+        "ce": 1.7367131210972324,
+        "empirical_cdf_squared_distance": 0.08282819148759478,
+        "empirical_disagreement": 0.046111111111111124,
+        "entropy": 0.5763371515412657,
+        "human_mean": 0.5633333333333331,
+        "human_sd": 0.287691964897643,
+        "judge_mean": 0.5892825963172268,
+        "judge_sd": 0.2054965090945327,
+        "kendall_tau_b": 0.4301152013405996,
+        "kl": 1.160375969555967,
+        "mae": 0.15108515608829984,
+        "mse": 0.04023503309056074,
+        "nrmse": 0.2005867221192887,
+        "pearson": 0.7225495143838353,
+        "root_mean_cdf_distance": 0.2877988733257911,
+        "rps": 0.12893930259870592,
+        "spearman": 0.5802772953664908,
+        "tvd": 0.5227021500319674,
+        "weighted_pmf": 0.18201619179707995
+      },
+      "method4_rps": {
+        "bias": 0.0147283848030586,
+        "brier": 0.8287375754856853,
+        "ce": 1.9913140653537624,
+        "empirical_cdf_squared_distance": 0.08661062192435691,
+        "empirical_disagreement": 0.046111111111111124,
+        "entropy": 0.5763371515412657,
+        "human_mean": 0.5633333333333331,
+        "human_sd": 0.287691964897643,
+        "judge_mean": 0.5780617181363918,
+        "judge_sd": 0.23722553841284455,
+        "kendall_tau_b": 0.43489425913327295,
+        "kl": 1.4149769138124966,
+        "mae": 0.15479431088552412,
+        "mse": 0.04188008454864083,
+        "nrmse": 0.20464624244935659,
+        "pearson": 0.7134248104135329,
+        "root_mean_cdf_distance": 0.29429682622202524,
+        "rps": 0.132721733035468,
+        "spearman": 0.5840787265885449,
+        "tvd": 0.5010750778590323,
+        "weighted_pmf": 0.18632581047375155
+      },
+      "validation_selected": {
+        "bias": 0.0147283848030586,
+        "brier": 0.8287375754856853,
+        "ce": 1.9913140653537624,
+        "empirical_cdf_squared_distance": 0.08661062192435691,
+        "empirical_disagreement": 0.046111111111111124,
+        "entropy": 0.5763371515412657,
+        "human_mean": 0.5633333333333331,
+        "human_sd": 0.287691964897643,
+        "judge_mean": 0.5780617181363918,
+        "judge_sd": 0.23722553841284455,
+        "kendall_tau_b": 0.43489425913327295,
+        "kl": 1.4149769138124966,
+        "mae": 0.15479431088552412,
+        "mse": 0.04188008454864083,
+        "nrmse": 0.20464624244935659,
+        "pearson": 0.7134248104135329,
+        "root_mean_cdf_distance": 0.29429682622202524,
+        "rps": 0.132721733035468,
+        "spearman": 0.5840787265885449,
+        "tvd": 0.5010750778590323,
+        "weighted_pmf": 0.18632581047375155
+      }
+    },
+    "val": {
+      "best_cached": {
+        "bias": 0.022221751113555645,
+        "brier": 0.8370325556041924,
+        "ce": 5.61558274681462,
+        "empirical_cdf_squared_distance": 0.07185135556326071,
+        "empirical_disagreement": 0.03333333333333333,
+        "entropy": 0.47432812505154703,
+        "human_mean": 0.5555555555555557,
+        "human_sd": 0.2785323085632621,
+        "judge_mean": 0.5777773066691111,
+        "judge_sd": 0.25023295616615837,
+        "kendall_tau_b": 0.6026153483800768,
+        "kl": 5.141254621763072,
+        "mae": 0.11111175999668446,
+        "mse": 0.022962895113911384,
+        "nrmse": 0.15153512831654375,
+        "pearson": 0.8445561776473123,
+        "root_mean_cdf_distance": 0.2680510316399859,
+        "rps": 0.10518468889659402,
+        "spearman": 0.7127567263906045,
+        "tvd": 0.4222229555520222,
+        "weighted_pmf": 0.15431979137650725
+      },
+      "cached_H0_opus": {
+        "bias": 0.07999920444814675,
+        "brier": 1.0370316296817628,
+        "ce": 6.347168235819696,
+        "empirical_cdf_squared_distance": 0.1222212251966103,
+        "empirical_disagreement": 0.03333333333333333,
+        "entropy": 0.47432812505154703,
+        "human_mean": 0.5555555555555557,
+        "human_sd": 0.2785323085632621,
+        "judge_mean": 0.6355547600037023,
+        "judge_sd": 0.30970928031038203,
+        "kendall_tau_b": 0.5313653261709016,
+        "kl": 5.87284011076815,
+        "mae": 0.15555525777916895,
+        "mse": 0.048740249487965924,
+        "nrmse": 0.22077193999230502,
+        "pearson": 0.7602223776495688,
+        "root_mean_cdf_distance": 0.34960152344721024,
+        "rps": 0.15555455852994365,
+        "spearman": 0.6621228183547025,
+        "tvd": 0.5111117777749111,
+        "weighted_pmf": 0.2185175506312789
+      },
+      "cached_H0_sol": {
+        "bias": 0.022221751113555645,
+        "brier": 0.8370325556041924,
+        "ce": 5.61558274681462,
+        "empirical_cdf_squared_distance": 0.07185135556326071,
+        "empirical_disagreement": 0.03333333333333333,
+        "entropy": 0.47432812505154703,
+        "human_mean": 0.5555555555555557,
+        "human_sd": 0.2785323085632621,
+        "judge_mean": 0.5777773066691111,
+        "judge_sd": 0.25023295616615837,
+        "kendall_tau_b": 0.6026153483800768,
+        "kl": 5.141254621763072,
+        "mae": 0.11111175999668446,
+        "mse": 0.022962895113911384,
+        "nrmse": 0.15153512831654375,
+        "pearson": 0.8445561776473123,
+        "root_mean_cdf_distance": 0.2680510316399859,
+        "rps": 0.10518468889659402,
+        "spearman": 0.7127567263906045,
+        "tvd": 0.4222229555520222,
+        "weighted_pmf": 0.15431979137650725
+      },
+      "cached_H1_sol": {
+        "bias": 0.11555453778276899,
+        "brier": 1.1333269482074073,
+        "ce": 7.604033992082259,
+        "empirical_cdf_squared_distance": 0.1370358918644651,
+        "empirical_disagreement": 0.03333333333333333,
+        "entropy": 0.47432812505154703,
+        "human_mean": 0.5555555555555557,
+        "human_sd": 0.2785323085632621,
+        "judge_mean": 0.6711100933383245,
+        "judge_sd": 0.3064392992383397,
+        "kendall_tau_b": 0.5991015263066611,
+        "kl": 7.129705867030712,
+        "mae": 0.1733327777806001,
+        "mse": 0.05466609126656208,
+        "nrmse": 0.23380780839519041,
+        "pearson": 0.7625489240539093,
+        "root_mean_cdf_distance": 0.370183592105951,
+        "rps": 0.17036922519779849,
+        "spearman": 0.7232700740772712,
+        "tvd": 0.5666668444436667,
+        "weighted_pmf": 0.26789981236271837
+      },
+      "cached_H2_opus": {
+        "bias": 0.057777097781257884,
+        "brier": 0.9999946815340739,
+        "ce": 6.175641891481887,
+        "empirical_cdf_squared_distance": 0.09999905927090068,
+        "empirical_disagreement": 0.03333333333333333,
+        "entropy": 0.47432812505154703,
+        "human_mean": 0.5555555555555557,
+        "human_sd": 0.2785323085632621,
+        "judge_mean": 0.6133326533368134,
+        "judge_sd": 0.33923458647776095,
+        "kendall_tau_b": 0.7518385926134026,
+        "kl": 5.70131376643034,
+        "mae": 0.13333255555918674,
+        "mse": 0.03599950163666814,
+        "nrmse": 0.1897353463028651,
+        "pearson": 0.8466651548681274,
+        "root_mean_cdf_distance": 0.3162262785900322,
+        "rps": 0.13333239260423402,
+        "spearman": 0.8317484590425156,
+        "tvd": 0.500000511109,
+        "weighted_pmf": 0.2382703456955085
+      },
+      "cached_H2_sol": {
+        "bias": 0.13333220445000013,
+        "brier": 1.162956163025822,
+        "ce": 7.871228527387208,
+        "empirical_cdf_squared_distance": 0.15185054075459992,
+        "empirical_disagreement": 0.03333333333333333,
+        "entropy": 0.47432812505154703,
+        "human_mean": 0.5555555555555557,
+        "human_sd": 0.2785323085632621,
+        "judge_mean": 0.6888877600055555,
+        "judge_sd": 0.30759738124266084,
+        "kendall_tau_b": 0.564692439315782,
+        "kl": 7.396900402335661,
+        "mae": 0.1822215911143557,
+        "mse": 0.06414746548957335,
+        "nrmse": 0.25327349938272925,
+        "pearson": 0.7343170085928913,
+        "root_mean_cdf_distance": 0.38968004921294075,
+        "rps": 0.1851838740879333,
+        "spearman": 0.6783130715555965,
+        "tvd": 0.5666668666659334,
+        "weighted_pmf": 0.2629615259431998
+      },
+      "constant": {
+        "bias": 0.00777777777777781,
+        "brier": 0.8375308641975309,
+        "ce": 1.7766707866211933,
+        "empirical_cdf_squared_distance": 0.1335,
+        "empirical_disagreement": 0.03333333333333333,
+        "entropy": 0.47432812505154703,
+        "human_mean": 0.5555555555555557,
+        "human_sd": 0.2785323085632621,
+        "judge_mean": 0.5633333333333334,
+        "judge_sd": 0.0,
+        "kendall_tau_b": null,
+        "kl": 1.3023426615696465,
+        "mae": 0.2326666666666667,
+        "mse": 0.0776407407407407,
+        "nrmse": 0.2786408813163293,
+        "pearson": null,
+        "root_mean_cdf_distance": 0.3653765181289022,
+        "rps": 0.16683333333333333,
+        "spearman": null,
+        "tvd": 0.694814814814815,
+        "weighted_pmf": 0.30582270233196157
+      },
+      "equal_mixture": {
+        "bias": 0.08177695911514586,
+        "brier": 0.7336275333601612,
+        "ce": 2.3038121750512803,
+        "empirical_cdf_squared_distance": 0.07108104611089759,
+        "empirical_disagreement": 0.03333333333333333,
+        "entropy": 0.47432812505154703,
+        "human_mean": 0.5555555555555557,
+        "human_sd": 0.2785323085632621,
+        "judge_mean": 0.6373325146707014,
+        "judge_sd": 0.2783724449161827,
+        "kendall_tau_b": 0.6869037302955033,
+        "kl": 1.829484049999733,
+        "mae": 0.11999990844497876,
+        "mse": 0.028781956069990698,
+        "nrmse": 0.1696524567166379,
+        "pearson": 0.8575207688118092,
+        "root_mean_cdf_distance": 0.2666102888316533,
+        "rps": 0.10441437944423092,
+        "spearman": 0.8390610463749142,
+        "tvd": 0.4111124488826444,
+        "weighted_pmf": 0.14365406919390636
+      },
+      "method2_pearson": {
+        "bias": 0.038464789318570884,
+        "brier": 0.6442047471384147,
+        "ce": 1.2377040587506944,
+        "empirical_cdf_squared_distance": 0.04832320786940541,
+        "empirical_disagreement": 0.03333333333333333,
+        "entropy": 0.47432812505154703,
+        "human_mean": 0.5555555555555557,
+        "human_sd": 0.2785323085632621,
+        "judge_mean": 0.5940203448741265,
+        "judge_sd": 0.22068260867117456,
+        "kendall_tau_b": 0.7475128829686359,
+        "kl": 0.7633759336991474,
+        "mae": 0.09574932461906484,
+        "mse": 0.016838021172838183,
+        "nrmse": 0.12976140093586452,
+        "pearson": 0.9022902763238189,
+        "root_mean_cdf_distance": 0.21982540314851104,
+        "rps": 0.08165654120273876,
+        "spearman": 0.8444860100368209,
+        "tvd": 0.436527483424999,
+        "weighted_pmf": 0.13196939992522333
+      },
+      "method4_rps": {
+        "bias": 0.0425430076074201,
+        "brier": 0.6022918916001385,
+        "ce": 1.2028536822630977,
+        "empirical_cdf_squared_distance": 0.040010609488665756,
+        "empirical_disagreement": 0.03333333333333333,
+        "entropy": 0.47432812505154703,
+        "human_mean": 0.5555555555555557,
+        "human_sd": 0.2785323085632621,
+        "judge_mean": 0.5980985631629757,
+        "judge_sd": 0.24872075783519054,
+        "kendall_tau_b": 0.7677159338596802,
+        "kl": 0.7285255572115508,
+        "mae": 0.08577809384224605,
+        "mse": 0.013626946596356436,
+        "nrmse": 0.11673451330414855,
+        "pearson": 0.9211257176293298,
+        "root_mean_cdf_distance": 0.20002652196312806,
+        "rps": 0.07334394282199909,
+        "spearman": 0.8987356466558887,
+        "tvd": 0.3685894182523653,
+        "weighted_pmf": 0.10337820431174641
+      },
+      "validation_selected": {
+        "bias": 0.0425430076074201,
+        "brier": 0.6022918916001385,
+        "ce": 1.2028536822630977,
+        "empirical_cdf_squared_distance": 0.040010609488665756,
+        "empirical_disagreement": 0.03333333333333333,
+        "entropy": 0.47432812505154703,
+        "human_mean": 0.5555555555555557,
+        "human_sd": 0.2785323085632621,
+        "judge_mean": 0.5980985631629757,
+        "judge_sd": 0.24872075783519054,
+        "kendall_tau_b": 0.7677159338596802,
+        "kl": 0.7285255572115508,
+        "mae": 0.08577809384224605,
+        "mse": 0.013626946596356436,
+        "nrmse": 0.11673451330414855,
+        "pearson": 0.9211257176293298,
+        "root_mean_cdf_distance": 0.20002652196312806,
+        "rps": 0.07334394282199909,
+        "spearman": 0.8987356466558887,
+        "tvd": 0.3685894182523653,
+        "weighted_pmf": 0.10337820431174641
+      }
+    }
+  },
+  "models": {
+    "H0_opus": [
+      {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_opus55_max",
+        "note": "Human-mirror judge with Claude Opus 5.5 at compute_effort=max (the no-fallback selector's registry default, sent explicitly); adaptive thinking; no fallback models.",
+        "rubric": "H0_human_mirror",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_opus55_max",
+        "note": "Human-mirror judge with Claude Opus 5.5 at compute_effort=max (the no-fallback selector's registry default, sent explicitly); adaptive thinking; no fallback models.",
+        "rubric": "H0_human_mirror",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      }
+    ],
+    "H0_sol": [
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_sol_high",
+        "note": "Human-mirror judge: the raters' own instructions and the same three files, annotation-era reference; GPT-6 Sol high through the Vals gateway.",
+        "reasoning_effort": "high",
+        "rubric": "H0_human_mirror",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H0_sol_high",
+        "note": "Human-mirror judge: the raters' own instructions and the same three files, annotation-era reference; GPT-6 Sol high through the Vals gateway.",
+        "reasoning_effort": "high",
+        "rubric": "H0_human_mirror",
+        "selector": "openai/gpt-6-sol-high"
+      }
+    ],
+    "H1_sol": [
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H1_sol_high",
+        "note": "Iteration 1: H0 human-mirror plus four rater-convention notes derived only from the training-split disagreements of w1_H0_sol_high; GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H1_human_mirror_rater_conventions",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H1_sol_high",
+        "note": "Iteration 1: H0 human-mirror plus four rater-convention notes derived only from the training-split disagreements of w1_H0_sol_high; GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H1_human_mirror_rater_conventions",
+        "selector": "openai/gpt-6-sol-high"
+      }
+    ],
+    "H2_opus": [
+      {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 12,
+        "max_tokens": 32000,
+        "name": "H2_opus55_max",
+        "note": "Iteration 3: one change from H2_sol_high, the judge model (Claude Opus 5.5 at compute_effort=max, adaptive thinking, no fallback).",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 12,
+        "max_tokens": 32000,
+        "name": "H2_opus55_max",
+        "note": "Iteration 3: one change from H2_sol_high, the judge model (Claude Opus 5.5 at compute_effort=max, adaptive thinking, no fallback).",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "compute_effort": "max",
+        "concurrency": 12,
+        "max_tokens": 32000,
+        "name": "H2_opus55_max",
+        "note": "Iteration 3: one change from H2_sol_high, the judge model (Claude Opus 5.5 at compute_effort=max, adaptive thinking, no fallback).",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "anthropic/claude-opus-5-5-no-fallback"
+      }
+    ],
+    "H2_sol": [
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H2_sol_high",
+        "note": "Iteration 2: H1 plus four expert-rated leave-task-out examples from other training tasks (fixed target quantiles 0.1/0.4/0.7/0.95, one per task); GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H2_sol_high",
+        "note": "Iteration 2: H1 plus four expert-rated leave-task-out examples from other training tasks (fixed target quantiles 0.1/0.4/0.7/0.95, one per task); GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "openai/gpt-6-sol-high"
+      },
+      {
+        "client_timeout_seconds": 1800,
+        "concurrency": 8,
+        "max_tokens": 32000,
+        "name": "H2_sol_high",
+        "note": "Iteration 2: H1 plus four expert-rated leave-task-out examples from other training tasks (fixed target quantiles 0.1/0.4/0.7/0.95, one per task); GPT-6 Sol high.",
+        "reasoning_effort": "high",
+        "rubric": "H2_human_mirror_conventions_demos",
+        "selector": "openai/gpt-6-sol-high"
+      }
+    ]
+  },
+  "paired_fixed_intervals": {
+    "bias": {
+      "high": 0.01809815185092464,
+      "low": -0.03546099574570059,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "brier": {
+      "high": 0.08343190773190243,
+      "low": 0.00311225836409455,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "ce": {
+      "high": 0.5399494450848974,
+      "low": 0.2682944510918672,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "empirical_cdf_squared_distance": {
+      "high": 0.011145000887714331,
+      "low": 0.0003696888216289225,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "empirical_disagreement": {
+      "high": 0.0,
+      "low": 0.0,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "entropy": {
+      "high": 0.0,
+      "low": 0.0,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "human_mean": {
+      "high": 0.0,
+      "low": 0.0,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "human_sd": {
+      "high": 0.0,
+      "low": 0.0,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "judge_mean": {
+      "high": 0.01809815185092467,
+      "low": -0.035460995745700566,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "judge_sd": {
+      "high": 0.05614809805547476,
+      "low": 0.014984275373174743,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "kendall_tau_b": {
+      "high": 0.020989021245341494,
+      "low": -0.06018056940516777,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "kl": {
+      "high": 0.5399494450848981,
+      "low": 0.26829445109186745,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "mae": {
+      "high": 0.01668404298730935,
+      "low": -0.018460553096769212,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "mse": {
+      "high": 0.005839920918553258,
+      "low": -0.0028110439331448804,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "nrmse": {
+      "high": 0.016413570891090672,
+      "low": -0.007529723515337624,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "pearson": {
+      "high": 0.005744932491722966,
+      "low": -0.08864021038012336,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "root_mean_cdf_distance": {
+      "high": 0.021142600315666178,
+      "low": 0.0006128655838718564,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "rps": {
+      "high": 0.011145000887714342,
+      "low": 0.0003696888216289076,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "spearman": {
+      "high": 0.015292535673512173,
+      "low": -0.033460738504450256,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "tvd": {
+      "high": 0.03366235149188778,
+      "low": -0.02758582150415379,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "weighted_pmf": {
+      "high": 0.03401793101191203,
+      "low": 0.0013094768232216275,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    }
+  },
+  "paired_method4_minus_method2": {
+    "bias": {
+      "estimate": -0.008053831006829007,
+      "high": 0.06408472422817024,
+      "low": -0.09100362261793826,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "brier": {
+      "estimate": 0.044751050809457515,
+      "high": 0.13746192937451235,
+      "low": -0.23595013246522795,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "ce": {
+      "estimate": 0.39651984042707467,
+      "high": 5.837066515232878,
+      "low": -0.5804672896794351,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "empirical_cdf_squared_distance": {
+      "estimate": 0.00524129446944431,
+      "high": 0.014863572130885636,
+      "low": -0.06807372647469295,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "empirical_disagreement": {
+      "estimate": 0.0,
+      "high": 0.0,
+      "low": 0.0,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "entropy": {
+      "estimate": 0.0,
+      "high": 0.0,
+      "low": 0.0,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "human_mean": {
+      "estimate": 0.0,
+      "high": 0.0,
+      "low": 0.0,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "human_sd": {
+      "estimate": 0.0,
+      "high": 0.0,
+      "low": 0.0,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "judge_mean": {
+      "estimate": -0.008053831006828882,
+      "high": 0.0640847242281703,
+      "low": -0.09100362261793829,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "judge_sd": {
+      "estimate": 0.03898145571129416,
+      "high": 0.16159328458873284,
+      "low": -0.030385680142809693,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "kendall_tau_b": {
+      "estimate": -0.010037712264569842,
+      "high": 0.14083082328861538,
+      "low": -0.1491002926617959,
+      "p_value": null,
+      "undefined_draws": 40,
+      "valid_draws": 1960
+    },
+    "kl": {
+      "estimate": 0.3965198404270738,
+      "high": 5.837066515232877,
+      "low": -0.580467289679435,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "mae": {
+      "estimate": -0.0006338642135766126,
+      "high": 0.022400745826644905,
+      "low": -0.08859361317309121,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "mse": {
+      "estimate": 0.0012785006634364257,
+      "high": 0.007370012285648594,
+      "low": -0.05850665381536271,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "nrmse": {
+      "estimate": 0.0033304379930164107,
+      "high": 0.019230585341314912,
+      "low": -0.10064895792875513,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "pearson": {
+      "estimate": -0.02357702321172095,
+      "high": 0.20758372539146067,
+      "low": -0.07466971394438493,
+      "p_value": null,
+      "undefined_draws": 40,
+      "valid_draws": 1960
+    },
+    "root_mean_cdf_distance": {
+      "estimate": 0.008776784191369402,
+      "high": 0.024872433445160002,
+      "low": -0.09308282812456758,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "rps": {
+      "estimate": 0.005241294469444324,
+      "high": 0.014863572130885622,
+      "low": -0.06807372647469291,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "spearman": {
+      "estimate": -0.001133925389694701,
+      "high": 0.17023205737455627,
+      "low": -0.1389925009000542,
+      "p_value": null,
+      "undefined_draws": 40,
+      "valid_draws": 1960
+    },
+    "tvd": {
+      "estimate": 0.003998580113932504,
+      "high": 0.035476970338727584,
+      "low": -0.12398135553986725,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    },
+    "weighted_pmf": {
+      "estimate": 0.017091449972071293,
+      "high": 0.04979269546326982,
+      "low": -0.05597432175175816,
+      "p_value": null,
+      "undefined_draws": 2,
+      "valid_draws": 1998
+    }
+  },
+  "primary_fit_requests": 12,
+  "primary_objective_fits": 10,
+  "private_forecasts_sha256": "e91729049bce19f6bbfb629b374944cece76cb66a308e85a6bc3b70ec17f2bb4",
+  "provider_cost_usd": 0,
+  "refit_intervals": {
+    "best_cached": {
+      "bias": {
+        "high": 0.2555541693671819,
+        "low": -0.11538169194519747,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 1.6076767039532514,
+        "low": 0.9588422780386838,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 11.24577560749971,
+        "low": 6.613640553278259,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.22673061328032323,
+        "low": 0.08670033244610681,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.7857233935799999,
+        "low": 0.3294917233986902,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 0.39384868199756373,
+        "low": 0.1913944872493781,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": 0.9196351806004198,
+        "low": 0.03307144754734644,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kl": {
+        "high": 10.64687184180198,
+        "low": 6.025104626324405,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.2847205557721709,
+        "low": 0.12888870122314833,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.1143029462647788,
+        "low": 0.02837568582733877,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.3380871850335815,
+        "low": 0.16845083711686382,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": 0.9393196456351854,
+        "low": 0.20525077523621763,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.4761623191267471,
+        "low": 0.2944491565262617,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.2807945316076389,
+        "low": 0.13005702306352446,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": 0.9686627501076525,
+        "low": 0.07345450766225838,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "tvd": {
+        "high": 0.8186665328139021,
+        "low": 0.48765400586579694,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.3797049560102457,
+        "low": 0.2107826825425187,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    },
+    "constant": {
+      "bias": {
+        "high": 0.35812058080808085,
+        "low": -0.17691677902623243,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 1.0053398785523273,
+        "low": 0.7774893717858516,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 4.636820345759427,
+        "low": 1.6335535156563665,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.25473921751561435,
+        "low": 0.0790744832881988,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.7367493185840147,
+        "low": 0.3888061667493888,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 2.220446049250313e-16,
+        "low": 0.0,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": null,
+        "low": null,
+        "p_value": null,
+        "undefined_draws": 2000,
+        "valid_draws": 0
+      },
+      "kl": {
+        "high": 4.0530044503867915,
+        "low": 0.9967739033804245,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.4122736286394372,
+        "low": 0.1408344138709733,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.20894509430727032,
+        "low": 0.0383355737509778,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.4571051190747926,
+        "low": 0.19579468267197395,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": null,
+        "low": null,
+        "p_value": null,
+        "undefined_draws": 2000,
+        "valid_draws": 0
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.5047165931075297,
+        "low": 0.28120185048349416,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.3093384867095969,
+        "low": 0.13188846078084515,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": null,
+        "low": null,
+        "p_value": null,
+        "undefined_draws": 2000,
+        "valid_draws": 0
+      },
+      "tvd": {
+        "high": 0.753985178755144,
+        "low": 0.5688363758624645,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.29122650891632373,
+        "low": 0.1408907116216589,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    },
+    "equal_mixture": {
+      "bias": {
+        "high": 0.23630659324482725,
+        "low": 0.03735338295999106,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 1.2662281140218268,
+        "low": 0.8174936740134137,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 8.690440436688707,
+        "low": 4.9863143476926775,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.16927610259584866,
+        "low": 0.06688148724434759,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.7766742626472093,
+        "low": 0.43107448709693236,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 0.3737391697720457,
+        "low": 0.16943160761790838,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": 0.8845798144691105,
+        "low": 0.251408179897817,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kl": {
+        "high": 8.068442389367485,
+        "low": 4.399464314980211,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.24827318359837697,
+        "low": 0.12920226519399788,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.07538801116417163,
+        "low": 0.02679592786925338,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.27456877222063863,
+        "low": 0.1636944955336037,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": 0.9256812825387359,
+        "low": 0.555000426031082,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.4114317714432313,
+        "low": 0.2586143383723977,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.2200975319618227,
+        "low": 0.11610591747411293,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": 0.959709935909014,
+        "low": 0.37573937040903427,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "tvd": {
+        "high": 0.7174833052262205,
+        "low": 0.45757624514918643,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.31059421446455593,
+        "low": 0.16154014939208786,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    },
+    "method2_pearson": {
+      "bias": {
+        "high": 0.25622838461860503,
+        "low": -0.007755833155387415,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 1.2278446721593566,
+        "low": 0.7199887700096722,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 7.999898848057952,
+        "low": 1.499308805077485,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.1917552245655904,
+        "low": 0.06012467237993327,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.7528236878104745,
+        "low": 0.4526742442373721,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 0.3308325359521419,
+        "low": 0.053753315446923376,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": 0.8890690923180206,
+        "low": 0.22536056233976381,
+        "p_value": null,
+        "undefined_draws": 37,
+        "valid_draws": 1963
+      },
+      "kl": {
+        "high": 7.388019968883084,
+        "low": 0.9031915229293948,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.29524991724637545,
+        "low": 0.11532854849124193,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.11882230759584084,
+        "low": 0.02207164749992599,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.3447060852771267,
+        "low": 0.14856529405853505,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": 0.9438077313054275,
+        "low": 0.4440965600213011,
+        "p_value": null,
+        "undefined_draws": 37,
+        "valid_draws": 1963
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.43789860705662886,
+        "low": 0.2452033284901914,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.24595909725404103,
+        "low": 0.10680388519530977,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": 0.9575046912566944,
+        "low": 0.3219506974153942,
+        "p_value": null,
+        "undefined_draws": 37,
+        "valid_draws": 1963
+      },
+      "tvd": {
+        "high": 0.7260765388710828,
+        "low": 0.4543447503140749,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.29943202661859813,
+        "low": 0.12191409582209174,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    },
+    "method4_rps": {
+      "bias": {
+        "high": 0.20543411155591496,
+        "low": 0.02310127345956417,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 1.0999365942698927,
+        "low": 0.7451104262216655,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 8.459443623247932,
+        "low": 1.5990663883257712,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.14463057251315087,
+        "low": 0.05646908649913504,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.7477903586415259,
+        "low": 0.4234382261923455,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 0.3501450866218214,
+        "low": 0.10041888297843177,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": 0.8750303578680205,
+        "low": 0.24367766518129352,
+        "p_value": null,
+        "undefined_draws": 19,
+        "valid_draws": 1981
+      },
+      "kl": {
+        "high": 7.820904258173625,
+        "low": 1.0102006874980742,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.23635005457599953,
+        "low": 0.1121693466991589,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.07405365630186167,
+        "low": 0.019858056540122862,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.2721278985444179,
+        "low": 0.14091855464103697,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": 0.9404218682569561,
+        "low": 0.568370620706399,
+        "p_value": null,
+        "undefined_draws": 19,
+        "valid_draws": 1981
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.38030320437602605,
+        "low": 0.23763224961958537,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.20038146883803962,
+        "low": 0.104011786342673,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": 0.9534231919517301,
+        "low": 0.34721649851197045,
+        "p_value": null,
+        "undefined_draws": 19,
+        "valid_draws": 1981
+      },
+      "tvd": {
+        "high": 0.6652483086262856,
+        "low": 0.45589174449870457,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.28229557796781257,
+        "low": 0.13959537597130703,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    },
+    "validation_selected": {
+      "bias": {
+        "high": 0.21920463566050455,
+        "low": -0.0955758449189525,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "brier": {
+        "high": 1.4777696329360894,
+        "low": 0.7627786682527977,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "ce": {
+        "high": 10.448053018473939,
+        "low": 1.6595666033324457,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_cdf_squared_distance": {
+        "high": 0.18935576785348582,
+        "low": 0.06079690267823304,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "empirical_disagreement": {
+        "high": 0.06899884259259262,
+        "low": 0.03868119855967079,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "entropy": {
+        "high": 0.7132795766278001,
+        "low": 0.5168486945469496,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_mean": {
+        "high": 0.6617862654320987,
+        "low": 0.28606303418803425,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "human_sd": {
+        "high": 0.35314285531101325,
+        "low": 0.15968832522801762,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_mean": {
+        "high": 0.7528330828464762,
+        "low": 0.355556410662828,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "judge_sd": {
+        "high": 0.37522692850157136,
+        "low": 0.14606449524224865,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "kendall_tau_b": {
+        "high": 0.8972094209526106,
+        "low": 0.10354899965001078,
+        "p_value": null,
+        "undefined_draws": 3,
+        "valid_draws": 1997
+      },
+      "kl": {
+        "high": 9.852872055115956,
+        "low": 1.0646749167830214,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mae": {
+        "high": 0.253749467409886,
+        "low": 0.1174320113643302,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "mse": {
+        "high": 0.09388819880778744,
+        "low": 0.021476453965297265,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "nrmse": {
+        "high": 0.3064118124481944,
+        "low": 0.14654846593127518,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "pearson": {
+        "high": 0.9432673336234079,
+        "low": 0.31425299568604614,
+        "p_value": null,
+        "undefined_draws": 3,
+        "valid_draws": 1997
+      },
+      "root_mean_cdf_distance": {
+        "high": 0.4351502814640541,
+        "low": 0.24657026419241934,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "rps": {
+        "high": 0.24568918546782828,
+        "low": 0.10792544778937588,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "spearman": {
+        "high": 0.9599289235274818,
+        "low": 0.17822203813246726,
+        "p_value": null,
+        "undefined_draws": 3,
+        "valid_draws": 1997
+      },
+      "tvd": {
+        "high": 0.7676758833376235,
+        "low": 0.4594636724230098,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      },
+      "weighted_pmf": {
+        "high": 0.352116496882392,
+        "low": 0.145222367481352,
+        "p_value": null,
+        "undefined_draws": 2,
+        "valid_draws": 1998
+      }
+    }
+  },
+  "repeat_variability": {
+    "H0_opus": {
+      "repeats_per_artifact": 3,
+      "rms_within_artifact_sample_sd_normalized": 0.05497474167490215
+    },
+    "H0_sol": {
+      "repeats_per_artifact": 3,
+      "rms_within_artifact_sample_sd_normalized": 0.13063945294843618
+    },
+    "H1_sol": {
+      "repeats_per_artifact": 3,
+      "rms_within_artifact_sample_sd_normalized": 0.1115546702045434
+    },
+    "H2_opus": {
+      "repeats_per_artifact": 3,
+      "rms_within_artifact_sample_sd_normalized": 0.04988876515698589
+    },
+    "H2_sol": {
+      "repeats_per_artifact": 3,
+      "rms_within_artifact_sample_sd_normalized": 0.08432740427115679
+    }
+  },
+  "selected_models_before_test_sha256": "10e222c2eae2621881f899aec7d75a37bd50b0444798bd2aaf529cd75332ef0f",
+  "selection": {
+    "best_cached_candidate": "H0_sol",
+    "practical_selected_method": "method4_rps",
+    "searches": {
+      "method2_pearson": [
+        {
+          "grid_index": 0,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 0.0,
+            "weights": [
+              0.27020950212165,
+              0.023584078365868004,
+              0.0,
+              0.0,
+              0.706206419512482
+            ]
+          },
+          "success": true,
+          "training_rps": 0.14472687699313302,
+          "validation_rps": 0.08605731204262604
+        },
+        {
+          "grid_index": 1,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 0.1,
+            "weights": [
+              0.27020950212165046,
+              0.02358407836586757,
+              0.0,
+              0.0,
+              0.706206419512482
+            ]
+          },
+          "success": true,
+          "training_rps": 0.13657214425576944,
+          "validation_rps": 0.08232942161366599
+        },
+        {
+          "grid_index": 2,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 0.25,
+            "weights": [
+              0.2702095021216503,
+              0.023584078365867893,
+              0.0,
+              0.0,
+              0.7062064195124818
+            ]
+          },
+          "success": true,
+          "training_rps": 0.1289393025987059,
+          "validation_rps": 0.08165654120273876
+        },
+        {
+          "grid_index": 3,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 0.5,
+            "weights": [
+              0.2702095021216503,
+              0.023584078365867726,
+              0.0,
+              0.0,
+              0.7062064195124821
+            ]
+          },
+          "success": true,
+          "training_rps": 0.12848258636755167,
+          "validation_rps": 0.09365228780456089
+        },
+        {
+          "grid_index": 4,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 0.75,
+            "weights": [
+              0.2702095021216495,
+              0.023584078365868483,
+              0.0,
+              0.0,
+              0.7062064195124821
+            ]
+          },
+          "success": true,
+          "training_rps": 0.14335672829967025,
+          "validation_rps": 0.12204455184809239
+        },
+        {
+          "grid_index": 5,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 1.0,
+            "weights": [
+              0.2,
+              0.2,
+              0.2,
+              0.2,
+              0.2
+            ]
+          },
+          "success": true,
+          "training_rps": 0.17356172839506173,
+          "validation_rps": 0.16683333333333336
+        }
+      ],
+      "method4_rps": [
+        {
+          "grid_index": 0,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 0.0,
+            "weights": [
+              0.3858050200546533,
+              0.07747599679388961,
+              0.013171059039679868,
+              0.0,
+              0.5235479241117773
+            ]
+          },
+          "success": true,
+          "training_rps": 0.13912118993371542,
+          "validation_rps": 0.07406270240377436
+        },
+        {
+          "grid_index": 1,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 0.1,
+            "weights": [
+              0.37268459807127524,
+              0.08458438485965326,
+              0.0,
+              0.0,
+              0.5427310170690715
+            ]
+          },
+          "success": true,
+          "training_rps": 0.13272173303546803,
+          "validation_rps": 0.07334394282199909
+        },
+        {
+          "grid_index": 2,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 0.25,
+            "weights": [
+              0.3451571160715962,
+              0.09003194079652654,
+              0.0,
+              0.0,
+              0.5648109431318773
+            ]
+          },
+          "success": true,
+          "training_rps": 0.1270881079420076,
+          "validation_rps": 0.07676115353169397
+        },
+        {
+          "grid_index": 3,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 0.5,
+            "weights": [
+              0.26257467007254587,
+              0.10637460860715323,
+              0.0,
+              0.0,
+              0.6310507213203009
+            ]
+          },
+          "success": true,
+          "training_rps": 0.12829873775742034,
+          "validation_rps": 0.09346994333435808
+        },
+        {
+          "grid_index": 4,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 0.75,
+            "weights": [
+              0.01482733207543773,
+              0.1554026120389758,
+              0.0,
+              0.0,
+              0.8297700558855864
+            ]
+          },
+          "success": true,
+          "training_rps": 0.14275937378680836,
+          "validation_rps": 0.12394553141182053
+        },
+        {
+          "grid_index": 5,
+          "model": {
+            "constant": [
+              0.08333333333333331,
+              0.15000000000000002,
+              0.1888888888888889,
+              0.1722222222222222,
+              0.2555555555555556,
+              0.15
+            ],
+            "kind": "mixture",
+            "shrinkage": 1.0,
+            "weights": [
+              0.2,
+              0.2,
+              0.2,
+              0.2,
+              0.2
+            ]
+          },
+          "success": true,
+          "training_rps": 0.17356172839506173,
+          "validation_rps": 0.16683333333333336
+        }
+      ]
+    },
+    "validation_rps": {
+      "best_cached": 0.10518468889659403,
+      "constant": 0.16683333333333336,
+      "equal_mixture": 0.1044143794442309,
+      "method2_pearson": 0.08165654120273876,
+      "method4_rps": 0.07334394282199909
+    }
+  },
+  "source_commit": "be287d9bb2f7bd35ba6db1b8735c9ba10d00eade",
+  "status": "complete_retrospective_only",
+  "trace_sha256": "dea5ae19f8f9838dd1772f0864aacb476a4bd1be9aa52105110fa3b045b0d075"
+}
