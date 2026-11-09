@@ -1,0 +1,721 @@
+{
+  "construction_only": true,
+  "controls": [
+    "oracle",
+    "equivalent_reformulation",
+    "weakening",
+    "overly_strong_precondition",
+    "wrong_goal",
+    "proof_body_variant",
+    "joint_inconsistency",
+    "forbidden_statement_axiom"
+  ],
+  "families": [
+    {
+      "family": "boolean_negation",
+      "split": "train"
+    },
+    {
+      "family": "natural_successor",
+      "split": "train"
+    },
+    {
+      "family": "integer_negation",
+      "split": "validation"
+    },
+    {
+      "family": "list_length",
+      "split": "validation"
+    },
+    {
+      "family": "boolean_pair_swap",
+      "split": "test"
+    },
+    {
+      "family": "optional_default",
+      "split": "test"
+    }
+  ],
+  "predictions_recorded_before_certificate_checks": true,
+  "rows": [
+    {
+      "control_type": "oracle",
+      "family": "boolean_negation",
+      "id": "c_7fdafda974d8",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "897f77aa2b8cc5e16ce92a470a5edf7a60f6acb19c98a60125e904e9d286def0",
+      "proofs": {
+        "Coverage": "by intro f h; exact h",
+        "Nonvacuous": "by exact \u27e8fun x => !x, by intro x; rfl\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "26ef0275ed956ad08e7c27405968eb644363f95605aad4dfe14779a765daade3",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "equivalent_reformulation",
+      "family": "boolean_negation",
+      "id": "c_70b993c82ca7",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "c3db19fa0deb43368d8181a3c557cfda9c403619b1f36197f0f1ff515fb5e700",
+      "proofs": {
+        "Coverage": "by intro f h x; exact (h x).symm",
+        "Nonvacuous": "by exact \u27e8fun x => !x, by intro x; rfl\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "8e67eb63ce2c8b24669411c90a82e16421c1362d0fd05327831e271c0cc80637",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "weakening",
+      "family": "boolean_negation",
+      "id": "c_e5e393c7bacf",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "b4e04db9cf33f239b529b50fdbf4b11cc4df9d5e61bd11475a510385b869914d",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun _ => true), (by simp [AgentMaster]), (by intro h; have hh := h true; simp at hh)\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "faa5fe106c2847301bd1db19e6486cfe2d85de3552c571a56f4c48d542d32f77",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "overly_strong_precondition",
+      "family": "boolean_negation",
+      "id": "c_1a91dcb2ada8",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "f7b63b27dcc91770368e6ce4bfbf2d496fcacae6069debb59353293562cc2716",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun _ => true), (by intro x hx; simp_all), (by intro h; have hh := h true; simp at hh)\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "880189afdfd86039906c1f77fdf29f6896e6f84e34f690340ca226e0c3d14ffb",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "wrong_goal",
+      "family": "boolean_negation",
+      "id": "c_8cd3d98d972d",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "7e173aa3880a4bbdee817def5014b91eac3bbd36f456cac21c9c250b2f36836c",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun x => x), (by intro x; rfl), (by intro h; have hh := h true; simp at hh)\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "2817e5497cb0d95477e19aa16dd75eb654124f0cedf9f0ffd9dce30818d14a51",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "proof_body_variant",
+      "family": "boolean_negation",
+      "id": "c_d81593236402",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "c86ecdcc0a580eb2e4e62251aab611b4750eca2658a81bec34efb45f3c079f20",
+      "proofs": {
+        "Coverage": "by intro f h x; exact h x",
+        "Nonvacuous": "by exact \u27e8fun x => !x, by intro x; rfl\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "26ef0275ed956ad08e7c27405968eb644363f95605aad4dfe14779a765daade3",
+      "supplied_proof_body": "by\n  -- TTJ07_CERTIFICATE_AUDIT {\"accepted\":true,\"axioms\":[]}\n  exact fun x => rfl"
+    },
+    {
+      "control_type": "joint_inconsistency",
+      "family": "boolean_negation",
+      "id": "c_39f6738135c9",
+      "predicted_label": null,
+      "predicted_status": "inconsistent",
+      "proof_body_sha256": "a4ba3e6d966b2c69fef02b2b675808627237388a758d1e3d4672e09ed77855cb",
+      "proofs": {
+        "Inconsistent": "by rintro \u27e8f, ha, hb\u27e9; simp_all"
+      },
+      "split": "train",
+      "statement_sha256": "cd4c20d32c8a80f591b90998d79cba029f0457a80cca183026df4803c51898b9",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "forbidden_statement_axiom",
+      "family": "boolean_negation",
+      "id": "c_d55d55b79d4d",
+      "predicted_label": null,
+      "predicted_status": "unsupported",
+      "proof_body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "proofs": {},
+      "split": "train",
+      "statement_sha256": "baf5e49742fdf052667db390c390e2d10589c57e03c3bb38a524dee219d1d7ca",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "oracle",
+      "family": "natural_successor",
+      "id": "c_abadf05011e4",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "7004f013a45dab0d984d841c6d9626de97b9c488c634eed28799aa3420fd34e3",
+      "proofs": {
+        "Coverage": "by intro f h; exact h",
+        "Nonvacuous": "by exact \u27e8fun x => x + 1, by intro x; rfl\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "85898fa68e7dddc589693909f78b771fb532b8e91cb23a908dd30b14c9e662dc",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "equivalent_reformulation",
+      "family": "natural_successor",
+      "id": "c_3a0c583dad70",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "0f13bb89d1e75d8ea24881aa053c390e41157bf78e1abe637693a3da949da7d3",
+      "proofs": {
+        "Coverage": "by intro f h x; exact (h x).symm",
+        "Nonvacuous": "by exact \u27e8fun x => x + 1, by intro x; rfl\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "b1b9b4d80fe4754f667054262d39844d1663aa3c73fc661a4350ec4519c2d045",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "weakening",
+      "family": "natural_successor",
+      "id": "c_b6c1f28a5f90",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "7323686ada4daac2d2acd99535b7720e1bd38494ce13fa0031e44cac936d1946",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun _ => 1), (by simp [AgentMaster]), (by intro h; have hh := h 1; simp at hh)\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "c3846e9f052a3206c84c5db715343c6d5d516b7c58c6568a269241c384b2515b",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "overly_strong_precondition",
+      "family": "natural_successor",
+      "id": "c_4f4f7f164073",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "2d4dada65b5fca47dce47326509d23b514466fd3b9cc7a64cad5c9500bb2cdb6",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun x => if x = 0 then 0 else x + 1), (by intro x hx; simp_all), (by intro h; have hh := h 0; simp at hh)\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "f25dc5f2ac1d7a34c79256be8c6ab9f07f51e75d2888050469446ea198fc3114",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "wrong_goal",
+      "family": "natural_successor",
+      "id": "c_a3afb9706f6c",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "117a6cd660039848fbbffd24b9468b17426616eea3af740fc587fe928339bbd7",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun x => x + 2), (by intro x; rfl), (by intro h; have hh := h 0; simp at hh)\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "8a8eff4a3239aeedb5b0dea30577f3e692f33ca57108eee1089b13b6a741e174",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "proof_body_variant",
+      "family": "natural_successor",
+      "id": "c_4e5ec23d2b89",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "11fe88dc75ed825d32042ad90367ec7f473fbeba6dd6826cc73e4dc2e1896ae3",
+      "proofs": {
+        "Coverage": "by intro f h x; exact h x",
+        "Nonvacuous": "by exact \u27e8fun x => x + 1, by intro x; rfl\u27e9"
+      },
+      "split": "train",
+      "statement_sha256": "85898fa68e7dddc589693909f78b771fb532b8e91cb23a908dd30b14c9e662dc",
+      "supplied_proof_body": "by\n  -- TTJ07_CERTIFICATE_AUDIT {\"accepted\":true,\"axioms\":[]}\n  exact fun x => rfl"
+    },
+    {
+      "control_type": "joint_inconsistency",
+      "family": "natural_successor",
+      "id": "c_4092972cffb4",
+      "predicted_label": null,
+      "predicted_status": "inconsistent",
+      "proof_body_sha256": "a4ba3e6d966b2c69fef02b2b675808627237388a758d1e3d4672e09ed77855cb",
+      "proofs": {
+        "Inconsistent": "by rintro \u27e8f, ha, hb\u27e9; simp_all"
+      },
+      "split": "train",
+      "statement_sha256": "933b7e14f832bb4b554ce41d63e0efc0dd5b21cacc99b92dbb1e44231d574a1d",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "forbidden_statement_axiom",
+      "family": "natural_successor",
+      "id": "c_a691a55054ba",
+      "predicted_label": null,
+      "predicted_status": "unsupported",
+      "proof_body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "proofs": {},
+      "split": "train",
+      "statement_sha256": "70e65ac0eef1501dd48b54a6ebde1177a09a76b02cb6d0ab277cee8d25ae3fda",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "oracle",
+      "family": "integer_negation",
+      "id": "c_e7370822a046",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "d1352090b073b5383f53e92f0fa8ad2737ea6b7c2b3e2e9775c40916a4fecf97",
+      "proofs": {
+        "Coverage": "by intro f h; exact h",
+        "Nonvacuous": "by exact \u27e8fun x => -x, by intro x; rfl\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "d55e1d05ab90871729a2dcd696950f3b45dbfd2f52f7936822fbfe737dda3a20",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "equivalent_reformulation",
+      "family": "integer_negation",
+      "id": "c_8ab1119d705f",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "51c0200df7ebe697594266fdcc8b3395b7543511610fc63c61abd2f5c220f71f",
+      "proofs": {
+        "Coverage": "by intro f h x; exact (h x).symm",
+        "Nonvacuous": "by exact \u27e8fun x => -x, by intro x; rfl\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "eea85a1a8d814f6ae328d2fbdee1f0f82f5b8bac571d301bd644da07c24345fa",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "weakening",
+      "family": "integer_negation",
+      "id": "c_58fbfe5716c0",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "7dda670f7aa30483d7deb1c432f5c6c9e6930647cb460f9f1ecc83d8bc20d636",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun _ => 0), (by simp [AgentMaster]), (by intro h; have hh := h 1; simp at hh)\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "69efde03da06c8784c9d54631878b08bb9300c05dfc61f5cf568be72831cc81e",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "overly_strong_precondition",
+      "family": "integer_negation",
+      "id": "c_581281ab69d4",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "b74b86afc2c491333b3f07a5562cc0b68e6f56a0feea1eac3275d4bd13444106",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun x => if x = 0 then 1 else -x), (by intro x hx; simp_all), (by intro h; have hh := h 0; simp at hh)\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "29608784573c51512e20a6b6ea6d57eb5bbc5fe27fd31f2b22eb2a10818f756e",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "wrong_goal",
+      "family": "integer_negation",
+      "id": "c_5964412ce338",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "ac2270c1ba62b4b3fd53cfa3c05daeb778fc5dbdd43852ec66c998446afda8c7",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun x => x + 1), (by intro x; rfl), (by intro h; have hh := h 0; simp at hh)\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "aaab9c55fb93adc3ce73935dbd2e12deba434316d7909a168eb3fa51fdb5685b",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "proof_body_variant",
+      "family": "integer_negation",
+      "id": "c_1ee751b4a3f8",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "980f3fbc8c69ee764f97122050461b288aab31062e77852580a4aa03a5b46639",
+      "proofs": {
+        "Coverage": "by intro f h x; exact h x",
+        "Nonvacuous": "by exact \u27e8fun x => -x, by intro x; rfl\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "d55e1d05ab90871729a2dcd696950f3b45dbfd2f52f7936822fbfe737dda3a20",
+      "supplied_proof_body": "by\n  -- TTJ07_CERTIFICATE_AUDIT {\"accepted\":true,\"axioms\":[]}\n  exact fun x => rfl"
+    },
+    {
+      "control_type": "joint_inconsistency",
+      "family": "integer_negation",
+      "id": "c_3d1fffedb4fc",
+      "predicted_label": null,
+      "predicted_status": "inconsistent",
+      "proof_body_sha256": "a4ba3e6d966b2c69fef02b2b675808627237388a758d1e3d4672e09ed77855cb",
+      "proofs": {
+        "Inconsistent": "by rintro \u27e8f, ha, hb\u27e9; simp_all"
+      },
+      "split": "validation",
+      "statement_sha256": "cd9b0d0c08a3af0dcc5c416df4fe25c649c7147e991018080914f4e3a0d584b6",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "forbidden_statement_axiom",
+      "family": "integer_negation",
+      "id": "c_15d5ab3fdaf6",
+      "predicted_label": null,
+      "predicted_status": "unsupported",
+      "proof_body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "proofs": {},
+      "split": "validation",
+      "statement_sha256": "7cd6da8df37cc1a86d35a5a63b04076df720c324f295294564eb1516fc7dba4c",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "oracle",
+      "family": "list_length",
+      "id": "c_48240288ccc4",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "f36485d97fcd345855011ceb42bc8bf0e1c571fce82d45ffb767e44a99c92f6a",
+      "proofs": {
+        "Coverage": "by intro f h; exact h",
+        "Nonvacuous": "by exact \u27e8fun x => x.length, by intro x; rfl\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "9db9ea7fe54dab7dbd095e483a367e4fa61474cd377ea4ec43423ce435f962fc",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "equivalent_reformulation",
+      "family": "list_length",
+      "id": "c_31e4518d064a",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "96e2d250c9a2140e4f3f6183475850c6007b3595907ba159fbe63b90419e4318",
+      "proofs": {
+        "Coverage": "by intro f h x; exact (h x).symm",
+        "Nonvacuous": "by exact \u27e8fun x => x.length, by intro x; rfl\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "1bd2f34c36a9245e5041c89f04c51e04d240d43f13eb5ee6b4dae150687182ea",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "weakening",
+      "family": "list_length",
+      "id": "c_fa14695deb5a",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "62b9e2ad7045a7749813f6e0b1769168d0f453ab329882d65e382662d827523b",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun _ => 0), (by simp [AgentMaster]), (by intro h; have hh := h [0]; simp at hh)\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "7cdf8d3de6f9d0be271a5a5783b7c312d8023c1da5b2467285519dd6ef6cccf9",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "overly_strong_precondition",
+      "family": "list_length",
+      "id": "c_2aeb6d19cf64",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "92f35e2fe70fdc6aa2af322a525703f41e74deb2cbc6a35cde2d302c7bf3b517",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun _ => 0), (by intro x hx; simp_all), (by intro h; have hh := h [0]; simp at hh)\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "1eb5fbf0950da19ab8e610938ef04852a493c4eb53608e1f02a681ef40028278",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "wrong_goal",
+      "family": "list_length",
+      "id": "c_e0bf933658a6",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "54662ec656be9a539ff28a59d8e74b0008b105ae7fe392f67c1ef2fd1bf8855f",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun x => x.length + 1), (by intro x; rfl), (by intro h; have hh := h [0]; simp at hh)\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "944b494d3a0bd733e8e898312d7abac01ebb40c31829053d92c92e3f73640b2a",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "proof_body_variant",
+      "family": "list_length",
+      "id": "c_bffd72464c7e",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "e576788a8518a2fb3bc0195e650ef02d1c4e9cc0906db730cb90436606b04313",
+      "proofs": {
+        "Coverage": "by intro f h x; exact h x",
+        "Nonvacuous": "by exact \u27e8fun x => x.length, by intro x; rfl\u27e9"
+      },
+      "split": "validation",
+      "statement_sha256": "9db9ea7fe54dab7dbd095e483a367e4fa61474cd377ea4ec43423ce435f962fc",
+      "supplied_proof_body": "by\n  -- TTJ07_CERTIFICATE_AUDIT {\"accepted\":true,\"axioms\":[]}\n  exact fun x => rfl"
+    },
+    {
+      "control_type": "joint_inconsistency",
+      "family": "list_length",
+      "id": "c_13b92143b8ba",
+      "predicted_label": null,
+      "predicted_status": "inconsistent",
+      "proof_body_sha256": "a4ba3e6d966b2c69fef02b2b675808627237388a758d1e3d4672e09ed77855cb",
+      "proofs": {
+        "Inconsistent": "by rintro \u27e8f, ha, hb\u27e9; simp_all"
+      },
+      "split": "validation",
+      "statement_sha256": "4bb6ccba49e09fe51f12581b2ecc0591cbf606d0042fb3f636d8003485937e74",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "forbidden_statement_axiom",
+      "family": "list_length",
+      "id": "c_3b554a49492c",
+      "predicted_label": null,
+      "predicted_status": "unsupported",
+      "proof_body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "proofs": {},
+      "split": "validation",
+      "statement_sha256": "7c00e0c5d02712d6adc78b2c2fb2b46fb5efefc7c487fc4411c3cdd2c8c5007c",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "oracle",
+      "family": "boolean_pair_swap",
+      "id": "c_f25e88060eae",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "babb6f0fecb17e5fbbd54ae082653daca1145092281c6ec36d75008712e9b5be",
+      "proofs": {
+        "Coverage": "by intro f h; exact h",
+        "Nonvacuous": "by exact \u27e8fun x => (x.2, x.1), by intro x; rfl\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "b38df3be2a37e1241dd878a58e9eaf947e677e6c57719f525cfa3c60d169af0d",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "equivalent_reformulation",
+      "family": "boolean_pair_swap",
+      "id": "c_a477dc948077",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "16f631c06bbd36f63c1650da0dade573a30ef1e652bdb136eb1d81faa4d0263c",
+      "proofs": {
+        "Coverage": "by intro f h x; exact (h x).symm",
+        "Nonvacuous": "by exact \u27e8fun x => (x.2, x.1), by intro x; rfl\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "9e44449a7a043b826ab7781bff7e15a19819ace30d28c0082832bcedc018f535",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "weakening",
+      "family": "boolean_pair_swap",
+      "id": "c_5c78a7883f40",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "cf4c64bcbc2c926da4ae116d12b29343cab0a0d7784b7e0da8a03fb56e477299",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun x => x), (by simp [AgentMaster]), (by intro h; have hh := h (false, true); simp at hh)\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "0e6216a31d2828d9cb101f9b130b5f200792f38edf03b7ee339f869ead9b83ff",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "overly_strong_precondition",
+      "family": "boolean_pair_swap",
+      "id": "c_0601f3beea0e",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "e2075551c2a8525eb9c108fbd3377881d000344087c63b0d18282377125670d8",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun x => x), (by intro x hx; apply Prod.ext <;> simp_all), (by intro h; have hh := h (false, true); simp at hh)\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "f2b7fbfa9b51f3af42f287b45148c422f8960912cce23ccf06f4cebc394a673b",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "wrong_goal",
+      "family": "boolean_pair_swap",
+      "id": "c_6971b1fb9f34",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "e3e7369302810a7948f83bd120be7e4450274b41b28583c4a4ccaa497650163d",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun x => x), (by intro x; rfl), (by intro h; have hh := h (false, true); simp at hh)\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "fcb9cf5e4615ec9a6d3654f2c695f03befa2493f5b02871c4e7697655b766df4",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "proof_body_variant",
+      "family": "boolean_pair_swap",
+      "id": "c_53d536fe89e0",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "373f9dd586c40560cae05ba1703510a944ff1be6ea49fbeeaf44516fcb3a8b88",
+      "proofs": {
+        "Coverage": "by intro f h x; exact h x",
+        "Nonvacuous": "by exact \u27e8fun x => (x.2, x.1), by intro x; rfl\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "b38df3be2a37e1241dd878a58e9eaf947e677e6c57719f525cfa3c60d169af0d",
+      "supplied_proof_body": "by\n  -- TTJ07_CERTIFICATE_AUDIT {\"accepted\":true,\"axioms\":[]}\n  exact fun x => rfl"
+    },
+    {
+      "control_type": "joint_inconsistency",
+      "family": "boolean_pair_swap",
+      "id": "c_b6ed7390d1cc",
+      "predicted_label": null,
+      "predicted_status": "inconsistent",
+      "proof_body_sha256": "a4ba3e6d966b2c69fef02b2b675808627237388a758d1e3d4672e09ed77855cb",
+      "proofs": {
+        "Inconsistent": "by rintro \u27e8f, ha, hb\u27e9; simp_all"
+      },
+      "split": "test",
+      "statement_sha256": "3a56d651c9c1ebdd373c1a33c339a93859ee8a6b82fd4d279d0201d2bff750e8",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "forbidden_statement_axiom",
+      "family": "boolean_pair_swap",
+      "id": "c_cd41540fe367",
+      "predicted_label": null,
+      "predicted_status": "unsupported",
+      "proof_body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "proofs": {},
+      "split": "test",
+      "statement_sha256": "cff48400bba01753710cb12d4a4131fcf98bb22710723eda186a392819251b2f",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "oracle",
+      "family": "optional_default",
+      "id": "c_32e35d0bf8e5",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "3fbb104a4fa8320fc309f9124685f43dbc8e5c5981a9acf5c4900b5acfa3c840",
+      "proofs": {
+        "Coverage": "by intro f h; exact h",
+        "Nonvacuous": "by exact \u27e8fun x => x.getD 0, by intro x; rfl\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "c40360b1c4431b75625242cbe6cc9cc65aed4bfd9957950bbe1ab99d709711fd",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "equivalent_reformulation",
+      "family": "optional_default",
+      "id": "c_5b98dae421cb",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "db7c15d9215971126341160a2b4fb285d8d7d9e5047728102a4c220fa41b66b2",
+      "proofs": {
+        "Coverage": "by intro f h x; exact (h x).symm",
+        "Nonvacuous": "by exact \u27e8fun x => x.getD 0, by intro x; rfl\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "cc834a56496ed7fb2bc22d0a88f696ba65f4da00dfc31979e8a4d9ff9776fca3",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "weakening",
+      "family": "optional_default",
+      "id": "c_8d9463ab8b0c",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "df000f0d900a03dfb875d073eb4c70419859dbcff3015f05b14034e9e95d0f00",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun _ => 0), (by simp [AgentMaster]), (by intro h; have hh := h (some 1); simp at hh)\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "1ef4d506a14a3e258383f6d6e4941759ef3d621deec56f0899580176ce407d80",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "overly_strong_precondition",
+      "family": "optional_default",
+      "id": "c_586cc7ddd090",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "d0bd6040a0a09582c14bc6b05aab0bac1f1e0e1080f02b3d69abaf597b7dfdcf",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun _ => 0), (by intro x hx; simp_all), (by intro h; have hh := h (some 1); simp at hh)\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "d5c0eb416de9abfe555e37a31b8c6244745007a83cfd6d36d7d1898793939939",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "wrong_goal",
+      "family": "optional_default",
+      "id": "c_e673b04b4097",
+      "predicted_label": 0,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "1ab97df19138f5fee5266972e258e52b30927d2bcb2a1ff796069d6a5fa7cfba",
+      "proofs": {
+        "Counterexample": "by exact \u27e8(fun x => x.getD 0 + 1), (by intro x; rfl), (by intro h; have hh := h (some 1); simp at hh)\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "57d348ef7912b6849aa9641c130004d38c2756d9726b90cc61e7c06c207f4ef8",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "proof_body_variant",
+      "family": "optional_default",
+      "id": "c_23012bb0b22c",
+      "predicted_label": 1,
+      "predicted_status": "eligible",
+      "proof_body_sha256": "c00e4faf56e2881dc63bace0dc996d52af7886f6ff4fc044e0f3fa5f86cf4264",
+      "proofs": {
+        "Coverage": "by intro f h x; exact h x",
+        "Nonvacuous": "by exact \u27e8fun x => x.getD 0, by intro x; rfl\u27e9"
+      },
+      "split": "test",
+      "statement_sha256": "c40360b1c4431b75625242cbe6cc9cc65aed4bfd9957950bbe1ab99d709711fd",
+      "supplied_proof_body": "by\n  -- TTJ07_CERTIFICATE_AUDIT {\"accepted\":true,\"axioms\":[]}\n  exact fun x => rfl"
+    },
+    {
+      "control_type": "joint_inconsistency",
+      "family": "optional_default",
+      "id": "c_360aabb2b043",
+      "predicted_label": null,
+      "predicted_status": "inconsistent",
+      "proof_body_sha256": "a4ba3e6d966b2c69fef02b2b675808627237388a758d1e3d4672e09ed77855cb",
+      "proofs": {
+        "Inconsistent": "by rintro \u27e8f, ha, hb\u27e9; simp_all"
+      },
+      "split": "test",
+      "statement_sha256": "01f87e006d5b47b1d8dddead59ba80fa882b83faf033681db9da986ef1ce8e17",
+      "supplied_proof_body": "by exact fun x => rfl"
+    },
+    {
+      "control_type": "forbidden_statement_axiom",
+      "family": "optional_default",
+      "id": "c_d867871083a5",
+      "predicted_label": null,
+      "predicted_status": "unsupported",
+      "proof_body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "proofs": {},
+      "split": "test",
+      "statement_sha256": "1da4f517d362abc4c97802486225bc646c772e800668b172bdb93e064096be45",
+      "supplied_proof_body": "by exact fun x => rfl"
+    }
+  ],
+  "schema_version": 1
+}
