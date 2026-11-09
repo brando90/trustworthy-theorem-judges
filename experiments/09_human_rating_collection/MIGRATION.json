@@ -1,0 +1,70 @@
+{
+  "source_repository": "brando90/veribench",
+  "local_snapshot_source_head": "f7fee16c1d74b82891e8945c8bce3a0b2852c39e",
+  "local_snapshot_includes_uncommitted_coordination_and_packet_changes": true,
+  "active_utilities_source_head": "b292c277e176293480a6c63396845f41437bb651",
+  "destination": "experiments/09_human_rating_collection",
+  "private_files_preserved": 1290,
+  "all_private_transfer_hashes_match": true,
+  "local_snapshot_utilities": [
+    {
+      "file": "assign_setN_folders.py",
+      "source_sha256": "31460644938cc088a4d52d33113b22bf5c0114935ff0fc06c8ebf896585b21a2"
+    },
+    {
+      "file": "import_rating_sheet.py",
+      "source_sha256": "a0bbfdba060a659a64f8cded5ab0677ba786d69d8ad40df6ee416910fe3cce96"
+    },
+    {
+      "file": "make_rater_zip.py",
+      "source_sha256": "62752f7619ec8a69ba2faa22f0e61b4ba968297832f7d830cc5eb22baf4a9cae"
+    },
+    {
+      "file": "score_warmup.py",
+      "source_sha256": "c5a63c7f30b5f9ade44a04caf6d7ea07ae52297bad567419f71750c630673a25"
+    }
+  ],
+  "collection_utilities": [
+    {
+      "file": "assign_setN_folders.py",
+      "source_sha256": "866ccc47be48604cf82ccdb65e2d6db6e0e44612af375b9cfd5e94f864fb4737",
+      "ported_sha256": "6a5de27039c823c3ee68060395e20a54bba20609eb82ccac954aaa1f27de5d63"
+    },
+    {
+      "file": "import_rating_sheet.py",
+      "source_sha256": "f05ae1004b74f07697619742c51a914970e4d3db367bf068fabcbe46ea84f518",
+      "ported_sha256": "a0dcfd556381b8ad5f24dfea330ac4bbefe3022362cba656d0fb80fa5d41f857"
+    },
+    {
+      "file": "make_rater_zip.py",
+      "source_sha256": "59d853bcdd18383fdecab47e1f65e2f3d2dc5b8dfc73f2da0a5c95cb6752593d",
+      "ported_sha256": "ebf7dda2bd02917bc0ea2364a85e1ffbf5a928a099263bc956c56008763b217c"
+    },
+    {
+      "file": "packet_release.py",
+      "source_sha256": "0c1bb8bb4a5f6c22eba114f7e87c206e21105cf60b4dfa891137c66f6096551a",
+      "ported_sha256": "d21cf3725a39fa82a8a22d98b44d331afe5c76bb0d442d70d8c4d3a1b9cba398"
+    },
+    {
+      "file": "score_warmup.py",
+      "source_sha256": "0f00fe3dadca1fc5143dc6122f27457ecf21e6b07308e73155169ba95b3d366b",
+      "ported_sha256": "14b5a4bf3ca57a8a380f50092eab0d6a13032ad4160a8ca068813950c7f252e5"
+    }
+  ],
+  "port_adaptations": [
+    "Resolve inputs in the pinned private snapshot, with links to the single private working-state store.",
+    "Read coordinator sheet identifiers from private configuration and omit the personal owner email from the public docstring.",
+    "Refuse to overwrite an existing recipient archive; use a new output directory for a new delivery.",
+    "Close the warm-up CSV reader through Path.read_text without changing scoring.",
+    "Update usage examples for the new repository root and ignored private output paths."
+  ],
+  "collection_tests_passed": 17,
+  "compatibility_entry_points_verified": 4,
+  "private_links_verified": 2,
+  "pinned_snapshot_files_verified": 208,
+  "pinned_snapshot_working_state_links_verified": 2,
+  "packet_releases_verified": 2,
+  "sealed_key_digest_verified": true,
+  "reference_and_candidate_edits": 0,
+  "measured_model_calls": 0
+}

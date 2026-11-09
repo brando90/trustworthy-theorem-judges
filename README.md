@@ -18,7 +18,7 @@ This repository owns the AI/agent/LLM judge study. VeriBench's intended evaluati
 
 ## Human-rating task ownership
 
-**Primary owner: `trustworthy-theorem-judges`** (Brando's decision, 11-09-2026). Preparing the human grading task first serves VeriBench and the development and evaluation of a formal specification coverage judge. This repository coordinates the collection design, instructions, packets, approved email template, assignments and collection status. Participant records and individual ratings stay in the approved private store.
+**Primary owner: `trustworthy-theorem-judges`** (Brando's decision, 11-09-2026). Preparing the human grading task first serves VeriBench and the development and evaluation of a formal specification coverage judge. The active task lives in [`experiments/09_human_rating_collection/`](experiments/09_human_rating_collection/README.md), which coordinates instructions, packets, the approved email template, assignments and collection status. Participant records and individual ratings stay in the approved private store.
 
 [cert-judge](https://github.com/brando90/cert-judge) and [judges-dont-need-psychometrics-or-corr](https://github.com/brando90/judges-dont-need-psychometrics-or-corr) can use suitable authorized ratings for their own studies while preserving consent, provenance and split/exposure history. They reference this collection rather than own separate copies of its coordination process. The comparison of cross-entropy against correlation objectives belongs in `judges-dont-need-psychometrics-or-corr`.
 
@@ -26,6 +26,7 @@ A larger, appropriately sampled collection can strengthen evidence about agreeme
 
 ## Methodology and paper
 
+- [Human-rating task preparation and collection](experiments/09_human_rating_collection/README.md): the operational home migrated from VeriBench, with private records preserved and the remaining team-delivery blockers stated explicitly.
 - [Study methodology and collection design](experiments/02_probabilistic_ordinal_judge/README.md): predict the six-category conditional human-rating distribution with the ranked probability score as the primary loss; correlations are secondary diagnostics.
 - [Historical results and provenance](experiments/01_legacy_veribench_judge/README.md): preserved aggregate receipts, limitations, and a clear separation from new validation.
 - [Prover-outcome forecasting study](experiments/03_prover_target_fsc_judge/README.md): predict acceptance by a specified proof-search procedure with Brier loss. A retrospective analysis using saved results is complete; fresh statement-only validation remains pending.
@@ -62,10 +63,10 @@ The coordinator needs the original, extracted VeriBench human-rating packet. The
 From the repository root, build an archive for the folders assigned to a rater. For example, for folder 1:
 
 ```sh
-python3 scripts/make_team_packet.py private/original private/team-folder-01.zip --folders 1
+python3 experiments/09_human_rating_collection/scripts/make_team_packet.py private/original private/team-folder-01-new.zip --folders 1
 ```
 
-Pass multiple folder numbers to package an assignment. Omit `--folders` to package all 25 folders. Use a new output filename for each build. The builder checks the frozen delivery manifest, preserves the original example bytes and filenames, and includes the rubric, instructions, a blank answer sheet and file checksums. Send the same archive to raters rating the same assignment. Each returns their own completed sheet privately.
+Follow the [collection task's current delivery status](experiments/09_human_rating_collection/README.md#current-delivery-status--11-09-2026) before sending. Pass multiple folder numbers to package an assignment. Omit `--folders` to package all 25 folders. Use a new output filename for each build. The builder checks the frozen delivery manifest, preserves the original example bytes and filenames, and includes the rubric, instructions, a blank answer sheet and file checksums. Send the same archive to raters rating the same assignment. Each returns their own completed sheet privately.
 
 ## Reference anchoring study
 
