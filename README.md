@@ -6,15 +6,17 @@
 
 Given original Python source, a candidate Lean formalization, and a gold reference, can a judge predict how qualified humans rate the candidate's coverage of the required specifications? A gold statement may follow from several candidate statements together. Proof correctness and statement coverage are different properties.
 
+**Current priority (11-09-2026):** find the best practical human-rating judge by pursuing method 2 (correlation training) and method 4 (proper-loss training) fairly. The [priority and execution plan](experiments/02_probabilistic_ordinal_judge/PRIORITY_2_VS_4_11-09-2026.md) separates training objectives from the common held-out metrics, records the pending task/agent/rater split amendment, and preserves existing funding limits. Native-probability implementation is in progress; this priority update reports no completed training or inference.
+
 ## Sister repo
 
 [judges-dont-need-psychometrics-or-corr](https://github.com/brando90/judges-dont-need-psychometrics-or-corr) is the general position paper behind this project: correlation alone does not identify the desired conditional human-rating distribution. Proper probability losses evaluate that target, while correlations remain useful diagnostics. This limitation does not establish that every psychometric method is unnecessary. This repo is its concrete application to theorem/formalization judges.
 
-Origin: working on this study is what led to the position paper. We realized we were doing something odd: fitting judges to maximize correlation with humans, even though correlation has severe drawbacks as a metric (Pearson captures only linearity, Spearman only rank order, neither the full human-rating distribution).
+Origin: this study motivated the position paper's question about fitting judges to human ratings. Pearson measures linear association of output ratings and Spearman their ordering; neither identifies the full human-rating distribution or requires a linear input-to-rating mapping. Which training objective yields the best practical judge remains an empirical question.
 
 ## Project boundary
 
-This repository owns the AI/agent/LLM judge study. VeriBench's intended evaluation direction is a **prover judge**: AI may guide proof search, while the prover checks whether the required implication has been established. A search timeout is unresolved, not evidence of non-entailment. This documentation records that project boundary; it does not change VeriBench's scorer or relabel its historical LLM-based results.
+This repository owns the probabilistic human-rating judge and, separately, an optional forecaster of success under a specified bounded proving procedure. VeriBench owns the actual Lean/FSC engine and differential-testing benchmark reference acceptance; the cert-judge proxy project remains separate. VeriBench's intended evaluation direction is a **prover judge**: AI may guide proof search, while the prover checks whether the required implication has been established. A search timeout is unresolved, not evidence of non-entailment. This documentation records that project boundary; it does not change VeriBench's scorer or relabel its historical LLM-based results.
 
 ## Human-rating task ownership
 

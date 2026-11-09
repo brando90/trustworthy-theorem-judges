@@ -4,6 +4,10 @@
 
 **TLDR:** Keep judge methodology, historical evidence, and fresh results distinct. This public project studies AI/agent/LLM judges for formal specification coverage; VeriBench's prover judge is a separate evaluation route.
 
+## Current priority — user clarification, 11-09-2026
+
+The first task is the best practical judge of human ratings: pursue method 2 (correlation training, starting with Pearson) and method 4 (proper-loss training, with normalized ranked probability score primary and cross-entropy/Brier as separate conditions). Match capacity, data, harness and search budgets; select hyperparameters with the same validation ranked probability score, then evaluate the fixed judges on the same held-out metric panel without selecting on test results. Pearson measures linear association between output ratings; it does not require a linear neural judge or input-to-rating mapping, and high correlation can coexist with bias. This repository owns the probabilistic human-rating judge and an optional bounded-prover-success forecaster; VeriBench owns the actual Lean/formal specification coverage engine and differential-testing reference acceptance. The cert-judge proxy project is separate. The sister repository tests the general objective-comparison hypothesis without assuming correlation is inferior. Follow the [methods 2 and 4 priority plan](experiments/02_probabilistic_ordinal_judge/PRIORITY_2_VS_4_11-09-2026.md): strict task/agent/rater split separation needs a prospective amendment; preserve existing evidence, pins, funding pauses and active owners.
+
 ## Shared rules
 
 At each non-trivial task, refresh `~/agents-config` with `git pull --ff-only` (preserve concurrent work), read `INDEX_RULES.md`, then its Hard Rule details and matching triggers. If absent, clone <https://github.com/brando90/agents-config>. Follow explicit user decisions and existing funding, privacy, and model pins. Model-reviewer quality assurance is opt-in; deterministic verification always applies. Keep this file and `CLAUDE.md` byte-identical.
@@ -30,6 +34,8 @@ Before preparing, dispatching, importing, or handing off ratings, read [judge fo
 `cert-judge` and `judges-dont-need-psychometrics-or-corr` may use suitable authorized ratings for their own studies, with consent, provenance and split/exposure history preserved. Cross-link the collection rather than create competing collection workflows. The cross-entropy-versus-correlation objective comparison belongs in `judges-dont-need-psychometrics-or-corr`; it does not take ownership of human-rating preparation. More ratings can support stronger human-agreement evidence, but sample size alone does not establish judge validity, and the separate prover-outcome target does not require human ratings.
 
 ## How we choose (learn) a judge: the formulations (Brando, 11-09-2026)
+
+**Current clarification, 11-09-2026:** The section below preserves an earlier interpretation. The [current priority plan](experiments/02_probabilistic_ordinal_judge/PRIORITY_2_VS_4_11-09-2026.md) supersedes the tentative 3-versus-4 priority and cross-entropy-primary recommendation below: pursue 2 versus 4 with common validation ranked probability score, keeping cross-entropy as a separate training condition and shared evaluation metric. This historical context does not authorize changing locked packets, assignments or evaluation-only data use.
 
 **Any agent that prepares or dispatches the human-rating task packet reads this first and keeps the packet (instructions, rating scale, splits, what the ratings are used for) consistent with it.** Full notes and sources: judge paper Q&A Doc, Part 3 (<https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws/edit>).
 
@@ -65,4 +71,4 @@ Run `python3 scripts/check_project.py`, the experiment's design validator, `pyth
 
 Sister repo: https://github.com/brando90/judges-dont-need-psychometrics-or-corr (general position paper: distribution matching, not correlation, for LLM judges). This repo is its concrete application. Keep claims and terminology consistent across both; cross-link rather than duplicate.
 
-Origin: working on this study is what led to the position paper. We realized we were doing something odd: fitting judges to maximize correlation with humans, even though correlation has severe drawbacks as a metric (Pearson captures only linearity, Spearman only rank order, neither the full human-rating distribution).
+Origin: this study motivated the position paper's question about fitting judges to human ratings. Pearson measures linear association of output ratings and Spearman their ordering; neither identifies the full human-rating distribution or requires a linear input-to-rating mapping. Which training objective yields the best practical judge remains an empirical question.
