@@ -1,0 +1,51 @@
+{
+  "condition": "retrospective_original_split_rps_vs_pearson_mixture_v1",
+  "dataset_sha256": "b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0",
+  "candidate_order": [
+    "H0_sol",
+    "H0_opus",
+    "H1_sol",
+    "H2_sol",
+    "H2_opus"
+  ],
+  "epsilon": 1e-06,
+  "shrinkage_grid": [
+    0.0,
+    0.1,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "primary_metric": "rps",
+  "secondary_metrics": [
+    "ce",
+    "tvd"
+  ],
+  "primary_contrast": "method4_rps minus method2_pearson test RPS",
+  "split_labels": [
+    "train",
+    "val",
+    "test"
+  ],
+  "bootstrap_draws": 2000,
+  "bootstrap_seed": 1109202610,
+  "bootstrap_unit": "joint task-family multiplicities across original train/val/test; refit and reselect",
+  "certificate_tolerance": 1e-08,
+  "tie_tolerance": 1e-12,
+  "max_faces_per_fit": 31,
+  "max_wall_seconds": 1200,
+  "max_cpu_threads": 1,
+  "selection": "minimum equal-artifact validation RPS; lowest grid index on ties",
+  "overall_selection_order": [
+    "constant",
+    "equal_mixture",
+    "best_cached",
+    "method2_pearson",
+    "method4_rps"
+  ],
+  "p_value": null,
+  "deployment_threshold": null,
+  "inference_calls": 0,
+  "provider_cost_usd": 0
+}
