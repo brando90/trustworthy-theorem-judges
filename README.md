@@ -16,6 +16,14 @@ Origin: working on this study is what led to the position paper. We realized we 
 
 This repository owns the AI/agent/LLM judge study. VeriBench's intended evaluation direction is a **prover judge**: AI may guide proof search, while the prover checks whether the required implication has been established. A search timeout is unresolved, not evidence of non-entailment. This documentation records that project boundary; it does not change VeriBench's scorer or relabel its historical LLM-based results.
 
+## Human-rating task ownership
+
+**Primary owner: `trustworthy-theorem-judges`** (Brando's decision, 11-09-2026). Preparing the human grading task first serves VeriBench and the development and evaluation of a formal specification coverage judge. This repository coordinates the collection design, instructions, packets, approved email template, assignments and collection status. Participant records and individual ratings stay in the approved private store.
+
+[cert-judge](https://github.com/brando90/cert-judge) and [judges-dont-need-psychometrics-or-corr](https://github.com/brando90/judges-dont-need-psychometrics-or-corr) can use suitable authorized ratings for their own studies while preserving consent, provenance and split/exposure history. They reference this collection rather than own separate copies of its coordination process. The comparison of cross-entropy against correlation objectives belongs in `judges-dont-need-psychometrics-or-corr`.
+
+A larger, appropriately sampled collection can strengthen evidence about agreement with humans; more ratings alone do not establish that a judge is reliable. Studies targeting a specified prover's outcomes instead of human ratings have a different data requirement, as described below.
+
 ## Methodology and paper
 
 - [Study methodology and collection design](experiments/02_probabilistic_ordinal_judge/README.md): predict the six-category conditional human-rating distribution with the ranked probability score as the primary loss; correlations are secondary diagnostics.

@@ -21,6 +21,12 @@ This is a research project. Each experiment lives in its own numbered experiment
 - A prover establishes an implication only with a checked proof; a timeout remains unresolved. This repository does not silently replace VeriBench's scorer.
 - Treat sample sizes and thresholds as planned until verified. New human data and paid inference are separate execution work with their own frozen manifest and budgets.
 
+## Human-rating task ownership
+
+User decision, 11-09-2026: this repository is the primary owner of preparing and collecting VeriBench human ratings to develop and evaluate a formal specification coverage judge. Keep the collection design, rater instructions, packet preparation, approved email template, assignment tracking and collection status here; participant records and individual ratings remain private.
+
+`cert-judge` and `judges-dont-need-psychometrics-or-corr` may use suitable authorized ratings for their own studies, with consent, provenance and split/exposure history preserved. Cross-link the collection rather than create competing collection workflows. The cross-entropy-versus-correlation objective comparison belongs in `judges-dont-need-psychometrics-or-corr`; it does not take ownership of human-rating preparation. More ratings can support stronger human-agreement evidence, but sample size alone does not establish judge validity, and the separate prover-outcome target does not require human ratings.
+
 ## Files and privacy
 
 - Put experiment-specific configuration, scripts, aggregate evidence, and reports together under `experiments/NN_descriptive_setup/`; update `experiments/README.md`.
