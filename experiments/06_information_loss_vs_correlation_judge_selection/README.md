@@ -66,4 +66,6 @@ The [distance extension](followup_11-07-2026/RESULTS.md) adds Wasserstein and Ga
 
 ## Weighted training follow-up — 11-08-2026
 
-[Separate frozen protocol](training_followup_11-08-2026/PROTOCOL.md): weighted squared probability training versus a globally solved Pearson mixture in the same model class, plus four matched softmax objectives. See the [phase README](training_followup_11-08-2026/README.md) and [live results](training_followup_11-08-2026/results.md). The historical results above remain unchanged.
+[Completed results](training_followup_11-08-2026/RESULTS_training.md) and [frozen protocol](training_followup_11-08-2026/PROTOCOL.md): weighted squared probability training versus a globally solved Pearson mixture in the same model class, plus four matched softmax objectives. See the [phase README](training_followup_11-08-2026/README.md) and [live results](training_followup_11-08-2026/results.md). The historical results above remain unchanged.
+
+Weighted mixture held-out loss was 0.191659 versus 0.202068 for Pearson training; paired refit difference −0.010409 [−0.061911,+0.005933] (95% family bootstrap, 998/1,000 valid draws; p-val=n/a). All 50 primary fits passed and all 900 softmax fits converged, but no advantage was resolved.
