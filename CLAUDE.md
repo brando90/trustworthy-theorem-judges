@@ -25,6 +25,8 @@ This is a research project. Each experiment lives in its own numbered experiment
 
 User decision, 11-09-2026: this repository is the primary owner of preparing and collecting VeriBench human ratings to develop and evaluate a formal specification coverage judge. The active task is `experiments/09_human_rating_collection/`; keep rater instructions, packet preparation, the approved email template, assignment tracking and collection status there. The prospective collection design remains in `experiments/02_probabilistic_ordinal_judge/`. Participant records and individual ratings remain private.
 
+Before preparing, dispatching, importing, or handing off ratings, read [judge formulations 2 and 4](experiments/09_human_rating_collection/JUDGE_FORMULATIONS_11-09-2026.md): 2 optimizes training correlation; 4 optimizes a proper probabilistic training loss. Preserve independent raw ratings and sealed splits so both can be compared fairly. Validation selection (1 versus 3) is a separate comparison. This methodology context does not change the locked packet, rubric, assignments, or send authorization.
+
 `cert-judge` and `judges-dont-need-psychometrics-or-corr` may use suitable authorized ratings for their own studies, with consent, provenance and split/exposure history preserved. Cross-link the collection rather than create competing collection workflows. The cross-entropy-versus-correlation objective comparison belongs in `judges-dont-need-psychometrics-or-corr`; it does not take ownership of human-rating preparation. More ratings can support stronger human-agreement evidence, but sample size alone does not establish judge validity, and the separate prover-outcome target does not require human ratings.
 
 ## Files and privacy

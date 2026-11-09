@@ -10,6 +10,8 @@ Brando moved this task from VeriBench on **11-09-2026**. Maintain the collection
 
 The [prospective probabilistic-judge design](../02_probabilistic_ordinal_judge/README.md) remains the methodology for a new collection. The inherited **set N** (the previously prepared frontier-output rating round) has its own fixed materials, assignment rules and exposure history. Moving it does not turn its outputs or ratings into the prospective study's fresh training, validation or test data.
 
+**Required reading for every collection/dispatch agent:** [judge formulations 2 and 4](JUDGE_FORMULATIONS_11-09-2026.md), with the original photos and transcriptions. Formulation 2 develops a judge using training correlation; formulation 4 uses a proper probabilistic training loss. Preserve individual ratings so both can be studied; validation-based selection (1 versus 3) is a distinct intervention. This note does not change participant instructions or dispatch authorization.
+
 ## Current delivery status — 11-09-2026
 
 **Prepared materials are available; collaborator dispatch is a separate action.** See the [current preparation record](PREPARATION_11-09-2026.md) rather than the old email for the live schedule and individual drafts.
