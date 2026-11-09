@@ -96,6 +96,14 @@ def validate(config):
             and analysis["threshold_events"] == list(range(5)), "Invalid normalized RPS specification")
     require(analysis["weighting"] == "mean_within_artifact_then_equal_mean_across_artifacts",
             "Dense annotation must not change artifact weighting")
+    require(analysis["selection_split"] == "validation"
+            and analysis["selection_metric"] == analysis["primary_metric"],
+            "Use the common validation RPS for selection")
+    require(isinstance(analysis["secondary_metrics"], list)
+            and {"ce", "tvd"}.issubset(analysis["secondary_metrics"]),
+            "The shared secondary evaluation panel must include CE and TVD")
+    require(analysis["tvd_target"] == "per_artifact_empirical_human_rating_distribution",
+            "TVD compares with the per-artifact empirical human rating distribution")
     require(analysis["main_judges"] == 1 and analysis["leave_one_agent_out_judges"] == a["count"],
             "Evaluate one main judge and one transfer judge per agent")
     require(analysis["transfer_test_tasks_per_agent"] == b["heldout_test_tasks"],

@@ -51,10 +51,11 @@ class ScaffoldTests(unittest.TestCase):
         q = [1, 0, 0, 0, 0, 0]
         perfect = artifact_metrics(q, [0])
         wrong = artifact_metrics(q, [5])
-        for key in ("rps", "brier", "ce", "kl_human_to_judge", "empirical_cdf_squared_distance", "squared_mean_error", "mae", "bias"):
+        for key in ("rps", "brier", "ce", "tvd", "kl_human_to_judge", "empirical_cdf_squared_distance", "squared_mean_error", "mae", "bias"):
             self.assertEqual(perfect[key], 0)
         self.assertEqual(wrong["rps"], 1)
         self.assertEqual(wrong["brier"], 2)
+        self.assertEqual(wrong["tvd"], 1)
         self.assertTrue(math.isinf(wrong["ce"]))
         self.assertEqual(wrong["bias"], -1)
 
@@ -71,12 +72,21 @@ class ScaffoldTests(unittest.TestCase):
         self.assertAlmostEqual(m["kl_human_to_judge"], 0)
         self.assertEqual(m["brier"], 0.5)
 
+    def test_tvd_uses_empirical_histogram_not_individual_point_masses(self):
+        q = [0.5, 0, 0, 0, 0, 0.5]
+        self.assertEqual(artifact_metrics(q, [0, 5])["tvd"], 0)
+        self.assertEqual(artifact_metrics(q, [0, 0, 0, 5])["tvd"], 0.25)
+        # Averaging distances to individual point masses would incorrectly give 0.5.
+        self.assertEqual(artifact_metrics([0, 0.5, 0, 0, 0.5, 0], [0, 5])["tvd"], 1)
+
     def test_artifact_weighting_and_root_metric_crosswalk(self):
         _, manifest = self.fixture()
         responses = self.responses(manifest, [[1, 0, 0, 0, 0, 0]] * 2)
         report = evaluate(manifest, responses, self.ratings(manifest, [[0], [5, 5, 5]]), self.root)
         m = report["scored_artifacts_only"]
         self.assertEqual(m["rps"], 0.5)  # Not the rating-weighted 0.75.
+        self.assertEqual(m["tvd"], 0.5)
+        self.assertEqual(report["full_denominator_bounds"]["tvd"], {"lower": 0.5, "upper": 0.5})
         self.assertEqual(m["brier"], 1)
         self.assertEqual(m["ce"], "Infinity")
         self.assertAlmostEqual(m["nrmse"], math.sqrt(0.5))
@@ -125,17 +135,20 @@ class ScaffoldTests(unittest.TestCase):
         self.assertEqual(report["counts"]["scheduled_artifacts"], 4)
         self.assertEqual(report["counts"]["scored_artifacts"], 1)
         self.assertEqual(report["full_denominator_bounds"]["rps"], {"lower": 0, "upper": 0.75})
+        self.assertEqual(report["full_denominator_bounds"]["tvd"], {"lower": 0, "upper": 0.75})
         self.assertEqual(report["full_denominator_bounds"]["brier"]["upper"], 1.5)
         self.assertEqual(report["full_denominator_bounds"]["ce"]["upper"], "Infinity")
         self.assertFalse(report["point_estimates_cover_full_manifest"])
         report = evaluate(manifest, self.responses(manifest, [[1, 0, 0, 0, 0, 0]] * 4), [], self.root)
         self.assertIsNone(report["scored_artifacts_only"])
         self.assertEqual(report["full_denominator_bounds"]["rps"], {"lower": 0, "upper": 1})
+        self.assertEqual(report["full_denominator_bounds"]["tvd"], {"lower": 0, "upper": 1})
 
     def test_zero_probability_and_missing_do_not_make_nan(self):
         _, manifest = self.fixture(2)
         report = evaluate(manifest, self.responses(manifest, [[1, 0, 0, 0, 0, 0]]), self.ratings(manifest, [[5], [0]]), self.root)
         self.assertEqual(report["full_denominator_bounds"]["ce"], {"lower": "Infinity", "upper": "Infinity"})
+        self.assertEqual(report["full_denominator_bounds"]["tvd"], {"lower": 0.5, "upper": 1})
         json.dumps(report, allow_nan=False)
 
     def test_duplicate_unknown_and_misbound_responses_fail(self):
@@ -185,6 +198,7 @@ class ScaffoldTests(unittest.TestCase):
         q = [[0.1, 0.2, 0.3, 0.1, 0.2, 0.1]] * 2
         reports = [evaluate(m, self.responses(m, q), self.ratings(m, [[1, 2], [3, 5]]), self.root) for m in (manifest2, manifest4)]
         self.assertEqual(reports[0]["scored_artifacts_only"], reports[1]["scored_artifacts_only"])
+        self.assertIn("tvd", reports[0]["scored_artifacts_only"])
         self.assertNotEqual(reports[0]["manifest_sha256"], reports[1]["manifest_sha256"])
 
     def test_all_correlations_preserve_ties(self):
@@ -217,7 +231,10 @@ class ScaffoldTests(unittest.TestCase):
         for name in ("manifest", "responses", "ratings"):
             command += ["--" + name, str(self.root / (name + ".json"))]
         subprocess.run(command, check=True, capture_output=True)
-        self.assertEqual(json.loads(out.read_text())["scored_artifacts_only"]["ce"], "Infinity")
+        report = json.loads(out.read_text())
+        self.assertEqual(report["scored_artifacts_only"]["ce"], "Infinity")
+        self.assertEqual(report["scored_artifacts_only"]["tvd"], 1)
+        self.assertEqual(report["metrics_version"], "native_probability_metrics_v2")
         self.assertNotEqual(subprocess.run(command, capture_output=True).returncode, 0)
 
 

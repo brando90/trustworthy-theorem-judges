@@ -8,6 +8,8 @@
 
 The [parent design](../README.md) remains prospective. Normalized ranked probability score (RPS) remains its primary endpoint. Method 2 means correlation training; method 4 means proper-loss training. Both can supply forecasts to this identical evaluator, but method metadata is only a declaration, not proof that training occurred. `fixed_baseline` is also accepted. Existing model choices, inference budgets, collection assignments, and sealed-data rules are unchanged.
 
+Cross-entropy (CE) and total variation distance (TVD) are secondary evaluation metrics in the common panel. RPS remains the common validation criterion; this module does not perform that selection. Reports mark this panel with `metrics_version: native_probability_metrics_v2`. The input-manifest format remains `native_probability_offline_v1`; completed experiment protocols and results retain their original definitions.
+
 One manifest represents one judge configuration, one split, and one forecast per artifact. Repetitions or different configurations require separate manifests; this module does not aggregate repeated model calls or select a winner. The artifact identity includes task-family and agent identifiers, but this module does not create or certify disjoint splits. Rater identifiers are opaque observation keys, not evidence of qualification or consent.
 
 The supported visibility is the parent's current `complete_candidate_and_reference_artifacts_including_proof_bodies`. Exact supplied files are hashed without extracting, editing, or interpreting Lean. Their hashes do not establish semantic correctness. The caller supplies the declared prompt digest; only future transport can bind an actual model request to the rendered prompt and these inputs.
@@ -89,6 +91,7 @@ For artifact i, the forecast is q over ratings 0–5, and p is the empirical his
 |---|---|---|
 | `rps` | Mean over ratings of `(1/5) sum_c (Q_c - 1{rating <= c})²` | [0,1]; primary proper score, includes human disagreement |
 | `ce` | Mean over ratings of `-ln(q_rating)` | [0,+infinity]; natural-log cross-entropy, no probability floor |
+| `tvd` | `(1/2) sum_r abs(q_r-p_r)` per artifact, then equal artifact mean | [0,1]; secondary distance to the empirical human rating distribution, lower is better |
 | `brier` | Mean over ratings of `sum_r (q_r - 1{rating=r})²` | [0,2]; six-category convention, not binary Brier |
 | `empirical_cdf_squared_distance` | `(1/5) sum_c (Q_c-P_c)²` | [0,1]; distance to a noisy empirical rating histogram |
 | `empirical_disagreement` | `(1/5) sum_c P_c(1-P_c)` | Artifact's empirical disagreement contribution |
@@ -100,13 +103,15 @@ For artifact i, the forecast is q over ratings 0–5, and p is the empirical his
 
 The checked identity is `rps = empirical_cdf_squared_distance + empirical_disagreement`. Therefore raw RPS and empirical cumulative-distribution distance give identical ordering on the **same artifacts and individual ratings**, but their values differ. Rooting the latter after averaging also preserves that ordering. This statement does not apply to unmatched scored subsets or different weighting. See [experiment 07](../../07_exp1_metrics/results.md) for its historical notation; this scaffold does not rename that frozen result.
 
+TVD uses the empirical distribution within each artifact, not a pooled distribution across artifacts or an average of distances to individual point-mass ratings. Sparse empirical human distributions are noisy. TVD is a secondary distribution diagnostic, does not use rating order, and is distinct from total variation distance mutual information (TVD-MI), which measures dependence. It does not replace the primary proper RPS.
+
 Assigning zero probability to any observed category yields infinite artifact CE and forward divergence. Standard JSON cannot encode infinity as a numeric token, so reports use the explicit string `"Infinity"`; they never substitute a finite cap or `null`. Unsupported observations are counted. Small positive probabilities remain positive unless they cannot be represented by the scoring floating-point type, in which case parsing fails explicitly.
 
 ## Failure accounting and interpretation
 
 The frozen manifest supplies the full scheduled denominator. Each scheduled artifact receives `ok`, `invalid`, `error`, or `missing` response status. An artifact without human ratings also remains scheduled and unscored. One unknown or duplicate response ID stops evaluation as a manifest error rather than allowing ambiguous matching.
 
-`scored_artifacts_only` contains diagnostic means over artifacts with both a valid forecast and at least one rating. `point_estimates_cover_full_manifest` is true only when every scheduled artifact is scored. The report also provides full-denominator lower/upper bounds using ranges [0,1] for RPS and squared errors, [0,2] for multiclass Brier, and [0,+infinity] for CE. These bounds retain failures without inventing replacement probabilities or a final missingness policy. They are **not confidence intervals**. No statistical acceptance threshold, uncertainty estimate, or winner is implemented.
+`scored_artifacts_only` contains diagnostic means over artifacts with both a valid forecast and at least one rating. `point_estimates_cover_full_manifest` is true only when every scheduled artifact is scored. The report also provides full-denominator lower/upper bounds using ranges [0,1] for RPS, TVD and squared errors, [0,2] for multiclass Brier, and [0,+infinity] for CE. These bounds retain failures without inventing replacement probabilities or a final missingness policy. They are **not confidence intervals**. No statistical acceptance threshold, uncertainty estimate, or winner is implemented.
 
 Every report binds the manifest, raw response bundle, rating bundle, and forecast receipt by SHA-256. It rechecks current input-file bytes before scoring. The caller retains the original input bundles privately so those hashes can be independently reconstructed. No per-rater values are echoed into the report, but probability vectors and derived information can still be sensitive; the report is private by default.
 
@@ -118,11 +123,14 @@ These expectations are written in `test_scaffold.py`; they concern parser and ar
 
 | Control | Expected result |
 |---|---|
-| Point mass on observed rating | RPS, CE, Brier, empirical distance, and normalized mean error all zero |
-| Point mass at 0, observation 5 | RPS 1; Brier 2; CE infinite; normalized squared mean error 1 |
-| Half mass at 0/5, human observations 0 and 5 | RPS 0.25; empirical distance 0; CE ln(2); forward divergence 0; Brier 0.5 |
-| One zero-loss artifact with one rater, one worst-RPS artifact with three raters | Mean RPS 0.5, not rating-weighted 0.75 |
-| One zero-loss forecast plus invalid/error/missing forecasts, four scheduled artifacts | One scored artifact; RPS full-denominator bounds [0,0.75] |
+| Point mass on observed rating | RPS, CE, TVD, Brier, empirical distance, and normalized mean error all zero |
+| Point mass at 0, observation 5 | RPS 1; TVD 1; Brier 2; CE infinite; normalized squared mean error 1 |
+| Half mass at 0/5, human observations 0 and 5 | RPS 0.25; TVD 0; empirical distance 0; CE ln(2); forward divergence 0; Brier 0.5 |
+| Half mass at 0/5, human observations 0, 0, 0 and 5 | TVD 0.25, not the 0.5 average distance to individual point masses |
+| Half mass at 1/4, human observations 0 and 5 | TVD 1 because the distributions have disjoint support |
+| One zero-loss artifact with one rater, one worst-RPS artifact with three raters | Mean RPS and TVD 0.5, not rating-weighted 0.75 |
+| One zero-loss forecast plus invalid/error/missing forecasts, four scheduled artifacts | One scored artifact; RPS and TVD full-denominator bounds [0,0.75] |
+| No artifact has ratings | No scored point estimates; TVD full-denominator bounds [0,1] |
 | Paired normalized means (0,0,1) and (0,1,1) | Pearson, Spearman, and Kendall tau-b each 0.5 when SciPy is available |
 | Changed source bytes, wrong input/condition hash, duplicate observation | Explicit integrity failure |
 

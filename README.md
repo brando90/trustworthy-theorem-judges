@@ -29,7 +29,7 @@ A larger, appropriately sampled collection can strengthen evidence about agreeme
 ## Methodology and paper
 
 - [Human-rating task preparation and collection](experiments/09_human_rating_collection/README.md): the operational home migrated from VeriBench, with private records preserved and the remaining team-delivery blockers stated explicitly.
-- [Study methodology and collection design](experiments/02_probabilistic_ordinal_judge/README.md): predict the six-category conditional human-rating distribution with the ranked probability score as the primary loss; correlations are secondary diagnostics.
+- [Study methodology and collection design](experiments/02_probabilistic_ordinal_judge/README.md): predict the six-category conditional human-rating distribution with ranked probability score as the primary held-out metric and common validation criterion; cross-entropy and total variation distance are secondary evaluation metrics, and correlations are diagnostics.
 - [Historical results and provenance](experiments/01_legacy_veribench_judge/README.md): preserved aggregate receipts, limitations, and a clear separation from new validation.
 - [Prover-outcome forecasting study](experiments/03_prover_target_fsc_judge/README.md): predict acceptance by a specified proof-search procedure with Brier loss. A retrospective analysis using saved results is complete; fresh statement-only validation remains pending.
 - [Fresh local prover-target pilot](experiments/05_fresh_local_prover_target_judges/README.md): completed eight statement-generation attempts and explicit probability forecasts under a frozen local target. Five artifacts were malformed and all three available outcomes were unsuccessful; no judge was validated.

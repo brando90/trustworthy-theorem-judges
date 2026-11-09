@@ -8,6 +8,7 @@ import math
 from pathlib import Path
 
 VERSION = "native_probability_offline_v1"
+METRICS_VERSION = "native_probability_metrics_v2"
 FILE_ROLES = {"python_source", "candidate_lean", "gold_reference_lean", "rubric"}
 VISIBILITY = "complete_candidate_and_reference_artifacts_including_proof_bodies"
 MAX_ARTIFACTS = 10000
@@ -170,7 +171,7 @@ def response_receipt(manifest, responses):
 
 
 def artifact_metrics(q, ratings):
-    """Score individual observations before averaging; the empirical histogram is not ground truth."""
+    """Compute proper scores per observation and distances to the noisy empirical histogram."""
     count = len(ratings)
     require(count > 0, "Cannot score an artifact without ratings")
     p = [ratings.count(r) / count for r in range(6)]
@@ -183,6 +184,7 @@ def artifact_metrics(q, ratings):
     human_mean = math.fsum(ratings) / count / 5
     judge_mean = math.fsum(c * q[c] for c in range(6)) / 5
     return {"rps": rps, "ce": ce, "brier": brier, "kl_human_to_judge": ce - entropy,
+            "tvd": 0.5 * math.fsum(abs(a - b) for a, b in zip(q, p)),
             "human_entropy": entropy,
             "empirical_cdf_squared_distance": math.fsum((a - b) ** 2 for a, b in zip(cdf_q, cdf_p)) / 5,
             "empirical_disagreement": math.fsum(x * (1 - x) for x in cdf_p) / 5,
@@ -255,13 +257,13 @@ def evaluate(manifest, responses, ratings, root):
         corr, correlation_status = correlations([x["judge_mean"] for x in scored], [x["human_mean"] for x in scored])
         means.update(corr)
     bounds = {}
-    for metric, upper in {"rps": 1, "brier": 2, "ce": math.inf, "empirical_cdf_squared_distance": 1, "squared_mean_error": 1}.items():
+    for metric, upper in {"rps": 1, "brier": 2, "ce": math.inf, "tvd": 1, "empirical_cdf_squared_distance": 1, "squared_mean_error": 1}.items():
         observed = math.fsum(x[metric] for x in scored)
         bounds[metric] = {"lower": observed / n, "upper": (observed + (n - k) * upper) / n if n > k else observed / n}
     for source, target in (("squared_mean_error", "nrmse"), ("empirical_cdf_squared_distance", "root_mean_cdf_distance")):
         bounds[target] = {name: math.sqrt(value) for name, value in bounds[source].items()}
     statuses = Counter(x["status"] for x in receipt["records"])
-    report = {"version": VERSION, "manifest_sha256": manifest["manifest_sha256"],
+    report = {"version": VERSION, "metrics_version": METRICS_VERSION, "manifest_sha256": manifest["manifest_sha256"],
               "condition_id": manifest["condition_id"], "split": manifest["split"],
               "ratings_sha256": digest(ratings), "forecast_receipt_sha256": digest(receipt),
               "counts": {"scheduled_artifacts": n, "response_statuses": {s: statuses[s] for s in ("ok", "invalid", "error", "missing")},
