@@ -13,7 +13,8 @@ The active preparation record is `private/09_human_rating_collection/preparation
 ## Verified preparation
 
 - The approved personal ZIP contains 25 folders and 125 candidates. Its bytes match the original delivery, and every extracted file matches the ZIP.
-- The coordinator's personal sheet was opened in the signed-in owner browser: 125 rows, with all final-score cells blank at the check. No rating was entered.
+- The coordinator's personal sheet was opened in the signed-in owner browser, and its 125 identity rows match the packet. No rating was entered.
+- The updated personal email was delivered as a new message, with the original ZIP and authorized deadline. Its inbox attachment hash was verified.
 - Delivered team assignments are preserved, including their original filenames and slot numbers. Do not rerun the historical random assignment script over them.
 - Two task emails and six warm-up emails are prepared individually, with each recipient's original packet and return route. They are unsent drafts for text review.
 - The declined participant was removed from active assignment capacity using the user's explicit correction. Previously invited people are not counted as consenting raters.
@@ -30,6 +31,6 @@ The active preparation record is `private/09_human_rating_collection/preparation
 
 ## Remaining collection work
 
-The inherited delivery ledger records four of the 50 required folder assignments as delivered, not completed. Other consenting participants still need their warm-up status resolved before primary assignments. Recruitment and completed human ratings cannot be substituted by packet preparation. Review the concrete individual drafts before authorizing team delivery; refresh sheet access and completion metadata at dispatch time.
+The inherited delivery ledger records four of the 50 required folder assignments as delivered, not completed. Other consenting participants still need their warm-up status resolved before primary assignments. Recruitment and completed human ratings cannot be substituted by packet preparation. Review the concrete individual drafts before authorizing team delivery; refresh sheet access and completion metadata at dispatch time. Existing editor permissions were verified for three team sheets; four further checks remain incomplete after browser timeouts and unavailable connector credentials. The eighth recipient uses a private CSV return route.
 
 Run `python3 experiments/09_human_rating_collection/scripts/verify_preparation.py` on the coordinator's machine to check the frozen packet, identity mapping, assignment continuity, and proposed messages. The private data are deliberately absent from public clones.
