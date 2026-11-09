@@ -28,10 +28,16 @@
   "max_primary_generated_tokens": 118,
   "paper": {
     "semantic_edits": false,
-    "existing_pdf_preserved": true,
-    "build_command": "python3 scripts/build_paper.py",
-    "build_status": "unavailable_latexmk_not_installed",
-    "existing_pdf_sha256": "ff5b46ab799a03e020ea492a7f9d8d0bab429ca03ef689f1996e6253c4a0ee52"
+    "build_command": "PATH=/lfs/skampere3/0/brando9/judge-overnight-1108/paper-tools/.TinyTeX/bin/x86_64-linux:$PATH python3 scripts/build_paper.py",
+    "build_status": "passed; no overfull boxes or unresolved references",
+    "page_count": 7,
+    "all_pages_visually_inspected": true,
+    "render_status": "no clipped text, broken tables or missing glyphs observed",
+    "source_content": "existing methodology paper unchanged; new experiment07 results remain in experiment report",
+    "previous_pdf_sha256": "ff5b46ab799a03e020ea492a7f9d8d0bab429ca03ef689f1996e6253c4a0ee52",
+    "current_pdf_sha256": "d207e7828f68127078e11d1932776f798f3147257de5a03821203e63d98a0abf",
+    "build_log_sha256": "b8e4687bf8726f34a1510554efab3c6d2aaa14293f59eebaab194bd4e2a40fba",
+    "dependency_recovery": "Installed isolated TinyTeX and missing Courier package; no source or vendor-style edits."
   },
   "review": {
     "status": "pending_parent_requested_multi_provider_review",

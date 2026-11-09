@@ -1,5 +1,5 @@
 Created: 11-08-2026 21:01 PST
-Last updated: 11-08-2026 21:11 PST
+Last updated: 11-08-2026 21:18 PST
 
 ## Goal
 - Complete 48 bounded statement-only forecasts and a held-out probability-mapping comparison.
@@ -13,7 +13,7 @@ Last updated: 11-08-2026 21:11 PST
 - All49 request/response byte hashes and48 independent loss checks verified; GPU3 released.
 ## Stuck / blocked
 - Required parent multi-provider review and main publication pending; no scientific jobs running.
-- Existing B paper unchanged; build script unavailable here because latexmk is not installed.
+- Existing methodology paper rebuilt successfully,7pages; all rendered pages inspected; sources unchanged.
 ## Next steps
 - python3 scripts/verify_forecasts.py --output /tmp/ttj07-verify.json
 - Review RESULTS_master_entailment.md at final task-branch revision; never rerun completed cells.
@@ -24,3 +24,4 @@ Last updated: 11-08-2026 21:11 PST
 - 11-08-2026 21:01 PST -- Implemented forecast/scoring pipeline; seven tests passed; original budgets preserved.
 - 11-08-2026 21:05 PST -- Protocol committed and persistent48-call pipeline launched under original caps.
 - 11-08-2026 21:11 PST -- All declared calls and scoring completed; byte-level and arithmetic checks passed; owned server stopped.
+- 11-08-2026 21:18 PST -- Isolated TeX dependencies recovered; unchanged paper rebuilt and all7pages inspected successfully.
