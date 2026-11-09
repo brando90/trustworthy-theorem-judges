@@ -1,0 +1,129 @@
+{
+  "condition": "statement-only master-specification semantic entailment, conditional on satisfiable candidate",
+  "supervisor_start_unix": 1794199862.5079246,
+  "supervisor_deadline_unix": 1794214262.5079246,
+  "primary_completion_deadline_unix": 1794212462.5079246,
+  "counts": {
+    "primary": 48,
+    "preflight": 1,
+    "transport_diagnostics_max": 2,
+    "primary_output_tokens_max": 2048,
+    "primary_timeout_seconds": 120,
+    "clients": 1,
+    "provider_cost_usd": 0
+  },
+  "population": "Prespecified constructed certificate-labeled controls; labels are not independent natural-output validation; no human ratings used.",
+  "split": "six distinct task/representation families, two train, two validation, two test; proof twins remain in their family",
+  "forecast": "Exact forall f, AgentMaster f -> GoldMaster f conditional on exists f, AgentMaster f; independent imperative equivalence is excluded.",
+  "eligibility": "Jointly inconsistent and statement-level forbidden-axiom controls have null label and abstention target; never ordinary negatives.",
+  "models": "One selected existing cached open-weight model, no hosted or subscription forecasts; model_identity.json fixed before preflight.",
+  "prompt": "prompts/judge.md; opaque id and family/split/label/certificates not passed; only statement field passed.",
+  "settings": {
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "seed": 20261108,
+    "enable_thinking": false,
+    "max_tokens": 2048,
+    "repeats": 1,
+    "retries": 0
+  },
+  "preflight": "One explicit label-in-prompt 0.375 reproduction call; no scientific outcome used for selection. Primary calls proceed only if parsed answer is exact.",
+  "fit": {
+    "form": "sigmoid(a+b*logit(clip(p,1e-6,1-1e-6))), a in [-8,8], b in [0,5]",
+    "losses": [
+      "CE",
+      "Brier"
+    ],
+    "ridge": [
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "penalty": "ridge*(a^2+(b-1)^2)",
+    "starts": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "optimizer": "scipy L-BFGS-B, maxiter500, ftol1e-12, gtol1e-8",
+    "training": "valid eligible training forecasts only; never validation/test in coefficient fitting",
+    "selection": "minimum matching validation loss for each fitted-loss family, ties within1e-12 choose strongest ridge; no optimizer success => constant0.5 fallback",
+    "test": "selection receipt written before test calls; no refitting after test"
+  },
+  "common_metrics": [
+    "Brier",
+    "clipped binary log loss eps1e-6",
+    "mean absolute error",
+    "bias = prediction minus label",
+    "mean prediction",
+    "mean label",
+    "Pearson",
+    "Spearman",
+    "Kendall tau-b",
+    "AUROC",
+    "accuracy threshold>=0.5",
+    "precision",
+    "recall",
+    "Cohen kappa",
+    "confusion counts"
+  ],
+  "failures": "All eligible rows retained. Invalid/missing/abstained raw and mapped forecasts use explicit0.5 fallback; constant uses training prevalence for every row. Also common-valid metrics, statuses, missing-loss best/worst bounds. Ineligible abstention separately scored.",
+  "uncertainty": {
+    "method": "family-cluster percentile bootstrap",
+    "draws": 2000,
+    "seed": 20261109,
+    "test_clusters": 2,
+    "paired_differences": "Brier/log loss minus constant",
+    "p_value": "n/a; constructed descriptive set, no population hypothesis test",
+    "warning": "Only two test families; bootstrap cannot demonstrate broad generalization."
+  },
+  "predictions": {
+    "oracle": {
+      "eligible_forecasts": 36,
+      "ineligible_abstentions": 12,
+      "brier": 0,
+      "clipped_log_loss": 1.0000005e-06,
+      "absolute_error": 0,
+      "bias": 0,
+      "pearson": 1,
+      "spearman": 1,
+      "kendall": 1,
+      "auroc": 1,
+      "accuracy": 1,
+      "precision": 1,
+      "recall": 1,
+      "kappa": 1
+    },
+    "constant_half": {
+      "brier": 0.25,
+      "log_loss": 0.6931471805599453,
+      "absolute_error": 0.5,
+      "bias": 0,
+      "mean_prediction": 0.5,
+      "mean_label": 0.5,
+      "pearson": null,
+      "spearman": null,
+      "kendall": null,
+      "auroc": 0.5,
+      "accuracy": 0.5,
+      "precision": 0.5,
+      "recall": 1,
+      "kappa": 0
+    },
+    "model_hypothesis": "Valid output expected for all48; eligible Brier roughly0.12-0.25, log loss0.4-0.7, MAE0.2-0.4, absolute bias<=0.15, ordering0.4-0.8, AUROC0.7-0.9, accuracy/precision/recall0.7-0.9, kappa0.4-0.8; all uncertain hypotheses, not admission thresholds. Mean label0.5, mean forecast0.35-0.65. Ineligible abstention expected8-12 of12.",
+    "literal_compliance": "Correct JSON alone gives valid output, not semantic correctness; literal exact oracle answers can attain zero Brier. No instruction asks for proof placeholders or operational search predictions.",
+    "degenerate": "Always0.5 matches constant; always0 or1 has Brier0.5 and clipped logloss6.9078 on balanced eligible controls; empty/prose response invalid and explicit0.5 fallback."
+  },
+  "bounds": "CPU <=8threads and30minutes each analysis; primary jobs must finish before original supervisor deadline minus30minutes; reserved interrupted calls count and are never retried.",
+  "analysis_scope": "Model-selection route chosen for feasible free execution, not validated judging quality. Natural-output expt169/171 and fresh human returns remain separate and unverified here."
+}

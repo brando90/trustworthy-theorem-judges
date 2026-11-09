@@ -1,0 +1,92 @@
+{
+  "observed_date": "11-08-2026",
+  "scope": "Execution route selection; not comparative judge-quality validation.",
+  "selected_model_id": "Qwen/Qwen3.6-27B",
+  "served_model_id": "Qwen/Qwen3.6-27B",
+  "revision": "6a9e13bd6fc8f0983b9b99948120bc37f49c13e9",
+  "selected_model_available": true,
+  "status": "ready_health 200_exact_model_metadata",
+  "selected_hardware": "one previously empty NVIDIA B200",
+  "generation_calls_by_route_worker": 0,
+  "provider_cost_usd": 0,
+  "candidates": [
+    {
+      "model_id": "Qwen/Qwen3.6-27B",
+      "availability": "complete locally cached 55.6 GB BF16 snapshot",
+      "decision": "selected; fits one empty device; credible general reasoning/instruction model; exact judging capability unvalidated"
+    },
+    {
+      "model_id": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      "availability": "complete locally cached 61.1 GB BF16 snapshot",
+      "decision": "coding-specialized alternative; no matched judging comparison performed"
+    },
+    {
+      "model_id": "Goedel-LM/Goedel-Prover-V2-8B",
+      "availability": "complete locally cached 16.4 GB BF16 snapshot",
+      "decision": "proof-generation specialist, not previously validated probability judge"
+    },
+    {
+      "model_id": "Goedel-LM/Goedel-Prover-V2-32B",
+      "availability": "configuration/tokenizer only; weights absent",
+      "decision": "not usable without large new download"
+    },
+    {
+      "model_id": "deepseek-ai/DeepSeek-Prover-V2-7B",
+      "availability": "complete locally cached 13.8 GB BF16 snapshot",
+      "decision": "proof-generation specialist, not previously validated probability judge"
+    },
+    {
+      "model_id": "microsoft/phi-4",
+      "availability": "complete locally cached 29.3 GB BF16 snapshot",
+      "decision": "available general alternative; not comparatively measured"
+    },
+    {
+      "model_id": "Qwen/Qwen3-14B",
+      "revision": "40c069824f4251a91eefaf281ebe4c544efd3e18",
+      "availability": "existing Brando-owned mercury1 server; metadata responded",
+      "decision": "left untouched"
+    },
+    {
+      "model_id": "Qwen/Qwen3-32B-AWQ",
+      "revision": "0499c3ac83fdef8810b907a23894ba91e95eddd8",
+      "availability": "existing Brando-owned mercury1 server; metadata responded; 4-bit AWQ group128",
+      "decision": "left untouched"
+    }
+  ],
+  "survey_coverage": {
+    "skampere3": "observed; two empty B200 devices at launch; used one",
+    "mercury1": "observed; two empty 16 GB A4000 devices; insufficient for selected BF16 model; existing two Brando-owned servers inspected without generation",
+    "mercury2": "unobserved; shared fresh-connection spacing; optional remaining survey stopped by coordinator after ready route established",
+    "skampere1": "unobserved; same reason",
+    "skampere2": "unobserved; same reason"
+  },
+  "sources": [
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.6-27B",
+      "accessed": "11-08-2026",
+      "use": "official architecture, deployment and enable_thinking=false support; different benchmark harnesses do not validate this judge"
+    },
+    {
+      "url": "https://huggingface.co/Goedel-LM/Goedel-Prover-V2-8B",
+      "accessed": "11-08-2026",
+      "use": "proof-generation role of specialist alternative"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      "accessed": "11-08-2026",
+      "use": "coding role of alternative"
+    }
+  ],
+  "limitations": [
+    "No comparative judge forecasts or exhaustive cross-host/model survey.",
+    "Model card recommends vLLM>=0.19.0; installed vLLM 0.17.1 includes required architecture and loaded exact snapshot.",
+    "Direct-response mode bounds runtime; it is not maximum-reasoning capability.",
+    "Official mathematics/coding results use different tasks and budgets; they do not establish semantic entailment judging accuracy."
+  ],
+  "setup_events": [
+    "Nonpersistent nohup attempt ended before log; zero generations.",
+    "vLLM 0.17.1 rejected UUID-format CUDA visibility before model loading; verified numeric index used instead.",
+    "Dedicated persistent server then loaded exact cached snapshot and passed health/model metadata checks.",
+    "All 15 weight shards independently SHA256 verified against cache blob names."
+  ]
+}

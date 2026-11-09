@@ -8,7 +8,7 @@ Given original Python source, a candidate Lean formalization, and a gold referen
 
 ## Sister repo
 
-[judges-dont-need-psychometrics-or-corr](https://github.com/brando90/judges-dont-need-psychometrics-or-corr) is the general position paper behind this project: evaluate LLM judges by matching the human score distribution (e.g. KL divergence), not by correlation or psychometrics. This repo is its concrete application to theorem/formalization judges.
+[judges-dont-need-psychometrics-or-corr](https://github.com/brando90/judges-dont-need-psychometrics-or-corr) is the general position paper behind this project: correlation alone does not identify the desired conditional human-rating distribution. Proper probability losses evaluate that target, while correlations remain useful diagnostics. This limitation does not establish that every psychometric method is unnecessary. This repo is its concrete application to theorem/formalization judges.
 
 Origin: working on this study is what led to the position paper. We realized we were doing something odd: fitting judges to maximize correlation with humans, even though correlation has severe drawbacks as a metric (Pearson captures only linearity, Spearman only rank order, neither the full human-rating distribution).
 
@@ -22,6 +22,7 @@ This repository owns the AI/agent/LLM judge study. VeriBench's intended evaluati
 - [Historical results and provenance](experiments/01_legacy_veribench_judge/README.md): preserved aggregate receipts, limitations, and a clear separation from new validation.
 - [Prover-outcome forecasting study](experiments/03_prover_target_fsc_judge/README.md): predict acceptance by a specified proof-search procedure with Brier loss. A retrospective analysis using saved results is complete; fresh statement-only validation remains pending.
 - [Fresh local prover-target pilot](experiments/05_fresh_local_prover_target_judges/README.md): completed eight statement-generation attempts and explicit probability forecasts under a frozen local target. Five artifacts were malformed and all three available outcomes were unsuccessful; no judge was validated.
+- [Master-specification entailment pilot](experiments/07_master_specification_entailment/README.md): a separate statement-only condition with kernel-checked constructed labels, explicit ineligible cases, and task-family-held-out probability forecasts. It targets semantic implication conditional on satisfiability; it does not substitute bounded search failure for non-entailment.
 - [AAAI-27 workshop paper](paper_latex/AAAI_2027_Evaluation_AI_Scientists/README.md): anonymous LaTeX source and compiled PDF using the official author kit.
 - [Experiment index](experiments/README.md): status, scope, and next evidence needed.
 

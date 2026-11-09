@@ -1,0 +1,1365 @@
+{
+  "all_construction_predictions_verified": true,
+  "construction_manifest_sha256": "d4eeb24d609d69b8eb8e6af315ca42f7d82ee4504ec7464681acf65888f203c3",
+  "elapsed_seconds": 28.08405637741089,
+  "generator_sha256": "80cfcf609bee00a2465838e1e926523885d18bda609877fa53baa73d48971012",
+  "input_sha256": "fc4c8cde3ce5968df37b51a24d67e70149c85c279d2b9f042a96c4a92eba04ad",
+  "label_counts": {
+    "0": 18,
+    "1": 18,
+    "None": 12
+  },
+  "pins": {
+    "audit_olean_sha256": "0bff2df00466139f45df89f599bef862b1d3b511722ede682914573da51589ac",
+    "audit_source_sha256": "f66691fb0b574d2d9abb4954b0be44b963e074e0c217ac60f35c14cceb6c8fb8",
+    "checker_sha256": "513160470d55669bf7703dea0fe2f465a8219ad59bb813a47cce9feef78e44f1",
+    "kernel_environment_source_sha256": "d7ddcdd2e79087fcaf4abd8ac93487bf2f6a6252cbdd6697242cc0df54cbd433",
+    "lean_executable_sha256": "cbf5fd536e142ef1beaccf33f788fd8a7f3f29fb214e75c11319a8d8677b4b2b",
+    "lean_shared_library_sha256": "065a68e7100e8f335ba3e4c8797ff8c441e63e5baaf6e6cd63db42adecb1f460",
+    "lean_toolchain": "leanprover/lean4:v4.22.0",
+    "lean_version": "Lean (version 4.22.0, x86_64-unknown-linux-gnu, commit ba2cbbf09d4978f416e0ebd1fceeebc2c4138c05, Release)",
+    "transitive_axioms_source_sha256": "99ac852cc961896a178cb65dd8ffa7cb8d9dbae84d7e0b768babddbd36923274"
+  },
+  "rows": [
+    {
+      "accepted": true,
+      "audit_nonce": "82b624e7ce67eb7d2fd252116871423db66b75f33d4999b3",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "82b624e7ce67eb7d2fd252116871423db66b75f33d4999b3"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "82b624e7ce67eb7d2fd252116871423db66b75f33d4999b3"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"82b624e7ce67eb7d2fd252116871423db66b75f33d4999b3\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"82b624e7ce67eb7d2fd252116871423db66b75f33d4999b3\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_7fdafda974d8",
+      "source_sha256": "11b9fc5ceed70a5796bba6ac67037206b1f0612cee9334f38a4dbed06e70946e",
+      "statement_sha256": "26ef0275ed956ad08e7c27405968eb644363f95605aad4dfe14779a765daade3",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "3f963111dd1388e86f88bad44d87206b9b9edacc5a30c9cf",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "3f963111dd1388e86f88bad44d87206b9b9edacc5a30c9cf"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "3f963111dd1388e86f88bad44d87206b9b9edacc5a30c9cf"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"3f963111dd1388e86f88bad44d87206b9b9edacc5a30c9cf\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"3f963111dd1388e86f88bad44d87206b9b9edacc5a30c9cf\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_70b993c82ca7",
+      "source_sha256": "917cde30a9da1398e240b2c77e1029e1f55ab7df2c7925043e660b27f78a6424",
+      "statement_sha256": "8e67eb63ce2c8b24669411c90a82e16421c1362d0fd05327831e271c0cc80637",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "a769467f0a0595849fd331558ed00c3c8cf9f06b8726c033",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "a769467f0a0595849fd331558ed00c3c8cf9f06b8726c033"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"a769467f0a0595849fd331558ed00c3c8cf9f06b8726c033\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_e5e393c7bacf",
+      "source_sha256": "1080b37a728c1e25042ffee9000414bd295b3a6c92c964a38c3b87bc11fbcd98",
+      "statement_sha256": "faa5fe106c2847301bd1db19e6486cfe2d85de3552c571a56f4c48d542d32f77",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "80e84c3f27cff431f02842d303f4e2480a4a31a51336edda",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "80e84c3f27cff431f02842d303f4e2480a4a31a51336edda"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"80e84c3f27cff431f02842d303f4e2480a4a31a51336edda\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_1a91dcb2ada8",
+      "source_sha256": "cfabcaff103c44aaec3b8c19a39c9004c0d3d2ca82bb5ed264345ae1c8cd2efe",
+      "statement_sha256": "880189afdfd86039906c1f77fdf29f6896e6f84e34f690340ca226e0c3d14ffb",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "7aadded1ec780bb69b107bdef806f0bfb9d32f3d7f185360",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "7aadded1ec780bb69b107bdef806f0bfb9d32f3d7f185360"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"7aadded1ec780bb69b107bdef806f0bfb9d32f3d7f185360\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_8cd3d98d972d",
+      "source_sha256": "4c30e7ef7bf9cd1e0b919bfe287149d66c2efbafcee4f8ceb0e1a4875b1d8d60",
+      "statement_sha256": "2817e5497cb0d95477e19aa16dd75eb654124f0cedf9f0ffd9dce30818d14a51",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "09dedcbfed14287196ade7d1ece4c6338da2674b2338a710",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "09dedcbfed14287196ade7d1ece4c6338da2674b2338a710"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "09dedcbfed14287196ade7d1ece4c6338da2674b2338a710"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"09dedcbfed14287196ade7d1ece4c6338da2674b2338a710\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"09dedcbfed14287196ade7d1ece4c6338da2674b2338a710\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_d81593236402",
+      "source_sha256": "b24c80958fb73ac33bd644168708e9067852e6d1c72a2646d91d0e1a1fed9c9b",
+      "statement_sha256": "26ef0275ed956ad08e7c27405968eb644363f95605aad4dfe14779a765daade3",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "fb34a60d1b9a498bc88ca2cd427fb2e37dcd3813f3ac8ee7",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Inconsistent",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "fb34a60d1b9a498bc88ca2cd427fb2e37dcd3813f3ac8ee7"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"fb34a60d1b9a498bc88ca2cd427fb2e37dcd3813f3ac8ee7\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Inconsistent\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_39f6738135c9",
+      "source_sha256": "2cbf0226543e922fc6cc09d05d43a364a5c02ca81c49956ab69083245ba5b575",
+      "statement_sha256": "cd4c20d32c8a80f591b90998d79cba029f0457a80cca183026df4803c51898b9",
+      "status": "accepted",
+      "targets": [
+        "Inconsistent"
+      ]
+    },
+    {
+      "accepted": true,
+      "certificate": null,
+      "id": "c_d55d55b79d4d",
+      "reason": "Statement declares an additional axiom; outside the admitted axiom-free source grammar.",
+      "semantic_label": null,
+      "status": "unsupported_statement_axiom"
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "05bd708d986b1ca334f403e7a95d64f7f2fa8fa325bf6572",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "05bd708d986b1ca334f403e7a95d64f7f2fa8fa325bf6572"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "05bd708d986b1ca334f403e7a95d64f7f2fa8fa325bf6572"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"05bd708d986b1ca334f403e7a95d64f7f2fa8fa325bf6572\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"05bd708d986b1ca334f403e7a95d64f7f2fa8fa325bf6572\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_abadf05011e4",
+      "source_sha256": "b973263cb26656fe439ea810aac9cb30487597a04c5285c171de6d0fb631a2a4",
+      "statement_sha256": "85898fa68e7dddc589693909f78b771fb532b8e91cb23a908dd30b14c9e662dc",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "9388e9e4f1b731ca7d6321b5153cb911d157fe26c82a8cd3",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "9388e9e4f1b731ca7d6321b5153cb911d157fe26c82a8cd3"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "9388e9e4f1b731ca7d6321b5153cb911d157fe26c82a8cd3"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"9388e9e4f1b731ca7d6321b5153cb911d157fe26c82a8cd3\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"9388e9e4f1b731ca7d6321b5153cb911d157fe26c82a8cd3\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_3a0c583dad70",
+      "source_sha256": "4a9065d3fb3da375417181dce452bd5bd92b1fe32f2a74ccd1827f051150aa1b",
+      "statement_sha256": "b1b9b4d80fe4754f667054262d39844d1663aa3c73fc661a4350ec4519c2d045",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "840c346865f6cfeef54d68cf8ed4528ba33470078914274a",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "840c346865f6cfeef54d68cf8ed4528ba33470078914274a"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"840c346865f6cfeef54d68cf8ed4528ba33470078914274a\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_b6c1f28a5f90",
+      "source_sha256": "a4deebde8a7e5bd429f6b2a7b61a6fa466b9a69eb7dbfbc8827899e9795500ff",
+      "statement_sha256": "c3846e9f052a3206c84c5db715343c6d5d516b7c58c6568a269241c384b2515b",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "ab5e43b19ef9819678de5f32d92e0dab65be21bff07aff44",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "ab5e43b19ef9819678de5f32d92e0dab65be21bff07aff44"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"ab5e43b19ef9819678de5f32d92e0dab65be21bff07aff44\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_4f4f7f164073",
+      "source_sha256": "bf3808ce2d8db24a5794fd8b0b81e20f02bfaecb8343bfc277ecea3de062ce7a",
+      "statement_sha256": "f25dc5f2ac1d7a34c79256be8c6ab9f07f51e75d2888050469446ea198fc3114",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "cccef0b9b818d1a5d71a92549a1dcd14ed37861f915d48b9",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "cccef0b9b818d1a5d71a92549a1dcd14ed37861f915d48b9"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"cccef0b9b818d1a5d71a92549a1dcd14ed37861f915d48b9\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_a3afb9706f6c",
+      "source_sha256": "de72bfdde34345b8dd4205798108c3c24ed4a50cd1bd96c9921fe83b1c83189f",
+      "statement_sha256": "8a8eff4a3239aeedb5b0dea30577f3e692f33ca57108eee1089b13b6a741e174",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "6ab831619debb2a4bea6e42d958d2ed19346d2fc39fc68d4",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "6ab831619debb2a4bea6e42d958d2ed19346d2fc39fc68d4"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "6ab831619debb2a4bea6e42d958d2ed19346d2fc39fc68d4"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"6ab831619debb2a4bea6e42d958d2ed19346d2fc39fc68d4\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"6ab831619debb2a4bea6e42d958d2ed19346d2fc39fc68d4\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_4e5ec23d2b89",
+      "source_sha256": "32fc9710a34ce6909a85d31cb42d75c8be18882bf22461a88b66c344334b3ad2",
+      "statement_sha256": "85898fa68e7dddc589693909f78b771fb532b8e91cb23a908dd30b14c9e662dc",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "1959540910b33e9282fc657ed3bc580baec4c7abcd4daa26",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Inconsistent",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "1959540910b33e9282fc657ed3bc580baec4c7abcd4daa26"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"1959540910b33e9282fc657ed3bc580baec4c7abcd4daa26\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Inconsistent\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_4092972cffb4",
+      "source_sha256": "596d2317cfca23e2e5a01079f9c6239dd8d5449d39e27174413b5bd5a4733c0a",
+      "statement_sha256": "933b7e14f832bb4b554ce41d63e0efc0dd5b21cacc99b92dbb1e44231d574a1d",
+      "status": "accepted",
+      "targets": [
+        "Inconsistent"
+      ]
+    },
+    {
+      "accepted": true,
+      "certificate": null,
+      "id": "c_a691a55054ba",
+      "reason": "Statement declares an additional axiom; outside the admitted axiom-free source grammar.",
+      "semantic_label": null,
+      "status": "unsupported_statement_axiom"
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "d74679b49dcafb1db9880d288a94acf6b20b09dc33b7e490",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "d74679b49dcafb1db9880d288a94acf6b20b09dc33b7e490"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "d74679b49dcafb1db9880d288a94acf6b20b09dc33b7e490"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"d74679b49dcafb1db9880d288a94acf6b20b09dc33b7e490\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"d74679b49dcafb1db9880d288a94acf6b20b09dc33b7e490\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_e7370822a046",
+      "source_sha256": "6943dcd099c0744f0c22451c944aad5df32334ae0d59d4eb9d9a68357cc8717e",
+      "statement_sha256": "d55e1d05ab90871729a2dcd696950f3b45dbfd2f52f7936822fbfe737dda3a20",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "cb2e270aefa8d6dab7441114116e56863f364027a9be84df",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "cb2e270aefa8d6dab7441114116e56863f364027a9be84df"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "cb2e270aefa8d6dab7441114116e56863f364027a9be84df"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"cb2e270aefa8d6dab7441114116e56863f364027a9be84df\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"cb2e270aefa8d6dab7441114116e56863f364027a9be84df\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_8ab1119d705f",
+      "source_sha256": "46f48aae9a7c6b2fb5a346c3aef9ecbf0d4a8ebe2507f12c795c245cbf5ff033",
+      "statement_sha256": "eea85a1a8d814f6ae328d2fbdee1f0f82f5b8bac571d301bd644da07c24345fa",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "fae27e577cfaa84873cabe34f39457bd18820060fd991a9c",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "fae27e577cfaa84873cabe34f39457bd18820060fd991a9c"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"fae27e577cfaa84873cabe34f39457bd18820060fd991a9c\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_58fbfe5716c0",
+      "source_sha256": "c8a5b66de9f0892014f13af533d5e3fa7031df8beb06afd4bad6b6326624569d",
+      "statement_sha256": "69efde03da06c8784c9d54631878b08bb9300c05dfc61f5cf568be72831cc81e",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "307de1bd4181ab7395ef019ded5ad579f426b73e1f0a8692",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "307de1bd4181ab7395ef019ded5ad579f426b73e1f0a8692"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"307de1bd4181ab7395ef019ded5ad579f426b73e1f0a8692\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_581281ab69d4",
+      "source_sha256": "853b77f9467716f0bd97a3d0b97549d2d5a40519980dc63d9978a50daa9aa888",
+      "statement_sha256": "29608784573c51512e20a6b6ea6d57eb5bbc5fe27fd31f2b22eb2a10818f756e",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "f2411aad9f4784f598213ea384482fb67cd826bf21fbfabe",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "f2411aad9f4784f598213ea384482fb67cd826bf21fbfabe"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"f2411aad9f4784f598213ea384482fb67cd826bf21fbfabe\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_5964412ce338",
+      "source_sha256": "5d0a173563a262f098927c4c55908f9a147c9b1600f21f765ea778a3523c3be7",
+      "statement_sha256": "aaab9c55fb93adc3ce73935dbd2e12deba434316d7909a168eb3fa51fdb5685b",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "1fb3329ffc9ffe530feac64e397e3500d9999ebe8f5086ce",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "1fb3329ffc9ffe530feac64e397e3500d9999ebe8f5086ce"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "1fb3329ffc9ffe530feac64e397e3500d9999ebe8f5086ce"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"1fb3329ffc9ffe530feac64e397e3500d9999ebe8f5086ce\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"1fb3329ffc9ffe530feac64e397e3500d9999ebe8f5086ce\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_1ee751b4a3f8",
+      "source_sha256": "a070520c820729672eff949171b8d3add2f6367a5b5cf42d07b6549b351d575b",
+      "statement_sha256": "d55e1d05ab90871729a2dcd696950f3b45dbfd2f52f7936822fbfe737dda3a20",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "c8f097b012138d9cdcb66398021c08038c12fa96932915c3",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Inconsistent",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "c8f097b012138d9cdcb66398021c08038c12fa96932915c3"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"c8f097b012138d9cdcb66398021c08038c12fa96932915c3\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Inconsistent\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_3d1fffedb4fc",
+      "source_sha256": "7755b62e6d3c270ef7529639c1e8e4ff63053f098a30e58b42da505a21a9b5f9",
+      "statement_sha256": "cd9b0d0c08a3af0dcc5c416df4fe25c649c7147e991018080914f4e3a0d584b6",
+      "status": "accepted",
+      "targets": [
+        "Inconsistent"
+      ]
+    },
+    {
+      "accepted": true,
+      "certificate": null,
+      "id": "c_15d5ab3fdaf6",
+      "reason": "Statement declares an additional axiom; outside the admitted axiom-free source grammar.",
+      "semantic_label": null,
+      "status": "unsupported_statement_axiom"
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "4ab48772abbece40b6220d486d2e3360678aefa689339f4e",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "4ab48772abbece40b6220d486d2e3360678aefa689339f4e"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "4ab48772abbece40b6220d486d2e3360678aefa689339f4e"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"4ab48772abbece40b6220d486d2e3360678aefa689339f4e\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"4ab48772abbece40b6220d486d2e3360678aefa689339f4e\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_48240288ccc4",
+      "source_sha256": "acac9e4effb870fe32ec2712726eb8e5eb53831e881ab48a24606f545f350c6e",
+      "statement_sha256": "9db9ea7fe54dab7dbd095e483a367e4fa61474cd377ea4ec43423ce435f962fc",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "7d9a2bee565471e706cba9a507d9957aeb5e12fa464ed280",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "7d9a2bee565471e706cba9a507d9957aeb5e12fa464ed280"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "7d9a2bee565471e706cba9a507d9957aeb5e12fa464ed280"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"7d9a2bee565471e706cba9a507d9957aeb5e12fa464ed280\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"7d9a2bee565471e706cba9a507d9957aeb5e12fa464ed280\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_31e4518d064a",
+      "source_sha256": "dea35b65234cb758fadc6b916c363dac30de9e681fbe462dbeafc2c4c0168f2f",
+      "statement_sha256": "1bd2f34c36a9245e5041c89f04c51e04d240d43f13eb5ee6b4dae150687182ea",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "09e2145e5e0a9973fd1eb89d0e95de25ad6c626b47e4ee9c",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "09e2145e5e0a9973fd1eb89d0e95de25ad6c626b47e4ee9c"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"09e2145e5e0a9973fd1eb89d0e95de25ad6c626b47e4ee9c\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_fa14695deb5a",
+      "source_sha256": "429f4c95599703ed2119cc99e5615684045062251abf8160811776bf370c8d7f",
+      "statement_sha256": "7cdf8d3de6f9d0be271a5a5783b7c312d8023c1da5b2467285519dd6ef6cccf9",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "1993ca5c3a4c940464976637a6177465d2a883d8f09badfd",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "1993ca5c3a4c940464976637a6177465d2a883d8f09badfd"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"1993ca5c3a4c940464976637a6177465d2a883d8f09badfd\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_2aeb6d19cf64",
+      "source_sha256": "e8e8b63b86009763abd20455f1fd8ef805ffc8f2f04458980e10141e0ca1d8b7",
+      "statement_sha256": "1eb5fbf0950da19ab8e610938ef04852a493c4eb53608e1f02a681ef40028278",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "4fe1155018ea7171414e055b51544b32253a1c959af54a7e",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "4fe1155018ea7171414e055b51544b32253a1c959af54a7e"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"4fe1155018ea7171414e055b51544b32253a1c959af54a7e\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_e0bf933658a6",
+      "source_sha256": "ba2284825f196c9f2450556c84b447ffe2eee895af8aec06d376b3cc353749af",
+      "statement_sha256": "944b494d3a0bd733e8e898312d7abac01ebb40c31829053d92c92e3f73640b2a",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "98901bbf9a83c004b7737fa91aab97feb05dd2e9871e442d",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "98901bbf9a83c004b7737fa91aab97feb05dd2e9871e442d"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "98901bbf9a83c004b7737fa91aab97feb05dd2e9871e442d"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"98901bbf9a83c004b7737fa91aab97feb05dd2e9871e442d\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"98901bbf9a83c004b7737fa91aab97feb05dd2e9871e442d\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_bffd72464c7e",
+      "source_sha256": "2a971abbaa675de23160fecfb54b04191852c8d63eb8564fc2085d93509e203a",
+      "statement_sha256": "9db9ea7fe54dab7dbd095e483a367e4fa61474cd377ea4ec43423ce435f962fc",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "6cd68e376e29611a7c2bbe42aec06e272cae32cd722aa8de",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Inconsistent",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "6cd68e376e29611a7c2bbe42aec06e272cae32cd722aa8de"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"6cd68e376e29611a7c2bbe42aec06e272cae32cd722aa8de\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Inconsistent\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_13b92143b8ba",
+      "source_sha256": "98da4ecacab3c9b690fdd545f9b034b5cd745827adf5f88a4d99a9ebc621504b",
+      "statement_sha256": "4bb6ccba49e09fe51f12581b2ecc0591cbf606d0042fb3f636d8003485937e74",
+      "status": "accepted",
+      "targets": [
+        "Inconsistent"
+      ]
+    },
+    {
+      "accepted": true,
+      "certificate": null,
+      "id": "c_3b554a49492c",
+      "reason": "Statement declares an additional axiom; outside the admitted axiom-free source grammar.",
+      "semantic_label": null,
+      "status": "unsupported_statement_axiom"
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "6d289198d4e67899970dec3578502452332c4b2bce984498",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "6d289198d4e67899970dec3578502452332c4b2bce984498"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "6d289198d4e67899970dec3578502452332c4b2bce984498"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"6d289198d4e67899970dec3578502452332c4b2bce984498\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"6d289198d4e67899970dec3578502452332c4b2bce984498\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_f25e88060eae",
+      "source_sha256": "3486e6185a6767f3ba21c7a641d2a73d2c96cfcc77afee237c0fc7374177d2cb",
+      "statement_sha256": "b38df3be2a37e1241dd878a58e9eaf947e677e6c57719f525cfa3c60d169af0d",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "56d4fb340b078351a7ed4a13cf491873532d99fa87cd2393",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "56d4fb340b078351a7ed4a13cf491873532d99fa87cd2393"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "56d4fb340b078351a7ed4a13cf491873532d99fa87cd2393"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"56d4fb340b078351a7ed4a13cf491873532d99fa87cd2393\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"56d4fb340b078351a7ed4a13cf491873532d99fa87cd2393\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_a477dc948077",
+      "source_sha256": "a742847a1f17e4ab196da5466ed3bb992a2cc921c86ce4c9dc4e51359cee10c9",
+      "statement_sha256": "9e44449a7a043b826ab7781bff7e15a19819ace30d28c0082832bcedc018f535",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "66286b9fa2f495b0fcdb910b61c8c8daaea17ff156408484",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "66286b9fa2f495b0fcdb910b61c8c8daaea17ff156408484"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"66286b9fa2f495b0fcdb910b61c8c8daaea17ff156408484\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_5c78a7883f40",
+      "source_sha256": "60d03d2c310750606826c915411347f3a523ab9f7a941c8a72443f19644f1b9d",
+      "statement_sha256": "0e6216a31d2828d9cb101f9b130b5f200792f38edf03b7ee339f869ead9b83ff",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "b138e459fb8ac040045cce0d0259cc8a359d353d379aad5a",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "b138e459fb8ac040045cce0d0259cc8a359d353d379aad5a"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"b138e459fb8ac040045cce0d0259cc8a359d353d379aad5a\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_0601f3beea0e",
+      "source_sha256": "3e1316adaa63180a231968d62d8185f772d248e4d666a8b527ba7d4fd1278f0f",
+      "statement_sha256": "f2b7fbfa9b51f3af42f287b45148c422f8960912cce23ccf06f4cebc394a673b",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "04be781b722de5608c6fa4e735b1066eda4c5916a356fc67",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "04be781b722de5608c6fa4e735b1066eda4c5916a356fc67"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"04be781b722de5608c6fa4e735b1066eda4c5916a356fc67\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_6971b1fb9f34",
+      "source_sha256": "67b8e002e5a817fdd081e815c05fca684dff2b15b29cefc52c517d488f9ac3f6",
+      "statement_sha256": "fcb9cf5e4615ec9a6d3654f2c695f03befa2493f5b02871c4e7697655b766df4",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "fcacb45a830e6c06a7f8fddf5d55d581f5a77e408ff38ce4",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "fcacb45a830e6c06a7f8fddf5d55d581f5a77e408ff38ce4"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "fcacb45a830e6c06a7f8fddf5d55d581f5a77e408ff38ce4"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"fcacb45a830e6c06a7f8fddf5d55d581f5a77e408ff38ce4\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"fcacb45a830e6c06a7f8fddf5d55d581f5a77e408ff38ce4\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_53d536fe89e0",
+      "source_sha256": "c6be3aedd1e13719dc2b0207bf129b9a35db170c01a385cbb0e94f677cf9b53a",
+      "statement_sha256": "b38df3be2a37e1241dd878a58e9eaf947e677e6c57719f525cfa3c60d169af0d",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "a0e72b07f6cf03eb5770b5dacff78ee9da092bc007cabc52",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Inconsistent",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "a0e72b07f6cf03eb5770b5dacff78ee9da092bc007cabc52"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"a0e72b07f6cf03eb5770b5dacff78ee9da092bc007cabc52\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Inconsistent\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_b6ed7390d1cc",
+      "source_sha256": "957284b47eab420925fea14cb8147eba0075fa4be307c0bdf3bace7a6d2ae720",
+      "statement_sha256": "3a56d651c9c1ebdd373c1a33c339a93859ee8a6b82fd4d279d0201d2bff750e8",
+      "status": "accepted",
+      "targets": [
+        "Inconsistent"
+      ]
+    },
+    {
+      "accepted": true,
+      "certificate": null,
+      "id": "c_cd41540fe367",
+      "reason": "Statement declares an additional axiom; outside the admitted axiom-free source grammar.",
+      "semantic_label": null,
+      "status": "unsupported_statement_axiom"
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "8a1fd49027f6b06275021c6a20ca0fd689f1a4beff2458be",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "8a1fd49027f6b06275021c6a20ca0fd689f1a4beff2458be"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "8a1fd49027f6b06275021c6a20ca0fd689f1a4beff2458be"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"8a1fd49027f6b06275021c6a20ca0fd689f1a4beff2458be\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"8a1fd49027f6b06275021c6a20ca0fd689f1a4beff2458be\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_32e35d0bf8e5",
+      "source_sha256": "f40bda113632a3275b5885a0382c64d057fd80455ddeee62116ccfbe0d994581",
+      "statement_sha256": "c40360b1c4431b75625242cbe6cc9cc65aed4bfd9957950bbe1ab99d709711fd",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "b9bc78f465602c0e14708333a22d729073dbfb0802695314",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "b9bc78f465602c0e14708333a22d729073dbfb0802695314"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "b9bc78f465602c0e14708333a22d729073dbfb0802695314"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"b9bc78f465602c0e14708333a22d729073dbfb0802695314\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"b9bc78f465602c0e14708333a22d729073dbfb0802695314\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_5b98dae421cb",
+      "source_sha256": "5fc73f91e9596704a0f232deecf46ccb4f2693feb441f8ef3292855b4398bd8b",
+      "statement_sha256": "cc834a56496ed7fb2bc22d0a88f696ba65f4da00dfc31979e8a4d9ff9776fca3",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "e417e208e5386260b557b9ce6c3cbedc52a7cc52ab4fb8df",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "e417e208e5386260b557b9ce6c3cbedc52a7cc52ab4fb8df"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"e417e208e5386260b557b9ce6c3cbedc52a7cc52ab4fb8df\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_8d9463ab8b0c",
+      "source_sha256": "d741056b7e28010d57261fe92ef933d2c321404356c6e38c6740e384faef36d0",
+      "statement_sha256": "1ef4d506a14a3e258383f6d6e4941759ef3d621deec56f0899580176ce407d80",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "fb23dc1548891cb6dd6584fe3593457d4c39371db0680cea",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "fb23dc1548891cb6dd6584fe3593457d4c39371db0680cea"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"fb23dc1548891cb6dd6584fe3593457d4c39371db0680cea\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_586cc7ddd090",
+      "source_sha256": "bd5d0174aae5328fc00fddce7b0c9a34b45c3123cc982932f3d8047aaba25d66",
+      "statement_sha256": "d5c0eb416de9abfe555e37a31b8c6244745007a83cfd6d36d7d1898793939939",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "946fb0877187675d3fd65f38a1bd9e5c31bd464c17c4a2ae",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Counterexample",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "946fb0877187675d3fd65f38a1bd9e5c31bd464c17c4a2ae"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"946fb0877187675d3fd65f38a1bd9e5c31bd464c17c4a2ae\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Counterexample\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_e673b04b4097",
+      "source_sha256": "99f2421a36d4f68cd4fd49126ce20cf059855c62c2b7babde8e828614040a772",
+      "statement_sha256": "57d348ef7912b6849aa9641c130004d38c2756d9726b90cc61e7c06c207f4ef8",
+      "status": "accepted",
+      "targets": [
+        "Counterexample"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "6af585aff4ce464f9e24982f187b3cb46f5af54387159b36",
+      "audit_records": [
+        {
+          "axioms": [],
+          "claim": "claim_Coverage",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "6af585aff4ce464f9e24982f187b3cb46f5af54387159b36"
+        },
+        {
+          "axioms": [],
+          "claim": "claim_Nonvacuous",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "6af585aff4ce464f9e24982f187b3cb46f5af54387159b36"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"6af585aff4ce464f9e24982f187b3cb46f5af54387159b36\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Coverage\",\"axioms\":[]}\nTTJ07_CERTIFICATE_AUDIT {\"nonce\":\"6af585aff4ce464f9e24982f187b3cb46f5af54387159b36\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Nonvacuous\",\"axioms\":[]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_23012bb0b22c",
+      "source_sha256": "7970bfa86245204ae0a4c5a622227aedc87c5d72eb91dc7d9deb7d7d07916d26",
+      "statement_sha256": "c40360b1c4431b75625242cbe6cc9cc65aed4bfd9957950bbe1ab99d709711fd",
+      "status": "accepted",
+      "targets": [
+        "Coverage",
+        "Nonvacuous"
+      ]
+    },
+    {
+      "accepted": true,
+      "audit_nonce": "119fe778cb1446e4969e3f6a29a984bcb1983c767c60954b",
+      "audit_records": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "claim": "claim_Inconsistent",
+          "exact_goal": true,
+          "kernel_replayed": true,
+          "nonce": "119fe778cb1446e4969e3f6a29a984bcb1983c767c60954b"
+        }
+      ],
+      "compile": {
+        "exit_code": 0,
+        "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"119fe778cb1446e4969e3f6a29a984bcb1983c767c60954b\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim_Inconsistent\",\"axioms\":[\"propext\"]}\n",
+        "threads": 1,
+        "timeout_seconds": 30
+      },
+      "id": "c_360aabb2b043",
+      "source_sha256": "2cc23fd457a3163b47e0c0261fca91d01e045e8aa6484d4f0b7699855bbfaa0e",
+      "statement_sha256": "01f87e006d5b47b1d8dddead59ba80fa882b83faf033681db9da986ef1ce8e17",
+      "status": "accepted",
+      "targets": [
+        "Inconsistent"
+      ]
+    },
+    {
+      "accepted": true,
+      "certificate": null,
+      "id": "c_d867871083a5",
+      "reason": "Statement declares an additional axiom; outside the admitted axiom-free source grammar.",
+      "semantic_label": null,
+      "status": "unsupported_statement_axiom"
+    }
+  ],
+  "schema_version": 1,
+  "status_counts": {
+    "eligible": 36,
+    "inconsistent": 6,
+    "unsupported": 6
+  },
+  "total_controls": 48,
+  "verifier_sha256": "b1b4f10b1badfa429f7bea630f2f90094d47a750bdc6aa753170ce2723886717"
+}

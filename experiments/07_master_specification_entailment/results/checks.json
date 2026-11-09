@@ -1,0 +1,51 @@
+{
+  "checked_at": "2026-11-08T21:12:00.616273-08:00",
+  "project_check": "passed",
+  "forecast_unit_tests": {
+    "passed": 7,
+    "failed": 0
+  },
+  "certificate_unit_tests": {
+    "passed": 9,
+    "failed": 0
+  },
+  "certificate_replay": {
+    "status": "passed",
+    "all_predictions_verified": true,
+    "controls": 48,
+    "output_sha256": "ce6cfc92564256863cc13a08a0ee19191dca9b7025b93fc54e39c44998b352f1"
+  },
+  "analysis_replay": {
+    "status": "byte-identical",
+    "sha256": "680da538cb359c90f219a5c3ef793371a8320e7b0521f8e5f487b14851b4980c"
+  },
+  "source_privacy": "Synthetic statements/certificates only. Raw requests and responses retained outside tracked files. No human ratings or private candidate artifacts imported.",
+  "primary_elapsed_seconds": {
+    "min": 1.1833671322092414,
+    "max": 3.4007161241024733
+  },
+  "preflight_elapsed_seconds": 57.723486326634884,
+  "max_primary_generated_tokens": 118,
+  "paper": {
+    "semantic_edits": false,
+    "build_command": "PATH=/lfs/skampere3/0/brando9/judge-overnight-1108/paper-tools/.TinyTeX/bin/x86_64-linux:$PATH python3 scripts/build_paper.py",
+    "build_status": "passed; no overfull boxes or unresolved references",
+    "page_count": 7,
+    "all_pages_visually_inspected": true,
+    "render_status": "no clipped text, broken tables or missing glyphs observed",
+    "source_content": "existing methodology paper unchanged; new experiment07 results remain in experiment report",
+    "previous_pdf_sha256": "ff5b46ab799a03e020ea492a7f9d8d0bab429ca03ef689f1996e6253c4a0ee52",
+    "current_pdf_sha256": "d207e7828f68127078e11d1932776f798f3147257de5a03821203e63d98a0abf",
+    "build_log_sha256": "b8e4687bf8726f34a1510554efab3c6d2aaa14293f59eebaab194bd4e2a40fba",
+    "dependency_recovery": "Installed isolated TinyTeX and missing Courier package; no source or vendor-style edits."
+  },
+  "review": {
+    "status": "pending_parent_requested_multi_provider_review",
+    "acceptance_not_claimed": true
+  },
+  "gpu": {
+    "study_gpu": 3,
+    "server_stopped": true,
+    "remaining_task_owned_model_pids": []
+  }
+}

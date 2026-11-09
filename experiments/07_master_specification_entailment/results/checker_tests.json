@@ -1,0 +1,168 @@
+{
+  "all_expected_outcomes_observed": true,
+  "pins": {
+    "audit_olean_sha256": "0bff2df00466139f45df89f599bef862b1d3b511722ede682914573da51589ac",
+    "audit_source_sha256": "f66691fb0b574d2d9abb4954b0be44b963e074e0c217ac60f35c14cceb6c8fb8",
+    "checker_sha256": "513160470d55669bf7703dea0fe2f465a8219ad59bb813a47cce9feef78e44f1",
+    "kernel_environment_source_sha256": "d7ddcdd2e79087fcaf4abd8ac93487bf2f6a6252cbdd6697242cc0df54cbd433",
+    "lean_executable_sha256": "cbf5fd536e142ef1beaccf33f788fd8a7f3f29fb214e75c11319a8d8677b4b2b",
+    "lean_shared_library_sha256": "065a68e7100e8f335ba3e4c8797ff8c441e63e5baaf6e6cd63db42adecb1f460",
+    "lean_toolchain": "leanprover/lean4:v4.22.0",
+    "lean_version": "Lean (version 4.22.0, x86_64-unknown-linux-gnu, commit ba2cbbf09d4978f416e0ebd1fceeebc2c4138c05, Release)",
+    "transitive_axioms_source_sha256": "99ac852cc961896a178cb65dd8ffa7cb8d9dbae84d7e0b768babddbd36923274"
+  },
+  "tests": [
+    {
+      "expected_accepted": true,
+      "matched": true,
+      "name": "exact_goal",
+      "result": {
+        "accepted": true,
+        "audit_nonce": "5b5cee6822d0c0058cdf3cc660cd26f8e87ed3b859dfe993",
+        "audit_records": [
+          {
+            "axioms": [],
+            "claim": "claim",
+            "exact_goal": true,
+            "kernel_replayed": true,
+            "nonce": "5b5cee6822d0c0058cdf3cc660cd26f8e87ed3b859dfe993"
+          }
+        ],
+        "compile": {
+          "exit_code": 0,
+          "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\":\"5b5cee6822d0c0058cdf3cc660cd26f8e87ed3b859dfe993\",\"kernel_replayed\":true,\"exact_goal\":true,\"claim\":\"claim\",\"axioms\":[]}\n",
+          "threads": 1,
+          "timeout_seconds": 30
+        },
+        "source_sha256": "0df372a6036fcc376cd2bba4aa7923d0f50acb4c1decaf5401e27cfc4f07bed4",
+        "statement_sha256": "26ef0275ed956ad08e7c27405968eb644363f95605aad4dfe14779a765daade3",
+        "status": "accepted",
+        "targets": [
+          "Coverage"
+        ]
+      }
+    },
+    {
+      "expected_accepted": false,
+      "matched": true,
+      "name": "forged_audit",
+      "result": {
+        "accepted": false,
+        "audit_nonce": "673adc41743e3855af491faa5062fc7e7edb4df27c3c1aff",
+        "audit_records": [],
+        "compile": {
+          "exit_code": 1,
+          "output": "TTJ07_CERTIFICATE_AUDIT {\"nonce\": \"forged\", \"claim\": \"claim\", \"exact_goal\": true, \"kernel_replayed\": true, \"axioms\": []}\n/tmp/user/22003/ttj07_checker_l57heu_r/forged_audit.lean:12:0: error: Certificate has the wrong exact goal\n",
+          "threads": 1,
+          "timeout_seconds": 30
+        },
+        "source_sha256": "9fdbb79d2945614cbe0c76cf77682c05f0a8ee5399c92735e96b7e5328e36d18",
+        "statement_sha256": "26ef0275ed956ad08e7c27405968eb644363f95605aad4dfe14779a765daade3",
+        "status": "certificate_rejected",
+        "targets": [
+          "Coverage"
+        ]
+      }
+    },
+    {
+      "expected_accepted": false,
+      "matched": true,
+      "name": "lexical_guard",
+      "result": {
+        "accepted": false,
+        "status": "proof_guard_rejected",
+        "tokens": [
+          "sorry"
+        ]
+      }
+    },
+    {
+      "expected_accepted": false,
+      "matched": true,
+      "name": "sorry_axiom",
+      "result": {
+        "accepted": false,
+        "audit_nonce": "f4f6725db07ab2ccd84b5ad607833dbc8b43d38e27066acd",
+        "audit_records": [],
+        "compile": {
+          "exit_code": 1,
+          "output": "/tmp/user/22003/ttj07_checker_l57heu_r/sorry_axiom.lean:10:8: warning: declaration uses 'sorry'\n/tmp/user/22003/ttj07_checker_l57heu_r/sorry_axiom.lean:11:0: error: Forbidden transitive axiom: sorryAx\n",
+          "threads": 1,
+          "timeout_seconds": 30
+        },
+        "source_sha256": "0dc232241eac1824201aaab02515a40741705dd3301cbfa3ab402130e7abfa60",
+        "statement_sha256": "26ef0275ed956ad08e7c27405968eb644363f95605aad4dfe14779a765daade3",
+        "status": "certificate_rejected",
+        "targets": [
+          "Coverage"
+        ]
+      }
+    },
+    {
+      "expected_accepted": false,
+      "matched": true,
+      "name": "term_injection",
+      "result": {
+        "accepted": false,
+        "audit_nonce": "91ac7bafa430d6e7cd56edcb0997893bf060ca27773c4ff0",
+        "audit_records": [],
+        "compile": {
+          "exit_code": 1,
+          "output": "/tmp/user/22003/ttj07_checker_l57heu_r/term_injection.lean:10:0: error: Expected exactly one proof term: <input>:2:0: expected end of input\n/tmp/user/22003/ttj07_checker_l57heu_r/term_injection.lean:11:0: error: Certificate is not a kernel-checked theorem\n",
+          "threads": 1,
+          "timeout_seconds": 30
+        },
+        "source_sha256": "222b7faf96e31c0a79cbad56469aacef9d3df9248e676321e9d39c1fda12cb65",
+        "statement_sha256": "26ef0275ed956ad08e7c27405968eb644363f95605aad4dfe14779a765daade3",
+        "status": "certificate_rejected",
+        "targets": [
+          "Coverage"
+        ]
+      }
+    },
+    {
+      "expected_accepted": false,
+      "matched": true,
+      "name": "transitive_axiom",
+      "result": {
+        "accepted": false,
+        "audit_nonce": "bd33643a4e65abbd8097ef10bb1aa75cb96f283d06410d7e",
+        "audit_records": [],
+        "compile": {
+          "exit_code": 1,
+          "output": "/tmp/user/22003/ttj07_checker_l57heu_r/transitive_axiom.lean:13:0: error: Forbidden transitive axiom: hidden\n",
+          "threads": 1,
+          "timeout_seconds": 30
+        },
+        "source_sha256": "c263eb185bdb83728745791dd9edf5173c442d38c9399263d77d4f92d9d7660c",
+        "statement_sha256": "26ef0275ed956ad08e7c27405968eb644363f95605aad4dfe14779a765daade3",
+        "status": "certificate_rejected",
+        "targets": [
+          "Coverage"
+        ]
+      }
+    },
+    {
+      "expected_accepted": false,
+      "matched": true,
+      "name": "wrong_goal",
+      "result": {
+        "accepted": false,
+        "audit_nonce": "a43577b4780e1a28ddb74bf0b9adbbe73f5968011a569066",
+        "audit_records": [],
+        "compile": {
+          "exit_code": 1,
+          "output": "/tmp/user/22003/ttj07_checker_l57heu_r/wrong_goal.lean:11:0: error: Certificate has the wrong exact goal\n",
+          "threads": 1,
+          "timeout_seconds": 30
+        },
+        "source_sha256": "fe54370143b54c4f5b8ae4d04e454d81e8b48c76799ccc168b33362d84456a27",
+        "statement_sha256": "26ef0275ed956ad08e7c27405968eb644363f95605aad4dfe14779a765daade3",
+        "status": "certificate_rejected",
+        "targets": [
+          "Coverage"
+        ]
+      }
+    }
+  ]
+}
