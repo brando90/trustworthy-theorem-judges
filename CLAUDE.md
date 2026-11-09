@@ -8,6 +8,10 @@
 
 At each non-trivial task, refresh `~/agents-config` with `git pull --ff-only` (preserve concurrent work), read `INDEX_RULES.md`, then its Hard Rule details and matching triggers. If absent, clone <https://github.com/brando90/agents-config>. Follow explicit user decisions and existing funding, privacy, and model pins. Model-reviewer quality assurance is opt-in; deterministic verification always applies. Keep this file and `CLAUDE.md` byte-identical.
 
+## Research workflow: no branches
+
+This is a research project. Each experiment lives in its own numbered experiment folder (`experiments/NN_<setup_name>/`). Commit and push straight to `main`. Do not create branches or pull requests. If a leftover branch turns up, merge it into `main` (no force-push) and delete it. If two experiments pick the same number, keep the one already on `main` and renumber the new folder to the next free number, updating its internal references.
+
 ## Scientific contract
 
 - Read the relevant experiment's README, configuration, and source receipts before writing a definition or number. Preserve provenance and denominator, split, uncertainty, bias, and missingness. Historical results do not validate a new judge.

@@ -1,4 +1,4 @@
-# Experiment 07: master-specification entailment
+# Experiment 08: master-specification entailment
 
 **Status:** Execution and deterministic verification complete; parent review and main publication pending.
 **Last updated:** 11-08-2026 21:10 PST

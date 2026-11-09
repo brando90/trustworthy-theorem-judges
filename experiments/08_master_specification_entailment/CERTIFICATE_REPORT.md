@@ -1,6 +1,6 @@
-# Experiment07 certificate results
+# Experiment 08 certificate results
 
-All 48 prespecified construction outcomes were verified in `07_master_specification_entailment` before forecasting: 18 entailment positives, 18 countermodel negatives, six jointly inconsistent candidates and six unsupported axiom declarations.
+All 48 prespecified construction outcomes were verified in `08_master_specification_entailment` before forecasting: 18 entailment positives, 18 countermodel negatives, six jointly inconsistent candidates and six unsupported axiom declarations.
 The 42 supported constructions produced 60 exact-goal, kernel-replayed theorem audits; none failed in the finalized construction.
 This establishes the labels of a controlled feasibility set, not the validity of a model judge on natural outputs.
 

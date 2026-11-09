@@ -1,4 +1,4 @@
-# Experiment07: certificate-labeled master-specification entailment
+# Experiment 08: certificate-labeled master-specification entailment
 
 The target is semantic entailment of the gold master specification by the candidate master specification, conditional on the candidate master specification being satisfiable.
 For each pure total-function interface, define
@@ -82,8 +82,8 @@ The three valid generated outputs in experiment05, all unsuccessful bounded sear
 From this experiment directory, replay all saved certificate files without changing their bytes or labels:
 
 ```bash
-python3 scripts/verify_controls.py --verify-existing --output /tmp/ttj07-certificate-replay.json
-TTJ07_CHECKER_TEST_OUTPUT=/tmp/ttj07-checker-tests.json python3 scripts/test_certificates.py
+python3 scripts/verify_controls.py --verify-existing --output /tmp/ttj08-certificate-replay.json
+TTJ07_CHECKER_TEST_OUTPUT=/tmp/ttj08-checker-tests.json python3 scripts/test_certificates.py
 ```
 
 The replay compares runtime pins, construction bytes and the saved nonces before compilation, then compares regenerated labels with the saved manifest.

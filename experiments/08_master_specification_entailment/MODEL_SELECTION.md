@@ -1,4 +1,4 @@
-# Experiment07 open-weight route selection
+# Experiment 08 open-weight route selection
 
 On 11-08-2026, the route survey selected locally cached `Qwen/Qwen3.6-27B`, revision `6a9e13bd6fc8f0983b9b99948120bc37f49c13e9`, in unquantized bfloat16 on one empty NVIDIA B200. All 15 weight shards were independently SHA256 verified. The server loaded the exact snapshot and returned healthy status plus matching model metadata. The route worker made zero generation calls and incurred $0 provider charges.
 

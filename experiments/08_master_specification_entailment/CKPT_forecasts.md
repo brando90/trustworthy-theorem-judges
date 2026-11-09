@@ -15,7 +15,7 @@ Last updated: 11-08-2026 21:18 PST
 - Required parent multi-provider review and main publication pending; no scientific jobs running.
 - Existing methodology paper rebuilt successfully,7pages; all rendered pages inspected; sources unchanged.
 ## Next steps
-- python3 scripts/verify_forecasts.py --output /tmp/ttj07-verify.json
+- python3 scripts/verify_forecasts.py --output /tmp/ttj08-verify.json
 - Review RESULTS_master_entailment.md at final task-branch revision; never rerun completed cells.
 ## Brando to-do
 - None. Parent owns review, companion, notifications, and main publication.

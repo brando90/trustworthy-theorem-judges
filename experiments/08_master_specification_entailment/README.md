@@ -1,4 +1,4 @@
-# Experiment 07: statement-only master-specification entailment
+# Experiment 08: statement-only master-specification entailment
 
 This pilot forecasts the semantic implication `forall f, AgentMaster f -> GoldMaster f`, conditional on a satisfiable candidate specification. The [live results](results.md) distinguish implementation, measured forecasts, and review status.
 
@@ -29,11 +29,11 @@ From the repository root:
 
 ```sh
 python3 scripts/check_project.py
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 experiments/07_master_specification_entailment/scripts/test_forecasts.py
-python3 experiments/07_master_specification_entailment/scripts/test_outcome_checker.py
-python3 experiments/07_master_specification_entailment/scripts/verify_controls.py --verify-existing --output /tmp/ttj07-certificate-replay.json
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 timeout 1800 python3 experiments/07_master_specification_entailment/scripts/analyze_forecasts.py evaluate --output /tmp/ttj07-analysis-replay.json
-python3 experiments/07_master_specification_entailment/scripts/verify_forecasts.py --output /tmp/ttj07-forecast-verification.json
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 experiments/08_master_specification_entailment/scripts/test_forecasts.py
+python3 experiments/08_master_specification_entailment/scripts/test_outcome_checker.py
+python3 experiments/08_master_specification_entailment/scripts/verify_controls.py --verify-existing --output /tmp/ttj08-certificate-replay.json
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 timeout 1800 python3 experiments/08_master_specification_entailment/scripts/analyze_forecasts.py evaluate --output /tmp/ttj08-analysis-replay.json
+python3 experiments/08_master_specification_entailment/scripts/verify_forecasts.py --output /tmp/ttj08-forecast-verification.json
 git diff --check
 ```
 
