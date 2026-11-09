@@ -6,6 +6,8 @@
 
 ## Ownership and scope
 
+**Sole coordinating chat:** [Prepare human grading task](codex://threads/01a1a8f9-dcb7-7381-9368-91d6e51faffd). Read the [11-09-2026 coordination record](COORDINATION_11-09-2026.md) before collection, dispatch or practical judge-development work. It consolidates the former Best human-rating judge chat without dropping its evaluator or unfinished methods 2 and 4 work.
+
 Brando moved this task from VeriBench on **11-09-2026**. Maintain the collection instructions, packet preparation, approved email, assignment tracking, delivery receipts and collection status here. VeriBench V1's separate direction is formal specification coverage checked by a prover, with artificial intelligence guiding proof search; this move does not change that scorer.
 
 The [prospective probabilistic-judge design](../02_probabilistic_ordinal_judge/README.md) remains the methodology for a new collection. The inherited **set N** (the previously prepared frontier-output rating round) has its own fixed materials, assignment rules and exposure history. Moving it does not turn its outputs or ratings into the prospective study's fresh training, validation or test data.

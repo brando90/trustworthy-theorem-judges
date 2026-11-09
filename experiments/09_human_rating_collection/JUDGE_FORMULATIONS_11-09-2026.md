@@ -6,6 +6,8 @@
 
 User decision, **11-09-2026:** every agent preparing, dispatching, importing, or handing off human-rating packets must read this note. This records methodology and coordination context; it does not revise the locked rater email, rubric, assignments, existing experiment freezes, or dispatch authorization.
 
+**Single coordination owner:** [Prepare human grading task](codex://threads/01a1a8f9-dcb7-7381-9368-91d6e51faffd) owns collection and practical judge development. Follow the [ownership and handoff record](COORDINATION_11-09-2026.md) before starting overlapping work; the former Best human-rating judge chat has handed its work to that owner.
+
 **Goal:** fairly compare correlation-based and probabilistic judge development for formal specification coverage (FSC).
 **Confidence:** high in the distinction between objectives; empirical superiority is unresolved.
 **Importance:** high for preserving interpretable collection and evaluation.

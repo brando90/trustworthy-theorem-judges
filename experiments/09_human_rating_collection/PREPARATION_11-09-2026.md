@@ -6,6 +6,8 @@
 
 ## Current collection
 
+**Coordination:** [Prepare human grading task](codex://threads/01a1a8f9-dcb7-7381-9368-91d6e51faffd) is the sole owner for this preparation and the practical human-rating judge. Follow the [consolidated ownership record](COORDINATION_11-09-2026.md); migration and historical methodology chats do not create separate dispatch owners.
+
 This is the inherited set-N collection: 25 Python tasks, five candidate files per task, and 125 candidate files. Its primary design calls for two qualified independent raters per candidate, or 50 folder assignments and 250 individual ratings. The coordinator's own ratings are an additional sensitivity panel, not replacements for those two ratings. These are design counts, not completed observations. This collection is separate from the larger prospective design in experiment 02.
 
 The active preparation record is `private/09_human_rating_collection/preparation_11-09-2026/README.md`. It contains the private roster, delivery queue, original attachments, source receipts, and proposed email bodies. The migration checkpoint beside this document tracks the broader move from VeriBench; this preparation record does not change that migration's files or ownership.
