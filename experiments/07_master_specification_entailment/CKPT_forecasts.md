@@ -1,19 +1,26 @@
 Created: 11-08-2026 21:01 PST
-Last updated: 11-08-2026 21:01 PST
+Last updated: 11-08-2026 21:11 PST
 
 ## Goal
-- Complete 48 bounded statement-only forecasts and held-out probability-mapping comparison.
+- Complete 48 bounded statement-only forecasts and a held-out probability-mapping comparison.
 ## What ran
-- Implemented strict parser, resume-safe call reservation, fitting, scoring, and seven deterministic tests.
-- Original supervisor start 1794199862.5079246; deadline 1794214262.5079246; final 30 minutes reserved.
+- Protocol commit488f186 preceded calls;48primary+1preflight, no retries/diagnostics, $0.
+- Training/validation calls and mapping selection preceded16test calls; driver exit0.
+- Original supervisor start1794199862.5079246 and deadline1794214262.5079246 unchanged.
 ## Results
-- No forecast calls yet. Dedicated cached Qwen3.6-27B route ready on GPU 3.
+- 12/12 eligible test cases correct (raw Brier0);3/4 ineligible test cases abstained.
+- All36 eligible controls correct;11/12 ineligible abstained. Endpoint-only probabilities; feasibility only.
+- All49 request/response byte hashes and48 independent loss checks verified; GPU3 released.
 ## Stuck / blocked
-- Waiting for completed adversarial certificate checks before freezing inputs.
+- Required parent multi-provider review and main publication pending; no scientific jobs running.
+- Existing B paper unchanged; build script unavailable here because latexmk is not installed.
 ## Next steps
-- Fix hashes, commit protocol, then run exactly one preflight and 32 training/validation calls.
+- python3 scripts/verify_forecasts.py --output /tmp/ttj07-verify.json
+- Review RESULTS_master_entailment.md at final task-branch revision; never rerun completed cells.
 ## Brando to-do
-- None. Parent owns mega review and main publication.
+- None. Parent owns review, companion, notifications, and main publication.
 
 ## Log
 - 11-08-2026 21:01 PST -- Implemented forecast/scoring pipeline; seven tests passed; original budgets preserved.
+- 11-08-2026 21:05 PST -- Protocol committed and persistent48-call pipeline launched under original caps.
+- 11-08-2026 21:11 PST -- All declared calls and scoring completed; byte-level and arithmetic checks passed; owned server stopped.
