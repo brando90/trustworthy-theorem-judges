@@ -68,7 +68,7 @@ From the repository root, build an archive for the folders assigned to a rater. 
 python3 experiments/09_human_rating_collection/support/scripts/make_team_packet.py private/original private/team-folder-01-new.zip --folders 1
 ```
 
-Follow the [collection task's current delivery status](experiments/09_human_rating_collection/README.md#current-delivery-status--11-09-2026) before sending. Pass multiple folder numbers to package an assignment. Omit `--folders` to package all 25 folders. Use a new output filename for each build. The builder checks the frozen delivery manifest, preserves the original example bytes and filenames, and includes the rubric, instructions, a blank answer sheet and file checksums. Send the same archive to raters rating the same assignment. Each returns their own completed sheet privately.
+Follow the [collection task's current delivery status](experiments/09_human_rating_collection/README.md#edit-or-prepare-the-task) before sending. Pass multiple folder numbers to package an assignment. Omit `--folders` to package all 25 folders. Use a new output filename for each build. The builder checks the frozen delivery manifest, preserves the original example bytes and filenames, and includes the rubric, instructions, a blank answer sheet and file checksums. Send the same archive to raters rating the same assignment. Each returns their own completed sheet privately.
 
 ## Reference anchoring study
 

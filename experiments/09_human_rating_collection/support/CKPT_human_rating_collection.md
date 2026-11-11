@@ -12,6 +12,8 @@ Thirteen replacement packets and eight exact team email previews are prepared. O
 
 ## Historical migration state
 
+- Overview consolidation, 11-11-2026: task entry points, named rating links and dated completion status now share the experiment README. The redundant top-level index/status files were removed; live links and agent instructions were updated. Raw data, task files and delivered archives are unchanged.
+
 - Editable packet, 11-11-2026: Brando’s working instructions, rubric, field guide, email draft, personal Sheet link, blank CSV and unchanged W01/W02 task files are in `../rating_task_packet/`. Import/design notes moved here into support; live local links updated. Draft wording still needs reconciliation before dispatch (email J versus score column K; old START_HERE requirements). Thirty checks pass. See `LAYOUT_MOVE_11-11-2026.json` for byte hashes and cross-repository link publication limits.
 
 - Test location, 11-11-2026: automated checks moved from the top-level `tests/` into `support/tests/`. The project verification command and test path resolution use the new location; rating data and packets are unchanged.

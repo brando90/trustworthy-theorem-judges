@@ -4,7 +4,7 @@
 
 **TLDR:** Six warm-up ratings, with three distinct participant notes. Rylan’s comments are quoted verbatim below; spelling, scores, and blank responses are preserved.
 
-[Original rating data](../ratings/Rylan_Schaeffer__warmup_T01.csv) · [Live Google Sheet](https://docs.google.com/spreadsheets/d/1SiyDKm0b4kmoQIfBomQGgFc8CVb04Rx6ekAW1CjzFFU/edit#gid=1299686922) · [Collection status](../COMPLETION_STATUS.md)
+[Original rating data](../ratings/Rylan_Schaeffer__warmup_T01.csv) · [Live Google Sheet](https://docs.google.com/spreadsheets/d/1SiyDKm0b4kmoQIfBomQGgFc8CVb04Rx6ekAW1CjzFFU/edit#gid=1299686922) · [Collection status](../README.md#ratings-and-completion)
 
 Source checked: **11-11-2026** against the preserved raw sheet snapshot. This is a readable view of the original rating responses, not new observations or a revision of his scores.
 

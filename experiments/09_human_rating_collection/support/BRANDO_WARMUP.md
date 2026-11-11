@@ -14,4 +14,4 @@ The current packet CSV matches your live sheet. The original and FormV2 archives
 
 Do this warm-up before your full 125-file assignment. You previously viewed other raters’ warm-up responses, so this is coordinator practice with known prior exposure, not an independent blinded evaluation.
 
-[Full-packet Google Sheet](https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit) · [Completion status](../COMPLETION_STATUS.md) · [Coordinator records](README.md)
+[Full-packet Google Sheet](https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit) · [Completion status](../README.md#ratings-and-completion) · [Coordinator records](README.md)
