@@ -1,0 +1,10 @@
+# Run log, experiment 14 (AI assistant, headless run, 11-10-2026, 18:03 to about 21:00)
+
+1. Read experiment 12 (runner, metrics, report) and veribench experiment 100 (prompts, parse rule, item list); reused the same data, split seeds and estimators.
+2. Checked the cluster over ssh. mercury2: 10 x RTX A4000, all free. mercury1: only GPUs 0 and 9 free. skampere1 and skampere2: fully busy (skampere1 also runs the Exp 25 seed, AT-2925), so not touched. Slurm on SNAP not tried. Model weights taken from the shared HF cache on the host (/dfs/scratch0/brando9/at1025_hf, at1131_hf).
+3. render.py rendered H0, H1, H2 prompts for the 75 items; run_slot.py started one vLLM 0.11.0 server per model (tensor parallel 2, or 4 for the 14B models) and sent one request per (item, prompt) with n=4, temperature 0.7, top_p 0.95, max 700 new tokens. Five slots ran in parallel on mercury2 (about 1 h 50 min wall). 15 models x 3 prompts = 45 judges.
+4. assemble.py parsed outputs with experiment 100's rule, kept the first 3 parseable samples per item, dropped judges with more than 3 items unparsed (6 judges: Phi-4-mini H0, H1, H2; Granite-3.3 H1; Hermes-3 H2; Olmo-3 H2) and filled at most 3 missing items with the judge's mean rating (5 items in 3 judges). 39 open judges remained.
+5. Experiment 3's Pearson face enumeration is capped at 8 judges, so nnls_pearson.py solves the same cone projection by non-negative least squares (certificate tolerance 1e-8). check_nnls.py: max difference to the enumeration solver 6.7e-16 on 200 five-judge splits. The vendored input assert was raised from 8 to 64. The old-pool rerun reproduces experiment 12 exactly.
+6. run_pool.py (experiment 12's runner) on three pools: old5, open, all; 1,000 splits, 10,000 bootstrap draws each. judge_table.py and make_report14.py wrote the tables.
+Issues: shell background jobs died between commands (used long-timeout background runs); one run launch was lost and rerun; a 10-split smoke run fails the "every artifact tested" assert by design. An interim progress message undercounted dropped judges ("5 more"); the right total is 6.
+Cost: $0, no paid API, no key used. No process left running.
