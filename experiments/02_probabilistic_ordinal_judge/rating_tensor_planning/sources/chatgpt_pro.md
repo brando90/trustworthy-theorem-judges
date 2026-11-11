@@ -4,7 +4,7 @@
 
 **TLDR:** Recovered source text, not an approved protocol.
 
-**Captured:** 11-11-2026. The shared snapshot is complete as displayed (10 messages); it is not the complete later conversation. The related branch begins mid-conversation and supplies 10 available messages. The connector supplement supplies nine recent messages. Both live chats showed "Loading older messages…" without recovering the missing interval. The older adopted source calls the model **GPT Pro**; exact historical backend is unverified. Historical per-message effort is unverified. Some original rendered tables are malformed around unescaped vertical bars; no missing cells were reconstructed. Equations and actual anchor URLs are preserved; unresolved citation-chip IDs in the connector supplement do not imply recovered URLs. Image bytes, tool traces and interactive widgets are outside this text export.
+**Captured:** 11-11-2026. The shared snapshot is complete as displayed (10 messages); it is not the complete later conversation. The related branch begins mid-conversation and supplies 10 available messages. The connector supplement supplies nine recent messages. **Coverage recheck, 11-11-2026:** the original live chat again showed "Loading older messages…", which does not establish a missing interval. Both saved connector pages report `hasMore=false` and `nextCursor=null`. All identified T/A/H estimates are already in the shared snapshot. No specific missing intervening message was identified; exhaustive later-thread coverage is unverified. No new source messages were found or added in this recheck. The older adopted source calls the model **GPT Pro**; exact historical backend is unverified. Historical per-message effort is unverified. Some original rendered tables are malformed around unescaped vertical bars; no missing cells were reconstructed. Equations and actual anchor URLs are preserved; unresolved citation-chip IDs in the connector supplement do not imply recovered URLs. Image bytes, tool traces and interactive widgets are outside this text export.
 
 # Shared snapshot — 10 displayed messages
 
@@ -2709,7 +2709,7 @@ It also separates a potentially publishable empirical result from claims that wo
 
 TL;DR: Your handwritten equation (1) and (2) are essentially two versions of correlation-based judge selection. The whiteboard introduces the more general loss-minimization formulation. Our conversation establishes why CE/RPS is better aligned with your stated goal of predicting human rating distributions. The experiment now needs to determine whether that theoretical advantage produces a judge that is demonstrably more trustworthy for VeriBench.
 
-# Original conversation — recent connector supplement (9 messages; earlier history omitted)
+# Original conversation — recent connector supplement (9 messages; sizing history appears in the shared snapshot above)
 
 ## Message 1 — user
 

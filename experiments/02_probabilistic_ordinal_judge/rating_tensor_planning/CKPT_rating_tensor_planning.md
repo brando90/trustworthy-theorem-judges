@@ -6,7 +6,7 @@
 
 - Date: 11-11-2026. Owner: Codex root; local-source subagent supplied the methods draft and source cross-checks.
 - Home: experiment 02. Scope: recovered text/URLs and sizing methods; no new collection, training, inference experiment or protocol mutation.
-- Recovered: Claude 22 messages; Gemini bounds 20; ChatGPT shared 10 + overlapping branch 10 + recent supplement nine. Missing original-chat history is explicit.
+- Recovered: Claude 22 messages; Gemini bounds 20; ChatGPT shared 10 + overlapping branch 10 + recent supplement nine. All identified sizing exchanges are included; no specific missing interval was established.
 - Private archive: Gemini distributions 18 messages, raw captures and review logs under `/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/`.
 - Recommendation: preserve historical 14,848 budget; propose a workload-bounded 544-rating pilot. Freeze all three identity splits before collecting; final required total remains undetermined.
 - Review: one Claude Code 2.1.322 subscription session; actual response model `claude-fable-5-2`, launch effort `max`, permission mode `bypassPermissions`, no API key. Session `a4b0b3ba-c390-4a94-9437-e10f188dfb45`; exit 0. Builder model identifier was not exposed in this runtime.
@@ -17,5 +17,6 @@
 - Deterministic evidence: project checks and 33 tests passed; experiment 02 design validator passed; paper build passed with no overfull boxes or unresolved references; no paper source edits, so rebuild-only PDF bytes were restored.
 - Source checks: captured message bodies match after whitespace normalization; exported trailing spaces normalized for Git checks; exact snapshot blocks match source hashes; supplied attachments preserved; no secret/email/phone/consent values found in public source scan.
 - Google companion: dated section added to the existing Q&A Doc; exact text, heading and three URL links read back successfully. Receipt hash is in provenance.json.
+- Follow-up 11-11-2026: browser and capture comparison corrected the earlier definite-gap claim. The loading marker does not prove missing messages; no new source text or sizing decision was added. Informative FYI to the human-grading owner authorized by Brando.
 - Review manifest, original findings and final file hashes are recorded in provenance.json; no automatic second review. Final staged-diff checks and publication receipt are reported in the completing chat/Git history.
 - Concurrent experiment 09/instruction edits were committed by their owner as `cf9767264097b45fed8bb3c2b5d7bafbe2ce5076`; they were not staged or rewritten here.

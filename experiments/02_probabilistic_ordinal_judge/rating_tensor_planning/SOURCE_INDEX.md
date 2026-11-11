@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_probabilistic_ordinal_judge/rating_tensor_planning/SOURCE_INDEX.md>
 
-**TLDR:** This index connects each recovered exchange to its original conversation and distinguishes complete displayed messages from unavailable history. The source text is preserved separately from the corrected sizing recommendation.
+**TLDR:** This index connects each recovered exchange to its original conversation and distinguishes recovered sizing discussions from unverified exhaustive history. The source text is preserved separately from the corrected sizing recommendation.
 
 ## Conversation records
 
@@ -36,7 +36,7 @@
 - Original connector metadata: created 11-05-2026 11:28, updated 11-09-2026 11:51. Branch: created 11-09-2026 10:48, updated 11-09-2026 10:55. Times are America/Los_Angeles and describe thread records, not each message.
 - “GPT Pro” is the label in the [adopted local source](../sources/gpt_pro_plan_11-06-2026.txt); the exact historical effort is unverified. This does not establish the exact historical backend for every message.
 - The shared snapshot contains the 35,840, 28,160, 20,480 and final 14,848 proposals. The branch's final assistant message contains the whiteboard scaling expression and explains why its variables are not yet defined for this study. The original-chat supplement contains the newer methods-2-versus-4 discussion.
-- Both live chats stalled at “Loading older messages…”. The connector returned five recent turns with `hasMore=false`; it did not recover the missing interval. Shared-snapshot completeness does not imply full later-thread completeness. Some rendered tables were already malformed around vertical bars; missing cells were not invented. Unresolved citation chips are retained as such, not fabricated links.
+- **Coverage correction, 11-11-2026:** a fresh browser check of the original chat again showed its nine recent message bodies and “Loading older messages…”. This loading marker does not establish that an unseen interval exists. Both saved connector pages report `hasMore=false` and `nextCursor=null`. Branch messages 1–8 correspond to shared-snapshot messages 3–10; branch messages 9–10 add the later summary/formulations exchange. All identified T/A/H estimates (35,840, 28,160, 20,480 and 14,848) are already in the shared snapshot. No specific missing intervening message or estimate was identified, so no further recovery task is warranted on this evidence. Exhaustive later-thread coverage remains unverified; the earlier claim of a definite “missing interval” was too strong. Some rendered tables were already malformed around vertical bars; missing cells were not invented. Unresolved citation chips are retained as such, not fabricated links.
 
 ## Earlier local plans and current authority
 

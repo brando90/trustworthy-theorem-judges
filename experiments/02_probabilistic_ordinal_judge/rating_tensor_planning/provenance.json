@@ -5,8 +5,8 @@
   "public_files": [
     {
       "path": "CKPT_rating_tensor_planning.md",
-      "sha256": "c1740c82902e06150d8037f58a1c032fa6d8bf5e5bed59607e8a9429ae19955c",
-      "bytes": 3521
+      "sha256": "afed49c246dfefce706ca37cd193d12deebe809546bff8dd9ff162102b8d02a6",
+      "bytes": 3833
     },
     {
       "path": "METHODS_AND_ALLOCATION.md",
@@ -15,13 +15,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "9d12a7f21905e34219509538bd3ed2df8e3a3c5d666207d5221eef47218b18a3",
-      "bytes": 8419
+      "sha256": "f59e462dc9745ce6ba7a02ff2ef6929d6b0b25472a425bffdccaf74213796a66",
+      "bytes": 8471
     },
     {
       "path": "SOURCE_INDEX.md",
-      "sha256": "6b997c7f223990de740dad2836284d958102076f97e126a1dd11333969b4b1b1",
-      "bytes": 10461
+      "sha256": "47c45b6c1e199da0d0510c1c66fb4ffed97b374cfb80c6b3c0aa2bd83324bff7",
+      "bytes": 11028
     },
     {
       "path": "assets/rating_tensor_source_recovery_11-11-2026.png",
@@ -35,8 +35,8 @@
     },
     {
       "path": "sources/chatgpt_pro.md",
-      "sha256": "8f07e2ac5d6f1b114f79210044869cb657e94a84913367c12131b5d58a7fb8c2",
-      "bytes": 164309
+      "sha256": "32c7287f708aa2e162ddb6fb07368facdedcb105eecf89114cb12232eadbcbab",
+      "bytes": 164693
     },
     {
       "path": "sources/claude.md",
@@ -134,6 +134,11 @@
       "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/google_sync_receipt.json",
       "sha256": "41ff0825ac749ef6a672ac66de00757beb1cf37a5c29c98936c60a37f46a126b",
       "bytes": 843
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/google_history_coverage_correction_receipt.json",
+      "sha256": "604b38a639c4e80c2da5f039e297228c894d60184e16510829d871366c6fca8e",
+      "bytes": 542
     }
   ],
   "links": {
@@ -262,5 +267,38 @@
       "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_probabilistic_ordinal_judge/rating_tensor_planning/SOURCE_INDEX.md"
     ]
   },
-  "markdown_normalization": "Line-ending trailing spaces and final blank lines normalized; all source words preserved; raw capture records retained locally."
+  "markdown_normalization": "Line-ending trailing spaces and final blank lines normalized; all source words preserved; raw capture records retained locally.",
+  "history_coverage_recheck": {
+    "date": "11-11-2026",
+    "original_chat_url": "https://chatgpt.com/c/6aecd8ba-8cd0-83e8-abbd-9b2df24689b2",
+    "browser_observation": "Nine recent message bodies and Loading older messages…; the marker alone is not evidence of an unseen interval.",
+    "saved_connector_pages": {
+      "original": {
+        "hasMore": false,
+        "nextCursor": null
+      },
+      "branch": {
+        "hasMore": false,
+        "nextCursor": null
+      }
+    },
+    "overlap": "Branch messages 1–8 correspond to shared messages 3–10; branch 9–10 are the summary/formulations exchange.",
+    "identified_estimates_present": [
+      35840,
+      28160,
+      20480,
+      14848
+    ],
+    "specific_missing_message_identified": false,
+    "new_source_messages_added": 0,
+    "conclusion": "All identified sizing exchanges are included; exhaustive thread completeness unverified. No further recovery task justified.",
+    "google_companion_correction": {
+      "date": "11-11-2026",
+      "document_id": "1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws",
+      "revision": "AHj4eMTdOSOJeMYsm3jZH9m6ni8eyGhmkZ-y1IGwJ_4VipArZINA8OUjXSEtbWIaXRu7Q2cKhr02Qu1uAtEM-ZiWxB6oTITVGDtSkHOYKd4",
+      "correction": "Coverage recheck (11-11-2026): all identified T/A/H estimates are already included. No specific missing intervening message was identified; the browser's loading marker does not establish a gap. Exhaustive original-thread coverage is unverified.",
+      "matched": true,
+      "old_definite_gap_claim_absent": true
+    }
+  }
 }
