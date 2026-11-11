@@ -1,8 +1,10 @@
 # Start here: the warm-up set (about 30-45 minutes)
 
-**Updated 10-11-2026: ready to rate.** The reference files were corrected. Lean now checks every reference theorem and test (no `sorry` is left), the false greatest-common-divisor theorem in `W02` was fixed, and the median reference states its empty-list convention. The references now contain proofs; you can skip them, because only statements are rated. If you already started, keep your entries, but re-check your `W02` scores against the updated reference.
+**Updated 10-11-2026: ready to rate.** The reference files were corrected. Lean now checks every reference theorem and test (no `sorry` is left), the false greatest-common-divisor theorem in `warm_up_02_greatest_common_divisor` was fixed, and the median reference states its empty-list convention. The references now contain proofs; you can skip them, because only statements are rated. If you already started, keep your entries, but re-check your `warm_up_02_greatest_common_divisor` scores against the updated reference.
 
-**What this is:** six short agent Lean files from an earlier rating round, in two task folders (`W01`, `W02`).
+The files `agent_1.lean`, `agent_2.lean` and `agent_3.lean` are anonymous submissions within each task. The sheet’s `item_id` retains its historical code for matching records; use `task_folder` and `candidate_file` to find the file.
+
+**What this is:** six short agent Lean files from an earlier rating round, in two task folders (`warm_up_01_median`, `warm_up_02_greatest_common_divisor`).
 Everyone on the panel rates the same six files first. It is practice with the real instructions, and it shows
 how each person uses the 0-5 scale. Rate exactly as you will rate your task folders afterwards.
 
@@ -11,7 +13,7 @@ how each person uses the 0-5 scale. Rate exactly as you will rate your task fold
 1. **Open your rating sheet:** the link is in `YOUR_RATING_SHEET.txt`, next to this file. It is shared with you
    as an editor and already has your rater code filled in. Type straight into it; it saves as you go.
 2. **Read the rules once:** `human_judgements_prompt.md`. Ignore its own Google Sheet link; use your sheet from step 1.
-3. **For each folder (`W01`, then `W02`):**
+3. **For each folder (`warm_up_01_median`, then `warm_up_02_greatest_common_divisor`):**
    - read the Python program in `python_source/`;
    - read the reference Lean file in `gold_lean/`: its theorem statements are what "full coverage" means;
    - rate each agent file in `agent_lean/` (three per folder) on statement coverage only, not proofs:

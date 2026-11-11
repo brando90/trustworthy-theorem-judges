@@ -1,0 +1,28 @@
+{
+  "date": "11-11-2026",
+  "purpose": "Descriptive participant paths; retain historical item IDs and all scientific bytes.",
+  "paths": {
+    "W01/python_source/humaneval_47_median.py": "warm_up_01_median/python_source/humaneval_47_median.py",
+    "W01/agent_lean/W01a.lean": "warm_up_01_median/agent_lean/agent_1.lean",
+    "W01/agent_lean/W01c.lean": "warm_up_01_median/agent_lean/agent_3.lean",
+    "W01/agent_lean/W01b.lean": "warm_up_01_median/agent_lean/agent_2.lean",
+    "W01/gold_lean/humaneval_47_median.lean": "warm_up_01_median/gold_lean/humaneval_47_median.lean",
+    "W02/python_source/humaneval_13__gcd.py": "warm_up_02_greatest_common_divisor/python_source/humaneval_13__gcd.py",
+    "W02/agent_lean/W02a.lean": "warm_up_02_greatest_common_divisor/agent_lean/agent_1.lean",
+    "W02/agent_lean/W02c.lean": "warm_up_02_greatest_common_divisor/agent_lean/agent_3.lean",
+    "W02/agent_lean/W02b.lean": "warm_up_02_greatest_common_divisor/agent_lean/agent_2.lean",
+    "W02/gold_lean/humaneval_13__gcd.lean": "warm_up_02_greatest_common_divisor/gold_lean/humaneval_13__gcd.lean"
+  },
+  "sha256": {
+    "warm_up_01_median/python_source/humaneval_47_median.py": "0ccb0ba13d82ed426076e3149042fd915f4c6fce4b6ee9eb92f89693751d30bd",
+    "warm_up_01_median/agent_lean/agent_1.lean": "c306897f39c8eeee337aa44ba1f88e9e81503181b39a6c7ac0b6cd3343e0ff49",
+    "warm_up_01_median/agent_lean/agent_3.lean": "ded807f1cf77f8153d455895861590d8cccd157b8144ec2071836cc33fac6b89",
+    "warm_up_01_median/agent_lean/agent_2.lean": "76d8a71001e74e334530f901edf24c05dd55d38ed24e10e135485914eae671a7",
+    "warm_up_01_median/gold_lean/humaneval_47_median.lean": "ccb1d9606c92bc92692f91ce3c4591bd8592b5fac7cc1424c50391d02aa3ff11",
+    "warm_up_02_greatest_common_divisor/python_source/humaneval_13__gcd.py": "ec286832753997378fc3d2efffa9fd4075e20d74cf6e7ae6ef4d36cda1bc1b99",
+    "warm_up_02_greatest_common_divisor/agent_lean/agent_1.lean": "0f3f2ad129d9e0d6a79ee84f90e59c053ff32e5bd490c3bf991f9afd0252820c",
+    "warm_up_02_greatest_common_divisor/agent_lean/agent_3.lean": "ab74ed52a49b1e9b96eba2ed891967c0a2ca9c49b357389664b1edf64a598e61",
+    "warm_up_02_greatest_common_divisor/agent_lean/agent_2.lean": "78e822b62795a1750ba4d9646872530fa661c2c43c8113ba1e1bd843e53831e5",
+    "warm_up_02_greatest_common_divisor/gold_lean/humaneval_13__gcd.lean": "958a04449de594659a97eba000a6d13bb9766ca4da44d30e3fc2a8f1973b020b"
+  }
+}

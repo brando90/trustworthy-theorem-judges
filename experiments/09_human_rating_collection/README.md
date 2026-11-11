@@ -10,7 +10,7 @@
 | [EMAIL_INSTRUCTIONS_V0.md](rating_task_packet/EMAIL_INSTRUCTIONS_V0.md) | Brando’s editable invitation draft; review in chat before sending. |
 | [YOUR_RATING_SHEET.txt](rating_task_packet/YOUR_RATING_SHEET.txt) | Personal Google Sheet link, where Brando enters the ratings. |
 | [ratings.csv](rating_task_packet/ratings.csv) | Blank local form for inspecting/editing the packet; not collected responses. |
-| [W01/](rating_task_packet/W01/) and [W02/](rating_task_packet/W02/) | Actual Python, reference and six candidate files copied unchanged from the FormV3 packet. |
+| [warm_up_01_median/](rating_task_packet/warm_up_01_median/) and [warm_up_02_greatest_common_divisor/](rating_task_packet/warm_up_02_greatest_common_divisor/) | Actual Python, reference and six candidate files copied unchanged from the FormV3 packet. |
 
 **Draft inconsistencies still to resolve:** the email draft says score column J; the current name-first Sheet uses K. The older START_HERE draft and rubric submission paragraph must be reconciled with the current form guide before dispatch. Their wording was preserved during this move. Use the personal Sheet in YOUR_RATING_SHEET.txt; do not copy the historical rubric’s template. The scoring rubric itself is unchanged.
 
@@ -22,3 +22,5 @@
 - `scripts/`: packet-building and import tools. Stable command paths are retained.
 
 The working packet is for Brando’s coordinator practice: he has already viewed other raters’ warm-up answers. Delivered archives remain unchanged. No email is sent by editing this folder.
+
+Folder names spell out the task. Each `agent_lean/` folder contains `agent_1.lean`, `agent_2.lean` and `agent_3.lean`. The sheet’s historical `item_id` is only a stable record key; its folder and filename columns give the current paths. See [path mapping](support/WARMUP_PATHS.json).

@@ -34,3 +34,5 @@ The primary collection still requires 250 main ratings: 20 assigned but blank an
 [Original import receipts](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/) and prior sheet snapshots remain historical evidence. Earlier name-first snapshots are superseded for current use because they included coordinator timing estimates. [Slava’s prepared CSV](support/SLAVA_CSV_NAME_FIRST_11-11-2026.md) remains unsent, with six blank response rows.
 
 **11-11-2026 header revision:** Brando’s warm-up and main sheets and their current CSV snapshots now use full checklist questions (schema v2.3). Response cells and completion counts are unchanged. Other delivered forms remain historical pending rollout. See [revision record](support/QUESTION_HEADERS_11-11-2026.md).
+
+**11-11-2026 descriptive paths:** Brando’s working warm-up packet, live sheet and current CSV use `warm_up_01_median`, `warm_up_02_greatest_common_divisor` and `agent_1.lean` through `agent_3.lean`. Historical item IDs, ratings and completion counts are unchanged. [Path mapping](support/WARMUP_PATHS.json) preserves provenance; older delivered packets remain unchanged.

@@ -1,0 +1,32 @@
+{
+  "schema_version": "common_form_v2_3_11-11-2026",
+  "source": "private/09_human_rating_collection/preparation_11-09-2026/packets/VeriBench_Brando_Miranda_Warmup_A1.zip",
+  "source_sha256": "e175155b5dc3f28fefa2b0c7c84b3e660300ab068f8d88169d6fdd7e57207ca0",
+  "output": "private/09_human_rating_collection/preparation_11-09-2026/packets/VeriBench_Brando_Miranda_Warmup_A1_FormV4.zip",
+  "output_sha256": "5e57133e65d276b692c9117285e4909289856383ea8d591708494769416262f8",
+  "rater_name": "Brando Miranda",
+  "rater_id": "A1",
+  "sheet_url": "https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit",
+  "candidate_count": 6,
+  "preserved_scientific_files": 10,
+  "columns": [
+    "rater_name",
+    "rater_id",
+    "item_id",
+    "task_folder",
+    "candidate_file",
+    "Are key gold theorems covered?",
+    "Are gold pre/postconditions preserved or strengthened?",
+    "Is there obvious theorem spam?",
+    "If spam exists, is it a handful or does it dominate?",
+    "base_score_0_5",
+    "final_score_0_5",
+    "confidence",
+    "rationale",
+    "problem_note",
+    "minutes_spent",
+    "lean_familiarity",
+    "model_assistance",
+    "independent_rating_attestation"
+  ]
+}

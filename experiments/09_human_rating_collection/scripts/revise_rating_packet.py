@@ -30,6 +30,9 @@ def revise(source, output, rater, sheet_url):
     for n, digest in listing.items():
         if hashlib.sha256(files[n]).hexdigest() != digest:
             raise ValueError(f"Source hash mismatch: {n}")
+    path_map = json.loads((HOME / "support/WARMUP_PATHS.json").read_text())["paths"]
+    original_names = {path_map.get(n, n): n for n in files}
+    files = {path_map.get(n, n): b for n, b in files.items()}
     candidates = sorted((n for n in files if "/agent_lean/" in n and n.endswith(".lean")),
                         key=lambda n: [int(x) if x.isdigit() else x for x in re.split(r"(\d+)", n)])
     if not candidates:
@@ -71,8 +74,8 @@ def revise(source, output, rater, sheet_url):
     w.writeheader()
     for n in candidates:
         p = Path(n)
-        w.writerow({"rater_name": rater_name, "rater_id": rater, "item_id": p.stem, "task_folder": p.parts[0],
-                    "candidate_file": n if p.stem.startswith("W") else p.name})
+        w.writerow({"rater_name": rater_name, "rater_id": rater, "item_id": Path(original_names[n]).stem, "task_folder": p.parts[0],
+                    "candidate_file": n if p.parts[0].startswith(("W", "warm_up_")) else p.name})
     files["ratings.csv"] = buf.getvalue().encode()
     files["FILES.sha256"] = "".join(
         f"{hashlib.sha256(b).hexdigest()}  {n}\n" for n, b in sorted(files.items())

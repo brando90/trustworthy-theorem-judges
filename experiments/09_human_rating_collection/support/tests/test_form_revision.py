@@ -118,7 +118,9 @@ class FormRevisionTests(unittest.TestCase):
             self.assertEqual(receipt["preserved_scientific_files"],3)
             with ZipFile(dst) as z:
                 for n,b in files.items():
-                    if n.endswith((".lean",".py")):self.assertEqual(z.read("revised/"+n),b)
+                    if n.endswith((".lean",".py")):
+                        mapped = json.loads((EXP/"support/WARMUP_PATHS.json").read_text())["paths"].get(n, n)
+                        self.assertEqual(z.read("revised/"+mapped),b)
                 reader=csv.DictReader(io.StringIO(z.read("revised/ratings.csv").decode()))
                 self.assertEqual(reader.fieldnames,json.loads((EXP/"support/RATING_FORM_SCHEMA.json").read_text())["columns"])
                 row=next(reader)
