@@ -13,6 +13,22 @@ SPEC.loader.exec_module(MODULE)
 
 
 class NamedRatingsTests(unittest.TestCase):
+    def test_existing_name_is_verified_and_never_duplicated(self):
+        with tempfile.TemporaryDirectory() as folder:
+            source = Path(folder) / "warmup_T01.csv"
+            original = b"rater_name,rater_id,item_id,final_score_0_5\nExample Rater,T01,W01a,0\n"
+            source.write_bytes(original)
+            identities = {"T01": {"rater_name": "Example Rater", "filename_stem": "Example_Rater"}}
+            _, data, _ = MODULE.named_export(source, identities)
+            reader = csv.DictReader(io.StringIO(data.decode()))
+            self.assertEqual(reader.fieldnames[:2], ["rater_name", "rater_id"])
+            self.assertEqual(reader.fieldnames.count("rater_name"), 1)
+            self.assertEqual(next(reader)["final_score_0_5"], "0")
+            self.assertEqual(source.read_bytes(), original)
+            source.write_bytes(original.replace(b"Example Rater,T01", b"Wrong Person,T01"))
+            with self.assertRaisesRegex(ValueError, "verified identity"):
+                MODULE.named_export(source, identities)
+
     def test_timing_estimates_preserve_raw_data_and_enforce_total(self):
         with tempfile.TemporaryDirectory() as folder:
             source = Path(folder) / "warmup_T01.csv"
@@ -47,6 +63,7 @@ class NamedRatingsTests(unittest.TestCase):
                                   "background_source": "Coordinator report"}}
             _, data, _ = MODULE.named_export(source, identities)
             row = next(csv.DictReader(io.StringIO(data.decode())))
+            self.assertEqual(list(row)[:2], ["rater_name", "rater_id"])
             self.assertEqual(row["programming_languages_background"], "Coursework")
             self.assertEqual(row["background_source"], "Coordinator report")
             self.assertEqual(row["lean_familiarity"], "none")

@@ -18,9 +18,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source", type=Path, help="Extracted original personal packet")
     parser.add_argument("output", type=Path, help="New team ZIP file")
+    parser.add_argument("--rater", help="Verified rater ID to prefill the name and ID; omit only for an unassigned template")
     parser.add_argument("--folders", nargs="+", type=int, choices=range(1, 26),
                         default=range(1, 26), metavar="1..25")
     args = parser.parse_args()
+    identities = json.loads((FORM_HOME / "RATER_IDENTITIES.json").read_text())
+    if args.rater and args.rater not in identities:
+        parser.error("Unknown rater; add the verified name to RATER_IDENTITIES.json first.")
+    rater_name = identities[args.rater]["rater_name"] if args.rater else ""
     manifest = (args.source / "FILES.sha256").read_bytes()
     if hashlib.sha256(manifest).hexdigest() != MANIFEST_SHA256:
         parser.error("Source manifest differs from the frozen delivery.")
@@ -38,7 +43,8 @@ def main():
             parser.error(f"Source file differs from its delivery manifest: {name}")
         members[name] = data
         if path.parent.name == "agent_lean":
-            rows.append(["", path.stem, path.parts[0], path.name] + [""] * (len(COLUMNS) - 4))
+            rows.append({"rater_name": rater_name, "rater_id": args.rater or "",
+                         "item_id": path.stem, "task_folder": path.parts[0], "candidate_file": path.name})
 
     # Replace only the personal submission instructions. Preserve the scoring rubric.
     rubric = members["Rating_Instructions.md"].decode()
@@ -56,15 +62,15 @@ def main():
         "Read Rating_Instructions.md. In each assigned folder, read the Python source and the "
         "gold Lean theorem statements, then rate each candidate under agent_lean. The files in "
         "gold_lean_dependencies, when present, support the reference.\n\n"
-        "Open ratings.csv in a spreadsheet editor. Enter your rater ID and final_score_0_5 "
+        "Open ratings.csv in a spreadsheet editor. Check your name and rater ID, then enter final_score_0_5 "
         "for each assigned file. Keep the item IDs and filenames intact. Record any reference "
         "problem in problem_note. Return your completed CSV privately to Brando.\n\n"
         "## Assistance and reference problems\n\n" + assistance
     ).encode()
     members["RATING_FORM_GUIDE.md"] = (FORM_HOME / "RATING_FORM_GUIDE.md").read_bytes()
     sheet = io.StringIO(newline="")
-    writer = csv.writer(sheet)
-    writer.writerow(COLUMNS)
+    writer = csv.DictWriter(sheet, fieldnames=COLUMNS)
+    writer.writeheader()
     writer.writerows(rows)
     members["ratings.csv"] = sheet.getvalue().encode()
     members["FILES.sha256"] = "".join(

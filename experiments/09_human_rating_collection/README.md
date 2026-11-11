@@ -10,6 +10,8 @@
 
 **Current form revision, 11-11-2026:** [one shared warm-up/main form](RATING_FORM_GUIDE.md), with [model-assistance disclosure and an attestation](FORM_AMENDMENT_11-11-2026.md). Brando's two live sheets use this revision; the team queue remains held for his pilot and revised-text review. Dispatch agents must read the amendment before using older prepared emails or packets.
 
+**Names first, 11-11-2026:** Brando, Sri, Rylan and Yegor's warm-up Google Sheets, plus Brando's main sheet, now start with `rater_name,rater_id`, matching the named CSV identity columns. [Open matching sheet-value CSV snapshots and live links](sheet_exports/11-11-2026_name_first/README.md). Existing answers, notes and validation were verified unchanged after the column insertion. New forms use the 18-column schema; historical team forms retain their other existing columns.
+
 ## Open the collected ratings
 
 **Start here: [ratings by person — names and actual CSV files](RATINGS_INDEX.md).**
@@ -78,7 +80,7 @@ This repository is public. The following coordinator paths are ignored, not publ
 | Exact approved email | `private/09_human_rating_collection/legacy_veribench/human_round/RATER_TASK_EMAIL_LOCKED_11-04-2026.md` |
 | Complete file-by-file transfer hashes | `private/09_human_rating_collection/migration_receipt.json` |
 
-The imported `PLAN_setN_rating_round.md` records dated decisions, not the current schedule. Follow [PREPARATION_11-09-2026.md](PREPARATION_11-09-2026.md) for the newer schedule and preparation; preserve the original email's approval history and the localized-assistance wording. Keep delivered archives unchanged; any later approved delivery is a new version with a new receipt. Individual ratings and participant records remain private after collection closes unless separately authorized for release.
+The imported `PLAN_setN_rating_round.md` records dated decisions, not the current schedule. Follow [PREPARATION_11-09-2026.md](PREPARATION_11-09-2026.md) for the newer schedule and preparation; preserve the original email's approval history and the localized-assistance wording. Keep delivered archives unchanged; any later approved delivery is a new version with a new receipt. Named collected ratings and completion records are authorized for Git tracking in this experiment; private correspondence, consent and sealed data remain outside public Git.
 
 ## Build a team packet
 
@@ -86,10 +88,10 @@ From `~/trustworthy-theorem-judges`:
 
 ```sh
 python3 experiments/09_human_rating_collection/scripts/make_team_packet.py \
-  private/original private/team-folder-01-new.zip --folders 1
+  private/original private/team-folder-01-new.zip --folders 1 --rater T01
 ```
 
-Use a new output filename; omit `--folders` for all folders. The builder checks the original delivery manifest and every included file, preserves the scoring rubric apart from its personal-sheet instruction, and includes `START_HERE.md`, `Rating_Instructions.md`, `ratings.csv` and `FILES.sha256`. It does not send anything or modify a delivered packet.
+Use a new output filename and the intended person's verified rater ID (`T01` is Rylan Schaeffer); omit `--folders` for all folders. Omitting `--rater` creates an unassigned template, not a recipient-ready form. The builder checks the original delivery manifest and every included file, preserves the scoring rubric apart from its personal-sheet instruction, and includes `START_HERE.md`, `Rating_Instructions.md`, `ratings.csv` and `FILES.sha256`. It does not send anything or modify a delivered packet.
 
 **Keep the sheet layouts distinct.** This builder's renamed `agent_file*.lean` items are not the inherited `Nxx`/`Wxx` item identifiers. The utilities under `scripts/legacy/` serve the inherited sheets only; do not pass a renamed team answer sheet to that importer or infer its item mapping. Preserve explicit item mappings when reconciling later deliveries.
 

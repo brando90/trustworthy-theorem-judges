@@ -12,6 +12,10 @@ HOME = Path(__file__).resolve().parents[1]
 
 def revise(source, output, rater, sheet_url):
     schema = json.loads((HOME / "RATING_FORM_SCHEMA.json").read_text())
+    identities = json.loads((HOME / "RATER_IDENTITIES.json").read_text())
+    if rater not in identities or not identities[rater]["rater_name"].strip():
+        raise ValueError(f"No verified name for {rater}; update RATER_IDENTITIES.json first")
+    rater_name = identities[rater]["rater_name"]
     with ZipFile(source) as z:
         raw = {n: z.read(n) for n in z.namelist() if not n.endswith("/")}
     roots = {n.split("/")[0] for n in raw}
@@ -43,7 +47,7 @@ def revise(source, output, rater, sheet_url):
         "The included ratings.csv is a blank form with the same columns; the personal Google Sheet is your return route.\n"
     ).encode()
     files["YOUR_RATING_SHEET.txt"] = (
-        f"Personal rating sheet for {rater}\n{sheet_url}\n\n"
+        f"Personal rating sheet for {rater_name} ({rater})\n{sheet_url}\n\n"
         "Fill final_score_0_5, model_assistance and independent_rating_attestation for each completed item.\n"
         "The sheet saves automatically; keep the prefilled identifiers unchanged.\n"
     ).encode()
@@ -56,7 +60,7 @@ def revise(source, output, rater, sheet_url):
     w.writeheader()
     for n in candidates:
         p = Path(n)
-        w.writerow({"rater_id": rater, "item_id": p.stem, "task_folder": p.parts[0],
+        w.writerow({"rater_name": rater_name, "rater_id": rater, "item_id": p.stem, "task_folder": p.parts[0],
                     "candidate_file": n if p.stem.startswith("W") else p.name})
     files["ratings.csv"] = buf.getvalue().encode()
     files["FILES.sha256"] = "".join(
@@ -74,7 +78,7 @@ def revise(source, output, rater, sheet_url):
     receipt = {"schema_version": schema["version"], "source": str(source),
                "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
                "output": str(output), "output_sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
-               "rater_id": rater, "sheet_url": sheet_url, "candidate_count": len(candidates),
+               "rater_name": rater_name, "rater_id": rater, "sheet_url": sheet_url, "candidate_count": len(candidates),
                "preserved_scientific_files": len(protected), "columns": schema["columns"]}
     output.with_suffix(".receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
     return receipt

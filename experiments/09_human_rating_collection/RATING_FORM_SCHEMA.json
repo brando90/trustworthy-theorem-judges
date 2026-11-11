@@ -1,6 +1,7 @@
 {
-  "version": "common_form_v2_1_11-11-2026",
+  "version": "common_form_v2_2_11-11-2026",
   "columns": [
+    "rater_name",
     "rater_id",
     "item_id",
     "task_folder",
@@ -51,5 +52,13 @@
     "frequency": "once_per_rater_in_first_item_row",
     "prompt": "What have you done with Lean (tutorials, reading theorem statements, writing proofs, a course or a project), roughly how much, and how recently? Separately mention relevant programming-languages/formal-methods coursework or other proof assistants. If no Lean experience, say so. One or two sentences; please expand labels such as some or fluent.",
     "legacy_labels": "Preserve existing none/some/fluent responses; never infer experience or reject historical ratings for missing detail."
+  },
+  "identity_columns": {
+    "prefilled": [
+      "rater_name",
+      "rater_id"
+    ],
+    "source": "RATER_IDENTITIES.json; names display identity, stable rater_id remains the join key",
+    "order": "rater_name first, rater_id second in Google Sheets and CSV forms; historical imports remain unchanged"
   }
 }

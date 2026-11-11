@@ -6,7 +6,9 @@
 
 ## State
 
-- Updated: 11-09-2026 11:15 PST.
+- Updated: 11-11-2026 (name-first sheet migration).
+- Current form: schema `common_form_v2_2_11-11-2026`, 18 columns with `rater_name,rater_id` first. All four live warm-ups and Brando's main sheet have the new name column; existing responses are unchanged. Matching table-value CSV snapshots are linked from the README. Original delivered archives remain frozen; regenerate future packets from the new schema.
+- Feedback outreach: all three earlier feedback drafts are cancelled; no feedback email is authorized by this update.
 - Historical migration owner: Pi; migration is complete. Current sole collection and practical judge coordinator: [Prepare human grading task](codex://threads/01a1a8f9-dcb7-7381-9368-91d6e51faffd), per [the 11-09-2026 ownership decision](COORDINATION_11-09-2026.md).
 - Canonical task: `~/trustworthy-theorem-judges/experiments/09_human_rating_collection/`.
 - Private working state: `~/trustworthy-theorem-judges/private/09_human_rating_collection/`.
@@ -24,6 +26,8 @@
 - Continuation: read this experiment's README and private migration receipt before touching packets or participant records.
 
 ## Event log
+
+- 11-11-2026 name-first revision: inserted verified names in column A of Brando, Sri, Rylan and Yegor's warm-ups and Brando's main sheet. Readback compared every old cell after its one-column shift: values, notes, validation and formats matched. Native visual checks passed on all five sheets. Saved source screenshot, before/after receipts and matching CSV table snapshots; snapshots are not new observations. Importer handles shifted leading comments, named exporter retains names and IDs first, and future packet builders prefill roster names. Existing numeric export counts remain 6 Rylan, 3 Yegor and 6 Sri. No scores, reference files or delivered archives were rewritten.
 
 - 11-11-2026 common-form revision: Brando's live warm-up and main sheets now share 17 columns, with model-assistance disclosure and a blank human-rating attestation. Read FORM_AMENDMENT_11-11-2026.md and RATING_FORM_GUIDE.md before further dispatch. Versioned personal packets preserve all scientific payload bytes. The active importer retains submitted metadata rather than dropping new columns; three new regression checks pass. Brando is piloting six items first; old team drafts remain held pending rollout and text approval. Rylan/Yegor/Sri feedback drafts are prepared separately, not sent without approval.
 

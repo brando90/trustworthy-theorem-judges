@@ -2,6 +2,8 @@
 
 **TLDR:** Twelve live Google Sheets were checked and saved privately. No new or revised numeric ratings were found: 15 warm-up ratings match existing imports; the delivered main assignments remain blank.
 
+**Later layout update, 11-11-2026:** the four warm-up sheets and Brando's main sheet were re-read while inserting the rater's actual name first. Existing cell contents were preserved; this did not add completed ratings. [Matching CSV snapshots and live links](sheet_exports/11-11-2026_name_first/README.md). The other participants' completion entries below remain from the earlier twelve-sheet check.
+
 | Person | Warm-up | Main assignment / next missing work |
 | --- | --- | --- |
 | Rylan Schaeffer | 6/6 numeric ratings; already imported; qualified | 0/10 assigned ratings, folders N17 and N21 |

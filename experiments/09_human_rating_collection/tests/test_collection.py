@@ -84,9 +84,9 @@ class PacketTests(unittest.TestCase):
         (root / "FILES.sha256").write_bytes(manifest)
         return data, hashlib.sha256(manifest).hexdigest()
 
-    def build(self, root, output, manifest_digest):
+    def build(self, root, output, manifest_digest, extra_args=()):
         with patch.object(BUILDER, "MANIFEST_SHA256", manifest_digest), patch.object(
-            sys, "argv", ["make_team_packet.py", str(root), str(output), "--folders", "1"]
+            sys, "argv", ["make_team_packet.py", str(root), str(output), "--folders", "1", *extra_args]
         ), contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
             BUILDER.main()
 
@@ -103,6 +103,27 @@ class PacketTests(unittest.TestCase):
                         self.assertEqual(archive.read(name), content)
             with self.assertRaises(FileExistsError):
                 self.build(root, output, digest)
+
+    def test_personalized_team_packet_name_and_item_columns_align(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "source"
+            _, digest = self.fixture(root)
+            output = Path(temp) / "named.zip"
+            self.build(root, output, digest, ["--rater", "T01"])
+            with ZipFile(output) as archive:
+                reader = csv.DictReader(io.StringIO(archive.read("ratings.csv").decode()))
+                self.assertEqual(reader.fieldnames[:2], ["rater_name", "rater_id"])
+                rows = list(reader)
+                self.assertEqual(len(rows), 5)
+                for row in rows:
+                    self.assertEqual(row["rater_name"], "Rylan Schaeffer")
+                    self.assertEqual(row["rater_id"], "T01")
+                    self.assertEqual(row["task_folder"], "Files_To_Rate01")
+                    self.assertEqual(row["candidate_file"], row["item_id"] + ".lean")
+                    self.assertEqual(row["final_score_0_5"], "")
+                    self.assertEqual(row["independent_rating_attestation"], "")
+            with self.assertRaises(SystemExit):
+                self.build(root, Path(temp) / "unknown.zip", digest, ["--rater", "UNKNOWN"])
 
     def test_rejects_changed_candidate(self):
         with tempfile.TemporaryDirectory() as temp:

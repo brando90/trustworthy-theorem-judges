@@ -7,9 +7,10 @@
 ## Your sheet is correctly identified
 
 - Person: **Brando Miranda**.
-- Stable `rater_id`: **A1**, already present in the rating rows.
-- [Personal Google Sheet](https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit#gid=228912708&range=J2), titled **VeriBench set N rating sheet - rater A1 (Brando)** when checked on 11-11-2026.
-- The first required score is `J2`, under `final_score_0_5`. No name or ID needs to be edited by the rater.
+- First column: `rater_name`, prefilled as **Brando Miranda**.
+- Second column: stable `rater_id`, prefilled as **A1**.
+- [Personal Google Sheet](https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit#gid=228912708&range=K2), titled **VeriBench set N rating sheet - rater A1 (Brando)** when checked on 11-11-2026.
+- The first required score is `K2`, under `final_score_0_5`. No name or ID needs to be edited by the rater.
 - Once scores are imported, the named export will be `ratings/Brando_Miranda__setN_A1.csv`, starting with `rater_name,rater_id,...`. This is a future output, not a claim that Brando has completed ratings.
 
 The coordinator's roster and personal-sheet configuration bind A1 to this exact person and spreadsheet. [RATER_IDENTITIES.json](RATER_IDENTITIES.json) records the display-name mapping for exports. Never infer a person's identity from a score or rely only on a typed display name.
@@ -44,7 +45,7 @@ This is a coordinator-run collection sync, **not a live background mirror**. Goo
    python3 experiments/09_human_rating_collection/scripts/refresh_named_ratings.py
    ```
 
-   It reads already imported files from the canonical import directory, joins [RATER_IDENTITIES.json](RATER_IDENTITIES.json), adds `rater_name` as the first column and writes person-first filenames under `ratings/`. An unknown or mismatched rater, malformed row or duplicate item stops the batch before output. Original columns and values are preserved. A manifest records source and named-export hashes. It performs no live download, qualification decision or score analysis.
+   It reads already imported files from the canonical import directory, joins [RATER_IDENTITIES.json](RATER_IDENTITIES.json), places `rater_name` first and `rater_id` second, verifies an already-present name against the roster, and writes person-first filenames under `ratings/`. An unknown or mismatched rater, malformed row or duplicate item stops the batch before output. Original columns and values are preserved; sourced coordinator background fields follow the submitted columns rather than separating name from ID. Leading sheet-comment rows remain readable if the new name column shifts the comment into column B. A manifest records source and named-export hashes. It performs no live download, qualification decision or score analysis.
 
 5. Refresh `RATINGS_INDEX.md`, `COMPLETION_STATUS.md` and the collection summary from the same snapshot; verify the named export manifests, then commit and push the named collection artifacts. The name-enrichment command alone does not refresh completion status.
 

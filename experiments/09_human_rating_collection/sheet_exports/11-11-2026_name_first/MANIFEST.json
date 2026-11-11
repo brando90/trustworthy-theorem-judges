@@ -1,0 +1,67 @@
+{
+  "date": "11-11-2026",
+  "purpose": "Exact table-value snapshots after name-first migration; not new independent ratings or a validated analysis import.",
+  "excluded": "Only leading instruction/comment rows and unused grid cells are omitted. Non-numeric entries, empty responses and original answer text are retained.",
+  "sheets": [
+    {
+      "key": "brando_warmup",
+      "file": "Brando_Miranda__warmup_A1.csv",
+      "rater_name": "Brando Miranda",
+      "rater_id": "A1",
+      "rows": 6,
+      "columns": 18,
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit#gid=665730293",
+      "header_row_in_sheet": 1,
+      "old_cell_differences": 0,
+      "sha256": "ba49e761fe9050b94d24ac09d95f035658af2c34b9878ad44d061f5664812860"
+    },
+    {
+      "key": "sri_warmup",
+      "file": "Srivatsava_Daruru_Sri__warmup_T05.csv",
+      "rater_name": "Srivatsava Daruru (Sri)",
+      "rater_id": "T05",
+      "rows": 6,
+      "columns": 16,
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1G2_MbDnekGt7AwmzkSTxuv3KzPnZIIiQbdx9AiwyR8w/edit#gid=2007848459",
+      "header_row_in_sheet": 2,
+      "old_cell_differences": 0,
+      "sha256": "fd8190e8a915c7ff205a977fd342a7a272c7fb0e88653e570fc89c98a6aa0d30"
+    },
+    {
+      "key": "rylan_warmup",
+      "file": "Rylan_Schaeffer__warmup_T01.csv",
+      "rater_name": "Rylan Schaeffer",
+      "rater_id": "T01",
+      "rows": 6,
+      "columns": 16,
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1SiyDKm0b4kmoQIfBomQGgFc8CVb04Rx6ekAW1CjzFFU/edit#gid=1299686922",
+      "header_row_in_sheet": 2,
+      "old_cell_differences": 0,
+      "sha256": "e17039ea0d3c558b082eaaf7f484e06065cbf27218333cdb79beb9953b078173"
+    },
+    {
+      "key": "yegor_warmup",
+      "file": "Yegor_Denisov-Blanch__warmup_T02.csv",
+      "rater_name": "Yegor Denisov-Blanch",
+      "rater_id": "T02",
+      "rows": 6,
+      "columns": 16,
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1AhfJL23U47t61DinUTolwchqHKLaOtR65AFVDD-YOMI/edit#gid=1049421098",
+      "header_row_in_sheet": 2,
+      "old_cell_differences": 0,
+      "sha256": "1c67be7fe2d152cc781077dec7d46888476b78b82564b01dcf2aea8645aeffcb"
+    },
+    {
+      "key": "brando_main",
+      "file": "Brando_Miranda__setN_A1.csv",
+      "rater_name": "Brando Miranda",
+      "rater_id": "A1",
+      "rows": 125,
+      "columns": 18,
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit#gid=228912708",
+      "header_row_in_sheet": 1,
+      "old_cell_differences": 0,
+      "sha256": "7ab4604eeecb6dadb19f2c3db89bb535822d6c4b69c46d20f99e0bfe300c350b"
+    }
+  ]
+}

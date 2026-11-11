@@ -24,6 +24,26 @@ REVISION = load("form_packet", EXP / "scripts/revise_rating_packet.py")
 
 
 class FormRevisionTests(unittest.TestCase):
+    def test_name_first_sheet_with_shifted_comment_and_multiline_note(self):
+        fields = ["rater_name", "rater_id", "item_id", "final_score_0_5", "problem_note"]
+        buf = io.StringIO()
+        writer = csv.writer(buf)
+        writer.writerow(["", "# TLDR: existing sheet comment", "context"])
+        writer.writerow(fields)
+        writer.writerow(["Brando Miranda", "A1", "N01a", "0", "First line\n# literal note"])
+        submitted, parsed = IMPORTER.read_rows(buf.getvalue())
+        self.assertEqual(submitted, fields)
+        self.assertEqual(parsed[0]["problem_note"], "First line\n# literal note")
+        rows, errors, _, _, _ = IMPORTER.check(buf.getvalue(), "A1", {"N01a"}, None, "setN")
+        self.assertFalse(errors)
+        data = IMPORTER.normalized_csv(rows, ["rater_id", "item_id", "final_score_0_5"], submitted)
+        reader = csv.DictReader(io.StringIO(data.decode()))
+        self.assertEqual(reader.fieldnames[:2], ["rater_name", "rater_id"])
+        row = next(reader)
+        self.assertEqual(row["rater_name"], "Brando Miranda")
+        self.assertEqual(row["final_score_0_5"], "0")
+        self.assertEqual(row["problem_note"], "First line\n# literal note")
+
     def test_descriptive_background_once_or_with_legacy_labels_is_preserved(self):
         detail = "Lean tutorial; wrote 5 small proofs, about 10 hours last year."
         fields = ["rater_id", "item_id", "final_score_0_5", "lean_familiarity"]
@@ -83,10 +103,15 @@ class FormRevisionTests(unittest.TestCase):
                 reader=csv.DictReader(io.StringIO(z.read("revised/ratings.csv").decode()))
                 self.assertEqual(reader.fieldnames,json.loads((EXP/"RATING_FORM_SCHEMA.json").read_text())["columns"])
                 row=next(reader)
+                self.assertEqual(reader.fieldnames[:2],["rater_name","rater_id"])
+                self.assertEqual(row["rater_name"],"Brando Miranda")
+                self.assertEqual(row["rater_id"],"A1")
                 self.assertEqual(row["item_id"],"W01a")
                 self.assertEqual(row["independent_rating_attestation"],"")
             with self.assertRaises(FileExistsError):
                 REVISION.revise(src,dst,"A1","https://example.invalid/sheet")
+            with self.assertRaisesRegex(ValueError, "verified name"):
+                REVISION.revise(src,Path(td)/"unknown.zip","UNKNOWN","https://example.invalid/sheet")
 
 
 if __name__ == "__main__":

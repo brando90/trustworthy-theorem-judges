@@ -10,7 +10,9 @@
 
 Each filename includes the person's name, and each file starts with a `rater_name` column and retains the original `rater_id`. All original rating values, notes and rows are preserved. These named exports are the same observations as the canonical imports, not additional ratings.
 
-Rylan's file also includes sourced coordinator background fields beside his name: **programming-languages coursework with Aiken**, reported by Brando on 11-11-2026. His separate Lean-specific self-report is preserved. [Background clarification](RYLAN_NOTES.md#relevant-background).
+**Name-first sheet update, 11-11-2026:** all four warm-up Google Sheets and Brando's main sheet now start with `rater_name,rater_id` too. [Matching live-sheet CSV snapshots, including Brando's blank forms](sheet_exports/11-11-2026_name_first/README.md). These snapshots retain all assigned rows and are separate from the validated numeric exports below; do not count them again.
+
+Rylan's file also includes sourced coordinator background fields after the source columns: **programming-languages coursework with Aiken**, reported by Brando on 11-11-2026. His separate Lean-specific self-report is preserved. [Background clarification](RYLAN_NOTES.md#relevant-background).
 
 Rylan's `minutes_spent` now contains **coordinator estimates totaling 60 minutes**, allocated from his approximate one-hour report at Brando's request. Each row labels this timing source and preserves its originally blank timing value; these are not measured per-file times. [Timing breakdown and provenance](RYLAN_NOTES.md#time-estimate).
 

@@ -32,14 +32,16 @@ def named_export(source, identities, timing_estimates=None):
     fields, rows = reader.fieldnames or [], list(reader)
     if not {"rater_id", "item_id", "final_score_0_5"}.issubset(fields):
         raise ValueError("Expected an already validated, normalized rating import")
-    if set(enrichment) & set(fields) or len(fields) != len(set(fields)):
-        raise ValueError("Source must have unique original columns without enrichment fields")
+    if (set(enrichment) - {"rater_name"}) & set(fields) or len(fields) != len(set(fields)):
+        raise ValueError("Source must have unique original columns without coordinator enrichment fields")
     seen = set()
     for row in rows:
         if None in row or any(v is None for v in row.values()):
             raise ValueError("Malformed CSV row")
         if row["rater_id"] != rid:
             raise ValueError(f"Row identity disagrees with filename {source.name}")
+        if "rater_name" in fields and row["rater_name"] != name:
+            raise ValueError(f"Submitted rater_name disagrees with verified identity for {rid}")
         if not row["item_id"] or row["item_id"] in seen:
             raise ValueError("Missing or duplicate item identity")
         seen.add(row["item_id"])
@@ -67,7 +69,9 @@ def named_export(source, identities, timing_estimates=None):
             row["minutes_spent_source"] = "coordinator_estimate_from_approximate_packet_total"
             row["minutes_spent_estimate_basis"] = entry["basis"]
     buf = io.StringIO(newline="")
-    writer = csv.DictWriter(buf, fieldnames=[*enrichment, *fields, *extra_fields], lineterminator="\n")
+    output_fields = ["rater_name", "rater_id", *(k for k in fields if k not in {"rater_name", "rater_id"}),
+                     *(k for k in enrichment if k != "rater_name"), *extra_fields]
+    writer = csv.DictWriter(buf, fieldnames=output_fields, lineterminator="\n")
     writer.writeheader()
     writer.writerows(export_rows)
     data = buf.getvalue().encode()
@@ -85,9 +89,9 @@ def named_export(source, identities, timing_estimates=None):
         "original_import_sha256": hashlib.sha256(raw).hexdigest(),
         "transformation": ("Added sourced name/background and explicit coordinator timing estimates; original timing retained in minutes_spent_original; all scores, notes and source bytes preserved."
                            if timing else
-                           "Added rater_name as the first column; all original fields and rows preserved."
+                           "Placed verified rater_name first and rater_id second; all original fields and rows preserved."
                            if len(enrichment) == 1 else
-                           "Added rater_name and sourced coordinator background fields; all original fields and rows preserved."),
+                           "Placed verified rater_name first and rater_id second, with sourced coordinator background appended; all original fields and rows preserved."),
         **({"background_enrichment": {k: v for k, v in enrichment.items() if k != "rater_name"}}
            if len(enrichment) > 1 else {}),
         **({"timing_estimates": timing} if timing else {}),

@@ -54,7 +54,7 @@ What the literature check found (about 90 papers read by abstract and key passag
 
 For packets: keep the validation and test splits by task family, solver and rater; keep test ratings out of judge selection; record which ratings were available to the judge search (train, validation, test) so ③ and ④ can be run later without re-collecting; use "rating" for the data and "judge" for the model (one term per concept).
 
-Before further packet dispatch, read [the common-form amendment](experiments/09_human_rating_collection/FORM_AMENDMENT_11-11-2026.md). Warm-up and main forms use the same 17 columns, including model-assistance disclosure and a human-rating attestation. Localized AI help is encouraged; the human performs the final comparison and scoring. Brando's sheets are the current pilot; older team drafts remain held pending the pilot and revised-text approval. Never prefill attestations or treat absent historical disclosures as no assistance.
+Before further packet dispatch, read [the common-form amendment](experiments/09_human_rating_collection/FORM_AMENDMENT_11-11-2026.md). Warm-up and main forms use the same 18 columns, starting with the verified `rater_name` and then `rater_id`, including model-assistance disclosure and a human-rating attestation. Localized AI help is encouraged; the human performs the final comparison and scoring. Brando's sheets are the current pilot; older team drafts remain held pending the pilot and revised-text approval. Never prefill attestations or treat absent historical disclosures as no assistance.
 
 ## Human-rating file placement — user decision, 11-11-2026
 

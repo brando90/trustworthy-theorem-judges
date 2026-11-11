@@ -61,13 +61,23 @@ CONTENT = ("final_score_0_5", "A", "B", "C", "D", "base_score_0_5", "confidence"
 
 
 def read_rows(text):
-    """Skip only the leading template comment lines, so '#' inside a quoted multi-line note survives."""
-    lines = text.splitlines(keepends=True)
-    i = 0
-    while i < len(lines) and lines[i].startswith("#"):
-        i += 1
-    reader = csv.DictReader(io.StringIO("".join(lines[i:])))
-    return list(reader.fieldnames or []), list(reader)
+    """Skip leading comment records, including comments shifted by an inserted name column."""
+    records = iter(csv.reader(io.StringIO(text)))
+    fields = []
+    for record in records:
+        first = next((value.strip() for value in record if value.strip()), "")
+        if first and not first.startswith("#"):
+            fields = record
+            break
+    rows = []
+    for record in records:
+        if not record:
+            continue
+        row = {key: record[i] if i < len(record) else None for i, key in enumerate(fields)}
+        if len(record) > len(fields):
+            row[None] = record[len(fields):]
+        rows.append(row)
+    return fields, rows
 
 
 def score(v):
@@ -84,6 +94,8 @@ def normalized_csv(rows, template_fields, submitted_fields):
     """Retain submitted metadata as well as legacy fields; never silently drop new columns."""
     fields = list(dict.fromkeys([*template_fields, *submitted_fields,
                                 *(k for row in rows for k in row)]))
+    if "rater_name" in fields:
+        fields = ["rater_name", "rater_id", *(k for k in fields if k not in {"rater_name", "rater_id"})]
     buf = io.StringIO()
     writer = csv.DictWriter(buf, fieldnames=fields, lineterminator="\n")
     writer.writeheader()
