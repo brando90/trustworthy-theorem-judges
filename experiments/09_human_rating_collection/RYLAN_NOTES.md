@@ -14,6 +14,22 @@ Source checked: **11-11-2026**. This is a readable view of the saved ratings, no
 
 Brando already asked Rylan why some columns were blank via WhatsApp at 10:38 AM on 11-11-2026. No reply to that question appears in the supplied excerpt; the duplicate email draft was cancelled.
 
+## Time estimate
+
+Rylan reported **“Like an hour?”** via WhatsApp on 11-11-2026 at 10:29:44 AM. At Brando's request, Codex allocated this approximate packet total across the six files. These are coordinator estimates, not measured per-file durations. The first file in each task includes shared source/reference familiarization; the greatest-common-divisor task receives more comparison time because its specification has several properties.
+
+| Item | Estimated minutes |
+| --- | ---: |
+| W01a | 15 |
+| W01b | 5 |
+| W01c | 5 |
+| W02a | 15 |
+| W02b | 10 |
+| W02c | 10 |
+| **Total** | **60** |
+
+The named export fills `minutes_spent`, labels its source, and retains the originally blank values in `minutes_spent_original`. The live sheet displays these as estimates and includes a note on each timing cell. [Allocation and provenance](RATING_TIME_ESTIMATES.json). Use these allocations for planning, not as measured item-level timing evidence. Raw imports and scores are unchanged. Future imports must carry this annotation forward; a repeated sheet export is not a new rating.
+
 ## 1. Median of an empty list
 
 > The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate

@@ -12,6 +12,8 @@ Each filename includes the person's name, and each file starts with a `rater_nam
 
 Rylan's file also includes sourced coordinator background fields beside his name: **programming-languages coursework with Aiken**, reported by Brando on 11-11-2026. His separate Lean-specific self-report is preserved. [Background clarification](RYLAN_NOTES.md#relevant-background).
 
+Rylan's `minutes_spent` now contains **coordinator estimates totaling 60 minutes**, allocated from his approximate one-hour report at Brando's request. Each row labels this timing source and preserves its originally blank timing value; these are not measured per-file times. [Timing breakdown and provenance](RYLAN_NOTES.md#time-estimate).
+
 | Person who supplied the ratings | Actual data | Numeric ratings | Other entries |
 | --- | --- | ---: | --- |
 | Rylan Schaeffer | [Rylan's ratings — Rylan_Schaeffer__warmup_T01.csv](ratings/Rylan_Schaeffer__warmup_T01.csv) | 6 | None |

@@ -13,6 +13,30 @@ SPEC.loader.exec_module(MODULE)
 
 
 class NamedRatingsTests(unittest.TestCase):
+    def test_timing_estimates_preserve_raw_data_and_enforce_total(self):
+        with tempfile.TemporaryDirectory() as folder:
+            source = Path(folder) / "warmup_T01.csv"
+            original = b"rater_id,item_id,final_score_0_5,minutes_spent\nT01,W01a,0,\nT01,W01b,2,\n"
+            source.write_bytes(original)
+            identities = {"T01": {"rater_name": "Example Rater", "filename_stem": "Example_Rater"}}
+            timing = {source.name: {"reported_total_minutes": 60, "items": {
+                "W01a": {"minutes": 35, "basis": "Initial familiarization"},
+                "W01b": {"minutes": 25, "basis": "Follow-up comparison"}}}}
+            _, data, _ = MODULE.named_export(source, identities, timing)
+            rows = list(csv.DictReader(io.StringIO(data.decode())))
+            self.assertEqual(sum(int(row["minutes_spent"]) for row in rows), 60)
+            self.assertTrue(all(row["minutes_spent_original"] == "" for row in rows))
+            self.assertTrue(all(row["minutes_spent_source"].startswith("coordinator_estimate") for row in rows))
+            self.assertEqual([row["final_score_0_5"] for row in rows], ["0", "2"])
+            self.assertEqual(source.read_bytes(), original)
+            timing[source.name]["reported_total_minutes"] = 59
+            with self.assertRaisesRegex(ValueError, "sum"):
+                MODULE.named_export(source, identities, timing)
+            timing[source.name]["reported_total_minutes"] = 60
+            source.write_bytes(original.replace(b"W01a,0,\n", b"W01a,0,12\n"))
+            with self.assertRaisesRegex(ValueError, "nonblank"):
+                MODULE.named_export(source, identities, timing)
+
     def test_background_annotation_does_not_rewrite_lean_self_report(self):
         with tempfile.TemporaryDirectory() as folder:
             source = Path(folder) / "warmup_T01.csv"
