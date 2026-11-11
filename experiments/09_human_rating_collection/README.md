@@ -8,6 +8,8 @@
 
 [Brando's six-file warm-up packet, personal Google Sheet and instructions](BRANDO_WARMUP.md). Complete this practice set before the full 125-file packet.
 
+**Current form revision, 11-11-2026:** [one shared warm-up/main form](RATING_FORM_GUIDE.md), with [model-assistance disclosure and an attestation](FORM_AMENDMENT_11-11-2026.md). Brando's two live sheets use this revision; the team queue remains held for his pilot and revised-text review. Dispatch agents must read the amendment before using older prepared emails or packets.
+
 ## Open the collected ratings
 
 **Start here: [ratings by person — names and actual CSV files](RATINGS_INDEX.md).**

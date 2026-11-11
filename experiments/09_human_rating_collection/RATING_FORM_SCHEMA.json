@@ -1,0 +1,11 @@
+{
+  "version": "common_form_v2_11-11-2026",
+  "columns": ["rater_id", "item_id", "task_folder", "candidate_file", "A", "B", "C", "D", "base_score_0_5", "final_score_0_5", "confidence", "rationale", "problem_note", "minutes_spent", "lean_familiarity", "model_assistance", "independent_rating_attestation"],
+  "required_new_responses": ["final_score_0_5", "model_assistance", "independent_rating_attestation"],
+  "recommended": ["minutes_spent", "lean_familiarity"],
+  "optional": ["A", "B", "C", "D", "base_score_0_5", "confidence", "rationale", "problem_note"],
+  "attestation_values": ["yes", "no", "unsure"],
+  "attestation": "I certify that I did not ask a model to do the full rating task for this file. I made the comparison and chose the final score myself.",
+  "missing_legacy_metadata": "unknown; never infer no assistance or an affirmative attestation",
+  "rollout": "Brando pilot sheets updated; prospective template for both packet sizes; team dispatch remains held pending pilot and revised text review"
+}

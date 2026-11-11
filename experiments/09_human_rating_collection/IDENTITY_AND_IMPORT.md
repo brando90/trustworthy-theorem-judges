@@ -37,6 +37,7 @@ This is a coordinator-run collection sync, **not a live background mirror**. Goo
 1. Fetch the correct personal sheet using the recorded sheet ID. Preserve a timestamped raw snapshot, source metadata and hash.
 2. Validate rater identity, packet/item mapping, assigned folders and allowed rating values. Keep blank scores missing, preserve reference-issue notes and retain revision history. Match observations by round/packet, rater ID and item ID; a refresh is not another independent rating.
 3. Save validated imports. The inherited importer handles historical schemas. Brando's renamed `agent_file01` / `Files_To_Rate01` schema must be reconciled against the preserved packet identity mapping before any historical-ID analysis; do not blindly feed renamed item IDs into the legacy template or guess a mapping. Naming exports does not replace this validation.
+   The active importer now preserves submitted metadata columns, including `model_assistance` and `independent_rating_attestation`, rather than discarding them against a legacy header. It warns on missing new-form disclosures and flags `no`/`unsure` attestations for review while retaining the rating. Older submissions without these fields retain their original meaning; missing is not an affirmative attestation or evidence of no assistance.
 4. Run the name-enrichment step from the repository root:
 
    ```bash

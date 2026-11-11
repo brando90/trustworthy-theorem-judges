@@ -4,15 +4,14 @@ import argparse
 import csv
 import hashlib
 import io
+import json
 import re
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
 MANIFEST_SHA256 = "0e4166045463dac71c2d7e70702f9c8b58ffccedeacdbff13ef4e57b8e85efa4"
-COLUMNS = (
-    "rater_id item_id task_folder candidate_file A B C D base_score_0_5 "
-    "final_score_0_5 confidence rationale problem_note"
-).split()
+FORM_HOME = Path(__file__).resolve().parents[1]
+COLUMNS = json.loads((FORM_HOME / "RATING_FORM_SCHEMA.json").read_text())["columns"]
 
 
 def main():
@@ -52,6 +51,8 @@ def main():
     assistance = members["START_HERE.md"].decode().split("## Assistance and reference problems\n\n", 1)[1]
     members["START_HERE.md"] = (
         "# Rate theorem coverage\n\n"
+        "Read RATING_FORM_GUIDE.md first for the current fields and assistance policy; "
+        "it supersedes older submission/assistance instructions below.\n\n"
         "Read Rating_Instructions.md. In each assigned folder, read the Python source and the "
         "gold Lean theorem statements, then rate each candidate under agent_lean. The files in "
         "gold_lean_dependencies, when present, support the reference.\n\n"
@@ -60,6 +61,7 @@ def main():
         "problem in problem_note. Return your completed CSV privately to Brando.\n\n"
         "## Assistance and reference problems\n\n" + assistance
     ).encode()
+    members["RATING_FORM_GUIDE.md"] = (FORM_HOME / "RATING_FORM_GUIDE.md").read_bytes()
     sheet = io.StringIO(newline="")
     writer = csv.writer(sheet)
     writer.writerow(COLUMNS)

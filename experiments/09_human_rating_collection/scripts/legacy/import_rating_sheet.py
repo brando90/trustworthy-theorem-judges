@@ -49,13 +49,15 @@ TEMPLATES = {"setN": EXP / "human_round/sample_setN/rating_sheet_TEMPLATE.csv", 
 REQUIRED = ("rater_id", "item_id", "final_score_0_5")
 A1_SHEETS_PATH = EXP / "personal_sheet_ids.json"  # Private coordinator sheet bindings.
 ALLOWED = {"A": {"y", "n"}, "B": {"y", "n"}, "C": {"y", "n"}, "D": {"handful", "dominates", "n/a"},
-           "confidence": {"low", "med", "high"}, "lean_familiarity": {"none", "some", "fluent"}}
+           "confidence": {"low", "med", "high"}, "lean_familiarity": {"none", "some", "fluent"},
+           "independent_rating_attestation": {"yes", "no", "unsure"}}
 YESNO = {"yes": "y", "no": "n"}
 SYNONYMS = {"confidence": {"medium": "med"}}  # C17 addendum 10-20-2026: the spelled-out value of the template's "med"
 NA = {"n/a", "na"}
 QUALIFY_TASKS = ("W01",)  # amendment C17: these warm-up items can never be excused as reference-issue rows
 CSV_ROUTE = "emailed_csv_v1_2026-10-21"  # coordinator ruling 10-21-2026 09:12 PDT: a rating_sheet CSV returned by email
-CONTENT = ("final_score_0_5", "A", "B", "C", "D", "base_score_0_5", "confidence", "rationale", "problem_note", "minutes_spent")
+CONTENT = ("final_score_0_5", "A", "B", "C", "D", "base_score_0_5", "confidence", "rationale", "problem_note", "minutes_spent",
+           "model_assistance", "independent_rating_attestation")
 
 
 def read_rows(text):
@@ -76,6 +78,17 @@ def score(v):
     if not math.isfinite(f) or f != int(f) or not 0 <= f <= 5:
         raise ValueError(v)
     return int(f)
+
+
+def normalized_csv(rows, template_fields, submitted_fields):
+    """Retain submitted metadata as well as legacy fields; never silently drop new columns."""
+    fields = list(dict.fromkeys([*template_fields, *submitted_fields,
+                                *(k for row in rows for k in row)]))
+    buf = io.StringIO()
+    writer = csv.DictWriter(buf, fieldnames=fields, lineterminator="\n")
+    writer.writeheader()
+    writer.writerows(sorted(rows, key=lambda r: r["item_id"]))
+    return buf.getvalue().encode()
 
 
 def check(text, rater, expected_ids, allowed_folders, packet, ref_issue_items=frozenset()):
@@ -132,6 +145,12 @@ def check(text, rater, expected_ids, allowed_folders, packet, ref_issue_items=fr
                 errors.append(f"row {n} ({iid}): {k}={r.get(k)!r} not in {sorted(ok)}")
             if k in fields:
                 r[k] = v
+        if {"model_assistance", "independent_rating_attestation"} & set(fields):
+            for k in ("model_assistance", "independent_rating_attestation"):
+                if not r.get(k, "").strip():
+                    warnings.append(f"row {n} ({iid}): new-form metadata missing: {k}; rating retained")
+            if r.get("independent_rating_attestation") in {"no", "unsure"}:
+                warnings.append(f"row {n} ({iid}): attestation needs coordinator review; rating retained")
         mins = r.get("minutes_spent", "").strip()
         if mins:
             try:
@@ -269,11 +288,7 @@ def main():
         for e in errors:
             print("ERROR", e)
         sys.exit(1)
-    buf = io.StringIO()
-    w = csv.DictWriter(buf, fieldnames=tfields, extrasaction="ignore", lineterminator="\n")
-    w.writeheader()
-    w.writerows(sorted(rows, key=lambda r: r["item_id"]))
-    norm = buf.getvalue().encode()
+    norm = normalized_csv(rows, tfields, read_rows(text)[0])
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     base = f"{a.packet}_{a.rater}"
     for sub, data in (("raw", raw), ("normalized", norm)):

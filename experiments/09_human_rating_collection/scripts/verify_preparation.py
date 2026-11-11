@@ -82,6 +82,8 @@ def main():
     assert set(permissions['verified_editor_permissions']) == expected_sheet_ids
     print('PASS: approved archive, 125 sheet identities, four delivered slots, eight individual drafts.')
     print('PASS: frozen review hashes and all seven recorded editor-access checks; live access may change.')
+    print('Dispatch status: HOLD. The 11-11-2026 common-form amendment requires revised team sheets, '
+          'packets and exact-text review after Brando\'s pilot. This check validates the historical preparation only.')
     print('No scores entered, no test ratings inspected, no collaborator messages sent by this check.')
 
 

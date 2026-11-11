@@ -1,0 +1,76 @@
+"""Regression checks for the common form and preservation of new metadata."""
+import csv
+import hashlib
+import importlib.util
+import io
+import json
+from pathlib import Path
+import tempfile
+import unittest
+from zipfile import ZipFile
+
+EXP = Path(__file__).resolve().parents[1]
+
+
+def load(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+IMPORTER = load("form_import", EXP / "scripts/legacy/import_rating_sheet.py")
+REVISION = load("form_packet", EXP / "scripts/revise_rating_packet.py")
+
+
+class FormRevisionTests(unittest.TestCase):
+    def test_metadata_survives_import_and_missing_attestation_is_not_fabricated(self):
+        fields = ["rater_id", "item_id", "final_score_0_5", "model_assistance", "independent_rating_attestation"]
+        buf = io.StringIO()
+        w = csv.writer(buf)
+        w.writerow(fields)
+        w.writerow(["A1", "N01a", "0", "Claude: Lean notation", ""])
+        rows, errors, warnings, _, _ = IMPORTER.check(buf.getvalue(), "A1", {"N01a"}, None, "setN")
+        self.assertFalse(errors)
+        self.assertTrue(any("attestation" in x for x in warnings))
+        encoded = IMPORTER.normalized_csv(rows, fields[:3], fields)
+        result = list(csv.DictReader(io.StringIO(encoded.decode())))[0]
+        self.assertEqual(result["model_assistance"], "Claude: Lean notation")
+        self.assertEqual(result["independent_rating_attestation"], "")
+        self.assertEqual(result["final_score_0_5"], "0")
+
+    def test_no_attestation_is_retained_and_flagged_not_dropped(self):
+        text = "rater_id,item_id,final_score_0_5,model_assistance,independent_rating_attestation\nA1,N01a,2,help,no\n"
+        rows, errors, warnings, _, _ = IMPORTER.check(text, "A1", {"N01a"}, None, "setN")
+        self.assertFalse(errors)
+        self.assertEqual(rows[0]["independent_rating_attestation"], "no")
+        self.assertTrue(any("coordinator review" in x for x in warnings))
+
+    def test_revised_archive_preserves_scientific_bytes_and_refuses_overwrite(self):
+        files = {"START_HERE.md": b"Old instructions\n", "human_judgements_prompt.md": b"Unchanged rubric\n",
+                 "W01/python_source/task.py": b"# synthetic source\n",
+                 "W01/gold_lean/task.lean": b"-- synthetic reference\n",
+                 "W01/agent_lean/W01a.lean": b"-- synthetic candidate\n"}
+        files["FILES.sha256"] = "".join(f"{hashlib.sha256(b).hexdigest()}  {n}\n" for n,b in sorted(files.items())).encode()
+        with tempfile.TemporaryDirectory() as td:
+            src, dst = Path(td)/"original.zip", Path(td)/"revised.zip"
+            with ZipFile(src,"w") as z:
+                for n,b in files.items():z.writestr("original/"+n,b)
+            original = src.read_bytes()
+            receipt = REVISION.revise(src,dst,"A1","https://example.invalid/sheet")
+            self.assertEqual(src.read_bytes(), original)
+            self.assertEqual(receipt["preserved_scientific_files"],3)
+            with ZipFile(dst) as z:
+                for n,b in files.items():
+                    if n.endswith((".lean",".py")):self.assertEqual(z.read("revised/"+n),b)
+                reader=csv.DictReader(io.StringIO(z.read("revised/ratings.csv").decode()))
+                self.assertEqual(reader.fieldnames,json.loads((EXP/"RATING_FORM_SCHEMA.json").read_text())["columns"])
+                row=next(reader)
+                self.assertEqual(row["item_id"],"W01a")
+                self.assertEqual(row["independent_rating_attestation"],"")
+            with self.assertRaises(FileExistsError):
+                REVISION.revise(src,dst,"A1","https://example.invalid/sheet")
+
+
+if __name__ == "__main__":
+    unittest.main()
