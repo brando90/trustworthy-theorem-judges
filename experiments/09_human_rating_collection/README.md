@@ -25,6 +25,8 @@ This README is the single collection overview: task links, people and completion
 
 [Prepared packets and exact team email previews](support/PREPARATION_11-09-2026.md#current-prepared-version--11-11-2026) are ready for review. **Before team dispatch:** finish Brando’s pilot, approve the revised email text, then explicitly say to send. No reminders or revised team packets were sent in this preparation. Editing this folder sends nothing. Delivered archives remain unchanged.
 
+**Warm-up versus main packet:** the six warm-up candidates are historical Claude 3.7 Sonnet outputs. The separate 125-file main packet contains five later frontier-model configurations. [Verified provenance and the distinction](support/COORDINATOR_README.md#warm-up-versus-main-packet-provenance--checked-11-11-2026).
+
 Brando has already viewed other raters’ warm-up answers, so his warm-up is coordinator practice, not an independent blinded submission. Descriptive task paths map to historical record keys in [the path mapping](support/WARMUP_PATHS.json).
 
 ## Ratings and completion
