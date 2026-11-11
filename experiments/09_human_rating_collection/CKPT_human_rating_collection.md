@@ -6,7 +6,8 @@
 
 ## State
 
-- Updated: 11-11-2026 (all-participant name-first layout and cross-project rules).
+- Updated: 11-11-2026 (raw response restoration; assistant-filled timing/background removed).
+- Current data: exact live-sheet response tables for all 12 sheets in `ratings/`; names/IDs retained. Three normalized imports moved to `ratings/analysis/`. Fifteen numeric warm-up observations and three N/A rows; no completed main ratings. See `RAW_DATA_RESTORATION_11-11-2026.md`.
 - Current form: schema `common_form_v2_2_11-11-2026`, 18 columns with `rater_name,rater_id` first. All 12 active personal Google Sheets now have this identity layout; existing responses and assignments are unchanged. Matching table-value CSV snapshots are linked from the README. Historical team forms retain other existing fields; future revised packets use the common schema. Original delivered archives remain frozen.
 - Feedback outreach: all three earlier feedback drafts are cancelled; no feedback email is authorized by this update.
 - Historical migration owner: Pi; migration is complete. Current sole collection and practical judge coordinator: [Prepare human grading task](codex://threads/01a1a8f9-dcb7-7381-9368-91d6e51faffd), per [the 11-09-2026 ownership decision](COORDINATION_11-09-2026.md).
@@ -26,6 +27,8 @@
 - Continuation: read this experiment's README and private migration receipt before touching packets or participant records.
 
 ## Event log
+
+- 11-11-2026 raw-data restoration: removed Rylan’s six assistant time allocations, banner and coordinator background notes, plus instruction notes inside response cells. Verified no unrelated CellData changes across all 12 sheets and exact raw CSV roundtrips. Rylan, Sri and Yegor original fields match pre-enrichment six-row snapshots, including Yegor’s three N/A rows. Exporter now writes only normalized analysis files under `ratings/analysis/`, rejects primary `ratings/` output, and cannot apply timing/background enrichment. Primary files retain names and IDs. Withdrawn additions remain audit history; source imports, scores, assignments and send holds are unchanged.
 
 - 11-11-2026 name-first revision: inserted verified names in column A of Brando, Sri, Rylan and Yegor's warm-ups and Brando's main sheet. Readback compared every old cell after its one-column shift: values, notes, validation and formats matched. Native visual checks passed on all five sheets. Saved source screenshot, before/after receipts and matching CSV table snapshots; snapshots are not new observations. Importer handles shifted leading comments, named exporter retains names and IDs first, and future packet builders prefill roster names. Existing numeric export counts remain 6 Rylan, 3 Yegor and 6 Sri. No scores, reference files or delivered archives were rewritten.
 

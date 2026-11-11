@@ -347,80 +347,117 @@
   "scope": "Collection inventory only. No qualification changes, judge selection, test analysis, or emails.",
   "collected_files": [
     {
-      "rater_id": "T01",
       "rater_name": "Rylan Schaeffer",
+      "rater_id": "T01",
+      "packet": "warmup",
+      "filename": "Rylan_Schaeffer__warmup_T01.csv",
+      "spreadsheet_id": "1SiyDKm0b4kmoQIfBomQGgFc8CVb04Rx6ekAW1CjzFFU",
+      "url": "https://docs.google.com/spreadsheets/d/1SiyDKm0b4kmoQIfBomQGgFc8CVb04Rx6ekAW1CjzFFU/edit",
+      "range": "'Untitled'!A2:P8",
+      "assigned_rows": 6,
+      "numeric_ratings": 6,
+      "not_applicable_rows": 0,
+      "path": "ratings/Rylan_Schaeffer__warmup_T01.csv",
+      "columns": [
+        "rater_name",
+        "rater_id",
+        "item_id",
+        "task_folder",
+        "candidate_file",
+        "A",
+        "B",
+        "C",
+        "D",
+        "base_score_0_5",
+        "final_score_0_5",
+        "confidence",
+        "rationale",
+        "problem_note",
+        "minutes_spent",
+        "lean_familiarity"
+      ],
+      "rows": 6,
+      "sha256": "b810b374e47e21ed8303fc5e9fa1d3de52b6f29e3207e6310a9aca18e5870de9",
+      "pre_enrichment_source_sha256": "5bf4ffeea03d990ad072e5d9ed930cd653b771ac348583295ba74f2058f9bb5b",
+      "pre_enrichment_source_fields_exact_match": true,
       "file": "Rylan_Schaeffer__warmup_T01.csv",
-      "rows": 6,
-      "sha256": "751215d08953599060d4c2369259692df16c3566b01ff402c982368b1e9746d3",
-      "original_import_file": "warmup_T01.csv",
-      "original_import_sha256": "1626c3dfba4b216a498dd8884fd2b60488e123b1f6cfb48633a9c7be9d5ead00",
-      "transformation": "Added sourced name/background and explicit coordinator timing estimates; original timing retained in minutes_spent_original; all scores, notes and source bytes preserved.",
-      "background_enrichment": {
-        "programming_languages_background": "Programming-languages coursework with Aiken",
-        "background_source": "Reported by Brando Miranda on 11-11-2026; Lean familiarity remains Rylan's separate self-report."
-      },
-      "timing_estimates": {
-        "rater_name": "Rylan Schaeffer",
-        "date": "11-11-2026",
-        "reported_total_minutes": 60,
-        "reported_total_is_approximate": true,
-        "reported_total_quote": "Like an hour?",
-        "reported_total_source": "Rylan WhatsApp reply, 11-11-2026 10:29:44 AM, pasted by Brando in this chat.",
-        "allocation_source": "Codex coordinator estimates, explicitly requested by Brando on 11-11-2026; not Rylan-measured per-item times.",
-        "method": "Heuristic allocation assuming packet order. Charge shared source/reference reading to the first candidate of each task; allocate more time to the greatest-common-divisor task's multi-property comparisons. The sum is fixed to the approximate 60-minute report, not an exact measured duration. No confidence intervals are inferred.",
-        "source_packet": "private/09_human_rating_collection/legacy_veribench/human_round/warmup/packet",
-        "analysis_use": "Planning only. Do not treat these six allocations as measured item-level time or use them to infer measured difficulty/time correlations.",
-        "items": {
-          "W01a": {
-            "minutes": 15,
-            "basis": "First median candidate: includes initial rubric, source and reference familiarization."
-          },
-          "W01b": {
-            "minutes": 5,
-            "basis": "Related median specification after shared-task familiarization."
-          },
-          "W01c": {
-            "minutes": 5,
-            "basis": "Related median specification; shared source/reference already read."
-          },
-          "W02a": {
-            "minutes": 15,
-            "basis": "First greatest-common-divisor candidate: includes reading the new multi-property reference and comparing its specification."
-          },
-          "W02b": {
-            "minutes": 10,
-            "basis": "Compare common-divisor and greatest-divisor conditions against the shared reference."
-          },
-          "W02c": {
-            "minutes": 10,
-            "basis": "Compare several separately stated greatest-common-divisor properties against the shared reference."
-          }
-        }
-      }
+      "source_kind": "raw_google_sheet_table"
     },
     {
-      "rater_id": "T02",
-      "rater_name": "Yegor Denisov-Blanch",
-      "file": "Yegor_Denisov-Blanch__warmup_T02.csv",
-      "rows": 3,
-      "sha256": "1a567aba94527b1c6dd3bdc2c5320632522e1d549dc254b17cec1e44929a0b70",
-      "original_import_file": "warmup_T02.csv",
-      "original_import_sha256": "f303fe0ddc435c99b60b17fac08766b9a288376adee29f04ec0ec4358e7f2ca5",
-      "transformation": "Added rater_name as the first column; all original fields and rows preserved."
-    },
-    {
-      "rater_id": "T05",
       "rater_name": "Srivatsava Daruru (Sri)",
-      "file": "Srivatsava_Daruru_Sri__warmup_T05.csv",
+      "rater_id": "T05",
+      "packet": "warmup",
+      "filename": "Srivatsava_Daruru_Sri__warmup_T05.csv",
+      "spreadsheet_id": "1G2_MbDnekGt7AwmzkSTxuv3KzPnZIIiQbdx9AiwyR8w",
+      "url": "https://docs.google.com/spreadsheets/d/1G2_MbDnekGt7AwmzkSTxuv3KzPnZIIiQbdx9AiwyR8w/edit",
+      "range": "'Untitled'!A2:P8",
+      "assigned_rows": 6,
+      "numeric_ratings": 6,
+      "not_applicable_rows": 0,
+      "path": "ratings/Srivatsava_Daruru_Sri__warmup_T05.csv",
+      "columns": [
+        "rater_name",
+        "rater_id",
+        "item_id",
+        "task_folder",
+        "candidate_file",
+        "A",
+        "B",
+        "C",
+        "D",
+        "base_score_0_5",
+        "final_score_0_5",
+        "confidence",
+        "rationale",
+        "problem_note",
+        "minutes_spent",
+        "lean_familiarity"
+      ],
       "rows": 6,
-      "sha256": "2860efacb7864c135d88467e39cc30299175858c185616eaf831eb291bd02232",
-      "original_import_file": "warmup_T05.csv",
-      "original_import_sha256": "7834efe1c8c3afb8901b377d83d884181772e46261ede52e015af1b2a29717a0",
-      "transformation": "Added rater_name as the first column; all original fields and rows preserved."
+      "sha256": "fd8190e8a915c7ff205a977fd342a7a272c7fb0e88653e570fc89c98a6aa0d30",
+      "pre_enrichment_source_sha256": "ec70b6e7f9e01eb7806ff59f2338fa23fe5bc9de56b6a8622b2406af4d510303",
+      "pre_enrichment_source_fields_exact_match": true,
+      "file": "Srivatsava_Daruru_Sri__warmup_T05.csv",
+      "source_kind": "raw_google_sheet_table"
+    },
+    {
+      "rater_name": "Yegor Denisov-Blanch",
+      "rater_id": "T02",
+      "packet": "warmup",
+      "filename": "Yegor_Denisov-Blanch__warmup_T02.csv",
+      "spreadsheet_id": "1AhfJL23U47t61DinUTolwchqHKLaOtR65AFVDD-YOMI",
+      "url": "https://docs.google.com/spreadsheets/d/1AhfJL23U47t61DinUTolwchqHKLaOtR65AFVDD-YOMI/edit",
+      "range": "'Untitled'!A2:P8",
+      "assigned_rows": 6,
+      "numeric_ratings": 3,
+      "not_applicable_rows": 3,
+      "path": "ratings/Yegor_Denisov-Blanch__warmup_T02.csv",
+      "columns": [
+        "rater_name",
+        "rater_id",
+        "item_id",
+        "task_folder",
+        "candidate_file",
+        "A",
+        "B",
+        "C",
+        "D",
+        "base_score_0_5",
+        "final_score_0_5",
+        "confidence",
+        "rationale",
+        "problem_note",
+        "minutes_spent",
+        "lean_familiarity"
+      ],
+      "rows": 6,
+      "sha256": "1c67be7fe2d152cc781077dec7d46888476b78b82564b01dcf2aea8645aeffcb",
+      "pre_enrichment_source_sha256": "9215b2a85b06254f780c5024a55873e26bb3363e538b8fbe46205754dce877a1",
+      "pre_enrichment_source_fields_exact_match": true,
+      "file": "Yegor_Denisov-Blanch__warmup_T02.csv",
+      "source_kind": "raw_google_sheet_table"
     }
   ],
-  "background_annotation_update": "11-11-2026: Rylan programming-languages coursework with Aiken recorded from Brando report; original Lean self-report and all ratings preserved. No new observations.",
-  "timing_annotation_update": "11-11-2026: Rylan reported approximately one hour for the warm-up. At Brando request, coordinator estimates of 15, 5, 5, 15, 10, 10 minutes fill the six named-export rows. Sum 60; not measured per-item timing. Original timing blanks and all scores preserved.",
   "name_first_migration": {
     "date": "11-11-2026",
     "live_sheets_updated": 5,
@@ -442,5 +479,19 @@
     "assignment_changes": 0,
     "manifest": "../sheet_exports/11-11-2026_all_raters_name_first/MANIFEST.json",
     "original_imports_unchanged": true
+  },
+  "raw_tables_manifest": "RAW_MANIFEST.json",
+  "normalized_analysis_manifest": "analysis/NAMED_EXPORT_MANIFEST.json",
+  "raw_restoration": {
+    "checked_date": "11-11-2026",
+    "recorded_utc": "2026-11-11T19:47:35.395Z",
+    "sheets_checked": 12,
+    "numeric_observations": 15,
+    "nonnumeric_reference_issue_rows": 3,
+    "new_observations": 0,
+    "revised_scores": 0,
+    "assistant_response_additions_removed": true,
+    "unexpected_cell_differences": 0,
+    "report": "../RAW_DATA_RESTORATION_11-11-2026.md"
   }
 }

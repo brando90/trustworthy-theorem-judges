@@ -2,7 +2,9 @@
 
 **TLDR:** Twelve live Google Sheets were checked and saved privately. No new or revised numeric ratings were found: 15 warm-up ratings match existing imports; the delivered main assignments remain blank.
 
-**Later layout update for everyone, 11-11-2026:** all 12 active personal Google Sheets were re-read and verified with the actual name in the first column and stable ID second. Seven sheets were updated and five were already correct. Original cell contents were preserved, so this did not add completed ratings or change assignments. [Every live sheet and matching CSV snapshot](sheet_exports/11-11-2026_all_raters_name_first/README.md).
+**Later layout update for everyone, 11-11-2026:** all 12 active personal Google Sheets were re-read and verified with the actual name in the first column and stable ID second. Seven sheets were updated and five were already correct. Original cell contents were preserved, so this did not add completed ratings or change assignments. [Every live sheet and current raw CSV](ratings/README.md).
+
+**Raw restoration, 11-11-2026:** reread all 12 sheets after removing assistant-filled timing/background additions. The same 15 numeric warm-up ratings remain; Yegor’s three N/A entries are included in his primary CSV. Main scores remain blank. [Restoration record](RAW_DATA_RESTORATION_11-11-2026.md).
 
 | Person | Warm-up | Main assignment / next missing work |
 | --- | --- | --- |

@@ -2,40 +2,33 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/RATINGS_INDEX.md>
 
-**TLDR:** The current collection contains 15 numeric warm-up ratings from Rylan, Yegor and Sri. The live-sheet check on 11-11-2026 found no additional or revised ratings; main-task submissions remain blank.
+**TLDR:** The raw rating CSVs now match the Google Sheets response tables. There are 15 numeric warm-up ratings and three N/A entries; main ratings remain blank as checked on 11-11-2026.
 
-## Open the actual rating data
+## Open the raw data
 
-[Read Rylan’s notes in a formatted preview](RYLAN_NOTES.md).
+| Person | Raw CSV | Entries |
+| --- | --- | --- |
+| Brando Miranda | [Brando’s warm-up](ratings/Brando_Miranda__warmup_A1.csv) | Six blank rows |
+| Rylan Schaeffer | [Rylan’s warm-up](ratings/Rylan_Schaeffer__warmup_T01.csv) | Six numeric ratings; original blank times and `None` Lean response |
+| Srivatsava Daruru (Sri) | [Sri’s warm-up](ratings/Srivatsava_Daruru_Sri__warmup_T05.csv) | Six numeric ratings; his recorded times and notes |
+| Yegor Denisov-Blanch | [Yegor’s warm-up](ratings/Yegor_Denisov-Blanch__warmup_T02.csv) | All six rows: three numeric ratings and three N/A reference-issue entries |
 
-Each filename includes the person's name, and each file starts with a `rater_name` column and retains the original `rater_id`. All original rating values, notes and rows are preserved. These named exports are the same observations as the canonical imports, not additional ratings.
+**[Every participant’s live Google Sheet and matching raw CSV](ratings/README.md).** All 12 active sheet tables are available, including blank forms and the three main sheets. The first two columns remain the requested `rater_name,rater_id`; these are verified identity metadata, not rating answers.
 
-**Name-first sheet update for everyone, 11-11-2026:** all 12 active personal Google Sheets start with `rater_name,rater_id`. [Every live sheet and matching CSV snapshot, including blank forms](sheet_exports/11-11-2026_all_raters_name_first/README.md). These snapshots retain all existing item rows and are separate from the validated numeric exports below; do not count them again. Main sheets that display 125 items still retain the smaller assignments in the delivery ledger.
-
-Rylan's file also includes sourced coordinator background fields after the source columns: **programming-languages coursework with Aiken**, reported by Brando on 11-11-2026. His separate Lean-specific self-report is preserved. [Background clarification](RYLAN_NOTES.md#relevant-background).
-
-Rylan's `minutes_spent` now contains **coordinator estimates totaling 60 minutes**, allocated from his approximate one-hour report at Brando's request. Each row labels this timing source and preserves its originally blank timing value; these are not measured per-file times. [Timing breakdown and provenance](RYLAN_NOTES.md#time-estimate).
-
-| Person who supplied the ratings | Actual data | Numeric ratings | Other entries |
-| --- | --- | ---: | --- |
-| Rylan Schaeffer | [Rylan's ratings — Rylan_Schaeffer__warmup_T01.csv](ratings/Rylan_Schaeffer__warmup_T01.csv) | 6 | None |
-| Yegor Denisov-Blanch | [Yegor's ratings — Yegor_Denisov-Blanch__warmup_T02.csv](ratings/Yegor_Denisov-Blanch__warmup_T02.csv) | 3 | Three N/A reference-issue entries remain in the [source snapshot](../../private/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/warmup_T02/ratings.csv); they are not numeric ratings |
-| Srivatsava Daruru (Sri) | [Sri's ratings — Srivatsava_Daruru_Sri__warmup_T05.csv](ratings/Srivatsava_Daruru_Sri__warmup_T05.csv) | 6 | None |
-
-Open the [canonical data folder](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/) for the original import receipts and immutable historical snapshots.
-
-[Slava's name-first CSV warm-up](SLAVA_CSV_NAME_FIRST_11-11-2026.md) is prepared and unsent; he uses the emailed CSV route. It contains six blank rows and is not collected rating data.
+Response values, capitalization, spelling, blanks, N/A entries and row order are preserved. Rylan’s assistant-filled per-file timing estimates and background annotations have been removed from his sheet and current rating files. [Restoration and verification record](RAW_DATA_RESTORATION_11-11-2026.md). [Read Rylan’s original notes](RYLAN_NOTES.md).
 
 ## Current completion status
 
-- [Who is done and what is missing — checked 11-11-2026](COMPLETION_STATUS.md).
-- [Machine-readable completion and duplicate check](ratings/SUMMARY.json).
-- [Latest live-sheet snapshots, CSV exports and source receipts](../../private/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/).
+- [Who is done and what is missing](COMPLETION_STATUS.md).
+- [Machine-readable collection summary](ratings/SUMMARY.json).
+- [Raw table hashes and exact source ranges](ratings/RAW_MANIFEST.json).
 
-Rylan and Sri finished their warm-ups; each main assignment still has ten blank rating rows. Yegor remains extra-only under the existing qualification decision. Dilara, Allen, Don, Simon and Nikil each have six blank warm-up rows. No returned CSV was found for Slava in the scoped mail searches. Brando's 125 main-task rows were also blank when checked.
+Rylan and Sri each completed six warm-up ratings; each main assignment still has ten blank rating rows. Yegor’s three numeric and three N/A entries are preserved; his existing extra-only qualification decision is unchanged. Dilara, Allen, Don, Simon and Nikil each have six blank warm-up rows. No returned CSV was found for Slava in the earlier scoped mail searches. Brando’s six warm-up and 125 main rows are blank in the current sheet snapshot.
 
-The primary collection still requires 250 ratings: 20 assigned but blank and 230 not yet assigned. Brando's ratings are additional. Warm-up ratings are not main-task ratings, and the latest snapshots must not be appended as new independent observations.
+The primary collection still requires 250 main ratings: 20 assigned but blank and 230 not yet assigned. Brando’s ratings are additional. Warm-ups, blank forms and N/A entries are not completed main ratings. Re-exported copies are not new observations.
 
-## Local files
+## Analysis and history
 
-The actual CSV files are in `ratings/` beside this index. [Completion status](COMPLETION_STATUS.md). Snapshot checked 11-11-2026; canonical import receipts remain under the linked private source folder. Do not count these copies as new observations.
+[Normalized analysis copies](ratings/analysis/) are separate from the raw files. The historical importer lowercases some labels and keeps only numeric rows; these derived copies must not be presented as the participant’s exact submission. The refresh script now writes there and cannot overwrite the primary raw directory.
+
+[Original import receipts](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/) and prior sheet snapshots remain historical evidence. Earlier name-first snapshots are superseded for current use because they included coordinator timing estimates. [Slava’s prepared CSV](SLAVA_CSV_NAME_FIRST_11-11-2026.md) remains unsent, with six blank response rows.

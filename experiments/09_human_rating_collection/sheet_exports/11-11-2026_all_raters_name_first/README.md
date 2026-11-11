@@ -1,5 +1,7 @@
 # All participants: matching Google Sheets and CSV snapshots
 
+**Historical snapshot — superseded for current raw data.** This earlier snapshot includes coordinator-added Rylan timing estimates that have since been removed. Use [the restored raw tables](../../ratings/README.md). Preserved here only as audit history, not current participant responses.
+
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/sheet_exports/11-11-2026_all_raters_name_first/README.md>
 
 **TLDR:** All 12 active personal Google Sheets begin with actual `rater_name`, then stable `rater_id`. These comma-separated value (CSV) snapshots have exactly the same table headers and values, checked on 11-11-2026.

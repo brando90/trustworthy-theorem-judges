@@ -1,5 +1,7 @@
 # Name-first Google Sheets and matching CSV snapshots
 
+**Historical snapshot — superseded for current raw data.** This earlier snapshot includes coordinator-added Rylan timing estimates that have since been removed. Use [the restored raw tables](../../ratings/README.md). Preserved here only as audit history, not current participant responses.
+
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/sheet_exports/11-11-2026_name_first/README.md>
 
 **TLDR:** The four warm-up sheets and Brando's main sheet now start with the person's actual name and stable rater ID. These are table-value snapshots of those sheets, not additional ratings.

@@ -1,12 +1,13 @@
 {
-  "scope": "Named existing imports with sourced background and explicitly labelled coordinator timing estimates; not new rating observations.",
-  "collected_files": [
+  "background_annotation_update": "11-11-2026: Rylan programming-languages coursework with Aiken recorded from Brando report; original Lean self-report and all ratings preserved. No new observations.",
+  "timing_annotation_update": "11-11-2026: Rylan reported approximately one hour for the warm-up. At Brando request, coordinator estimates of 15, 5, 5, 15, 10, 10 minutes fill the six named-export rows. Sum 60; not measured per-item timing. Original timing blanks and all scores preserved.",
+  "superseded_collected_files": [
     {
       "rater_id": "T01",
       "rater_name": "Rylan Schaeffer",
       "file": "Rylan_Schaeffer__warmup_T01.csv",
       "rows": 6,
-      "sha256": "4539dfeeb385008926af8f91c76536352ca8393775572cb4626a633502ae2896",
+      "sha256": "751215d08953599060d4c2369259692df16c3566b01ff402c982368b1e9746d3",
       "original_import_file": "warmup_T01.csv",
       "original_import_sha256": "1626c3dfba4b216a498dd8884fd2b60488e123b1f6cfb48633a9c7be9d5ead00",
       "transformation": "Added sourced name/background and explicit coordinator timing estimates; original timing retained in minutes_spent_original; all scores, notes and source bytes preserved.",
@@ -61,7 +62,7 @@
       "sha256": "1a567aba94527b1c6dd3bdc2c5320632522e1d549dc254b17cec1e44929a0b70",
       "original_import_file": "warmup_T02.csv",
       "original_import_sha256": "f303fe0ddc435c99b60b17fac08766b9a288376adee29f04ec0ec4358e7f2ca5",
-      "transformation": "Placed verified rater_name first and rater_id second; all original fields and rows preserved."
+      "transformation": "Added rater_name as the first column; all original fields and rows preserved."
     },
     {
       "rater_id": "T05",
@@ -71,7 +72,7 @@
       "sha256": "2860efacb7864c135d88467e39cc30299175858c185616eaf831eb291bd02232",
       "original_import_file": "warmup_T05.csv",
       "original_import_sha256": "7834efe1c8c3afb8901b377d83d884181772e46261ede52e015af1b2a29717a0",
-      "transformation": "Placed verified rater_name first and rater_id second; all original fields and rows preserved."
+      "transformation": "Added rater_name as the first column; all original fields and rows preserved."
     }
   ]
 }

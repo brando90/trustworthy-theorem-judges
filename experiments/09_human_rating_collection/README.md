@@ -10,7 +10,7 @@
 
 **Current form revision, 11-11-2026:** [one shared warm-up/main form](RATING_FORM_GUIDE.md), with [model-assistance disclosure and an attestation](FORM_AMENDMENT_11-11-2026.md). Brando's two live sheets use this revision; the team queue remains held for his pilot and revised-text review. Dispatch agents must read the amendment before using older prepared emails or packets.
 
-**Names first for everyone, 11-11-2026:** all 12 active personal Google Sheets now start with `rater_name,rater_id`, including unanswered forms. [Open every live sheet and its matching CSV snapshot](sheet_exports/11-11-2026_all_raters_name_first/README.md). Seven additional sheets were updated; five already used this layout. Every original cell value, note, validation and format was verified unchanged. New forms use the 18-column schema; historical team forms retain their other existing columns. The same name-first rule applies to future participants and CSV-only submissions.
+**Names first for everyone, 11-11-2026:** all 12 active personal Google Sheets now start with `rater_name,rater_id`, including unanswered forms. [Open every live sheet and its current raw CSV](ratings/README.md). Seven additional sheets were updated; five already used this layout. Every original cell value, note, validation and format was verified unchanged. New forms use the 18-column schema; historical team forms retain their other existing columns. The same name-first rule applies to future participants and CSV-only submissions.
 
 [Name-first rollout and cross-project rule receipts](NAME_FIRST_ROLLOUT_11-11-2026.md).
 
@@ -18,7 +18,9 @@
 
 ## Open the collected ratings
 
-**Start here: [ratings by person — names and actual CSV files](RATINGS_INDEX.md).**
+**Start here: [raw ratings by person — actual CSV files and Google Sheets](RATINGS_INDEX.md).**
+
+**Raw-data restoration, 11-11-2026:** removed assistant-filled time estimates and background annotations. Current files in [ratings/](ratings/README.md) preserve exact response values, blanks, spelling, capitalization and all N/A rows. [What was removed and verified](RAW_DATA_RESTORATION_11-11-2026.md). Historical normalized imports are separate in [ratings/analysis/](ratings/analysis/).
 
 [How your Google Sheet becomes a named rating file, and why IDs are retained](IDENTITY_AND_IMPORT.md).
 
@@ -26,7 +28,7 @@
 - [Current completion status: who is done and what is missing](COMPLETION_STATUS.md), checked **11-11-2026**.
 - [Original import receipts](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/).
 
-The ratings, named index and completion status are directly in this experiment folder on this Mac. The CSV filenames and first column show each person's name; the original IDs, ratings and notes are preserved. These named exports are the same observations as the existing imports, not additional observations. The rating files, named index and completion status are tracked in Git, as requested on 11-11-2026.
+The ratings, named index and completion status are directly in this experiment folder on this Mac. The CSV filenames and first column show each person's name; the original IDs, ratings and notes are preserved. These raw tables contain the same participant submissions, including nonnumeric entries omitted by historical numeric-only imports. They are not additional observations. The rating files, named index and completion status are tracked in Git, as requested on 11-11-2026.
 
 ## Ownership and scope
 
