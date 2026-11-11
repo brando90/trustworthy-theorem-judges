@@ -1,0 +1,101 @@
+{
+ "test_tasks": [
+  "18_MyFibonacci",
+  "1_MyAdd",
+  "3_heappop",
+  "bubble_sort",
+  "humaneval_13__gcd"
+ ],
+ "agents": {
+  "corr": {
+   "weights": {
+    "H0_sol": 0.25,
+    "H0_opus": 0.0,
+    "H1_sol": 0.0,
+    "H2_sol": 0.0,
+    "H2_opus": 0.45,
+    "train_marginal": 0.3
+   },
+   "how_chosen": "Exhaustive grid over the 6-component simplex (step 0.05, 53130 candidates incl. all one-hot) maximizing train Pearson between expected rating and human mean/5; ties broken by fewest nonzero components. No other loss used.",
+   "test": {
+    "ce": 1.5909762437098356,
+    "rps": 0.1094070677160952,
+    "tvd": 0.47072268555329216,
+    "pearson": 0.8778773547879712,
+    "spearman": 0.841335390946676
+   },
+   "per_task": {
+    "18_MyFibonacci": {
+     "ce": 1.4906319937425334,
+     "rps": 0.09076891207522064,
+     "tvd": 0.44277898332777776
+    },
+    "1_MyAdd": {
+     "ce": 2.0841500900557164,
+     "rps": 0.14649700409647076,
+     "tvd": 0.47527774444452775
+    },
+    "3_heappop": {
+     "ce": 1.7308894556135304,
+     "rps": 0.12684658990114572,
+     "tvd": 0.4611105555583778
+    },
+    "bubble_sort": {
+     "ce": 1.354065753838894,
+     "rps": 0.0933317833832988,
+     "tvd": 0.47527851110727776
+    },
+    "humaneval_13__gcd": {
+     "ce": 1.2951439252985038,
+     "rps": 0.08959104912434014,
+     "tvd": 0.4991676333285
+    }
+   }
+  },
+  "ce": {
+   "weights": {
+    "H0_sol": 0.17273433639872235,
+    "H0_opus": 3.302419081181469e-86,
+    "H1_sol": 3.410910626368964e-09,
+    "H2_sol": 0.021575976594420863,
+    "H2_opus": 0.21170980606838743,
+    "train_marginal": 0.5939798775275588
+   },
+   "how_chosen": "Minimized mean train cross-entropy over the weight simplex. The objective is convex in w, so I ran an EM/fixed-point mixture-weight optimizer to convergence (global optimum), after also evaluating all 53130 weight vectors on a 0.05 simplex grid and the 6 one-hot judges. No tie-break was needed; the continuous optimum beat the best grid point (1.52517) slightly.",
+   "test": {
+    "ce": 1.5551250278248714,
+    "rps": 0.12194514726121145,
+    "tvd": 0.5113869595780639,
+    "pearson": 0.8511395207444602,
+    "spearman": 0.840116970608889
+   },
+   "per_task": {
+    "18_MyFibonacci": {
+     "ce": 1.4688764252340982,
+     "rps": 0.10303141603265548,
+     "tvd": 0.5214131870861046
+    },
+    "1_MyAdd": {
+     "ce": 1.9530978104954404,
+     "rps": 0.19778338284653904,
+     "tvd": 0.5487966428761345
+    },
+    "3_heappop": {
+     "ce": 1.6183886163103203,
+     "rps": 0.12480742716913194,
+     "tvd": 0.4337683099506528
+    },
+    "bubble_sort": {
+     "ce": 1.3830227449168564,
+     "rps": 0.0927600847118823,
+     "tvd": 0.5040277192777343
+    },
+    "humaneval_13__gcd": {
+     "ce": 1.3522395421676414,
+     "rps": 0.0913434255458485,
+     "tvd": 0.5489289386996935
+    }
+   }
+  }
+ }
+}

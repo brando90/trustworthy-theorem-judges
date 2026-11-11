@@ -1,0 +1,12 @@
+{
+ "weights": {
+  "H0_sol": 0.17273433639872235,
+  "H0_opus": 3.302419081181469e-86,
+  "H1_sol": 3.410910626368964e-09,
+  "H2_sol": 0.021575976594420863,
+  "H2_opus": 0.21170980606838743,
+  "train_marginal": 0.5939798775275588
+ },
+ "train_ce": 1.5242569266106318,
+ "how_chosen": "Minimized mean train cross-entropy over the weight simplex. The objective is convex in w, so I ran an EM/fixed-point mixture-weight optimizer to convergence (global optimum), after also evaluating all 53130 weight vectors on a 0.05 simplex grid and the 6 one-hot judges. No tie-break was needed; the continuous optimum beat the best grid point (1.52517) slightly."
+}
