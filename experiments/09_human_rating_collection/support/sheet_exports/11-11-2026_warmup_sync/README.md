@@ -7,3 +7,5 @@ Each person’s final scores, N/A entries and attestation values are unchanged a
 The four original archives contain identical bytes for all ten scientific payload files. New versioned synchronized packets preserve those bytes and have matching current paths and CSV columns. packet_receipts.json records archive hashes; original deliveries are untouched. These replacements were prepared, not emailed.
 
 before.json and the four CSV files preserve pre-sync tables; after.json records verified current tables. Raw manifests, current primary CSVs, status and index were refreshed together. Layout changes do not alter the scoring rubric or assignment boundaries. This is a verified synchronization, not an automatic background mirror.
+
+Verification: four live views inspected; all four headers and six candidate paths match; retained scores and attestations unchanged; current CSVs match live snapshots; all 32 collection checks pass.
