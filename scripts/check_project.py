@@ -18,7 +18,7 @@ def main():
     assert (ROOT / "AGENTS.md").read_bytes() == (ROOT / "CLAUDE.md").read_bytes(), "Entry points differ"
     subprocess.run([sys.executable, str(ROOT / "experiments/02_probabilistic_ordinal_judge/scripts/validate_design.py")], check=True)
     subprocess.run([sys.executable, "-m", "unittest", "discover", "-s",
-                    str(ROOT / "experiments/09_human_rating_collection/tests")], check=True)
+                    str(ROOT / "experiments/09_human_rating_collection/support/tests")], check=True)
     legacy = ROOT / "experiments/01_legacy_veribench_judge"
     manifest = json.loads((legacy / "SOURCE_MANIFEST.json").read_text())
     for filename, key in manifest["byte_exact_copies"].items():

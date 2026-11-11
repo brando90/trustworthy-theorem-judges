@@ -13,7 +13,7 @@ import unittest
 from unittest.mock import patch
 from zipfile import ZipFile
 
-EXPERIMENT = Path(__file__).resolve().parents[1]
+EXPERIMENT = Path(__file__).resolve().parents[2]
 ROOT = EXPERIMENT.parents[1]
 
 

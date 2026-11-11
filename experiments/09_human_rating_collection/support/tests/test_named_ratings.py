@@ -10,7 +10,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-PATH = Path(__file__).resolve().parents[1] / "scripts/refresh_named_ratings.py"
+PATH = Path(__file__).resolve().parents[2] / "scripts/refresh_named_ratings.py"
 SPEC = importlib.util.spec_from_file_location("named_ratings", PATH)
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)

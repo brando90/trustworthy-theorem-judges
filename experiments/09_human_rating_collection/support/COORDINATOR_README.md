@@ -69,7 +69,7 @@ The [prospective probabilistic-judge design](../../02_probabilistic_ordinal_judg
 │       ├── make_rater_zip.py
 │       ├── packet_release.py
 │       └── score_warmup.py
-└── tests/test_collection.py
+└── support/tests/test_collection.py
 ```
 
 ### Private materials
@@ -125,7 +125,7 @@ The local VeriBench checkout was older than its remote branch. The active utilit
 ## Verification
 
 ```sh
-python3 -m unittest discover -s experiments/09_human_rating_collection/tests -v
+python3 -m unittest discover -s experiments/09_human_rating_collection/support/tests -v
 python3 scripts/check_project.py
 git diff --check
 ```

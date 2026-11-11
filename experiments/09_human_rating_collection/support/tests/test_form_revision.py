@@ -9,7 +9,7 @@ import tempfile
 import unittest
 from zipfile import ZipFile
 
-EXP = Path(__file__).resolve().parents[1]
+EXP = Path(__file__).resolve().parents[2]
 
 
 def load(name, path):

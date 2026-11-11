@@ -6,6 +6,8 @@
 
 ## State
 
+- Test location, 11-11-2026: automated checks moved from the top-level `tests/` into `support/tests/`. The project verification command and test path resolution use the new location; rating data and packets are unchanged.
+
 - Layout update, 11-11-2026: use the short parent README for the rating task. Administrative records, assets, historical snapshots and machine form configuration now live under `support/`; scripts/tests and cross-project identity/methodology entry paths remain stable. Rating CSVs and delivered packet bytes are unchanged. Email changes are reviewed in chat until Brando says send.
 
 - Updated: 11-11-2026 (raw response restoration; assistant-filled timing/background removed).

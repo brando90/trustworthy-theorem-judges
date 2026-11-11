@@ -19,7 +19,7 @@ The current FormV3 packet, CSV and pilot Google Sheets use the same full checkli
 | [RATINGS_INDEX.md](RATINGS_INDEX.md) and [ratings/](ratings/README.md) | Everyone’s original submitted responses; avoid viewing others while making independent ratings |
 | [COMPLETION_STATUS.md](COMPLETION_STATUS.md) | Who has finished and what remains |
 | [support/](support/README.md) | Coordinator notes, old snapshots, email drafts, source records and form configuration; not needed to do your ratings |
-| `scripts/` and `tests/` | Tools for building packets and importing/checking ratings; not needed to do your ratings |
+| `scripts/` | Tools for building packets and importing ratings; not needed to do your ratings |
 | [IDENTITY_AND_IMPORT.md](IDENTITY_AND_IMPORT.md) | Coordinator import workflow; kept at its existing address for related projects |
 | [JUDGE_FORMULATIONS_11-09-2026.md](JUDGE_FORMULATIONS_11-09-2026.md) | Study-design context for agents; kept at its existing address for related projects |
 
