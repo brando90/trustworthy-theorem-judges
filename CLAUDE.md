@@ -59,7 +59,7 @@ For packets: keep the validation and test splits by task family, solver and rate
 - Track the collected rating files, named index and completion status in Git directly under `experiments/09_human_rating_collection/`. Do not ignore, anonymize or move these deliverables into `private/` by default.
 - Keep actual rating files in `ratings/`, names and data links in `RATINGS_INDEX.md`, and dated completion information in `COMPLETION_STATUS.md`. Link all three prominently from the experiment README.
 - Use person-first filenames such as `Rylan_Schaeffer__warmup_T01.csv` and a first `rater_name` column. Retain the original `rater_id` for matching records and preventing duplicate counts.
-- Preserve original imports and receipts. Verify that named exports retain every source field and row, record original hashes, and refresh exports, index and status together. Copies are not new observations.
+- Preserve original imports and receipts. Verify that named exports retain every source field and row, record original hashes, and refresh exports, index and status together. Copies are not new observations. Follow [the identity and import workflow](experiments/09_human_rating_collection/IDENTITY_AND_IMPORT.md); run `scripts/refresh_named_ratings.py` within experiment 09 after validated imports. Stable IDs remain join keys, not a requirement to hide names.
 - Verify files at the user's requested path and open them in the requested editor when needed. Diagnose editor visibility, missing files and Git synchronization separately; do not substitute a link elsewhere for the requested file placement.
 
 ## Files and privacy

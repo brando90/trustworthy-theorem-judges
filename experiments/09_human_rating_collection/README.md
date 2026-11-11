@@ -8,6 +8,8 @@
 
 **Start here: [ratings by person — names and actual CSV files](RATINGS_INDEX.md).**
 
+[How your Google Sheet becomes a named rating file, and why IDs are retained](IDENTITY_AND_IMPORT.md).
+
 - [Actual rating CSV files](ratings/).
 - [Current completion status: who is done and what is missing](COMPLETION_STATUS.md), checked **11-11-2026**.
 - [Original import receipts](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/).
