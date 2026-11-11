@@ -6,8 +6,8 @@
 
 ## State
 
-- Updated: 11-11-2026 (name-first sheet migration).
-- Current form: schema `common_form_v2_2_11-11-2026`, 18 columns with `rater_name,rater_id` first. All four live warm-ups and Brando's main sheet have the new name column; existing responses are unchanged. Matching table-value CSV snapshots are linked from the README. Original delivered archives remain frozen; regenerate future packets from the new schema.
+- Updated: 11-11-2026 (all-participant name-first layout and cross-project rules).
+- Current form: schema `common_form_v2_2_11-11-2026`, 18 columns with `rater_name,rater_id` first. All 12 active personal Google Sheets now have this identity layout; existing responses and assignments are unchanged. Matching table-value CSV snapshots are linked from the README. Historical team forms retain other existing fields; future revised packets use the common schema. Original delivered archives remain frozen.
 - Feedback outreach: all three earlier feedback drafts are cancelled; no feedback email is authorized by this update.
 - Historical migration owner: Pi; migration is complete. Current sole collection and practical judge coordinator: [Prepare human grading task](codex://threads/01a1a8f9-dcb7-7381-9368-91d6e51faffd), per [the 11-09-2026 ownership decision](COORDINATION_11-09-2026.md).
 - Canonical task: `~/trustworthy-theorem-judges/experiments/09_human_rating_collection/`.
@@ -40,3 +40,5 @@
 - 11-09-2026: Caught older local utility versions before publication; preserved current committed implementations and their packet-release dependency, retained private sheet bindings, and passed 16 tests plus both real release gates. No real rating was scored.
 - 11-09-2026: Added archive-overwrite protection; all 17 tests pass, including both real inherited packet builds in temporary directories. Reverified 1,290 original and 208 pinned-snapshot/configuration hashes, and all four redirects in both VeriBench checkouts.
 - 11-09-2026 11:15 PST: Published both migration commits to `origin/main` and verified remote revisions; parsed-code comparison found only declared port adaptations, and the paper built in scratch without changing the canonical PDF. Removed the owned checkout, retained other owners' work, and preserved verification records privately. No collaborator email was sent by this migration.
+
+- 11-11-2026 all-participant identity rollout: verified all 12 active personal Google Sheets; inserted names in the seven remaining sheets, retained five already correct sheets, and exported exact table snapshots under `sheet_exports/11-11-2026_all_raters_name_first/`. All original cells, notes, validation and formats match before/after; browser visibility checks passed. Prepared Slava's six-row CSV-only warm-up without sending or changing delivered archives. Added the all-participant name-first rule to Codex, Claude and Cursor entry points and propagated to related repositories; see `NAME_FIRST_ROLLOUT_11-11-2026.md` for publication receipts. Existing ratings and assignment counts are unchanged.

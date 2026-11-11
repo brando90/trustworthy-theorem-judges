@@ -10,7 +10,7 @@
 
 Each filename includes the person's name, and each file starts with a `rater_name` column and retains the original `rater_id`. All original rating values, notes and rows are preserved. These named exports are the same observations as the canonical imports, not additional ratings.
 
-**Name-first sheet update, 11-11-2026:** all four warm-up Google Sheets and Brando's main sheet now start with `rater_name,rater_id` too. [Matching live-sheet CSV snapshots, including Brando's blank forms](sheet_exports/11-11-2026_name_first/README.md). These snapshots retain all assigned rows and are separate from the validated numeric exports below; do not count them again.
+**Name-first sheet update for everyone, 11-11-2026:** all 12 active personal Google Sheets start with `rater_name,rater_id`. [Every live sheet and matching CSV snapshot, including blank forms](sheet_exports/11-11-2026_all_raters_name_first/README.md). These snapshots retain all existing item rows and are separate from the validated numeric exports below; do not count them again. Main sheets that display 125 items still retain the smaller assignments in the delivery ledger.
 
 Rylan's file also includes sourced coordinator background fields after the source columns: **programming-languages coursework with Aiken**, reported by Brando on 11-11-2026. His separate Lean-specific self-report is preserved. [Background clarification](RYLAN_NOTES.md#relevant-background).
 
@@ -23,6 +23,8 @@ Rylan's `minutes_spent` now contains **coordinator estimates totaling 60 minutes
 | Srivatsava Daruru (Sri) | [Sri's ratings — Srivatsava_Daruru_Sri__warmup_T05.csv](ratings/Srivatsava_Daruru_Sri__warmup_T05.csv) | 6 | None |
 
 Open the [canonical data folder](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/) for the original import receipts and immutable historical snapshots.
+
+[Slava's name-first CSV warm-up](SLAVA_CSV_NAME_FIRST_11-11-2026.md) is prepared and unsent; he uses the emailed CSV route. It contains six blank rows and is not collected rating data.
 
 ## Current completion status
 

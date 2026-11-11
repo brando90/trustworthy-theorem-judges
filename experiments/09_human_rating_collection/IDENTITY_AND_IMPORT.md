@@ -31,6 +31,12 @@ Keep these distinct:
 
 Codes plus a retained name lookup are pseudonyms, not irreversible anonymization. No new rater-anonymization step is needed for this collection. This clarification does not open sealed test data or change the prospective study's train/test assignments.
 
+## Name-first contract for every participant
+
+Active personal Google Sheets and current comma-separated value (CSV) forms start with `rater_name,rater_id`. Prefill each existing item row with the roster-verified person name; keep IDs stable for joins and duplicate detection. Apply this to blank forms and CSV-only participants as well as completed sheets. A CSV table snapshot reproduces its source sheet's headers, row order and cell values; separately enriched analysis exports label coordinator metadata after the submitted fields. Never infer identity from ratings or overwrite responses to enforce formatting.
+
+[All 12 active sheets and exact table snapshots](sheet_exports/11-11-2026_all_raters_name_first/README.md) were verified on 11-11-2026. Adding a name to a displayed row does not create a new assignment or observation. Keep raw imports and delivered archives immutable; prepare future revisions with the shared schema. Related VeriBench and judge repositories point here rather than maintaining competing rosters or collection workflows.
+
 ## From Google Sheets to the experiment folder
 
 This is a coordinator-run collection sync, **not a live background mirror**. Google Sheets saves the rater's work immediately; the local experiment files update when collection is run.

@@ -10,7 +10,11 @@
 
 **Current form revision, 11-11-2026:** [one shared warm-up/main form](RATING_FORM_GUIDE.md), with [model-assistance disclosure and an attestation](FORM_AMENDMENT_11-11-2026.md). Brando's two live sheets use this revision; the team queue remains held for his pilot and revised-text review. Dispatch agents must read the amendment before using older prepared emails or packets.
 
-**Names first, 11-11-2026:** Brando, Sri, Rylan and Yegor's warm-up Google Sheets, plus Brando's main sheet, now start with `rater_name,rater_id`, matching the named CSV identity columns. [Open matching sheet-value CSV snapshots and live links](sheet_exports/11-11-2026_name_first/README.md). Existing answers, notes and validation were verified unchanged after the column insertion. New forms use the 18-column schema; historical team forms retain their other existing columns.
+**Names first for everyone, 11-11-2026:** all 12 active personal Google Sheets now start with `rater_name,rater_id`, including unanswered forms. [Open every live sheet and its matching CSV snapshot](sheet_exports/11-11-2026_all_raters_name_first/README.md). Seven additional sheets were updated; five already used this layout. Every original cell value, note, validation and format was verified unchanged. New forms use the 18-column schema; historical team forms retain their other existing columns. The same name-first rule applies to future participants and CSV-only submissions.
+
+[Name-first rollout and cross-project rule receipts](NAME_FIRST_ROLLOUT_11-11-2026.md).
+
+[Slava's name-first CSV warm-up](SLAVA_CSV_NAME_FIRST_11-11-2026.md) is prepared and unsent; he uses the emailed CSV route. It contains six blank rows and is not collected rating data.
 
 ## Open the collected ratings
 
