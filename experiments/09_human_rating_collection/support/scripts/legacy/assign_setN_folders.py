@@ -1,6 +1,6 @@
 # TLDR: Amendment C15 item 5's folder assignment for rating set N: gives each of the 25 task folders two distinct qualified raters within each rater's pledge, pairing one team and one vendor rater per folder while both groups have capacity, and keeps already-delivered folders fixed (--keep); seeded (20261009), zero model calls, uses folder ids only (no system information).
 """Usage from the trustworthy-theorem-judges root (supply the current private roster and delivered assignments):
-  python3 experiments/09_human_rating_collection/scripts/legacy/assign_setN_folders.py --roster private/ROSTER.csv \
+  python3 experiments/09_human_rating_collection/support/scripts/legacy/assign_setN_folders.py --roster private/ROSTER.csv \
       [--include-pending] [--keep private/DELIVERED.csv] [--out private/ASSIGNMENT.csv]
 
 ROSTER.csv columns: rater_id, pool (team|vendor), pledged_folders (int), qualified (yes|no|pending), name (optional).
@@ -18,7 +18,7 @@ from pathlib import Path
 import numpy as np
 
 # Use the pinned committed snapshot, not the stale shared VeriBench checkout.
-EXP = (Path(__file__).resolve().parents[4] / "private/09_human_rating_collection/upstream_source"
+EXP = (Path(__file__).resolve().parents[5] / "private/09_human_rating_collection/upstream_source"
        / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
 PACKET = EXP / "human_round/sample_setN/packet"
 SEED = 20261009

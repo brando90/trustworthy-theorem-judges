@@ -19,8 +19,8 @@ def load(name, path):
     return mod
 
 
-IMPORTER = load("form_import", EXP / "scripts/legacy/import_rating_sheet.py")
-REVISION = load("form_packet", EXP / "scripts/revise_rating_packet.py")
+IMPORTER = load("form_import", EXP / "support/scripts/legacy/import_rating_sheet.py")
+REVISION = load("form_packet", EXP / "support/scripts/revise_rating_packet.py")
 
 
 class FormRevisionTests(unittest.TestCase):

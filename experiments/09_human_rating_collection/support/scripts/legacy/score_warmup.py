@@ -1,7 +1,7 @@
 # TLDR: Scores returned C15 warm-up sheets against the sealed May expert means under amendment C17 (qualify on W01a-c only, mean absolute difference <= 1.0; the six-file W01+W02 value is printed as a disclosed sensitivity, never a verdict), per rater: qualifying MAE, six-file MAE, per-folder MAE, verdict, Lean familiarity and minutes; a rater who was one of the three May experts is scored against the other two experts' mean (--leave-out-expert); refuses duplicate or incomplete sheets and any key whose digest is not the sealed one; zero model calls, writes nothing.
 """Usage from the trustworthy-theorem-judges root:
-  python3 experiments/09_human_rating_collection/scripts/legacy/score_warmup.py private/SHEET.csv [private/SHEET2.csv ...] [--qualify-task W01] [--key PATH] [--synthetic-key]
-  python3 experiments/09_human_rating_collection/scripts/legacy/score_warmup.py private/SHEET.csv --leave-out-expert K   (one sheet; K = 1, 2 or 3)
+  python3 experiments/09_human_rating_collection/support/scripts/legacy/score_warmup.py private/SHEET.csv [private/SHEET2.csv ...] [--qualify-task W01] [--key PATH] [--synthetic-key]
+  python3 experiments/09_human_rating_collection/support/scripts/legacy/score_warmup.py private/SHEET.csv --leave-out-expert K   (one sheet; K = 1, 2 or 3)
 (Use the normalized copies written by import_rating_sheet.py.)
 
 --qualify-task  folder(s) whose items decide qualification; default W01 (amendment C17); repeat the flag for more
@@ -28,7 +28,7 @@ from pathlib import Path
 from packet_release import require_release
 
 # Use the pinned committed snapshot, not the stale shared VeriBench checkout.
-EXP = (Path(__file__).resolve().parents[4] / "private/09_human_rating_collection/upstream_source"
+EXP = (Path(__file__).resolve().parents[5] / "private/09_human_rating_collection/upstream_source"
        / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
 KEY = EXP / "human_round/warmup/sealed/WARMUP_KEY.json"
 MANIFEST = EXP / "human_round/warmup/WARMUP_MANIFEST.json"

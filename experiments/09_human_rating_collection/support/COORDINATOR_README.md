@@ -95,13 +95,13 @@ The imported `PLAN_setN_rating_round.md` records dated decisions, not the curren
 From `~/trustworthy-theorem-judges`:
 
 ```sh
-python3 experiments/09_human_rating_collection/scripts/make_team_packet.py \
+python3 experiments/09_human_rating_collection/support/scripts/make_team_packet.py \
   private/original private/team-folder-01-new.zip --folders 1 --rater T01
 ```
 
 Use a new output filename and the intended person's verified rater ID (`T01` is Rylan Schaeffer); omit `--folders` for all folders. Omitting `--rater` creates an unassigned template, not a recipient-ready form. The builder checks the original delivery manifest and every included file, preserves the scoring rubric apart from its personal-sheet instruction, and includes `START_HERE.md`, `Rating_Instructions.md`, `ratings.csv` and `FILES.sha256`. It does not send anything or modify a delivered packet.
 
-**Keep the sheet layouts distinct.** This builder's renamed `agent_file*.lean` items are not the inherited `Nxx`/`Wxx` item identifiers. The utilities under `scripts/legacy/` serve the inherited sheets only; do not pass a renamed team answer sheet to that importer or infer its item mapping. Preserve explicit item mappings when reconciling later deliveries.
+**Keep the sheet layouts distinct.** This builder's renamed `agent_file*.lean` items are not the inherited `Nxx`/`Wxx` item identifiers. The utilities under `support/scripts/legacy/` serve the inherited sheets only; do not pass a renamed team answer sheet to that importer or infer its item mapping. Preserve explicit item mappings when reconciling later deliveries.
 
 ## Current inherited utilities
 

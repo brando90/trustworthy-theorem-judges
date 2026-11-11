@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 # Use the pinned committed snapshot, not the stale shared VeriBench checkout.
-EXP = (Path(__file__).resolve().parents[4] / "private/09_human_rating_collection/upstream_source"
+EXP = (Path(__file__).resolve().parents[5] / "private/09_human_rating_collection/upstream_source"
        / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
 STATUS = EXP / "human_round/PACKET_STATUS.json"
 PACKETS = {"warmup": EXP / "human_round/warmup/packet", "setN": EXP / "human_round/sample_setN/packet"}

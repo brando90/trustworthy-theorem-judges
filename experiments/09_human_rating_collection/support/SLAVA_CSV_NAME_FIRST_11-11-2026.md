@@ -16,8 +16,8 @@ This file is a **prepared form**, not a returned submission, live-sheet snapshot
 
 ## Other template paths checked
 
-- `scripts/revise_rating_packet.py` builds prospective personal forms with verified names first and stable IDs second; it leaves original archives unchanged.
-- `scripts/make_team_packet.py --rater V01` prefills both identity columns when a separately authorized main assignment is prepared. Without `--rater`, its output is an unassigned template, not a ready personal delivery.
-- `scripts/legacy/make_rater_zip.py` packages frozen scientific files and a personal-sheet pointer; it does not generate a CSV form. Its historical source templates and delivered archives were not rewritten.
+- `support/scripts/revise_rating_packet.py` builds prospective personal forms with verified names first and stable IDs second; it leaves original archives unchanged.
+- `support/scripts/make_team_packet.py --rater V01` prefills both identity columns when a separately authorized main assignment is prepared. Without `--rater`, its output is an unassigned template, not a ready personal delivery.
+- `support/scripts/legacy/make_rater_zip.py` packages frozen scientific files and a personal-sheet pointer; it does not generate a CSV form. Its historical source templates and delivered archives were not rewritten.
 
 The dated source snapshots, earlier packets, and earlier blank-form templates retain their original layouts as provenance. Use the current schema for new forms; do not import these prepared blank rows as completed ratings.

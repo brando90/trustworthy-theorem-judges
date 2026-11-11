@@ -18,7 +18,7 @@
 - [ratings/](ratings/README.md): original responses; [RATINGS_INDEX.md](RATINGS_INDEX.md): people, Sheets and data links.
 - [COMPLETION_STATUS.md](COMPLETION_STATUS.md): who has finished and what remains.
 - [support/](support/README.md): import procedures, study design, coordinator notes, configuration, history and software tests.
-- `scripts/`: packet-building and import tools. Stable command paths are retained.
+- [support/scripts/](support/scripts/): packet-building and import tools; not needed to do your ratings.
 
 The working packet is for Brando’s coordinator practice: he has already viewed other raters’ warm-up answers. Delivered archives remain unchanged. No email is sent by editing this folder.
 

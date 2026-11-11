@@ -25,12 +25,12 @@ def load(name, path):
     return module
 
 
-BUILDER = load("collection_packet", EXPERIMENT / "scripts/make_team_packet.py")
-IMPORTER = load("collection_import", EXPERIMENT / "scripts/legacy/import_rating_sheet.py")
-RELEASE = load("collection_release", EXPERIMENT / "scripts/legacy/packet_release.py")
-WARMUP = load("collection_warmup", EXPERIMENT / "scripts/legacy/score_warmup.py")
+BUILDER = load("collection_packet", EXPERIMENT / "support/scripts/make_team_packet.py")
+IMPORTER = load("collection_import", EXPERIMENT / "support/scripts/legacy/import_rating_sheet.py")
+RELEASE = load("collection_release", EXPERIMENT / "support/scripts/legacy/packet_release.py")
+WARMUP = load("collection_warmup", EXPERIMENT / "support/scripts/legacy/score_warmup.py")
 try:
-    ASSIGNER = load("collection_assign", EXPERIMENT / "scripts/legacy/assign_setN_folders.py")
+    ASSIGNER = load("collection_assign", EXPERIMENT / "support/scripts/legacy/assign_setN_folders.py")
 except ModuleNotFoundError as error:
     if error.name != "numpy":
         raise
@@ -149,7 +149,7 @@ class PacketTests(unittest.TestCase):
         source = ROOT / "private/original"
         with tempfile.TemporaryDirectory() as temp:
             output = Path(temp) / "all.zip"
-            subprocess.run([sys.executable, str(EXPERIMENT / "scripts/make_team_packet.py"), str(source), str(output)],
+            subprocess.run([sys.executable, str(EXPERIMENT / "support/scripts/make_team_packet.py"), str(source), str(output)],
                            check=True, capture_output=True, text=True)
             members = check_archive(output, 125)
             with ZipFile(output) as archive:
@@ -201,7 +201,7 @@ class CurrentProtocolTests(unittest.TestCase):
             for packet in ("setN", "warmup"):
                 with self.subTest(packet=packet):
                     output = Path(temp) / packet
-                    command = [sys.executable, str(EXPERIMENT / "scripts/legacy/make_rater_zip.py"),
+                    command = [sys.executable, str(EXPERIMENT / "support/scripts/legacy/make_rater_zip.py"),
                                "--packet", packet, "--rater", "SYNTHETIC",
                                "--sheet-url", "https://docs.google.com/spreadsheets/d/synthetic_test_sheet_id_00001/edit",
                                "--share-email", "rater@example.invalid", "--out-dir", str(output)]

@@ -1,6 +1,6 @@
 # Fill in two fields per file
 
-The first five columns identify you and the candidate file. They are prefilled; keep them unchanged.
+Identifiers are prefilled; keep them unchanged. The synchronized warm-up view hides the internal rater, item and folder keys. Use the visible full file path to find the candidate. CSV exports retain those keys for reliable matching.
 
 | Field to fill | What to enter |
 | --- | --- |

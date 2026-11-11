@@ -8,7 +8,7 @@ import json
 import re
 from pathlib import Path
 
-EXPERIMENT = Path(__file__).resolve().parents[1]
+EXPERIMENT = Path(__file__).resolve().parents[2]
 ROOT = EXPERIMENT.parents[1]
 
 

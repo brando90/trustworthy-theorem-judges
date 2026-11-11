@@ -24,7 +24,7 @@
 - Owned detached publication checkout: `~/.worktrees/veribench/human-ratings-move` removed after verified publication; no temporary checkout remains for this task.
 - Migration: 1,290 private files transferred with matching hashes; four utility redirects and two document redirects published. Commits: trustworthy-theorem-judges `91ecc6312d71`, VeriBench `6a6f6a834c90`; both verified on `origin/main`.
 - Current utilities: pinned to committed VeriBench `b292c277e176`, not the older dirty local checkout; matching private snapshot and release helper preserved. Working participant records still have one physical home.
-- Preparation owner: the sole coordinating chat above owns `PREPARATION_11-09-2026.md`, `scripts/verify_preparation.py`, `private/RATE_TODAY.md`, and the private `preparation_11-09-2026/` record. The former separate methodology chat hands its work to the same coordinator.
+- Preparation owner: the sole coordinating chat above owns `PREPARATION_11-09-2026.md`, `support/scripts/verify_preparation.py`, `private/RATE_TODAY.md`, and the private `preparation_11-09-2026/` record. The former separate methodology chat hands its work to the same coordinator.
 - Delivery: the concurrent preparation record supersedes the historical deadline; revised individual drafts still require text review and an explicit send instruction.
 - Scientific settings: unchanged; no solver, judge, proof search, or new ratings run.
 - Verification: 17 collection tests pass, including delivered-assignment preservation, emailed submissions, release checks and C17 qualification; both real packet-release gates and the sealed-key digest match. Project and preparation checks passed; all 1,290 transfer hashes and 208 pinned-snapshot/configuration hashes match.

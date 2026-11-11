@@ -48,7 +48,7 @@ This is a coordinator-run collection sync, **not a live background mirror**. Goo
 4. If normalized analysis copies are needed, run the identity-labeling step from the repository root:
 
    ```bash
-   python3 experiments/09_human_rating_collection/scripts/refresh_named_ratings.py
+   python3 experiments/09_human_rating_collection/support/scripts/refresh_named_ratings.py
    ```
 
    It reads already imported files from the canonical import directory, joins [RATER_IDENTITIES.json](RATER_IDENTITIES.json), places `rater_name` first and `rater_id` second, verifies an already-present name against the roster, and writes person-first filenames under `ratings/analysis/`. It refuses an output directory resolving to the primary `ratings/` folder. An unknown or mismatched rater, malformed row or duplicate item stops the batch before output. Normalized-input columns and values are preserved. This is not raw-data recovery: the historical importer already changed some capitalization and omitted Yegor’s N/A rows. The exporter does not load coordinator background or timing estimates. Leading sheet-comment rows remain readable if the new name column shifts the comment into column B. A manifest records source and named-export hashes. It performs no live download, qualification decision or score analysis.

@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from zipfile import ZipFile
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[4]
 PREP = ROOT / 'private/09_human_rating_collection/preparation_11-09-2026'
 
 

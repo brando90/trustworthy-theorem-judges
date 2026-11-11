@@ -11,7 +11,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 from revise_rating_packet import required_only_rubric
 
 MANIFEST_SHA256 = "0e4166045463dac71c2d7e70702f9c8b58ffccedeacdbff13ef4e57b8e85efa4"
-FORM_HOME = Path(__file__).resolve().parents[1]
+FORM_HOME = Path(__file__).resolve().parents[2]
 COLUMNS = json.loads((FORM_HOME / "support/RATING_FORM_SCHEMA.json").read_text())["columns"]
 
 

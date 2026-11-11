@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 
-HOME = Path(__file__).resolve().parents[1]
+HOME = Path(__file__).resolve().parents[2]
 
 
 def required_only_rubric(text):
