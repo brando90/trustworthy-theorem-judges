@@ -6,9 +6,9 @@
 
 Rate the three candidates in `warm_up_01_median`, then the three in `warm_up_02_greatest_common_divisor`. Read each task’s Python source and reference statements, then compare the candidate’s specification statements. You do not rate proofs.
 
-For each completed item, enter `final_score_0_5`, `model_assistance` and `independent_rating_attestation`. In the current name-first sheet these are columns F, G and H. Leave unfinished responses blank. Names and IDs are already filled in.
+For each completed item, enter `final_score_0_5` and `ai_assisted_rating_attestation`. In the current name-first sheet these are columns F and G. Leave unfinished responses blank. Names and IDs are already filled in.
 
-Localized artificial intelligence (AI) help is encouraged; make the final comparison and choose the rating yourself. There are no optional or recommended entry fields. The checklist and base score stay in the scoring rubric only.
+Localized artificial intelligence (AI) help is required for new ratings; make the final comparison and choose the rating yourself. There are no optional or recommended entry fields. The checklist and base score stay in the scoring rubric only.
 
 The current required-only packet CSV matches your live sheet. The original and FormV2 archives remain preserved for wording history. Use your personal sheet, not the historical rubric’s template-copy link.
 

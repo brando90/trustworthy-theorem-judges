@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/FORM_AMENDMENT_11-11-2026.md>
 
-**TLDR:** The current warm-up/main form has 18 columns, with the verified `rater_name` first and stable `rater_id` second, including model-assistance disclosure and a human-rating attestation. This is a pilot form revision; preserve historical responses and review the revised team materials after his six-item practice run.
+**TLDR:** Current form: seven columns, with five prefilled identifiers followed by `final_score_0_5` and `ai_assisted_rating_attestation`. Localized AI assistance is required prospectively; the human personally compares and scores. The combined statement is in the [current guide](../rating_task_packet/RATING_FORM_GUIDE.md). All 12 live sheets and CSVs use this schema. Historical responses remain unchanged and historical assistance is unknown. The sections below retain earlier amendment history and do not override this current decision.
 
 ## Verified inconsistency and correction
 

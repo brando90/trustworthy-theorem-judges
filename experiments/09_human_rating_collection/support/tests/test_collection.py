@@ -121,7 +121,7 @@ class PacketTests(unittest.TestCase):
                     self.assertEqual(row["task_folder"], "Files_To_Rate01")
                     self.assertEqual(row["candidate_file"], row["item_id"] + ".lean")
                     self.assertEqual(row["final_score_0_5"], "")
-                    self.assertEqual(row["independent_rating_attestation"], "")
+                    self.assertEqual(row["ai_assisted_rating_attestation"], "")
             with self.assertRaises(SystemExit):
                 self.build(root, Path(temp) / "unknown.zip", digest, ["--rater", "UNKNOWN"])
 

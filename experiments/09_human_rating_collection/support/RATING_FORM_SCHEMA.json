@@ -1,5 +1,5 @@
 {
-  "version": "required_only_v3_11-11-2026",
+  "version": "ai_assisted_attestation_v4_11-11-2026",
   "columns": [
     "rater_name",
     "rater_id",
@@ -7,13 +7,11 @@
     "task_folder",
     "candidate_file",
     "final_score_0_5",
-    "model_assistance",
-    "independent_rating_attestation"
+    "ai_assisted_rating_attestation"
   ],
   "required_new_responses": [
     "final_score_0_5",
-    "model_assistance",
-    "independent_rating_attestation"
+    "ai_assisted_rating_attestation"
   ],
   "recommended": [],
   "optional": [],
@@ -22,9 +20,9 @@
     "no",
     "unsure"
   ],
-  "attestation": "I certify that I did not ask a model to do the full rating task for this file. I made the comparison and chose the final score myself.",
+  "attestation": "I used AI for localized assistance. I personally compared the specifications and chose the final score; I did not delegate the rating task to AI.",
   "missing_legacy_metadata": "unknown; never infer no assistance or an affirmative attestation",
-  "rollout": "All 12 live sheets and primary raw CSVs use required-only layout; blank historical assistance/attestation remains unknown; no new response supplied.",
+  "rollout": "All 12 live sheets use one new combined attestation. Applies prospectively; previous assistance/independence responses remain archived, not reinterpreted. New attestation cells are blank until answered.",
   "identity_columns": {
     "prefilled": [
       "rater_name",
@@ -44,5 +42,6 @@
     "frequency": "once_per_rater_in_first_item_row",
     "prompt": "What have you done with Lean (tutorials, reading theorem statements, writing proofs, a course or a project), roughly how much, and how recently? Separately mention relevant programming-languages/formal-methods coursework or other proof assistants. If no Lean experience, say so. One or two sentences; please expand labels such as some or fluent.",
     "legacy_labels": "Preserve existing none/some/fluent responses; never infer experience or reject historical ratings for missing detail."
-  }
+  },
+  "assistance_policy": "Localized AI assistance is required for new ratings under this version; humans make the comparison and select the score. Earlier ratings retain their recorded conditions; unknown AI use remains unknown."
 }

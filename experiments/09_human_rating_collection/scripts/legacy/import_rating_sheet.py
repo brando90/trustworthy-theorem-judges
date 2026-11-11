@@ -50,14 +50,15 @@ REQUIRED = ("rater_id", "item_id", "final_score_0_5")
 A1_SHEETS_PATH = EXP / "personal_sheet_ids.json"  # Private coordinator sheet bindings.
 ALLOWED = {"A": {"y", "n"}, "B": {"y", "n"}, "C": {"y", "n"}, "D": {"handful", "dominates", "n/a"},
            "confidence": {"low", "med", "high"},
-           "independent_rating_attestation": {"yes", "no", "unsure"}}
+           "independent_rating_attestation": {"yes", "no", "unsure"},
+           "ai_assisted_rating_attestation": {"yes", "no", "unsure"}}
 YESNO = {"yes": "y", "no": "n"}
 SYNONYMS = {"confidence": {"medium": "med"}}  # C17 addendum 10-20-2026: the spelled-out value of the template's "med"
 NA = {"n/a", "na"}
 QUALIFY_TASKS = ("W01",)  # amendment C17: these warm-up items can never be excused as reference-issue rows
 CSV_ROUTE = "emailed_csv_v1_2026-10-21"  # coordinator ruling 10-21-2026 09:12 PDT: a rating_sheet CSV returned by email
 CONTENT = ("final_score_0_5", "A", "B", "C", "D", "base_score_0_5", "confidence", "rationale", "problem_note", "minutes_spent",
-           "model_assistance", "independent_rating_attestation")
+           "model_assistance", "independent_rating_attestation", "ai_assisted_rating_attestation")
 
 
 FORM_SCHEMA = Path(__file__).resolve().parents[2] / "support/RATING_FORM_SCHEMA.json"
@@ -164,7 +165,13 @@ def check(text, rater, expected_ids, allowed_folders, packet, ref_issue_items=fr
                 errors.append(f"row {n} ({iid}): {k}={r.get(k)!r} not in {sorted(ok)}")
             if k in fields:
                 r[k] = v
-        if {"model_assistance", "independent_rating_attestation"} & set(fields):
+        if "ai_assisted_rating_attestation" in fields:
+            answer = r.get("ai_assisted_rating_attestation", "").strip()
+            if not answer:
+                warnings.append(f"row {n} ({iid}): combined attestation missing; historical AI use remains unknown; rating retained")
+            elif answer in {"no", "unsure"}:
+                warnings.append(f"row {n} ({iid}): combined attestation needs coordinator review; rating retained")
+        elif {"model_assistance", "independent_rating_attestation"} & set(fields):
             for k in ("model_assistance", "independent_rating_attestation"):
                 if not r.get(k, "").strip():
                     warnings.append(f"row {n} ({iid}): new-form metadata missing: {k}; rating retained")

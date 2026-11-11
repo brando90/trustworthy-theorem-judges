@@ -111,6 +111,18 @@ class FormRevisionTests(unittest.TestCase):
         self.assertEqual(rows[0]["independent_rating_attestation"], "no")
         self.assertTrue(any("coordinator review" in x for x in warnings))
 
+    def test_combined_attestation_preserves_honest_answers_without_legacy_requirement(self):
+        for answer in ("yes", "no", "unsure", ""):
+            text = "rater_id,item_id,final_score_0_5,ai_assisted_rating_attestation\nA1,N01a,2," + answer + "\n"
+            rows, errors, warnings, _, _ = IMPORTER.check(text, "A1", {"N01a"}, None, "setN")
+            self.assertFalse(errors)
+            self.assertEqual(rows[0]["ai_assisted_rating_attestation"], answer)
+            self.assertFalse(any("model_assistance" in w for w in warnings))
+            self.assertEqual(bool(warnings), answer != "yes")
+        legacy = "rater_id,item_id,final_score_0_5,independent_rating_attestation\nA1,N01a,2,yes\n"
+        rows, _, _, _, _ = IMPORTER.check(legacy, "A1", {"N01a"}, None, "setN")
+        self.assertNotIn("ai_assisted_rating_attestation", rows[0])
+
     def test_revised_archive_preserves_scientific_bytes_and_refuses_overwrite(self):
         files = {"START_HERE.md": b"Old instructions\n", "YOUR_RATING_SHEET.txt": b"Old link\n",
                  "human_judgements_prompt.md": b"Unchanged rubric\n",
@@ -140,7 +152,7 @@ class FormRevisionTests(unittest.TestCase):
                 self.assertEqual(row["rater_name"],"Brando Miranda")
                 self.assertEqual(row["rater_id"],"A1")
                 self.assertEqual(row["item_id"],"W01a")
-                self.assertEqual(row["independent_rating_attestation"],"")
+                self.assertEqual(row["ai_assisted_rating_attestation"],"")
             with self.assertRaises(FileExistsError):
                 REVISION.revise(src,dst,"A1","https://example.invalid/sheet")
             with self.assertRaisesRegex(ValueError, "verified name"):

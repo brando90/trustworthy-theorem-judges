@@ -29,3 +29,5 @@ Yegor’s warm-up contains all six submitted rows: three numeric ratings and thr
 [analysis/](analysis/) contains separately labeled historical normalized imports. Those imports lowercase some answers and omit nonnumeric rows. They are not raw submissions and must not be counted again. `refresh_named_ratings.py` writes only those analysis exports by default, never these primary raw tables.
 
 The original sheet snapshots and withdrawn coordinator additions remain in the audit history. New collection refreshes must preserve exact response values and missingness; do not infer per-item times or fill other responses.
+
+**Combined attestation, 11-11-2026:** all 12 live sheets and current raw CSVs now contain the final score plus one AI-assisted rating attestation. Scores and identifiers are unchanged; every new attestation remains blank. Earlier ratings are not evidence of AI use. Pre-change responses and readback are preserved in `support/sheet_exports/11-11-2026_combined_attestation/` (relative to the experiment root).

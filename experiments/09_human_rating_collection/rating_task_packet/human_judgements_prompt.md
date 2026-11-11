@@ -41,7 +41,7 @@ You have 3 files per problem:
 
 ## Output format (required)
 
-Use your personal sheet linked in START_HERE.md, or the assigned ratings.csv return route. Fill only final_score_0_5, model_assistance and independent_rating_attestation; RATING_FORM_GUIDE.md explains these answers. Identifiers are prefilled. The checklist and base score remain scoring steps, not separate form entries.
+Use your personal sheet linked in START_HERE.md, or the assigned ratings.csv return route. Fill only final_score_0_5 and ai_assisted_rating_attestation; RATING_FORM_GUIDE.md explains these answers. Identifiers are prefilled. The checklist and base score remain scoring steps, not separate form entries.
 
 ## Tie-break rule
 

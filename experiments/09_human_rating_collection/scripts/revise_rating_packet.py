@@ -15,7 +15,7 @@ def required_only_rubric(text):
     """Update submission directions only; preserve every scoring section verbatim."""
     output = ("## Output format (required)\n\n"
               "Use your personal sheet linked in START_HERE.md, or the assigned ratings.csv return route. "
-              "Fill only final_score_0_5, model_assistance and independent_rating_attestation; "
+              "Fill only final_score_0_5 and ai_assisted_rating_attestation; "
               "RATING_FORM_GUIDE.md explains these answers. Identifiers are prefilled. "
               "The checklist and base score remain scoring steps, not separate form entries.\n\n")
     text = re.sub(r"## Current form headers[\s\S]*$", "", text)
@@ -67,8 +67,8 @@ def revise(source, output, rater, sheet_url):
         f"3. Read {rubric} for the unchanged 0–5 scoring rubric. "
         "Read Python source, gold theorem statements and candidate theorem statements in each task folder. "
         "Rate statements, not proofs.\n"
-        "4. Fill one row per candidate in your Google Sheet. Model assistance for localized questions is encouraged. "
-        "Record the help and answer the attestation yourself.\n\n"
+        "4. Fill one row per candidate in your Google Sheet. Use AI for localized assistance. "
+        "Make the comparison, choose the score and answer the attestation yourself.\n\n"
         "The included ratings.csv is a blank form with the same columns; the personal Google Sheet is your return route.\n"
     ).encode()
     # The personal link lives in START_HERE; remove the redundant legacy pointer.

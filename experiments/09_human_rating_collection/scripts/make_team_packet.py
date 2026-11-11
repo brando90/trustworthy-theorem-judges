@@ -64,7 +64,7 @@ def main():
         "gold Lean theorem statements, then rate each candidate under agent_lean. The files in "
         "gold_lean_dependencies, when present, support the reference.\n\n"
         "Open ratings.csv in a spreadsheet editor. Check your name and rater ID, then enter final_score_0_5 "
-        "and the model_assistance and independent_rating_attestation fields for each assigned file. "
+        "and the ai_assisted_rating_attestation field for each assigned file. "
         "Keep the prefilled identifiers intact. Email reference problems to Brando. "
         "Return your completed CSV privately to Brando.\n"
     ).encode()
