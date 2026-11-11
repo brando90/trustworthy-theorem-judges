@@ -1,15 +1,19 @@
 {
-  "scope": "Display-name enrichment of existing imports only; not a live collection or new observations.",
+  "scope": "Name and sourced background enrichment of existing imports only; not a live collection or new observations.",
   "collected_files": [
     {
       "rater_id": "T01",
       "rater_name": "Rylan Schaeffer",
       "file": "Rylan_Schaeffer__warmup_T01.csv",
       "rows": 6,
-      "sha256": "33d50b2c6f79e2a4a0e7beaddebc2452f1e26da371d9fd55325a934189d811fa",
+      "sha256": "76d14d76b324bbce1b207e43c6d662bcb71a2c7cc77385a839ff4bf6a9da8f0c",
       "original_import_file": "warmup_T01.csv",
       "original_import_sha256": "1626c3dfba4b216a498dd8884fd2b60488e123b1f6cfb48633a9c7be9d5ead00",
-      "transformation": "Added rater_name as the first column; all original fields and rows preserved."
+      "transformation": "Added rater_name and sourced coordinator background fields; all original fields and rows preserved.",
+      "background_enrichment": {
+        "programming_languages_background": "Programming-languages coursework with Aiken",
+        "background_source": "Reported by Brando Miranda on 11-11-2026; Lean familiarity remains Rylan's separate self-report."
+      }
     },
     {
       "rater_id": "T02",

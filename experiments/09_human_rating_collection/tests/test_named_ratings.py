@@ -13,6 +13,22 @@ SPEC.loader.exec_module(MODULE)
 
 
 class NamedRatingsTests(unittest.TestCase):
+    def test_background_annotation_does_not_rewrite_lean_self_report(self):
+        with tempfile.TemporaryDirectory() as folder:
+            source = Path(folder) / "warmup_T01.csv"
+            original = b"rater_id,item_id,final_score_0_5,lean_familiarity\nT01,W01a,0,none\n"
+            source.write_bytes(original)
+            identities = {"T01": {"rater_name": "Example Rater", "filename_stem": "Example_Rater",
+                                  "programming_languages_background": "Coursework",
+                                  "background_source": "Coordinator report"}}
+            _, data, _ = MODULE.named_export(source, identities)
+            row = next(csv.DictReader(io.StringIO(data.decode())))
+            self.assertEqual(row["programming_languages_background"], "Coursework")
+            self.assertEqual(row["background_source"], "Coordinator report")
+            self.assertEqual(row["lean_familiarity"], "none")
+            self.assertEqual(row["final_score_0_5"], "0")
+            self.assertEqual(source.read_bytes(), original)
+
     def test_preserves_values_and_is_repeatable(self):
         with tempfile.TemporaryDirectory() as folder:
             source = Path(folder) / "setN_A1.csv"

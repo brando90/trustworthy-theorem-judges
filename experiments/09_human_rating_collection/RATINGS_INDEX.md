@@ -1,12 +1,16 @@
 # Collected human ratings, by person
 
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/RATINGS_INDEX.md>
+
 **TLDR:** The current collection contains 15 numeric warm-up ratings from Rylan, Yegor and Sri. The live-sheet check on 11-11-2026 found no additional or revised ratings; main-task submissions remain blank.
 
 ## Open the actual rating data
 
 [Read Rylan’s notes in a formatted preview](RYLAN_NOTES.md).
 
-Each filename includes the person's name, and each file starts with a `rater_name` column followed by the original `rater_id`. All original rating values, notes and rows are preserved. These named exports are the same observations as the canonical imports, not additional ratings.
+Each filename includes the person's name, and each file starts with a `rater_name` column and retains the original `rater_id`. All original rating values, notes and rows are preserved. These named exports are the same observations as the canonical imports, not additional ratings.
+
+Rylan's file also includes sourced coordinator background fields beside his name: **programming-languages coursework with Aiken**, reported by Brando on 11-11-2026. His separate Lean-specific self-report is preserved. [Background clarification](RYLAN_NOTES.md#relevant-background).
 
 | Person who supplied the ratings | Actual data | Numeric ratings | Other entries |
 | --- | --- | ---: | --- |

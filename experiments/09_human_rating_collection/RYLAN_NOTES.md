@@ -8,6 +8,12 @@
 
 Source checked: **11-11-2026**. This is a readable view of the saved ratings, not new observations or a revision of his scores.
 
+## Relevant background
+
+**Programming-languages experience:** coursework with Aiken, reported by Brando Miranda on 11-11-2026. This is relevant experience and is now recorded in Rylan's named rating export and rater profile. His original `lean_familiarity = none` is specifically his self-report about Lean; it does not mean no programming-languages background. The live sheet's six familiarity cells now carry this clarification as a coordinator note.
+
+Brando already asked Rylan why some columns were blank via WhatsApp at 10:38 AM on 11-11-2026. No reply to that question appears in the supplied excerpt; the duplicate email draft was cancelled.
+
 ## 1. Median of an empty list
 
 > The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate
