@@ -4,13 +4,13 @@
 
 ## Open the actual rating data
 
-These links open byte-identical local copies of the canonical imported CSV files. These copies are the same observations, not additional ratings. Each row preserves the participant's rating and available notes.
+Each filename includes the person's name, and each file starts with a `rater_name` column followed by the original `rater_id`. All original rating values, notes and rows are preserved. These named exports are the same observations as the canonical imports, not additional ratings.
 
 | Person who supplied the ratings | Actual data | Numeric ratings | Other entries |
 | --- | --- | ---: | --- |
-| Rylan Schaeffer | [Rylan's ratings — warmup_T01.csv](ratings/warmup_T01.csv) | 6 | None |
-| Yegor Denisov-Blanch | [Yegor's ratings — warmup_T02.csv](ratings/warmup_T02.csv) | 3 | Three N/A reference-issue entries remain in the [source snapshot](../../private/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/warmup_T02/ratings.csv); they are not numeric ratings |
-| Srivatsava Daruru (Sri) | [Sri's ratings — warmup_T05.csv](ratings/warmup_T05.csv) | 6 | None |
+| Rylan Schaeffer | [Rylan's ratings — Rylan_Schaeffer__warmup_T01.csv](ratings/Rylan_Schaeffer__warmup_T01.csv) | 6 | None |
+| Yegor Denisov-Blanch | [Yegor's ratings — Yegor_Denisov-Blanch__warmup_T02.csv](ratings/Yegor_Denisov-Blanch__warmup_T02.csv) | 3 | Three N/A reference-issue entries remain in the [source snapshot](../../private/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/warmup_T02/ratings.csv); they are not numeric ratings |
+| Srivatsava Daruru (Sri) | [Sri's ratings — Srivatsava_Daruru_Sri__warmup_T05.csv](ratings/Srivatsava_Daruru_Sri__warmup_T05.csv) | 6 | None |
 
 Open the [canonical data folder](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/) for the original import receipts and immutable historical snapshots.
 
