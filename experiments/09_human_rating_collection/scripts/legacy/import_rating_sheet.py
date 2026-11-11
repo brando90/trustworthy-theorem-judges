@@ -60,6 +60,13 @@ CONTENT = ("final_score_0_5", "A", "B", "C", "D", "base_score_0_5", "confidence"
            "model_assistance", "independent_rating_attestation")
 
 
+FORM_SCHEMA = Path(__file__).resolve().parents[2] / "support/RATING_FORM_SCHEMA.json"
+CHECKLIST_ALIASES = json.loads(FORM_SCHEMA.read_text())["legacy_checklist_headers"]
+for old, new in CHECKLIST_ALIASES.items():
+    ALLOWED[new] = ALLOWED[old]
+CONTENT = (*CONTENT, *CHECKLIST_ALIASES.values())
+
+
 def read_rows(text):
     """Skip leading comment records, including comments shifted by an inserted name column."""
     records = iter(csv.reader(io.StringIO(text)))
@@ -152,7 +159,7 @@ def check(text, rater, expected_ids, allowed_folders, packet, ref_issue_items=fr
             errors.append(f"row {n} ({iid}): folder {folder} was not delivered to this rater")
         for k, ok in ALLOWED.items():
             v = r.get(k, "").strip().lower()
-            v = YESNO.get(v, v) if k in ("A", "B", "C") else SYNONYMS.get(k, {}).get(v, v)
+            v = YESNO.get(v, v) if k in ("A", "B", "C", *(CHECKLIST_ALIASES[x] for x in "ABC")) else SYNONYMS.get(k, {}).get(v, v)
             if v and v not in ok:
                 errors.append(f"row {n} ({iid}): {k}={r.get(k)!r} not in {sorted(ok)}")
             if k in fields:

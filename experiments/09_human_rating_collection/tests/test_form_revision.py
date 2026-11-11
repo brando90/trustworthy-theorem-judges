@@ -24,6 +24,25 @@ REVISION = load("form_packet", EXP / "scripts/revise_rating_packet.py")
 
 
 class FormRevisionTests(unittest.TestCase):
+    def test_descriptive_questions_match_guide_and_validate_like_legacy(self):
+        schema = json.loads((EXP / "support/RATING_FORM_SCHEMA.json").read_text())
+        guide = (EXP / "RATING_FORM_GUIDE.md").read_text()
+        aliases = schema["legacy_checklist_headers"]
+        self.assertEqual(schema["columns"][5:9], list(aliases.values()))
+        for question in aliases.values():
+            self.assertIn(question, guide)
+        fields = ["rater_id", "item_id", "final_score_0_5", *aliases.values()]
+        for answer, invalid in [("yes", False), ("invalid", True)]:
+            buf = io.StringIO()
+            w = csv.writer(buf)
+            w.writerow(fields)
+            w.writerow(["A1", "W01a", "2", answer, "no", "yes", "handful"])
+            rows, errors, _, _, _ = IMPORTER.check(buf.getvalue(), "A1", {"W01a"}, None, "warmup")
+            self.assertEqual(bool(errors), invalid)
+            if not invalid:
+                self.assertEqual(rows[0][aliases["A"]], "y")
+                self.assertEqual(rows[0][aliases["D"]], "handful")
+
     def test_name_first_sheet_with_shifted_comment_and_multiline_note(self):
         fields = ["rater_name", "rater_id", "item_id", "final_score_0_5", "problem_note"]
         buf = io.StringIO()

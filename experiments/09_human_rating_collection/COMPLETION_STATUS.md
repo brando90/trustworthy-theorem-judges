@@ -36,3 +36,5 @@ Jacob and Mo declined; Bo and Sanmi are excluded from recruitment. Unassigned pr
 - Warm-up observations and N/A entries stay separate from main-task ratings. Blank cells are missing, never zero scores. No judge fitting, selection or sealed-test analysis was performed.
 
 This status and the collected rating CSV files are tracked in experiment 09. Detailed source snapshots and mail-search receipts remain in the private collection area. This is collection evidence, not a fresh validation dataset.
+
+**11-11-2026 header revision:** Brando’s warm-up and main sheets and their current CSV snapshots now use full checklist questions (schema v2.3). Response cells and completion counts are unchanged. Other delivered forms remain historical pending rollout. See [revision record](support/QUESTION_HEADERS_11-11-2026.md).

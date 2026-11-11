@@ -32,3 +32,5 @@ The primary collection still requires 250 main ratings: 20 assigned but blank an
 [Normalized analysis copies](ratings/analysis/) are separate from the raw files. The historical importer lowercases some labels and keeps only numeric rows; these derived copies must not be presented as the participant’s exact submission. The refresh script now writes there and cannot overwrite the primary raw directory.
 
 [Original import receipts](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/) and prior sheet snapshots remain historical evidence. Earlier name-first snapshots are superseded for current use because they included coordinator timing estimates. [Slava’s prepared CSV](support/SLAVA_CSV_NAME_FIRST_11-11-2026.md) remains unsent, with six blank response rows.
+
+**11-11-2026 header revision:** Brando’s warm-up and main sheets and their current CSV snapshots now use full checklist questions (schema v2.3). Response cells and completion counts are unchanged. Other delivered forms remain historical pending rollout. See [revision record](support/QUESTION_HEADERS_11-11-2026.md).

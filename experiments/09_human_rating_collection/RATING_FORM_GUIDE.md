@@ -4,7 +4,7 @@
 
 **TLDR:** The warm-up and main task use the same columns and instructions; only the assigned items differ. For each completed item, enter your final score, disclose any model assistance and answer the attestation.
 
-Form revision: **11-11-2026**, name-first schema version `common_form_v2_2_11-11-2026`. This guide updates the sheet fields and assistance instructions; it does not change the 0–5 scoring rubric or any candidate/reference file. Use the personal Google Sheet linked in your email and `YOUR_RATING_SHEET.txt`, rather than a sheet-copy link in an older rubric. If your email instead assigns a CSV return route, fill the included CSV and email it back; it uses the same columns.
+Form revision: **11-11-2026**, name-first schema version `common_form_v2_3_11-11-2026`. This guide updates the sheet fields and assistance instructions; it does not change the 0–5 scoring rubric or any candidate/reference file. Use the personal Google Sheet linked in your email and `YOUR_RATING_SHEET.txt`, rather than a sheet-copy link in an older rubric. If your email instead assigns a CSV return route, fill the included CSV and email it back; it uses the same columns.
 
 1. Read the folder's Python source and the gold-reference theorem statements.
 2. Read each candidate in `agent_lean`. Use the accompanying scoring rubric to compare statement coverage, not proofs. Make the final comparison and score yourself.
@@ -18,10 +18,19 @@ Form revision: **11-11-2026**, name-first schema version `common_form_v2_2_11-11
 | `independent_rating_attestation` — required response | Choose `yes`, `no` or `unsure`. Choose yes only if the statement below is true. Leave blank until you answer. |
 | `minutes_spent` — recommended | Approximate minutes for the file, including shared folder-reading time in its first file. Leave blank if unknown; do not invent a time. |
 | `lean_familiarity` — recommended, once per person | In the first item row, describe your Lean background in one or two sentences using the question below. You do not need to repeat it on every row. |
-| Checklist A–D and `base_score_0_5` — optional to record | Use the rubric's checklist and spam adjustment when deciding your score. You do not have to transcribe every intermediate answer. |
+| The four checklist questions below and `base_score_0_5` — optional to record | Use the rubric's checklist and spam adjustment when deciding your score. You do not have to transcribe every intermediate answer. |
 | `confidence` — optional | `low`, `med` or `high`. |
 | `rationale` — optional | A short explanation in your own words. |
 | `problem_note` — optional unless a problem prevents rating | Note confusing instructions or a reference problem. Give a small concrete example when possible. |
+
+## Checklist questions (exact sheet and CSV headers)
+
+Gold means the reference Lean file. These are the existing rubric questions, expanded from the historical A–D labels; scoring is unchanged. Answer Y/N for the first three, and handful/dominates/N/A for the last. Recording these intermediate answers remains optional.
+
+- **Are key gold theorems covered?** (formerly A)
+- **Are gold pre/postconditions preserved or strengthened?** (formerly B)
+- **Is there obvious theorem spam?** (formerly C)
+- **If spam exists, is it a handful or does it dominate?** (formerly D)
 
 ## Describe your background briefly
 

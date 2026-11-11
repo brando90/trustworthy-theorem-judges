@@ -4,11 +4,11 @@ You only need **your packet, your personal Google Sheet and the rating instructi
 
 ## Do your six-file warm-up
 
-1. **[Open your packet](../../private/09_human_rating_collection/preparation_11-09-2026/packets/VeriBench_Brando_Miranda_Warmup_A1_FormV2.zip)** and unzip it.
+1. **[Open your packet](../../private/09_human_rating_collection/preparation_11-09-2026/packets/VeriBench_Brando_Miranda_Warmup_A1_FormV3.zip)** and unzip it.
 2. **[Open your Google Sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit#gid=665730293&range=K2)**. Enter your ratings here, as the other participants do.
 3. Read **[the form guide](RATING_FORM_GUIDE.md)** and the scoring rubric inside the packet. Compare specification statements, not proofs.
 
-The sheet is the current name-first form. The delivered packet retains its historical form layout; use the sheet’s field names and the current guide. No candidate or reference files were changed by this folder cleanup.
+The current FormV3 packet, CSV and pilot Google Sheets use the same full checklist questions. Original delivered packets remain preserved. Read the [scoring rubric](human_judgements_prompt.md) with the [current field guide](RATING_FORM_GUIDE.md).
 
 ## What belongs here
 

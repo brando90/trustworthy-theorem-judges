@@ -4,6 +4,7 @@ import csv
 import hashlib
 import io
 import json
+import re
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 
@@ -12,6 +13,9 @@ HOME = Path(__file__).resolve().parents[1]
 
 def revise(source, output, rater, sheet_url):
     schema = json.loads((HOME / "support/RATING_FORM_SCHEMA.json").read_text())
+    guide = (HOME / "RATING_FORM_GUIDE.md").read_text()
+    if any(question not in guide for question in schema["legacy_checklist_headers"].values()):
+        raise ValueError("Form guide does not match checklist headers")
     identities = json.loads((HOME / "support/RATER_IDENTITIES.json").read_text())
     if rater not in identities or not identities[rater]["rater_name"].strip():
         raise ValueError(f"No verified name for {rater}; update RATER_IDENTITIES.json first")
@@ -26,10 +30,17 @@ def revise(source, output, rater, sheet_url):
     for n, digest in listing.items():
         if hashlib.sha256(files[n]).hexdigest() != digest:
             raise ValueError(f"Source hash mismatch: {n}")
-    candidates = sorted(n for n in files if "/agent_lean/" in n and n.endswith(".lean"))
+    candidates = sorted((n for n in files if "/agent_lean/" in n and n.endswith(".lean")),
+                        key=lambda n: [int(x) if x.isdigit() else x for x in re.split(r"(\d+)", n)])
     if not candidates:
         raise ValueError("No candidates")
     rubric = "Rating_Instructions.md" if "Rating_Instructions.md" in files else "human_judgements_prompt.md"
+    mapping = schema.get("legacy_checklist_headers", {})
+    crosswalk = "\n\n## Current form headers\n\nThe scoring rubric above is preserved verbatim. In the current Google Sheet and ratings.csv, the historical checklist labels mean:\n\n"
+    crosswalk += "\n".join(f"- {old}: **{new}**" for old, new in mapping.items()) + "\n\nUse RATING_FORM_GUIDE.md for current field requirements and your personal submission route.\n"
+    # Always revise an original delivery; do not accumulate crosswalks.
+    if "## Current form headers" not in files[rubric].decode():
+        files[rubric] += crosswalk.encode()
     # Delivered scientific payload is copied byte-for-byte, never regenerated.
     protected = {n: b for n, b in files.items() if n.endswith((".lean", ".py"))}
     files["RATING_FORM_GUIDE.md"] = (HOME / "RATING_FORM_GUIDE.md").read_bytes()

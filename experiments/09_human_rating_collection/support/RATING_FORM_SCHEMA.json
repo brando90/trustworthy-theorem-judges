@@ -1,15 +1,15 @@
 {
-  "version": "common_form_v2_2_11-11-2026",
+  "version": "common_form_v2_3_11-11-2026",
   "columns": [
     "rater_name",
     "rater_id",
     "item_id",
     "task_folder",
     "candidate_file",
-    "A",
-    "B",
-    "C",
-    "D",
+    "Are key gold theorems covered?",
+    "Are gold pre/postconditions preserved or strengthened?",
+    "Is there obvious theorem spam?",
+    "If spam exists, is it a handful or does it dominate?",
     "base_score_0_5",
     "final_score_0_5",
     "confidence",
@@ -30,10 +30,10 @@
     "lean_familiarity"
   ],
   "optional": [
-    "A",
-    "B",
-    "C",
-    "D",
+    "Are key gold theorems covered?",
+    "Are gold pre/postconditions preserved or strengthened?",
+    "Is there obvious theorem spam?",
+    "If spam exists, is it a handful or does it dominate?",
     "base_score_0_5",
     "confidence",
     "rationale",
@@ -60,5 +60,11 @@
     ],
     "source": "RATER_IDENTITIES.json; names display identity, stable rater_id remains the join key",
     "order": "rater_name first, rater_id second in Google Sheets and CSV forms; historical imports remain unchanged"
+  },
+  "legacy_checklist_headers": {
+    "A": "Are key gold theorems covered?",
+    "B": "Are gold pre/postconditions preserved or strengthened?",
+    "C": "Is there obvious theorem spam?",
+    "D": "If spam exists, is it a handful or does it dominate?"
   }
 }

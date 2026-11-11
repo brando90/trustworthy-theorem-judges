@@ -221,10 +221,10 @@
         "item_id",
         "task_folder",
         "candidate_file",
-        "A",
-        "B",
-        "C",
-        "D",
+        "Are key gold theorems covered?",
+        "Are gold pre/postconditions preserved or strengthened?",
+        "Is there obvious theorem spam?",
+        "If spam exists, is it a handful or does it dominate?",
         "base_score_0_5",
         "final_score_0_5",
         "confidence",
@@ -236,7 +236,8 @@
         "independent_rating_attestation"
       ],
       "rows": 125,
-      "sha256": "7ab4604eeecb6dadb19f2c3db89bb535822d6c4b69c46d20f99e0bfe300c350b"
+      "sha256": "ae93d2718bd6988ce4fbaf7467e0da48a392fcab9c16a2f39b4fd30145cbb1b6",
+      "form_version": "common_form_v2_3_11-11-2026"
     },
     {
       "rater_name": "Rylan Schaeffer",
@@ -392,10 +393,10 @@
         "item_id",
         "task_folder",
         "candidate_file",
-        "A",
-        "B",
-        "C",
-        "D",
+        "Are key gold theorems covered?",
+        "Are gold pre/postconditions preserved or strengthened?",
+        "Is there obvious theorem spam?",
+        "If spam exists, is it a handful or does it dominate?",
         "base_score_0_5",
         "final_score_0_5",
         "confidence",
@@ -407,7 +408,9 @@
         "independent_rating_attestation"
       ],
       "rows": 6,
-      "sha256": "ba49e761fe9050b94d24ac09d95f035658af2c34b9878ad44d061f5664812860"
+      "sha256": "236443df910d13c2a926deec87fdf44be7bd9a02810434052ae52dd3946f7cd1",
+      "form_version": "common_form_v2_3_11-11-2026"
     }
-  ]
+  ],
+  "header_revision": "11-11-2026: Brando warm-up/main full checklist questions; response values unchanged; before/after under support/sheet_exports/11-11-2026_question_headers."
 }
