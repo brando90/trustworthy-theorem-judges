@@ -1,7 +1,7 @@
-rater_name,rater_id,item_id,task_folder,candidate_file,A,B,C,D,base_score_0_5,final_score_0_5,confidence,rationale,problem_note,minutes_spent,lean_familiarity
-Yegor Denisov-Blanch,T02,W01a,W01,W01/agent_lean/W01a.lean,N,N,N,N/A,2,2,Medium,"Single-element case seems covered. Missing: empty-list case, sort_length_thm, and equivalence with the imperative version - just the tests don't add theorem coverage, so it leaves several gaps, 2/5",,,some
-Yegor Denisov-Blanch,T02,W01b,W01,W01/agent_lean/W01b.lean,N,N,N,N/A,2,2,Medium,"Some credit for the single element case, but I'm less sure here b/c the inputs are Floats rather than Ints. Empty lists, sort length, and agreement with the imperative version are still missing... so 2/5 - assuming the Int-to-Float conversion is acceptable",,,some
-Yegor Denisov-Blanch,T02,W01c,W01,W01/agent_lean/W01c.lean,N,N,N,N/A,2,2,Medium,"Single element case seems covered and there's also a theorem saying the 5 tests pass. This is useful but doesn't address empty lists, sort length, or agreement with the imperative version, so 2/5",,,some
-Yegor Denisov-Blanch,T02,W02a,W02,W02/agent_lean/W02a.lean,,,N,,N/A,N/A,N/A,"Ref issue: gcd(0,0)=0, but 1 divides both inputs.",,,some
-Yegor Denisov-Blanch,T02,W02b,W02,W02/agent_lean/W02b.lean,,,N,,N/A,N/A,N/A,"Ref issue: gcd(0,0)=0, but 1 divides both inputs.",,,some
-Yegor Denisov-Blanch,T02,W02c,W02,W02/agent_lean/W02c.lean,,,N,,N/A,N/A,N/A,"Ref issue: gcd(0,0)=0, but 1 divides both inputs.",,,some
+rater_name,rater_id,item_id,task_folder,candidate_file,final_score_0_5,model_assistance,independent_rating_attestation
+Yegor Denisov-Blanch,T02,W01a,W01,W01/agent_lean/W01a.lean,2,,
+Yegor Denisov-Blanch,T02,W01b,W01,W01/agent_lean/W01b.lean,2,,
+Yegor Denisov-Blanch,T02,W01c,W01,W01/agent_lean/W01c.lean,2,,
+Yegor Denisov-Blanch,T02,W02a,W02,W02/agent_lean/W02a.lean,N/A,,
+Yegor Denisov-Blanch,T02,W02b,W02,W02/agent_lean/W02b.lean,N/A,,
+Yegor Denisov-Blanch,T02,W02c,W02,W02/agent_lean/W02c.lean,N/A,,

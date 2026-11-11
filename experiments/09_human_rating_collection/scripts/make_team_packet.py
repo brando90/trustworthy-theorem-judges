@@ -8,6 +8,7 @@ import json
 import re
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
+from revise_rating_packet import required_only_rubric
 
 MANIFEST_SHA256 = "0e4166045463dac71c2d7e70702f9c8b58ffccedeacdbff13ef4e57b8e85efa4"
 FORM_HOME = Path(__file__).resolve().parents[1]
@@ -48,19 +49,13 @@ def main():
 
     schema = json.loads((FORM_HOME / "support/RATING_FORM_SCHEMA.json").read_text())
     guide = (FORM_HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_text()
-    if any(question not in guide for question in schema["legacy_checklist_headers"].values()):
-        raise ValueError("Form guide does not match checklist headers")
-    # Replace only the personal submission instructions. Preserve the scoring rubric.
-    rubric = members["Rating_Instructions.md"].decode()
-    rubric, count = re.subn(r"^Open \[your personal rating sheet\].+$",
-                            "Fill in your own copy of ratings.csv, one row per candidate.",
-                            rubric, flags=re.MULTILINE)
-    if count != 1 or len(rows) != 5 * len(folders):
-        parser.error("Unexpected rubric or candidate count.")
-    rubric += "\n\n## Current form headers\n\n" + "\n".join(
-        f"- {old}: **{new}**" for old, new in schema["legacy_checklist_headers"].items()) + "\n"
-    members["Rating_Instructions.md"] = rubric.encode()
-    assistance = members["START_HERE.md"].decode().split("## Assistance and reference problems\n\n", 1)[1]
+    if any(field not in guide for field in schema["required_new_responses"]):
+        raise ValueError("Form guide does not match required response fields")
+    if len(rows) != 5 * len(folders):
+        parser.error("Unexpected candidate count.")
+    rubric = re.sub(r"^Open \[your personal rating sheet\].+$",
+                    "Fill the assigned ratings.csv form.", members["Rating_Instructions.md"].decode(), flags=re.MULTILINE)
+    members["Rating_Instructions.md"] = required_only_rubric(rubric).encode()
     members["START_HERE.md"] = (
         "# Rate theorem coverage\n\n"
         "Read RATING_FORM_GUIDE.md first for the current fields and assistance policy; "
@@ -69,9 +64,9 @@ def main():
         "gold Lean theorem statements, then rate each candidate under agent_lean. The files in "
         "gold_lean_dependencies, when present, support the reference.\n\n"
         "Open ratings.csv in a spreadsheet editor. Check your name and rater ID, then enter final_score_0_5 "
-        "for each assigned file. Keep the item IDs and filenames intact. Record any reference "
-        "problem in problem_note. Return your completed CSV privately to Brando.\n\n"
-        "## Assistance and reference problems\n\n" + assistance
+        "and the model_assistance and independent_rating_attestation fields for each assigned file. "
+        "Keep the prefilled identifiers intact. Email reference problems to Brando. "
+        "Return your completed CSV privately to Brando.\n"
     ).encode()
     members["RATING_FORM_GUIDE.md"] = (FORM_HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_bytes()
     sheet = io.StringIO(newline="")

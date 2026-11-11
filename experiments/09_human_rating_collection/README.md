@@ -11,7 +11,7 @@
 | [ratings.csv](rating_task_packet/ratings.csv) | Blank local form for inspecting/editing the packet; not collected responses. |
 | [warm_up_01_median/](rating_task_packet/warm_up_01_median/) and [warm_up_02_greatest_common_divisor/](rating_task_packet/warm_up_02_greatest_common_divisor/) | Actual Python, reference and six candidate files copied unchanged from the FormV3 packet. |
 
-**Draft inconsistencies still to resolve:** the email draft says score column J; the current name-first Sheet uses K. The older START_HERE draft and rubric submission paragraph must be reconciled with the current form guide before dispatch. Their wording was preserved during this move. Use the personal Sheet linked in START_HERE.md; do not copy the historical rubric’s template. The scoring rubric itself is unchanged.
+**Current form:** fill only the final score, model-assistance disclosure and independent-rating attestation. Instructions, the working CSV and live Sheets use the same eight columns: five prefilled identifiers and these three answers. Scoring is unchanged.
 
 ## Collection records
 

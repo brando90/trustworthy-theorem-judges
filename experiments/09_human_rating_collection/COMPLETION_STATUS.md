@@ -1,5 +1,8 @@
 # Human-rating collection status — 11-11-2026
 
+**Current form, 11-11-2026:** all 12 live Sheets and primary raw CSVs have five prefilled identifiers plus final score, model-assistance disclosure and independent-rating attestation. Optional/recommended columns were removed. All retained scores, N/A entries, row order and assignments are unchanged; historical missing disclosures remain unknown. [Revision and preserved source data](support/sheet_exports/11-11-2026_required_only/README.md).
+
+
 **TLDR:** Twelve live Google Sheets were checked and saved privately. No new or revised numeric ratings were found: 15 warm-up ratings match existing imports; the delivered main assignments remain blank.
 
 **Later layout update for everyone, 11-11-2026:** all 12 active personal Google Sheets were re-read and verified with the actual name in the first column and stable ID second. Seven sheets were updated and five were already correct. Original cell contents were preserved, so this did not add completed ratings or change assignments. [Every live sheet and current raw CSV](ratings/README.md).

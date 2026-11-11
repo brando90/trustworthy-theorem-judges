@@ -28,9 +28,11 @@ class FormRevisionTests(unittest.TestCase):
         schema = json.loads((EXP / "support/RATING_FORM_SCHEMA.json").read_text())
         guide = (EXP / "rating_task_packet/RATING_FORM_GUIDE.md").read_text()
         aliases = schema["legacy_checklist_headers"]
-        self.assertEqual(schema["columns"][5:9], list(aliases.values()))
-        for question in aliases.values():
-            self.assertIn(question, guide)
+        self.assertEqual(schema["columns"][5:], schema["required_new_responses"])
+        self.assertEqual(schema["optional"], [])
+        self.assertEqual(schema["recommended"], [])
+        for field in schema["required_new_responses"]:
+            self.assertIn(field, guide)
         fields = ["rater_id", "item_id", "final_score_0_5", *aliases.values()]
         for answer, invalid in [("yes", False), ("invalid", True)]:
             buf = io.StringIO()
@@ -42,6 +44,13 @@ class FormRevisionTests(unittest.TestCase):
             if not invalid:
                 self.assertEqual(rows[0][aliases["A"]], "y")
                 self.assertEqual(rows[0][aliases["D"]], "handful")
+
+    def test_required_only_submission_preserves_scoring_sections(self):
+        original = (EXP / "support/sheet_exports/11-11-2026_required_only/previous_human_judgements_prompt.md").read_text()
+        updated = REVISION.required_only_rubric(original)
+        self.assertEqual(original.split("## Output format")[0], updated.split("## Output format")[0])
+        self.assertEqual(original.split("## Tie-break rule")[1], updated.split("## Tie-break rule")[1])
+        self.assertNotIn("Optional notes", updated)
 
     def test_name_first_sheet_with_shifted_comment_and_multiline_note(self):
         fields = ["rater_name", "rater_id", "item_id", "final_score_0_5", "problem_note"]

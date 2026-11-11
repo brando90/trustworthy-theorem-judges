@@ -1,5 +1,8 @@
 # Raw participant ratings
 
+**Current form, 11-11-2026:** all 12 live Sheets and primary raw CSVs have five prefilled identifiers plus final score, model-assistance disclosure and independent-rating attestation. Optional/recommended columns were removed. All retained scores, N/A entries, row order and assignments are unchanged; historical missing disclosures remain unknown. [Revision and preserved source data](../support/sheet_exports/11-11-2026_required_only/README.md).
+
+
 **Checked: 11-11-2026.** These CSV tables match the current Google Sheets response values exactly. Names and IDs are prefilled identity metadata. Participant responses, blanks, capitalization, spelling, and N/A entries are unchanged. Rylan’s assistant-estimated times and assistant-written background annotations have been removed.
 
 | Person | Packet | Raw CSV | Google Sheet | Numeric ratings / displayed rows |

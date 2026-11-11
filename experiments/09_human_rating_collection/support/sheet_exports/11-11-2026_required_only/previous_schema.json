@@ -1,0 +1,70 @@
+{
+  "version": "common_form_v2_3_11-11-2026",
+  "columns": [
+    "rater_name",
+    "rater_id",
+    "item_id",
+    "task_folder",
+    "candidate_file",
+    "Are key gold theorems covered?",
+    "Are gold pre/postconditions preserved or strengthened?",
+    "Is there obvious theorem spam?",
+    "If spam exists, is it a handful or does it dominate?",
+    "base_score_0_5",
+    "final_score_0_5",
+    "confidence",
+    "rationale",
+    "problem_note",
+    "minutes_spent",
+    "lean_familiarity",
+    "model_assistance",
+    "independent_rating_attestation"
+  ],
+  "required_new_responses": [
+    "final_score_0_5",
+    "model_assistance",
+    "independent_rating_attestation"
+  ],
+  "recommended": [
+    "minutes_spent",
+    "lean_familiarity"
+  ],
+  "optional": [
+    "Are key gold theorems covered?",
+    "Are gold pre/postconditions preserved or strengthened?",
+    "Is there obvious theorem spam?",
+    "If spam exists, is it a handful or does it dominate?",
+    "base_score_0_5",
+    "confidence",
+    "rationale",
+    "problem_note"
+  ],
+  "attestation_values": [
+    "yes",
+    "no",
+    "unsure"
+  ],
+  "attestation": "I certify that I did not ask a model to do the full rating task for this file. I made the comparison and chose the final score myself.",
+  "missing_legacy_metadata": "unknown; never infer no assistance or an affirmative attestation",
+  "rollout": "Brando pilot sheets updated; prospective template for both packet sizes; team dispatch remains held pending pilot and revised text review",
+  "lean_familiarity": {
+    "type": "free_text",
+    "frequency": "once_per_rater_in_first_item_row",
+    "prompt": "What have you done with Lean (tutorials, reading theorem statements, writing proofs, a course or a project), roughly how much, and how recently? Separately mention relevant programming-languages/formal-methods coursework or other proof assistants. If no Lean experience, say so. One or two sentences; please expand labels such as some or fluent.",
+    "legacy_labels": "Preserve existing none/some/fluent responses; never infer experience or reject historical ratings for missing detail."
+  },
+  "identity_columns": {
+    "prefilled": [
+      "rater_name",
+      "rater_id"
+    ],
+    "source": "RATER_IDENTITIES.json; names display identity, stable rater_id remains the join key",
+    "order": "rater_name first, rater_id second in Google Sheets and CSV forms; historical imports remain unchanged"
+  },
+  "legacy_checklist_headers": {
+    "A": "Are key gold theorems covered?",
+    "B": "Are gold pre/postconditions preserved or strengthened?",
+    "C": "Is there obvious theorem spam?",
+    "D": "If spam exists, is it a handful or does it dominate?"
+  }
+}

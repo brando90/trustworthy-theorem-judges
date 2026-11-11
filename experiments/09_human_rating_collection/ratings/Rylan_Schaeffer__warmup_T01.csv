@@ -1,7 +1,7 @@
-rater_name,rater_id,item_id,task_folder,candidate_file,A,B,C,D,base_score_0_5,final_score_0_5,confidence,rationale,problem_note,minutes_spent,lean_familiarity
-Rylan Schaeffer,T01,W01a,W01,W01/agent_lean/W01a.lean,N,N,N,N/A,0,0,,,The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate,,None
-Rylan Schaeffer,T01,W01b,W01,W01/agent_lean/W01b.lean,N,N,N,N/A,0,0,,,The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate,,None
-Rylan Schaeffer,T01,W01c,W01,W01/agent_lean/W01c.lean,N,N,N,N/A,2,2,,,The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate,,None
-Rylan Schaeffer,T01,W02a,W02,W02/agent_lean/W02a.lean,N,N,N,N/A,3,3,,,Misses gold's largest divsor rule and agreement with imperative,,None
-Rylan Schaeffer,T01,W02b,W02,W02/agent_lean/W02b.lean,N,Y,N,N/A,3,3,,,Doesn't show agreement with imperative version,,None
-Rylan Schaeffer,T01,W02c,W02,W02/agent_lean/W02c.lean,N,Y,N,N/A,3,3,,,Doesn't show agreement with imperative version,,None
+rater_name,rater_id,item_id,task_folder,candidate_file,final_score_0_5,model_assistance,independent_rating_attestation
+Rylan Schaeffer,T01,W01a,W01,W01/agent_lean/W01a.lean,0,,
+Rylan Schaeffer,T01,W01b,W01,W01/agent_lean/W01b.lean,0,,
+Rylan Schaeffer,T01,W01c,W01,W01/agent_lean/W01c.lean,2,,
+Rylan Schaeffer,T01,W02a,W02,W02/agent_lean/W02a.lean,3,,
+Rylan Schaeffer,T01,W02b,W02,W02/agent_lean/W02b.lean,3,,
+Rylan Schaeffer,T01,W02c,W02,W02/agent_lean/W02c.lean,3,,

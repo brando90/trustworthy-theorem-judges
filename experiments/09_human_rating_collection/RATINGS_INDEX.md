@@ -1,5 +1,8 @@
 # Collected human ratings, by person
 
+**Current form, 11-11-2026:** all 12 live Sheets and primary raw CSVs have five prefilled identifiers plus final score, model-assistance disclosure and independent-rating attestation. Optional/recommended columns were removed. All retained scores, N/A entries, row order and assignments are unchanged; historical missing disclosures remain unknown. [Revision and preserved source data](support/sheet_exports/11-11-2026_required_only/README.md).
+
+
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/RATINGS_INDEX.md>
 
 **TLDR:** The raw rating CSVs now match the Google Sheets response tables. There are 15 numeric warm-up ratings and three N/A entries; main ratings remain blank as checked on 11-11-2026.

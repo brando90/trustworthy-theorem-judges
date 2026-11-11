@@ -41,13 +41,7 @@ You have 3 files per problem:
 
 ## Output format (required)
 
-Make a copy of the [rater sheet](https://docs.google.com/spreadsheets/d/1IhyiTVKYEQg4wVSXxaGZiCwEd-IFvg5S2nv3XD3cNXM/edit?gid=0#gid=0) with your name and fill in the score columns.
-
-Optional notes to include if you have time:
-
-A: [Y/N] B: [Y/N] C: [Y/N] D: [handful/dominates/N/A]
-Score: [0-5] Confidence: [Low/Med/High]
-Rationale: [2–4 sentences: name >=1 covered and >=1 uncovered gold theorem if any; include spam examples if C=Yes]
+Use your personal sheet linked in START_HERE.md, or the assigned ratings.csv return route. Fill only final_score_0_5, model_assistance and independent_rating_attestation; RATING_FORM_GUIDE.md explains these answers. Identifiers are prefilled. The checklist and base score remain scoring steps, not separate form entries.
 
 ## Tie-break rule
 

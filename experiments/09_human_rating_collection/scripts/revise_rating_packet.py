@@ -11,11 +11,27 @@ from zipfile import ZipFile, ZIP_DEFLATED
 HOME = Path(__file__).resolve().parents[1]
 
 
+def required_only_rubric(text):
+    """Update submission directions only; preserve every scoring section verbatim."""
+    output = ("## Output format (required)\n\n"
+              "Use your personal sheet linked in START_HERE.md, or the assigned ratings.csv return route. "
+              "Fill only final_score_0_5, model_assistance and independent_rating_attestation; "
+              "RATING_FORM_GUIDE.md explains these answers. Identifiers are prefilled. "
+              "The checklist and base score remain scoring steps, not separate form entries.\n\n")
+    text = re.sub(r"## Current form headers[\s\S]*$", "", text)
+    if "## Output format (required)" in text:
+        text, count = re.subn(r"## Output format \(required\)[\s\S]*?(?=## Tie-break rule)", lambda _: output, text)
+        if count != 1:
+            raise ValueError("Unexpected rubric output section")
+        return text
+    return text + "\n\n" + output
+
+
 def revise(source, output, rater, sheet_url):
     schema = json.loads((HOME / "support/RATING_FORM_SCHEMA.json").read_text())
     guide = (HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_text()
-    if any(question not in guide for question in schema["legacy_checklist_headers"].values()):
-        raise ValueError("Form guide does not match checklist headers")
+    if any(field not in guide for field in schema["required_new_responses"]):
+        raise ValueError("Form guide does not match required response fields")
     identities = json.loads((HOME / "support/RATER_IDENTITIES.json").read_text())
     if rater not in identities or not identities[rater]["rater_name"].strip():
         raise ValueError(f"No verified name for {rater}; update RATER_IDENTITIES.json first")
@@ -38,12 +54,7 @@ def revise(source, output, rater, sheet_url):
     if not candidates:
         raise ValueError("No candidates")
     rubric = "Rating_Instructions.md" if "Rating_Instructions.md" in files else "human_judgements_prompt.md"
-    mapping = schema.get("legacy_checklist_headers", {})
-    crosswalk = "\n\n## Current form headers\n\nThe scoring rubric above is preserved verbatim. In the current Google Sheet and ratings.csv, the historical checklist labels mean:\n\n"
-    crosswalk += "\n".join(f"- {old}: **{new}**" for old, new in mapping.items()) + "\n\nUse RATING_FORM_GUIDE.md for current field requirements and your personal submission route.\n"
-    # Always revise an original delivery; do not accumulate crosswalks.
-    if "## Current form headers" not in files[rubric].decode():
-        files[rubric] += crosswalk.encode()
+    files[rubric] = required_only_rubric(files[rubric].decode()).encode()
     # Delivered scientific payload is copied byte-for-byte, never regenerated.
     protected = {n: b for n, b in files.items() if n.endswith((".lean", ".py"))}
     files["RATING_FORM_GUIDE.md"] = (HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_bytes()
