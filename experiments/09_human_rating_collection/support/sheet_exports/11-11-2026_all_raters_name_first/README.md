@@ -27,7 +27,7 @@ Rylan and Sri's main forms show all 125 packet items, but each currently has onl
 
 Slava uses an emailed CSV route; no personal Google Sheet is recorded for him. [His current name-first CSV form](../../SLAVA_CSV_NAME_FIRST_11-11-2026.md) is prepared and unsent. Unassigned prospects have no personal form yet.
 
-These are snapshots, not a live background mirror. The same ratings also appear in earlier snapshots and validated exports: never append them as new observations. See [collected ratings](../../../RATINGS_INDEX.md), [completion status](../../../COMPLETION_STATUS.md) and [import workflow](../../../IDENTITY_AND_IMPORT.md). The validated analysis exports can include separately sourced coordinator metadata after the original columns; these snapshots reproduce the live tables exactly.
+These are snapshots, not a live background mirror. The same ratings also appear in earlier snapshots and validated exports: never append them as new observations. See [collected ratings](../../../RATINGS_INDEX.md), [completion status](../../../COMPLETION_STATUS.md) and [import workflow](../../IDENTITY_AND_IMPORT.md). The validated analysis exports can include separately sourced coordinator metadata after the original columns; these snapshots reproduce the live tables exactly.
 
 Rylan's `minutes_spent` values are coordinator allocations totaling an approximate hour, not measured per-item times. Preserve that provenance from [Rylan's notes](../../RYLAN_NOTES.md#time-estimate).
 

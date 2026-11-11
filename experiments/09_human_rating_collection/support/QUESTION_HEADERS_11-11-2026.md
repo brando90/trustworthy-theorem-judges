@@ -5,8 +5,8 @@
 ## Instruction files participants receive
 
 - `START_HERE.md`: packet navigation.
-- `human_judgements_prompt.md` (warm-up) or `Rating_Instructions.md` (main): scoring rubric. The repository's [warm-up rubric](../human_judgements_prompt.md) is a text copy from the user-supplied original ZIP (trailing whitespace removed; original archive unchanged); use the current guide for field names and submission route.
-- [RATING_FORM_GUIDE.md](../RATING_FORM_GUIDE.md): current field requirements and full checklist questions, included in revised packets.
+- `human_judgements_prompt.md` (warm-up) or `Rating_Instructions.md` (main): scoring rubric. The repository's [warm-up rubric](../rating_task_packet/human_judgements_prompt.md) is a text copy from the user-supplied original ZIP (trailing whitespace removed; original archive unchanged); use the current guide for field names and submission route.
+- [RATING_FORM_GUIDE.md](../rating_task_packet/RATING_FORM_GUIDE.md): current field requirements and full checklist questions, included in revised packets.
 - `ratings.csv`: generated from [RATING_FORM_SCHEMA.json](RATING_FORM_SCHEMA.json), with headers identical to the corresponding live sheet.
 
 The original questions use “gold,” meaning reference. Only displayed header labels changed; criteria, 0–5 scores, spam deductions and tie-break rule remain the same. New rubric copies retain the original text and append a legacy-label crosswalk. Existing rubric template-copy links are superseded by the guide and personal sheet instructions.

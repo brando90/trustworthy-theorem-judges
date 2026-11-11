@@ -8,7 +8,7 @@
 
 The full sheet had 13 columns, ending at `problem_note`. The warm-up had 15, adding `minutes_spent` and `lean_familiarity`. On 11-11-2026 both were updated in place to the same ordered 17-column schema (the earlier revision; now superseded by the name-first amendment below). Existing identity, item and score cells were not rewritten. Header notes explain required/recommended/optional fields. Attestations are blank, with `yes`, `no` and `unsure` choices. No response was supplied on a rater's behalf.
 
-The common [rater guide](../RATING_FORM_GUIDE.md) encourages localized model assistance while keeping the comparison, score and rationale human-authored. The score, assistance disclosure and attestation are required for new completed forms. Time and Lean familiarity are recommended; the intermediate checklist, confidence and written explanations remain optional to record. The scoring rubric remains unchanged. This supersedes the prior warm-up wrapper's mandatory timing wording for this new revision, not for historical records.
+The common [rater guide](../rating_task_packet/RATING_FORM_GUIDE.md) encourages localized model assistance while keeping the comparison, score and rationale human-authored. The score, assistance disclosure and attestation are required for new completed forms. Time and Lean familiarity are recommended; the intermediate checklist, confidence and written explanations remain optional to record. The scoring rubric remains unchanged. This supersedes the prior warm-up wrapper's mandatory timing wording for this new revision, not for historical records.
 
 ## What people actually left blank
 

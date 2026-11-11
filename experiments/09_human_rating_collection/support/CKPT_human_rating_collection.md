@@ -6,9 +6,11 @@
 
 ## State
 
+- Editable packet, 11-11-2026: Brando’s working instructions, rubric, field guide, email draft, personal Sheet link, blank CSV and unchanged W01/W02 task files are in `../rating_task_packet/`. Import/design notes moved here into support; live local links updated. Draft wording still needs reconciliation before dispatch (email J versus score column K; old START_HERE requirements). Thirty checks pass. See `LAYOUT_MOVE_11-11-2026.json` for byte hashes and cross-repository link publication limits.
+
 - Test location, 11-11-2026: automated checks moved from the top-level `tests/` into `support/tests/`. The project verification command and test path resolution use the new location; rating data and packets are unchanged.
 
-- Layout update, 11-11-2026: use the short parent README for the rating task. Administrative records, assets, historical snapshots and machine form configuration now live under `support/`; scripts/tests and cross-project identity/methodology entry paths remain stable. Rating CSVs and delivered packet bytes are unchanged. Email changes are reviewed in chat until Brando says send.
+- Layout update, 11-11-2026: use the short parent README for the rating task. Administrative records, assets, historical snapshots and machine form configuration now live under `support/`; script entry paths remain stable; the later editable-packet update below supersedes identity/methodology paths. Rating CSVs and delivered packet bytes are unchanged. Email changes are reviewed in chat until Brando says send.
 
 - Updated: 11-11-2026 (raw response restoration; assistant-filled timing/background removed).
 - Current data: exact live-sheet response tables for all 12 sheets in `ratings/`; names/IDs retained. Three normalized imports moved to `ratings/analysis/`. Fifteen numeric warm-up observations and three N/A rows; no completed main ratings. See `RAW_DATA_RESTORATION_11-11-2026.md`.

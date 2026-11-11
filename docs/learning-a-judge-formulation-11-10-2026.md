@@ -4,7 +4,7 @@
 
 **TLDR:** Brando's position (voice notes 11-08-2026 and 11-10-2026): getting a judge should be a normal machine-learning problem. Fit the judge by minimizing a proper loss on training tasks, evaluate it on held-out tasks, and do not pick it by how well it correlates with humans. This note states that formulation in one place and records his scaling-curve idea. The formulation is already tested on cached ratings (experiments 10 and 11). The scaling curve is an idea and is not tested.
 
-Source: Brando Miranda's WhatsApp voice notes of 11-08-2026 09:29 and 11-10-2026 17:35, his whiteboard and handwritten pages of 11-09-2026 ([whiteboard transcription](../experiments/09_human_rating_collection/support/assets/whiteboard_objective_overview_11-09-2026.md), [formulations 1 to 4](../experiments/09_human_rating_collection/JUDGE_FORMULATIONS_11-09-2026.md)). This note adds no new result.
+Source: Brando Miranda's WhatsApp voice notes of 11-08-2026 09:29 and 11-10-2026 17:35, his whiteboard and handwritten pages of 11-09-2026 ([whiteboard transcription](../experiments/09_human_rating_collection/support/assets/whiteboard_objective_overview_11-09-2026.md), [formulations 1 to 4](../experiments/09_human_rating_collection/support/JUDGE_FORMULATIONS_11-09-2026.md)). This note adds no new result.
 
 ## The formulation
 

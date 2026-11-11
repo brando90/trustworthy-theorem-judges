@@ -8,7 +8,7 @@ Source: Brando Miranda's [original photograph](whiteboard_objective_overview_11-
 
 ## Transcription
 
-Notation is typeset for readability. The board's left-hand side is a selected distribution, while its right-hand side uses an argmax/argmin over judges; that type mismatch is retained here and corrected in the [coordinator note](../../JUDGE_FORMULATIONS_11-09-2026.md). Dots abbreviate omitted arguments.
+Notation is typeset for readability. The board's left-hand side is a selected distribution, while its right-hand side uses an argmax/argmin over judges; that type mismatch is retained here and corrected in the [coordinator note](../JUDGE_FORMULATIONS_11-09-2026.md). Dots abbreviate omitted arguments.
 
 \[
 P_j^{\widehat{AI}_j}(\cdot\mid\cdot,\cdot)

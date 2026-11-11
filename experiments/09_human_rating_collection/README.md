@@ -1,28 +1,24 @@
-# Human rating: start here
+# Human-rating collection
 
-You only need **your packet, your personal Google Sheet and the rating instructions** to do the task.
+**Edit the task in [rating_task_packet/](rating_task_packet/).** This is the working folder Brando requested; changes here are drafts until reviewed and packaged for delivery.
 
-## Do your six-file warm-up
-
-1. **[Open your packet](../../private/09_human_rating_collection/preparation_11-09-2026/packets/VeriBench_Brando_Miranda_Warmup_A1_FormV3.zip)** and unzip it.
-2. **[Open your Google Sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit#gid=665730293&range=K2)**. Enter your ratings here, as the other participants do.
-3. Read **[the form guide](RATING_FORM_GUIDE.md)** and the scoring rubric inside the packet. Compare specification statements, not proofs.
-
-The current FormV3 packet, CSV and pilot Google Sheets use the same full checklist questions. Original delivered packets remain preserved. Read the [scoring rubric](human_judgements_prompt.md) with the [current field guide](RATING_FORM_GUIDE.md).
-
-## What belongs here
-
-| File or folder | What you use it for |
+| Working file | Why keep it |
 | --- | --- |
-| [BRANDO_WARMUP.md](BRANDO_WARMUP.md) | Your packet, sheet and brief steps |
-| [RATING_FORM_GUIDE.md](RATING_FORM_GUIDE.md) | Which fields to fill and the assistance policy |
-| [RATINGS_INDEX.md](RATINGS_INDEX.md) and [ratings/](ratings/README.md) | Everyone’s original submitted responses; avoid viewing others while making independent ratings |
-| [COMPLETION_STATUS.md](COMPLETION_STATUS.md) | Who has finished and what remains |
-| [support/](support/README.md) | Coordinator notes, old snapshots, email drafts, source records and form configuration; not needed to do your ratings |
-| `scripts/` | Tools for building packets and importing ratings; not needed to do your ratings |
-| [IDENTITY_AND_IMPORT.md](IDENTITY_AND_IMPORT.md) | Coordinator import workflow; kept at its existing address for related projects |
-| [JUDGE_FORMULATIONS_11-09-2026.md](JUDGE_FORMULATIONS_11-09-2026.md) | Study-design context for agents; kept at its existing address for related projects |
+| [START_HERE.md](rating_task_packet/START_HERE.md) | Brief task instructions; Brando’s existing draft is preserved. |
+| [human_judgements_prompt.md](rating_task_packet/human_judgements_prompt.md) | The actual coverage criteria, 0–5 rubric, spam adjustment and uncertainty rule. |
+| [RATING_FORM_GUIDE.md](rating_task_packet/RATING_FORM_GUIDE.md) | What each sheet column means and which responses are required. |
+| [EMAIL_INSTRUCTIONS_V0.md](rating_task_packet/EMAIL_INSTRUCTIONS_V0.md) | Brando’s editable invitation draft; review in chat before sending. |
+| [YOUR_RATING_SHEET.txt](rating_task_packet/YOUR_RATING_SHEET.txt) | Personal Google Sheet link, where Brando enters the ratings. |
+| [ratings.csv](rating_task_packet/ratings.csv) | Blank local form for inspecting/editing the packet; not collected responses. |
+| [W01/](rating_task_packet/W01/) and [W02/](rating_task_packet/W02/) | Actual Python, reference and six candidate files copied unchanged from the FormV3 packet. |
 
-**Email review:** show revisions in chat; send only when Brando says to send. Team dispatch remains on hold for the pilot and revised-text review.
+**Draft inconsistencies still to resolve:** the email draft says score column J; the current name-first Sheet uses K. The older START_HERE draft and rubric submission paragraph must be reconciled with the current form guide before dispatch. Their wording was preserved during this move. Use the personal Sheet in YOUR_RATING_SHEET.txt; do not copy the historical rubric’s template. The scoring rubric itself is unchanged.
 
-The supporting records were moved, not deleted. Raw rating CSV files, existing sheet links, delivered packets and scientific files are unchanged.
+## Collection records
+
+- [ratings/](ratings/README.md): original responses; [RATINGS_INDEX.md](RATINGS_INDEX.md): people, Sheets and data links.
+- [COMPLETION_STATUS.md](COMPLETION_STATUS.md): who has finished and what remains.
+- [support/](support/README.md): import procedures, study design, coordinator notes, configuration, history and software tests.
+- `scripts/`: packet-building and import tools. Stable command paths are retained.
+
+The working packet is for Brando’s coordinator practice: he has already viewed other raters’ warm-up answers. Delivered archives remain unchanged. No email is sent by editing this folder.

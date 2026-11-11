@@ -13,7 +13,7 @@ HOME = Path(__file__).resolve().parents[1]
 
 def revise(source, output, rater, sheet_url):
     schema = json.loads((HOME / "support/RATING_FORM_SCHEMA.json").read_text())
-    guide = (HOME / "RATING_FORM_GUIDE.md").read_text()
+    guide = (HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_text()
     if any(question not in guide for question in schema["legacy_checklist_headers"].values()):
         raise ValueError("Form guide does not match checklist headers")
     identities = json.loads((HOME / "support/RATER_IDENTITIES.json").read_text())
@@ -43,7 +43,7 @@ def revise(source, output, rater, sheet_url):
         files[rubric] += crosswalk.encode()
     # Delivered scientific payload is copied byte-for-byte, never regenerated.
     protected = {n: b for n, b in files.items() if n.endswith((".lean", ".py"))}
-    files["RATING_FORM_GUIDE.md"] = (HOME / "RATING_FORM_GUIDE.md").read_bytes()
+    files["RATING_FORM_GUIDE.md"] = (HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_bytes()
     files["START_HERE.md"] = (
         "# Start your human ratings\n\n"
         f"This packet has {len(candidates)} candidate files. Form revision: 11-11-2026.\n\n"

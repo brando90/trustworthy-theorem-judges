@@ -16,7 +16,7 @@
 
 Every active personal Google Sheet and current CSV form/export starts with `rater_name,rater_id`. The name comes from the verified roster and is prefilled even on unanswered rows. The stable ID remains the join and deduplication key. A table snapshot matches its live sheet; separately enriched analysis exports label added coordinator metadata. Future revised warm-up and main forms use the same schema, differing in assigned items/rows. Preserve original imports and delivered archives; never fabricate responses or attestations.
 
-The collection remains owned by this repository's experiment 09. Related projects link to [the identity/import workflow](../IDENTITY_AND_IMPORT.md), rather than starting competing collections. Authorized named ratings are tracked; this rule does not expose credentials, private correspondence, consent records or sealed test data.
+The collection remains owned by this repository's experiment 09. Related projects link to [the identity/import workflow](IDENTITY_AND_IMPORT.md), rather than starting competing collections. Authorized named ratings are tracked; this rule does not expose credentials, private correspondence, consent records or sealed test data.
 
 ## Repository coverage and publication
 

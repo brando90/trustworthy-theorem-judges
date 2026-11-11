@@ -8,9 +8,9 @@ This is supporting coordinator documentation. For the actual rating task, start 
 
 ## Do Brando's warm-up first
 
-[Brando's six-file warm-up packet, personal Google Sheet and instructions](../BRANDO_WARMUP.md). Complete this practice set before the full 125-file packet.
+[Brando's six-file warm-up packet, personal Google Sheet and instructions](BRANDO_WARMUP.md). Complete this practice set before the full 125-file packet.
 
-**Current form revision, 11-11-2026:** [one shared warm-up/main form](../RATING_FORM_GUIDE.md), with [model-assistance disclosure and an attestation](FORM_AMENDMENT_11-11-2026.md). Brando's two live sheets use this revision; the team queue remains held for his pilot and revised-text review. Dispatch agents must read the amendment before using older prepared emails or packets.
+**Current form revision, 11-11-2026:** [one shared warm-up/main form](../rating_task_packet/RATING_FORM_GUIDE.md), with [model-assistance disclosure and an attestation](FORM_AMENDMENT_11-11-2026.md). Brando's two live sheets use this revision; the team queue remains held for his pilot and revised-text review. Dispatch agents must read the amendment before using older prepared emails or packets.
 
 **Names first for everyone, 11-11-2026:** all 12 active personal Google Sheets now start with `rater_name,rater_id`, including unanswered forms. [Open every live sheet and its current raw CSV](../ratings/README.md). Seven additional sheets were updated; five already used this layout. Every original cell value, note, validation and format was verified unchanged. New forms use the 18-column schema; historical team forms retain their other existing columns. The same name-first rule applies to future participants and CSV-only submissions.
 
@@ -24,7 +24,7 @@ This is supporting coordinator documentation. For the actual rating task, start 
 
 **Raw-data restoration, 11-11-2026:** removed assistant-filled time estimates and background annotations. Current files in [ratings/](../ratings/README.md) preserve exact response values, blanks, spelling, capitalization and all N/A rows. [What was removed and verified](RAW_DATA_RESTORATION_11-11-2026.md). Historical normalized imports are separate in [ratings/analysis/](../ratings/analysis).
 
-[How your Google Sheet becomes a named rating file, and why IDs are retained](../IDENTITY_AND_IMPORT.md).
+[How your Google Sheet becomes a named rating file, and why IDs are retained](IDENTITY_AND_IMPORT.md).
 
 - [Actual rating CSV files](../ratings).
 - [Current completion status: who is done and what is missing](../COMPLETION_STATUS.md), checked **11-11-2026**.
@@ -40,7 +40,7 @@ Brando moved this task from VeriBench on **11-09-2026**. Maintain the collection
 
 The [prospective probabilistic-judge design](../../02_probabilistic_ordinal_judge/README.md) remains the methodology for a new collection. The inherited **set N** (the previously prepared frontier-output rating round) has its own fixed materials, assignment rules and exposure history. Moving it does not turn its outputs or ratings into the prospective study's fresh training, validation or test data.
 
-**Required reading for every collection/dispatch agent:** [judge formulations 2 and 4](../JUDGE_FORMULATIONS_11-09-2026.md), with the original photos and transcriptions. Formulation 2 develops a judge using training correlation; formulation 4 uses a proper probabilistic training loss. Preserve individual ratings so both can be studied; validation-based selection (1 versus 3) is a distinct intervention. This note does not change participant instructions or dispatch authorization.
+**Required reading for every collection/dispatch agent:** [judge formulations 2 and 4](JUDGE_FORMULATIONS_11-09-2026.md), with the original photos and transcriptions. Formulation 2 develops a judge using training correlation; formulation 4 uses a proper probabilistic training loss. Preserve individual ratings so both can be studied; validation-based selection (1 versus 3) is a distinct intervention. This note does not change participant instructions or dispatch authorization.
 
 ## Current delivery status — 11-09-2026
 

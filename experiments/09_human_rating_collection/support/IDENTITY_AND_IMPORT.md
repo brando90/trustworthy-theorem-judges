@@ -1,6 +1,6 @@
 # Rater names, stable IDs and collection workflow
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/IDENTITY_AND_IMPORT.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/IDENTITY_AND_IMPORT.md>
 
 **TLDR:** Brando fills his existing Google Sheet normally. Its `A1` code identifies Brando Miranda; collected exports show both the name and ID. Names are for people, IDs are stable keys, and hiding a rater's own name is not a scientific requirement.
 
@@ -11,13 +11,13 @@
 - Second column: stable `rater_id`, prefilled as **A1**.
 - [Personal Google Sheet](https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit#gid=228912708&range=K2), titled **VeriBench set N rating sheet - rater A1 (Brando)** when checked on 11-11-2026.
 - The first required score is `K2`, under `final_score_0_5`. No name or ID needs to be edited by the rater.
-- The current raw table is [ratings/Brando_Miranda__setN_A1.csv](ratings/Brando_Miranda__setN_A1.csv), starting with `rater_name,rater_id,...`. Its response cells are blank in the current snapshot; the file does not imply completed ratings.
+- The current raw table is [ratings/Brando_Miranda__setN_A1.csv](../ratings/Brando_Miranda__setN_A1.csv), starting with `rater_name,rater_id,...`. Its response cells are blank in the current snapshot; the file does not imply completed ratings.
 
-The coordinator's roster and personal-sheet configuration bind A1 to this exact person and spreadsheet. [RATER_IDENTITIES.json](support/RATER_IDENTITIES.json) records the display-name mapping for exports. Never infer a person's identity from a score or rely only on a typed display name.
+The coordinator's roster and personal-sheet configuration bind A1 to this exact person and spreadsheet. [RATER_IDENTITIES.json](RATER_IDENTITIES.json) records the display-name mapping for exports. Never infer a person's identity from a score or rely only on a typed display name.
 
 ## Why there were codes and hidden names
 
-The original privacy choice is explicit in experiment 02's [Identity splits and assignment](../02_probabilistic_ordinal_judge/README.md#identity-splits-and-assignment), item 4, and the workshop paper's [reporting section](../../paper_latex/AAAI_2027_Evaluation_AI_Scientists/08_controls_reporting.tex). They describe restricted identity storage and opaque analysis IDs. They do not claim that hiding a participant's own name in their sheet improves rating accuracy or judge validity.
+The original privacy choice is explicit in experiment 02's [Identity splits and assignment](../../02_probabilistic_ordinal_judge/README.md#identity-splits-and-assignment), item 4, and the workshop paper's [reporting section](../../../paper_latex/AAAI_2027_Evaluation_AI_Scientists/08_controls_reporting.tex). They describe restricted identity storage and opaque analysis IDs. They do not claim that hiding a participant's own name in their sheet improves rating accuracy or judge validity.
 
 Keep these distinct:
 
@@ -35,7 +35,7 @@ Codes plus a retained name lookup are pseudonyms, not irreversible anonymization
 
 Active personal Google Sheets and current comma-separated value (CSV) forms start with `rater_name,rater_id`. Prefill each existing item row with the roster-verified person name; keep IDs stable for joins and duplicate detection. Apply this to blank forms and CSV-only participants as well as completed sheets. A CSV table snapshot reproduces its source sheet's headers, row order and cell values; separate normalized analysis exports retain only verified identity metadata in addition to the historical imported fields. No response enrichment is allowed in raw tables. Never infer identity from ratings or overwrite responses to enforce formatting.
 
-[All 12 active sheets and exact current raw tables](ratings/README.md) were verified on 11-11-2026. Adding a name to a displayed row does not create a new assignment or observation. Keep raw imports and delivered archives immutable; prepare future revisions with the shared schema. Related VeriBench and judge repositories point here rather than maintaining competing rosters or collection workflows.
+[All 12 active sheets and exact current raw tables](../ratings/README.md) were verified on 11-11-2026. Adding a name to a displayed row does not create a new assignment or observation. Keep raw imports and delivered archives immutable; prepare future revisions with the shared schema. Related VeriBench and judge repositories point here rather than maintaining competing rosters or collection workflows.
 
 ## From Google Sheets to the experiment folder
 
@@ -51,7 +51,7 @@ This is a coordinator-run collection sync, **not a live background mirror**. Goo
    python3 experiments/09_human_rating_collection/scripts/refresh_named_ratings.py
    ```
 
-   It reads already imported files from the canonical import directory, joins [RATER_IDENTITIES.json](support/RATER_IDENTITIES.json), places `rater_name` first and `rater_id` second, verifies an already-present name against the roster, and writes person-first filenames under `ratings/analysis/`. It refuses an output directory resolving to the primary `ratings/` folder. An unknown or mismatched rater, malformed row or duplicate item stops the batch before output. Normalized-input columns and values are preserved. This is not raw-data recovery: the historical importer already changed some capitalization and omitted Yegor’s N/A rows. The exporter does not load coordinator background or timing estimates. Leading sheet-comment rows remain readable if the new name column shifts the comment into column B. A manifest records source and named-export hashes. It performs no live download, qualification decision or score analysis.
+   It reads already imported files from the canonical import directory, joins [RATER_IDENTITIES.json](RATER_IDENTITIES.json), places `rater_name` first and `rater_id` second, verifies an already-present name against the roster, and writes person-first filenames under `ratings/analysis/`. It refuses an output directory resolving to the primary `ratings/` folder. An unknown or mismatched rater, malformed row or duplicate item stops the batch before output. Normalized-input columns and values are preserved. This is not raw-data recovery: the historical importer already changed some capitalization and omitted Yegor’s N/A rows. The exporter does not load coordinator background or timing estimates. Leading sheet-comment rows remain readable if the new name column shifts the comment into column B. A manifest records source and named-export hashes. It performs no live download, qualification decision or score analysis.
 
 5. Refresh `RATINGS_INDEX.md`, `COMPLETION_STATUS.md` and the collection summary from the same snapshot; verify the named export manifests, then commit and push the named collection artifacts. The name-enrichment command alone does not refresh completion status.
 

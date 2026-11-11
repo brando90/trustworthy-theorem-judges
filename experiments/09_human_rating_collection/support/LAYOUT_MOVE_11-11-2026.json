@@ -36,5 +36,51 @@
     "ratings/analysis/Rylan_Schaeffer__warmup_T01.csv": "33d50b2c6f79e2a4a0e7beaddebc2452f1e26da371d9fd55325a934189d811fa",
     "ratings/analysis/Srivatsava_Daruru_Sri__warmup_T05.csv": "2860efacb7864c135d88467e39cc30299175858c185616eaf831eb291bd02232",
     "ratings/analysis/Yegor_Denisov-Blanch__warmup_T02.csv": "1a567aba94527b1c6dd3bdc2c5320632522e1d549dc254b17cec1e44929a0b70"
+  },
+  "editable_packet_workspace": {
+    "path": "experiments/09_human_rating_collection/rating_task_packet",
+    "source_archive": "private/09_human_rating_collection/preparation_11-09-2026/packets/VeriBench_Brando_Miranda_Warmup_A1_FormV3.zip",
+    "copied_sha256": {
+      "W01/agent_lean/W01a.lean": "c306897f39c8eeee337aa44ba1f88e9e81503181b39a6c7ac0b6cd3343e0ff49",
+      "W01/agent_lean/W01b.lean": "76d8a71001e74e334530f901edf24c05dd55d38ed24e10e135485914eae671a7",
+      "W01/agent_lean/W01c.lean": "ded807f1cf77f8153d455895861590d8cccd157b8144ec2071836cc33fac6b89",
+      "W01/gold_lean/humaneval_47_median.lean": "ccb1d9606c92bc92692f91ce3c4591bd8592b5fac7cc1424c50391d02aa3ff11",
+      "W01/python_source/humaneval_47_median.py": "0ccb0ba13d82ed426076e3149042fd915f4c6fce4b6ee9eb92f89693751d30bd",
+      "W02/agent_lean/W02a.lean": "0f3f2ad129d9e0d6a79ee84f90e59c053ff32e5bd490c3bf991f9afd0252820c",
+      "W02/agent_lean/W02b.lean": "78e822b62795a1750ba4d9646872530fa661c2c43c8113ba1e1bd843e53831e5",
+      "W02/agent_lean/W02c.lean": "ab74ed52a49b1e9b96eba2ed891967c0a2ca9c49b357389664b1edf64a598e61",
+      "W02/gold_lean/humaneval_13__gcd.lean": "958a04449de594659a97eba000a6d13bb9766ca4da44d30e3fc2a8f1973b020b",
+      "W02/python_source/humaneval_13__gcd.py": "ec286832753997378fc3d2efffa9fd4075e20d74cf6e7ae6ef4d36cda1bc1b99",
+      "YOUR_RATING_SHEET.txt": "de403a1ede7afbdcffa4af665c7979361a4da7a58714f62397a2286999cdf809",
+      "ratings.csv": "236443df910d13c2a926deec87fdf44be7bd9a02810434052ae52dd3946f7cd1"
+    },
+    "preserved_user_drafts": [
+      "START_HERE.md",
+      "EMAIL_INSTRUCTIONS_V0.md"
+    ],
+    "moved_documents": {
+      "experiments/09_human_rating_collection/human_judgements_prompt.md": "experiments/09_human_rating_collection/rating_task_packet/human_judgements_prompt.md",
+      "experiments/09_human_rating_collection/RATING_FORM_GUIDE.md": "experiments/09_human_rating_collection/rating_task_packet/RATING_FORM_GUIDE.md",
+      "experiments/09_human_rating_collection/BRANDO_WARMUP.md": "experiments/09_human_rating_collection/support/BRANDO_WARMUP.md",
+      "experiments/09_human_rating_collection/IDENTITY_AND_IMPORT.md": "experiments/09_human_rating_collection/support/IDENTITY_AND_IMPORT.md",
+      "experiments/09_human_rating_collection/JUDGE_FORMULATIONS_11-09-2026.md": "experiments/09_human_rating_collection/support/JUDGE_FORMULATIONS_11-09-2026.md"
+    },
+    "external_local_links_updated": [
+      "/Users/brandomiranda/veribench/AGENTS.md",
+      "/Users/brandomiranda/veribench/CLAUDE.md",
+      "/Users/brandomiranda/vb-priv/AGENTS.md",
+      "/Users/brandomiranda/vb-priv/CLAUDE.md",
+      "/Users/brandomiranda/vb-priv-bmg/AGENTS.md",
+      "/Users/brandomiranda/vb-priv-bmg/CLAUDE.md",
+      "/Users/brandomiranda/veribench-blog/AGENTS.md",
+      "/Users/brandomiranda/veribench-blog/CLAUDE.md",
+      "/Users/brandomiranda/veribench-dt/AGENTS.md",
+      "/Users/brandomiranda/veribench-dt/CLAUDE.md",
+      "/Users/brandomiranda/cert-judge/AGENTS.md",
+      "/Users/brandomiranda/cert-judge/CLAUDE.md",
+      "/Users/brandomiranda/judges-dont-need-psychometrics-or-corr/AGENTS.md",
+      "/Users/brandomiranda/judges-dont-need-psychometrics-or-corr/CLAUDE.md"
+    ],
+    "external_publication": "Local entry-point paths updated only; preserve other owners\u2019 dirty work. veribench is 3348 commits behind origin/main; vb-priv fetch failed. No cross-repository integration or publication attempted."
   }
 }

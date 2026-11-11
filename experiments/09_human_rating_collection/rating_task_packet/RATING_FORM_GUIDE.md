@@ -1,6 +1,6 @@
 # Filling in your human-rating sheet
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/RATING_FORM_GUIDE.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/rating_task_packet/RATING_FORM_GUIDE.md>
 
 **TLDR:** The warm-up and main task use the same columns and instructions; only the assigned items differ. For each completed item, enter your final score, disclose any model assistance and answer the attestation.
 

@@ -26,7 +26,7 @@ REVISION = load("form_packet", EXP / "scripts/revise_rating_packet.py")
 class FormRevisionTests(unittest.TestCase):
     def test_descriptive_questions_match_guide_and_validate_like_legacy(self):
         schema = json.loads((EXP / "support/RATING_FORM_SCHEMA.json").read_text())
-        guide = (EXP / "RATING_FORM_GUIDE.md").read_text()
+        guide = (EXP / "rating_task_packet/RATING_FORM_GUIDE.md").read_text()
         aliases = schema["legacy_checklist_headers"]
         self.assertEqual(schema["columns"][5:9], list(aliases.values()))
         for question in aliases.values():

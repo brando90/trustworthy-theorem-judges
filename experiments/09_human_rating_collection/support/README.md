@@ -11,7 +11,11 @@ These files support coordination and reproducibility. **They are not required to
 - `sheet_exports/`: superseded historical snapshots; current raw data stays in [../ratings/](../ratings/README.md).
 - `audit/`: withdrawn coordinator additions and provenance; never treat these as participant responses.
 - `forms/`: prepared forms, including Slava’s unsent CSV route.
-- `drafts/`: the pre-existing local email and packet-introduction drafts, preserved unchanged. They may contain obsolete cell references or instructions; they are not current dispatch instructions.
+- `drafts/`: older draft history. Edit the current working drafts in [../rating_task_packet/](../rating_task_packet/), not here.
 - [Layout move record](LAYOUT_MOVE_11-11-2026.json): old/new paths and unchanged rating-file hashes.
 
 Keep new administrative/history documents here rather than adding them to the rating task’s top level. Scripts retain their paths so other projects’ command links keep working. Automated software checks live in `support/tests/` and run through `python3 scripts/check_project.py` from the repository root. No email is sent by this cleanup.
+
+- [Identity and import workflow](IDENTITY_AND_IMPORT.md): how responses reach the raw data without duplicate counts.
+- [Judge formulations](JUDGE_FORMULATIONS_11-09-2026.md): study-design context for agents, not rater instructions.
+- [Brando’s earlier warm-up entry point](BRANDO_WARMUP.md): coordinator-specific context and prior-exposure record; the working packet is now `../rating_task_packet/`.

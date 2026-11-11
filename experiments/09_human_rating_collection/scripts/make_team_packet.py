@@ -47,7 +47,7 @@ def main():
                          "item_id": path.stem, "task_folder": path.parts[0], "candidate_file": path.name})
 
     schema = json.loads((FORM_HOME / "support/RATING_FORM_SCHEMA.json").read_text())
-    guide = (FORM_HOME / "RATING_FORM_GUIDE.md").read_text()
+    guide = (FORM_HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_text()
     if any(question not in guide for question in schema["legacy_checklist_headers"].values()):
         raise ValueError("Form guide does not match checklist headers")
     # Replace only the personal submission instructions. Preserve the scoring rubric.
@@ -73,7 +73,7 @@ def main():
         "problem in problem_note. Return your completed CSV privately to Brando.\n\n"
         "## Assistance and reference problems\n\n" + assistance
     ).encode()
-    members["RATING_FORM_GUIDE.md"] = (FORM_HOME / "RATING_FORM_GUIDE.md").read_bytes()
+    members["RATING_FORM_GUIDE.md"] = (FORM_HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_bytes()
     sheet = io.StringIO(newline="")
     writer = csv.DictWriter(sheet, fieldnames=COLUMNS)
     writer.writeheader()
