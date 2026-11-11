@@ -1,12 +1,12 @@
 # Slava Naprienko — prepared name-first warm-up form
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/SLAVA_CSV_NAME_FIRST_11-11-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/SLAVA_CSV_NAME_FIRST_11-11-2026.md>
 
 **TLDR:** Slava's return route is a CSV file by email, not a Google Sheet. A separate name-first warm-up form is prepared below; it has not been sent and contains no completed ratings.
 
 - [Prepared personal CSV](forms/11-11-2026_name_first/Slava_Naprienko__warmup_V01__prepared.csv).
 - [Source hashes and preservation checks](forms/11-11-2026_name_first/Slava_Naprienko__warmup_V01__prepared.manifest.json).
-- [Current shared form instructions](RATING_FORM_GUIDE.md).
+- [Current shared form instructions](../RATING_FORM_GUIDE.md).
 
 The first two columns are `rater_name` and `rater_id`, prefilled as **Slava Naprienko** and **V01**. The form uses the current 18-column schema. All six original item rows and every value in the original 15 data fields are preserved, including blank scores and notes. The two newer response fields, `model_assistance` and `independent_rating_attestation`, are blank. No one has answered them for Slava.
 

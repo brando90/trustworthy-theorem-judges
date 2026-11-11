@@ -15,7 +15,7 @@
 
 **[Every participant’s live Google Sheet and matching raw CSV](ratings/README.md).** All 12 active sheet tables are available, including blank forms and the three main sheets. The first two columns remain the requested `rater_name,rater_id`; these are verified identity metadata, not rating answers.
 
-Response values, capitalization, spelling, blanks, N/A entries and row order are preserved. Rylan’s assistant-filled per-file timing estimates and background annotations have been removed from his sheet and current rating files. [Restoration and verification record](RAW_DATA_RESTORATION_11-11-2026.md). [Read Rylan’s original notes](RYLAN_NOTES.md).
+Response values, capitalization, spelling, blanks, N/A entries and row order are preserved. Rylan’s assistant-filled per-file timing estimates and background annotations have been removed from his sheet and current rating files. [Restoration and verification record](support/RAW_DATA_RESTORATION_11-11-2026.md). [Read Rylan’s original notes](support/RYLAN_NOTES.md).
 
 ## Current completion status
 
@@ -31,4 +31,4 @@ The primary collection still requires 250 main ratings: 20 assigned but blank an
 
 [Normalized analysis copies](ratings/analysis/) are separate from the raw files. The historical importer lowercases some labels and keeps only numeric rows; these derived copies must not be presented as the participant’s exact submission. The refresh script now writes there and cannot overwrite the primary raw directory.
 
-[Original import receipts](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/) and prior sheet snapshots remain historical evidence. Earlier name-first snapshots are superseded for current use because they included coordinator timing estimates. [Slava’s prepared CSV](SLAVA_CSV_NAME_FIRST_11-11-2026.md) remains unsent, with six blank response rows.
+[Original import receipts](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/) and prior sheet snapshots remain historical evidence. Earlier name-first snapshots are superseded for current use because they included coordinator timing estimates. [Slava’s prepared CSV](support/SLAVA_CSV_NAME_FIRST_11-11-2026.md) remains unsent, with six blank response rows.

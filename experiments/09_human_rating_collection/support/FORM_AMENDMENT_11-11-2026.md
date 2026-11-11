@@ -1,6 +1,6 @@
 # Common rating form and assistance disclosure
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/FORM_AMENDMENT_11-11-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/FORM_AMENDMENT_11-11-2026.md>
 
 **TLDR:** The current warm-up/main form has 18 columns, with the verified `rater_name` first and stable `rater_id` second, including model-assistance disclosure and a human-rating attestation. This is a pilot form revision; preserve historical responses and review the revised team materials after his six-item practice run.
 
@@ -8,7 +8,7 @@
 
 The full sheet had 13 columns, ending at `problem_note`. The warm-up had 15, adding `minutes_spent` and `lean_familiarity`. On 11-11-2026 both were updated in place to the same ordered 17-column schema (the earlier revision; now superseded by the name-first amendment below). Existing identity, item and score cells were not rewritten. Header notes explain required/recommended/optional fields. Attestations are blank, with `yes`, `no` and `unsure` choices. No response was supplied on a rater's behalf.
 
-The common [rater guide](RATING_FORM_GUIDE.md) encourages localized model assistance while keeping the comparison, score and rationale human-authored. The score, assistance disclosure and attestation are required for new completed forms. Time and Lean familiarity are recommended; the intermediate checklist, confidence and written explanations remain optional to record. The scoring rubric remains unchanged. This supersedes the prior warm-up wrapper's mandatory timing wording for this new revision, not for historical records.
+The common [rater guide](../RATING_FORM_GUIDE.md) encourages localized model assistance while keeping the comparison, score and rationale human-authored. The score, assistance disclosure and attestation are required for new completed forms. Time and Lean familiarity are recommended; the intermediate checklist, confidence and written explanations remain optional to record. The scoring rubric remains unchanged. This supersedes the prior warm-up wrapper's mandatory timing wording for this new revision, not for historical records.
 
 ## What people actually left blank
 

@@ -1,8 +1,8 @@
 # Withdrawn coordinator additions
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/audit/removed_coordinator_data_11-11-2026/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/audit/removed_coordinator_data_11-11-2026/README.md>
 
-**TLDR:** The archived timing allocations are withdrawn coordinator estimates, not participant observations. Use the [primary Rylan rating file](../../ratings/Rylan_Schaeffer__warmup_T01.csv) for his original responses, including blank per-item times and `None` for Lean familiarity.
+**TLDR:** The archived timing allocations are withdrawn coordinator estimates, not participant observations. Use the [primary Rylan rating file](../../../ratings/Rylan_Schaeffer__warmup_T01.csv) for his original responses, including blank per-item times and `None` for Lean familiarity.
 
 ## Archived estimates
 

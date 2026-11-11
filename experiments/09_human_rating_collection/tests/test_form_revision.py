@@ -101,7 +101,7 @@ class FormRevisionTests(unittest.TestCase):
                 for n,b in files.items():
                     if n.endswith((".lean",".py")):self.assertEqual(z.read("revised/"+n),b)
                 reader=csv.DictReader(io.StringIO(z.read("revised/ratings.csv").decode()))
-                self.assertEqual(reader.fieldnames,json.loads((EXP/"RATING_FORM_SCHEMA.json").read_text())["columns"])
+                self.assertEqual(reader.fieldnames,json.loads((EXP/"support/RATING_FORM_SCHEMA.json").read_text())["columns"])
                 row=next(reader)
                 self.assertEqual(reader.fieldnames[:2],["rater_name","rater_id"])
                 self.assertEqual(row["rater_name"],"Brando Miranda")

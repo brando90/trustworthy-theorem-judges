@@ -1,6 +1,6 @@
 # Handwritten notes: loss formulations 3 and 4
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/assets/notes_loss_formulations_3_4_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/assets/notes_loss_formulations_3_4_11-09-2026.md>
 
 **TLDR:** The note conjectures that proper-loss selection or training could outperform correlation objectives and asks to compare both. It distinguishes validation-based selection (3) from training-loss optimization (4), followed by validation-based hyperparameter choice.
 

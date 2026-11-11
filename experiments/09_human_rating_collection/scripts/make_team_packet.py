@@ -11,7 +11,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 MANIFEST_SHA256 = "0e4166045463dac71c2d7e70702f9c8b58ffccedeacdbff13ef4e57b8e85efa4"
 FORM_HOME = Path(__file__).resolve().parents[1]
-COLUMNS = json.loads((FORM_HOME / "RATING_FORM_SCHEMA.json").read_text())["columns"]
+COLUMNS = json.loads((FORM_HOME / "support/RATING_FORM_SCHEMA.json").read_text())["columns"]
 
 
 def main():
@@ -22,7 +22,7 @@ def main():
     parser.add_argument("--folders", nargs="+", type=int, choices=range(1, 26),
                         default=range(1, 26), metavar="1..25")
     args = parser.parse_args()
-    identities = json.loads((FORM_HOME / "RATER_IDENTITIES.json").read_text())
+    identities = json.loads((FORM_HOME / "support/RATER_IDENTITIES.json").read_text())
     if args.rater and args.rater not in identities:
         parser.error("Unknown rater; add the verified name to RATER_IDENTITIES.json first.")
     rater_name = identities[args.rater]["rater_name"] if args.rater else ""

@@ -1,10 +1,12 @@
 # Human-rating collection migration checkpoint
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/CKPT_human_rating_collection.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/CKPT_human_rating_collection.md>
 
 **TLDR:** Move the active human-rating collection from VeriBench into this experiment without changing delivered materials, opening sealed ratings, or conflating the inherited round with the prospective study.
 
 ## State
+
+- Layout update, 11-11-2026: use the short parent README for the rating task. Administrative records, assets, historical snapshots and machine form configuration now live under `support/`; scripts/tests and cross-project identity/methodology entry paths remain stable. Rating CSVs and delivered packet bytes are unchanged. Email changes are reviewed in chat until Brando says send.
 
 - Updated: 11-11-2026 (raw response restoration; assistant-filled timing/background removed).
 - Current data: exact live-sheet response tables for all 12 sheets in `ratings/`; names/IDs retained. Three normalized imports moved to `ratings/analysis/`. Fifteen numeric warm-up observations and three N/A rows; no completed main ratings. See `RAW_DATA_RESTORATION_11-11-2026.md`.

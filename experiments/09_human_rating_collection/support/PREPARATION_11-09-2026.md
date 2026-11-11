@@ -1,6 +1,6 @@
 # Human-rating preparation — 11-09-2026
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/PREPARATION_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/PREPARATION_11-09-2026.md>
 
 **TLDR:** The existing rating packet is available in this repository's private store. The preferred deadline is Friday, 11-13-2026; the final deadline is Sunday, 11-15-2026. Personal rating can start; collaborator dispatch remains a separate, explicitly approved action.
 
@@ -26,7 +26,7 @@ The active preparation record is `private/09_human_rating_collection/preparation
 
 ## Sending protocol
 
-Before using this protocol, read the [required judge-development context](JUDGE_FORMULATIONS_11-09-2026.md). The two main formulations are training-correlation optimization (2) and proper-loss training (4); the collection must preserve independent raw observations and exposure history for both. Keep this coordinator context out of the locked participant email.
+Before using this protocol, read the [required judge-development context](../JUDGE_FORMULATIONS_11-09-2026.md). The two main formulations are training-correlation optimization (2) and proper-loss training (4); the collection must preserve independent raw observations and exposure history for both. Keep this coordinator context out of the locked participant email.
 
 1. Use the private roster and delivery ledger. Check consent, warm-up status, assigned folders, prior delivery, and the correct account for the personal sheet. Keep individual sheets restricted; never send another rater's link or ratings.
 2. Use the frozen attachment for an existing assignment. Match its candidate filenames to the sheet's identity columns, without opening sealed rating values. Record the attachment hash. For a new assignment, preserve the same scientific file bytes and create a new delivery receipt.

@@ -6,7 +6,7 @@
 
 User decision, **11-09-2026:** every agent preparing, dispatching, importing, or handing off human-rating packets must read this note. This records methodology and coordination context; it does not revise the locked rater email, rubric, assignments, existing experiment freezes, or dispatch authorization.
 
-**Single coordination owner:** [Prepare human grading task](codex://threads/01a1a8f9-dcb7-7381-9368-91d6e51faffd) owns collection and practical judge development. Follow the [ownership and handoff record](COORDINATION_11-09-2026.md) before starting overlapping work; the former Best human-rating judge chat has handed its work to that owner.
+**Single coordination owner:** [Prepare human grading task](codex://threads/01a1a8f9-dcb7-7381-9368-91d6e51faffd) owns collection and practical judge development. Follow the [ownership and handoff record](support/COORDINATION_11-09-2026.md) before starting overlapping work; the former Best human-rating judge chat has handed its work to that owner.
 
 **Goal:** fairly compare correlation-based and probabilistic judge development for formal specification coverage (FSC).
 **Confidence:** high in the distinction between objectives; empirical superiority is unresolved.
@@ -15,13 +15,13 @@ User decision, **11-09-2026:** every agent preparing, dispatching, importing, or
 
 ## Source and transcription
 
-The source is Brando Miranda's three photographs supplied in this coordination chat on 11-09-2026. Originals are preserved byte-for-byte with [hashes and original paths](assets/formulations_11-09-2026_provenance.json). Transcriptions distinguish visible text from interpretation and mark uncertain words:
+The source is Brando Miranda's three photographs supplied in this coordination chat on 11-09-2026. Originals are preserved byte-for-byte with [hashes and original paths](support/assets/formulations_11-09-2026_provenance.json). Transcriptions distinguish visible text from interpretation and mark uncertain words:
 
-- [Whiteboard: objectives and rating distributions](assets/whiteboard_objective_overview_11-09-2026.md).
-- [Handwritten page: formulations 1 and 2](assets/notes_correlation_formulations_1_2_11-09-2026.md).
-- [Handwritten page: formulations 3 and 4](assets/notes_loss_formulations_3_4_11-09-2026.md).
+- [Whiteboard: objectives and rating distributions](support/assets/whiteboard_objective_overview_11-09-2026.md).
+- [Handwritten page: formulations 1 and 2](support/assets/notes_correlation_formulations_1_2_11-09-2026.md).
+- [Handwritten page: formulations 3 and 4](support/assets/notes_loss_formulations_3_4_11-09-2026.md).
 
-Earlier context: [shared discussion](https://chatgpt.com/share/6af21760-343c-83e8-a92f-b66b5a429e74), [prospective human-target plan](../02_probabilistic_ordinal_judge/README.md), and [current inherited collection](README.md). Recommendations in the shared discussion are not new experimental results or authorization to replace this collection.
+Earlier context: [shared discussion](https://chatgpt.com/share/6af21760-343c-83e8-a92f-b66b5a429e74), [prospective human-target plan](../02_probabilistic_ordinal_judge/README.md), and [current inherited collection](support/COORDINATOR_README.md). Recommendations in the shared discussion are not new experimental results or authorization to replace this collection.
 
 ## Precise formulation
 
@@ -90,7 +90,7 @@ The defensible claim is a controlled comparison of specified judge-development p
 3. **Keep the raw observations and provenance:** ordinal rating, opaque rater identity, task/family identity, candidate and reference hashes, rubric/round version, solver identity when supported, missingness, qualification, and exposure history. Preserve exact source/candidate/reference bytes and independent responses. Do not replace individual ratings with consensus or an average-only sheet.
 4. **Protect the study split:** follow the existing sealed-data and assignment rules. Dispatching or importing ratings does not authorize using them for judge selection. A new split cannot erase prior exposure. Sparse per-artifact ratings can score probabilistic forecasts, but do not precisely identify each artifact's full human distribution or establish generalization to all raters.
 5. **Keep the prover target distinct:** a forecast of acceptance by a pinned bounded proving procedure uses a binary outcome and Brier loss. Failure to find a proof is not a semantic negative. Human rating 4/5 is not a probability of prover success of 0.8.
-6. **Follow the actual dispatch contract:** [preparation record](PREPARATION_11-09-2026.md), current private queue, locked text and explicit send authorization. Do not insert this research discussion in participant emails or silently rewrite delivered packets. The preferred date is 11-13-2026 and final date is 11-15-2026.
+6. **Follow the actual dispatch contract:** [preparation record](support/PREPARATION_11-09-2026.md), current private queue, locked text and explicit send authorization. Do not insert this research discussion in participant emails or silently rewrite delivered packets. The preferred date is 11-13-2026 and final date is 11-15-2026.
 7. **Respect ownership:** this repository owns collection and the FSC application. The general CE-versus-correlation comparison belongs to [judges-dont-need-psychometrics-or-corr](https://github.com/brando90/judges-dont-need-psychometrics-or-corr). Its [matched comparison checkpoint](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/ckpt.md) records completed work; this note does not restart or overwrite it.
 
 ## Availability and continuation

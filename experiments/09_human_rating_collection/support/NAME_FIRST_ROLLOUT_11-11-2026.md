@@ -1,6 +1,6 @@
 # Name-first rating forms and project rules — 11-11-2026
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/NAME_FIRST_ROLLOUT_11-11-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/NAME_FIRST_ROLLOUT_11-11-2026.md>
 
 **TLDR:** Every active personal rating sheet now starts with the actual rater name, then the stable rater ID. Matching CSV snapshots and persistent Codex, Claude and Cursor rules make this the standard for every participant across the related projects.
 
@@ -10,13 +10,13 @@
 - [Snapshot manifest](sheet_exports/11-11-2026_all_raters_name_first/MANIFEST.json): source links, row counts, headers and file hashes. Each CSV's complete table equals its native readback. Leading instruction/comment rows and unused cells are omitted from the CSV table.
 - Original table values, notes, validation and formatting were compared before/after the identity insertion: zero differences in retained cells. Browser checks confirmed readable name columns on all seven newly changed sheets at 100% zoom.
 - [Slava's CSV-only warm-up](SLAVA_CSV_NAME_FIRST_11-11-2026.md): a separate current six-row form is prepared and unsent. The delivered archive remains unchanged.
-- [Completion status](COMPLETION_STATUS.md): still 15 numeric warm-up ratings across Rylan, Sri and Yegor; no main ratings in the checked sheets. Naming and snapshots add zero observations and change no assignments.
+- [Completion status](../COMPLETION_STATUS.md): still 15 numeric warm-up ratings across Rylan, Sri and Yegor; no main ratings in the checked sheets. Naming and snapshots add zero observations and change no assignments.
 
 ## Persistent project rule
 
 Every active personal Google Sheet and current CSV form/export starts with `rater_name,rater_id`. The name comes from the verified roster and is prefilled even on unanswered rows. The stable ID remains the join and deduplication key. A table snapshot matches its live sheet; separately enriched analysis exports label added coordinator metadata. Future revised warm-up and main forms use the same schema, differing in assigned items/rows. Preserve original imports and delivered archives; never fabricate responses or attestations.
 
-The collection remains owned by this repository's experiment 09. Related projects link to [the identity/import workflow](IDENTITY_AND_IMPORT.md), rather than starting competing collections. Authorized named ratings are tracked; this rule does not expose credentials, private correspondence, consent records or sealed test data.
+The collection remains owned by this repository's experiment 09. Related projects link to [the identity/import workflow](../IDENTITY_AND_IMPORT.md), rather than starting competing collections. Authorized named ratings are tracked; this rule does not expose credentials, private correspondence, consent records or sealed test data.
 
 ## Repository coverage and publication
 

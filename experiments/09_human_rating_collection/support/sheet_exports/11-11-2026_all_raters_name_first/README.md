@@ -1,8 +1,8 @@
 # All participants: matching Google Sheets and CSV snapshots
 
-**Historical snapshot — superseded for current raw data.** This earlier snapshot includes coordinator-added Rylan timing estimates that have since been removed. Use [the restored raw tables](../../ratings/README.md). Preserved here only as audit history, not current participant responses.
+**Historical snapshot — superseded for current raw data.** This earlier snapshot includes coordinator-added Rylan timing estimates that have since been removed. Use [the restored raw tables](../../../ratings/README.md). Preserved here only as audit history, not current participant responses.
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/sheet_exports/11-11-2026_all_raters_name_first/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/sheet_exports/11-11-2026_all_raters_name_first/README.md>
 
 **TLDR:** All 12 active personal Google Sheets begin with actual `rater_name`, then stable `rater_id`. These comma-separated value (CSV) snapshots have exactly the same table headers and values, checked on 11-11-2026.
 
@@ -27,7 +27,7 @@ Rylan and Sri's main forms show all 125 packet items, but each currently has onl
 
 Slava uses an emailed CSV route; no personal Google Sheet is recorded for him. [His current name-first CSV form](../../SLAVA_CSV_NAME_FIRST_11-11-2026.md) is prepared and unsent. Unassigned prospects have no personal form yet.
 
-These are snapshots, not a live background mirror. The same ratings also appear in earlier snapshots and validated exports: never append them as new observations. See [collected ratings](../../RATINGS_INDEX.md), [completion status](../../COMPLETION_STATUS.md) and [import workflow](../../IDENTITY_AND_IMPORT.md). The validated analysis exports can include separately sourced coordinator metadata after the original columns; these snapshots reproduce the live tables exactly.
+These are snapshots, not a live background mirror. The same ratings also appear in earlier snapshots and validated exports: never append them as new observations. See [collected ratings](../../../RATINGS_INDEX.md), [completion status](../../../COMPLETION_STATUS.md) and [import workflow](../../../IDENTITY_AND_IMPORT.md). The validated analysis exports can include separately sourced coordinator metadata after the original columns; these snapshots reproduce the live tables exactly.
 
 Rylan's `minutes_spent` values are coordinator allocations totaling an approximate hour, not measured per-item times. Preserve that provenance from [Rylan's notes](../../RYLAN_NOTES.md#time-estimate).
 

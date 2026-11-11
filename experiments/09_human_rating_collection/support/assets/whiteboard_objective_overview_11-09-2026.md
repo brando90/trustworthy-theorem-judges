@@ -1,6 +1,6 @@
 # Whiteboard: correlation and loss objectives
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/assets/whiteboard_objective_overview_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/assets/whiteboard_objective_overview_11-09-2026.md>
 
 **TLDR:** The board contrasts maximizing correlation with minimizing a distributional loss, and sketches a probability distribution over ratings. The scaling-law expression is an untested suggestion, not a fitted law for this study.
 
@@ -8,7 +8,7 @@ Source: Brando Miranda's [original photograph](whiteboard_objective_overview_11-
 
 ## Transcription
 
-Notation is typeset for readability. The board's left-hand side is a selected distribution, while its right-hand side uses an argmax/argmin over judges; that type mismatch is retained here and corrected in the [coordinator note](../JUDGE_FORMULATIONS_11-09-2026.md). Dots abbreviate omitted arguments.
+Notation is typeset for readability. The board's left-hand side is a selected distribution, while its right-hand side uses an argmax/argmin over judges; that type mismatch is retained here and corrected in the [coordinator note](../../JUDGE_FORMULATIONS_11-09-2026.md). Dots abbreviate omitted arguments.
 
 \[
 P_j^{\widehat{AI}_j}(\cdot\mid\cdot,\cdot)

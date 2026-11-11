@@ -13,7 +13,7 @@
 - The first required score is `K2`, under `final_score_0_5`. No name or ID needs to be edited by the rater.
 - The current raw table is [ratings/Brando_Miranda__setN_A1.csv](ratings/Brando_Miranda__setN_A1.csv), starting with `rater_name,rater_id,...`. Its response cells are blank in the current snapshot; the file does not imply completed ratings.
 
-The coordinator's roster and personal-sheet configuration bind A1 to this exact person and spreadsheet. [RATER_IDENTITIES.json](RATER_IDENTITIES.json) records the display-name mapping for exports. Never infer a person's identity from a score or rely only on a typed display name.
+The coordinator's roster and personal-sheet configuration bind A1 to this exact person and spreadsheet. [RATER_IDENTITIES.json](support/RATER_IDENTITIES.json) records the display-name mapping for exports. Never infer a person's identity from a score or rely only on a typed display name.
 
 ## Why there were codes and hidden names
 
@@ -51,7 +51,7 @@ This is a coordinator-run collection sync, **not a live background mirror**. Goo
    python3 experiments/09_human_rating_collection/scripts/refresh_named_ratings.py
    ```
 
-   It reads already imported files from the canonical import directory, joins [RATER_IDENTITIES.json](RATER_IDENTITIES.json), places `rater_name` first and `rater_id` second, verifies an already-present name against the roster, and writes person-first filenames under `ratings/analysis/`. It refuses an output directory resolving to the primary `ratings/` folder. An unknown or mismatched rater, malformed row or duplicate item stops the batch before output. Normalized-input columns and values are preserved. This is not raw-data recovery: the historical importer already changed some capitalization and omitted Yegor’s N/A rows. The exporter does not load coordinator background or timing estimates. Leading sheet-comment rows remain readable if the new name column shifts the comment into column B. A manifest records source and named-export hashes. It performs no live download, qualification decision or score analysis.
+   It reads already imported files from the canonical import directory, joins [RATER_IDENTITIES.json](support/RATER_IDENTITIES.json), places `rater_name` first and `rater_id` second, verifies an already-present name against the roster, and writes person-first filenames under `ratings/analysis/`. It refuses an output directory resolving to the primary `ratings/` folder. An unknown or mismatched rater, malformed row or duplicate item stops the batch before output. Normalized-input columns and values are preserved. This is not raw-data recovery: the historical importer already changed some capitalization and omitted Yegor’s N/A rows. The exporter does not load coordinator background or timing estimates. Leading sheet-comment rows remain readable if the new name column shifts the comment into column B. A manifest records source and named-export hashes. It performs no live download, qualification decision or score analysis.
 
 5. Refresh `RATINGS_INDEX.md`, `COMPLETION_STATUS.md` and the collection summary from the same snapshot; verify the named export manifests, then commit and push the named collection artifacts. The name-enrichment command alone does not refresh completion status.
 

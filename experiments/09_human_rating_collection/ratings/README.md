@@ -19,7 +19,7 @@
 
 Yegor’s warm-up contains all six submitted rows: three numeric ratings and three `N/A` reference-issue entries. Empty sheets are included for convenience; blank rows are not completed observations. Rylan and Sri each have ten assigned main items even though their sheets display 125 rows.
 
-[Current completion status](../COMPLETION_STATUS.md) · [Raw source ranges, hashes and counts](RAW_MANIFEST.json) · [Restoration record](../RAW_DATA_RESTORATION_11-11-2026.md)
+[Current completion status](../COMPLETION_STATUS.md) · [Raw source ranges, hashes and counts](RAW_MANIFEST.json) · [Restoration record](../support/RAW_DATA_RESTORATION_11-11-2026.md)
 
 ## Derived analysis files
 

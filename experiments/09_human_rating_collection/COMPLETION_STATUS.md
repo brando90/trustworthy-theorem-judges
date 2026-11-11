@@ -4,7 +4,7 @@
 
 **Later layout update for everyone, 11-11-2026:** all 12 active personal Google Sheets were re-read and verified with the actual name in the first column and stable ID second. Seven sheets were updated and five were already correct. Original cell contents were preserved, so this did not add completed ratings or change assignments. [Every live sheet and current raw CSV](ratings/README.md).
 
-**Raw restoration, 11-11-2026:** reread all 12 sheets after removing assistant-filled timing/background additions. The same 15 numeric warm-up ratings remain; Yegor’s three N/A entries are included in his primary CSV. Main scores remain blank. [Restoration record](RAW_DATA_RESTORATION_11-11-2026.md).
+**Raw restoration, 11-11-2026:** reread all 12 sheets after removing assistant-filled timing/background additions. The same 15 numeric warm-up ratings remain; Yegor’s three N/A entries are included in his primary CSV. Main scores remain blank. [Restoration record](support/RAW_DATA_RESTORATION_11-11-2026.md).
 
 | Person | Warm-up | Main assignment / next missing work |
 | --- | --- | --- |

@@ -11,8 +11,8 @@ HOME = Path(__file__).resolve().parents[1]
 
 
 def revise(source, output, rater, sheet_url):
-    schema = json.loads((HOME / "RATING_FORM_SCHEMA.json").read_text())
-    identities = json.loads((HOME / "RATER_IDENTITIES.json").read_text())
+    schema = json.loads((HOME / "support/RATING_FORM_SCHEMA.json").read_text())
+    identities = json.loads((HOME / "support/RATER_IDENTITIES.json").read_text())
     if rater not in identities or not identities[rater]["rater_name"].strip():
         raise ValueError(f"No verified name for {rater}; update RATER_IDENTITIES.json first")
     rater_name = identities[rater]["rater_name"]

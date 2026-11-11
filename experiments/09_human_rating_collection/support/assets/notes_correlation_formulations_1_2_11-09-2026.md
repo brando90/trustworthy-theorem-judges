@@ -1,6 +1,6 @@
 # Handwritten notes: correlation formulations 1 and 2
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/assets/notes_correlation_formulations_1_2_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/assets/notes_correlation_formulations_1_2_11-09-2026.md>
 
 **TLDR:** Formulation 1 selects a developed judge by validation correlation; formulation 2 optimizes a judge using training correlation. The note asks whether the literature actually uses these procedures; it does not establish that claim.
 
