@@ -24,13 +24,22 @@ REVISION = load("form_packet", EXP / "support/scripts/revise_rating_packet.py")
 
 
 class FormRevisionTests(unittest.TestCase):
+    def test_time_estimates_accept_ranges_without_inventing_a_point_estimate(self):
+        for answer, valid in [("5-10", True), ("5–10", True), ("0", True), ("2.5", True),
+                              ("10-5", False), ("-1", False), ("nan", False), ("inf", False)]:
+            text = "rater_id,item_id,final_score_0_5,minutes_spent\nA1,N01a,2," + answer + "\n"
+            rows, errors, _, _, _ = IMPORTER.check(text, "A1", {"N01a"}, None, "setN")
+            self.assertEqual(not errors, valid, answer)
+            if valid:
+                self.assertEqual(rows[0]["minutes_spent"], answer)
+
     def test_descriptive_questions_match_guide_and_validate_like_legacy(self):
         schema = json.loads((EXP / "support/RATING_FORM_SCHEMA.json").read_text())
         guide = (EXP / "rating_task_packet/RATING_FORM_GUIDE.md").read_text()
         aliases = schema["legacy_checklist_headers"]
-        self.assertEqual(schema["columns"][5:], schema["required_new_responses"])
-        self.assertEqual(schema["optional"], [])
-        self.assertEqual(schema["recommended"], [])
+        self.assertEqual(schema["columns"][5:7], schema["required_new_responses"])
+        self.assertEqual(schema["optional"], ["rationale", "problem_note"])
+        self.assertEqual(schema["recommended"], ["minutes_spent", "confidence", "rationale"])
         for field in schema["required_new_responses"]:
             self.assertIn(field, guide)
         fields = ["rater_id", "item_id", "final_score_0_5", *aliases.values()]
@@ -45,9 +54,9 @@ class FormRevisionTests(unittest.TestCase):
                 self.assertEqual(rows[0][aliases["A"]], "y")
                 self.assertEqual(rows[0][aliases["D"]], "handful")
 
-    def test_required_only_submission_preserves_scoring_sections(self):
+    def test_current_form_rubric_preserves_scoring_sections(self):
         original = (EXP / "support/sheet_exports/11-11-2026_required_only/previous_human_judgements_prompt.md").read_text()
-        updated = REVISION.required_only_rubric(original)
+        updated = REVISION.current_form_rubric(original)
         self.assertEqual(original.split("## Output format")[0], updated.split("## Output format")[0])
         self.assertEqual(original.split("## Tie-break rule")[1], updated.split("## Tie-break rule")[1])
         self.assertNotIn("Optional notes", updated)

@@ -11,11 +11,11 @@ from zipfile import ZipFile, ZIP_DEFLATED
 HOME = Path(__file__).resolve().parents[2]
 
 
-def required_only_rubric(text):
+def current_form_rubric(text):
     """Update submission directions only; preserve every scoring section verbatim."""
     output = ("## Output format (required)\n\n"
               "Use your personal sheet linked in START_HERE.md, or the assigned ratings.csv return route. "
-              "Fill only final_score_0_5 and ai_assisted_rating_attestation; "
+              "Enter final_score_0_5 and ai_assisted_rating_attestation. Please estimate minutes_spent and confidence. A one-sentence rationale is preferred but optional; use problem_note for issues. "
               "RATING_FORM_GUIDE.md explains these answers. Identifiers are prefilled. "
               "The checklist and base score remain scoring steps, not separate form entries.\n\n")
     text = re.sub(r"## Current form headers[\s\S]*$", "", text)
@@ -54,22 +54,23 @@ def revise(source, output, rater, sheet_url):
     if not candidates:
         raise ValueError("No candidates")
     rubric = "Rating_Instructions.md" if "Rating_Instructions.md" in files else "human_judgements_prompt.md"
-    files[rubric] = required_only_rubric(files[rubric].decode()).encode()
+    files[rubric] = current_form_rubric(files[rubric].decode()).encode()
     # Delivered scientific payload is copied byte-for-byte, never regenerated.
     protected = {n: b for n, b in files.items() if n.endswith((".lean", ".py"))}
     files["RATING_FORM_GUIDE.md"] = (HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_bytes()
+    return_route = (f"1. [Open your personal Google Sheet]({sheet_url}) for {rater_name}. Use that existing sheet; no copy is needed.\n" if sheet_url else f"1. Open ratings.csv for {rater_name}. Return the completed CSV to brandojazz@gmail.com.\n")
     files["START_HERE.md"] = (
         "# Start your human ratings\n\n"
         f"This packet has {len(candidates)} candidate files. Form revision: 11-11-2026.\n\n"
-        f"1. [Open your personal Google Sheet]({sheet_url}) for {rater_name} ({rater}). Use that existing sheet; no copy is needed.\n"
+        + return_route +
         "2. Read RATING_FORM_GUIDE.md for the shared warm-up/main fields and assistance policy. "
         "It supersedes older submission links and assistance wording.\n"
         f"3. Read {rubric} for the unchanged 0–5 scoring rubric. "
         "Read Python source, gold theorem statements and candidate theorem statements in each task folder. "
         "Rate statements, not proofs.\n"
-        "4. Fill one row per candidate in your Google Sheet. Use AI for localized assistance. "
-        "Make the comparison, choose the score and answer the attestation yourself.\n\n"
-        "The included ratings.csv is a blank form with the same columns; the personal Google Sheet is your return route.\n"
+        "4. Fill one row per candidate in your assigned form. Use AI for localized assistance. "
+        "Make the comparison, choose the score and answer the attestation yourself. Please estimate minutes and confidence; a one-sentence rationale is preferred but optional. Add a problem note if needed.\n\n"
+        + ("The included ratings.csv has the same columns; use your personal Google Sheet, not both.\n" if sheet_url else "Save and return the completed ratings.csv; you do not need a Google Sheet.\n")
     ).encode()
     # The personal link lives in START_HERE; remove the redundant legacy pointer.
     files.pop("YOUR_RATING_SHEET.txt", None)
@@ -83,7 +84,7 @@ def revise(source, output, rater, sheet_url):
     for n in candidates:
         p = Path(n)
         w.writerow({"rater_name": rater_name, "rater_id": rater, "item_id": Path(original_names[n]).stem, "task_folder": p.parts[0],
-                    "candidate_file": n if p.parts[0].startswith(("W", "warm_up_")) else p.name})
+                    "candidate_file": p.name if p.parts[0].startswith("Files_To_Rate") else n})
     files["ratings.csv"] = buf.getvalue().encode()
     files["FILES.sha256"] = "".join(
         f"{hashlib.sha256(b).hexdigest()}  {n}\n" for n, b in sorted(files.items())
@@ -111,6 +112,6 @@ if __name__ == "__main__":
     p.add_argument("source", type=Path)
     p.add_argument("output", type=Path)
     p.add_argument("--rater", required=True)
-    p.add_argument("--sheet-url", required=True)
+    p.add_argument("--sheet-url", help="Personal sheet; omit for an explicitly assigned CSV return route")
     a = p.parse_args()
     print(json.dumps(revise(a.source, a.output, a.rater, a.sheet_url), indent=2))

@@ -1,7 +1,7 @@
-rater_name,rater_id,item_id,task_folder,candidate_file,final_score_0_5,ai_assisted_rating_attestation
-Yegor Denisov-Blanch,T02,W01a,warm_up_01_median,warm_up_01_median/agent_lean/agent_1.lean,2,
-Yegor Denisov-Blanch,T02,W01b,warm_up_01_median,warm_up_01_median/agent_lean/agent_2.lean,2,
-Yegor Denisov-Blanch,T02,W01c,warm_up_01_median,warm_up_01_median/agent_lean/agent_3.lean,2,
-Yegor Denisov-Blanch,T02,W02a,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_1.lean,N/A,
-Yegor Denisov-Blanch,T02,W02b,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_2.lean,N/A,
-Yegor Denisov-Blanch,T02,W02c,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_3.lean,N/A,
+rater_name,rater_id,item_id,task_folder,candidate_file,final_score_0_5,ai_assisted_rating_attestation,minutes_spent,confidence,rationale,problem_note
+Yegor Denisov-Blanch,T02,W01a,warm_up_01_median,warm_up_01_median/agent_lean/agent_1.lean,2,,,Medium,"Single-element case seems covered. Missing: empty-list case, sort_length_thm, and equivalence with the imperative version - just the tests don't add theorem coverage, so it leaves several gaps, 2/5",
+Yegor Denisov-Blanch,T02,W01b,warm_up_01_median,warm_up_01_median/agent_lean/agent_2.lean,2,,,Medium,"Some credit for the single element case, but I'm less sure here b/c the inputs are Floats rather than Ints. Empty lists, sort length, and agreement with the imperative version are still missing... so 2/5 - assuming the Int-to-Float conversion is acceptable",
+Yegor Denisov-Blanch,T02,W01c,warm_up_01_median,warm_up_01_median/agent_lean/agent_3.lean,2,,,Medium,"Single element case seems covered and there's also a theorem saying the 5 tests pass. This is useful but doesn't address empty lists, sort length, or agreement with the imperative version, so 2/5",
+Yegor Denisov-Blanch,T02,W02a,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_1.lean,N/A,,,N/A,"Ref issue: gcd(0,0)=0, but 1 divides both inputs.",
+Yegor Denisov-Blanch,T02,W02b,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_2.lean,N/A,,,N/A,"Ref issue: gcd(0,0)=0, but 1 divides both inputs.",
+Yegor Denisov-Blanch,T02,W02c,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_3.lean,N/A,,,N/A,"Ref issue: gcd(0,0)=0, but 1 divides both inputs.",

@@ -1,13 +1,9 @@
 # Human-rating collection status — 11-11-2026
 
-**Current form, 11-11-2026:** all 12 live Sheets and primary raw CSVs have five prefilled identifiers plus final score, model-assistance disclosure and independent-rating attestation. Optional/recommended columns were removed. All retained scores, N/A entries, row order and assignments are unchanged; historical missing disclosures remain unknown. [Revision and preserved source data](support/sheet_exports/11-11-2026_required_only/README.md).
+**Current form, 11-11-2026:** all 12 live Sheets and raw CSVs share eleven columns. Final score and the combined AI-assisted-rating attestation are required for new ratings. Time and confidence are requested; a one-sentence rationale is **preferred but optional**; problem notes are for issues. Original participant notes and times were restored verbatim. Scores, blanks and N/A entries are unchanged. [Verification and history](support/sheet_exports/11-11-2026_final_form/README.md).
 
 
-**TLDR:** Twelve live Google Sheets were checked and saved privately. No new or revised numeric ratings were found: 15 warm-up ratings match existing imports; the delivered main assignments remain blank.
-
-**Later layout update for everyone, 11-11-2026:** all 12 active personal Google Sheets were re-read and verified with the actual name in the first column and stable ID second. Seven sheets were updated and five were already correct. Original cell contents were preserved, so this did not add completed ratings or change assignments. [Every live sheet and current raw CSV](ratings/README.md).
-
-**Raw restoration, 11-11-2026:** reread all 12 sheets after removing assistant-filled timing/background additions. The same 15 numeric warm-up ratings remain; Yegor’s three N/A entries are included in his primary CSV. Main scores remain blank. [Restoration record](support/RAW_DATA_RESTORATION_11-11-2026.md).
+**TLDR:** Twelve live Google Sheets were checked and exported into ratings/. No new or revised numeric ratings were found: 15 warm-up ratings match existing imports; the delivered main assignments remain blank.
 
 | Person | Warm-up | Main assignment / next missing work |
 | --- | --- | --- |
@@ -20,7 +16,7 @@
 | Simon Obstbaum | 0/6 | Warm-up pending |
 | Nikil Ravi | 0/6 | Warm-up pending |
 | Slava Naprienko | No returned CSV found in scoped mail searches | Email return route, not a Google Sheet; completion unverified |
-| Brando Miranda | Historical warm-up sheet 0/6 | Personal full packet 0/125; author ratings are additional |
+| Brando Miranda | Warm-up sheet 0/6 | Personal full packet 0/125; author ratings are additional |
 
 ## What is missing
 
@@ -39,11 +35,3 @@ Jacob and Mo declined; Bo and Sanmi are excluded from recruitment. Unassigned pr
 - Warm-up observations and N/A entries stay separate from main-task ratings. Blank cells are missing, never zero scores. No judge fitting, selection or sealed-test analysis was performed.
 
 This status and the collected rating CSV files are tracked in experiment 09. Detailed source snapshots and mail-search receipts remain in the private collection area. This is collection evidence, not a fresh validation dataset.
-
-**11-11-2026 header revision:** Brando’s warm-up and main sheets and their current CSV snapshots now use full checklist questions (schema v2.3). Response cells and completion counts are unchanged. Other delivered forms remain historical pending rollout. See [revision record](support/QUESTION_HEADERS_11-11-2026.md).
-
-**11-11-2026 descriptive paths:** Brando’s working warm-up packet, live sheet and current CSV use `warm_up_01_median`, `warm_up_02_greatest_common_divisor` and `agent_1.lean` through `agent_3.lean`. Historical item IDs, ratings and completion counts are unchanged. [Path mapping](support/WARMUP_PATHS.json) preserves provenance; older delivered packets remain unchanged.
-
-**Combined attestation, 11-11-2026:** all 12 live sheets and current raw CSVs now contain the final score plus one AI-assisted rating attestation. Scores and identifiers are unchanged; every new attestation remains blank. Earlier ratings are not evidence of AI use. Pre-change responses and readback are preserved in `support/sheet_exports/11-11-2026_combined_attestation/` (relative to the experiment root).
-
-**11-11-2026 warm-up view sync:** Brando, Rylan, Sri and Yegor now have the same descriptive file paths and sheet layout, with the header in row 1 and internal tracking columns B:D hidden. Scores and attestations remain person-specific and unchanged. [Sync receipt](support/sheet_exports/11-11-2026_warmup_sync/README.md).

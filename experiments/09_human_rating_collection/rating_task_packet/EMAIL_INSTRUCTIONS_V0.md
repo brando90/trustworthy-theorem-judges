@@ -1,15 +1,17 @@
-Hi (Person doing the Rating, you fill agent),
+Subject: VeriBench human-rating warm-up: closes 11-15-2026
+
+Hi Brando,
 
 Your six-file VeriBench warm-up packet is attached.
 
-Your personal warm-up sheet:
-https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit#gid=665730293&range=F2
+Your personal rating sheet:
+https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit
 
-Unzip the attachment and read START_HERE.md and the rating instructions. Compare theorem statements, not proofs, and enter one 0–5 score for each of the six agent files. Enter the six scores in final_score_0_5 (cells F2:F7). Also answer ai_assisted_rating_attestation (yes/no/unsure): “I used AI for localized assistance. I personally compared the specifications and chose the final score; I did not delegate the rating task to AI.” These are the only two fields to fill. Your sheet saves automatically; leave unfinished rows blank.
+Unzip the attachment and read START_HERE.md, RATING_FORM_GUIDE.md and human_judgements_prompt.md. Compare specification statements, not proofs. For each file, enter a final 0–5 score and the AI-assisted-rating attestation. Please estimate the minutes spent and your confidence. A one-sentence rationale is preferred but optional; use problem_note for issues. Your sheet saves automatically; leave unfinished scores blank.
 
-For this rating round, use artificial intelligence (AI) for localized help with parts of the rating task. You may not have AI do the whole rating task for you. Asking for help understanding a particular theorem, checking a specific point, or learning Lean concepts is fine. You remain responsible for the final rating.
+Use AI for localized help with Lean concepts or a specific point. You must personally compare the specifications and choose the score; do not ask a model to do the rating task for you.
 
-Please finish by Friday, 11-13-2026 if possible; Sunday, 11-15-2026 is the final deadline. This replaces the deadline printed in the packet. Please complete the warm-up as soon as you can so there is time for your assigned tasks.
+Please finish by Friday, 11-13-2026 if possible; Sunday, 11-15-2026 is the final deadline. Start with the warm-up before your main assignment.
 
 P.S. Feel free to email me with any questions. Email is preferred for questions! Happy to clarify anything!
 

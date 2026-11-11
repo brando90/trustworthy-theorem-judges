@@ -4,6 +4,19 @@
 
 **TLDR:** The existing rating packet is available in this repository's private store. The preferred deadline is Friday, 11-13-2026; the final deadline is Sunday, 11-15-2026. Personal rating can start; collaborator dispatch remains a separate, explicitly approved action.
 
+## Current prepared version — 11-11-2026
+
+The current form has eleven columns, including estimated minutes, confidence, rationale (preferred but optional), and problem notes. All twelve live sheets and raw exports match it. All thirteen replacement packets preserve their original scientific file bytes and contain blank response forms. They are prepared, not sent; older deliveries remain immutable.
+
+- [Brando's six-file packet](../../../private/09_human_rating_collection/preparation_11-09-2026/packets/FormV5/VeriBench_warmup_A1_FormV5.zip) and [his sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit).
+- [Current packet manifest](../../../private/09_human_rating_collection/preparation_11-09-2026/packets/FormV5/MANIFEST.json): recipient, route, item count, hashes and preserved scientific payload.
+- [Eight exact team email previews](../../../private/09_human_rating_collection/preparation_11-09-2026/REVIEW_TEAM_EMAILS_FORM_V5.md) and [current dispatch queue](../../../private/09_human_rating_collection/preparation_11-09-2026/DISPATCH_QUEUE_FORM_V5.json).
+- [Live-sheet and raw-context verification](sheet_exports/11-11-2026_final_form/README.md).
+
+Remaining before sending: Brando completes his pilot and approves the revised recipient-specific messages, then explicitly says to send. The current queue preserves eight existing recipients and their assignments; it does not assign the entire panel or recruit unconfirmed prospects. Rylan and Sri have ten assigned main files each, not all 125 rows visible in their sheets. More qualified raters/assignments are still needed for the 250-rating primary collection.
+
+The sections below record the original preparation and sending workflow. References to original attachments and the older REVIEW_TEAM_EMAILS.md describe historical drafts; use CURRENT_PREPARATION.json and the FormV5 review for the next dispatch.
+
 ## Current collection
 
 **Coordination:** [Prepare human grading task](codex://threads/01a1a8f9-dcb7-7381-9368-91d6e51faffd) is the sole owner for this preparation and the practical human-rating judge. Follow the [consolidated ownership record](COORDINATION_11-09-2026.md); migration and historical methodology chats do not create separate dispatch owners.
@@ -32,7 +45,7 @@ Before using this protocol, read the [required judge-development context](JUDGE_
 2. Use the frozen attachment for an existing assignment. Match its candidate filenames to the sheet's identity columns, without opening sealed rating values. Record the attachment hash. For a new assignment, preserve the same scientific file bytes and create a new delivery receipt.
 3. Keep the approved prose, including localized artificial intelligence (AI) help and the email-preferred P.S. The approved personal template contains a personal sheet and a full assignment. Team drafts explicitly propose the recipient-specific link, assigned folder names, instruction filename, and file count; those differences require text approval under the user's template lock.
 4. Send a complete new email, with the real ZIP attachment, normal subject, and no reply/thread headers. Gmail may group messages automatically. Do not add chat-only summaries or revision labels to the rater email. Blind-copy the coordinator's required inboxes; add visible copies only if requested.
-5. Every requested text correction gets a new preview email to the coordinator. Drafting and text approval do not by themselves authorize dispatch to collaborators. After an explicit send instruction, verify delivery once and record the message identifier, recipients, attachment hash, assignment, and deadline.
+5. Every requested text correction gets an updated preview in chat or the review file; do not email previews until Brando says send. Drafting and text approval do not by themselves authorize dispatch to collaborators. After an explicit send instruction, verify delivery once and record the message identifier, recipients, attachment hash, assignment, and deadline.
 6. Collect each person's ratings independently. Use the inherited warm-up qualification procedure without changing its threshold. Keep the coordinator's ratings separate and preserve exposure history. Do not inspect sealed set-N scores to select a judge.
 
 ## Remaining collection work

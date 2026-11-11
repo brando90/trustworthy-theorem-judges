@@ -8,7 +8,7 @@ import json
 import re
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
-from revise_rating_packet import required_only_rubric
+from revise_rating_packet import current_form_rubric
 
 MANIFEST_SHA256 = "0e4166045463dac71c2d7e70702f9c8b58ffccedeacdbff13ef4e57b8e85efa4"
 FORM_HOME = Path(__file__).resolve().parents[2]
@@ -55,7 +55,7 @@ def main():
         parser.error("Unexpected candidate count.")
     rubric = re.sub(r"^Open \[your personal rating sheet\].+$",
                     "Fill the assigned ratings.csv form.", members["Rating_Instructions.md"].decode(), flags=re.MULTILINE)
-    members["Rating_Instructions.md"] = required_only_rubric(rubric).encode()
+    members["Rating_Instructions.md"] = current_form_rubric(rubric).encode()
     members["START_HERE.md"] = (
         "# Rate theorem coverage\n\n"
         "Read RATING_FORM_GUIDE.md first for the current fields and assistance policy; "
@@ -64,7 +64,7 @@ def main():
         "gold Lean theorem statements, then rate each candidate under agent_lean. The files in "
         "gold_lean_dependencies, when present, support the reference.\n\n"
         "Open ratings.csv in a spreadsheet editor. Check your name and rater ID, then enter final_score_0_5 "
-        "and the ai_assisted_rating_attestation field for each assigned file. "
+        "and ai_assisted_rating_attestation for each assigned file. Please estimate minutes_spent and confidence; rationale is preferred but optional. Use problem_note for issues. "
         "Keep the prefilled identifiers intact. Email reference problems to Brando. "
         "Return your completed CSV privately to Brando.\n"
     ).encode()

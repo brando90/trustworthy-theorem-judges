@@ -1,7 +1,7 @@
-rater_name,rater_id,item_id,task_folder,candidate_file,final_score_0_5,ai_assisted_rating_attestation
-Rylan Schaeffer,T01,W01a,warm_up_01_median,warm_up_01_median/agent_lean/agent_1.lean,0,
-Rylan Schaeffer,T01,W01b,warm_up_01_median,warm_up_01_median/agent_lean/agent_2.lean,0,
-Rylan Schaeffer,T01,W01c,warm_up_01_median,warm_up_01_median/agent_lean/agent_3.lean,2,
-Rylan Schaeffer,T01,W02a,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_1.lean,3,
-Rylan Schaeffer,T01,W02b,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_2.lean,3,
-Rylan Schaeffer,T01,W02c,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_3.lean,3,
+rater_name,rater_id,item_id,task_folder,candidate_file,final_score_0_5,ai_assisted_rating_attestation,minutes_spent,confidence,rationale,problem_note
+Rylan Schaeffer,T01,W01a,warm_up_01_median,warm_up_01_median/agent_lean/agent_1.lean,0,,,,,The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate
+Rylan Schaeffer,T01,W01b,warm_up_01_median,warm_up_01_median/agent_lean/agent_2.lean,0,,,,,The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate
+Rylan Schaeffer,T01,W01c,warm_up_01_median,warm_up_01_median/agent_lean/agent_3.lean,2,,,,,The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate
+Rylan Schaeffer,T01,W02a,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_1.lean,3,,,,,Misses gold's largest divsor rule and agreement with imperative
+Rylan Schaeffer,T01,W02b,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_2.lean,3,,,,,Doesn't show agreement with imperative version
+Rylan Schaeffer,T01,W02c,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_3.lean,3,,,,,Doesn't show agreement with imperative version

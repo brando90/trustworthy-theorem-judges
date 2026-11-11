@@ -1,6 +1,6 @@
 # Collected human ratings, by person
 
-**Current form, 11-11-2026:** all 12 live Sheets and primary raw CSVs have five prefilled identifiers plus final score, model-assistance disclosure and independent-rating attestation. Optional/recommended columns were removed. All retained scores, N/A entries, row order and assignments are unchanged; historical missing disclosures remain unknown. [Revision and preserved source data](support/sheet_exports/11-11-2026_required_only/README.md).
+**Current form, 11-11-2026:** all 12 live Sheets and raw CSVs share eleven columns. Final score and the combined AI-assisted-rating attestation are required for new ratings. Time and confidence are requested; a one-sentence rationale is **preferred but optional**; problem notes are for issues. Original participant notes and times were restored verbatim. Scores, blanks and N/A entries are unchanged. [Verification and history](support/sheet_exports/11-11-2026_final_form/README.md).
 
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/RATINGS_INDEX.md>
@@ -12,7 +12,7 @@
 | Person | Raw CSV | Entries |
 | --- | --- | --- |
 | Brando Miranda | [Brando’s warm-up](ratings/Brando_Miranda__warmup_A1.csv) | Six blank rows |
-| Rylan Schaeffer | [Rylan’s warm-up](ratings/Rylan_Schaeffer__warmup_T01.csv) | Six numeric ratings; original blank times and `None` Lean response |
+| Rylan Schaeffer | [Rylan’s warm-up](ratings/Rylan_Schaeffer__warmup_T01.csv) | Six numeric ratings; original notes; per-file times remain blank |
 | Srivatsava Daruru (Sri) | [Sri’s warm-up](ratings/Srivatsava_Daruru_Sri__warmup_T05.csv) | Six numeric ratings; his recorded times and notes |
 | Yegor Denisov-Blanch | [Yegor’s warm-up](ratings/Yegor_Denisov-Blanch__warmup_T02.csv) | All six rows: three numeric ratings and three N/A reference-issue entries |
 
@@ -35,11 +35,3 @@ The primary collection still requires 250 main ratings: 20 assigned but blank an
 [Normalized analysis copies](ratings/analysis/) are separate from the raw files. The historical importer lowercases some labels and keeps only numeric rows; these derived copies must not be presented as the participant’s exact submission. The refresh script now writes there and cannot overwrite the primary raw directory.
 
 [Original import receipts](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/) and prior sheet snapshots remain historical evidence. Earlier name-first snapshots are superseded for current use because they included coordinator timing estimates. [Slava’s prepared CSV](support/SLAVA_CSV_NAME_FIRST_11-11-2026.md) remains unsent, with six blank response rows.
-
-**11-11-2026 header revision:** Brando’s warm-up and main sheets and their current CSV snapshots now use full checklist questions (schema v2.3). Response cells and completion counts are unchanged. Other delivered forms remain historical pending rollout. See [revision record](support/QUESTION_HEADERS_11-11-2026.md).
-
-**11-11-2026 descriptive paths:** Brando’s working warm-up packet, live sheet and current CSV use `warm_up_01_median`, `warm_up_02_greatest_common_divisor` and `agent_1.lean` through `agent_3.lean`. Historical item IDs, ratings and completion counts are unchanged. [Path mapping](support/WARMUP_PATHS.json) preserves provenance; older delivered packets remain unchanged.
-
-**Combined attestation, 11-11-2026:** all 12 live sheets and current raw CSVs now contain the final score plus one AI-assisted rating attestation. Scores and identifiers are unchanged; every new attestation remains blank. Earlier ratings are not evidence of AI use. Pre-change responses and readback are preserved in `support/sheet_exports/11-11-2026_combined_attestation/` (relative to the experiment root).
-
-**11-11-2026 warm-up view sync:** Brando, Rylan, Sri and Yegor now have the same descriptive file paths and sheet layout, with the header in row 1 and internal tracking columns B:D hidden. Scores and attestations remain person-specific and unchanged. [Sync receipt](support/sheet_exports/11-11-2026_warmup_sync/README.md).

@@ -1,18 +1,15 @@
-# Slava Naprienko — prepared name-first warm-up form
+# Slava Naprienko — prepared CSV return route
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/SLAVA_CSV_NAME_FIRST_11-11-2026.md>
+Slava uses an emailed CSV rather than a Google Sheet. This is a blank prepared form, not returned ratings or a new assignment; it adds zero observations.
 
-**TLDR:** Slava's return route is a CSV file by email, not a Google Sheet. A separate name-first warm-up form is prepared below; it has not been sent and contains no completed ratings.
+- [Current eleven-column form](forms/Slava_Naprienko__warmup_V01.csv).
+- [Current packet](../../../private/09_human_rating_collection/preparation_11-09-2026/packets/FormV5/VeriBench_warmup_V01_FormV5.zip).
+- [Shared field guide](../rating_task_packet/RATING_FORM_GUIDE.md).
+- [Current exact email review](../../../private/09_human_rating_collection/preparation_11-09-2026/REVIEW_TEAM_EMAILS_FORM_V5.md).
 
-- [Prepared personal CSV](forms/11-11-2026_name_first/Slava_Naprienko__warmup_V01__prepared.csv).
-- [Source hashes and preservation checks](forms/11-11-2026_name_first/Slava_Naprienko__warmup_V01__prepared.manifest.json).
-- [Current shared form instructions](../rating_task_packet/RATING_FORM_GUIDE.md).
+The name and stable ID are prefilled as Slava Naprienko and V01. All six answer rows remain blank. The packet uses descriptive folder/file paths, the same scoring rubric and fields as the live Sheets, and explicitly tells him to return ratings.csv by email. It is prepared and unsent; exact-text approval and a send instruction are still required.
 
-The first two columns are `rater_name` and `rater_id`, prefilled as **Slava Naprienko** and **V01**. The form uses the current 18-column schema. All six original item rows and every value in the original 15 data fields are preserved, including blank scores and notes. The two newer response fields, `model_assistance` and `independent_rating_attestation`, are blank. No one has answered them for Slava.
-
-The source is `rating_sheet_V01.csv` inside the delivered `VeriBench_warmup_V01.zip`. Its archive hash matches the recorded delivery receipt. The delivered archive and its embedded CSV remain unchanged. The old leading instruction comment remains in that archive; the prepared CSV begins with the current column header and uses the linked current guide for instructions.
-
-This file is a **prepared form**, not a returned submission, live-sheet snapshot, qualification decision, or new assignment. It adds zero rating observations. No new main-task form was generated from pending assignments. The old team email draft and attachment are historical and remain held; the new form must be incorporated into a versioned delivery and the exact recipient-specific text reviewed before any authorized send.
+The original delivered VeriBench_warmup_V01.zip and the earlier eighteen-column template under forms/11-11-2026_name_first/ remain immutable history. They are superseded for the next dispatch.
 
 ## Other template paths checked
 

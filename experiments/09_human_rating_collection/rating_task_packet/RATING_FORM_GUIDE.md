@@ -1,18 +1,20 @@
-# Fill in two fields per file
+# What to enter for each file
 
-Identifiers are prefilled; keep them unchanged. The synchronized warm-up view hides the internal rater, item and folder keys. Use the visible full file path to find the candidate. CSV exports retain those keys for reliable matching.
+Your name and file path are prefilled. Internal identifiers are hidden in Google Sheets and retained in CSVs; keep them unchanged.
 
-| Field to fill | What to enter |
+| Column | What to enter |
 | --- | --- |
-| `final_score_0_5` | Your final whole-number score from 0 to 5, after applying the unchanged rubric and spam adjustment. |
-| `ai_assisted_rating_attestation` | `yes`, `no` or `unsure`, answering the statement below. |
+| `final_score_0_5` — required | Your final whole-number score, 0–5, after the rubric and spam adjustment. |
+| `ai_assisted_rating_attestation` — required | `yes`, `no` or `unsure` in response to the statement below. |
+| `minutes_spent` — requested estimate | Rough minutes for this file, e.g. `10` or `5-10`. Include shared folder-reading time once, with its first file. |
+| `confidence` — requested | `low`: substantial uncertainty; `medium`: some uncertainty; `high`: confident in your comparison. |
+| `rationale` — **preferred but optional** | One sentence explaining the main coverage or missing guarantee behind your score. Your own words are enough. |
+| `problem_note` — if needed | A confusing or incorrect reference, file or instruction; give a small counterexample if possible. Otherwise leave blank. |
 
-> I used AI for localized assistance. I personally compared the specifications and chose the final score; I did not delegate the rating task to AI.
+**Attestation:** “I used AI for localized assistance. I personally compared the specifications and chose the final score; I did not delegate the rating task to AI.”
 
-For new ratings, use artificial intelligence (AI) for localized help understanding Lean notation, concepts or a specific point. Make the comparison and choose the score yourself; do not ask a model to rate the file or write your rating for you. Rate independently without consulting other raters’ ratings. Answer honestly; `no` or `unsure` prompts clarification. No one should prefill this answer for you.
+Use artificial intelligence (AI) for localized help with Lean notation, a concept or a specific point. You must make the comparison and choose the score yourself; do not ask a model to rate the file or write your rationale. Rate independently without consulting other people's ratings. Answer the attestation honestly; `no` or `unsure` prompts clarification.
 
-Read the accompanying scoring rubric. Its coverage criteria, checklist, base scale, spam adjustment and uncertainty rule are unchanged; record only the final score.
+If a reference is incorrect and prevents a defensible score, leave the score blank, explain in `problem_note`, and email brandojazz@gmail.com. A blank is not a zero. If you can rate despite an ambiguity, give your score and explain the ambiguity. The checklist and base score are reasoning steps in the rubric, not extra columns to fill.
 
-Use the personal Google Sheet linked in START_HERE.md, or `ratings.csv` if assigned that return route. Leave unfinished scores blank. If an incorrect reference prevents a rating, leave the score blank and email brandojazz@gmail.com with the item identifier and smallest concrete example.
-
-This assistance requirement applies to new ratings under form version `ai_assisted_attestation_v4_11-11-2026`. Earlier ratings keep their original conditions; missing historical AI-use information remains unknown. The new attestation must not be filled from an earlier independence-only answer.
+Use the personal Google Sheet linked in START_HERE.md. Submit the included `ratings.csv` only if your invitation explicitly assigns the CSV route. Missing historical context stays unknown; nobody fills it on a rater's behalf.

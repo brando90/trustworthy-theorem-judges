@@ -1,7 +1,7 @@
-rater_name,rater_id,item_id,task_folder,candidate_file,final_score_0_5,ai_assisted_rating_attestation
-Srivatsava Daruru (Sri),T05,W01a,warm_up_01_median,warm_up_01_median/agent_lean/agent_1.lean,1,
-Srivatsava Daruru (Sri),T05,W01b,warm_up_01_median,warm_up_01_median/agent_lean/agent_2.lean,1,
-Srivatsava Daruru (Sri),T05,W01c,warm_up_01_median,warm_up_01_median/agent_lean/agent_3.lean,1,
-Srivatsava Daruru (Sri),T05,W02a,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_1.lean,5,
-Srivatsava Daruru (Sri),T05,W02b,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_2.lean,4,
-Srivatsava Daruru (Sri),T05,W02c,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_3.lean,3,
+rater_name,rater_id,item_id,task_folder,candidate_file,final_score_0_5,ai_assisted_rating_attestation,minutes_spent,confidence,rationale,problem_note
+Srivatsava Daruru (Sri),T05,W01a,warm_up_01_median,warm_up_01_median/agent_lean/agent_1.lean,1,,4,high,Doesnt cover any gold theorem but has one non-vacuous theorem,
+Srivatsava Daruru (Sri),T05,W01b,warm_up_01_median,warm_up_01_median/agent_lean/agent_2.lean,1,,2,high,Doesnt cover any gold theorem but has one non-vacuous theorem,Also used FLOAT instead of INT
+Srivatsava Daruru (Sri),T05,W01c,warm_up_01_median,warm_up_01_median/agent_lean/agent_3.lean,1,,2,high,Doesnt cover any gold theorem but has one non-vacuous theorem,
+Srivatsava Daruru (Sri),T05,W02a,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_1.lean,5,,4,high,Covers all the 5 theorems directly or indirectly.,
+Srivatsava Daruru (Sri),T05,W02b,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_2.lean,4,,5,high,"Missing (0,0) for maximality thm and gcd_zero_thm",
+Srivatsava Daruru (Sri),T05,W02c,warm_up_02_greatest_common_divisor,warm_up_02_greatest_common_divisor/agent_lean/agent_3.lean,3,,5,high,"commutativity and maximality (for (0,0)) not covered",

@@ -23,7 +23,7 @@ Rejects the import (exit 1, nothing written) when:
     export is given for one whose receipt does; the two routes never mix, and `--csv` takes no Drive file id;
   - the export is not UTF-8 text;
   - the sheet names no rater, or more than one, in `rater_id`;
-  - a value is outside its allowed set or minutes are not a nonnegative number;
+  - a value is outside its allowed set or minutes are not a nonnegative number or ordered range;
   - a warm-up sheet does not score all six warm-up items, except W02 items named with `--reference-issue-items`
     (C17 addendum of 10-20-2026): those rows must read N/A in final_score_0_5 and carry a stated reference problem
     in rationale or problem_note; they are kept in the raw snapshot and the receipt, never as scores, and W01 items
@@ -37,6 +37,7 @@ import hashlib
 import io
 import json
 import math
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -180,11 +181,12 @@ def check(text, rater, expected_ids, allowed_folders, packet, ref_issue_items=fr
         mins = r.get("minutes_spent", "").strip()
         if mins:
             try:
-                m = float(mins)
-                if not math.isfinite(m) or m < 0:
+                parts = re.fullmatch(r"\s*(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)\s*", mins)
+                values = [float(x) for x in parts.groups()] if parts else [float(mins)]
+                if any(not math.isfinite(m) or m < 0 for m in values) or values[0] > values[-1]:
                     raise ValueError
             except ValueError:
-                errors.append(f"row {n} ({iid}): minutes_spent must be a nonnegative number, got {mins!r}")
+                errors.append(f"row {n} ({iid}): minutes_spent must be nonnegative minutes or an ordered range like 5-10, got {mins!r}")
         if r.get("lean_familiarity"):
             # Preserve descriptive answers verbatim; keep historical label normalization.
             background = r["lean_familiarity"].strip()

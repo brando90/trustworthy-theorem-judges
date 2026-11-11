@@ -9,7 +9,7 @@ These files support coordination and reproducibility. **They are not required to
 - `scripts/`: packet-building, import and collection-maintenance tools.
 - `tests/`: automated checks for packet construction and rating imports; no human labeling is performed here.
 - `assets/`: source images and supporting material.
-- `sheet_exports/`: superseded historical snapshots; current raw data stays in [../ratings/](../ratings/README.md).
+- `sheet_exports/`: dated before/after snapshots and raw-response provenance; current raw data stays in [../ratings/](../ratings/README.md).
 - `audit/`: withdrawn coordinator additions and provenance; never treat these as participant responses.
 - `forms/`: prepared forms, including Slava’s unsent CSV route.
 - `drafts/`: older draft history. Edit the current working drafts in [../rating_task_packet/](../rating_task_packet/), not here.

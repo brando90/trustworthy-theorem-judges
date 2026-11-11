@@ -4,7 +4,13 @@
 
 **TLDR:** Move the active human-rating collection from VeriBench into this experiment without changing delivered materials, opening sealed ratings, or conflating the inherited round with the prospective study.
 
-## State
+## Current preparation — 11-11-2026
+
+Use [the experiment README](../README.md) and [the current preparation section](PREPARATION_11-09-2026.md#current-prepared-version--11-11-2026). The working packet is in `../rating_task_packet/`; current raw data is in `../ratings/`; scripts/tests are in `scripts/` and `tests/` relative to this support folder. All twelve sheets and raw exports now share eleven columns: name, four stable identifiers, score, combined attestation, minutes, confidence, rationale and problem note. Rationale is preferred but optional. New required AI assistance is prospective; original human notes and times were restored verbatim, without inferred responses.
+
+Thirteen replacement packets and eight exact team email previews are prepared. Older drafts are historical; CURRENT_PREPARATION.json in the private preparation folder selects FormV5. Nothing has been sent in this revision. Brando's pilot, revised-text approval and explicit send instruction remain before team dispatch. Collection counts remain 15 numeric warm-ups, three N/A entries and no completed main ratings. Preserve the existing assigned subsets and prior-exposure history.
+
+## Historical migration state
 
 - Editable packet, 11-11-2026: Brando’s working instructions, rubric, field guide, email draft, personal Sheet link, blank CSV and unchanged W01/W02 task files are in `../rating_task_packet/`. Import/design notes moved here into support; live local links updated. Draft wording still needs reconciliation before dispatch (email J versus score column K; old START_HERE requirements). Thirty checks pass. See `LAYOUT_MOVE_11-11-2026.json` for byte hashes and cross-repository link publication limits.
 
