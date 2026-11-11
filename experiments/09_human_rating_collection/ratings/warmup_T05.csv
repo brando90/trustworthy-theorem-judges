@@ -1,0 +1,7 @@
+rater_id,item_id,task_folder,candidate_file,A,B,C,D,base_score_0_5,final_score_0_5,confidence,rationale,problem_note,minutes_spent,lean_familiarity
+T05,W01a,W01,W01/agent_lean/W01a.lean,n,n,n,n/a,1,1,high,Doesnt cover any gold theorem but has one non-vacuous theorem,,4,some
+T05,W01b,W01,W01/agent_lean/W01b.lean,n,n,n,n/a,1,1,high,Doesnt cover any gold theorem but has one non-vacuous theorem,Also used FLOAT instead of INT,2,some
+T05,W01c,W01,W01/agent_lean/W01c.lean,n,n,n,n/a,1,1,high,Doesnt cover any gold theorem but has one non-vacuous theorem,,2,some
+T05,W02a,W02,W02/agent_lean/W02a.lean,y,y,n,n/a,5,5,high,Covers all the 5 theorems directly or indirectly.,,4,some
+T05,W02b,W02,W02/agent_lean/W02b.lean,y,n,n,n/a,4,4,high,"Missing (0,0) for maximality thm and gcd_zero_thm",,5,some
+T05,W02c,W02,W02/agent_lean/W02c.lean,y,n,n,n/a,3,3,high,"commutativity and maximality (for (0,0)) not covered",,5,some

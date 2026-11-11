@@ -12,7 +12,7 @@
 - [Current completion status: who is done and what is missing](COMPLETION_STATUS.md), checked **11-11-2026**.
 - [Original import receipts](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/).
 
-The ratings, named index and completion status are directly in this experiment folder on this Mac. The CSV files are byte-identical copies of the existing imports, not additional observations. Local data files are excluded from public Git publication.
+The ratings, named index and completion status are directly in this experiment folder on this Mac. The CSV files are byte-identical copies of the existing imports, not additional observations. The rating files, named index and completion status are tracked in Git, as requested on 11-11-2026.
 
 ## Ownership and scope
 
