@@ -3,6 +3,6 @@ description: Shared project instructions, including human-rating file placement
 alwaysApply: true
 ---
 
-Read and follow the repository-root AGENTS.md before working in this project. It is the canonical project contract, mirrored byte-for-byte in CLAUDE.md. In particular, follow its human-rating file placement rule: actual local ratings, named index and completion status belong directly under experiments/09_human_rating_collection/, not solely behind links into private/.
+Read and follow the repository-root AGENTS.md before working in this project. It is the canonical project contract, mirrored byte-for-byte in CLAUDE.md. In particular, follow its human-rating file placement rule: track actual ratings, the named index and completion status directly under experiments/09_human_rating_collection/. Use names in rating filenames and the first column. Do not ignore, anonymize or relocate these collection deliverables by default.
 
 @AGENTS.md

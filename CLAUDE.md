@@ -27,7 +27,7 @@ This is a research project. Each experiment lives in its own numbered experiment
 
 ## Human-rating task ownership
 
-User decision, 11-09-2026: this repository is the primary owner of preparing and collecting VeriBench human ratings to develop and evaluate a formal specification coverage judge. The active task is `experiments/09_human_rating_collection/`; keep rater instructions, packet preparation, the approved email template, assignment tracking and collection status there. The prospective collection design remains in `experiments/02_probabilistic_ordinal_judge/`. Participant records and individual ratings remain private.
+User decision, 11-09-2026: this repository is the primary owner of preparing and collecting VeriBench human ratings to develop and evaluate a formal specification coverage judge. The active task is `experiments/09_human_rating_collection/`; keep rater instructions, packet preparation, the approved email template, assignment tracking and collection status there. The prospective collection design remains in `experiments/02_probabilistic_ordinal_judge/`. Collected ratings, participant names and completion status are tracked in the experiment folder under the file-placement rule below.
 
 Before preparing, dispatching, importing, or handing off ratings, read [judge formulations 2 and 4](experiments/09_human_rating_collection/JUDGE_FORMULATIONS_11-09-2026.md): 2 optimizes training correlation; 4 optimizes a proper probabilistic training loss. Preserve independent raw ratings and sealed splits so both can be compared fairly. Validation selection (1 versus 3) is a separate comparison. This methodology context does not change the locked packet, rubric, assignments, or send authorization.
 
@@ -56,14 +56,16 @@ For packets: keep the validation and test splits by task family, solver and rate
 
 ## Human-rating file placement — user decision, 11-11-2026
 
-Keep the human-facing collection directly in `experiments/09_human_rating_collection/`: `RATINGS_INDEX.md` identifies each person and links their actual files, `COMPLETION_STATUS.md` states who is done and what remains with a checked date, and `ratings/` contains the actual collected rating files. Use person-first filenames such as `Rylan_Schaeffer__warmup_T01.csv` and a first `rater_name` column so names appear in the editor file tree and table view; retain the original `rater_id` for matching and deduplication. Preserve original source fields and document any added display columns. Link these local paths prominently from the experiment README. A link to an index hidden only under `private/` is not sufficient. Do not relocate these deliverables away from the user's requested experiment folder.
-
-Preserve original imports and receipts; if the experiment files are convenience copies or named exports, verify unchanged source fields and record original hashes, refresh them together with the index/status after collection, and never count copies as new observations. Keep names available locally for coordination. User clarification, 11-11-2026: track the collected rating files, named index and completion status in Git in this experiment folder. Do not add ignore rules for these deliverables. This explicitly supersedes the earlier exclusion rule for these collection artifacts; credentials, unrelated private records and sealed test data remain excluded. Verify the files exist at the requested absolute path. If an editor hides ignored files, open those exact files in the user's requested editor; distinguish editor visibility, missing files and Git synchronization using evidence.
+- Track the collected rating files, named index and completion status in Git directly under `experiments/09_human_rating_collection/`. Do not ignore, anonymize or move these deliverables into `private/` by default.
+- Keep actual rating files in `ratings/`, names and data links in `RATINGS_INDEX.md`, and dated completion information in `COMPLETION_STATUS.md`. Link all three prominently from the experiment README.
+- Use person-first filenames such as `Rylan_Schaeffer__warmup_T01.csv` and a first `rater_name` column. Retain the original `rater_id` for matching records and preventing duplicate counts.
+- Preserve original imports and receipts. Verify that named exports retain every source field and row, record original hashes, and refresh exports, index and status together. Copies are not new observations.
+- Verify files at the user's requested path and open them in the requested editor when needed. Diagnose editor visibility, missing files and Git synchronization separately; do not substitute a link elsewhere for the requested file placement.
 
 ## Files and privacy
 
 - Put experiment-specific configuration, scripts, aggregate evidence, and reports together under `experiments/NN_descriptive_setup/`; update `experiments/README.md`.
-- This repository is public. Keep participant identities, individual rating sheets, consent, private packets, credentials, and sealed ratings in ignored `private/`, or the approved restricted store, except for the explicitly authorized tracked collection artifacts above. Import only authorized aggregate historical evidence.
+- The named collection artifacts above are authorized for tracking in this public repository. Keep credentials, sealed test data, private correspondence and consent records outside public Git. Do not apply a blanket privacy exclusion to participant names or collected ratings.
 - Preserve the existing packet builder's byte-exact delivery contract and source snapshots. Do not rewrite a delivered packet in place.
 - Use “rating” for data, “rater” for people, and “judge” for the model. Prefer “judge selection” and “judge–human agreement”; do not introduce certification claims from human agreement.
 
