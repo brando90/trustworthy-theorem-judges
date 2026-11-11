@@ -23,7 +23,7 @@ Rejects the import (exit 1, nothing written) when:
     export is given for one whose receipt does; the two routes never mix, and `--csv` takes no Drive file id;
   - the export is not UTF-8 text;
   - the sheet names no rater, or more than one, in `rater_id`;
-  - a value is outside its allowed set, minutes are not a nonnegative number, or lean_familiarity differs between rows;
+  - a value is outside its allowed set or minutes are not a nonnegative number;
   - a warm-up sheet does not score all six warm-up items, except W02 items named with `--reference-issue-items`
     (C17 addendum of 10-20-2026): those rows must read N/A in final_score_0_5 and carry a stated reference problem
     in rationale or problem_note; they are kept in the raw snapshot and the receipt, never as scores, and W01 items
@@ -49,7 +49,7 @@ TEMPLATES = {"setN": EXP / "human_round/sample_setN/rating_sheet_TEMPLATE.csv", 
 REQUIRED = ("rater_id", "item_id", "final_score_0_5")
 A1_SHEETS_PATH = EXP / "personal_sheet_ids.json"  # Private coordinator sheet bindings.
 ALLOWED = {"A": {"y", "n"}, "B": {"y", "n"}, "C": {"y", "n"}, "D": {"handful", "dominates", "n/a"},
-           "confidence": {"low", "med", "high"}, "lean_familiarity": {"none", "some", "fluent"},
+           "confidence": {"low", "med", "high"},
            "independent_rating_attestation": {"yes", "no", "unsure"}}
 YESNO = {"yes": "y", "no": "n"}
 SYNONYMS = {"confidence": {"medium": "med"}}  # C17 addendum 10-20-2026: the spelled-out value of the template's "med"
@@ -160,7 +160,11 @@ def check(text, rater, expected_ids, allowed_folders, packet, ref_issue_items=fr
             except ValueError:
                 errors.append(f"row {n} ({iid}): minutes_spent must be a nonnegative number, got {mins!r}")
         if r.get("lean_familiarity"):
-            fams.add(r["lean_familiarity"])
+            # Preserve descriptive answers verbatim; keep historical label normalization.
+            background = r["lean_familiarity"].strip()
+            if background.lower() in {"none", "some", "fluent"}:
+                r["lean_familiarity"] = background.lower()
+            fams.add(r["lean_familiarity"].strip())
         name = r.get("rater_id", "").strip()
         if name:
             names.add(name)
@@ -174,7 +178,7 @@ def check(text, rater, expected_ids, allowed_folders, packet, ref_issue_items=fr
     elif len(names) > 1:
         errors.append(f"more than one rater_id in one sheet: {sorted(names)}")
     if len(fams) > 1:
-        errors.append(f"lean_familiarity differs between rows: {sorted(fams)}")
+        warnings.append(f"lean_familiarity has multiple entries; preserve and review as one person's background: {sorted(fams)}")
     if packet == "warmup":
         missing = sorted(expected_ids - {r["item_id"] for r in out} - set(ref_issue))
         if missing:

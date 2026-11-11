@@ -24,6 +24,23 @@ REVISION = load("form_packet", EXP / "scripts/revise_rating_packet.py")
 
 
 class FormRevisionTests(unittest.TestCase):
+    def test_descriptive_background_once_or_with_legacy_labels_is_preserved(self):
+        detail = "Lean tutorial; wrote 5 small proofs, about 10 hours last year."
+        fields = ["rater_id", "item_id", "final_score_0_5", "lean_familiarity"]
+        for later in ("", "Some"):
+            buf = io.StringIO()
+            w = csv.writer(buf)
+            w.writerow(fields)
+            w.writerow(["A1", "N01a", "2", detail])
+            w.writerow(["A1", "N01b", "3", later])
+            rows, errors, warnings, _, _ = IMPORTER.check(buf.getvalue(), "A1", {"N01a", "N01b"}, None, "setN")
+            self.assertFalse(errors)
+            self.assertEqual(rows[0]["lean_familiarity"], detail)
+            self.assertEqual(rows[1]["lean_familiarity"], later.lower())
+            self.assertEqual(bool(warnings), bool(later))
+            data = IMPORTER.normalized_csv(rows, fields[:3], fields)
+            self.assertEqual(next(csv.DictReader(io.StringIO(data.decode())))["lean_familiarity"], detail)
+
     def test_metadata_survives_import_and_missing_attestation_is_not_fabricated(self):
         fields = ["rater_id", "item_id", "final_score_0_5", "model_assistance", "independent_rating_attestation"]
         buf = io.StringIO()

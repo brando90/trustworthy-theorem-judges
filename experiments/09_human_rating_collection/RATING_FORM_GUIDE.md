@@ -16,11 +16,17 @@ Form revision: **11-11-2026**. This guide updates the sheet fields and assistanc
 | `model_assistance` — required disclosure | Write `none`, or the model/tool name and a short description of the localized help, such as `Claude: explained Lean notation`. Using a model is optional. |
 | `independent_rating_attestation` — required response | Choose `yes`, `no` or `unsure`. Choose yes only if the statement below is true. Leave blank until you answer. |
 | `minutes_spent` — recommended | Approximate minutes for the file, including shared folder-reading time in its first file. Leave blank if unknown; do not invent a time. |
-| `lean_familiarity` — recommended | `none`, `some` or `fluent`; repeat the same answer for each row. |
+| `lean_familiarity` — recommended, once per person | In the first item row, describe your Lean background in one or two sentences using the question below. You do not need to repeat it on every row. |
 | Checklist A–D and `base_score_0_5` — optional to record | Use the rubric's checklist and spam adjustment when deciding your score. You do not have to transcribe every intermediate answer. |
 | `confidence` — optional | `low`, `med` or `high`. |
 | `rationale` — optional | A short explanation in your own words. |
 | `problem_note` — optional unless a problem prevents rating | Note confusing instructions or a reference problem. Give a small concrete example when possible. |
+
+## Describe your background briefly
+
+What have you done with Lean (for example, tutorials, reading theorem statements, writing proofs, a course or a project), roughly how much, and how recently? Separately mention relevant programming-languages/formal-methods coursework or experience with other proof assistants. If you have no Lean experience, say so and mention any related background. Please give a concrete description rather than only “some” or “fluent.”
+
+Examples: “Completed a Lean tutorial and wrote a few small proofs, about ten hours last year”; or “No Lean experience; took a programming-languages course.” These are examples, not prefilled answers. One or two sentences in the first item row are enough; the remaining background cells can stay blank. If you already entered a short label, expand it in the first row without rerating the files. Use the same description for your warm-up and main task unless your experience changes.
 
 ## Model assistance is encouraged for localized help
 
