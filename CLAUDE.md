@@ -54,10 +54,16 @@ What the literature check found (about 90 papers read by abstract and key passag
 
 For packets: keep the validation and test splits by task family, solver and rater; keep test ratings out of judge selection; record which ratings were available to the judge search (train, validation, test) so ③ and ④ can be run later without re-collecting; use "rating" for the data and "judge" for the model (one term per concept).
 
+## Human-rating file placement — user decision, 11-11-2026
+
+Keep the human-facing collection directly in `experiments/09_human_rating_collection/`: `RATINGS_INDEX.md` identifies each person and links their actual files, `COMPLETION_STATUS.md` states who is done and what remains with a checked date, and `ratings/` contains the actual collected rating files. Link these local paths prominently from the experiment README. A link to an index hidden only under `private/` is not sufficient. Do not relocate these deliverables away from the user's requested experiment folder.
+
+Preserve original imports and receipts; if the experiment files are convenience copies, verify their bytes, refresh them together with the index/status after collection, and never count copies as new observations. Keep names available locally for coordination. Exclude individual data and named status/index files from public Git using explicit ignore rules; exclusion from publication must not become an excuse to put the files elsewhere or delay collection. Verify the files exist at the requested absolute path. If an editor hides ignored files, open those exact files in the user's requested editor; distinguish editor visibility, missing files and Git synchronization using evidence.
+
 ## Files and privacy
 
 - Put experiment-specific configuration, scripts, aggregate evidence, and reports together under `experiments/NN_descriptive_setup/`; update `experiments/README.md`.
-- This repository is public. Keep participant identities, individual rating sheets, consent, private packets, credentials, and sealed ratings in ignored `private/` or the approved restricted store. Import only authorized aggregate historical evidence.
+- This repository is public. Keep participant identities, individual rating sheets, consent, private packets, credentials, and sealed ratings in ignored `private/`, the explicitly ignored experiment-local collection paths above, or the approved restricted store. Import only authorized aggregate historical evidence.
 - Preserve the existing packet builder's byte-exact delivery contract and source snapshots. Do not rewrite a delivered packet in place.
 - Use “rating” for data, “rater” for people, and “judge” for the model. Prefer “judge selection” and “judge–human agreement”; do not introduce certification claims from human agreement.
 

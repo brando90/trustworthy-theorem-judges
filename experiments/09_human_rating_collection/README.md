@@ -6,13 +6,13 @@
 
 ## Open the collected ratings
 
-**Start here: [ratings by person — names and actual CSV files](../../private/09_human_rating_collection/RATINGS_INDEX.md).**
+**Start here: [ratings by person — names and actual CSV files](RATINGS_INDEX.md).**
 
-- [Current completion status: who is done and what is missing](../../private/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/STATUS.md), checked **11-11-2026**.
-- [Canonical imported rating data](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/).
-- [Latest sheet snapshots and source receipts](../../private/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/). These are refreshed copies, not additional independent ratings.
+- [Actual rating CSV files](ratings/).
+- [Current completion status: who is done and what is missing](COMPLETION_STATUS.md), checked **11-11-2026**.
+- [Original import receipts](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/).
 
-**These links are local to the coordinator's checkout.** Individual ratings, participant names and personal sheet links live under ignored `private/`, so they are not published on GitHub and are not downloaded by `git pull`. Open `private/09_human_rating_collection/RATINGS_INDEX.md` from the repository root; if the editor hides ignored files, use its Open File dialog. On the coordinator's Mac, the canonical root is `/Users/brandomiranda/trustworthy-theorem-judges`. A fresh checkout needs the approved private-data transfer, not a force-add of participant data to this public repository.
+The ratings, named index and completion status are directly in this experiment folder on this Mac. The CSV files are byte-identical copies of the existing imports, not additional observations. Local data files are excluded from public Git publication.
 
 ## Ownership and scope
 
