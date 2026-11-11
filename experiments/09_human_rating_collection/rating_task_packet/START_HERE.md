@@ -10,8 +10,7 @@ how each person uses the 0-5 scale. Rate exactly as you will rate your task fold
 
 ## Steps
 
-1. **Open your rating sheet:** the link is in `YOUR_RATING_SHEET.txt`, next to this file. It is shared with you
-   as an editor and already has your rater code filled in. Type straight into it; it saves as you go.
+1. **[Open your rating sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit)** for Brando Miranda. Your name and rater ID are already filled in. Type straight into it; it saves as you go.
 2. **Read the rules once:** `human_judgements_prompt.md`. Ignore its own Google Sheet link; use your sheet from step 1.
 3. **For each folder (`warm_up_01_median`, then `warm_up_02_greatest_common_divisor`):**
    - read the Python program in `python_source/`;
@@ -30,7 +29,7 @@ how each person uses the 0-5 scale. Rate exactly as you will rate your task fold
 
 - **No Lean expertise needed:** you compare theorem statements; you never write or check proofs.
 - **Your sheet is personal:** it is shared only with you, so please don't forward the link. If Google asks you to
-  request access, switch to the Google account named in `YOUR_RATING_SHEET.txt`.
+  request access, switch to the account that received your invitation.
 - **Next:** once all six rows have a final score, your task folders (set N) arrive within a working day.
 - **Questions:** brandojazz@gmail.com.
 

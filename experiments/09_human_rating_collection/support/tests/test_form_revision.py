@@ -103,7 +103,8 @@ class FormRevisionTests(unittest.TestCase):
         self.assertTrue(any("coordinator review" in x for x in warnings))
 
     def test_revised_archive_preserves_scientific_bytes_and_refuses_overwrite(self):
-        files = {"START_HERE.md": b"Old instructions\n", "human_judgements_prompt.md": b"Unchanged rubric\n",
+        files = {"START_HERE.md": b"Old instructions\n", "YOUR_RATING_SHEET.txt": b"Old link\n",
+                 "human_judgements_prompt.md": b"Unchanged rubric\n",
                  "W01/python_source/task.py": b"# synthetic source\n",
                  "W01/gold_lean/task.lean": b"-- synthetic reference\n",
                  "W01/agent_lean/W01a.lean": b"-- synthetic candidate\n"}
@@ -117,6 +118,8 @@ class FormRevisionTests(unittest.TestCase):
             self.assertEqual(src.read_bytes(), original)
             self.assertEqual(receipt["preserved_scientific_files"],3)
             with ZipFile(dst) as z:
+                self.assertNotIn("revised/YOUR_RATING_SHEET.txt", z.namelist())
+                self.assertIn("https://example.invalid/sheet", z.read("revised/START_HERE.md").decode())
                 for n,b in files.items():
                     if n.endswith((".lean",".py")):
                         mapped = json.loads((EXP/"support/WARMUP_PATHS.json").read_text())["paths"].get(n, n)

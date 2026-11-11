@@ -50,7 +50,7 @@ def revise(source, output, rater, sheet_url):
     files["START_HERE.md"] = (
         "# Start your human ratings\n\n"
         f"This packet has {len(candidates)} candidate files. Form revision: 11-11-2026.\n\n"
-        "1. Open the personal Google Sheet in YOUR_RATING_SHEET.txt. Use that existing sheet; no copy is needed.\n"
+        f"1. [Open your personal Google Sheet]({sheet_url}) for {rater_name} ({rater}). Use that existing sheet; no copy is needed.\n"
         "2. Read RATING_FORM_GUIDE.md for the shared warm-up/main fields and assistance policy. "
         "It supersedes older submission links and assistance wording.\n"
         f"3. Read {rubric} for the unchanged 0–5 scoring rubric. "
@@ -60,11 +60,8 @@ def revise(source, output, rater, sheet_url):
         "Record the help and answer the attestation yourself.\n\n"
         "The included ratings.csv is a blank form with the same columns; the personal Google Sheet is your return route.\n"
     ).encode()
-    files["YOUR_RATING_SHEET.txt"] = (
-        f"Personal rating sheet for {rater_name} ({rater})\n{sheet_url}\n\n"
-        "Fill final_score_0_5, model_assistance and independent_rating_attestation for each completed item.\n"
-        "The sheet saves automatically; keep the prefilled identifiers unchanged.\n"
-    ).encode()
+    # The personal link lives in START_HERE; remove the redundant legacy pointer.
+    files.pop("YOUR_RATING_SHEET.txt", None)
     # Remove superseded blank form copies from the new archive only.
     for n in list(files):
         if n.endswith(".csv") and ("rating" in Path(n).name.lower()):

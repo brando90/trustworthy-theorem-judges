@@ -4,7 +4,7 @@
 
 **TLDR:** The warm-up and main task use the same columns and instructions; only the assigned items differ. For each completed item, enter your final score, disclose any model assistance and answer the attestation.
 
-Form revision: **11-11-2026**, name-first schema version `common_form_v2_3_11-11-2026`. This guide updates the sheet fields and assistance instructions; it does not change the 0–5 scoring rubric or any candidate/reference file. Use the personal Google Sheet linked in your email and `YOUR_RATING_SHEET.txt`, rather than a sheet-copy link in an older rubric. If your email instead assigns a CSV return route, fill the included CSV and email it back; it uses the same columns.
+Form revision: **11-11-2026**, name-first schema version `common_form_v2_3_11-11-2026`. This guide updates the sheet fields and assistance instructions; it does not change the 0–5 scoring rubric or any candidate/reference file. Use the personal Google Sheet linked in your email and `START_HERE.md`, rather than a sheet-copy link in an older rubric. If your email instead assigns a CSV return route, fill the included CSV and email it back; it uses the same columns.
 
 1. Read the folder's Python source and the gold-reference theorem statements.
 2. Read each candidate in `agent_lean`. Use the accompanying scoring rubric to compare statement coverage, not proofs. Make the final comparison and score yourself.
