@@ -4,6 +4,10 @@
 
 **TLDR:** This is the active home for preparing and collecting human ratings of formal specification coverage, with inherited packets and collection records preserved. The current preparation record supplies revised deadlines and individual drafts; collaborator dispatch still requires review of the recipient-specific text and an explicit send instruction.
 
+## Do Brando's warm-up first
+
+[Brando's six-file warm-up packet, personal Google Sheet and instructions](BRANDO_WARMUP.md). Complete this practice set before the full 125-file packet.
+
 ## Open the collected ratings
 
 **Start here: [ratings by person — names and actual CSV files](RATINGS_INDEX.md).**
