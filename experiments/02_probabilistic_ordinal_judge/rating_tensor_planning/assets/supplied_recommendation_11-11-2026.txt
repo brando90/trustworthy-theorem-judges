@@ -1,0 +1,76 @@
+Some handwriting is unclear; I’ve marked uncertain readings in brackets.
+
+Transcription
+
+> Q: What were the other notes in my chats with the chat “models” (Claude, Gemini [“... high”—model name unclear] especially, ChatGPT)?
+
+↳ I think it was called “final judge,” the chat.
+
+→ The reason I need the links (e.g. [use?] my computer/CUA, so to get the URLs).
+
+↳ Download their full exchange to an .md file per model, e.g. gemini-[unclear]-high.md, etc.
+
+→ With an explicit decision: how much total rating data we need for the tensor T × A × H.
+
+Based on / per method:
+
+1. The “σ/√n” method; how much data it suggests? Why? Pros/cons [small annotation unclear].
+2. The learning theory [method]; [ditto].
+3. Power law; [ditto].
+
+→ But good justifications for covariates/features in [linear?] + good rationale for what coefficients are, e.g. A, α, B, [β?], E, … etc.
+
+E.g. if law was: \(L = E + A N^{-\alpha} + B D^{-\beta}\), etc.
+[Formula is partly unclear; this is the likely reading.]
+
+
+
+Prompt to paste into Codex
+
+Help me recover and synthesize my previous AI conversations about how much rating data I need for a tensor described as T × A × H.
+
+You are running on my computer. Use the browser, local files, and any available connected tools to locate the relevant conversations. One chat may have been titled “final judge.” Search conversations with Claude, Gemini (especially a model or mode whose name includes “high”), and ChatGPT. The exact Gemini model name is unclear, so establish it from the actual conversations.
+
+1. Recover the source material
+
+Find the relevant chats and record their titles, model names, dates when available, and original URLs. Search for “final judge,” rating data, T × A × H, sample size, σ/√n, learning theory, power law, and scaling law.
+
+Export the complete available exchange from each relevant conversation to Markdown, preserving user and assistant messages, equations, and links. Organize these by model, with a source index linking each export to its original URL. Use the actual model names in filenames. If multiple conversations belong to one model, preserve their boundaries.
+
+Do not present partial exports as complete. Record inaccessible conversations or missing content, and do not invent any source text.
+
+2. Establish the problem from the conversations
+
+Determine what T, A, and H represent, what counts as one rating, the intended prediction or estimation task, and the desired accuracy or precision.
+
+Identify the sampling assumptions, repeated measurements, dependence between ratings, missing tensor entries, and any relevant subgroups. Distinguish total ratings, unique rated items, unique raters, and ratings per tensor cell.
+
+Use the recovered sources to resolve these details. Flag unresolved points explicitly.
+
+3. Compare three approaches to determining the required data
+
+For each approach, explain the assumptions, calculation, estimated data requirement, uncertainty, advantages, limitations, and applicability to this task:
+
+- The σ/√n approach: clarify which quantity’s standard error this describes, the desired confidence level and precision, and any adjustment needed for correlated or repeated ratings.
+- Learning theory: identify the actual bound or framework used in the conversations, explain its inputs, and distinguish a theoretical bound from a practical sample-size recommendation.
+- Power-law / scaling-law analysis: recover the proposed functional form and explain how its parameters would be estimated and validated. If the sources use something like L = E + A N^(-α) + B D^(-β), define every symbol from the source rather than assuming its meaning.
+
+For any proposed regression or learning-curve model, justify each covariate or feature. Explain the meaning, units, constraints, and estimation of the coefficients, including A, α, B, β, and E where applicable. Distinguish symbols used in a scaling law from similarly named tensor dimensions.
+
+Do not invent fitted coefficients or numerical conclusions when the necessary data is absent.
+
+4. Make an explicit recommendation
+
+State how much total rating data to collect, with a defensible range and the allocation across T × A × H. Explain which method supports the recommendation and reconcile disagreements among methods.
+
+If the evidence is insufficient for a defensible final number, state exactly what is missing and propose a concrete pilot size, sampling allocation, and stopping rule that will allow us to estimate the required total. Clearly separate source-backed conclusions from your own recommendations.
+
+5. Save the deliverables
+
+Create:
+- A source index with conversation links and export completeness.
+- Markdown exports organized by model.
+- A synthesis comparing the three methods, with citations to the exported conversations.
+- A short decision memo stating the recommended total, allocation, assumptions, uncertainty, and next steps.
+
+Start by finding the source conversations. Proceed autonomously with the available access, and ask only for missing information or access that materially blocks the work.

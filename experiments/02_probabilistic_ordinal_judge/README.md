@@ -10,6 +10,8 @@ This repository studies artificial intelligence (AI), agent, and large language 
 
 The accepted design comes from the user's [shared planning conversation](https://chatgpt.com/share/6aee2147-9648-83e8-9ea5-685a565ffe54). This document makes the planned data collection and analysis explicit. It supersedes earlier human-count proposals for this experiment.
 
+**Rating-count source recovery, 11-11-2026:** [Original Claude, Gemini and ChatGPT text, links and sizing decision](rating_tensor_planning/README.md) compare standard errors, learning theory and scaling laws. The historical budget below remains unchanged; the new 544-rating pilot is a prospective proposal, not an executed amendment.
+
 ## Target and measurement
 
 For each candidate artifact, use the same triple for humans and the judge:
@@ -47,7 +49,7 @@ Let \(P_c\) be the true cumulative human probabilities. Then
 +\underbrace{\frac15\sum_cP_c(1-P_c)}_{\text{human disagreement}}.
 \]
 
-Thus, minimizing expected RPS targets the entire conditional rating distribution; its unrestricted optimum is \(q=p^*\). On the normalized rating scale, the Wasserstein distance is \(W_1(q,p^*)=\frac15\sum_c|Q_c-P_c|\), and \(W_1^2\) is at most the excess expected RPS. This justifies the objective, not a claim that any chosen judge achieves it. Proper scoring rules are established methodology ([Gneiting and Raftery, 2007](https://sites.stat.washington.edu/raters/raftery/Research/PDF/Gneiting2007jasa.pdf)).
+Thus, minimizing expected RPS targets the entire conditional rating distribution; its unrestricted optimum is \(q=p^*\). On the normalized rating scale, the Wasserstein distance is \(W_1(q,p^*)=\frac15\sum_c|Q_c-P_c|\), and \(W_1^2\) is at most the excess expected RPS. This justifies the objective, not a claim that any chosen judge achieves it. Proper scoring rules are established methodology ([Gneiting and Raftery, 2007](https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf)).
 
 For artifact \(i\) with \(m_i\) assigned raters, optimize
 
