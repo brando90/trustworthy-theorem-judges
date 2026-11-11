@@ -4,6 +4,8 @@
 
 ## Open the actual rating data
 
+[Read Rylan’s notes in a formatted preview](RYLAN_NOTES.md).
+
 Each filename includes the person's name, and each file starts with a `rater_name` column followed by the original `rater_id`. All original rating values, notes and rows are preserved. These named exports are the same observations as the canonical imports, not additional ratings.
 
 | Person who supplied the ratings | Actual data | Numeric ratings | Other entries |
