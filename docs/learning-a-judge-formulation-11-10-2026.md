@@ -42,3 +42,26 @@ If learning a judge is a learning problem, its held-out loss should fall with th
 ## Learning bounds
 
 Brando said (Fathom call 11-07-2026, [notes](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md)) that the idea came from trying to work out, with a learning bound, how many human-rated pairs are needed. A derived bound is not in this repository. The only bound-like statement here is that small excess expected RPS bounds the Wasserstein-1 distance (`paper_latex/AAAI_2027_Evaluation_AI_Scientists/04_objective.tex`).
+
+## Pointers: where related bounds and scaling laws already live (read from main, 11-10-2026)
+
+None of these is a bound for learning a judge from human ratings. They are listed so the search is not repeated.
+
+**1. [brando90/tvdmi-judge-asymptotics](https://github.com/brando90/tvdmi-judge-asymptotics) (at 83e40e4): reference-free consensus over K judges, not learning from human ratings.**
+- `latex_paper/neurips/04_consensus_convergence.tex`: majority-vote bound, gap to the optimal critic at most \(2e^{-2K\gamma_0^2}\) (Hoeffding; judges conditionally independent, positive competence margin).
+- `latex_paper/neurips/03_coverage_regime.tex`: best-of-K converges to the optimal witness; \(O_p(K^{-1/\beta})\) under polynomial witness mass.
+- `latex_paper/neurips/05_two_axis_decomposition.tex`: error in K (judge count) plus \(n\) (per-judge sample size): \(e^{-Kp_\varepsilon}+2Ke^{-2n\eta^2}\). Here \(n\) is the examples used to estimate each judge's value, not human-rating training data.
+- `latex_paper/neurips/06_dependence_diversity.tex`, `98_appendix_proofs.tex`: equicorrelated judges keep a variance floor \(\sigma^2\rho\); scaling regimes \(K^{-\min(1,\beta)/2}\) in RMSE. `07_adversarial_robustness.tex`: breakdown threshold, \(O(\delta)\) bias. `08_gold_consistency.tex`: ranking agrees with gold when the estimation error is below \(\Delta_{\min}/2\).
+- Lean: `experiments/00_lean_formalization/lean/TvdmiJudge/Basic.lean` (no `sorry` found by grep; formalizes the arithmetic and structure of these bounds, not the probabilistic Hoeffding step).
+- Scaling laws (K vs error): `experiments/01_basic_scaling_law`, `02_consensus_scaling`, `04_diversity_dependence`, `06_llm_judges`, `11_finite_sample_bounds`. These are simulations; `06_llm_judges/results_summary/exp06_report.md` says "SYNTHETIC PROXY - No real LLM APIs were used". `theory/assumptions.md` lists the setup as "initial assumptions to refine".
+- I did not find in this repo any human ratings, a train/test split of tasks, a generalization or sample-complexity bound for a fitted judge, or RPS.
+
+**2. [brando90/veribench](https://github.com/brando90/veribench) `docs/judge-validation/` (at 2c7cc0bd9): the closest to learning bounds, as notes, not theorems.**
+- `notebook_pages/2026-11-05_to_11-08_pages_transcription.md` and `2026-11-05_to_11-08_questions_and_answers.md` (Q1, Q3, Q5, Q8): his 11-05 pages mapping the problem to statistical learning (\(\lVert p^H-p^{AIJ}\rVert\le \text{Bound}(|T|,|H|,|A|)\)), with candidate forms \(\sqrt{C/|T|}\) for tasks, a noise floor in raters per file, and a \(\sqrt{\ln(|J||A|/\delta)/(2|T|)}\) search term. Each answer carries a "Check:" line; several are marked "not looked up" or "from memory".
+- `notebook_pages/pasted_by_brando_2026-11/2026-11-05_1341_chatgpt_critique_of_the_bound.md`: an outside model's critique of that bound (generalizability-theory variance split; leaderboard-score error vs per-task error). Verbatim paste, not derived by us.
+- `notebook_pages/2026-11-08_whiteboard_green_scaling_law.jpg` and the transcription: his scaling form \(\ell=E+AN^{-\alpha}+BD^{-\beta}\), \(N\) and \(D\) undefined on the board.
+- `notebook_pages/2026-11-09_exp07_metric_table_343_vs_195_scaling_fit.md`: a fitted scaling curve (alpha about 0.90 in tasks, beta about 2.2 in raters per artifact) for the measurement error of a fixed judge's nRMSE, not for a trained judge.
+- `notebook_pages/2026-11-09_literature_check_and_3_vs_4.md`: notes that no source was found applying that scaling form to evaluation error vs number of human labels.
+- `RESULTS.md`, `OBJECTIVE_AND_PRIOR_PROCEDURE.md`, `PAPER_PROTOCOL_COMPARISON.md`: the 10-28 search on 45 search items and 30 test items, by correlation (max-min and max-mean), with bootstrap intervals. Empirical, no bound.
+
+**Answer to "is a learning bound for the human-rated case uploaded?"** No derived bound was found in either place. The tvdmi theory is about how many judges (K) and per-judge samples; veribench has the problem statement and candidate rate shapes as notes. A proof of a bound for loss-trained judges over tasks, raters and agents is still to be written.
