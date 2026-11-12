@@ -161,13 +161,17 @@ def missing_cause(config, receipt, receipt_path, condition):
     reason = str(last_denial.get("reason", ""))
     evidence = {"gateway_ledger": {"path": str(ledger_path), "sha256": sha(raw)},
         "last_denial": last_denial, "request_count": len(requests),
-        "last_request": {k: last_request.get(k) for k in ("call", "http_status", "provider_finish_reason", "admitted_at", "finished_at")},
-        "accounted_usd": ledger.get("accounted_usd"), "execution_status": receipt["status"]}
+        "last_request": {k: last_request.get(k) for k in ("call", "http_status", "provider_finish_reason", "max_output_tokens", "admitted_at", "finished_at")},
+        "accounted_usd": ledger.get("accounted_usd"), "execution_status": receipt["status"],
+        "native_stop_reason": receipt.get("native_stop_reason")}
     if reason in {"Provider request cap reached", "Cell dollar cap cannot admit next request", "Dollar cap reached",
                   "Input token cap exceeded", "Output token cap exceeded"}:
         failed_requests = [r for r in requests if r.get("http_status") != 200 or r.get("provider_finish_reason") is None]
         evidence["contributing_incomplete_or_error_requests"] = len(failed_requests)
         cause = "infrastructure:budget_cap_after_provider_errors" if failed_requests else "budget_cap:" + reason
+    elif receipt.get("native_stop_reason") == "length" and last_request.get("http_status") == 200 and \
+            last_request.get("provider_finish_reason") == "MAX_TOKENS":
+        cause = "budget_cap:native_response_output_limit"
     elif receipt["status"] == "timeout":
         cause = "timeout"
     elif receipt["status"] == "runner_error" or reason or (last_request and

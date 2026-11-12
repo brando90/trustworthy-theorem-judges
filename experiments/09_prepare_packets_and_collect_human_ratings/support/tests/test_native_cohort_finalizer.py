@@ -281,6 +281,27 @@ class FinalizerTests(unittest.TestCase):
             _, report = self.scan()
             self.assertEqual(report["cells"][1]["missing_cause"], expected)
 
+    def test_pi_process_completion_with_native_length_is_response_cap(self):
+        Path(self.cohort["artifacts"][2]["candidate"]["path"]).unlink()
+        self.pi_receipt.update(status="process_completed", artifact_status="missing", native_stop_reason="length")
+        self.ledger["requests"] = [{"call": 19, "http_status": 200,
+            "provider_finish_reason": "MAX_TOKENS", "max_output_tokens": 1055}]
+        self.write(self.pi_receipt_path, self.pi_receipt)
+        self.write(self.ledger_path, self.ledger)
+        _, report = self.scan()
+        row = report["cells"][2]
+        self.assertEqual(row["missing_cause"], "budget_cap:native_response_output_limit")
+        self.assertEqual(row["execution_status"], "process_completed")
+        self.assertEqual(row["missing_cause_evidence"]["native_stop_reason"], "length")
+        self.assertEqual(row["missing_cause_evidence"]["last_request"]["max_output_tokens"], 1055)
+        self.assertTrue(report["ratable_subset_available"])
+        # A failed provider response must not inherit the clean response-cap verdict.
+        self.ledger["requests"][0].update(http_status=503, provider_finish_reason=None)
+        self.write(self.ledger_path, self.ledger)
+        _, report = self.scan()
+        self.assertTrue(report["cells"][2]["missing_cause"].startswith("infrastructure:"))
+        self.assertFalse(report["ratable_subset_available"])
+
     def test_cc_native_output_limit_is_budget_not_infrastructure(self):
         Path(self.cohort["artifacts"][1]["candidate"]["path"]).unlink()
         self.cc_receipt.update(candidate_captured=False, status="TERMINAL", exit_code=1,
