@@ -30,8 +30,8 @@
     },
     {
       "path": "ckpt.md",
-      "sha256": "8c0ef41309127f3000adb4f4ddb87e314426dbdb853665ff8c796f9a74a3fb16",
-      "bytes": 16804
+      "sha256": "9e370e8993dd5a75f289a4210c25a3001f601e987666a6bb88cd35e0e368fa67",
+      "bytes": 17137
     },
     {
       "path": "results/costed_allocation.json",
@@ -427,6 +427,19 @@
       "layout_check": "not rendered",
       "private_receipt": "google_companion_sync_receipt.json in the private receipts folder",
       "private_receipt_sha256": "35a3a39a73954e2c363d99632f18e6232ffc7ce315787dc060a3da0d8bc0bee1"
-    }
+    },
+    "results_notice": {
+      "date": "11-11-2026",
+      "sent_local": "11-11-2026 23:07 PST",
+      "channel": "email to Brando's own inboxes only",
+      "notifier": "this session",
+      "delivery_verified": true,
+      "collaborators_emailed": 0,
+      "private_receipt": "results_notice_receipt.json in the private receipts folder"
+    },
+    "published_revisions": [
+      "fd30d716b86ab97b11d98487c18145a8de1e36ed",
+      "610d757"
+    ]
   }
 }

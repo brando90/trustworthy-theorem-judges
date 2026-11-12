@@ -5,7 +5,7 @@
 **TLDR:** Claude Code took over sizing and cleanup on 11-11-2026 and carried out the inherited continuation: stale summaries are corrected, the root `docs/` folder is gone, and the README now holds a costed allocation with three open choices for Brando. The final collection size is still undecided; experiment 09's separate owner handles the human-rating task.
 
 Created: 11-11-2026 22:27 PST
-Last updated: 11-11-2026 23:06 PST
+Last updated: 11-11-2026 23:08 PST
 
 ## Goal
 
@@ -89,6 +89,8 @@ TL;DR: Refresh the costed allocation when real rating times exist, convert Brand
 11-11-2026 23:02 PST — Claude Code (`claude-fable-5-2`, effort `max`) accepted sizing and cleanup ownership at 22:40 after verifying revision `3932b6d` and the checkpoint hash, then landed the continuation in the commit that adds this line: corrected packet counts in the root README, experiment index, paper README, two paper sections and the rebuilt eight-page PDF; removed root `docs/` by three byte-preserving moves; renamed the Claude source export; landed experiment 10's receipt text with a verified recovery package; added the costed allocation, its saved result and two checks. Verified: 66 project tests, design validator, sizing and provenance checks, paper build with no overfull boxes or unresolved references, 616 local Markdown links with no new broken link (seven older ones remain in other owners' historical records, plus the frozen source export's embedded links), a dictionary check of 5,932 added words, and `git diff --check`. No rating, model call, collection file, Sheet or email was touched. Google companion update follows separately.
 
 11-11-2026 23:06 PST — Repository work landed as `fd30d71` on `origin/main`. Updated the existing Google Q&A companion in one revision-guarded batch and read it back: the stale 85-artifact/170-rating sentence is corrected, the costed-allocation paragraph and decision links are in the sizing section, and two links to the renamed Claude export are repointed; exactly four paragraphs changed. Page layout was not rendered.
+
+11-11-2026 23:08 PST — Companion record landed as `610d757`. This session, as the single notifier, emailed the results notice to Brando's own inboxes at 23:07 PST and verified it once; no collaborator was emailed. The private completion marker is written. Session ends with nothing running; next action is Brando's three choices.
 
 ## Historical source-recovery record
 
