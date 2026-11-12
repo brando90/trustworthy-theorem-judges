@@ -50,14 +50,16 @@ This targeted search did not establish a completed native Claude Code + Fable 5.
 
 **In preparation, not dispatched.** Brando decided to make native agents the primary real packet, include Pi, and retain fewer Terminus 2 artifacts. This supersedes sending the original all-Terminus-2 main packet as the default. The six-file warm-up, scoring rubric, eleven-column form, raw responses and delivered archives remain unchanged; the existing 125-file packet is preserved.
 
-The coordinator's allocation is **85 artifacts on the same 25 Python tasks**, with two independent human ratings per artifact: **170 planned ratings**, plus Brando's additional ratings. This is workload arithmetic, not statistical sufficiency. T=25 task identities and A=4 configurations, with 85 populated task/configuration cells; H is the number of distinct people, still assignment-dependent, rather than the two rating slots per artifact.
+The coordinator's allocation is **85 artifacts on the same 25 Python tasks**, with two independent human ratings per artifact: **170 planned ratings**, plus Brando's additional ratings. This is workload arithmetic, not statistical sufficiency. T=25 task identities and A=4 planned configurations, with 85 planned task/configuration cells; H is the number of distinct people, still assignment-dependent, rather than the two rating slots per artifact.
 
-| Configuration | Artifacts | Preparation state |
-| --- | ---: | --- |
-| Native Codex + GPT-6 Astra/xhigh | 25 | Historical candidates found for all 25 tasks; all Python hashes match |
-| Native Claude Code + Claude Fable 5.1/max | 25 | Corrected source-only batch running; native Claude Code 2.1.322 |
-| Pi + Google Gemini 3.8 Flash/high | 25 | Corrected source-only batch running; native Pi 1.5.2; practical comparator, not asserted to be Google's best model |
-| Terminus 2 + Grok 4.7/xhigh | 10 | Subset of existing files of record, selected without outcomes |
+| Configuration | Planned | Verified returned files | Preparation state, 11-11-2026, 7:45 PM Pacific |
+| --- | ---: | ---: | --- |
+| Native Codex + GPT-6 Astra/xhigh | 25 | 25 | Historical candidates found for all 25 tasks; all Python hashes match |
+| Native Claude Code + Claude Fable 5.1/max | 25 | 19 | All 25 attempts terminal; six no-file response-cap outcomes; native Claude Code 2.1.322 |
+| Pi + Google Gemini 3.8 Flash/high | 25 | 0 | 18 attempts terminal, seven pending provider recovery; native Pi 1.5.2; practical comparator, not asserted to be Google's best model |
+| Terminus 2 + Grok 4.7/xhigh | 10 | 10 | Subset of existing files of record, selected without outcomes |
+
+**Verified availability at this checkpoint:** 54 returned files, 24 terminal no-file attempts and seven pending attempts account for all 85 planned cells. The Claude Code batch contains 13 files from native completions and six files retained at execution limits (one wall-clock, two observed-output-token and three observed-total-token stops); all 19 are nonempty and unchanged. Its source/model/hash audit and lexical screen of 221 visible tool calls passed. Pi's 18 saved sessions received the exact frozen instructions, with required output paths matching the capture paths. Recorded writes were scratch code; no required-path submission was captured. Whole workspace snapshots were not retained, so this does not establish that no Lean code existed elsewhere. Final packet and human-assignment counts remain pending; no missing file receives a fabricated human score.
 
 **Reuse audit:** the native Codex candidates are from archived VeriBench experiment 85 (Codex 0.154.0, instruction version 5, 1,800-second allowance). Twenty current corrected gold files differ from historical gold: collect new human ratings against current accepted gold, without transferring historical machine scores. The separate Claude Code/Opus 5.5 private pool (27 outputs) and Pi/Qwen3-Coder-30B private pool (60 task records) have zero exact Python matches. These scoped searches found no reusable intended Claude Code/Fable or Pi/Gemini outputs, without establishing global absence. Private source hashes and joins are in `private/09_human_rating_collection/preparation_11-09-2026/native_harness_audit_11-11-2026/`.
 
