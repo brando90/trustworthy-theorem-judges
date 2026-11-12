@@ -6,6 +6,7 @@
 
 - [Compiled PDF](00_main.pdf) (12 pages: main text on pages 1–9, references on pages 9–10, appendices on pages 10–12) and [main LaTeX source](00_main.tex); numbered files hold one section each, one sentence per line.
 - [Official TMLR style provenance](vendor/README.md); the style files are byte-for-byte copies.
+- Google companion with the findings for readers outside GitHub: [TMLR judge audit findings, 11-12-2026](https://docs.google.com/document/d/1s038tOE3wGNh6yp85u4TSURt7qG8tk2zm_p_xY9zoYs/edit).
 - Evidence: [archive experiment 19](../../experiments/archive/19_audit_gpt_5_3_codex_rubric_judge_on_75_rated_outputs_start_12Nov2026_end_12Nov2026/README.md) holds the [results](../../experiments/archive/19_audit_gpt_5_3_codex_rubric_judge_on_75_rated_outputs_start_12Nov2026_end_12Nov2026/results.md), [every number as JSON](../../experiments/archive/19_audit_gpt_5_3_codex_rubric_judge_on_75_rated_outputs_start_12Nov2026_end_12Nov2026/POSTHOC_CLI_RUBRIC_JUDGE_AGREEMENT_11-12-2026.json), [the analysis script](../../experiments/archive/19_audit_gpt_5_3_codex_rubric_judge_on_75_rated_outputs_start_12Nov2026_end_12Nov2026/scripts/recompute_cli_rubric_judge_agreement.py) and the hash-pinned receipts in its [source manifest](../../experiments/archive/19_audit_gpt_5_3_codex_rubric_judge_on_75_rated_outputs_start_12Nov2026_end_12Nov2026/SOURCE_MANIFEST.json).
 
 ## Scope: the launch page's judge section only
