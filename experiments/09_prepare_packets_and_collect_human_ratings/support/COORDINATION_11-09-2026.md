@@ -1,8 +1,12 @@
 # Single coordinator for human ratings and judge development
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/COORDINATION_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/support/COORDINATION_11-09-2026.md>
 
 **TLDR:** Prepare human grading task is the sole coordinating chat for this collection and the practical human-rating judge using methods 2 and 4. The former Best human-rating judge chat handed its work to that owner; ending its coordination does not mean collection or judge validation is complete.
+
+## Manual takeover requested — 11-11-2026 22:29 PST
+
+Brando asked the collection coordinator to save all remaining steps and a takeover prompt. [support/ckpt.md](ckpt.md) is the current full handoff, incorporating the form-helper record. The outgoing coordinator stops collection writes after publishing it. The successor is not yet identified or verified; the new agent should record its ID and first useful action here and in the existing private preparation state. Keep one writer and the current Brando-trial / instruction-review / Sri-Yegor-Brando sequence. Historical ownership and scope below remain provenance.
 
 ## Ownership decision — 11-09-2026
 

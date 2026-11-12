@@ -20,6 +20,8 @@ The [eight earlier prepared email previews](../../private/09_human_rating_collec
 
 The main pool remains 54 files across 25 tasks: native Codex/GPT-6 Astra (25), native Claude Code/Claude Fable 5.1 (19), and Terminus 2/Grok 4.7 (10). The full allocation is still incomplete: 108 independent main ratings targeted, eight assigned and blank, 100 unassigned. The requested finish remains Friday, 11-13-2026 if possible, with Sunday, 11-15-2026 final.
 
+[Agent takeover checkpoint and ordered next steps](support/ckpt.md).
+
 ## Do or edit the task
 
 - **Warm-up first:** [instructions and Sheet link](rating_task_packet/START_HERE.md), [blank form](rating_task_packet/ratings.csv), [median task](rating_task_packet/warm_up_01_median/) and [greatest-common-divisor task](rating_task_packet/warm_up_02_greatest_common_divisor/).

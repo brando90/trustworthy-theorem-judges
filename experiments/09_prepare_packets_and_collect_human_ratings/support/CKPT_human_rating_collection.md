@@ -6,6 +6,8 @@
 
 **Last updated:** 11-11-2026 20:59 PST
 
+**Manual handoff, 11-11-2026 22:29 PST:** Continue from [ckpt.md](ckpt.md), which now covers the full coordinator task and incorporates the form-helper handoff. This record preserves prior evidence; its old eight-person next-command guidance is superseded. No successor has been identified yet.
+
 ## Current state — prepared, not dispatched
 
 **Latest user sequencing, 11-11-2026:** Brando grades a few files first, then the actual participant instructions are reviewed. The first batch is Sri, Yegor and Brando only; all others remain held. Yegor’s main packet/assignment and revised exact first-batch emails still need preparation. Existing extra-only qualification status and all original responses remain unchanged. The earlier eight-person queue is preserved, not authorized as the new first batch.

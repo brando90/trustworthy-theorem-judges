@@ -3,7 +3,7 @@
 These files support coordination and reproducibility. **They are not required to do your ratings.** [Return to the rating task](../README.md).
 
 - [Coordinator documentation](COORDINATOR_README.md): detailed preparation, migration and utility commands.
-- [Preparation and dispatch](PREPARATION_11-09-2026.md), [checkpoint](CKPT_human_rating_collection.md), and [ownership](COORDINATION_11-09-2026.md).
+- [Preparation and dispatch](PREPARATION_11-09-2026.md), [current takeover checkpoint](ckpt.md), [earlier checkpoint/history](CKPT_human_rating_collection.md), and [ownership](COORDINATION_11-09-2026.md).
 - [Form amendments](FORM_AMENDMENT_11-11-2026.md), [column schema](RATING_FORM_SCHEMA.json), and [verified rater identities](RATER_IDENTITIES.json).
 - [Raw-response restoration](RAW_DATA_RESTORATION_11-11-2026.md) and [name-first rollout](NAME_FIRST_ROLLOUT_11-11-2026.md).
 - `scripts/`: packet-building, import and collection-maintenance tools.
