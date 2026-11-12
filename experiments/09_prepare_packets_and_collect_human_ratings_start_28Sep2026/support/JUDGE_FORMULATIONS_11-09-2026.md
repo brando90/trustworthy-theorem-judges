@@ -1,6 +1,6 @@
 # Judge formulations 2 and 4: context for human-rating dispatch
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/JUDGE_FORMULATIONS_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/JUDGE_FORMULATIONS_11-09-2026.md>
 
 **TLDR:** Formulation 2 develops a judge by maximizing training correlation; formulation 4 develops a judge by minimizing a proper probabilistic training loss. Collect independent, unchanged human ratings that support both, preserve development/test separation, and do not tell raters which objective is expected to win.
 

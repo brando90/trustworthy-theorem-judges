@@ -1,13 +1,13 @@
 # Handoff: finish human-rating packets and collection
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/ckpt.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/ckpt.md>
 
 **TLDR:** Take over the complete packet-preparation and collection task. The current 54-file pool is built; next are Brando's trial ratings, instruction review, preparation of the Sri/Yegor/Brando first batch, exact-text approval, dispatch and collection. This checkpoint incorporates the form-consistency handoff; the successor has not yet been identified or verified.
 
 Created: 11-11-2026 22:23 PST
 Last updated: 11-12-2026 11:59 PST
 
-**User-managed continuation, 11-12-2026 11:59 PST:** Brando is driving `experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/` directly. `rating_task_packet/EMAIL_INSTRUCTIONS_V0.md` is now consolidated into a single warm-up + main-task email template aligned with the 11-column schema. Do not send participant emails without his explicit go-ahead on the filled recipient text. The remaining sequence is his trial ratings, instruction review, Yegor’s (`T02`) main assignment/Sheet/packet, fresh dates + filled three-person email review (Sri `T05`, Yegor `T02`, Brando `A1`), then his send decision and assigning the 100 unassigned slots.
+**User-managed continuation, 11-12-2026 11:59 PST:** Brando is driving `experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/` directly. `rating_task_packet/EMAIL_INSTRUCTIONS_V0.md` is now consolidated into a single warm-up + main-task email template aligned with the 11-column schema. Do not send participant emails without his explicit go-ahead on the filled recipient text. The remaining sequence is his trial ratings, instruction review, Yegor’s (`T02`) main assignment/Sheet/packet, fresh dates + filled three-person email review (Sri `T05`, Yegor `T02`, Brando `A1`), then his send decision and assigning the 100 unassigned slots.
 
 ## Goal
 
@@ -43,7 +43,7 @@ Brando asked the sole collection coordinator to save its remaining work for a di
 ## Read these current sources
 
 Repository: `/Users/brandomiranda/trustworthy-theorem-judges`.
-Current collection: `experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/`.
+Current collection: `experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/`.
 The former public `09_human_rating_collection` path and its temporary alias are retired. The private preparation directory intentionally retains that historical name.
 
 1. [Collection overview and latest first-batch decision](../README.md).
@@ -139,7 +139,7 @@ Methods 2 and 4 compare training correlation with a proper probabilistic trainin
 cd /Users/brandomiranda/trustworthy-theorem-judges
 git fetch origin
 git status --short
-cat experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/README.md
+cat experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/README.md
 cat research_artifacts/09_human_rating_collection/preparation_11-09-2026/CURRENT_PREPARATION.json
 python3 scripts/check_project.py
 git diff --check
@@ -154,7 +154,7 @@ Use connected Sheets tools for exact table reads/writes and read back edits. Scr
 ```text
 Take over the complete human-rating packet preparation and collection task in /Users/brandomiranda/trustworthy-theorem-judges.
 
-Read AGENTS.md and /Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/ckpt.md. Verify CURRENT_PREPARATION.json and the actual files, then record your chat ID, ownership and first useful action in the existing checkpoint. The outgoing coordinator stops writes after publishing this handoff; keep one writer and preserve other agents' work.
+Read AGENTS.md and /Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/ckpt.md. Verify CURRENT_PREPARATION.json and the actual files, then record your chat ID, ownership and first useful action in the existing checkpoint. The outgoing coordinator stops writes after publishing this handoff; keep one writer and preserve other agents' work.
 
 Follow Brando's latest sequence: he grades a few files first; review the actual rater instructions using his feedback; prepare the first batch only for Sri, Yegor and Brando. Yegor's main assignment, Sheet, packet and exact email still need preparation. Keep all other recipients held. Show the exact first-batch emails for review and send only after Brando's explicit go-ahead. The old eight-person queue is not the new first batch.
 
@@ -163,7 +163,7 @@ Continue independent preparation while Brando grades, including the concrete rem
 TL;DR: Finish the three-person pilot dispatch and remaining human-rating collection from the saved checkpoint, with Brando's own grading and send decision in his hands.
 ```
 
-Related sizing work is saved separately in [experiment 15’s checkpoint](../../15_estimate_required_tasks_solver_configurations_and_human_raters_start_11Nov2026/ckpt.md). Its Claude session completed sizing/cleanup; that was not an experiment 09 takeover.
+Related sizing work is saved separately in [experiment 15’s checkpoint](../../15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/ckpt.md). Its Claude session completed sizing/cleanup; that was not an experiment 09 takeover.
 
 ## Log
 
@@ -175,4 +175,4 @@ Related sizing work is saved separately in [experiment 15’s checkpoint](../../
 
 - 11-12-2026 10:50 PST — Saved final user-managed handoff after Brando said he would handle continuation. Experiment 09 takeover remains unlaunched; participant email remains held. No ratings, Sheets, packet files or scientific settings changed.
 
-- 11-12-2026 11:59 PST — Consolidated `rating_task_packet/EMAIL_INSTRUCTIONS_V0.md` into one template for both warm-up and main tasks with exact 11-column field names and routing notes, updated stale `_start_09Nov2026` checkpoint/doc links, repaired `scripts/check_project.py` JSON walk after `research_artifacts/` rename, reconciled diverged `main` with `origin/main`, and passed all 66 `experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/` tests plus `check_project.py`. No emails sent.
+- 11-12-2026 11:59 PST — Consolidated `rating_task_packet/EMAIL_INSTRUCTIONS_V0.md` into one template for both warm-up and main tasks with exact 11-column field names and routing notes, updated stale `_start_09Nov2026` checkpoint/doc links, repaired `scripts/check_project.py` JSON walk after `research_artifacts/` rename, reconciled diverged `main` with `origin/main`, and passed all 66 `experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/` tests plus `check_project.py`. No emails sent.

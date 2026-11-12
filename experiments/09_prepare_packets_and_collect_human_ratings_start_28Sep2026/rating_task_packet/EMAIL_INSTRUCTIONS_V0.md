@@ -1,6 +1,6 @@
 # Email to raters
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/rating_task_packet/EMAIL_INSTRUCTIONS_V0.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/EMAIL_INSTRUCTIONS_V0.md>
 
 **TLDR:** One email template for both the warm-up and the main rating task. Fill the seven bracketed placeholders per recipient; send nothing until Brando approves the exact text and says to send.
 

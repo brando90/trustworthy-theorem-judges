@@ -1,6 +1,6 @@
 # Common rating form and assistance disclosure
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/FORM_AMENDMENT_11-11-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/FORM_AMENDMENT_11-11-2026.md>
 
 **TLDR:** The final working form has eleven columns. Scores and combined AI-assisted-rating attestations are required for new completed ratings; time estimates and confidence are requested; rationale is preferred but optional; problem notes are conditional. All 12 live forms and CSVs match. Historical participant-provided context is restored verbatim, never estimated. [Current guide](../rating_task_packet/RATING_FORM_GUIDE.md) and [schema](RATING_FORM_SCHEMA.json) supersede the earlier layouts preserved below.
 

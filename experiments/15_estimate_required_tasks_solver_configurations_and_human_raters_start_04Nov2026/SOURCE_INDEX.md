@@ -1,6 +1,6 @@
 # Source index for rating tensor estimates
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_11Nov2026/SOURCE_INDEX.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/SOURCE_INDEX.md>
 
 **TLDR:** This index connects each recovered exchange to its original conversation and distinguishes recovered sizing discussions from unverified exhaustive history. The source text is preserved separately from the corrected sizing recommendation.
 
@@ -47,7 +47,7 @@
 | 11-05-2026 conditional agreement | [Exact local snapshot](sources/earlier_local_plans.md#snapshot-conditional_rating_agreement_and_transfer_11-05-2026md): 280/168/448 tasks and 20/12/32 people; 2,240/1,344/3,584 ratings. Its illustrative 442-unit calculation is assumption-based, not measured power. |
 | Adopted experiment 02 source | [Preserved GPT Pro response](../02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/sources/gpt_pro_plan_11-06-2026.txt), [README](../02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/README.md), [configuration](../02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/config.json): historical 14,848 budget and probabilistic human-rating target. Original response SHA-256: `f0eb2e0d00401b52c52313407d2bb6ae956e728c28c76e99f5e7adddd179a878`. |
 | Current methods 2 and 4 | [Priority plan](../02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/PRIORITY_2_VS_4_11-09-2026.md): matched training-objective comparison, common validation RPS, sealed evaluation and pending identity-split amendment. |
-| Collection ownership and schema | [Experiment 09](../09_prepare_packets_and_collect_human_ratings_start_09Nov2026/README.md), [form schema](../09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/RATING_FORM_SCHEMA.json): current collection records, raw-response preservation and prospective assistance conditions. |
+| Collection ownership and schema | [Experiment 09](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/README.md), [form schema](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/RATING_FORM_SCHEMA.json): current collection records, raw-response preservation and prospective assistance conditions. |
 | 11-10-2026 formulation and scaling-curve note | [Brando's voice-note summary](sources/learning-a-judge-formulation-11-10-2026.md): the learn-by-loss formulation, the untested scaling-curve idea for sizing a rating round, and pointers to where related bounds already live. It reports no bound for learning a judge from human ratings. Moved here from the former root `docs/` folder on 11-11-2026; only its document address and two relative links changed. |
 | Existing Google Q&A | [Judge paper Q&A](https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws/edit): collaborator-facing context and dated companion update. |
 
