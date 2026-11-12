@@ -4,7 +4,7 @@
 
 **TLDR:** Finish the current 108-rating evaluation packet; do not adopt a larger total yet. How many held-out task families a later study needs depends on one unmeasured quantity, and existing evidence puts it anywhere from 3 to 155 families for a ±0.01 comparison, with 37 as the middle case. None of the recovered Claude, Gemini or ChatGPT totals establishes statistical sufficiency.
 
-**Status, 11-11-2026:** source recovery and a costed allocation from existing evidence are complete; the final study size is an open decision for Brando (three choices below). No new ratings, judge training, model inference or fitted scaling law are reported here. Experiment 02 (`02_design_a_judge_that_predicts_human_ratings_0_to_5`) owns the judge methodology; experiment 09 (`09_prepare_packets_and_collect_human_ratings`) owns the current packet and collection.
+**Status, 11-11-2026:** source recovery and a costed allocation from existing evidence are complete; the final study size is an open decision for Brando (three choices below). No new ratings, judge training, model inference or fitted scaling law are reported here. Experiment 02 (`02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026`) owns the judge methodology; experiment 09 (`09_prepare_packets_and_collect_human_ratings`) owns the current packet and collection.
 
 T counts tasks, A fixed solver configurations, H distinct human raters and m ratings per returned file. Count T in independent task families. Ratings collected are files × m, not T × A × H.
 

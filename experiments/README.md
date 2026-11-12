@@ -8,7 +8,7 @@
 
 | Home | Purpose and status |
 | --- | --- |
-| [02_design_a_judge_that_predicts_human_ratings_0_to_5](02_design_a_judge_that_predicts_human_ratings_0_to_5/README.md) | Develop the judge methodology, including [training correlation versus a proper probability loss](02_design_a_judge_that_predicts_human_ratings_0_to_5/PRIORITY_2_VS_4_11-09-2026.md). The identity-split amendment and fresh evaluation remain pending. |
+| [02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026](02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/README.md) | Develop the judge methodology, including [training correlation versus a proper probability loss](02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/PRIORITY_2_VS_4_11-09-2026.md). The identity-split amendment and fresh evaluation remain pending. |
 | [09_prepare_packets_and_collect_human_ratings](09_prepare_packets_and_collect_human_ratings/README.md) | Prepare the current packet and collect human ratings: 54 returned files on 25 tasks, with a target of 108 independent ratings. Its README owns live preparation status, named data links and completion counts; the editable packet and raw responses stay there. |
 | [15_estimate_required_tasks_solver_configurations_and_human_raters](15_estimate_required_tasks_solver_configurations_and_human_raters/README.md) | Decide how many tasks, solver configurations and human raters a study needs. It holds a costed allocation computed from saved results, three open choices for Brando, and the recovered Claude, Gemini and ChatGPT estimates with their original text. The final allocation is undecided. |
 

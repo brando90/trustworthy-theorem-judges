@@ -1,6 +1,6 @@
 # Practical human-rating judge: sole-owner handoff
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5/CKPT_HANDOFF_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/CKPT_HANDOFF_11-09-2026.md>
 
 **TLDR:** Prepare human grading task is the sole coordinator for human-rating collection and the practical judge using formulations 2 and 4. This handoff preserves the implemented evaluator and the user's newly authorized existing-data comparison; no new empirical fit was started by the outgoing coordinator.
 

@@ -21,7 +21,7 @@ The source is Brando Miranda's three photographs supplied in this coordination c
 - [Handwritten page: formulations 1 and 2](assets/notes_correlation_formulations_1_2_11-09-2026.md).
 - [Handwritten page: formulations 3 and 4](assets/notes_loss_formulations_3_4_11-09-2026.md).
 
-Earlier context: [shared discussion](https://chatgpt.com/share/6af21760-343c-83e8-a92f-b66b5a429e74), [prospective human-target plan](../../02_design_a_judge_that_predicts_human_ratings_0_to_5/README.md), and [current inherited collection](COORDINATOR_README.md). Recommendations in the shared discussion are not new experimental results or authorization to replace this collection.
+Earlier context: [shared discussion](https://chatgpt.com/share/6af21760-343c-83e8-a92f-b66b5a429e74), [prospective human-target plan](../../02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/README.md), and [current inherited collection](COORDINATOR_README.md). Recommendations in the shared discussion are not new experimental results or authorization to replace this collection.
 
 ## Precise formulation
 
