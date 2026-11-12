@@ -54,7 +54,10 @@ def revise(source, output, rater, sheet_url):
     if not candidates:
         raise ValueError("No candidates")
     rubric = "Rating_Instructions.md" if "Rating_Instructions.md" in files else "human_judgements_prompt.md"
-    files[rubric] = current_form_rubric(files[rubric].decode()).encode()
+    rubric_text = current_form_rubric(files[rubric].decode())
+    rubric_text = re.sub(r"\A# TC Human Rating Prompt \(Simplified\)",
+                        "# Formal specification coverage: scoring rubric", rubric_text)
+    files[rubric] = rubric_text.encode()
     # Delivered scientific payload is copied byte-for-byte, never regenerated.
     protected = {n: b for n, b in files.items() if n.endswith((".lean", ".py"))}
     files["RATING_FORM_GUIDE.md"] = (HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_bytes()

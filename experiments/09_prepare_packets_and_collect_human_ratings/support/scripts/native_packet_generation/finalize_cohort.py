@@ -130,6 +130,8 @@ def missing_cause(config, receipt, receipt_path, condition):
         evidence = {k: receipt.get(k) for k in ("status", "stop_reason", "model_call_performed", "error_type")}
         native = receipt.get("native_result") or {}
         evidence["native_result_subtype"] = native.get("subtype")
+        evidence["native_api_error"] = native.get("api_error")
+        evidence["native_terminal_reason"] = native.get("terminal_reason")
         if receipt["status"] == "INFRASTRUCTURE_INTERRUPTED" or receipt.get("model_call_performed") is not True:
             cause = "infrastructure:" + ("before_model_call" if receipt.get("model_call_performed") is not True else "runner_interrupted")
         elif receipt.get("stop_reason") == "wall_time_budget":
@@ -138,6 +140,8 @@ def missing_cause(config, receipt, receipt_path, condition):
             cause = "budget_cap:" + receipt["stop_reason"]
         elif native.get("subtype") in {"error_max_turns", "error_max_budget_usd"}:
             cause = "budget_cap:" + native["subtype"]
+        elif native.get("api_error") == "max_output_tokens":
+            cause = "budget_cap:native_response_output_limit"
         elif native.get("is_error") or receipt.get("stop_reason") == "process_exit_without_result":
             cause = "infrastructure:native_error_or_incomplete_result"
         else:

@@ -1,6 +1,6 @@
 # Brando: do your six-file warm-up
 
-- **[Your packet](../../../private/09_human_rating_collection/preparation_11-09-2026/packets/FormV5/VeriBench_warmup_A1_FormV5.zip)** — unzip it.
+- **[Your packet](../../../private/09_human_rating_collection/preparation_11-09-2026/packets/FormV6/VeriBench_warmup_A1_FormV6.zip)** — unzip it.
 - **[Your Google Sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit#gid=665730293&range=F2)** — fill this in directly; it saves automatically.
 - **[Current form guide](../rating_task_packet/RATING_FORM_GUIDE.md)** — read alongside the packet’s `human_judgements_prompt.md` scoring rubric.
 
@@ -10,8 +10,8 @@ For each completed item, enter `final_score_0_5` and `ai_assisted_rating_attesta
 
 Localized artificial intelligence (AI) help is required for new ratings; make the final comparison and choose the rating yourself. The checklist and base score stay in the scoring rubric only.
 
-The current packet CSV matches your live sheet. The original and FormV2 archives remain preserved for wording history. Use your personal sheet, not the historical rubric’s template-copy link.
+The current packet CSV matches your live sheet. FormV6 matches the current guide and rubric title; scientific files and scoring are unchanged. Earlier archives remain preserved for wording history. Use your personal sheet, not the historical rubric’s template-copy link.
 
-Do this warm-up before your full 125-file assignment. You previously viewed other raters’ warm-up responses, so this is coordinator practice with known prior exposure, not an independent blinded evaluation.
+Do this warm-up before your main assignment. The replacement main packet is still being prepared from native agents, Pi and a smaller Terminus 2 comparison. You previously viewed other raters’ warm-up responses, so this is coordinator practice with known prior exposure, not an independent blinded evaluation.
 
-[Full-packet Google Sheet](https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit) · [Completion status](../README.md#ratings-and-completion) · [Coordinator records](README.md)
+[Main-packet preparation](COORDINATOR_README.md#native-heavy-replacement--user-decision-11-11-2026) · [Completion status](../README.md#ratings-and-completion) · [Coordinator records](README.md)

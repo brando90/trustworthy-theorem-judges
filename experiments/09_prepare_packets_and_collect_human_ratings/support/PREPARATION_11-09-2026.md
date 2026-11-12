@@ -1,21 +1,21 @@
 # Human-rating preparation — 11-09-2026
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/PREPARATION_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/support/PREPARATION_11-09-2026.md>
 
 **TLDR:** The existing rating packet is available in this repository's private store. The preferred deadline is Friday, 11-13-2026; the final deadline is Sunday, 11-15-2026. Personal rating can start; collaborator dispatch remains a separate, explicitly approved action.
 
 ## Current prepared version — 11-11-2026
 
-The current form has eleven columns, including estimated minutes, confidence, rationale (preferred but optional), and problem notes. All twelve live sheets and raw exports match it. All thirteen replacement packets preserve their original scientific file bytes and contain blank response forms. They are prepared, not sent; older deliveries remain immutable.
+The current form has eleven columns, including estimated minutes, confidence, rationale (preferred but optional), and problem notes. **The ten FormV6 warm-up packets are prepared, unsent replacements.** Their guide and rubric title match the editable packet; scientific files, scoring, item IDs and assignments are unchanged. All nine live warm-up Sheets were re-read on 11-11-2026: their 54 item rows match current raw CSV values, and their identifiers match these new blank forms. Slava uses the separate CSV return route.
 
-- [Brando's six-file packet](../../../private/09_human_rating_collection/preparation_11-09-2026/packets/FormV5/VeriBench_warmup_A1_FormV5.zip) and [his sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit).
-- [Current packet manifest](../../../private/09_human_rating_collection/preparation_11-09-2026/packets/FormV5/MANIFEST.json): recipient, route, item count, hashes and preserved scientific payload.
-- [Eight exact team email previews](../../../private/09_human_rating_collection/preparation_11-09-2026/REVIEW_TEAM_EMAILS_FORM_V5.md) and [current dispatch queue](../../../private/09_human_rating_collection/preparation_11-09-2026/DISPATCH_QUEUE_FORM_V5.json).
-- [Live-sheet and raw-context verification](sheet_exports/11-11-2026_final_form/README.md).
+- [Brando's six-file packet](../../../private/09_human_rating_collection/preparation_11-09-2026/packets/FormV6/VeriBench_warmup_A1_FormV6.zip) and [his sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit).
+- [Warm-up packet manifest](../../../private/09_human_rating_collection/preparation_11-09-2026/packets/FormV6/MANIFEST.json) and [live-table verification](../../../private/09_human_rating_collection/preparation_11-09-2026/packets/FormV6/VERIFICATION.json).
+- [Native-agent main-packet preparation](COORDINATOR_README.md#native-heavy-replacement--user-decision-11-11-2026): final item counts and exact recipient email previews remain pending generation and reconciliation. The original all-Terminus-2 main packet is no longer the default.
+- [Current preparation pointer](../../../private/09_human_rating_collection/preparation_11-09-2026/CURRENT_PREPARATION.json) and [raw-context history](sheet_exports/11-11-2026_final_form/README.md).
 
-Remaining before sending: Brando completes his pilot and approves the revised recipient-specific messages, then explicitly says to send. The current queue preserves eight existing recipients and their assignments; it does not assign the entire panel or recruit unconfirmed prospects. Rylan and Sri have ten assigned main files each, not all 125 rows visible in their sheets. More qualified raters/assignments are still needed for the 250-rating primary collection.
+Before sending, Brando completes his pilot, approves the revised recipient-specific messages and explicitly says to send. Preserve the eight existing recipient routes and original task identities; unassigned prospects are not confirmed capacity. Earlier FormV5 previews and main archives are historical, not current dispatch-ready messages.
 
-The sections below record the original preparation and sending workflow. References to original attachments and the older REVIEW_TEAM_EMAILS.md describe historical drafts; use CURRENT_PREPARATION.json and the FormV5 review for the next dispatch.
+The sections below describe the original 125-file round and earlier sending workflow. Counts and original attachment links there are historical; use the current pointer above for preparation.
 
 ## Current collection
 

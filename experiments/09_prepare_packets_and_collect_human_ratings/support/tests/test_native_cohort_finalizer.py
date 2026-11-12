@@ -281,6 +281,30 @@ class FinalizerTests(unittest.TestCase):
             _, report = self.scan()
             self.assertEqual(report["cells"][1]["missing_cause"], expected)
 
+    def test_cc_native_output_limit_is_budget_not_infrastructure(self):
+        Path(self.cohort["artifacts"][1]["candidate"]["path"]).unlink()
+        self.cc_receipt.update(candidate_captured=False, status="TERMINAL", exit_code=1,
+                               stop_reason="native_result", model_call_performed=True,
+                               native_result={"subtype": "success", "is_error": True,
+                                   "terminal_reason": "api_error", "api_error": "max_output_tokens",
+                                   "num_turns": 5,
+                                   "result": "API Error: Claude's response exceeded the 16384 output token maximum."})
+        self.write(self.cc_receipt_path, self.cc_receipt)
+        _, report = self.scan()
+        row = report["cells"][1]
+        self.assertEqual(row["state"], "MISSING_OUTPUT")
+        self.assertEqual(row["missing_cause"], "budget_cap:native_response_output_limit")
+        self.assertEqual(row["missing_cause_evidence"]["native_api_error"], "max_output_tokens")
+        self.assertEqual(row["missing_cause_evidence"]["native_terminal_reason"], "api_error")
+        self.assertTrue(report["ratable_subset_available"])
+        self.assertEqual(report["infrastructure_items_awaiting_disposition"], [])
+        # A different native error must still require infrastructure disposition.
+        self.cc_receipt["native_result"]["api_error"] = "overloaded_error"
+        self.write(self.cc_receipt_path, self.cc_receipt)
+        _, report = self.scan()
+        self.assertEqual(report["cells"][1]["missing_cause"], "infrastructure:native_error_or_incomplete_result")
+        self.assertFalse(report["ratable_subset_available"])
+
     def test_infrastructure_exclusion_requires_exact_hash_bound_disposition(self):
         Path(self.cohort["artifacts"][2]["candidate"]["path"]).unlink()
         self.pi_receipt.update(status="provider_error", artifact_status="missing")
