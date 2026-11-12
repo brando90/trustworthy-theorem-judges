@@ -1,6 +1,6 @@
 # Is there a training set bigger than the 75 human-rated artifacts? Inventory and plan
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/docs/big-training-data-inventory-11-10-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/archive/18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs/big-training-data-inventory-11-10-2026.md>
 
 **TLDR:** Brando's memory is right: the large collection run is VeriBench experiment 106 (leave-one-agent-out, seven AI rater families, 725 artifacts on 75 tasks), not experiment 104. It is a bigger training set, but its labels are AI-rater scores, not human ratings; no human-labelled set larger than the 75 artifacts (25 tasks, 195 expert ratings) exists in the places searched. The plan is to train on experiment 106's 650 fresh artifacts (50 tasks, zero task overlap with the 25) and test on all 75 human-rated artifacts, comparing correlation-selected against loss-selected judges. Experiment 106 already ran a close cousin of this and found a judge fitted to the AI raters falls from about 0.91 against them to 0.621 against the real experts.
 

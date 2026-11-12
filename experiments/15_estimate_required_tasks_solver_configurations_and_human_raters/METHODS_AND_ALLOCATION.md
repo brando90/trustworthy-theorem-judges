@@ -2,9 +2,9 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_estimate_required_tasks_solver_configurations_and_human_raters/METHODS_AND_ALLOCATION.md>
 
-**TLDR:** The adopted 14,848-rating plan is an initial budget, not a demonstrated requirement or sufficiency guarantee. Codex’s optional 544-rating, training-only pilot could measure variability and workload; final counts require a frozen identity-split amendment, measured pilot quantities and a justified precision target.
+**TLDR:** The adopted 14,848-rating plan is an initial budget, not a demonstrated requirement or sufficiency guarantee. The [costed allocation](#costed-allocation-from-existing-evidence--11-11-2026) sizes a narrower claim from saved results: about 37 held-out task families compare two training objectives to ±0.01 ranked probability score, with a range of 3 to 155 until the variability of that comparison is measured for the actual judges.
 
-**Status, 11-11-2026:** source recovery and prospective planning only. This document does not change the existing configuration, authorize collection or inference, or report fitted coefficients or new judge performance. Numerical examples below are arithmetic under stated assumptions; confidence intervals and p-values for actual performance are not available because no such experiment was run here.
+**Status, 11-11-2026:** source recovery, prospective planning and planning arithmetic on saved results only. This document does not change the existing configuration, authorize collection or inference, or report fitted coefficients or new judge performance. Numerical examples below are arithmetic under stated assumptions; confidence intervals and p-values for actual performance are not available because no such experiment was run here.
 
 ## What the tensor counts
 
@@ -130,6 +130,85 @@ In that borrowed expression, A and B are nonnegative amplitudes of the capacity 
 For a new adaptation, rename coefficient A to avoid confusing it with solver count. Normalize proposed covariates by fixed reference values so coefficients have loss units. Capacity is a justified covariate only if capacity varies; training task groups describe coverage; ratings per artifact describe target measurement; distinct raters describe population coverage and persistent severity. These variables are not interchangeable. Solver configuration is ordinarily a categorical condition here, not a continuous scaling variable.
 
 With N fixed, \(E+A N^{-\alpha}\) is one inseparable intercept: E, A and \(\alpha\) cannot be separately identified. If task count and ratings always increase together, their separate effects cannot be identified either. Estimating several exponents requires independently varied allocations, enough variation and checks of held-out prediction. Added features or interactions need a mechanism and evidence that the design can estimate them. An appealing formula alone provides neither a fitted law nor a rating budget.
+
+## Costed allocation from existing evidence — 11-11-2026
+
+This section turns the open sizing question into explicit choices. It is planning arithmetic on saved results: no new rating, fit or model call. [`scripts/costed_allocation.py`](scripts/costed_allocation.py) reproduces every number into [`results/costed_allocation.json`](results/costed_allocation.json) and fails when an input changes.
+
+### The claim decides which axis is sampled
+
+| Claim | Sampled axis | What sets the size |
+| --- | --- | --- |
+| (a) Describe judge–human agreement on the current packet | None among tasks and solver configurations: the packet's 25 tasks and three represented configurations are taken as given | The packet itself: 54 returned files × 2 ratings = 108 |
+| (b) Compare training method 2 with method 4 on new tasks, for fixed solver configurations | Task families | The spread of the paired loss difference across task families |
+| (c) Also claim transfer to unseen solver configurations or raters | Solver configurations and raters as well | Many identities on each new axis; three or four configurations give no usable interval |
+
+### Inputs read from saved results
+
+Intervals are the saved 95% percentile-bootstrap intervals; `p-val=n/a` for all, because no test was run. The paired difference is method 4 minus method 2 in normalized ranked probability score (RPS), so a negative value favors the proper loss.
+
+| Input | Saved value | Resampled unit | Implied standard deviation | Source |
+| --- | --- | --- | ---: | --- |
+| Paired difference, 20 training tasks, each held-out forecast averaged over the splits that tested it | −0.0056 [−0.0181, +0.0059] | 25 tasks | 0.0307 | [archived learning-curve study](../archive/17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings/results.md) |
+| Paired difference on the original test split, fitted judges held fixed | +0.0052 [+0.0004, +0.0111] | about 9 test task families | 0.0082 | [archived mixture study](../archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/results.md) |
+| Same difference, refitting and reselecting both judges in every resample | +0.0052 [−0.0681, +0.0149] | about 9 test task families | 0.0635 | same study |
+| RPS level of one judge (proper-loss mixture, 20 training tasks) | 0.1362 [0.1109, 0.1638] | 25 tasks | 0.0675 | archived learning-curve study |
+| RPS above the 20-task value at 4 / 8 / 12 / 16 training tasks | +0.0133 / +0.0044 / +0.0021 / +0.0006 | — | — | archived learning-curve study |
+| RPS cost of training on 1 rating per file, or 2, instead of all 2–3 | +0.0020 [+0.0010, +0.0031]; +0.0004 [+0.0001, +0.0007] | 25 tasks | — | archived learning-curve study |
+| Entered minutes per rating | Warm-up: 6 entries from 1 rater, median 4, range 2–5. Main task: 0 entries | — | — | [raw rating files](../09_prepare_packets_and_collect_human_ratings/ratings/README.md) |
+| Candidate file length, median lines | Warm-up 58 (6 files); main task 448 (54 files); ratio 7.7 | — | — | [task packet](../09_prepare_packets_and_collect_human_ratings/rating_task_packet/START_HERE.md) |
+| Current packet | 54 returned files on 25 tasks: 1 task with one file, 19 with two, 5 with three; 2.16 files per task | — | — | [main form](../09_prepare_packets_and_collect_human_ratings/rating_task_packet/main_rating_task/ratings.csv) |
+
+The two archived studies disagree on the sign of the difference (−0.0056 and +0.0052), and each interval that allows for refitting includes zero. Which objective is better is unresolved; this section sizes the comparison, it does not predict its outcome.
+
+### Arithmetic
+
+For a mean over \(n\) independent units with a 95% interval \([\mathrm{lo},\mathrm{hi}]\), the implied unit-level standard deviation is \(s=(\mathrm{hi}-\mathrm{lo})\sqrt n/(2\times1.96)\). The units needed for half-width \(w\) are \(\lceil(1.96\,s/w)^2\rceil\). The units needed to detect a true difference \(\delta\) with 80% power at a two-sided 5% level are \(\lceil((1.96+0.84)\,s/\delta)^2\rceil\). This is sizing approach A applied to a paired contrast, with the task family as the unit.
+
+| Variability case for the paired difference | Implied standard deviation | Task families for ±0.02 | ±0.01 | ±0.005 | Half-width with 25 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Low: one fit, judges held fixed | 0.0082 | 1 | 3 | 11 | ±0.0032 |
+| Middle: forecasts averaged over splits | 0.0307 | 10 | 37 | 145 | ±0.0120 |
+| High: refit and reselect in every resample | 0.0635 | 39 | 155 | 620 | ±0.0249 |
+
+| Variability case | Families to detect 0.0242 (gap at 4 training tasks) | 0.0123 (gap at 12) | 0.0056 (gap at 20) |
+| --- | ---: | ---: | ---: |
+| Low | 1 | 4 | 17 |
+| Middle | 13 | 49 | 234 |
+| High | 54 | 210 | 999 |
+
+For one judge's RPS level, standard deviation 0.0675 gives 44 tasks for ±0.02, 176 for ±0.01 and 701 for ±0.005; 25 tasks give ±0.0265. Paired comparisons are far cheaper than absolute levels because task difficulty cancels.
+
+| Scenario | New development tasks | New held-out tasks | Held-out tasks in total | Independent ratings | Hours at 4 minutes | Hours at 31 minutes |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Finish the current packet | 0 | 0 | 25 | 108 | 7.2 | 55.6 |
+| Add a development pool | 24 | 0 | 25 | 212 | 14.1 | 109.0 |
+| Development pool, plus held-out tasks for ±0.01 | 24 | 12 | 37 | 264 | 17.6 | 135.8 |
+| Development pool, plus held-out tasks for ±0.005 | 24 | 120 | 145 | 732 | 48.8 | 376.5 |
+
+New tasks are costed at 2.16 returned files per task and two ratings per file. Four minutes is the measured warm-up median; 31 minutes is that value multiplied by the 7.7 length ratio, an assumption and not a measurement. Held-out counts use the middle variability case.
+
+### Limits of this arithmetic
+
+- **Transfer is assumed, not shown.** The variability comes from mixtures of five cached scalar judges on 75 historical outputs: one solver model, three generation samples per task, two or three expert ratings per file, no AI assistance for raters. The planned comparison uses native-probability judges on agentic outputs with AI-assisted raters. This is the dominant uncertainty and the reason for the 3-to-155 range.
+- **The middle case is optimistic in two ways.** Averaging each forecast over many splits removes fit-to-fit noise, and it treats 25 tasks as independent although they form 19 task families.
+- **The high case is rough.** Its interval is strongly skewed, so a normal approximation fits it poorly.
+- **Only task-family sampling is covered.** Rater sampling, judge repeat variability and the prior exposure of the historical test outcomes are outside these intervals.
+- **One planned comparison.** Several proper-loss conditions against Pearson need one declared primary contrast or a multiplicity adjustment.
+- **Solver configurations and the rater panel are fixed.** Nothing here supports claim (c).
+- **The return rate is assumed stable.** 2.16 files per task reflects 54 returned files from the three represented configurations; the fourth planned configuration returned none.
+- **The development pool is a starting block.** Sixteen training and eight validation tasks are an agent's suggestion read off a five-weight mixture's curve, not a derived requirement.
+
+### Inputs still missing, and a bounded way to get each
+
+| Missing input | Why it matters | How to obtain it |
+| --- | --- | --- |
+| Minutes per main-task rating | Sets every hour and staffing figure | Participants' own `minutes_spent` entries from Brando's trial and the first batch; rerun the script |
+| Spread of the paired difference for the actual judges | Moves the held-out count from 3 to 155 for ±0.01 | Task-family-grouped cross-validation on development data only, once method 2 and method 4 judges exist; needs separately authorized inference |
+| Claim, precision target and workload cap | Select the row | Brando's three decisions in the [README](README.md#three-decisions-that-are-brandos) |
+| Identity-split amendment | Says which task families, configurations and raters are development or evaluation | The pending amendment in the [priority plan](../02_design_a_judge_that_predicts_human_ratings_0_to_5/PRIORITY_2_VS_4_11-09-2026.md#data-separation-and-the-pending-amendment) |
+
+Fix the counts before inspecting evaluation outcomes. The current packet stays evaluation-only: its outcomes must not be used to size or select anything.
 
 ## Corrections that change the sizing conclusion
 

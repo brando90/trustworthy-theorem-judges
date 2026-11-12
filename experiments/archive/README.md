@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/archive/README.md>
 
-**TLDR:** This archive holds completed studies, supporting references and paused work. Each entry states what remains pending; moving a folder here does not accept a review, complete a paused study or discard its evidence. The active homes are 02, 09 and 15 in the [experiment index](../README.md).
+**TLDR:** This archive holds completed studies, supporting references, paused work and one proposed study that has not been run. Each entry states what remains pending; moving a folder here does not accept a review, complete a paused study or discard its evidence. The active homes are 02, 09 and 15 in the [experiment index](../README.md).
 
 ## Local archive inventory
 
@@ -14,10 +14,30 @@
 | [05_test_qwen_3_5_9b_prover_success_predictions_4_tasks_8_outputs](05_test_qwen_3_5_9b_prover_success_predictions_4_tasks_8_outputs/README.md) | Completed local feasibility condition; no judge validated. |
 | [07_compare_5_judges_on_75_outputs_and_estimate_rating_needs](07_compare_5_judges_on_75_outputs_and_estimate_rating_needs/README.md) | Completed cached metric and sample-size calculations; a reference for current methodology, with fresh confirmation still pending. |
 | [08_judge_whether_candidate_statements_imply_reference_48_lean_cases](08_judge_whether_candidate_statements_imply_reference_48_lean_cases/README.md) | Bounded constructed-control execution and deterministic verification complete; **parent review remains pending**, as does the proposed natural-output follow-up. |
-| [10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability](10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/README.md) | Retrospective analysis complete; the owner's detached worktree still contains an **unlanded publication receipt and modified PDF**. The worktree is preserved. |
+| [10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability](10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/README.md) | Retrospective analysis complete. Its paired-paper publication receipt was landed on 11-11-2026 from the former owner's detached worktree. That worktree is still registered and now holds only a superseded PDF rebuild, with a verified recovery package; **removing it awaits Brando's confirmation**. |
 | [16_compare_validation_selection_and_training_on_75_rated_outputs](16_compare_validation_selection_and_training_on_75_rated_outputs/README.md) | Completed cached comparison of validation selection and training objectives. |
 | [17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings](17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings/README.md) | Completed cached learning-curve study; uses experiment 16's shared code. |
-| [18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs](18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs/README.md) | Completed cached AI-rating training-pool study; uses experiment 16's shared code. |
+| [18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs](18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs/README.md) | Completed cached AI-rating training-pool study; uses experiment 16's shared code. Its [data inventory and plan](18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs/big-training-data-inventory-11-10-2026.md) now sits beside it. |
+| [does_a_gold_reference_help_or_bias_a_theorem_judge](does_a_gold_reference_help_or_bias_a_theorem_judge/README.md) | **Proposed, not run.** A plan to measure whether showing a judge the gold reference helps it or biases its rating. No experiment number is assigned; it receives one if Brando authorizes the study. |
+
+## Root notes folder, source rename and experiment 10 receipt — 11-11-2026
+
+The baseline is [3932b6d](https://github.com/brando90/trustworthy-theorem-judges/tree/3932b6d062bdf36d9c47e43959464d34831c2cd0). The repository root now holds only `experiments/`, `paper_latex/` and `scripts/` beside its instruction, license and README files; the root `docs/` folder is gone. Each moved file keeps its bytes except its own document address line; one note also had two relative links repointed.
+
+| Previous path | Current path | Reason |
+| --- | --- | --- |
+| `docs/reference-anchoring-plan.md` | [experiments/archive/does_a_gold_reference_help_or_bias_a_theorem_judge/README.md](does_a_gold_reference_help_or_bias_a_theorem_judge/README.md) | A proposed study belongs with the studies, with its status in this index. |
+| `docs/big-training-data-inventory-11-10-2026.md` | [experiments/archive/18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs/big-training-data-inventory-11-10-2026.md](18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs/big-training-data-inventory-11-10-2026.md) | It is that study's data inventory and plan. |
+| `docs/learning-a-judge-formulation-11-10-2026.md` | [experiments/15_estimate_required_tasks_solver_configurations_and_human_raters/sources/learning-a-judge-formulation-11-10-2026.md](../15_estimate_required_tasks_solver_configurations_and_human_raters/sources/learning-a-judge-formulation-11-10-2026.md) | Its scaling-curve idea and bound pointers are source material for the sizing question. |
+| `experiments/15_estimate_required_tasks_solver_configurations_and_human_raters/sources/claude.md` | [sources/claude_conversation_human_and_agent_counts.md](../15_estimate_required_tasks_solver_configurations_and_human_raters/sources/claude_conversation_human_and_agent_counts.md) in the same folder | On a case-insensitive file system the old name is read as `CLAUDE.md`, so Claude Code loaded the whole recovered conversation as project instructions. Bytes unchanged. |
+
+**Experiment 10 receipt.** The twelve unlanded lines of `CKPT_practical_judge.md` from the detached worktree `~/.worktrees/trustworthy-theorem-judges/paper-publication-receipt-11-10-2026` are now in [the archived checkpoint](10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/CKPT_practical_judge.md), unchanged, with a landing note. Before landing, the cited VeriBench commit `b2631b5fe64bcb88a77d95043b33a077894b1d1c` was confirmed to be on VeriBench `main` with the three linked files, and its ranked probability score contrast was matched to this experiment's saved result. All ten freeze-bound files keep their hashes. The worktree's other change, a PDF rebuilt on 11-10-2026, was not landed because the paper was rewritten on 11-11-2026. A recovery package holding both changes is saved at `/Users/brandomiranda/.local/share/trustworthy-theorem-judges/claude_takeover_11-11-2026/experiment_10_worktree_recovery/`; applying it to revision `7dc735a` reproduced both worktree files byte-for-byte. The worktree itself was left untouched and registered: removing another owner's checkout needs that owner's or Brando's confirmation.
+
+**Layout questions settled with evidence, no move made.**
+
+- Experiment 02 (`02_design_a_judge_that_predicts_human_ratings_0_to_5`) stays an active home. The project check runs its design validator and source-hash check, it holds the tested evaluator for six-probability judges, and the project instructions name its priority plan as the current priority.
+- Archived experiments 16, 17 and 18 stay in this repository. They analyze this project's 75 rated outputs; experiment 17 is the learning-curve evidence that experiment 15's costed allocation reads; experiments 17 and 18 import experiment 16's code by relative path. The position-paper repository holds no copy of them (checked at its revision `4ed7804`). Moving them would require publishing and verifying the destination first, for no gain in navigation.
+- `paper_latex/` and `scripts/` keep their names. The project instructions, the build and check scripts and the ignore rules pin both paths, and the experiment 10 worktree still carries a file under `paper_latex/`. Renaming them to the shared four-bucket names is a separate decision for Brando.
 
 ## Active-folder cleanup — 11-11-2026
 

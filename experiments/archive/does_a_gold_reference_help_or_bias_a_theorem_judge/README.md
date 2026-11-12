@@ -1,6 +1,6 @@
 # Does a gold reference help a theorem judge and bias its score?
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/docs/reference-anchoring-plan.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/archive/does_a_gold_reference_help_or_bias_a_theorem_judge/README.md>
 
 **TLDR:** Give a large language model (LLM) judge the same candidate theorem statements several times. Measure whether a randomly chosen gold reference improves its ability to distinguish covered from missed obligations, and whether it gives extra credit when the displayed reference happens to resemble the candidate. This is a proposed experiment. Its two predictions can succeed or fail independently.
 

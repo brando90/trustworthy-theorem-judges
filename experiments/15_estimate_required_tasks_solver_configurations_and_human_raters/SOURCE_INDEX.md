@@ -9,7 +9,7 @@
 ### Claude — Human and agent counts for benchmark
 
 - Original: <https://claude.ai/chat/8e71dba8-d073-482a-90fc-724ff86b3edc>.
-- [Export](sources/claude.md): 22 numbered message bodies, including expanded/collapsed user-message text available in the page. Uploaded image bytes, hidden tool traces and private reasoning are outside this text export.
+- [Export](sources/claude_conversation_human_and_agent_counts.md): 22 numbered message bodies, including expanded/collapsed user-message text available in the page. Uploaded image bytes, hidden tool traces and private reasoning are outside this text export.
 - Current selector (capturing agent's UI observation, not provider-authenticated historical metadata): Opus 5.5 Max. Historical per-message model/version and exact timestamps were not exposed. References in the exchange reach from the 11-05-2026 plans to the 11-09-2026 ownership update; those are content dates, not authenticated message timestamps.
 - Read messages 4–6 for competing census/pilot proposals, variance and reliability arguments; read message 22 for the final deferral to the repository's 14,848-rating, 24-person plan, with Claude's older figures declared superseded. Our 12,288 stage sum (the source says roughly 12,300) excludes its separately proposed 40-file × five-rater pilot and about 120-file × five-rater constructed slice (our calculations: 200 and about 600 ratings); overlap with existing votes is unspecified. The proposed variance values and reliability claims are not measurements. In particular, a reliability formula does not by itself establish a universal Spearman ceiling.
 
@@ -48,9 +48,14 @@
 | Adopted experiment 02 source | [Preserved GPT Pro response](../02_design_a_judge_that_predicts_human_ratings_0_to_5/sources/gpt_pro_plan_11-06-2026.txt), [README](../02_design_a_judge_that_predicts_human_ratings_0_to_5/README.md), [configuration](../02_design_a_judge_that_predicts_human_ratings_0_to_5/config.json): historical 14,848 budget and probabilistic human-rating target. Original response SHA-256: `f0eb2e0d00401b52c52313407d2bb6ae956e728c28c76e99f5e7adddd179a878`. |
 | Current methods 2 and 4 | [Priority plan](../02_design_a_judge_that_predicts_human_ratings_0_to_5/PRIORITY_2_VS_4_11-09-2026.md): matched training-objective comparison, common validation RPS, sealed evaluation and pending identity-split amendment. |
 | Collection ownership and schema | [Experiment 09](../09_prepare_packets_and_collect_human_ratings/README.md), [form schema](../09_prepare_packets_and_collect_human_ratings/support/RATING_FORM_SCHEMA.json): current collection records, raw-response preservation and prospective assistance conditions. |
+| 11-10-2026 formulation and scaling-curve note | [Brando's voice-note summary](sources/learning-a-judge-formulation-11-10-2026.md): the learn-by-loss formulation, the untested scaling-curve idea for sizing a rating round, and pointers to where related bounds already live. It reports no bound for learning a judge from human ratings. Moved here from the former root `docs/` folder on 11-11-2026; only its document address and two relative links changed. |
 | Existing Google Q&A | [Judge paper Q&A](https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws/edit): collaborator-facing context and dated companion update. |
 
 The older VeriBench repository is access-restricted. Its anonymous GitHub URLs can return 404; the two 11-05-2026 files were found only in the local working directory, with no commit found by path history. All three earlier texts are included in [exact snapshots](sources/earlier_local_plans.md); embedded historical links are preserved, including unavailable ones. The 11-04-2026 immutable Git object was verified locally.
+
+## File name of the Claude export
+
+The Claude export was first saved as `sources/claude.md`. On a case-insensitive file system that name is read as `CLAUDE.md`, the file Claude Code loads as project instructions, so the whole recovered conversation was injected into any Claude Code session working in `sources/`. On 11-11-2026 it was renamed to `sources/claude_conversation_human_and_agent_counts.md`; its bytes and SHA-256 (`2d1023c218d086f8d843f5061caaa7d26daf9723186eab800101fbbecb475c6c`) are unchanged. Do not name a source export `claude.md` or `agents.md`.
 
 ## Search and preservation limits
 

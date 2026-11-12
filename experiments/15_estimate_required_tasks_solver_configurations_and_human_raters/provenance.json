@@ -4,24 +4,19 @@
   "scope": "Read-only visible message-body recovery; coverage limits in SOURCE_INDEX.md",
   "public_files": [
     {
-      "path": "ckpt.md",
-      "sha256": "2cc7953fa1d14c69427b83f816d41fa019800f3116e52311d08a262195b38eba",
-      "bytes": 24104
-    },
-    {
       "path": "METHODS_AND_ALLOCATION.md",
-      "sha256": "604939476c35d567d2a60c218fe9983496ed53f2ba6ca330a6cc0219691cbd80",
-      "bytes": 20554
+      "sha256": "1146fc030175f3e5ec296d868295e34520a03be7ce293e2b21eb70d731791fbd",
+      "bytes": 29159
     },
     {
       "path": "README.md",
-      "sha256": "5e6894fe5cdf4f28b036236de8558531f4941f09deb7c7d51dca712a9327d58f",
-      "bytes": 10861
+      "sha256": "b6ef3082dd8ad9c7d0f078c5c8806c71f4c78684d12f14fa6e96591e24a7313f",
+      "bytes": 14645
     },
     {
       "path": "SOURCE_INDEX.md",
-      "sha256": "c232074cb5901998d4c6b0ece5be0db5d1353432265e10e62cadca93d573855b",
-      "bytes": 11335
+      "sha256": "07f91d027a17bf1a9b6d8468ed7f6855797a2c187f59369d1e000a1c57a5766a",
+      "bytes": 12394
     },
     {
       "path": "assets/rating_tensor_source_recovery_11-11-2026.png",
@@ -34,12 +29,32 @@
       "bytes": 5126
     },
     {
+      "path": "ckpt.md",
+      "sha256": "6aa274185f960a1318fcc3ae881a88b3f7c6c710e318d57e1eb4d73848963408",
+      "bytes": 16359
+    },
+    {
+      "path": "results/costed_allocation.json",
+      "sha256": "93780ad1704ea19a811b1956f3d3c652a571ffbdf606999d10b596f3feb27c95",
+      "bytes": 7480
+    },
+    {
+      "path": "scripts/costed_allocation.py",
+      "sha256": "209b322d4fc08edbb77a5deaeaceaf9c548593e93c76d58c9e430634c084f69b",
+      "bytes": 13903
+    },
+    {
+      "path": "scripts/refresh_provenance_hashes.py",
+      "sha256": "e8c502789af146a326cc2cd07d7e36c9f74e1c19e2ca80a143216f466f5d1c06",
+      "bytes": 2187
+    },
+    {
       "path": "sources/chatgpt_pro.md",
       "sha256": "32c7287f708aa2e162ddb6fb07368facdedcb105eecf89114cb12232eadbcbab",
       "bytes": 164693
     },
     {
-      "path": "sources/claude.md",
+      "path": "sources/claude_conversation_human_and_agent_counts.md",
       "sha256": "2d1023c218d086f8d843f5061caaa7d26daf9723186eab800101fbbecb475c6c",
       "bytes": 56131
     },
@@ -52,6 +67,11 @@
       "path": "sources/gemini_argon_high.md",
       "sha256": "c85b59d7e7bb783dc22a419826dff60a6ae1b1bbf6043a7788d27845301ddf3b",
       "bytes": 93750
+    },
+    {
+      "path": "sources/learning-a-judge-formulation-11-10-2026.md",
+      "sha256": "059c5ffbd61983b9ba0890b6b26a7247b94f54986ada648bcbc6b4f576ff0675",
+      "bytes": 9400
     }
   ],
   "local_archive": [
@@ -169,7 +189,7 @@
       "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/exacbino.htm?utm_source=chatgpt.com",
       "https://www.jmlr.org/papers/v11/cawley10a.html?utm_source=chatgpt.com"
     ],
-    "sources/claude.md": [
+    "sources/claude_conversation_human_and_agent_counts.md": [
       "https://claude.ai/chat/8e71dba8-d073-482a-90fc-724ff86b3edc",
       "https://github.com/brando90/judges-dont-need-psychometrics-or-corr",
       "https://github.com/brando90/trustworthy-theorem-judges"
@@ -338,5 +358,57 @@
       "readback_verified": true
     },
     "verification": "66 project tests, design/source checks, paper build, source/attachment hashes and current links/anchors passed."
+  },
+  "takeover": {
+    "date": "11-11-2026",
+    "accepted_at": "11-11-2026 22:40 PST",
+    "owner": "Claude Code session e5556c18-2c10-4562-a2ae-6978ca6b39b3",
+    "scope": "Experiment 15 sizing decision support and repository cleanup; not the human-rating collection.",
+    "client": "Claude Code 2.1.322",
+    "model": "claude-fable-5-2",
+    "effort": "max",
+    "billing": "existing claude.ai subscription; usage credits off; no API key in the environment",
+    "input_revision": "3932b6d062bdf36d9c47e43959464d34831c2cd0",
+    "input_checkpoint_sha256": "2cc7953fa1d14c69427b83f816d41fa019800f3116e52311d08a262195b38eba",
+    "previous_owner": "Codex chat 01a1cc5b-af60-77d1-8f1e-2207b1f121d1",
+    "private_receipts": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/claude_takeover_11-11-2026/",
+    "verified_inputs": {
+      "experiment_09_ratable_cohort_sha256": "8463f6c846839c78fccf8102f3672ff94a20562dba7871b13d81e8cca693de22",
+      "experiment_09_exclusions_sha256": "a14cfa52ead4917f5a24b88672d05f3a38b490ce39a8c5c217729891b3d024e5",
+      "returned_files": 54,
+      "tasks": 25,
+      "planned_files": 85,
+      "missing_outputs": 31,
+      "independent_rating_target": 108
+    },
+    "renamed_or_moved_sources": [
+      {
+        "from": "sources/claude.md",
+        "to": "sources/claude_conversation_human_and_agent_counts.md",
+        "sha256_unchanged": "2d1023c218d086f8d843f5061caaa7d26daf9723186eab800101fbbecb475c6c",
+        "reason": "The old name was loaded as CLAUDE.md project instructions on case-insensitive file systems."
+      },
+      {
+        "from": "docs/learning-a-judge-formulation-11-10-2026.md",
+        "to": "sources/learning-a-judge-formulation-11-10-2026.md",
+        "sha256_before_move": "6088f53d2651dc2a542155f83da296c9c8edd195f378792923c5daccb865f2c6",
+        "edits_after_move": "its document address line and two relative links"
+      }
+    ],
+    "costed_allocation": {
+      "script": "scripts/costed_allocation.py",
+      "result": "results/costed_allocation.json",
+      "inputs": [
+        "experiments/archive/17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings/results/results.json",
+        "experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/results/results.json",
+        "experiments/09_prepare_packets_and_collect_human_ratings/ratings/*.csv (minutes_spent only)",
+        "experiments/09_prepare_packets_and_collect_human_ratings/rating_task_packet (form rows and candidate file lengths)"
+      ],
+      "model_calls": 0,
+      "new_ratings": 0,
+      "private_data_read_by_script": false,
+      "status": "planning arithmetic; no allocation adopted"
+    },
+    "model_review": "none requested for this continuation; deterministic checks only"
   }
 }

@@ -9,8 +9,8 @@
 | Home | Purpose and status |
 | --- | --- |
 | [02_design_a_judge_that_predicts_human_ratings_0_to_5](02_design_a_judge_that_predicts_human_ratings_0_to_5/README.md) | Develop the judge methodology, including [training correlation versus a proper probability loss](02_design_a_judge_that_predicts_human_ratings_0_to_5/PRIORITY_2_VS_4_11-09-2026.md). The identity-split amendment and fresh evaluation remain pending. |
-| [09_prepare_packets_and_collect_human_ratings](09_prepare_packets_and_collect_human_ratings/README.md) | Prepare the current packet and collect human ratings. Its README owns live preparation status, named data links and completion counts; the editable packet and raw responses stay there. |
-| [15_estimate_required_tasks_solver_configurations_and_human_raters](15_estimate_required_tasks_solver_configurations_and_human_raters/README.md) | Recover and compare the Claude, Gemini and ChatGPT estimates for T tasks, A solver configurations and H human raters. Original conversations, exact passages and sizing methods are preserved; final allocation is undecided. |
+| [09_prepare_packets_and_collect_human_ratings](09_prepare_packets_and_collect_human_ratings/README.md) | Prepare the current packet and collect human ratings: 54 returned files on 25 tasks, with a target of 108 independent ratings. Its README owns live preparation status, named data links and completion counts; the editable packet and raw responses stay there. |
+| [15_estimate_required_tasks_solver_configurations_and_human_raters](15_estimate_required_tasks_solver_configurations_and_human_raters/README.md) | Decide how many tasks, solver configurations and human raters a study needs. It holds a costed allocation computed from saved results, three open choices for Brando, and the recovered Claude, Gemini and ChatGPT estimates with their original text. The final allocation is undecided. |
 
 ## Original evidence and supporting studies
 
@@ -18,4 +18,4 @@
 
 The [archive index](archive/README.md) lists the other studies, their outcomes and pending gates, the earlier cross-project moves, and the dated old-to-new path maps. Archiving a paused study or a study awaiting review does not complete its remaining work. General objective-comparison studies 06 and 11–14 have their canonical home in [the position-paper project](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/archive/README.md).
 
-The [judge paper and evidence ledger](../paper_latex/AAAI_2027_Evaluation_AI_Scientists/README.md) connect the original evidence, current collection and sizing question. The [reference-anchoring plan](../docs/reference-anchoring-plan.md) remains a separate proposed comparison; reorganizing these folders does not execute it.
+The [judge paper and evidence ledger](../paper_latex/AAAI_2027_Evaluation_AI_Scientists/README.md) connect the original evidence, current collection and sizing question. The [reference-anchoring plan](archive/does_a_gold_reference_help_or_bias_a_theorem_judge/README.md) is a proposed comparison that has not been run; it is listed in the archive.

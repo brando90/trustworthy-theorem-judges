@@ -1,0 +1,250 @@
+{
+  "description": "Planning arithmetic for experiment 15; not a measurement of any future study and not an adopted allocation.",
+  "constants": {
+    "z_95_two_sided": 1.959964,
+    "z_80_power": 0.841621,
+    "development_training_tasks": 16,
+    "development_validation_tasks": 8
+  },
+  "paired_rps_contrast_sd": {
+    "averaged_forecasts_25_tasks": {
+      "source": "experiments/archive/17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings/results/results.json",
+      "what": "proper-loss mixture minus Pearson mixture, 20 training tasks; each held-out forecast averaged over the splits that tested it",
+      "point": -0.005626,
+      "interval_95": [
+        -0.01814,
+        0.005897
+      ],
+      "resampled_units": 25,
+      "unit": "task",
+      "implied_sd": 0.030659,
+      "units_for_half_width": {
+        "0.02": 10,
+        "0.01": 37,
+        "0.005": 145
+      },
+      "half_width_at_units": {
+        "25": 0.012018,
+        "65": 0.007453,
+        "150": 0.004906
+      },
+      "units_for_80_percent_power": {
+        "observed_gap_at_4_training_tasks": 13,
+        "observed_gap_at_12_training_tasks": 49,
+        "observed_gap_at_20_training_tasks": 234
+      }
+    },
+    "one_fit_fixed_about_9_test_families": {
+      "source": "experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/results/results.json",
+      "what": "RPS-trained mixture minus Pearson mixture on the original test split, fitted judges held fixed",
+      "point": 0.005241,
+      "interval_95": [
+        0.00037,
+        0.011145
+      ],
+      "resampled_units": 9,
+      "unit": "task family",
+      "implied_sd": 0.008247,
+      "units_for_half_width": {
+        "0.02": 1,
+        "0.01": 3,
+        "0.005": 11
+      },
+      "half_width_at_units": {
+        "25": 0.003233,
+        "65": 0.002005,
+        "150": 0.00132
+      },
+      "units_for_80_percent_power": {
+        "observed_gap_at_4_training_tasks": 1,
+        "observed_gap_at_12_training_tasks": 4,
+        "observed_gap_at_20_training_tasks": 17
+      }
+    },
+    "refit_and_reselect_about_9_test_families": {
+      "source": "experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/results/results.json",
+      "what": "same contrast, refitting and reselecting both judges inside every resample; skewed interval, rough",
+      "point": 0.005241,
+      "interval_95": [
+        -0.068074,
+        0.014864
+      ],
+      "resampled_units": 9,
+      "unit": "task family",
+      "implied_sd": 0.063474,
+      "units_for_half_width": {
+        "0.02": 39,
+        "0.01": 155,
+        "0.005": 620
+      },
+      "half_width_at_units": {
+        "25": 0.024881,
+        "65": 0.015431,
+        "150": 0.010158
+      },
+      "units_for_80_percent_power": {
+        "observed_gap_at_4_training_tasks": 54,
+        "observed_gap_at_12_training_tasks": 210,
+        "observed_gap_at_20_training_tasks": 999
+      }
+    }
+  },
+  "observed_absolute_differences": {
+    "observed_gap_at_4_training_tasks": 0.024234,
+    "observed_gap_at_12_training_tasks": 0.012299,
+    "observed_gap_at_20_training_tasks": 0.005626
+  },
+  "one_judge_rps_level": {
+    "source": "experiments/archive/17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings/results/results.json",
+    "what": "held-out RPS of the proper-loss mixture at 20 training tasks",
+    "point": 0.136239,
+    "interval_95": [
+      0.110907,
+      0.163842
+    ],
+    "resampled_units": 25,
+    "unit": "task",
+    "implied_sd": 0.06752,
+    "units_for_half_width": {
+      "0.02": 44,
+      "0.01": 176,
+      "0.005": 701
+    },
+    "half_width_at_units": {
+      "25": 0.026467,
+      "65": 0.016414,
+      "150": 0.010805
+    }
+  },
+  "learning_curve": {
+    "source": "experiments/archive/17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings/results/results.json",
+    "what": "held-out RPS of the proper-loss mixture minus its value at 20 training tasks",
+    "excess_over_20_tasks": {
+      "4": 0.013325,
+      "6": 0.00706,
+      "8": 0.004359,
+      "10": 0.002884,
+      "12": 0.002059,
+      "14": 0.0012,
+      "16": 0.000583,
+      "18": 0.000298,
+      "20": 0.0
+    },
+    "one_rating_per_file_instead_of_all": 0.001964,
+    "two_ratings_per_file_instead_of_all": 0.000392
+  },
+  "current_packet": {
+    "source": "experiments/09_prepare_packets_and_collect_human_ratings/rating_task_packet/main_rating_task/ratings.csv",
+    "files": 54,
+    "tasks": 25,
+    "files_per_task": 2.16,
+    "tasks_by_file_count": {
+      "1": 1,
+      "2": 19,
+      "3": 5
+    },
+    "ratings_per_file_target": 2,
+    "independent_rating_target": 108
+  },
+  "review_time": {
+    "source": "experiments/09_prepare_packets_and_collect_human_ratings/ratings",
+    "entered_minutes": {
+      "warm_up": {
+        "entries": 6,
+        "raters_with_entries": 1,
+        "median_minutes": 4.0,
+        "mean_minutes": 3.666667,
+        "min_minutes": 2.0,
+        "max_minutes": 5.0
+      },
+      "current_main": {
+        "entries": 0,
+        "raters_with_entries": 0,
+        "median_minutes": null,
+        "mean_minutes": null,
+        "min_minutes": null,
+        "max_minutes": null
+      },
+      "historical_main": {
+        "entries": 0,
+        "raters_with_entries": 0,
+        "median_minutes": null,
+        "mean_minutes": null,
+        "min_minutes": null,
+        "max_minutes": null
+      }
+    },
+    "warm_up_candidate_files": 6,
+    "warm_up_median_lines": 58.0,
+    "main_candidate_files": 54,
+    "main_median_lines": 447.5,
+    "main_to_warm_up_median_length_ratio": 7.715517,
+    "assumed_minutes_if_time_scaled_with_length": 30.862069
+  },
+  "scenarios": {
+    "finish_current_packet": {
+      "new_development_tasks": 0,
+      "new_evaluation_tasks": 0,
+      "evaluation_tasks": 25,
+      "new_ratings_at_measured_files_per_task": 0,
+      "total_independent_ratings": 108,
+      "hours": {
+        "measured_warm_up_median": 7.2,
+        "assumed_length_scaled": 55.551724
+      },
+      "ratings_per_person": {
+        "4": 27,
+        "8": 14,
+        "12": 9
+      }
+    },
+    "add_development_pool": {
+      "new_development_tasks": 24,
+      "new_evaluation_tasks": 0,
+      "evaluation_tasks": 25,
+      "new_ratings_at_measured_files_per_task": 104,
+      "total_independent_ratings": 212,
+      "hours": {
+        "measured_warm_up_median": 14.133333,
+        "assumed_length_scaled": 109.045977
+      },
+      "ratings_per_person": {
+        "4": 53,
+        "8": 27,
+        "12": 18
+      }
+    },
+    "add_development_pool_and_reach_half_width_0.01": {
+      "new_development_tasks": 24,
+      "new_evaluation_tasks": 12,
+      "evaluation_tasks": 37,
+      "new_ratings_at_measured_files_per_task": 156,
+      "total_independent_ratings": 264,
+      "hours": {
+        "measured_warm_up_median": 17.6,
+        "assumed_length_scaled": 135.793103
+      },
+      "ratings_per_person": {
+        "4": 66,
+        "8": 33,
+        "12": 22
+      }
+    },
+    "add_development_pool_and_reach_half_width_0.005": {
+      "new_development_tasks": 24,
+      "new_evaluation_tasks": 120,
+      "evaluation_tasks": 145,
+      "new_ratings_at_measured_files_per_task": 624,
+      "total_independent_ratings": 732,
+      "hours": {
+        "measured_warm_up_median": 48.8,
+        "assumed_length_scaled": 376.517241
+      },
+      "ratings_per_person": {
+        "4": 183,
+        "8": 92,
+        "12": 61
+      }
+    }
+  }
+}

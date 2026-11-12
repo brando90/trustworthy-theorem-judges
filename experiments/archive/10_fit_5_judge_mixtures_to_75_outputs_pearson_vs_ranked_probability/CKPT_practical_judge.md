@@ -17,6 +17,7 @@
 - Interpreter: `/Users/brandomiranda/uv_envs/no-gold-ref-judge/bin/python3`.
 - Next study: new human data; no additional inference or test-driven selection in this experiment.
 - Publication eligibility: retrospective comparison only; validation selected a candidate, but no deployment threshold was declared or passed.
+- Paired-paper publication: VeriBench `b2631b5fe64bcb88a77d95043b33a077894b1d1c` incorporates this comparison in both public papers; immutable receipt below.
 - Result: method-4 minus method-2 RPS +0.005241, 95% interval [−0.068074,+0.014864], 1,998/2,000 valid draws; no resolved advantage.
 - Validation selected method4_rps; saved parameters and eligibility receipt are under results/.
 - Private forecasts/logs: canonical private/10_retrospective_rps_vs_pearson_mixture/.
@@ -31,6 +32,19 @@
 - 11-09-2026: independently checked losses/forecasts and paired intervals; recorded scalar-versus-BLAS rank tie sensitivity without changing frozen measurements. Export replay matched all 75 forecasts exactly; 1,478 source hashes verified.
 - 11-09-2026: saved results.md and results/ELIGIBILITY.json; result is retrospective only. Coordinator owns the Google companion and completion notice.
 - 11-10-2026: received the VeriBench paper coordinator's request; rechecked the published definition, selection rule, results and eight evidence hashes. Confirmed the result/claim boundary below without new fitting, inference, rating inspection or teammate email.
+- 11-10-2026: verified the paired-paper aggregate export against this experiment's canonical results and retained its immutable publication receipt below. Ranked probability score, cross-entropy and total variation distance contrasts, intervals, counts and retrospective-only status match exactly; no new analysis or participant message was performed.
+
+## Paired-paper publication receipt — 11-10-2026
+
+Both public VeriBench papers now include the retrospective comparison from `experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/` at canonical result commit `a03109f68564424c4c9561567a044421181dc521`.
+The immutable [publication record](https://github.com/brando90/veribench/blob/b2631b5fe64bcb88a77d95043b33a077894b1d1c/paper_support/public_judge_retrospective_11-10-2026/README.md) links the [aggregate evidence](https://github.com/brando90/veribench/blob/b2631b5fe64bcb88a77d95043b33a077894b1d1c/paper_support/public_judge_retrospective_11-10-2026/evidence.json) and [build/verification receipt](https://github.com/brando90/veribench/blob/b2631b5fe64bcb88a77d95043b33a077894b1d1c/paper_support/public_judge_retrospective_11-10-2026/publication.json).
+The paper coordinator's receipt records 35 publication checks, rebuilt PDFs and visual inspection; this checkpoint update independently matched the three exported loss contrasts, interval endpoints and denominators to our numerical results, without rebuilding the VeriBench papers.
+The papers retain the prior-exposure limitations and make no new deployment-validation claim.
+Prover-based formal specification coverage, public differential-testing evidence, the private-results boundary and the photographed without-differential-testing baseline remain under the paper coordinator's existing preservation checks.
+For any later eligible validation packet, update both papers, their aggregate export and provenance together through the same coordinator; preserve this dated result and its scope.
+The current collection remains with this chat, and the user's hold on teammate emails is unchanged.
+
+Landing note, 11-11-2026: the 11-10-2026 log line and this receipt section were written by the then-owner in the detached worktree `paper-publication-receipt-11-10-2026` and never committed. The repository-cleanup successor landed them here unchanged after confirming that VeriBench commit `b2631b5fe64bcb88a77d95043b33a077894b1d1c` is on VeriBench `main` and contains the three linked files, and that the ranked probability score contrast it cites (+0.005241, 95% interval [−0.068074, +0.014864]) equals this experiment's `results/results.json`. `experiments/10_retrospective_rps_vs_pearson_mixture/` is this folder's name before the 11-11-2026 rename. “This chat” refers to that former owner, which has since handed the collection off. The worktree's rebuilt PDF was not landed: it predates the 11-11-2026 paper rewrite.
 
 ## Paper coordination confirmation — 11-10-2026
 

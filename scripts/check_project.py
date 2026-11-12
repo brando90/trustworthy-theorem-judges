@@ -19,6 +19,9 @@ def main():
     subprocess.run([sys.executable, str(ROOT / "experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5/scripts/validate_design.py")], check=True)
     subprocess.run([sys.executable, "-m", "unittest", "discover", "-s",
                     str(ROOT / "experiments/09_prepare_packets_and_collect_human_ratings/support/tests")], check=True)
+    sizing = ROOT / "experiments/15_estimate_required_tasks_solver_configurations_and_human_raters/scripts"
+    for script in ("costed_allocation.py", "refresh_provenance_hashes.py"):
+        subprocess.run([sys.executable, str(sizing / script)], check=True)
     legacy = ROOT / "experiments/archive/01_veribench_25_tasks_3_samples_5_raters_judge_evaluation"
     manifest = json.loads((legacy / "SOURCE_MANIFEST.json").read_text())
     for filename, key in manifest["byte_exact_copies"].items():
@@ -44,7 +47,7 @@ def main():
     for path in ROOT.rglob("*.json"):
         if "private" not in path.parts and ".git" not in path.parts:
             json.loads(path.read_text())
-    print("Project checks passed: design, mirrored instructions, source hashes, official style, and paper inputs.")
+    print("Project checks passed: design, mirrored instructions, sizing arithmetic, source hashes, official style, and paper inputs.")
 
 
 if __name__ == "__main__":

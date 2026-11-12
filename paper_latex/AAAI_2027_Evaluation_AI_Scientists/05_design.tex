@@ -23,10 +23,15 @@ The checked collection record dated 11-11-2026 contains no completed main rating
 Warm-up ratings assess readiness for that task and do not count as main ratings.
 
 % Provenance: user decision in sole-owner chat 01a1a8f9-dcb7-7381-9368-91d6e51faffd, 11-11-2026, verified via read_thread.
-A versioned replacement is being prepared around Claude Code, Codex and Pi, with fewer Terminus~2 artifacts retained for comparison.
-The coordinator plans 25 native Codex, 25 native Claude Code, 25 Pi and ten Terminus~2 artifacts, totaling 85 artifacts and 170 independent ratings.
-This is a planned workload, not collected data or a statistical sufficiency claim.
-The replacement's completed manifest, execution receipts and rater assignments remain pending.
+% Counts: experiments/09_prepare_packets_and_collect_human_ratings/README.md and support/ckpt.md; frozen manifests RATABLE_COHORT.json (SHA-256 8463f6c8...93de22) and EXCLUSIONS.json (SHA-256 a14cfa52...d024e5), rechecked 11-11-2026.
+A versioned replacement packet was built around Claude Code, Codex and Pi, with fewer Terminus~2 artifacts retained for comparison.
+Its plan called for 85 artifacts on 25 tasks: 25 each from native Codex, native Claude Code and Pi, and ten from Terminus~2.
+Only 54 planned artifacts were returned: 25 from Codex, 19 from Claude Code and ten from Terminus~2.
+The other 31, all 25 from Pi and six from Claude Code, are recorded as missing outputs; a missing output is not a human rating of zero.
+The replacement packet therefore contains 54 artifacts, and its target is two independent ratings per artifact, or 108 ratings; author ratings are additional.
+This is a collection workload, not collected data or a statistical sufficiency claim.
+No main rating of the replacement packet had been completed at the 11-11-2026 check, and most rater assignments remain pending.
+Because missing outputs differ by harness, the returned artifacts are not a random sample of each configuration's attempts.
 The ten-artifact Terminus~2 subset is exploratory; historical and new generation conditions differ, so it does not isolate a causal harness effect.
 The preserved packet's 125 artifacts and 250-rating target do not establish the replacement's size or completion.
 A harness name alone does not identify a solver configuration: exact models, tools, effort, prompts, budgets and source hashes must accompany each candidate.
