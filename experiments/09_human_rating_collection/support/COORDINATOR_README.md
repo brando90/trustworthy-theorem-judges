@@ -26,6 +26,26 @@ Evidence: [current warm-up file hashes and path mapping](WARMUP_PATHS.json), [hi
 
 The separate **main packet (set N)** contains 25 tasks × five configurations = 125 candidate files. Its final manifest (10-08-2026), under `private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/SAMPLE_MANIFEST.json`, records 25 files each for Terminus 2 with Claude Fable 5.1, GPT-6 Astra, Grok 4.7, Google’s internal frontier model, and Kimi K3. Amendment C14 identifies Terminus 2 as the harness for all five; these are not native Claude Code/Codex runs. The public composition record does not identify the Google model as Gemini 3.8, Argon or Carbon. Keep individual candidate-to-system mappings sealed. Warm-up ratings alone do not validate agreement on these frontier outputs; their main sheets remain blank in the 11-11-2026 collection snapshot.
 
+## Why this packet uses Terminus 2 — checked 11-11-2026
+
+**The current 125-file main packet contains no native Claude Code, native Codex or Pi outputs.** Its five configurations are frontier models running inside a shared harness; they are not five vendors' native agents. Harness choice is part of the solver configuration and limits what judge generalization this collection can demonstrate.
+
+The recorded reason is route availability under the experiment's funding/key constraints, together with holding the harness fixed across model families. Native Claude Code + Fable 5.1 and Codex + Astra were explicitly planned in experiment 107 amendment 9, then withdrawn as `NOT_RUN`. The approved Vals route did not support those native runs, and raw provider keys were ruled out for that experiment at the time. Terminus 2 was the available shared harness used by Vals' Terminal-Bench evaluation. These are historical execution constraints, not a claim that native agents are generally unavailable today.
+
+The decision already appears in [experiment 102 amendment C14, item 1](https://github.com/brando90/veribench/blob/main/experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/PROTOCOL_AMENDMENT_C14.md), [experiment 107's protocol, amendments 9 and 11](https://github.com/brando90/veribench/blob/main/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/PROTOCOL.md), and especially [its paper notes, sections 2–3: harness justification and substitute-harness disclosure](https://github.com/brando90/veribench/blob/main/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/results/PAPER_NOTES_frontier_terminus2.md#2-why-terminus-2-harness-justification). C14's old rater-count proposal is superseded by C15; this citation concerns harness composition only.
+
+**Native and Pi artifacts exist elsewhere, but are not interchangeable with this packet:**
+
+| Separate source | Verified inventory or run record | Why it is not part of the current packet |
+| --- | --- | --- |
+| VeriBench archived experiment 85, `research_archive/experiments/85_E4_vb896_agents_astra_opus5_judges_astra/` | Codex + GPT-6 Astra/xhigh: 890 nonempty local `candidate.lean` files; 896 terminal attempts, six empty | Older frozen task/source snapshot and instruction version 5; requires an explicit source/task/protocol compatibility audit before reuse |
+| `vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/` | Claude Code + Opus 5.5: 27 local Lean solution files | Different private-benchmark tasks and execution conditions; Fable 5.1 in this experiment is a judge, not the solver |
+| `vb-priv-bmg/experiments/25_pi_qwen3coder_proxy_rerun_60_staged_10-29-2026/` | A completed 60-task Pi + Qwen3-Coder-30B-A3B-Instruct-FP8 pilot is documented | Different private tasks and a smaller proxy model; raw remote solver artifacts were not retrieved or verified in this audit |
+
+This targeted search did not establish a completed native Claude Code + Fable 5.1 pool suitable for set N. Coordinator/reviewer model activity is not evidence of a benchmark solver run.
+
+**No matched VeriBench comparison establishes Terminus 2 as the best harness.** The existing paper disclosure explicitly calls it a standardized substitute. The separate runs above vary in tasks, model versions or conditions and cannot isolate harness quality. Keep the current packet intact; if native-agent or Pi generalization is a goal, prepare a separately versioned extension with explicit model/harness versions, task/source alignment and comparable budgets. Such an extension is a recommendation, not an authorized generation run or a revision to the frozen collection.
+
 ## Current collection size and readiness — checked 11-11-2026
 
 **The main candidate inventory is complete:** 125 nonempty Lean files, five in each of 25 task folders. All 125 match their recorded candidate hashes. The manifest records 25 files and zero missing for each of the five configurations above. The current FormV5 full archive contains exactly those 125 candidates; Rylan’s and Sri’s ten-file archives contain the corresponding unchanged subsets. Their archive hashes also match the prepared manifest. The original generation handoff retains four isolation-flagged outputs; completeness does not erase those flags or establish judge validity.
