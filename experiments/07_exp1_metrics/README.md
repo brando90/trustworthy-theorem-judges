@@ -6,6 +6,8 @@
 
 Created 11-09-2026 for Brando Miranda's judge paper (his Nov 7 and Nov 8 voice notes and whiteboard photo). Computed by CPU scripts (Python 3, numpy, scipy); the cached judge scores come from the veribench experiment-100 runs at commit `be287d9`.
 
+**Placement, 11-11-2026:** retained as a current reference for experiment 02’s [metric and sample-size discussion](../02_probabilistic_ordinal_judge/PRIORITY_2_VS_4_11-09-2026.md). Its cached calculations are complete; fresh confirmation is pending. The historical importer now lives in [archived experiment 06](../archive/06_information_loss_vs_correlation_judge_selection/README.md).
+
 ## Question
 
 Which metric should be experiment 1 of the judge paper, and how many tasks and human ratings are needed to measure a judge's nRMSE precisely? The table compares metric families on the same cached judges; the fit uses subsampling of the same ratings.

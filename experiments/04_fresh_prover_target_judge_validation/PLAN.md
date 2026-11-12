@@ -3,7 +3,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/04_fresh_prover_target_judge_validation/PLAN.md>
 
-**Status, 11-06-2026:** plan only. Nothing has run: 0 model calls, 0 prover searches, $0. This plan follows [experiment 03](../03_prover_target_fsc_judge/README.md) (`03_prover_target_fsc_judge`) and supersedes its 12-pair pilot sketch where the two differ, because VeriBench work completed on 11-06-2026 changed the binding constraint.
+**Status, 11-06-2026:** plan only. Nothing has run: 0 model calls, 0 prover searches, $0. This plan follows [experiment 03](../archive/03_prover_target_fsc_judge/README.md) (`03_prover_target_fsc_judge`) and supersedes its 12-pair pilot sketch where the two differ, because VeriBench work completed on 11-06-2026 changed the binding constraint.
 
 **Addendum, 11-06-2026:** Phase 0 ran under its [frozen protocol](PROTOCOL_phase0.md); see [its results](RESULTS_phase0_transfer.md). The plan text below is unchanged.
 
@@ -86,7 +86,7 @@ Every rating row records the model identifier and revision (or weight hash), har
 | J3 | Prover-distilled judge: LoRA SFT of Qwen3-8B on training-family prover outcomes with a Brier or log-loss target, using experiment 63's recipe | SNAP GPUs, $0 API | Prover outcomes need no human raters, so this is the most direct cheap approximation |
 | J4 | Frontier single-call judges, including Gemini 3.1 Pro without proof search | Eligible measured route only | Strongest judges; the Gemini arm isolates what proof search adds beyond the same model's forecast |
 
-- **Inputs:** the original Python source, the candidate's theorem statements with proof bodies removed, and the gold statements, rendered from the exact context `P*` receives. Prompts follow [the forecast template](../03_prover_target_fsc_judge/prompts/binary_forecast.md) and ask for one probability in [0, 1]. A parse failure is a recorded failure, kept in the denominator.
+- **Inputs:** the original Python source, the candidate's theorem statements with proof bodies removed, and the gold statements, rendered from the exact context `P*` receives. Prompts follow [the forecast template](../archive/03_prover_target_fsc_judge/prompts/binary_forecast.md) and ask for one probability in [0, 1]. A parse failure is a recorded failure, kept in the denominator.
 - **Sanity checks before tuning,** per the shared judge recipe: a byte-level audit that the judge sees the bytes `P*` saw; the untuned score histogram; a label-in-prompt reproduction near 1.0; and controls with predicted values. Gold statements submitted as the candidate should get `q` near 1. A vacuous `True` candidate, a candidate from another task and an empty candidate should get `q` near 0. Removing obligations along the missing-statement ladder should lower `q` monotonically, and alpha-renaming should leave it unchanged. The ladder and renaming probes reuse cert-judge's `probe_validation.py`.
 - **Selection:** fit and tune on training families only; select at most three finalists by validation Brier loss; freeze them by hash before the test opens.
 

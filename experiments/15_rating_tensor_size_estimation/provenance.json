@@ -5,23 +5,23 @@
   "public_files": [
     {
       "path": "CKPT_rating_tensor_planning.md",
-      "sha256": "afed49c246dfefce706ca37cd193d12deebe809546bff8dd9ff162102b8d02a6",
-      "bytes": 3833
+      "sha256": "27efc7f164e0c7a71fc3b34b3ea10584002fb19b729f205726563dc6c137a008",
+      "bytes": 4844
     },
     {
       "path": "METHODS_AND_ALLOCATION.md",
-      "sha256": "64f2264979d3e3d006d5fa48d66c36128eb43db9d0d96932355054faf5591b8f",
-      "bytes": 20031
+      "sha256": "8030685c3fc5e52fcb7cc2f6ffc63299ed502fc9cb749a1262839f71c671b9b0",
+      "bytes": 20309
     },
     {
       "path": "README.md",
-      "sha256": "f59e462dc9745ce6ba7a02ff2ef6929d6b0b25472a425bffdccaf74213796a66",
-      "bytes": 8471
+      "sha256": "c0ae28647319b07d7c7d45b3d64e510e57f6ba637b70a8eb6619500650a633c7",
+      "bytes": 8982
     },
     {
       "path": "SOURCE_INDEX.md",
-      "sha256": "47c45b6c1e199da0d0510c1c66fb4ffed97b374cfb80c6b3c0aa2bd83324bff7",
-      "bytes": 11028
+      "sha256": "3ee9ecfe3243080e0ba71a956799a9b10462408473c2fde690c4470687124a42",
+      "bytes": 11156
     },
     {
       "path": "assets/rating_tensor_source_recovery_11-11-2026.png",
@@ -139,6 +139,11 @@
       "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/google_history_coverage_correction_receipt.json",
       "sha256": "604b38a639c4e80c2da5f039e297228c894d60184e16510829d871366c6fca8e",
       "bytes": 542
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/google_experiment_relocation_receipt.json",
+      "sha256": "fa4f8914d748bebbf235a002c425b5f62a4df27c7de94fdc3ea9233d5617847b",
+      "bytes": 723
     }
   ],
   "links": {
@@ -299,6 +304,26 @@
       "correction": "Coverage recheck (11-11-2026): all identified T/A/H estimates are already included. No specific missing intervening message was identified; the browser's loading marker does not establish a gap. Exhaustive original-thread coverage is unverified.",
       "matched": true,
       "old_definite_gap_claim_absent": true
+    }
+  },
+  "experiment_relocation": {
+    "date": "11-11-2026",
+    "current_home": "experiments/15_rating_tensor_size_estimation",
+    "user_requested_experiment_number": 15,
+    "relocation_record": "../archive/README.md",
+    "source_exports_and_attachments_byte_identical": true,
+    "google_companion": {
+      "date": "11-11-2026",
+      "document_id": "1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws",
+      "revision": "AHj4eMSMky95IKdf4y1Ake6QoC1Y-NqGok788tOq-kqiK6FkEaJ3rUrcdh8iot0zKdoCl_NpIs953kOUSo0mFHdiUIKJyUPFSdvAPjMeh1g",
+      "experiment15": true,
+      "optional_proposal": true,
+      "old_path_absent": true,
+      "linked_urls": [
+        "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_rating_tensor_size_estimation/README.md",
+        "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_rating_tensor_size_estimation/METHODS_AND_ALLOCATION.md",
+        "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_rating_tensor_size_estimation/SOURCE_INDEX.md"
+      ]
     }
   }
 }

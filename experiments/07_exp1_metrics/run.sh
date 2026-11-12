@@ -10,7 +10,7 @@ PRIVATE="${PRIVATE:-$REPO/private/exp07}"
 : "${VERIBENCH_SRC:?set VERIBENCH_SRC to a veribench checkout at be287d9b}"
 mkdir -p "$HERE/logs" "$HERE/results" "$PRIVATE"
 {
-  [ -f "$PRIVATE/dataset.json" ] || "$PY" "$REPO/experiments/06_information_loss_vs_correlation_judge_selection/scripts/import_cached.py" \
+  [ -f "$PRIVATE/dataset.json" ] || "$PY" "$REPO/experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/import_cached.py" \
       --source "$VERIBENCH_SRC" --private "$PRIVATE" --audit "$HERE/results/import_audit.json"
   "$PY" "$HERE/scripts/exp1_metrics.py" --private "$PRIVATE" --out "$HERE/results/metrics.json"
   "$PY" "$HERE/scripts/exp1_scaling.py" --private "$PRIVATE" --out "$HERE/results/scaling.json"

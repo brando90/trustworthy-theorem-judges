@@ -10,7 +10,7 @@ This repository studies artificial intelligence (AI), agent, and large language 
 
 The accepted design comes from the user's [shared planning conversation](https://chatgpt.com/share/6aee2147-9648-83e8-9ea5-685a565ffe54). This document makes the planned data collection and analysis explicit. It supersedes earlier human-count proposals for this experiment.
 
-**Rating-count source recovery, 11-11-2026:** [Original Claude, Gemini and ChatGPT text, links and sizing decision](rating_tensor_planning/README.md) compare standard errors, learning theory and scaling laws. The historical budget below remains unchanged; the new 544-rating pilot is a prospective proposal, not an executed amendment.
+**Rating-count source recovery, 11-11-2026:** [Original Claude, Gemini and ChatGPT text, links and sizing decision](../15_rating_tensor_size_estimation/README.md) compare standard errors, learning theory and scaling laws. The historical budget below remains unchanged; 544 ratings was an optional Codex proposal, not a user-requested total or an approved amendment.
 
 ## Target and measurement
 
@@ -172,4 +172,4 @@ Coordinate preparation and collection through [`experiments/09_human_rating_coll
 
 The adopted plan is preserved verbatim in [sources/gpt_pro_plan_11-06-2026.txt](sources/gpt_pro_plan_11-06-2026.txt), with [hash and source provenance](sources/provenance.json). A dated adoption summary is also in the [Google methodology notes](https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws).
 
-The separate [prover-target study](../03_prover_target_fsc_judge/README.md) applies a binary proper loss to acceptance by a specified proof-search procedure. It can proceed without human ratings for that operational target, but does not establish the human-rating agreement studied here.
+The separate [prover-target study](../archive/03_prover_target_fsc_judge/README.md) applies a binary proper loss to acceptance by a specified proof-search procedure. It can proceed without human ratings for that operational target, but does not establish the human-rating agreement studied here.

@@ -5,7 +5,7 @@
 
 **Status, 11-06-2026:** Phase 0 done (zero-call retrospective transfer check); Phases 1–4 not started. 0 model calls, 0 prover searches, $0. [Phase 0 results](RESULTS_phase0_transfer.md): experiment 03's unchanged map gives Brier loss 0.107 versus 0.144 for the constant on 1,352 artifacts from 339 unseen tasks (paired -0.037 [-0.049, -0.026], p-val=n/a). Live ledger: [results.md](results.md).
 
-This experiment follows the retrospective [experiment 03](../03_prover_target_fsc_judge/README.md). It asks whether an explicitly identified AI judge forecasts the outcome of VeriBench's adopted prover procedure, with its trusted kernel-replay checker, on outputs whose outcomes were sealed while the judge was built. The target and prover belong to VeriBench; this repository owns the judges and the forecasting evaluation.
+This experiment follows the retrospective [experiment 03](../archive/03_prover_target_fsc_judge/README.md). It asks whether an explicitly identified AI judge forecasts the outcome of VeriBench's adopted prover procedure, with its trusted kernel-replay checker, on outputs whose outcomes were sealed while the judge was built. The target and prover belong to VeriBench; this repository owns the judges and the forecasting evaluation.
 
 - [Plan](PLAN.md): phases, gates, judge arms, predictions, success criterion, decisions needed and risks.
 

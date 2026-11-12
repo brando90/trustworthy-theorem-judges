@@ -28,6 +28,12 @@ SPLIT = PROJECT / 'private/prover_target/split_manifest.json'
 PRIVATE = PROJECT / 'private/phase0_transfer'
 
 
+def experiment03_file(recorded_path: str) -> Path:
+    """Resolve the archived input without rewriting the frozen phase-0 config."""
+    relative = Path(recorded_path).relative_to('experiments/03_prover_target_fsc_judge')
+    return PROJECT / 'experiments/archive/03_prover_target_fsc_judge' / relative
+
+
 def sha(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -235,8 +241,8 @@ def main():
     cfg_path = EXP / 'config_phase0.json'
     cfg = json.loads(cfg_path.read_text())
     repo = Repo(args.source_repo)
-    e03 = json.loads((PROJECT / cfg['experiment03_results']).read_text())
-    e03cfg = json.loads((PROJECT / cfg['experiment03_config']).read_text())
+    e03 = json.loads(experiment03_file(cfg['experiment03_results']).read_text())
+    e03cfg = json.loads(experiment03_file(cfg['experiment03_config']).read_text())
     cond = e03['conditions'][cfg['frozen_map_condition']]
     chosen = next(c for c in cond['candidates'] if c['ridge'] == cond['selected_ridge'])
     assert np.allclose(chosen['coefficients'], cfg['frozen_map_coefficients'], atol=1e-12)
@@ -310,7 +316,7 @@ def main():
     out = {
         'status': 'phase0_transfer_complete', 'fresh_validation': False,
         'config_sha256': sha(cfg_path.read_bytes()), 'script_sha256': sha(Path(__file__).read_bytes()),
-        'experiment03_results_sha256': sha((PROJECT / cfg['experiment03_results']).read_bytes()),
+        'experiment03_results_sha256': sha(experiment03_file(cfg['experiment03_results']).read_bytes()),
         'split_manifest_sha256': sha(SPLIT.read_bytes()),
         'tiny256_fit_rows': {'train': len(train), 'validation': len(val), 'training_prevalence': float(ytr.mean())},
         'tiny256_candidate_files_missing': int(sum(r['missing_file'] for r in tiny)),

@@ -1,14 +1,14 @@
 # Rating tensor: sizing methods and proposed allocation
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_probabilistic_ordinal_judge/rating_tensor_planning/METHODS_AND_ALLOCATION.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_rating_tensor_size_estimation/METHODS_AND_ALLOCATION.md>
 
-**TLDR:** The adopted 14,848-rating plan is an initial budget, not a demonstrated requirement or sufficiency guarantee. A proposed 544-rating, training-only pilot can measure variability and workload; final counts require a frozen identity-split amendment, measured pilot quantities and a justified precision target.
+**TLDR:** The adopted 14,848-rating plan is an initial budget, not a demonstrated requirement or sufficiency guarantee. Codex’s optional 544-rating, training-only pilot could measure variability and workload; final counts require a frozen identity-split amendment, measured pilot quantities and a justified precision target.
 
 **Status, 11-11-2026:** source recovery and prospective planning only. This document does not change the existing configuration, authorize collection or inference, or report fitted coefficients or new judge performance. Numerical examples below are arithmetic under stated assumptions; confidence intervals and p-values for actual performance are not available because no such experiment was run here.
 
 ## What the tensor counts
 
-In `experiments/02_probabilistic_ordinal_judge/`, the [adopted plan](../README.md), [configuration](../config.json), [preserved GPT Pro response](../sources/gpt_pro_plan_11-06-2026.txt) and [current methods 2 and 4 priority](../PRIORITY_2_VS_4_11-09-2026.md) govern the interpretation:
+In `experiments/02_probabilistic_ordinal_judge/`, the [adopted plan](../02_probabilistic_ordinal_judge/README.md), [configuration](../02_probabilistic_ordinal_judge/config.json), [preserved GPT Pro response](../02_probabilistic_ordinal_judge/sources/gpt_pro_plan_11-06-2026.txt) and [current methods 2 and 4 priority](../02_probabilistic_ordinal_judge/PRIORITY_2_VS_4_11-09-2026.md) govern the interpretation:
 
 - \(T\): task identities, with related variants kept in the same task-family split.
 - \(A\): fixed solver configurations, each identified by model version, harness, tools, effort, prompt, generation policy and budget.
@@ -23,7 +23,7 @@ Method 2 trains Pearson correlation; method 4 trains a proper probability loss, 
 
 ## Decision and allocation
 
-The [11-06-2026 adopted response](../sources/gpt_pro_plan_11-06-2026.txt) proposes the following historical planning budget for the pinned `veribench@1.3` release, sourced from [harbor-datasets at c9dfd8e3b535f58184440aa02d37c148d145a82c](https://github.com/brando90/harbor-datasets/tree/c9dfd8e3b535f58184440aa02d37c148d145a82c/datasets/veribench_v1_3):
+The [11-06-2026 adopted response](../02_probabilistic_ordinal_judge/sources/gpt_pro_plan_11-06-2026.txt) proposes the following historical planning budget for the pinned `veribench@1.3` release, sourced from [harbor-datasets at c9dfd8e3b535f58184440aa02d37c148d145a82c](https://github.com/brando90/harbor-datasets/tree/c9dfd8e3b535f58184440aa02d37c148d145a82c/datasets/veribench_v1_3):
 
 | Component | Artifacts | Ratings |
 | --- | ---: | ---: |
@@ -34,7 +34,7 @@ The [11-06-2026 adopted response](../sources/gpt_pro_plan_11-06-2026.txt) propos
 
 The source uses eight shared training/validation raters and sixteen separate audit raters. Its 768 held-out tasks are distinct from the 128 development tasks; fresh audit generations on those 128 seen tasks are reported separately. The source expressly does not establish statistical sufficiency. Its counts must not be silently replaced or presented as a strict three-way identity split.
 
-**Our proposed first measurement is a 544-rating pilot**, not a final judge comparison:
+**Codex suggested an optional 544-rating pilot. Brando did not request or approve that exact count.** It is a workload illustration, not a final judge comparison:
 
 | Pilot component | Arithmetic | Ratings |
 | --- | --- | ---: |
@@ -44,7 +44,7 @@ The source uses eight shared training/validation raters and sixteen separate aud
 
 Use eight development raters: each rates all 32 dense artifacts plus 36 other artifacts under a balanced assignment, totaling **68 ratings/person**. The dense tasks are randomly selected before their ratings are seen. The 32-task count is conditional on preserving actual task families; if grouping changes the count, recompute the table. Record assignment probabilities, missingness, review time and workload variation. Do not infer absent participant answers.
 
-This pilot conditions on the four current fixed systems. It neither establishes unseen-agent transfer nor satisfies the desired strict task/agent/rater train–validation–test separation. Before collecting for that new design, freeze the prospective identity-split amendment required by the [priority plan](../PRIORITY_2_VS_4_11-09-2026.md#data-separation-and-the-pending-amendment); if any proposed pilot system is reserved for later agent holdout, revise the pilot allocation before collecting its ratings. This note does not assign held-out identities to training. Collection remains owned by `experiments/09_human_rating_collection/`.
+This pilot conditions on the four current fixed systems. It neither establishes unseen-agent transfer nor satisfies the desired strict task/agent/rater train–validation–test separation. Before collecting for that new design, freeze the prospective identity-split amendment required by the [priority plan](../02_probabilistic_ordinal_judge/PRIORITY_2_VS_4_11-09-2026.md#data-separation-and-the-pending-amendment); if any proposed pilot system is reserved for later agent holdout, revise the pilot allocation before collecting its ratings. This note does not assign held-out identities to training. Collection remains owned by `experiments/09_human_rating_collection/`.
 
 **Bounded stopping and sizing rule:** collect only the prespecified pilot allocation, if separately authorized under the completed amendment, and stop to assess nuisance variability, time and assignment feasibility. Before any later stage, declare the primary paired RPS contrast, desired interval precision, practically meaningful effect, missingness rule and total rating/time/cost cap. Those utility-dependent values remain unresolved in the current configuration; this note does not invent them. Using the pilot and conservative sensitivity to its uncertainty, choose the smallest feasible allocation meeting the declared precision or power criterion under the actual task-family/rater assignment. If none fits the cap, report that the desired claim is infeasible at that cap; revise scope prospectively. Freeze final counts before test inspection and do not keep collecting until significance appears.
 
@@ -123,7 +123,7 @@ Here \(n\) counts distinct training task groups, \(n_0\) is a fixed reference co
 
 Fit only after obtaining multiple development-set sizes and repeated fits under matched budgets. Use a common development evaluation population, preserve task-family splits, account for correlation between nested subsets, compare against simple alternatives and test prediction at an unused larger development size. Report parameter uncertainty and failed fits. A short noisy curve may not distinguish a plateau from a slowly declining power law. No coefficients have been fitted to this proposed collection. One observed training size cannot identify the three curve parameters; subsampling alone does not supply independent evidence or guarantee stable identification.
 
-The handwritten expression \(E+A N^{-\alpha}+B D^{-\beta}\) resembles [Hoffmann et al., section 3.3](https://arxiv.org/html/2203.15556v1#S3.SS3). In that language-model pretraining paper, N is parameter count and D is training tokens; E is ideal generative loss, with finite-capacity and finite-training terms. That paper does not identify N or D with our tensor dimensions or justify importing its fitted coefficients. The [local whiteboard source](../../09_human_rating_collection/support/assets/whiteboard_objective_overview_11-09-2026.md) leaves those symbols undefined.
+The handwritten expression \(E+A N^{-\alpha}+B D^{-\beta}\) resembles [Hoffmann et al., section 3.3](https://arxiv.org/html/2203.15556v1#S3.SS3). In that language-model pretraining paper, N is parameter count and D is training tokens; E is ideal generative loss, with finite-capacity and finite-training terms. That paper does not identify N or D with our tensor dimensions or justify importing its fitted coefficients. The [local whiteboard source](../09_human_rating_collection/support/assets/whiteboard_objective_overview_11-09-2026.md) leaves those symbols undefined.
 
 In that borrowed expression, A and B are nonnegative amplitudes of the capacity and data terms, while α and β are positive, dimensionless decay exponents. Before normalization, A has units of loss × parameters^α and B has units of loss × tokens^β; E has loss units. All five would have to be estimated jointly from multiple independently varied capacities and data sizes, with uncertainty and predictive validation. They are not measured constants for our rating tensor.
 
@@ -135,7 +135,7 @@ With N fixed, \(E+A N^{-\alpha}\) is one inseparable intercept: E, A and \(\alph
 
 The [recovered Gemini discussion](sources/gemini_argon_high.md) is source material, not an instruction or validated protocol. In particular:
 
-- **RPS and Wasserstein distance are different.** With cumulative forecast probabilities \(Q_c\), cumulative human probabilities \(P_c\) and one rating r, individual normalized RPS is \(S(q,r)=\frac15\sum_{c=0}^4(Q_c-\mathbf1\{r\le c\})^2\). Its expectation is \(D+U\), where \(D=\frac15\sum_c(Q_c-P_c)^2\) and \(U=\frac15\sum_cP_c(1-P_c)\). The normalized ordinal Wasserstein distance is \(W_1=\frac15\sum_c|Q_c-P_c|\), so \(W_1^2\le D\), not \(W_1=D\) or \(W_1=\mathbb E S\). A sparse empirical histogram adds estimation noise. See the [adopted derivation](../README.md#primary-objective) and [Gneiting and Raftery](https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf).
+- **RPS and Wasserstein distance are different.** With cumulative forecast probabilities \(Q_c\), cumulative human probabilities \(P_c\) and one rating r, individual normalized RPS is \(S(q,r)=\frac15\sum_{c=0}^4(Q_c-\mathbf1\{r\le c\})^2\). Its expectation is \(D+U\), where \(D=\frac15\sum_c(Q_c-P_c)^2\) and \(U=\frac15\sum_cP_c(1-P_c)\). The normalized ordinal Wasserstein distance is \(W_1=\frac15\sum_c|Q_c-P_c|\), so \(W_1^2\le D\), not \(W_1=D\) or \(W_1=\mathbb E S\). A sparse empirical histogram adds estimation noise. See the [adopted derivation](../02_probabilistic_ordinal_judge/README.md#primary-objective) and [Gneiting and Raftery](https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf).
 - **Noncompilation does not authorize a zero human rating.** Formal specification coverage concerns statements under the actual rubric; proof completion, parsing and compilation are distinct properties. The recovered 40%–60% failure estimate is not a measured rate for this proposed collection. Automatically dropping those artifacts changes the target population and denominator; assigning fabricated human zeros violates raw-rating preservation.
 - **An additive standard-error term is not automatically a confidence bound.** Terms such as \(\sigma_H/\sqrt H\) or \(\sqrt{\beta/K}\) need sampling assumptions, an appropriate probability bound and confidence allocation. Rater-pool size H must not be substituted for the number of ratings on each file. Repeated use of the same raters can leave population uncertainty even with a task census.
 - **Running a judge on every task does not observe human agreement on every task.** A task census removes task-sampling uncertainty only for the relevant fully observed finite-population quantity. Missing human outcomes, human sampling, stochastic generations and claims about future populations remain separate.

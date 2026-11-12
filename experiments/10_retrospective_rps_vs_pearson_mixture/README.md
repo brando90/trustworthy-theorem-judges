@@ -2,6 +2,8 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/10_retrospective_rps_vs_pearson_mixture/README.md>
 
+**Placement, 11-11-2026:** retained while the sole coordinator reconciles the unique publication receipt in the existing detached worktree; the analysis itself is complete. See the [archive placement record](../archive/README.md#reading-and-reproducing-historical-work).
+
 **TLDR:** Fit methods 2 and 4 on the existing historical human ratings using the same five cached judge configurations, probability family and validation criterion. This is an offline retrospective probability-mixture experiment, not new semantic judge inference or validation on the incoming human collection.
 
 Completed: the primary RPS difference is unresolved; validation selected method 4. See the [result and publication-scope receipt](results/ELIGIBILITY.json).
