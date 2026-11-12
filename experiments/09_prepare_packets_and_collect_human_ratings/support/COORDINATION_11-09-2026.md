@@ -4,6 +4,10 @@
 
 **TLDR:** Prepare human grading task is the sole coordinating chat for this collection and the practical human-rating judge using methods 2 and 4. The former Best human-rating judge chat handed its work to that owner; ending its coordination does not mean collection or judge validation is complete.
 
+## Current control — Brando, 11-12-2026 10:50 PST
+
+Brando asked to save the checkpoints and will handle continuation. The outgoing coordinator stops after this save. Experiment 09 has no launched successor; another launch requires his explicit instruction. Participant emails remain held until his trial, instruction review and explicit send decision. [Saved next steps](ckpt.md).
+
 ## Manual takeover requested — 11-11-2026 22:29 PST
 
 Brando asked the collection coordinator to save all remaining steps and a takeover prompt. [support/ckpt.md](ckpt.md) is the current full handoff, incorporating the form-helper record. The outgoing coordinator stops collection writes after publishing it. The successor is not yet identified or verified; the new agent should record its ID and first useful action here and in the existing private preparation state. Keep one writer and the current Brando-trial / instruction-review / Sri-Yegor-Brando sequence. Historical ownership and scope below remain provenance.

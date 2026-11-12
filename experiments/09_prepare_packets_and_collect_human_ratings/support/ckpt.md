@@ -5,7 +5,9 @@
 **TLDR:** Take over the complete packet-preparation and collection task. The current 54-file pool is built; next are Brando's trial ratings, instruction review, preparation of the Sri/Yegor/Brando first batch, exact-text approval, dispatch and collection. This checkpoint incorporates the form-consistency handoff; the successor has not yet been identified or verified.
 
 Created: 11-11-2026 22:23 PST
-Last updated: 11-11-2026 22:29 PST
+Last updated: 11-12-2026 10:50 PST
+
+**User-managed continuation, 11-12-2026 10:50 PST:** Brando asked to save the checkpoints and will handle the next steps himself. No experiment 09 Claude takeover was launched. Do not start a successor or send participant emails without his new explicit instruction. The remaining sequence is his trial ratings, instruction review, Yegor’s main materials and exact three-person email review, then his send decision.
 
 ## Goal
 
@@ -23,7 +25,7 @@ Last updated: 11-11-2026 22:29 PST
 - Dispatch awaits Brando's trial, instruction review and explicit send instruction. Yegor's main assignment, packet and exact email remain unprepared. Other recipients are held.
 ## Next steps
 
-- [p 10/10] Record successor ownership, verify current state and resume the ordered checklist below, not an old dispatch queue.
+- Brando handles continuation. The ordered checklist below is saved for him or a future explicitly authorized successor; it is not an instruction to launch now.
 ## Brando to-do
 
 - Grade a few files, describe confusing instructions, then review the concrete first-batch text and explicitly approve sending. Completing all 54 main files is not a prerequisite.
@@ -147,7 +149,7 @@ Inspect `support/scripts/native_packet_generation/build_packet.py --help` before
 
 Use connected Sheets tools for exact table reads/writes and read back edits. Scripts are under `support/scripts/`, tests under `support/tests/`. Verify only relevant changes; no need to rerun generation to change wording. Commit only owned files, inspect the exact staged diff, fetch/reconcile and push to `main`. A shared-index race previously included this chat's staged changes in another owner's commit; use scoped commits and inspect status immediately before landing.
 
-## Copy-ready takeover prompt
+## Copy-ready takeover prompt — use only when Brando authorizes a successor
 
 ```text
 Take over the complete human-rating packet preparation and collection task in /Users/brandomiranda/trustworthy-theorem-judges.
@@ -161,6 +163,8 @@ Continue independent preparation while Brando grades, including the concrete rem
 TL;DR: Finish the three-person pilot dispatch and remaining human-rating collection from the saved checkpoint, with Brando's own grading and send decision in his hands.
 ```
 
+Related sizing work is saved separately in [experiment 15’s checkpoint](../../15_estimate_required_tasks_solver_configurations_and_human_raters/ckpt.md). Its Claude session completed sizing/cleanup; that was not an experiment 09 takeover.
+
 ## Log
 
 - 11-11-2026 22:23 PST — Created the requested handoff from the current repository/private preparation records and saved receipts; preserved the coordinator's checkpoint and all participant data. No new agent launched or messages sent.
@@ -168,3 +172,5 @@ TL;DR: Finish the three-person pilot dispatch and remaining human-rating collect
 - 11-11-2026 22:24 PST — Checkpoint links and formatting verified; all 66 project tests passed.
 
 - 11-11-2026 22:29 PST — Collection coordinator extended the existing form-helper checkpoint into the full requested manual takeover, retained historical records and verified the current first-batch facts, local links, two manifest hashes and three archive hashes. All 66 project tests passed. Successor not yet named or confirmed.
+
+- 11-12-2026 10:50 PST — Saved final user-managed handoff after Brando said he would handle continuation. Experiment 09 takeover remains unlaunched; participant email remains held. No ratings, Sheets, packet files or scientific settings changed.

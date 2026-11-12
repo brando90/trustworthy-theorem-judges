@@ -8,6 +8,8 @@
 
 **Manual handoff, 11-11-2026 22:29 PST:** Continue from [ckpt.md](ckpt.md), which now covers the full coordinator task and incorporates the form-helper handoff. This record preserves prior evidence; its old eight-person next-command guidance is superseded. No successor has been identified yet.
 
+**User-managed continuation, 11-12-2026 10:50 PST:** Brando asked to save the checkpoints and will handle the next steps himself. No experiment 09 Claude takeover was launched. Do not start a successor or send participant emails without his new explicit instruction. The remaining sequence is his trial ratings, instruction review, Yegor’s main materials and exact three-person email review, then his send decision.
+
 ## Current state — prepared, not dispatched
 
 **Latest user sequencing, 11-11-2026:** Brando grades a few files first, then the actual participant instructions are reviewed. The first batch is Sri, Yegor and Brando only; all others remain held. Yegor’s main packet/assignment and revised exact first-batch emails still need preparation. Existing extra-only qualification status and all original responses remain unchanged. The earlier eight-person queue is preserved, not authorized as the new first batch.
@@ -100,3 +102,5 @@ Ten FormV6 warm-up archives match the editable guide and rubric title; all nine 
 - 11-11-2026 20:59 PST — All 50 native attempts finalized; the 85-cell inventory yielded 54 real files and 31 documented missing submissions. Three personal packets passed independent byte/archive checks and exact live-Sheet equality, then the coordinator promoted the working main packet and named blank CSVs. Prepared, not dispatched; 108 independent ratings needed, eight assigned and blank, 100 unassigned, plus Brando's 54.
 
 Event 11-11-2026: recorded Brando-first trial and three-person first batch (Sri, Yegor, Brando); instruction review follows his grading. No emails, Sheet values or qualification decisions changed.
+
+Event 11-12-2026 10:50 PST: user handling continuation; current checkpoint is ckpt.md. No experiment 09 successor launched or participant email sent.
