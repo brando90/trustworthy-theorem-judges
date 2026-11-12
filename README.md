@@ -2,7 +2,17 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/README.md>
 
-**TLDR:** This project studies artificial-intelligence (AI), agent, and large language model (LLM) judges for formal specification coverage (FSC). It contains a prospective human-rating methodology, a prover-outcome forecasting study, historical VeriBench judge evidence, and an AAAI-27 workshop paper draft. A fresh local feasibility test is complete; broad judge validation remains pending.
+**TLDR:** This project learns and evaluates artificial-intelligence (AI) judges, including large language models (LLMs), of human ratings of formal specification coverage (FSC). Track three efforts: the original VeriBench ratings, the new rating packet and collection, and estimates of how many tasks, solver configurations and raters are needed. The [standalone judge paper](paper_latex/AAAI_2027_Evaluation_AI_Scientists/README.md) connects them and keeps fresh results pending.
+
+## Three efforts to track
+
+| Effort | Where to start | Status checked 11-11-2026 |
+| --- | --- | --- |
+| Original 25 × 3 × 5 rating study | [Historical judge evidence](experiments/archive/01_legacy_veribench_judge/README.md), [count reconciliation](experiments/07_exp1_metrics/results.md#1-which-count-is-right-343-or-195) | 25 tasks × three candidate generation samples × five rater columns. **75 artifacts; 345 of 375 possible ratings observed; 195 ratings in the three-expert subset.** These are historical data, not three solver systems. |
+| New packet and human-rating collection | [Experiment 09](experiments/09_human_rating_collection/README.md), [editable task](experiments/09_human_rating_collection/rating_task_packet/START_HERE.md) | Replacement emphasizing native Claude Code, Codex and Pi, with fewer Terminus2 artifacts: **85 artifacts and 170 independent ratings planned**. In preparation; completed manifest and collection remain pending. |
+| Estimate T, A and H | [Experiment 15](experiments/15_rating_tensor_size_estimation/README.md), [source conversations](experiments/15_rating_tensor_size_estimation/SOURCE_INDEX.md) | T = tasks, A = solver configurations, H = distinct human raters. Final size remains open. The 544-rating suggestion was optional Codex planning, not a user-required count. |
+
+The [paper evidence ledger](paper_latex/AAAI_2027_Evaluation_AI_Scientists/README.md#historical-evidence-ledger) tracks the original audits and later analyses of the same ratings. Reusing that evidence does not create another collection. [Experiment 02](experiments/02_probabilistic_ordinal_judge/README.md) holds the shared judge methodology; it is not a fourth rating collection. The [experiment index](experiments/README.md) keeps paused and supporting studies visible separately.
 
 Given original Python source, a candidate Lean formalization, and a gold reference, can a judge predict how qualified humans rate the candidate's coverage of the required specifications? A gold statement may follow from several candidate statements together. Proof correctness and statement coverage are different properties.
 
@@ -20,27 +30,21 @@ This repository owns the probabilistic human-rating judge and, separately, an op
 
 ## Human-rating task ownership
 
-**Primary owner: `trustworthy-theorem-judges`** (Brando's decision, 11-09-2026). Preparing the human grading task first serves VeriBench and the development and evaluation of a formal specification coverage judge. The active task lives in [`experiments/09_human_rating_collection/`](experiments/09_human_rating_collection/README.md), which coordinates instructions, packets, the approved email template, assignments and collection status. Participant records and individual ratings stay in the approved private store.
+**Primary owner: `trustworthy-theorem-judges`** (Brando's decision, 11-09-2026). Preparing the human grading task first serves VeriBench and the development and evaluation of a formal specification coverage judge. The active task lives in [`experiments/09_human_rating_collection/`](experiments/09_human_rating_collection/README.md), which coordinates instructions, packets, the approved email template, assignments and collection status. Authorized named ratings, the response index and collection status live in experiment 09. Private correspondence, consent and sealed test data remain restricted.
 
 [cert-judge](https://github.com/brando90/cert-judge) and [judges-dont-need-psychometrics-or-corr](https://github.com/brando90/judges-dont-need-psychometrics-or-corr) can use suitable authorized ratings for their own studies while preserving consent, provenance and split/exposure history. They reference this collection rather than own separate copies of its coordination process. The comparison of cross-entropy against correlation objectives belongs in `judges-dont-need-psychometrics-or-corr`.
 
 A larger, appropriately sampled collection can strengthen evidence about agreement with humans; more ratings alone do not establish that a judge is reliable. Studies targeting a specified prover's outcomes instead of human ratings have a different data requirement, as described below.
 
-## Methodology and paper
+## Judge paper and supporting work
 
-- [Human-rating task preparation and collection](experiments/09_human_rating_collection/README.md): the operational home migrated from VeriBench, with private records preserved and the remaining team-delivery blockers stated explicitly.
-- [T, A, H estimates and original conversations](experiments/15_rating_tensor_size_estimation/README.md): source passages and methods for choosing tasks, solver configurations and raters; final size remains open.
-- [Study methodology and collection design](experiments/02_probabilistic_ordinal_judge/README.md): predict the six-category conditional human-rating distribution with ranked probability score as the primary held-out metric and common validation criterion; cross-entropy and total variation distance are secondary evaluation metrics, and correlations are diagnostics.
-- [Historical results and provenance](experiments/archive/01_legacy_veribench_judge/README.md): preserved aggregate receipts, limitations, and a clear separation from new validation.
-- [Prover-outcome forecasting study](experiments/archive/03_prover_target_fsc_judge/README.md): predict acceptance by a specified proof-search procedure with Brier loss. A retrospective analysis using saved results is complete; fresh statement-only validation remains pending.
-- [Fresh local prover-target pilot](experiments/archive/05_fresh_local_prover_target_judges/README.md): completed eight statement-generation attempts and explicit probability forecasts under a frozen local target. Five artifacts were malformed and all three available outcomes were unsuccessful; no judge was validated.
-- [Master-specification entailment pilot](experiments/08_master_specification_entailment/README.md): a separate statement-only condition with kernel-checked constructed labels, explicit ineligible cases, and task-family-held-out probability forecasts. It targets semantic implication conditional on satisfiability; it does not substitute bounded search failure for non-entailment.
-- [AAAI-27 workshop paper](paper_latex/AAAI_2027_Evaluation_AI_Scientists/README.md): anonymous LaTeX source and compiled PDF using the official author kit.
-- [Experiment index](experiments/README.md): status, scope, and next evidence needed.
+The canonical [paper and evidence ledger](paper_latex/AAAI_2027_Evaluation_AI_Scientists/README.md) reuse the existing AAAI-style draft. The title, abstract, introduction, methods and discussion now concern **learning and evaluating judges of formal specification coverage**. VeriBench is related work and task provenance; its solver leaderboard and prover results are separate. The draft reports labeled historical evidence and a prospective comparison, not completed results from the new collection.
 
-The starting collection design has **896 tasks, four solver configurations, and 24 distinct raters** (eight for training/validation and 16 for the final audit). Collect three ratings per artifact and eight total on a 128-task audit subset. Separate training/validation artifacts from fresh final-audit outputs: **14,848 individual ratings** in total. These are planning counts, not a precision guarantee or a completed collection. The pilot must establish feasibility, thresholds, and uncertainty before the test is opened.
+Compare correlation training with proper-loss training using matched capacity, data and search budgets, selecting both by validation ranked probability score (RPS). Normalized RPS is also the primary held-out metric; cross-entropy and total variation distance are secondary. See the [current methods 2 versus 4 plan](experiments/02_probabilistic_ordinal_judge/PRIORITY_2_VS_4_11-09-2026.md). Strict task-family, solver and rater separation requires a prospective amendment; existing exposure cannot be removed by relabeling splits.
 
-The prover-target study requires no human ratings for its operational target. This changes the question: predicting proof-search success under a specified procedure and budget does not establish agreement with experts. A valid checked proof establishes the formal implication checked; an unsuccessful search does not establish that the implication is false. Historical prover acceptance also includes proof and adapter checks that differ from statement coverage, as documented in the study's source audit.
+The old 896-task, four-configuration, 24-rater design totals 14,848 planned ratings. It remains a historical budget scenario, not the current packet or an adopted requirement. The preserved older main packet has 125 Terminus2 artifacts and a 250-rating target; the replacement instead plans 85 artifacts and 170 independent ratings, pending execution and collection. Experiment 15 records the open sizing decision and its assumptions.
+
+[Archived studies](experiments/archive/README.md) preserve completed or superseded evidence. Separate prover-target and constructed entailment studies remain linked from the [full index](experiments/README.md); they do not count as human-rating validation.
 
 ## Verify and build
 
@@ -53,23 +57,9 @@ git diff --check
 
 The paper build requires a TeX installation with `latexmk` and the packages required by the official AAAI-27 style. It builds in a temporary directory and writes the current PDF beside its source.
 
-## Rate a file
+## Prepare or complete ratings
 
-Open the extracted packet’s `START_HERE.md` and `Rating_Instructions.md`. Read the Python source and gold theorem statements, then open the first candidate in its folder. A gold statement counts as covered if the candidate statements imply it, possibly by combining several lemmas. Apply the packet’s 0–5 rubric and record one final score per candidate file. A score summarizes the whole file.
-
-The coordinator uses the personal sheet supplied with the original packet. Team members use a separate answer sheet each. Keep completed ratings private until collection closes.
-
-## Prepare identical examples for independent ratings
-
-The coordinator needs the original, extracted VeriBench human-rating packet. The public checkout contains the builder. On the coordinator’s machine, the packet, individual answers and shareable archives live under the ignored `private/` directory.
-
-From the repository root, build an archive for the folders assigned to a rater. For example, for folder 1:
-
-```sh
-python3 experiments/09_human_rating_collection/support/scripts/make_team_packet.py private/original private/team-folder-01-new.zip --folders 1
-```
-
-Follow the [collection task's current delivery status](experiments/09_human_rating_collection/README.md#edit-or-prepare-the-task) before sending. Pass multiple folder numbers to package an assignment. Omit `--folders` to package all 25 folders. Use a new output filename for each build. The builder checks the frozen delivery manifest, preserves the original example bytes and filenames, and includes the rubric, instructions, a blank answer sheet and file checksums. Send the same archive to raters rating the same assignment. Each returns their own completed sheet privately.
+Use experiment 09's [current task instructions](experiments/09_human_rating_collection/rating_task_packet/START_HERE.md), [field guide](experiments/09_human_rating_collection/rating_task_packet/RATING_FORM_GUIDE.md) and [collection status](experiments/09_human_rating_collection/README.md#ratings-and-completion). That folder is the sole editable home for the participant task, forms, scripts, assignments and responses. Follow its versioned packet and delivery procedure; this paper rewrite does not change assignments or send authorization.
 
 ## Reference anchoring study
 

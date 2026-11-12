@@ -1,31 +1,71 @@
-# AAAI-27 workshop paper
+# Standalone paper on learning judges of human ratings
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/paper_latex/AAAI_2027_Evaluation_AI_Scientists/README.md>
 
-**TLDR:** Anonymous methodology paper for the Effective and Efficient Evaluation for AI Scientists workshop. Historical scalar-judge evidence is included with its limitations; new probabilistic-judge results await human data.
+**TLDR:** This existing draft is the canonical standalone judge paper. It connects the original 25-task rating study, the human-rating collection in experiment 09, and the sample-size planning in experiment 15. VeriBench supplies task context and related work; its solver benchmark is not this paper's contribution. This writing task collected no ratings and produced no new judge measurements.
 
-## Draft and build
+**Direction updated 11-11-2026:** reuse this paper and its official Association for the Advancement of Artificial Intelligence (AAAI) style rather than start a second draft. The primary archetype is **problem solving**, expressed as evaluation methodology: define the human-rating target, compare ways to learn a judge, and evaluate the resulting judges with a common held-out metric panel. Fresh empirical conclusions remain prospective. Earlier drafts and historical evidence remain traceable through Git history and source receipts.
 
-- [Compiled paper](00_main.pdf)
-- [Main LaTeX source](00_main.tex), with numbered files for each section
-- [Methodology](../../experiments/02_probabilistic_ordinal_judge/README.md)
-- [Historical evidence](../../experiments/archive/01_legacy_veribench_judge/README.md)
-- [Separate prover-target fallback study](../../experiments/archive/03_prover_target_fsc_judge/README.md): retrospective operational forecasting results and a prospective protocol; these are not fresh human-study results in this draft.
+## The three workstreams
 
-Run `python3 scripts/build_paper.py` from the repository root. The build uses temporary storage and refreshes `00_main.pdf` only after a successful compile without overfull boxes or unresolved references. Do not edit the official [vendor sources](vendor/README.md). The current seven-page draft uses the official anonymous submission mode, with references beginning on page seven after more than six pages of body content. It is a working draft, not a submitted paper or a completed empirical study. Submit the anonymous PDF, not an identifying repository archive.
+| Workstream | Canonical home | Current evidence or decision |
+| --- | --- | --- |
+| Original 25 × 3 × 5 rating study | [Archived experiment 01](../../experiments/archive/01_legacy_veribench_judge/README.md), [experiment 07 count reconciliation](../../experiments/07_exp1_metrics/results.md#1-which-count-is-right-343-or-195) | 25 tasks × three candidate **generation samples** × five rater columns: 75 artifacts, 375 possible rating entries, **345 observed ratings**. The predefined three-expert subset has **195 ratings**. These are historical data, not three different solver systems or 375 completed ratings. |
+| Prepare and collect new ratings | [Experiment 09](../../experiments/09_human_rating_collection/README.md), [editable packet](../../experiments/09_human_rating_collection/rating_task_packet/START_HERE.md), [collection status](../../experiments/09_human_rating_collection/README.md#ratings-and-completion) | The existing collection owner is preparing Brando's authorized replacement: emphasize native Claude Code, Codex and Pi harnesses, with a smaller Terminus2 component. The coordinator plans **85 artifacts and 170 independent ratings**. **In preparation, pending a completed versioned manifest**; these are planned counts, not collected data. |
+| Estimate tasks, solvers and people | [Experiment 15](../../experiments/15_rating_tensor_size_estimation/README.md), [original discussions](../../experiments/15_rating_tensor_size_estimation/SOURCE_INDEX.md), [methods](../../experiments/15_rating_tensor_size_estimation/METHODS_AND_ALLOCATION.md) | T counts tasks, A solver configurations and H distinct human raters; ratings per artifact are separate. Final size remains open. **14,848** is a historical planning budget; **544** is an optional Codex pilot suggestion, not a number Brando requested or approved. Neither establishes statistical sufficiency. |
 
-## Venue requirements checked 11-06-2026
+The older experiment 09 main packet contains 125 Terminus2-generated artifacts and targets two independent ratings each, or 250 ratings; preserve its [provenance record](../../experiments/09_human_rating_collection/support/COORDINATOR_README.md#warm-up-versus-main-packet-provenance--checked-11-11-2026), delivered versions, assignments and raw responses. Those totals describe the **older packet**. The coordinator now plans 25 native Codex, 25 native Claude Code, 25 Pi and ten Terminus2 artifacts: 85 artifacts and 170 independent ratings. The smaller Terminus2 subset is exploratory, and differing generation conditions prevent a causal harness comparison. Experiment 09's status files track actual responses; preparing or rewriting a packet does not produce ratings.
 
-The [workshop call](https://eval-ai-scientists.github.io/aaai27/) specifies anonymous, double-blind review, the official AAAI-27 two-column style, and a full-paper length of 6–8 pages excluding references. It also accepts 2–4-page position papers. The draft targets a full methodological paper and includes no invented fresh results.
+The judge design stays in [experiment 02's current priority plan](../../experiments/02_probabilistic_ordinal_judge/PRIORITY_2_VS_4_11-09-2026.md). Compare method 2, training with Pearson correlation, against method 4, training with a proper probabilistic loss, using matched capacity, data and search budgets. Both select by the same validation ranked probability score (RPS). Normalized RPS is the primary held-out metric; cross-entropy and total variation distance are secondary. Existing evaluation-only data restrictions remain in force. Strict task-family, solver and rater separation, training/validation data access, exact judge pins and practical acceptance criteria require a prospective manifest amendment before new fitting or evaluation.
 
-The submission deadline is **11-20-2026 at 06:00 UTC**, or **11-19-2026 at 10:00 p.m. Pacific Standard Time**. The workshop is non-archival and takes place on **02-22-2027**. Recheck the call before submitting; this task does not submit a paper.
+## Historical evidence ledger
 
-## Evidence status before submission
+These analyses reuse historical evidence; they are not independent replications or fresh collections. Keep each target, split, input version, missingness rule and judge definition attached to its results.
 
-The historical import is available now. The prospective allocation, input contract, objective, and transfer design are documented. Exact solver configurations, pilot feasibility, practical thresholds, repeated-judge count, and the sparse-assignment inference procedure still need to be frozen before the test is inspected. New human ratings and all new outcome tables remain pending.
+| Analysis | Scope and retained source |
+| --- | --- |
+| Original blog's raw Codex rubric audit | 75 artifacts; a separate full-file command-line judge. Its historical pooled human target includes earlier-prompt passes and differs from the later five-column panel. [Launch page](https://cs.stanford.edu/people/brando9/veribench/blog/veribench-launch/); source alignment appendix pinned as `paper_original` in [the manifest](../../experiments/archive/01_legacy_veribench_judge/SOURCE_MANIFEST.json). This is separate from the deployed scorer and later selected ensemble. |
+| Earlier supervised score mapping | 72 scored artifacts; one person's two earlier-prompt passes averaged; two task-disjoint validation folds, without a separate test result. [Archived explanation](../../experiments/archive/01_legacy_veribench_judge/README.md), [original aggregate CSV](../../experiments/archive/01_legacy_veribench_judge/original_cv2_aggregate_results.csv). Do not relabel this as five-rater held-out validation. |
+| VeriBench experiment 100: selected scalar judge | Original 10/5/10 train/validation/test task split; available three-expert ratings; two-model ensemble with three calls per member. Its test has 30 artifacts from 10 tasks, with prior exposure disclosed. [Judge and target](../../experiments/archive/01_legacy_veribench_judge/README.md#the-selected-judge-and-the-human-target), [test receipt](../../experiments/archive/01_legacy_veribench_judge/exp100_TEST_RECEIPT.json). |
+| VeriBench experiment 104: automated judge recipe | All 75 artifacts across five task-disjoint folds; fold-specific conventions/examples and five calls per member. It evaluates a recipe, not the fixed experiment 100 judge. [Aggregate extraction](../../experiments/archive/01_legacy_veribench_judge/exp104_original_aggregate_excerpt.json), [tie-preserving addendum](../../experiments/archive/01_legacy_veribench_judge/exp104_tie_preserving_addendum.md). |
+| Experiment 06: objective comparison | Historical ratings/cache analyses and follow-ups; continued general objective-comparison research moved to the sister repository. [Archived experiment 06](../../experiments/archive/06_information_loss_vs_correlation_judge_selection/README.md), [canonical migration record](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/MIGRATION_11-09-2026.md). |
+| Experiment 07: metrics and subsampling fits | Same 75 artifacts; 195 expert ratings primary, 345 five-rater ratings secondary. Probability estimates are floored histograms of three cached scalar judge repeats, not native probability outputs. [Results and limitations](../../experiments/07_exp1_metrics/results.md), [import receipt](../../experiments/07_exp1_metrics/results/import_audit.json). |
+| Experiments 10–12: learned mixtures and objective comparisons | Same historical ratings and five cached judge configurations; different fitting and split procedures do not add human evidence. [10: RPS versus Pearson](../../experiments/10_retrospective_rps_vs_pearson_mixture/README.md), [11: train-only cross-entropy](../../experiments/archive/11_formulation4_train_only_ce_mixture_cv/README.md), [12: correlation versus cross-entropy](../../experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/README.md). |
+| Experiment 13: synthetic illustration | Constructed nonlinear rating distributions; no human observations. Its learning curves describe the chosen construction, not a measured human-data requirement. [Setup and limits](../../experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/README.md). |
+| Experiment 14: expanded open-weight judge pool | Additional historical model inference on the same 75 expert-rated artifacts; an expanded judge pool, not additional raters or tasks. [Setup, results and limits](../../experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/README.md). |
 
-The mathematical identities are derived in the text; the proper-scoring and selection principles are cited to primary research. Historical claims have source-receipt comments in the LaTeX. Do not replace limitations with a positive validation claim until the corresponding prespecified criteria have been evaluated.
+The historical source commit is `be287d9bb2f7bd35ba6db1b8735c9ba10d00eade`. The [source manifest](../../experiments/archive/01_legacy_veribench_judge/SOURCE_MANIFEST.json) records original VeriBench paths and file hashes, including `experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/results/TEST_RECEIPT.json`, `paper_latex/TMLR_2026_VeriBench/98_4_appendix_human_judge_alignment.tex`, and `98_4a_appendix_validated_coverage_judge.tex` in that same paper directory. The [experiment 07 import receipt](../../experiments/07_exp1_metrics/results/import_audit.json) binds its cached dataset to hash `b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0`.
 
-The user's supplied GPT Pro plan is preserved byte-for-byte under the experiment's `sources/` directory with a hash and source links. It is planning provenance, not an empirical result or a research citation. This draft was prepared with AI assistance and received the requested separate model review; any venue-required disclosure must describe that assistance accurately.
+The reconciled five-column counts are 75 + 75 + 45 + 75 + 75 = 345; the expert subset is 75 + 75 + 45 = 195. Earlier appendices report different filtered-file counts and include two earlier-prompt passes from one person; extra passes are not additional people. Generation provenance supports one Claude 3.7 Sonnet model for 74 of 75 artifacts; one generation receipt is missing. Historical instructions prohibited artificial-intelligence assistance, whereas the current collection requires localized assistance; preserve that difference without inferring historical compliance from absent disclosures.
 
-[Light review and resolution record](QA_11-06-2026.md) documents the single Claude Fable/max review and the subsequent deterministic fixes.
+**Source-figure warning:** the launch page's [calibration image](https://cs.stanford.edu/people/brando9/veribench/figs/calibration.png) pairs 75 items with Pearson correlation 0.86. The selected-judge receipt instead concerns 30 test artifacts, while the page's prose describes a separate raw Codex audit. Do not copy this figure or treat correlation as evidence of calibration; use the matched receipt, target and denominator.
+
+## What stays out of the paper's main results
+
+VeriBench's solver rankings, compilation/proof rates, benchmark totals and prover-target studies belong to their own records. Cite VeriBench as related work and explain task provenance as needed to understand a judge's inputs. Human-rating agreement does not establish semantic ground truth or acceptance by a proof-search procedure. Historical, synthetic and new human results remain separate; none of the historical analyses validates a future judge on the replacement collection.
+
+## Draft, style and build
+
+- [Compiled paper](00_main.pdf) and [main LaTeX source](00_main.tex); numbered files hold individual sections.
+- [Official style provenance](vendor/README.md); preserve vendor files byte-for-byte.
+- [Historical light-review record](QA_11-06-2026.md); it applies to that earlier draft, not automatic acceptance of this rewrite.
+
+From the repository root, run `python3 scripts/build_paper.py`. The build uses temporary storage and refreshes `00_main.pdf` only after successful compilation without overfull boxes or unresolved references. Keep the official anonymous submission mode and inspect the rebuilt PDF after substantive edits. Check page count and readiness on the rebuilt version. This is a working draft, not a submitted paper; submit an anonymous PDF rather than an identifying repository archive. Describe AI writing assistance accurately if the venue requires disclosure.
+
+**Verification, 11-11-2026:** the rebuilt PDF has eight pages; all eight were visually inspected. The 33 existing tests, design arithmetic, evidence/style hashes, 65 local file links, sentence layout, spell-check and whitespace checks passed. The historical budget remains validated in its own design file, without requiring that count in the current paper.
+
+## Abstract alternatives retained in the source
+
+The rendered abstract uses a failure-mode opening and the six-part research-writing scaffold: rating mismatch, the limit of correlation, the distributional target, matched training conditions, historical counts, and the pending new comparison. No invented results or placeholder effects were inserted. Alternate openings are source comments for later revision; they are not extra abstracts in the paper.
+
+- **Opening A:** A judge can reproduce human rankings of formalizations while misrepresenting their ratings and disagreement.
+- **Opening B:** Human ratings of a formalization define a distribution that a single correlation coefficient cannot recover.
+- **Opening C:** How should we learn a judge that predicts both human ratings of formalizations and disagreement among raters?
+
+## Venue requirements recorded 11-06-2026
+
+The [dated venue/style record](vendor/README.md) records anonymous double-blind review, the official AAAI-27 two-column style, full papers of 6–8 pages excluding references, and short papers of 2–4 pages. This draft targets the full-paper category. These requirements and dates are retained from the 11-06-2026 check, **not reverified by this writing task**.
+
+That record gives a submission deadline of **11-20-2026, 06:00 Coordinated Universal Time**, equivalent to **11-19-2026, 10:00 p.m. Pacific Standard Time**, and a non-archival workshop on **02-22-2027**. Recheck the [workshop call](https://eval-ai-scientists.github.io/aaai27/) before submission.
+
+**TLDR-end:** [ttj: standalone judge paper] This is the single paper home for historical rating evidence, experiment 09's replacement collection, and experiment 15's open sizing question. The replacement allocation is planned and fresh judge results remain prospective; this rewrite adds no measurements.

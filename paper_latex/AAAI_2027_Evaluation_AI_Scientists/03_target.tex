@@ -6,8 +6,11 @@ For task $t$ and solver configuration $a$, let
  z_{ta}=(x_t,\widehat y_{ta},y_t^*),
  \qquad R_{tah}\in\{0,1,2,3,4,5\}.
 \end{equation}
-Here $x_t$ is the original Python source and task contract, $\widehat y_{ta}$ is the candidate Lean artifact, $y_t^*$ is the reference, and $h$ identifies a human rater.
+Here $x_t$ is the original Python source and task requirements, $\widehat y_{ta}$ is the candidate Lean artifact, $y_t^*$ is the reference, and $h$ identifies a human rater.
 The normalized scalar rating is $R_{tah}/5$.
+The solver configuration includes the model, harness, tools, prompt, effort and generation budget.
+If a configuration produces multiple candidates for a task, an additional generation index $g$ gives $R_{tagh}$.
+The historical three-candidate axis indexes generation samples, not three distinct solver configurations.
 The main study displays the complete candidate and reference artifacts to raters and the judge, including any proof bodies or \texttt{sorry} placeholders.
 Both receive identical input contents; the rendered view is recorded, and proof completion is a separate variable rather than the coverage target.
 
@@ -31,7 +34,10 @@ The target is the probability mass function
  p^*(r\mid z)=\Pr_{h\sim\mathcal H}(R_h(z)=r).
 \end{equation}
 This definition requires a recruitment frame and a rating procedure, including allowed assistance, time guidance, and treatment of ambiguous inputs.
-It does not make a convenience sample representative of all experts.
+The ongoing collection requires localized AI assistance, followed by the human rater's own comparison and final rating.
+Historical instructions prohibited AI assistance, but compliance cannot be inferred where no disclosure was collected.
+Assistance conditions are therefore part of the target distribution and must accompany comparisons across rating rounds.
+A convenience sample does not automatically represent all experts.
 The empirical distribution from a fixed recruited panel is a different, narrower target; both must be labeled when reported.
 
 The judge predicts $q_\theta(r\mid z)$, a nonnegative vector of six probabilities summing to one.

@@ -1,13 +1,23 @@
 % TLDR: Preserve exact historical scalar evidence and its exposed-test limitations.
-\section{Historical VeriBench Evidence}
+\section{Historical Judge Evidence}
 \label{sec:legacy}
 % Provenance: experiments/archive/01_legacy_veribench_judge/SOURCE_MANIFEST.json; source commit be287d9bb2f7bd35ba6db1b8735c9ba10d00eade.
 The historical archive contains several distinct analyses that must not be pooled or described as one original result.
+\subsection{Original audit and score mapping}
+% Provenance: original VeriBench appendix G, Table 9; paper_original in SOURCE_MANIFEST.json; public NeurIPS_2026_VeriBench.pdf.
+The original VeriBench report describes a raw Codex command-line rubric audit on 75 artifacts~\citep{veribench2026}.
+It reports Pearson correlation $0.6137$, Spearman correlation $0.3755$ and Kendall correlation $0.2996$ against its historical pooled human target.
+Two-fold isotonic score mapping in that audit gives $0.2108$, $0.0461$ and $0.0416$, respectively.
+The source provides no confidence intervals for these entries.
+That target pools seven rating files, including two earlier-prompt passes from one person, and differs from the later five-rater snapshot.
+This full-file rubric audit is separate from VeriBench's deployed coverage scorer; its agreement cannot be transferred to a different judge implementation.
+
 An early analysis reports Pearson correlation $0.703349$ on 72 scored artifacts from a 75-artifact, 25-task pool.
 It uses a GPT-5.3-Codex judge with an isotonic score mapping fitted on training folds, against the mean of one expert's two earlier-prompt passes.
 Its Spearman and Kendall values are $0.321143$ and $0.265060$.
 These are two-fold task-split validation results without a separate test counterpart; the aggregate receipt does not supply confidence intervals.
 
+\subsection{Selected scalar judge and agreement limits}
 A later selected ensemble, source experiment 100, uses GPT-6 Sol with high reasoning effort and Claude Opus 5.5 with maximum compute effort through the historical Vals model gateway.
 For each member it takes the median of three calls, then averages the two medians: six calls per completed scalar score.
 It uses human rating instructions, training-derived conventions, and training examples.
@@ -71,4 +81,22 @@ Finally, a separate five-fold automated recipe, source experiment 104, reports t
 Its original floating-point calculation gave Spearman $0.601533$; the published addendum preserves mathematical ties before ranking.
 This evaluates fold-specific recipe fits, not the frozen selected ensemble.
 The archive retains both versions and their labels.
-All of this historical evidence concerns scalar LLM judges; none measures the proposed probability forecasts or validates a prover judge.
+These original analyses concern scalar LLM judges; they do not evaluate the proposed native probability interface or validate a prover judge.
+
+\subsection{Retrospective comparison of training objectives}
+% Provenance: experiments/10_retrospective_rps_vs_pearson_mixture/results.md and results/results.json; existing analysis only.
+A subsequent matched comparison fits mixtures of five cached judge configurations on the same historical ratings.
+Three scalar repeats per configuration and artifact are converted to floored six-category histograms; no new semantic-model calls are made for this comparison.
+Both training objectives use the same mixture class and select shrinkage by validation RPS.
+Its original task split yields 30 training, 15 validation and 30 test artifacts, with 78, 39 and 78 observed expert ratings.
+
+On the 30 test artifacts from ten tasks and nine task families, the normalized RPS difference, RPS-trained minus Pearson-trained, is $+0.005241$.
+The 95\% family-bootstrap interval is [$-0.068074$, $+0.014864$], using 1,998 valid refit/reselection draws out of 2,000 requested.
+Lower RPS is better; the point estimate favors Pearson, but the interval does not resolve an advantage or establish equivalence.
+Validation selected the RPS-trained mixture, and this selection was not changed after test inspection.
+No significance test is asserted.
+
+The bootstrap refits and reselects mixtures but conditions on the cached model calls, prompts and rater identities.
+It retains historical task-family overlap and prior exposure rather than repairing them.
+Additional cached-metric, cross-validation and expanded-judge-pool analyses reuse this human evidence; a separate synthetic study contains no human observations.
+They motivate the prospective comparison but do not constitute independent replications or fresh-rating validation.

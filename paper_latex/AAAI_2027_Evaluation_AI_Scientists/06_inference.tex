@@ -21,13 +21,13 @@ The calculation motivates recruiting more distinct raters, while the actual allo
 Increasing ratings per artifact from three to eight reduces an independent mean's standard-error factor by $\sqrt{3/8}\approx0.61$.
 That is a 39\% reduction under the stated independence and common-variance approximation, not a guaranteed 39\% reduction in the final study interval.
 Balanced reuse of raters creates cross-artifact dependence, and an exact finite-panel analysis differs from independent population sampling.
-These conditions are why the dense subset supplements broad task coverage instead of replacing it.
+These conditions motivate considering a dense subset alongside broad task coverage, subject to the final allocation.
 
 For correlations, Fisher's approximation for independent bivariate-normal pairs is
 \begin{equation}
  \operatorname{SE}(\operatorname{atanh}\widehat\rho)\approx1/\sqrt{n-3}.
 \end{equation}
-In the actual study, multiple outputs share a task and ratings share a rater; substituting $n=14{,}848$ into that formula is invalid.
+In the actual study, multiple outputs share a task and ratings share a rater; substituting the total number of rating entries for $n$ in that formula is invalid.
 Nor can additional data be expected to raise the true correlation: it improves estimation of whatever association exists.
 We therefore size the study against paired proper-loss precision and expert variation, and report correlation intervals under a dependence-aware analysis.
 
@@ -48,7 +48,7 @@ Their intervals, rather than the sign of an individual estimate, determine what 
 If the estimand instead concerns a fixed panel of $H$ raters sampled uniformly without replacement, the subtraction is $(1-m/H)s_X^2/m$.
 That correction targets the finite-panel mean, not the wider population automatically.
 More complicated assignment and nonresponse require corresponding design-based or model-based adjustments.
-The dense subset makes this diagnostic more informative but cannot remove uncertainty about unrepresented experts.
+A dense subset could make this diagnostic more informative but cannot remove uncertainty about unrepresented experts.
 
 \subsection{Uncertainty and comparison}
 Crossed task and rater identities require inference that respects both sources of dependence.
@@ -56,9 +56,9 @@ Methods for resampling crossed arrays motivate independent reweighting of identi
 The exact sparse-assignment procedure, coverage checks, and treatment of small rater counts must be specified using pilot data before the test is inspected.
 We report fixed-panel analyses separately from analyses extending to an expert population.
 Task resampling estimates variation over tasks like those in the benchmark; for the complete fixed benchmark it is not uncertainty caused by missing benchmark task identities.
-The four chosen solver configurations remain fixed in the primary analysis.
+Solver configurations are treated as fixed in the primary analysis unless a different sampling population is explicitly justified.
 
-Primary comparisons use paired, artifact-weighted RPS differences between a constant training-estimated distribution, a fixed rubric/reference-assisted judge, a correlation-selected judge, and an RPS-selected judge.
+Primary comparisons use paired, artifact-weighted RPS differences between a constant training-estimated distribution, a fixed rubric/reference-assisted judge, a correlation-trained judge, and an RPS-trained judge, all evaluated on the same test artifacts.
 We also include a non-LLM theorem-count baseline to test whether a semantic model improves on a simple structural cue.
 Let $v=\min(1,N_{\mathrm{candidate}}/N_{\mathrm{reference}})$ count theorem statements without inspecting their proofs.
 For $u=5v$, place probability $1-(u-\lfloor u\rfloor)$ at $\lfloor u\rfloor$ and the remaining mass at the next category, with all mass at five when $u=5$.
@@ -72,11 +72,12 @@ Unequal model calls, tokens, and runtime must be reported rather than hidden as 
 
 The constant forecast tests whether input-dependent predictions add information beyond the training rating frequencies.
 The count baseline tests whether a cheap structural signal explains the apparent gain.
-The fixed-rubric condition tests the benefit of fitting or selection, while the correlation-selected condition tests the choice of selection objective.
-For the last contrast, both selection procedures must search the same predefined candidate set with the same information access and computational budget.
+The fixed-rubric condition tests the benefit of fitting, while the two trained conditions test the choice of training objective.
+The trained conditions use the same judge class, information access and computational budget, then select hyperparameters by the same validation RPS.
+Separate cross-entropy and Brier training conditions use that same selection and evaluation procedure.
 Otherwise, an observed difference could reflect search resources or a different model family rather than the objective.
 
 The pilot must set a minimum meaningful improvement, a tolerable distribution error, repeat-instability and failure limits, and the corresponding interval rule.
-If a claim requires success on all four configurations, inference must account for those four simultaneous claims.
+A claim of success on every included configuration requires inference that accounts for those simultaneous comparisons.
 These thresholds are currently unset; a statistically nonzero improvement alone is not the proposed definition of practical success.
 Later changes after test inspection require fresh evidence or an explicitly exploratory label.

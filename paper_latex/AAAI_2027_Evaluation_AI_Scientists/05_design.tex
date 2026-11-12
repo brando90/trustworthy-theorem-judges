@@ -1,94 +1,65 @@
-% TLDR: Prospective counts separate artifact instances, identities, and transfer claims.
-\section{Prospective Study Design}
+% !TEX root = 00_main.tex
+% TLDR: Historical data, the versioned collection and future sample-size planning are distinct.
+\section{Human Data and Prospective Study Design}
 \label{sec:design}
-The starting population is the fixed public VeriBench release \texttt{veribench@1.3}, containing 896 Python tasks.
-The data source is pinned to commit \texttt{c9dfd8e} of the public Harbor dataset collection \citep{veribenchrelease}.
-Task contents, reference versions, instruction version, and toolchain must be hashed before collection.
-The four required solver configurations are Claude Code, Codex, a Gemini agent, and a Grok agent.
-These names define the intended panel; exact model versions, harnesses, tools, effort, and budgets remain to be frozen.
-They are deliberately selected configurations, not random draws from every possible future solver.
+The study separates an existing rating pool, an ongoing collection of new ratings, and planning for a larger comparison.
+Each record has its own candidate provenance, rater population, assistance conditions and exposure history.
+Reanalyzing or exporting an existing rating does not create a new observation.
 
-\subsection{Task and human allocation}
-The initial allocation is 64 training tasks, 64 validation tasks, and 768 held-out tasks.
-Related task variants and near-duplicates are grouped before splitting.
-If those groups prevent the exact counts, the allocation and budget must be amended before test inspection.
-We recruit 24 qualified experts: eight for training and validation, and 16 different raters for the final audit.
-Each artifact receives three independently submitted ratings from distinct randomly assigned raters in the relevant pool.
-Assignment balances workload and maintains overlap between raters; it is recorded rather than inferred from a dense tensor.
+\subsection{Historical rating pool}
+% Provenance: experiments/07_exp1_metrics/results.md, section 1; import_audit.json; VeriBench be287d9.
+The audited historical snapshot has 25 tasks, three candidate samples per task and five rater columns.
+This gives 375 possible ratings across 75 artifacts, of which 345 are observed.
+The designated three-expert subset contains 195 of 225 possible ratings: 45 artifacts have three expert ratings and 30 have two.
+Missing ratings are absent observations, not zeros.
+Section~\ref{sec:legacy} reports the associated judge studies and their prior-exposure limitations.
+Older exports used different prompt passes and filtering rules; their counts are not silently substituted for this pinned snapshot.
 
-The final audit covers all 896 task identities with fresh solver generations.
-Consequently, its 128 previously seen tasks answer a fresh-output question, while its 768 held-out tasks answer a task-transfer question.
-Those strata are reported separately even when a full-benchmark mean is also useful.
-One solver output per task--configuration pair is collected initially in each stage, without selecting the best of retries.
-This design does not estimate generation variance at a fixed task--configuration pair.
-Repeated identical bytes remain distinct generation records but do not create evidence of independent content.
+\subsection{Ongoing packet preparation and collection}
+% Provenance: experiments/09_human_rating_collection/README.md and support/COORDINATOR_README.md, checked 11-11-2026.
+The preserved main packet contains 25 tasks and five model configurations using the Terminus~2 harness, giving 125 candidate artifacts.
+Its collection target is two independent qualified ratings per artifact, or 250 main ratings; author ratings are additional.
+The checked collection record dated 11-11-2026 contains no completed main ratings.
+Warm-up ratings assess readiness for that task and do not count as main ratings.
 
-We randomly select 128 of the held-out tasks before observing their ratings and collect eight total ratings for each of their four artifacts.
-These additional five ratings support distribution diagnostics; they do not make the empirical category histogram exact.
-Table~\ref{tab:budget} distinguishes new artifacts from additional ratings of an existing artifact.
-The resulting workload is 192 ratings per training/validation rater and 832 per audit rater under exact balancing.
-These are planned counts, not measured or assumed feasible time commitments.
+% Provenance: user decision in sole-owner chat 01a1a8f9-dcb7-7381-9368-91d6e51faffd, 11-11-2026, verified via read_thread.
+A versioned replacement is being prepared around Claude Code, Codex and Pi, with fewer Terminus~2 artifacts retained for comparison.
+The coordinator plans 25 native Codex, 25 native Claude Code, 25 Pi and ten Terminus~2 artifacts, totaling 85 artifacts and 170 independent ratings.
+This is a planned workload, not collected data or a statistical sufficiency claim.
+The replacement's completed manifest, execution receipts and rater assignments remain pending.
+The ten-artifact Terminus~2 subset is exploratory; historical and new generation conditions differ, so it does not isolate a causal harness effect.
+The preserved packet's 125 artifacts and 250-rating target do not establish the replacement's size or completion.
+A harness name alone does not identify a solver configuration: exact models, tools, effort, prompts, budgets and source hashes must accompany each candidate.
+Existing outputs qualify for reuse only after their task inputs and generation conditions are checked against the intended comparison.
 
-\begin{table}[t]
-\centering
-\begin{tabular}{lrr}
-\toprule
-Collection stage & Artifacts & Ratings \\
-\midrule
-128 tasks $\times$ 4, train/validation & 512 & 1,536 \\
-896 tasks $\times$ 4, final audit & 3,584 & 10,752 \\
-Five extra on 128 $\times$ 4 artifacts & 0 & 2,560 \\
-\midrule
-Total & 4,096 & 14,848 \\
-\bottomrule
-\end{tabular}
-\caption{Prospective collection budget, not collected data.
-The two stages have separate generations and disjoint human pools.
-Three ratings are assigned initially to every artifact; the dense subset has eight in total.}
-\label{tab:budget}
-\end{table}
+Raters compare the source, candidate and reference using the same coverage rubric.
+The current form records the final rating, AI-assistance and human-rating attestation, review time, confidence, rationale and problem notes.
+Localized AI assistance is required prospectively; the human makes the final comparison and rating.
+Independent submissions are preserved rather than replaced with a consensus answer.
+The inherited collection is reserved for evaluation in the new training-objective comparison, with prior exposure retained in its record.
 
-\subsection{What is held out}
-The main judge is trained and selected with all four configurations' training and validation outputs.
-Its audit establishes performance on the evaluated configurations, with separate new-task and new-human evidence.
-It cannot also establish that these same configurations were unseen by that judge.
+\subsection{Estimating tasks, configurations and raters}
+Let $T$ count task identities, $A$ solver configurations and $H$ distinct raters.
+The observed number of ratings is $\sum_i m_i$, not $TAH$ unless every rater rates every artifact.
+Generation repeats require their own index.
+Size planning compares variance-based precision calculations, learning-theory bounds and fitted learning curves under explicit assumptions.
+None of the recovered conversation estimates establishes a sufficient final allocation.
+Task-family dependence, reused raters and fixed solver configurations prevent treating all ratings as independent observations.
 
-To test transfer to each excluded configuration, we fit four additional judges.
-For each fit, one configuration's outputs, ratings, and prompt examples are excluded from both training and validation.
-The fit is evaluated on that configuration's 768 held-out tasks using audit raters.
-All four fits reuse the same collected audit ratings.
-These experiments test the transfer of the training/selection procedure, not a single judge that somehow treats all four training configurations as unseen.
-They also do not establish transfer to arbitrary future model versions.
-Historical task and solver exposure is recorded; a new split cannot erase earlier prompt design or unknown pretraining exposure.
+Earlier allocations remain archived planning scenarios, not measured requirements or adopted sizes for the replacement packet.
+A final allocation must be tied to a declared estimand, assignment pattern and precision target.
 
-The final human pool supplies no ratings for judge selection.
-An analysis conditional on the 16 recruited audit experts can establish agreement with that panel.
-An inference about a wider expert population additionally requires a defensible recruitment and sampling model.
-Holding out identities reduces direct leakage but does not by itself make either experts or solver configurations representative.
+\subsection{Identity separation and execution decisions}
+The prospective comparison requires a new assignment that separates training, validation and test task families, solver identities and rater identities.
+The earlier design's shared training/validation raters do not implement that strict three-way separation.
+The historical data also reuse raters and include prior test exposure; relabeling their splits cannot remove it.
+The amendment must define eligible identities and the exact transfer claim before new training or test use.
+In a leave-one-configuration-out analysis, that configuration's artifacts, ratings and examples are excluded from both training and validation for its fit.
+Such an analysis tests transfer of a fitting procedure to a specified configuration, not performance on every future agent.
 
-\begin{table}[t]
-\centering
-\begin{tabular}{p{0.35\columnwidth}p{0.55\columnwidth}}
-\toprule
-Audit stratum & Supported question \\
-\midrule
-Full audit (896 tasks) & Agreement on the complete fixed benchmark and four evaluated solver configurations. \\
-128 seen tasks, fresh outputs & Agreement on new generations from tasks used for training or selection. \\
-768 held-out tasks & Transfer across task groups untouched in the new selection procedure. \\
-Four excluded-solver fits & Transfer of that procedure to each configuration excluded from its fit. \\
-16 audit raters & Agreement with new raters, with wider population inference conditional on recruitment assumptions. \\
-\bottomrule
-\end{tabular}
-\caption{The holdouts answer different questions.
-No row alone establishes accuracy on every future task, solver configuration, or rater.}
-\label{tab:holdouts}
-\end{table}
-
-\subsection{Pilot and fixed execution}
-A training/validation-only pilot measures rating time, disagreement, fatigue, failure rates, and variance of paired losses.
-It also traces one artifact through generation, extraction, human display, judge input, probability parsing, and scoring using content hashes.
-As an artificial pipeline control, the pilot supplies a known rating in the prompt and checks that the returned category or probability vector reproduces it through parsing and normalization.
-This rating-reproduction check diagnoses instruction and transport failures; it is never scored as evidence of semantic ability or included among test artifacts.
-Before final ratings are opened, we freeze the rubric, assignments, judge versions, analysis, repeat count, failure policy, endpoints, and practical tolerances.
-Task and rater exclusions, parser errors, missing outputs, and timeouts remain in the accounting.
-The plan is not a completed preregistration: practical thresholds and the feasibility of the proposed workload remain unresolved.
+A separately eligible training pilot can measure review time, disagreement, missingness and variability of paired losses.
+The final sample size must follow a declared precision or useful-effect target and a feasible time and cost budget.
+Before test inspection, fix the candidate manifest, rating procedure, assignment, judge versions, repeat count, analysis and failure policy.
+Trace input bytes through human display, judge input, probability parsing and scoring using hashes.
+A known-rating reproduction check tests that pipeline separately from semantic performance.
+These unresolved decisions are part of the study plan; they are not completed data collection or empirical validation.

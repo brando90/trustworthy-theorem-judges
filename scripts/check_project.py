@@ -39,7 +39,8 @@ def main():
     assert not re.search(r"calibrat\w*", texts, re.I), "Use project judge-selection terminology"
     assert "Anonymous Submission" in main_source
     assert r"\usepackage[submission]{aaai2027}" in main_source, "Anonymous style option is required"
-    assert "14,848" in texts and "pending" in texts
+    # The historical budget is validated above; it need not be the current paper design.
+    assert "pending" in texts, "Keep the prospective study status explicit"
     for path in ROOT.rglob("*.json"):
         if "private" not in path.parts and ".git" not in path.parts:
             json.loads(path.read_text())

@@ -24,8 +24,10 @@ Its labels, estimand, and pilot counts must not be substituted for those of the 
 Likewise, the human-rating study does not change an existing benchmark's prover-based scoring implementation.
 
 \subsection{What the final report must contain}
-The primary table will report RPS, paired baseline differences, and confidence intervals for all 896 audit tasks, the 128 seen tasks with fresh outputs, the 768 held-out tasks, and each solver configuration.
-The four excluded-solver fits have their own transfer table and denominators.
+The primary table will report RPS, paired baseline differences and confidence intervals on the frozen test set and for each included solver configuration.
+Cross-entropy and per-artifact TVD are reported on those same artifacts as secondary metrics.
+Any excluded-solver fits have their own transfer table, denominators and training-data eligibility record.
+The final assignment manifest determines these counts; earlier budget scenarios do not fix them.
 Distribution-error diagnostics on the dense subset, means, signed bias, absolute error, Pearson correlation, Spearman correlation, and Kendall correlation supplement these results.
 Human--human agreement is computed on matched artifacts, and the prediction mean is not confused with the full probability vector.
 
@@ -34,8 +36,9 @@ A stable but wrong judge can pass a repeatability check, while a correct predict
 The paper must keep these statements separate.
 Missing and failed calls appear with their original denominator; because RPS is bounded, worst- and best-case completion bounds can show whether missingness could reverse a conclusion.
 
-Public evidence consists of the protocol, configurations, input manifests where distributable, analysis code, and authorized aggregate results.
-Participant identities, contact information, consent, individual rating sheets, and sealed test ratings remain in restricted storage.
-Opaque analysis identifiers preserve the assignment structure without exposing identities.
-Any eventual release of individual ratings requires the corresponding consent and release decision.
+Public evidence includes the protocol, configurations, distributable input manifests, analysis code and authorized results.
+The collection preserves authorized named ratings in its versioned repository record, with stable identifiers for matching responses and preventing duplicate counts.
+Private contact information, consent correspondence and sealed test data remain restricted.
+The anonymous submission reports aggregate evidence without participant identities or identifying repository links.
+Raw ratings retain the original values, missingness and assistance disclosures; a normalized analysis export is a separate derivative.
 The historical import preserves immutable aggregate receipts and hashes, with post hoc calculations labeled separately.

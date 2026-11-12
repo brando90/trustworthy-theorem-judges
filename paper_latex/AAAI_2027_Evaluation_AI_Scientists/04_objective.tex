@@ -23,7 +23,7 @@ For each threshold, expansion of the squared error gives
 \end{align}
 The first term measures conditional distribution error; the second is the loss remaining even for a perfect forecast of a disagreeing expert population.
 Because the cumulative probabilities determine all six category probabilities, the unrestricted expected-loss minimizer is uniquely $q=p^*$.
-This fact justifies the target of selection.
+This fact justifies the population training target.
 It does not guarantee that a particular model class, prompt search, or finite sample will attain that target.
 
 For equal category spacing on $[0,1]$, the one-dimensional Wasserstein distance is
@@ -45,19 +45,46 @@ The required comparison is conditional on the same artifact, then averaged acros
 Logarithmic loss is another proper objective and connects to Kullback--Leibler divergence, but it ignores category order and diverges when the judge assigns zero probability to an observed category.
 With few ratings per artifact, directly estimating an entire human probability vector and plugging it into a divergence is also noisy.
 RPS can instead score each individual rating without declaring a sparse empirical histogram to be the true human distribution.
-We retain logarithmic loss only as an optional prespecified sensitivity analysis with a documented probability-floor policy.
+We use cross-entropy as a separate training condition and a shared secondary evaluation metric, with the probability-floor policy specified before evaluation.
 
-\subsection{Selection and artifact weighting}
+\subsection{Training objectives and artifact weighting}
 For $n$ artifacts, with assigned rater set $\mathcal H_i$ of size $m_i$, define
 \begin{equation}
- \widehat L(\theta)=\frac1n\sum_{i=1}^{n}
+ \widehat L_S(\theta)=\frac1n\sum_{i=1}^{n}
        \frac1{m_i}\sum_{h\in\mathcal H_i}S(q_\theta(z_i),R_{ih}).
  \label{eq:empirical}
 \end{equation}
-Candidate construction uses training data; selection minimizes this loss on validation data.
-Artifacts receiving additional diagnostic ratings retain the same total weight as other artifacts.
-All candidates, prompt changes, and fitted score mappings are recorded because repeated model selection can overfit a validation criterion \citep{cawley2010overfitting}.
-Final test ratings do not enter this process.
+Artifacts receiving additional ratings retain the same total weight as other artifacts.
+Let $\bar r_i$ be the mean normalized human rating for artifact $i$.
+The correlation-training condition maximizes Pearson correlation between $\mu_q(z_i)$ and $\bar r_i$ across training artifacts.
+The proper-loss-training condition minimizes Equation~\ref{eq:empirical} on the same training artifacts, with RPS primary.
+The judge class, inputs, data access and search budget are matched between conditions.
+Pearson correlation constrains the relationship between output ratings; the mapping from source artifacts to predictions may be nonlinear.
+Constant predictions or targets make correlation undefined and require a prespecified failure policy.
+
+Additional proper-loss conditions train with cross-entropy or six-category Brier loss and remain separately identified.
+Cross-entropy scores an individual rating as $-\log q_r$ using natural logarithms.
+The six-category Brier loss is $\sum_{k=0}^{5}(q_k-\mathbf1\{r=k\})^2$, with range $[0,2]$.
+It differs from the binary Brier loss used for a separate prover-outcome target.
+No population optimality result proves that one training procedure will perform better with finite data and a restricted judge class.
+
+Every condition selects hyperparameters by the same validation RPS.
+Changing the validation criterion from correlation to proper loss would answer a different question from changing the training objective.
+All prompt changes, fitted mappings and attempted candidates are recorded because repeated selection can overfit validation data~\citep{cawley2010overfitting}.
+Final test ratings do not enter training or selection.
+
+\subsection{Shared evaluation metrics}
+RPS is the primary held-out metric for every training condition.
+Cross-entropy and total variation distance (TVD) are shared secondary metrics.
+For an artifact's empirical human distribution $\widehat p_i$, define
+\begin{equation}
+ \widehat{\operatorname{TVD}}=\frac1n\sum_i\frac12
+       \sum_{r=0}^{5}|q_\theta(r\mid z_i)-\widehat p_i(r)|.
+\end{equation}
+This TVD lies in $[0,1]$ and weights artifacts equally.
+It is a finite-rating distribution diagnostic, not a proper individual-rating loss or total-variation mutual information.
+The empirical human distribution remains noisy when few people rate an artifact.
+Expected-rating correlations, absolute error, signed bias and human--human agreement supplement the common loss panel.
 
 \subsection{A worked distinction between uncertainty sources}
 Suppose, illustratively, that half of the qualified raters assign category zero to one artifact and half assign category five.

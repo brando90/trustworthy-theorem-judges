@@ -1,0 +1,21 @@
+% TLDR: Place VeriBench and broader judge methodology in related work, not this paper's result claims.
+\section{Related Work}
+\label{sec:related}
+\paragraph{VeriBench and formal specification coverage.}
+VeriBench evaluates end-to-end coding and formal-verification agents, including whether their formal statements express required properties~\citep{veribench2026}.
+Its tasks, reference artifacts and earlier human-rating study provide this paper's application context.
+The broader solver benchmark, proof-success comparisons and operational coverage scorer remain separate contributions.
+This paper extracts the human-rating judge question and preserves each historical scorer's input conditions, target and analysis.
+Predicting expert coverage ratings is also different from forecasting acceptance by a bounded proof-search procedure: a search failure does not establish non-entailment.
+
+\paragraph{Language-model judges.}
+Human-agreement studies evaluate language-model judges for conversational preferences and report biases associated with position, verbosity and self-preference~\citep{zheng2023judging}.
+Our task instead concerns formal statements, assumptions and reference coverage.
+Agreement statistics remain useful, but an ordinal probability forecast additionally makes disagreement and distributional error explicit.
+We compare training objectives with a common validation criterion rather than assume that any objective is empirically superior.
+
+\paragraph{Scoring, selection and dependent observations.}
+Proper scoring rules motivate probability forecasts whose expected score is optimized by the target distribution~\citep{gneiting2007strictly}.
+Repeated model selection can bias subsequent performance assessment~\citep{cawley2010overfitting}, motivating separate validation and sealed test use.
+Crossed-array resampling addresses dependence induced by shared identities~\citep{owen2012bootstrapping}; its suitability still depends on the actual assignment and target population.
+These results guide the protocol but do not supply a universal number of tasks, solvers or raters.
