@@ -1,0 +1,98 @@
+{
+ "metrics": {
+  "ce": {
+   "constant": 1.8519010008086676,
+   "equal_mixture": 5.431085564295025,
+   "corr_mixture_pearson": 5.78749769176468,
+   "ce_mixture": 5.413018067677834,
+   "val_rps_selected_refit": 5.420160845569076,
+   "val_rps_selected_fitonly": 5.411737077504352,
+   "val_ce_selected_refit": 1.866913043236893,
+   "val_ce_selected_fitonly": 1.8918502463299758
+  },
+  "rps": {
+   "constant": 0.1835658003949626,
+   "equal_mixture": 0.1495578587696428,
+   "corr_mixture_pearson": 0.141865004294206,
+   "ce_mixture": 0.13623868631592065,
+   "val_rps_selected_refit": 0.1572502834905886,
+   "val_rps_selected_fitonly": 0.15623829315253848,
+   "val_ce_selected_refit": 0.18338779118934553,
+   "val_ce_selected_fitonly": 0.18501607908962542
+  },
+  "tvd": {
+   "constant": 0.6817945559410755,
+   "equal_mixture": 0.5311112835548449,
+   "corr_mixture_pearson": 0.5221818340641186,
+   "ce_mixture": 0.5098150389981615,
+   "val_rps_selected_refit": 0.5621998028695725,
+   "val_rps_selected_fitonly": 0.5607159436046142,
+   "val_ce_selected_refit": 0.6811789284044493,
+   "val_ce_selected_fitonly": 0.6812936313047017
+  }
+ },
+ "selection_counts": {
+  "rps": {
+   "ce_shrink_0.0": 300,
+   "pearson_mixture": 304,
+   "ce_shrink_0.5": 38,
+   "single_H2_sol": 9,
+   "constant": 153,
+   "ce_shrink_1.0": 29,
+   "single_H0_sol": 87,
+   "ce_shrink_0.75": 15,
+   "ce_shrink_0.25": 38,
+   "single_H2_opus": 23,
+   "single_H0_opus": 4
+  },
+  "ce": {
+   "constant": 996,
+   "ce_shrink_0.25": 1,
+   "ce_shrink_1.0": 1,
+   "ce_shrink_0.5": 2
+  }
+ },
+ "seconds": 48.71323895454407
+}
+ce: val_rps_selected_refit minus ce_mixture 0.0071 [-0.3091, 0.328] False
+ce: val_rps_selected_fitonly minus ce_mixture -0.0013 [-0.3159, 0.3176] False
+ce: val_ce_selected_refit minus ce_mixture -3.5461 [-4.8828, -2.2748] True
+ce: val_ce_selected_fitonly minus ce_mixture -3.5212 [-4.8584, -2.2459] True
+ce: val_rps_selected_refit minus corr_mixture_pearson -0.3673 [-0.5781, -0.1491] True
+ce: val_rps_selected_refit minus constant 3.5683 [2.5302, 4.685] True
+ce: val_rps_selected_refit minus equal_mixture -0.0109 [-0.3409, 0.3411] False
+ce: ce_mixture minus corr_mixture_pearson -0.3745 [-0.6927, -0.101] True
+ce: ce_mixture minus constant 3.5611 [2.2859, 4.903] True
+ce: ce_mixture minus equal_mixture -0.0181 [-0.0797, 0.0515] False
+rps: val_rps_selected_refit minus ce_mixture 0.021 [0.0144, 0.028] True
+rps: val_rps_selected_fitonly minus ce_mixture 0.02 [0.0136, 0.0267] True
+rps: val_ce_selected_refit minus ce_mixture 0.0471 [0.0008, 0.0942] True
+rps: val_ce_selected_fitonly minus ce_mixture 0.0488 [0.0025, 0.0957] True
+rps: val_rps_selected_refit minus corr_mixture_pearson 0.0154 [0.002, 0.0284] True
+rps: val_rps_selected_refit minus constant -0.0263 [-0.0675, 0.0146] False
+rps: val_rps_selected_refit minus equal_mixture 0.0077 [-0.0077, 0.0226] False
+rps: ce_mixture minus corr_mixture_pearson -0.0056 [-0.0181, 0.0059] False
+rps: ce_mixture minus constant -0.0473 [-0.0947, -0.0008] True
+rps: ce_mixture minus equal_mixture -0.0133 [-0.024, -0.0027] True
+tvd: val_rps_selected_refit minus ce_mixture 0.0524 [0.0362, 0.0691] True
+tvd: val_rps_selected_fitonly minus ce_mixture 0.0509 [0.0357, 0.0668] True
+tvd: val_ce_selected_refit minus ce_mixture 0.1714 [0.0769, 0.2703] True
+tvd: val_ce_selected_fitonly minus ce_mixture 0.1715 [0.0776, 0.2704] True
+tvd: val_rps_selected_refit minus corr_mixture_pearson 0.04 [0.0154, 0.0654] True
+tvd: val_rps_selected_refit minus constant -0.1196 [-0.2043, -0.0384] True
+tvd: val_rps_selected_refit minus equal_mixture 0.0311 [0.0028, 0.0589] True
+tvd: ce_mixture minus corr_mixture_pearson -0.0124 [-0.0363, 0.0123] False
+tvd: ce_mixture minus constant -0.172 [-0.2713, -0.0772] True
+tvd: ce_mixture minus equal_mixture -0.0213 [-0.0428, 0.0025] False
+pearson (test-set correlation, task-attributed): val_rps_selected_refit minus ce_mixture -0.022 [-0.0262, -0.0175] True
+pearson (test-set correlation, task-attributed): val_rps_selected_fitonly minus ce_mixture -0.0225 [-0.0268, -0.0179] True
+pearson (test-set correlation, task-attributed): val_ce_selected_refit minus ce_mixture -0.0489 [-0.0939, -0.0065] True
+pearson (test-set correlation, task-attributed): val_ce_selected_fitonly minus ce_mixture -0.0503 [-0.0937, -0.0092] True
+pearson (test-set correlation, task-attributed): val_rps_selected_refit minus corr_mixture_pearson -0.035 [-0.0466, -0.0217] True
+pearson (test-set correlation, task-attributed): ce_mixture minus corr_mixture_pearson -0.013 [-0.023, -0.0001] True
+spearman (test-set correlation, task-attributed): val_rps_selected_refit minus ce_mixture 0.0014 [-0.0048, 0.0074] False
+spearman (test-set correlation, task-attributed): val_rps_selected_fitonly minus ce_mixture 0.0006 [-0.0056, 0.0067] False
+spearman (test-set correlation, task-attributed): val_ce_selected_refit minus ce_mixture 0.0355 [-0.0277, 0.096] False
+spearman (test-set correlation, task-attributed): val_ce_selected_fitonly minus ce_mixture 0.0241 [-0.0501, 0.0935] False
+spearman (test-set correlation, task-attributed): val_rps_selected_refit minus corr_mixture_pearson -0.0613 [-0.0723, -0.0501] True
+spearman (test-set correlation, task-attributed): ce_mixture minus corr_mixture_pearson -0.0627 [-0.0734, -0.0523] True

@@ -21,6 +21,9 @@
 | [07 — Compare five judges on 75 outputs and estimate rating needs](07_compare_5_judges_on_75_outputs_and_estimate_rating_needs/README.md) | Completed cached calculations retained as a current reference for experiment 02's metric and sample-size discussion; fresh confirmation pending. |
 | [08 — Judge whether candidate statements imply the reference: 48 Lean cases](08_judge_whether_candidate_statements_imply_reference_48_lean_cases/README.md) | Bounded constructed-control study complete; parent review and natural-output follow-up remain pending. |
 | [10 — Fit five-judge mixtures: Pearson versus ranked probability training](10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/README.md) | Analysis complete; retained until its owner reconciles a unique unlanded publication receipt. |
+| [16 — Formulation ③ versus ④ and ②](16_formulation3_val_selection_vs_4/README.md) | Choosing the judge by validation loss did not beat fitting by loss on train tasks (1,000 task-grouped splits, cached judges, $0). Retrospective, complete. |
+| [17 — Learning curve on the real ratings](17_learning_curve_tasks_and_ratings/README.md) | Held-out RPS against training tasks (4 to 20) and ratings per artifact for the loss-fitted and correlation-fitted mixtures. Cached judges, $0, complete. |
+| [18 — Big AI-labelled pool, test on the 75 humans](18_big_ai_label_pool_test_on_75_humans/README.md) | Big-data version 1: fit on 591 VeriBench experiment 106 artifacts with AI-rater labels, test on the 75 human-rated artifacts; four cached judge configs, $0, complete. |
 
 ## Historical evidence
 
