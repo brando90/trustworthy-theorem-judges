@@ -329,6 +329,135 @@ class FinalizerTests(unittest.TestCase):
         frozen = F.save_reconciliation(cohort, report, self.root / "infra_subset", ratable_subset=True)
         self.assertEqual(json.loads(Path(frozen["path"]).read_text())["infrastructure_disposition"], self.record(disposition))
 
+    def recovered_fixture(self):
+        cell = self.pi_receipt_path.parent
+        Path(self.cohort["artifacts"][2]["candidate"]["path"]).unlink()
+        original = {**self.pi_receipt, "status": "running", "started_at": "2026-11-11T20:00:00+00:00"}
+        original.pop("finished_at")
+        op = self.write(cell / "receipt_before_host_supervision_recovery.json", original)
+        observer = self.root / "observer.py"
+        observer.write_text("# synthetic observer; no model calls\n")
+        self.pi_receipt.update(status="recovered_native_terminal", artifact_status="missing",
+            started_at=original["started_at"], finished_at="2026-11-11T20:20:00+00:00", elapsed_seconds=1200,
+            provider_requests=40, accounted_usd=.6)
+        initial = self.write(cell / "receipt_before_recovered_identity_correction.json", self.pi_receipt)
+        sessiondir = cell / "pi-sessions_recovered"
+        sessiondir.mkdir()
+        events = [{"type": "model_change", "provider": "allen-google-veribench", "modelId": "gemini-3.8-flash"},
+                  {"type": "thinking_level_change", "thinkingLevel": "high"},
+                  {"type": "message", "message": {"role": "assistant", "model": "gemini-3.8-flash",
+                                                   "provider": "allen-google-veribench"}}]
+        session = sessiondir / "session.jsonl"
+        session.write_text("\n".join(json.dumps(e) for e in events) + "\n")
+        identity = self.write(cell / "recovered_session_identity_evidence.json", [
+            {"session_file": str(session), "session_sha256": self.sha(session), "event": e} for e in events[:2]])
+        self.pi_receipt["supervision_recovery"] = {
+            "original_receipt_sha256": self.sha(op), "initial_recovered_receipt_sha256": self.sha(initial),
+            "observer_sha256": self.sha(observer), "native_identity_evidence_sha256": self.sha(identity),
+            "original_deadline_utc": "2026-11-11T20:30:00+00:00"}
+        self.write(self.pi_receipt_path, self.pi_receipt)
+        self.ledger.update(accounted_usd=.6, requests=[{"call": i, "http_status": 200,
+            "provider_finish_reason": "STOP"} for i in range(1, 41)],
+            denials=[{"reason": "Provider request cap reached"}])
+        self.write(self.ledger_path, self.ledger)
+        incident = self.write("INCIDENT.json", {"no_task_restarts": True,
+            "original_deadlines_enforced_by_detached_observer": True, "observer_sha256": self.sha(observer),
+            "recovered_outcomes": [{"task_id": self.task_id, "status": "recovered_native_terminal",
+                                    "artifact_status": "missing"}]})
+        entry = {"item_id": self.cohort["artifacts"][2]["item_id"], "task_id": self.task_id,
+            "configuration_id": F.PI, "receipt": self.record(self.pi_receipt_path),
+            "original_receipt": self.record(op), "initial_recovered_receipt": self.record(initial),
+            "observer": self.record(observer), "identity_evidence": self.record(identity),
+            "incident": self.record(incident), "gateway_ledger": self.record(self.ledger_path),
+            "native_sessions": [self.record(session)]}
+        lineage = {"planned_cohort": self.record(self.cohort_path), "supervision_recovery_records": [entry],
+            "configurations": {config: [{"condition": self.cohort["configurations"][config]["planned_condition_snapshot"],
+                "runner": self.record(self.runner), "output_root": self.cohort["configurations"][config]["output_root"],
+                "task_ids": [self.task_id]}] for config in (F.CC, F.PI)}}
+        lp = self.write("RECOVERY_LINEAGE.json", lineage)
+        def scan():
+            self.write(lp, lineage)
+            return F.reconcile(self.cohort_path, self.sha(self.cohort_path), pi_index=self.pi_index,
+                cc_runner=self.runner, pi_runner=self.runner, lineage_record=self.record(lp))
+        return lineage, entry, scan
+
+    def test_recovery_preserves_cap_outcome_and_requires_incident_disposition(self):
+        lineage, entry, scan = self.recovered_fixture()
+        _, unbound = self.scan()
+        self.assertEqual(unbound["cells"][2]["state"], "INVALID_PROVENANCE")
+        cohort, report = scan()
+        row = report["cells"][2]
+        self.assertEqual(row["state"], "MISSING_OUTPUT")
+        self.assertEqual(row["missing_cause"], "infrastructure:host_supervision_incident")
+        self.assertEqual(row["missing_cause_evidence"]["observed_procedure_outcome"],
+                         "budget_cap:Provider request cap reached")
+        self.assertFalse(row["solver_failure_attributable"])
+        self.assertFalse(report["ratable_subset_available"])
+        self.assertIsNone(F.save_reconciliation(cohort, report, self.root / "unapproved", ratable_subset=True))
+        excluded = {k: row[k] for k in ("item_id", "task_id", "configuration_id", "receipt_sha256", "missing_cause")}
+        excluded.update(gateway_ledger=entry["gateway_ledger"], disposition="EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE")
+        disposition = self.write("RECOVERY_DISPOSITION.json", {
+            "planned_cohort": self.record(self.cohort_path), "excluded_cells": [excluded]})
+        lineage["infrastructure_disposition"] = self.record(disposition)
+        cohort, report = scan()
+        self.assertTrue(report["ratable_subset_available"])
+        # Even after successful reconciliation, changed session bytes must block freezing.
+        session = Path(entry["native_sessions"][0]["path"])
+        original = session.read_bytes()
+        session.write_bytes(original + b"{}\n")
+        with self.assertRaisesRegex(ValueError, "Hash mismatch"):
+            F.save_reconciliation(cohort, report, self.root / "stale_recovery", ratable_subset=True)
+        session.write_bytes(original)
+        frozen = F.save_reconciliation(cohort, report, self.root / "approved_recovery", ratable_subset=True)
+        self.assertEqual(json.loads(Path(frozen["path"]).read_text())["expected_artifacts"], 2)
+
+    def test_recovery_rejects_changed_start_deadline_effort_and_ledger_bounds(self):
+        _, entry, scan = self.recovered_fixture()
+        saved = copy.deepcopy(self.pi_receipt)
+        for field, value, reason in [("started_at", "2026-11-11T20:01:00+00:00", "original execution"),
+                                     ("provider_requests", 41, "request count"),
+                                     ("accounted_usd", .8, "cost exceeds")]:
+            with self.subTest(field=field):
+                self.pi_receipt = {**saved, field: value}
+                self.write(self.pi_receipt_path, self.pi_receipt)
+                entry["receipt"] = self.record(self.pi_receipt_path)
+                _, report = scan()
+                self.assertEqual(report["cells"][2]["state"], "INVALID_PROVENANCE")
+                self.assertIn(reason, report["cells"][2]["reason"])
+        self.pi_receipt = copy.deepcopy(saved)
+        self.pi_receipt["supervision_recovery"]["original_deadline_utc"] = "2026-11-11T20:31:00+00:00"
+        self.write(self.pi_receipt_path, self.pi_receipt)
+        entry["receipt"] = self.record(self.pi_receipt_path)
+        _, report = scan()
+        self.assertIn("original deadline", report["cells"][2]["reason"])
+        self.pi_receipt = copy.deepcopy(saved)
+        session = Path(entry["native_sessions"][0]["path"])
+        events = [json.loads(line) for line in session.read_text().splitlines()]
+        events[1]["thinkingLevel"] = "low"
+        session.write_text("\n".join(json.dumps(e) for e in events) + "\n")
+        identity = Path(entry["identity_evidence"]["path"])
+        self.write(identity, [{"session_file": str(session), "session_sha256": self.sha(session), "event": e}
+                              for e in events[:2]])
+        entry["native_sessions"] = [self.record(session)]
+        entry["identity_evidence"] = self.record(identity)
+        self.pi_receipt["supervision_recovery"]["native_identity_evidence_sha256"] = self.sha(identity)
+        self.write(self.pi_receipt_path, self.pi_receipt)
+        entry["receipt"] = self.record(self.pi_receipt_path)
+        _, report = scan()
+        self.assertIn("native effort mismatch", report["cells"][2]["reason"])
+
+    def test_recovery_metadata_cannot_bypass_incident_gate_with_ordinary_status(self):
+        _, entry, scan = self.recovered_fixture()
+        for status in ("timeout", "process_completed", "running"):
+            with self.subTest(status=status):
+                self.pi_receipt["status"] = status
+                self.write(self.pi_receipt_path, self.pi_receipt)
+                entry["receipt"] = self.record(self.pi_receipt_path)
+                _, report = scan()
+                self.assertEqual(report["cells"][2]["state"], "INVALID_PROVENANCE")
+                self.assertIn("explicit terminal status", report["cells"][2]["reason"])
+                self.assertFalse(report["ratable_subset_available"])
+
 
 if __name__ == "__main__":
     unittest.main()

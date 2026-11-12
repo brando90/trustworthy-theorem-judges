@@ -10,7 +10,7 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 import copy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import hashlib
 import importlib.util
 import json
@@ -25,7 +25,7 @@ CC, PI = "native_claude_fable", "pi_gemini_flash"
 PENDING = {CC: {"PREPARING", "RUNNING"}, PI: {"preparing", "running"}}
 TERMINAL = {CC: {"TERMINAL", "INFRASTRUCTURE_INTERRUPTED"},
             PI: {"process_completed", "process_failed", "timeout", "runner_error",
-                 "provider_error", "no_assistant_response"}}
+                 "provider_error", "no_assistant_response", "recovered_native_terminal"}}
 
 
 def require(condition, message):
@@ -226,7 +226,80 @@ def validate_receipt(artifact, receipt, cohort, tasks, conditions, pi_cells):
             require(receipt.get("pi_version_observed") == condition["cli_version"], "Pi CLI version mismatch")
 
 
-def resolve_artifact(artifact, cohort, tasks, conditions, pi_cells):
+def validate_supervision_recovery(receipt, receipt_path, condition, entry):
+    """Admit only an explicitly bound no-file recovery of the original attempt."""
+    require(receipt["status"] == "recovered_native_terminal", "Recovery metadata requires its explicit terminal status")
+    require(entry is not None, "Recovered receipt needs hash-bound incident evidence")
+    require(entry["receipt"] == {"path": str(receipt_path), "sha256": sha(regular_bytes(receipt_path))},
+            "Recovered receipt evidence mismatch")
+    require(entry["task_id"] == receipt["task_id"] and entry["configuration_id"] == PI,
+            "Recovery cell mismatch")
+    evidence = {k: entry[k] for k in ("original_receipt", "initial_recovered_receipt", "observer",
+                                    "identity_evidence", "incident", "gateway_ledger")}
+    original = json_record(evidence["original_receipt"])
+    json_record(evidence["initial_recovered_receipt"])
+    verified(evidence["observer"])
+    recovery = receipt["supervision_recovery"]
+    for key, source_key in (("original_receipt", "original_receipt_sha256"),
+                            ("initial_recovered_receipt", "initial_recovered_receipt_sha256"),
+                            ("observer", "observer_sha256"), ("identity_evidence", "native_identity_evidence_sha256")):
+        require(evidence[key]["sha256"] == recovery[source_key], "Recovery source hash mismatch")
+    require(original["status"] == "running" and receipt["artifact_status"] == "missing",
+            "Recovery is limited to an original running, now missing-output attempt")
+    invariant = ("task_id", "started_at", "manifest_sha256", "input_files", "model", "thinking", "image_id",
+                 "runner_sha256", "cell_cap_usd", "request_cap", "wall_seconds", "input_token_cap",
+                 "output_token_cap", "host_mounts", "attempts", "runtime_uid", "pi_version_observed")
+    require(all(original.get(k) == receipt.get(k) for k in invariant), "Recovery changed original execution")
+    start, finish = (datetime.fromisoformat(receipt[k]) for k in ("started_at", "finished_at"))
+    deadline = datetime.fromisoformat(recovery["original_deadline_utc"])
+    require(start.tzinfo and finish.tzinfo and deadline.tzinfo, "Recovery timestamps must include timezone")
+    require(deadline == start + timedelta(seconds=condition["max_seconds_per_cell"]),
+            "Recovery changed original deadline")
+    elapsed = (finish - start).total_seconds()
+    require(0 <= elapsed <= condition["max_seconds_per_cell"] and
+            abs(elapsed - receipt["elapsed_seconds"]) <= .01, "Recovery exceeds original wall budget")
+    incident = json_record(evidence["incident"])
+    require(incident["no_task_restarts"] is True and incident["original_deadlines_enforced_by_detached_observer"] is True
+            and incident["observer_sha256"] == evidence["observer"]["sha256"], "Recovery incident is unverified")
+    require(any(x["task_id"] == receipt["task_id"] and x["status"] == receipt["status"]
+                and x["artifact_status"] == "missing" for x in incident["recovered_outcomes"]),
+            "Incident does not include this recovered outcome")
+    sessions = {}
+    for record in entry["native_sessions"]:
+        path = Path(record["path"])
+        require(path.resolve().is_relative_to(receipt_path.parent / "pi-sessions_recovered"),
+                "Recovery session is outside the original cell")
+        sessions[record["sha256"]] = [json.loads(line) for line in verified(record).decode().splitlines() if line.strip()]
+    identities = json_record(evidence["identity_evidence"])
+    require(identities and all(x["event"] in sessions.get(x["session_sha256"], []) for x in identities),
+            "Identity evidence is absent from native session")
+    events = [e for group in sessions.values() for e in group]
+    models = [e for e in events if e.get("type") == "model_change"]
+    efforts = [e for e in events if e.get("type") == "thinking_level_change"]
+    assistants = [e["message"] for e in events if e.get("type") == "message"
+                  and e.get("message", {}).get("role") == "assistant"]
+    require(models and all(e.get("modelId") == condition["model"] and
+            e.get("provider") == "allen-google-veribench" for e in models), "Recovered native model mismatch")
+    require(efforts and all(e.get("thinkingLevel") == condition["effort"] for e in efforts),
+            "Recovered native effort mismatch")
+    require(assistants and all(e.get("model") == condition["model"] and
+            e.get("provider") == "allen-google-veribench" for e in assistants), "Recovered assistant model mismatch")
+    require(receipt.get("actual_model") == condition["model"] and receipt.get("actual_thinking") == condition["effort"]
+            and receipt.get("actual_provider") == "allen-google-veribench", "Recovered actual identity mismatch")
+    ledger = json_record(evidence["gateway_ledger"])
+    require(Path(evidence["gateway_ledger"]["path"]) == receipt_path.with_name("gateway_ledger.json"),
+            "Recovered ledger is outside the original cell")
+    require(ledger["model"] == condition["model"] and ledger["cap_usd"] == condition["max_cost_per_cell_usd"],
+            "Recovered ledger condition mismatch")
+    require(len(ledger["requests"]) == receipt["provider_requests"] <= condition["max_provider_requests_per_cell"],
+            "Recovered request count exceeds original cap")
+    require(0 <= ledger["accounted_usd"] <= condition["max_cost_per_cell_usd"] and
+            abs(ledger["accounted_usd"] - receipt["accounted_usd"]) < 1e-9, "Recovered cost exceeds original cap")
+    evidence["native_sessions"] = entry["native_sessions"]
+    return evidence
+
+
+def resolve_artifact(artifact, cohort, tasks, conditions, pi_cells, recoveries=None):
     row = {"item_id": artifact["item_id"], "task_id": artifact["task_id"],
            "configuration_id": artifact["configuration_id"], "terminal": False,
            "state": "INVALID_PROVENANCE", "candidate_path": artifact["candidate"]["path"]}
@@ -273,6 +346,9 @@ def resolve_artifact(artifact, cohort, tasks, conditions, pi_cells):
         row["execution_condition"] = condition.get("_condition_snapshot",
             cohort["configurations"][config]["planned_condition_snapshot"])
         row["runner_sha256"] = condition["runner_sha256"]
+        if config == PI and (receipt["status"] == "recovered_native_terminal" or "supervision_recovery" in receipt):
+            row["supervision_recovery_evidence"] = validate_supervision_recovery(
+                receipt, receipt_path, condition, (recoveries or {}).get(artifact["item_id"]))
         if receipt["status"] in PENDING[config]:
             row.update(state="PENDING", reason="Attempt still in progress")
             return row
@@ -283,6 +359,11 @@ def resolve_artifact(artifact, cohort, tasks, conditions, pi_cells):
         if not captured:
             require(not candidate.exists(), "Receipt says missing but a candidate file exists")
             cause, evidence = missing_cause(config, receipt, receipt_path, condition)
+            if "supervision_recovery_evidence" in row:
+                evidence.update(observed_procedure_outcome=cause,
+                    supervision_incident=row["supervision_recovery_evidence"]["incident"],
+                    causal_attribution="The host-supervision incident co-occurred with the native outcome; its effect on artifact absence is not established.")
+                cause = "infrastructure:host_supervision_incident"
             row.update(state="MISSING_OUTPUT", reason="Terminal attempt returned no captured artifact",
                        missing_cause=cause, missing_cause_evidence=evidence,
                        solver_failure_attributable=not cause.startswith("infrastructure:"))
@@ -325,7 +406,10 @@ def reconcile(cohort_path, expected_sha256, *, pi_index, cc_runner, pi_runner, l
     require(len(artifacts) == cohort["expected_artifacts"], "Planned artifact count mismatch")
     require(len({a["item_id"] for a in artifacts}) == len(artifacts), "Duplicate item IDs")
     require(len({(a["task_id"], a["configuration_id"]) for a in artifacts}) == len(artifacts), "Duplicate cells")
-    rows = [resolve_artifact(a, cohort, tasks, conditions, pi_cells) for a in artifacts]
+    recovery_entries = lineage.get("supervision_recovery_records", []) if lineage else []
+    recoveries = {r["item_id"]: r for r in recovery_entries}
+    require(len(recoveries) == len(recovery_entries), "Duplicate supervision recovery evidence")
+    rows = [resolve_artifact(a, cohort, tasks, conditions, pi_cells, recoveries) for a in artifacts]
     disposition_record = lineage.get("infrastructure_disposition") if lineage else None
     disposition = json_record(disposition_record) if disposition_record else None
     authorized = {}
@@ -389,6 +473,9 @@ def save_reconciliation(cohort, report, output_dir, *, ratable_subset=False):
         ledger = row.get("missing_cause_evidence", {}).get("gateway_ledger")
         if ledger:
             verified(ledger)
+        for key, value in row.get("supervision_recovery_evidence", {}).items():
+            for record in value if key == "native_sessions" else [value]:
+                verified(record)
         if artifact["item_id"] in accepted:
             for kind in ("python", "gold"):
                 verified(artifact[kind])
