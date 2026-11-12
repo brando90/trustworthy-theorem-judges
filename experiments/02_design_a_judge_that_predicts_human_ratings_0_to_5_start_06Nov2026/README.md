@@ -1,6 +1,6 @@
 # Design a judge that predicts human ratings from 0 to 5
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/README.md>
 
 **TLDR:** Predict the conditional distribution of expert ratings with a six-category probability forecast, select the judge by ranked probability score, and evaluate fresh outputs with separate task, agent, and human holdouts.
 
@@ -159,14 +159,14 @@ A fully crossed independent-identities bound or a formula in the product \(TAH\)
 ## Files and next collection steps
 
 ```text
-02_design_a_judge_that_predicts_human_ratings_0_to_5/
+02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/
 ├── README.md                  # Design and analysis contract
 ├── config.json                # Planned counts and unresolved choices
 ├── scripts/validate_design.py # Deterministic count/consistency check
 └── sources/                   # Byte-exact accepted plan and provenance
 ```
 
-Run `python3 experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5/scripts/validate_design.py` from the repository root. It checks this planned allocation; it does not run judges, generate ratings, or establish readiness to launch.
+Run `python3 experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/scripts/validate_design.py` from the repository root. It checks this planned allocation; it does not run judges, generate ratings, or establish readiness to launch.
 
 Coordinate preparation and collection through [`experiments/09_prepare_packets_and_collect_human_ratings/`](../09_prepare_packets_and_collect_human_ratings/README.md); its inherited packets do not replace this prospective design. Next, create the private task-group manifest and rater assignment from these counts, run the training/validation pilot, set the remaining margins and budgets, and record a dated protocol amendment before collecting final-audit ratings. Each artifact record needs task/group/split IDs, stage, agent configuration ID, generation ID, Python/candidate/reference hashes, rubric hash, and judge-input hash; each rating needs its artifact ID, opaque rater ID, pool, ordinal value, timestamp, and assignment record. Each prediction needs probabilities, parsed status, judge/prompt/version IDs, repetition ID, cost receipt, and input hash. The final analysis must be reproducible from these records without exposing identities or sealed ratings in this public repository.
 

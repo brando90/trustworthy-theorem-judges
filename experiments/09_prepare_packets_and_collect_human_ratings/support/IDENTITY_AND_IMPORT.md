@@ -17,7 +17,7 @@ The coordinator's roster and personal-sheet configuration bind A1 to this exact 
 
 ## Why there were codes and hidden names
 
-The original privacy choice is explicit in experiment 02's [Identity splits and assignment](../../02_design_a_judge_that_predicts_human_ratings_0_to_5/README.md#identity-splits-and-assignment), item 4, and the workshop paper's [reporting section](../../../paper_latex/AAAI_2027_Evaluation_AI_Scientists/08_controls_reporting.tex). They describe restricted identity storage and opaque analysis IDs. They do not claim that hiding a participant's own name in their sheet improves rating accuracy or judge validity.
+The original privacy choice is explicit in experiment 02's [Identity splits and assignment](../../02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/README.md#identity-splits-and-assignment), item 4, and the workshop paper's [reporting section](../../../paper_latex/AAAI_2027_Evaluation_AI_Scientists/08_controls_reporting.tex). They describe restricted identity storage and opaque analysis IDs. They do not claim that hiding a participant's own name in their sheet improves rating accuracy or judge validity.
 
 Keep these distinct:
 

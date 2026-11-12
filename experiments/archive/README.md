@@ -20,6 +20,14 @@
 | [18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs](18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs/README.md) | Completed cached AI-rating training-pool study; uses experiment 16's shared code. Its [data inventory and plan](18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs/big-training-data-inventory-11-10-2026.md) now sits beside it. |
 | [does_a_gold_reference_help_or_bias_a_theorem_judge](does_a_gold_reference_help_or_bias_a_theorem_judge/README.md) | **Proposed, not run.** A plan to measure whether showing a judge the gold reference helps it or biases its rating. No experiment number is assigned; it receives one if Brando authorizes the study. |
 
+## Start-date suffix trial on experiment 02 — 11-12-2026
+
+| Previous path under `experiments/` | Current path under `experiments/` | Reason and start-date provenance |
+| --- | --- | --- |
+| `02_design_a_judge_that_predicts_human_ratings_0_to_5` | [02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026](../02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/README.md) | Brando's trial of appending `_start_<DDMonYYYY>` so experiment start dates are visible in the directory tree; `06Nov2026` comes from initial commit `f90d2c5` (`11-06-2026`) and the adopted plan receipt `sources/gpt_pro_plan_11-06-2026.txt`. |
+
+Live navigation, runnable checks and experiment 15's `public_files` hash inventory were updated; frozen manifests, recorded results and archived READMEs retain their recorded paths.
+
 ## Root notes folder, source rename and experiment 10 receipt — 11-11-2026
 
 The baseline is [3932b6d](https://github.com/brando90/trustworthy-theorem-judges/tree/3932b6d062bdf36d9c47e43959464d34831c2cd0). The repository root now holds only `experiments/`, `paper_latex/` and `scripts/` beside its instruction, license and README files; the root `docs/` folder is gone. Each moved file keeps its bytes except its own document address line; one note also had two relative links repointed.
@@ -35,7 +43,7 @@ The baseline is [3932b6d](https://github.com/brando90/trustworthy-theorem-judges
 
 **Layout questions settled with evidence, no move made.**
 
-- Experiment 02 (`02_design_a_judge_that_predicts_human_ratings_0_to_5`) stays an active home. The project check runs its design validator and source-hash check, it holds the tested evaluator for six-probability judges, and the project instructions name its priority plan as the current priority.
+- Experiment 02 (`02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026`) stays an active home. The project check runs its design validator and source-hash check, it holds the tested evaluator for six-probability judges, and the project instructions name its priority plan as the current priority.
 - Archived experiments 16, 17 and 18 stay in this repository. They analyze this project's 75 rated outputs; experiment 17 is the learning-curve evidence that experiment 15's costed allocation reads; experiments 17 and 18 import experiment 16's code by relative path. The position-paper repository holds no copy of them (checked at its revision `4ed7804`). Moving them would require publishing and verifying the destination first, for no gain in navigation.
 - `paper_latex/` and `scripts/` keep their names. The project instructions, the build and check scripts and the ignore rules pin both paths, and the experiment 10 worktree still carries a file under `paper_latex/`. Renaming them to the shared four-bucket names is a separate decision for Brando.
 
@@ -86,7 +94,7 @@ The number identifies the same study; the rest of each name now states its quest
 
 | Previous path under `experiments/` | Destination after that rename (links open current homes) |
 | --- | --- |
-| `02_probabilistic_ordinal_judge` | [02_design_a_judge_that_predicts_human_ratings_0_to_5](../02_design_a_judge_that_predicts_human_ratings_0_to_5/README.md) |
+| `02_probabilistic_ordinal_judge` | [02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026](../02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/README.md) |
 | `archive/03_prover_target_fsc_judge` | [archive/03_predict_prover_success_from_saved_judge_scores_1024_outputs](03_predict_prover_success_from_saved_judge_scores_1024_outputs/README.md) |
 | `04_fresh_prover_target_judge_validation` | [04_test_prover_success_predictions_on_unseen_tasks](04_test_prover_success_predictions_on_unseen_tasks/README.md) |
 | `archive/05_fresh_local_prover_target_judges` | [archive/05_test_qwen_3_5_9b_prover_success_predictions_4_tasks_8_outputs](05_test_qwen_3_5_9b_prover_success_predictions_4_tasks_8_outputs/README.md) |

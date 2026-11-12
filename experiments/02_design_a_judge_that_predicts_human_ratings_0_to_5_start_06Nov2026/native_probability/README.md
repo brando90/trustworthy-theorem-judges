@@ -1,6 +1,6 @@
 # Offline preparation and evaluation for six-probability judges
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5/native_probability/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/native_probability/README.md>
 
 **TLDR:** This executable scaffold hashes supplied artifacts, strictly parses six-category probability forecasts, and scores individual ratings with the same evaluation for method 2 and method 4. It implements no model transport, training, selection, collection, or validated judge; its tests use synthetic temporary files only.
 
@@ -64,7 +64,7 @@ Ratings are a separate JSON array with exactly `artifact_id`, `input_sha256`, `r
 Run the synthetic controls from the repository root:
 
 ```sh
-python3 -B -m unittest discover -s experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5/native_probability -p 'test_*.py' -v
+python3 -B -m unittest discover -s experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/native_probability -p 'test_*.py' -v
 ```
 
 The offline interface, for already authorized local files, is:
