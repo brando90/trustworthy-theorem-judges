@@ -4,9 +4,9 @@
   "scope": "Read-only visible message-body recovery; coverage limits in SOURCE_INDEX.md",
   "public_files": [
     {
-      "path": "CKPT_rating_tensor_planning.md",
-      "sha256": "27efc7f164e0c7a71fc3b34b3ea10584002fb19b729f205726563dc6c137a008",
-      "bytes": 4844
+      "path": "ckpt.md",
+      "sha256": "2cc7953fa1d14c69427b83f816d41fa019800f3116e52311d08a262195b38eba",
+      "bytes": 24104
     },
     {
       "path": "METHODS_AND_ALLOCATION.md",
@@ -15,8 +15,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "8bf0ba0ff398e7c4f6243615a67eab70f0759d9b949fcc73572440c5de6637fe",
-      "bytes": 9047
+      "sha256": "5e6894fe5cdf4f28b036236de8558531f4941f09deb7c7d51dca712a9327d58f",
+      "bytes": 10861
     },
     {
       "path": "SOURCE_INDEX.md",
@@ -325,5 +325,18 @@
         "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_rating_tensor_size_estimation/SOURCE_INDEX.md"
       ]
     }
+  },
+  "continuation_handoff": {
+    "date": "11-11-2026",
+    "current_checkpoint": "ckpt.md",
+    "previous_checkpoint": "CKPT_rating_tensor_planning.md",
+    "baseline_revision": "31fd5c78080b942a669cae7d0c2ff65ed1b8b7a2",
+    "scope": "Source comparison, current recommendation and user-requested takeover plan; source exports and attachments unchanged.",
+    "google_sync": {
+      "document_url": "https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws/edit",
+      "revision_id": "AHj4eMQOza4vq5bxY_0rbjS10B35S_FOeeEbO8rXkMBL8R0pqCZpNOkNhP3I4gdndDl5oFO0Bxcapq0DZmqz992k4gtOkqblkct3-QiFF2g",
+      "readback_verified": true
+    },
+    "verification": "66 project tests, design/source checks, paper build, source/attachment hashes and current links/anchors passed."
   }
 }

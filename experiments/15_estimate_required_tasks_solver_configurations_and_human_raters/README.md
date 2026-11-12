@@ -32,6 +32,14 @@ Here T counts tasks, A fixed solver configurations and H distinct people. Rating
 
 See [methods, arithmetic, assumptions and corrections](METHODS_AND_ALLOCATION.md). For the proposed comparison, train method 2 with Pearson correlation and method 4 with proper loss, select both by the same validation ranked probability score (RPS), and evaluate the fixed judges on the same held-out panel. The strict task/agent/rater split amendment remains necessary before new execution.
 
+## Current recommendation and handoff — 11-11-2026
+
+**Finish the current small evaluation collection; do not adopt a historical large total as a requirement.** Experiment 09's verified main pool now contains 54 returned files across 25 tasks and three represented solver configurations. Its current target is two independent ratings per file, **108 ratings**, with Brando's up-to-54 author ratings additional; its human-rater assignment is incomplete. These are preparation/target counts, not completed ratings or a sufficiency claim. H is the number of distinct people, not the two ratings per file. Preserve the 85 planned task/configuration combinations and 31 missing outputs separately.
+
+Follow Brando's latest sequence: he rates a few files, reviews the actual instructions with the collection owner, then the first batch goes to Sri, Yegor and Brando after explicit send approval. Other prepared recipients remain held. This workflow trial is distinct from the optional 544-rating training pilot below.
+
+For a future development/generalization study, first fix the target claim, precision/effect target, workload cap and prospective task/solver/rater split amendment; then choose a staged allocation using eligible development evidence and design-aware uncertainty. Keep the current collection evaluation-only and sealed outcomes out of selection. Neither 14,848 nor Gemini's 800–1,000 is established as the required total. The [current checkpoint](ckpt.md#compact-historical-source-comparison) contains the compact source table, prioritized remaining work and a complete [takeover prompt](ckpt.md#takeover-prompt), including the unfinished repository simplification. The existing [source index](SOURCE_INDEX.md) remains the authority for capture coverage; no specific missing ChatGPT estimate was found.
+
 ## Optional Codex pilot proposal
 
 **Where 544 came from:** Codex proposed this workload while preparing these notes; Brando did not specify 544 ratings or name a task that way. The arithmetic is 32 tasks × four fixed systems × three ratings = 384, plus five extra ratings on eight tasks × four systems = 160. Eight people could each complete 68 ratings. This covers 128 artifacts, of which 32 receive all eight ratings. It remains an optional training-pilot suggestion, not an approved collection plan, a measured optimum, or a replacement for the historical 14,848-rating budget.
@@ -44,7 +52,7 @@ The supplied [handwritten page](assets/rating_tensor_source_recovery_11-11-2026.
 
 ## Provenance and verification
 
-[Source index](SOURCE_INDEX.md) · [File hashes and capture inventory](provenance.json) · [Continuation and review record](CKPT_rating_tensor_planning.md) · [Google Q&A companion](https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws/edit).
+[Source index](SOURCE_INDEX.md) · [File hashes and capture inventory](provenance.json) · [Current checkpoint, next steps and takeover prompt](ckpt.md) · [Google Q&A companion](https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws/edit).
 
 The requested Claude Code Fable 5.2/max light review returned six findings, addressed with deterministic verification as recorded in the continuation record. Google synchronization status is recorded there. Source exports have not been independently authenticated by the chat providers; their limits are stated in each header. Original links may require Brando's signed-in account.
 
