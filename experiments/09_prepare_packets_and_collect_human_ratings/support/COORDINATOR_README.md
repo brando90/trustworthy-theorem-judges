@@ -136,6 +136,8 @@ The [prospective probabilistic-judge design](../../02_design_a_judge_that_predic
 
 ## Current delivery status — prepared, not dispatched, 11-11-2026
 
+**Later user clarification:** Brando grades some items first, then reviews the actual participant instructions. The first batch is Sri, Yegor and Brando only; Rylan and all other recipients stay held. Yegor’s main packet, assignment and exact email still need preparation. Preserve his existing extra-only status. The eight-person queue below is historical preparation, not the new first-batch queue; consult CURRENT_PREPARATION.json before any dispatch.
+
 The replacement main bundles and matching Sheets are ready for review, with all response fields blank. The preferred finish remains 11-13-2026 and final deadline 11-15-2026. Brando completes his warm-up first; the coordinator then uses the revised recipient-specific messages and waits for his explicit send instruction. No collaborator dispatch is authorized merely by `release_ready: true`.
 
 Use the native-main review and queue under `private/09_human_rating_collection/preparation_11-09-2026/`: `REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md` and `DISPATCH_QUEUE_NATIVE_MAIN_V1.json`. Older original-main drafts remain historical; the current FormV6 warm-ups keep their own recipient-specific records. The remaining collection work is 108 independent main ratings, including assignment of 100 slots to qualified raters, plus Brando's optional 54. No main scores have been collected in this revision.

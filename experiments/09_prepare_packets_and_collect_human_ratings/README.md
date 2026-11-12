@@ -4,19 +4,21 @@
 
 **TLDR:** Start with [Brando’s six-file warm-up and personal Google Sheet](rating_task_packet/START_HERE.md). Then use [the current main task: 54 files in 25 task folders](rating_task_packet/main_rating_task/START_HERE.md). Collected ratings and completion status are below.
 
-## Send tonight — 11-11-2026
+## First batch — Brando grades first, 11-11-2026
 
-**The first eight emails are prepared; the full main-rating allocation is not yet complete.** The real main pool is fixed at 54 files across 25 tasks: native Codex/GPT-6 Astra (25), native Claude Code/Claude Fable 5.1 (19), and Terminus 2/Grok 4.7 (10). Pi supplied no captured required-path submission. No further generation is required for this prepared round.
+**Latest decision:** Brando tries a few ratings first. Then review the actual participant instructions against his experience, prepare/reconcile the three recipient-specific packets and exact emails, and send the first batch to **Sri, Yegor and Brando** after his review and explicit go-ahead. Rylan and the other prepared recipients stay on hold. Brando does not need to complete all 54 main ratings before this first batch.
 
-| Recipient | Prepared first email | Next stage |
-| --- | --- | --- |
-| Rylan Schaeffer | Four main files, personal Sheet and ZIP | Rate his two assigned tasks |
-| Srivatsava Daruru (Sri) | Four main files, personal Sheet and ZIP | Rate his two assigned tasks |
-| Dilara Soylu, Allen Nie, Donald Poindexter Jr, Simon Obstbaum, Slava Naprienko, Nikil Ravi | Separate six-file warm-up packets and individual return routes | Check warm-up completion/qualification, then assign main tasks |
+| First-batch recipient | Current preparation |
+| --- | --- |
+| Brando Miranda | Six-file warm-up and personal Sheet ready; 54-file main packet also ready |
+| Srivatsava Daruru (Sri) | Four-file main packet and matching personal Sheet prepared |
+| Yegor Denisov-Blanch | Existing warm-up Sheet available; main assignment, packet and exact email still need preparation |
 
-**One review to use:** [the eight exact recipient emails and attachments](../../private/09_human_rating_collection/preparation_11-09-2026/REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md). All eight bodies, headers and attachments were checked against their recorded hashes on 11-11-2026. They remain unsent under Brando's earlier instruction to keep them prepared for review. His warm-up/pilot and exact-text review precede an explicit send instruction; completing all 54 of his main ratings is not required before the first team send.
+**Start now:** [Brando's warm-up instructions](rating_task_packet/START_HERE.md) and [Google Sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit). Use the trial to identify confusing instructions before sending.
 
-The requested finish is Friday, 11-13-2026 if possible, with Sunday, 11-15-2026 final. The full target is 108 independent main ratings: eight slots assigned and blank, **100 still unassigned**. This table covers the existing eight-recipient queue, not every earlier recruitment prospect. Packet readiness does not mean that every main rating has a person assigned.
+The [eight earlier prepared email previews](../../private/09_human_rating_collection/preparation_11-09-2026/REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md) remain preserved and unsent; they are **not the new three-person first-batch queue**. The [current preparation record](../../private/09_human_rating_collection/preparation_11-09-2026/CURRENT_PREPARATION.json) records this sequence. Yegor's existing extra-only designation remains unchanged; choosing him for the first batch does not silently change his qualification or count his ratings toward the primary target.
+
+The main pool remains 54 files across 25 tasks: native Codex/GPT-6 Astra (25), native Claude Code/Claude Fable 5.1 (19), and Terminus 2/Grok 4.7 (10). The full allocation is still incomplete: 108 independent main ratings targeted, eight assigned and blank, 100 unassigned. The requested finish remains Friday, 11-13-2026 if possible, with Sunday, 11-15-2026 final.
 
 ## Do or edit the task
 

@@ -8,6 +8,8 @@
 
 ## Current state — prepared, not dispatched
 
+**Latest user sequencing, 11-11-2026:** Brando grades a few files first, then the actual participant instructions are reviewed. The first batch is Sri, Yegor and Brando only; all others remain held. Yegor’s main packet/assignment and revised exact first-batch emails still need preparation. Existing extra-only qualification status and all original responses remain unchanged. The earlier eight-person queue is preserved, not authorized as the new first batch.
+
 - **Task/owner:** prepare and collect human formal-specification-coverage ratings; [sole coordinator](codex://threads/01a1a8f9-dcb7-7381-9368-91d6e51faffd) owns review, publication and delivery.
 - **Done:** all 50 new native attempts terminal, no active generation/watcher. Actual inventory: 25 historical Codex + 19 new Claude Code + ten historical Grok + zero captured Pi required-path submissions = 54 files/25 tasks; the original 85-cell denominator and 31 exclusions remain frozen.
 - **Execution facts:** Claude Code returned 13 native-completion files and six retained at limits, with six no-file response-cap outcomes. Pi's 25 attempts comprise 15 without a recorded infrastructure issue, eight external-service cases and two host-supervision incidents. These are availability facts, not correctness or judge-agreement scores.
@@ -94,3 +96,5 @@ Ten FormV6 warm-up archives match the editable guide and rubric title; all nine 
 - 11-11-2026 18:15 PST — Aligned ten new warm-up archives with the current guide/title, verified all nine live response tables unchanged, and distinguished a native output-token-cap failure from infrastructure failure. All 62 project tests pass; main generation continues.
 
 - 11-11-2026 20:59 PST — All 50 native attempts finalized; the 85-cell inventory yielded 54 real files and 31 documented missing submissions. Three personal packets passed independent byte/archive checks and exact live-Sheet equality, then the coordinator promoted the working main packet and named blank CSVs. Prepared, not dispatched; 108 independent ratings needed, eight assigned and blank, 100 unassigned, plus Brando's 54.
+
+Event 11-11-2026: recorded Brando-first trial and three-person first batch (Sri, Yegor, Brando); instruction review follows his grading. No emails, Sheet values or qualification decisions changed.
