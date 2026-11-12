@@ -1,0 +1,76 @@
+% !TEX root = 00_main.tex
+% TLDR: Definitions, resampling details, every subset, and the input-audit counts.
+\section{Statistical Definitions and Additional Results}
+\label{app:statistics}
+% Provenance: scripts/recompute_cli_rubric_judge_agreement.py and POSTHOC_CLI_RUBRIC_JUDGE_AGREEMENT_11-12-2026.json in experiments/archive/19_audit_gpt_5_3_codex_rubric_judge_on_75_rated_outputs_start_12Nov2026_end_12Nov2026; seed 20261112; 10,000 draws; every draw valid.
+
+\paragraph{Intraclass correlations.}
+Let $y_{i1}$ be the judge score and $y_{i2}$ the target for artifact $i=1,\dots,n$, with $k=2$ columns.
+Let $\mathrm{MS}_R$, $\mathrm{MS}_C$ and $\mathrm{MS}_E$ be the mean squares for artifacts, columns and residual error of the two-way analysis of variance.
+Following \citet{mcgraw1996forming},
+\begin{equation}
+\mathrm{ICC}(C,1)=\frac{\mathrm{MS}_R-\mathrm{MS}_E}{\mathrm{MS}_R+(k-1)\,\mathrm{MS}_E},
+\qquad
+\mathrm{ICC}(A,1)=\frac{\mathrm{MS}_R-\mathrm{MS}_E}{\mathrm{MS}_R+(k-1)\,\mathrm{MS}_E+\frac{k}{n}\left(\mathrm{MS}_C-\mathrm{MS}_E\right)}.
+\end{equation}
+ICC(A,1) is the single-score absolute-agreement coefficient, called ICC(2,1) by \citet{shrout1979intraclass}, and ICC(C,1) is their consistency coefficient ICC(3,1).
+A constant offset between the columns raises $\mathrm{MS}_C$ and lowers only ICC(A,1).
+
+\paragraph{Resampling.}
+Each bootstrap draw samples 25 tasks with replacement and keeps all three artifacts of each sampled task.
+All statistics in a row are computed on the same draws, so differences such as $r-\rho$ are paired.
+For subsets, the draw samples tasks within the subset.
+Intervals are the 2.5th and 97.5th percentiles of 10,000 draws with seed 20261112; no draw was degenerate.
+For the average within-task Spearman correlation, each draw averages over its sampled tasks where neither score is constant.
+The isotonic predictions are the receipt's out-of-fold values, so their intervals hold the two fitted maps fixed.
+
+\paragraph{Additional subsets.}
+Table~\ref{tab:subsets} adds two subsets defined by reference flags recorded at rating time.
+Excluding the five placeholder-reference tasks gives results close to the matched-input subset, because those tasks are also the largest group of mismatched inputs.
+
+\begin{table}[h]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lcccccc}
+\toprule
+Artifacts & Count (tasks) & Pearson $r$ & Spearman $\rho$ & Kendall $\tau_b$ & ICC(C,1) & \begin{tabular}[b]{@{}c@{}}Mean absolute\\error\end{tabular} \\
+\midrule
+All & 75 (25) & \est{0.614}{0.213}{0.821} & \est{0.375}{0.013}{0.668} & \est{0.300}{0.021}{0.545} & \est{0.613}{0.206}{0.819} & \est{0.889}{0.695}{1.122} \\[8pt]
+No placeholder reference & 60 (20) & \est{0.778}{0.455}{0.901} & \est{0.618}{0.320}{0.811} & \est{0.492}{0.250}{0.677} & \est{0.772}{0.438}{0.898} & \est{0.677}{0.563}{0.795} \\[8pt]
+\quad and unchanged while rated & 45 (15) & \est{0.762}{0.437}{0.896} & \est{0.670}{0.351}{0.852} & \est{0.524}{0.260}{0.712} & \est{0.758}{0.420}{0.890} & \est{0.736}{0.615}{0.863} \\[8pt]
+Reference statements match & 51 (17) & \est{0.775}{0.371}{0.915} & \est{0.565}{0.197}{0.800} & \est{0.451}{0.153}{0.672} & \est{0.765}{0.351}{0.910} & \est{0.674}{0.544}{0.809} \\[8pt]
+\quad and unchanged while rated & 36 (12) & \est{0.764}{0.357}{0.914} & \est{0.632}{0.237}{0.863} & \est{0.493}{0.171}{0.732} & \est{0.755}{0.340}{0.907} & \est{0.746}{0.597}{0.901} \\[8pt]
+Reference statements differ & 24 (8) & \est{0.522}{$-0.011$}{0.784} & \est{0.479}{$-0.121$}{0.836} & \est{0.371}{$-0.099$}{0.709} & \est{0.522}{$-0.009$}{0.778} & \est{1.344}{0.885}{1.845} \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Subsets whose references match the rated versions agree better than the full pool, but every subset keeps a mean absolute error of at least 0.674.} Agreement with the pooled target for subsets defined after the scores were seen; error is on the 0--5 scale.
+``No placeholder reference'' drops the five tasks whose references held only placeholder theorems when rated, which are the five security tasks.
+Brackets give 95\% percentile intervals from 10,000 bootstrap draws over tasks.}
+\label{tab:subsets}
+\end{table}
+
+\paragraph{Input-audit counts.}
+Table~\ref{tab:audit} lists how the reference in the judge run relates to the reference as rated.
+All 75 artifact files in the run match the rated artifacts byte for byte.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lllr}
+\toprule
+Reference in the judge run & Statements later changed? & Changed while rated? & Artifacts \\
+\midrule
+Same bytes as rated & no & no & 27 \\
+Same bytes as rated & no & yes & 12 \\
+Same bytes as rated & yes & yes & 3 \\
+Later file, same statements & no & no & 9 \\
+Later file, changed statements & yes & no & 21 \\
+Third version & yes & no & 3 \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{The judge read the rated reference statements for 51 of 75 artifacts.} ``Statements later changed?'' records whether the reference's theorem statements differ between the rated version and a later snapshot, regardless of which version the judge read.
+The 21 artifacts with a later, changed reference include the 15 artifacts of the five placeholder-reference tasks.
+The first four rows form the matched subset of Table~\ref{tab:inputs}.}
+\label{tab:audit}
+\end{table}

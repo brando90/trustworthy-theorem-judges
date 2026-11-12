@@ -1,0 +1,26 @@
+% !TEX root = 00_main.tex
+% TLDR: Judge validation practice, agreement statistics, clustered resampling, and formalization benchmarks.
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Language-model judges and human agreement.}
+\citet{zheng2023judging} compare language-model judges with human preferences on conversational responses and document position, verbosity and self-enhancement biases.
+\citet{liu2023geval} report rank correlations between a prompted judge and human judgments of generated text.
+\citet{chiang2023can} ask whether language-model evaluation can replace human evaluation by comparing both on the same rating tasks.
+These studies concern natural-language outputs rated on human preference scales; coverage judging instead compares theorem statements against a formal reference.
+We follow their practice of measuring agreement with humans, and examine which statistics, targets and inputs that measurement depends on.
+
+\paragraph{Association versus agreement.}
+\citet{bland1986statistical} showed that two measurement methods can be highly correlated yet disagree systematically, and proposed analyzing their differences directly.
+Intraclass correlations separate consistency from absolute agreement for paired ratings~\citep{shrout1979intraclass,mcgraw1996forming}, and the concordance correlation coefficient combines association with agreement in level~\citep{lin1989concordance}.
+We report the two intraclass correlations together with mean bias, so that a constant offset between judge and raters stays visible.
+
+\paragraph{Clustered data and selection.}
+When observations share a cluster, resampling whole clusters gives more honest uncertainty than resampling observations~\citep{field2007bootstrapping}.
+Here the cluster is a task, whose three artifacts share a program and a reference.
+Choosing among configurations on the evaluation data biases the resulting performance estimate~\citep{cawley2010overfitting}, which applies to the selected judge configuration we audit.
+
+\paragraph{Formalization benchmarks.}
+Autoformalization translates informal mathematics or programs into formal statements~\citep{wu2022autoformalization}.
+\textsc{VeriBench} evaluates coding agents that translate Python programs into Lean~4 artifacts and scores their theorem statements with a language-model coverage judge~\citep{veribench2026}.
+The judge examined here is the one whose human agreement that benchmark reports; we do not evaluate the benchmark or its agents.

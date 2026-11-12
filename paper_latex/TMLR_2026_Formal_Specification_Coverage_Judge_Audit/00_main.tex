@@ -1,0 +1,31 @@
+% TLDR: TMLR version built only from the VeriBench launch page's language-model judge section: an audit of one judge's agreement with human ratings of formal specification coverage.
+\documentclass[10pt]{article}
+% Anonymous double-blind submission; [preprint] de-anonymizes, [accepted] is for the camera-ready version.
+\usepackage{tmlr}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+% Point estimate with its 95% interval underneath, for tables.
+\newcommand{\est}[3]{\begin{tabular}[t]{@{}c@{}}#1\\[-2pt]{\scriptsize[#2, #3]}\end{tabular}}
+
+\title{What a Single Correlation Hides: Auditing a Language-Model Judge of Formal Specification Coverage}
+\author{Anonymous authors}
+
+\begin{document}
+\maketitle
+\input{01_abstract}
+\input{02_introduction}
+\input{03_audit_setup}
+\input{04_results}
+\input{05_validity}
+\input{06_related_work}
+\input{07_discussion}
+\input{08_broader_impact}
+\bibliographystyle{tmlr}
+\bibliography{references}
+\appendix
+\input{90_appendix_rubric}
+\input{91_appendix_statistics}
+\end{document}

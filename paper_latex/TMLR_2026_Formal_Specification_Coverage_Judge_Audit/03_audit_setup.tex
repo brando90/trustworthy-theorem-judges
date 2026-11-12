@@ -1,0 +1,75 @@
+% !TEX root = 00_main.tex
+% TLDR: What was rated, by whom, against which target, by which judge, and how we analyze it.
+\section{Audit Setup}
+\label{sec:setup}
+The audit reuses archived ratings and judge scores; it adds no model calls and no ratings.
+% Provenance: experiments/archive/19_audit_gpt_5_3_codex_rubric_judge_on_75_rated_outputs_start_12Nov2026_end_12Nov2026/SOURCE_MANIFEST.json, source commit be287d9bb2f7bd35ba6db1b8735c9ba10d00eade; judge receipt entries cli_judge_items, cli_judge_metrics, cli_judge_label_groups; item manifest entry items; rating files under judge_inputs.
+
+\subsection{Tasks and artifacts}
+% Provenance: items manifest (experiment 100 inputs/items.jsonl): 25 tasks, five per family; generation receipts as summarized in the archive README.
+The rating pool contains 25 \textsc{VeriBench} tasks, five from each of the benchmark's security, real-code, easy, computer-science and HumanEval-derived task families.
+Each task pairs a Python program with a human-written reference Lean~4 file~\citep{moura2021lean} that states the program's required properties as theorems.
+Each task has three \emph{artifacts}, candidate Lean files sampled independently from \texttt{claude-3-7-sonnet-20250219} at temperature 0.7, one zero-shot call each, without tools or compiler feedback.
+Generation receipts confirm this for 74 of the 75 artifacts; one receipt is missing.
+The three artifacts of a task are samples from one model, not the outputs of three different agents.
+% Provenance: items manifest field cand_sorry_count > 0 for 73 of 75 artifacts.
+The generation prompt allowed unfinished proofs, and 73 of the 75 artifacts contain at least one \texttt{sorry} placeholder.
+Coverage concerns theorem statements, so unfinished proofs do not lower it by definition.
+The raters and the judge nevertheless saw the full files, proofs included.
+
+\subsection{Human ratings and targets}
+\label{sec:targets}
+% Provenance: public VeriBench report, Appendix H (protocol, rater groups, collection constraints); archive README and experiment 07 count reconciliation (345 of 375; participant 3 rated 45).
+Five raters, expert and collaborator volunteers, rated coverage on a 0--5 scale after reading the Python program, the reference file and the artifact~\citep{veribench2026}.
+They were instructed to work independently, to judge statement coverage rather than proof style, and not to use language models or automated judges; compliance was not recorded.
+The rubric assigns a base score from 5, all reference theorems covered, to 0, vacuous or broken, and lowers it by up to two points when irrelevant theorems dominate (Appendix~\ref{app:rubric}).
+Ratings come from seven files: participant~1 rated the artifacts twice under an earlier version of the prompt and once under the final prompt, and participants~2--5 rated once each.
+Under the final prompt the five raters supplied 345 of 375 possible ratings; participant~3 rated 45 of the 75 artifacts.
+
+We compare the judge with four targets, each an artifact-level mean of 0--5 ratings.
+The \emph{pooled target} averages all available ratings for the artifact across the seven files; the reported correlation uses it.
+It counts participant~1 up to three times.
+The \emph{lenient group} averages participant~1's two earlier-prompt passes and participants~4 and~5, and the \emph{expert group} averages participant~1's final-prompt ratings and participants~2 and~3.
+The group names describe the groups' score levels, not the quality of their raters~\citep{veribench2026}.
+The \emph{five-rater target} averages one final-prompt rating per rater.
+Every artifact has at least one rating under every target.
+
+\subsection{The audited judge}
+\label{sec:judge}
+% Provenance: VeriBench experiment 58 summary.json and REPORT.md at commit daaa09451a2361463ebd6cbcc7afbf3aa9354ec7 (model gpt-5.3-codex, codex_cli backend, judge_repeats 3, prompt_version gpt53_codex_tc_rubric_v3_human_prompt_cli); run script sets model_reasoning_effort="xhigh".
+The judge is \texttt{gpt-5.3-codex}, run through the Codex command-line interface (\texttt{codex exec}) with reasoning effort \texttt{xhigh}.
+Its system prompt restates the raters' rubric, with the same base-score definitions, checklist and spam adjustment, and asks for a structured answer (Appendix~\ref{app:rubric}).
+Its user prompt contains the full Python program, the full reference file and the full artifact.
+The judge scored each artifact three times, and an artifact's judge score is the mean of the three final scores.
+The run, made in May 2026, scored all 75 artifacts by model calls, with no failed calls.
+
+% Provenance: experiment 58 RESULTS.md (research_archive copy at be287d9, same blob 44c87017 as daaa09451): expt_v1 theorem blocks via API r=0.3331; expt_v2 theorem blocks via CLI r=0.4059; full-file human prompt via CLI r=0.6137.
+Two earlier configurations, which saw only extracted theorem statements, reached Pearson correlations of 0.333 and 0.406 with the same pooled target.
+The full-file configuration was retained because it agreed best with that target.
+Its agreement is therefore a result selected on the same ratings it is evaluated against, and no separate test set exists.
+
+% Provenance: public VeriBench report, Appendix G, "Judge/model/prompt setup".
+This judge did not produce \textsc{VeriBench}'s reported coverage scores.
+Those came from \texttt{claude-sonnet-4-6}, which rated each artifact's theorem statements from 0 to 10 under an equivalence-style rubric and took the median of three calls~\citep{veribench2026}.
+That evaluation did not report the deployed judge's agreement with these human ratings, so the present audit does not measure it.
+
+\subsection{Statistics}
+\label{sec:statistics}
+We report Pearson correlation $r$, Spearman correlation $\rho$~\citep{spearman1904proof} and Kendall correlation $\tau_b$~\citep{kendall1938new} between judge scores and a target.
+The receipt's $p$-values test zero association and treat the 75 artifacts as independent.
+For agreement in level, we report the mean bias, judge minus target, so that a negative value marks a stricter judge, and the mean absolute error, both on the 0--5 scale.
+We also report two intraclass correlations, ICC(A,1) for absolute agreement and ICC(C,1) for consistency~\citep{shrout1979intraclass,mcgraw1996forming}.
+The gap between them reflects a constant offset that correlations ignore (Appendix~\ref{app:statistics}).
+
+The three artifacts of a task share a program and a reference, so tasks, not artifacts, are the independent units.
+Every interval is a 95\% percentile interval from 10,000 bootstrap draws that resample the 25 tasks with replacement, each keeping its three artifacts~\citep{efron1993introduction,field2007bootstrapping}.
+Differences between two statistics, such as $r-\rho$, are computed within each draw.
+We also correlate task means (25 points) and scores centered within each task, which separate between-task from within-task agreement.
+The Spearman correlation of centered scores still ranks residuals across all 75 artifacts, so for ordering within a task we also average the Spearman correlation computed inside each task, over the tasks where neither score is constant.
+For absolute error, we compare each scorer with a constant prediction of the human mean and bootstrap the paired difference in mean absolute error.
+
+For the input check, we compare SHA-256 hashes of the reference and artifact files in the judge run's commit with the hashes that a later audit of the rating pool recorded for the files as rated.
+That audit also recorded whether each reference's theorem statements changed after rating.
+For the remapping analysis, we reproduce the receipt's procedure: isotonic regression~\citep{barlow1972statistical} of the target on the judge score, fitted on the tasks of one fold of a two-fold task split and applied to the other fold.
+The bootstrap holds the two fitted maps fixed.
+Beyond the receipt's three correlations for each scorer, their $p$-values and its rater-group table, every statistic in this paper is a post hoc analysis of the archived scores, computed for this audit.

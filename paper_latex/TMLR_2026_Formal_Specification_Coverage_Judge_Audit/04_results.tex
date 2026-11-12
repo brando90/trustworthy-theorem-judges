@@ -1,0 +1,150 @@
+% !TEX root = 00_main.tex
+% TLDR: The reported correlation reproduces, but uncertainty, rank and level, granularity, target and inputs each change its meaning.
+% Provenance for all numbers in this file unless marked otherwise: experiments/archive/19_audit_gpt_5_3_codex_rubric_judge_on_75_rated_outputs_start_12Nov2026_end_12Nov2026/POSTHOC_CLI_RUBRIC_JUDGE_AGREEMENT_11-12-2026.json, computed by its scripts/recompute_cli_rubric_judge_agreement.py.
+\section{Results}
+\label{sec:results}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lcc}
+\toprule
+Statistic & Raw judge & Isotonic remapping, out of fold \\
+\midrule
+Pearson $r$ & 0.614 [0.213, 0.821] & 0.211 [$-0.123$, 0.505] \\
+Spearman $\rho$ & 0.375 [0.013, 0.668] & 0.046 [$-0.320$, 0.415] \\
+Kendall $\tau_b$ & 0.300 [0.021, 0.545] & 0.042 [$-0.232$, 0.320] \\
+$r-\rho$ & 0.238 [0.061, 0.408] & 0.165 [$-0.027$, 0.342] \\
+ICC(A,1), absolute agreement & 0.429 [0.110, 0.662] & 0.167 [$-0.102$, 0.379] \\
+ICC(C,1), consistency & 0.613 [0.206, 0.819] & 0.165 [$-0.108$, 0.387] \\
+Judge mean & 2.382 [2.067, 2.680] & 3.190 [3.060, 3.310] \\
+Pooled human mean & 3.207 [2.880, 3.499] & 3.207 [2.880, 3.499] \\
+Mean bias, judge minus human & $-0.825$ [$-1.082$, $-0.594$] & $-0.018$ [$-0.332$, 0.301] \\
+Mean absolute error & 0.889 [0.695, 1.122] & 0.628 [0.432, 0.848] \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{The judge correlates moderately with the pooled human target but rates artifacts 0.825 points lower; remapping removes the offset and the association.} Agreement with the pooled target on 75 artifacts from 25 tasks; means, bias and error are on the 0--5 scale.
+Brackets give 95\% percentile intervals from 10,000 bootstrap draws over tasks.
+The receipt's $p$-values for $r$, $\rho$ and $\tau_b$, which treat artifacts as independent, are $4.78\times10^{-9}$, $9.03\times10^{-4}$ and $4.49\times10^{-4}$ for the raw judge and 0.069, 0.694 and 0.637 after remapping.
+Predicting the pooled human mean for every artifact gives a mean absolute error of 0.643 in sample and 0.705 when each fold uses the other fold's mean.}
+\label{tab:pooled}
+\end{table}
+
+\subsection{The reported correlation is reproducible but imprecise}
+The audit reproduces the reported coefficients to within $10^{-12}$: $r=0.614$, $\rho=0.375$ and $\tau_b=0.300$ over the 75 artifacts (Table~\ref{tab:pooled}).
+A test that treats the artifacts as independent gives $p=4.78\times10^{-9}$ for the Pearson correlation.
+That $p$-value suggests far more precision than the data hold, because only the 25 tasks are independent.
+Resampling tasks gives a 95\% interval of [0.213, 0.821] for $r$.
+The data are thus consistent with anything from a weak to a strong linear association.
+
+\subsection{Rank and level agreement are weaker than linear association}
+Spearman correlation is 0.375 [0.013, 0.668], and Kendall correlation is 0.300 [0.021, 0.545].
+The paired difference $r-\rho=0.238$ [0.061, 0.408] excludes zero, so the judge orders artifacts less consistently than its Pearson correlation suggests.
+
+The judge's mean score is 2.382, against a pooled human mean of 3.207, a mean bias of $-0.825$ [$-1.082$, $-0.594$] on the 0--5 scale.
+The judge is thus stricter than the raters behind this target.
+Consistency, which ignores a constant offset, reaches ICC(C,1) $=0.613$ [0.206, 0.819], whereas absolute agreement reaches only ICC(A,1) $=0.429$ [0.110, 0.662].
+The judge's mean absolute error, 0.889 [0.695, 1.122], is larger than that of predicting the pooled human mean for every artifact: 0.643 in sample and 0.705 when each fold of the task split uses the other fold's mean.
+Against that out-of-fold constant, the paired difference is 0.184 [$-0.098$, 0.440], so the raw judge is not more accurate in level than a constant prediction.
+Read as ratings on the raters' scale, the judge's scores are biased low, and the positive correlation does not reveal it.
+
+\subsection{Most of the association lies between tasks}
+Averaging the three artifacts of each task gives $r=0.685$ [0.150, 0.911] over the 25 task means.
+Centering scores within each task removes differences between tasks and leaves $r=0.358$ [0.055, 0.635] (Figure~\ref{fig:intervals}).
+The Spearman correlation of the centered scores is 0.327 [0.021, 0.601], but it still compares residuals across tasks.
+Computed inside each task, over the 20 tasks where neither score is constant, Spearman correlation averages 0.255 [$-0.073$, 0.579].
+The judge therefore tracks which tasks received higher ratings more closely than it orders the three artifacts of one task.
+Comparisons of different outputs for the same task depend on this weaker within-task ordering.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{llrrrrrr}
+\toprule
+Target & Ratings averaged & Artifacts & Human mean & $r$ & $\rho$ & $\tau_b$ & Judge $-$ human \\
+\midrule
+Pooled & all seven files & 75 & 3.207 & 0.614 & 0.375 & 0.300 & $-0.825$ \\
+Lenient group & P1 earlier ($\times2$), P4, P5 & 75 & 3.573 & 0.702 & 0.603 & 0.486 & $-1.191$ \\
+Five raters & P1--P5, final prompt & 75 & 2.989 & 0.500 & 0.339 & 0.267 & $-0.607$ \\
+Expert group & P1 final, P2, P3 & 75 & 2.631 & 0.372 & 0.300 & 0.218 & $-0.249$ \\
+\midrule
+Participant 1 & final prompt & 71 & 2.690 & 0.275 & 0.209 & 0.151 & $-0.329$ \\
+Participant 2 & & 75 & 2.533 & 0.313 & 0.269 & 0.208 & $-0.151$ \\
+Participant 3 & & 44 & 2.227 & 0.742 & 0.442 & 0.359 & $+0.303$ \\
+Participant 4 & & 75 & 3.867 & 0.520 & 0.404 & 0.336 & $-1.484$ \\
+Participant 5 & & 75 & 3.133 & 0.474 & 0.300 & 0.247 & $-0.751$ \\
+\bottomrule
+\end{tabular}
+% Provenance: pooled row from the per-artifact receipt (cli_judge_items); other rows from the experiment 58 label-group receipt (cli_judge_label_groups), point estimates only, each reproduced to 1e-12 in rater_group_reconstruction of the post hoc JSON; judge minus human uses the judge mean over the same artifacts (2.382 for all 75; 2.362 for participant 1's 71; 2.530 for participant 3's 44).
+\caption{\textbf{Correlation and bias move in opposite directions across rater targets.} Agreement of the same judge scores with different human targets; means and differences are on the 0--5 scale.
+P1--P5 denote participants; ``earlier'' marks participant~1's two passes under an earlier prompt.
+Correlations and human means below the pooled row are point estimates from the run's receipt, which reports no intervals; we reproduced each from the rating files.
+The last column subtracts the human mean from the judge's mean over the same artifacts.
+Participant~1 has 71 artifacts because three rows name an older reference file and one row is malformed; participant~3's file held 44 ratings at the time of the run.}
+\label{tab:targets}
+\end{table}
+
+\subsection{The rater target changes both correlation and bias}
+\label{sec:target-results}
+The same judge scores have Pearson correlation 0.702 with the lenient group's mean and 0.372 with the expert group's mean (Table~\ref{tab:targets}).
+Bias moves the other way: the judge rates 1.191 points below the lenient group but only 0.249 below the expert group.
+Among the four group targets, the one that maximizes the judge's correlation is thus the one whose score level it matches worst.
+Against single raters, Pearson correlation ranges from 0.275 to 0.742, on 44 to 75 artifacts.
+The judge's mean ranges from 1.484 points below participant~4 to 0.303 points above participant~3, so whether the judge counts as strict depends on the rater.
+% Provenance: archive README, "The selected judge and the human target": mean leave-one-expert-out Spearman 0.764187 over all 75 historical items.
+For comparison, each expert's ratings correlate with the mean of the other available experts' ratings at an average Spearman correlation of 0.764.
+The judge reaches $\rho=0.300$ against the mean of all three experts, a target that averages more ratings and is therefore less noisy than the other-expert means in that comparison.
+Neither figure carries an interval, but a gap this large indicates that the judge's rank agreement with the expert group falls well short of the experts' agreement with one another.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+Artifacts & Count (tasks) & Pearson $r$ & Spearman $\rho$ & ICC(A,1) & Mean bias \\
+\midrule
+All & 75 (25) & \est{0.614}{0.213}{0.821} & \est{0.375}{0.013}{0.668} & \est{0.429}{0.110}{0.662} & \est{$-0.825$}{$-1.082$}{$-0.594$} \\[8pt]
+Reference statements match & 51 (17) & \est{0.775}{0.371}{0.915} & \est{0.565}{0.197}{0.800} & \est{0.617}{0.216}{0.794} & \est{$-0.587$}{$-0.760$}{$-0.393$} \\[8pt]
+\quad and unchanged while rated & 36 (12) & \est{0.764}{0.357}{0.914} & \est{0.632}{0.237}{0.863} & \est{0.624}{0.216}{0.807} & \est{$-0.623$}{$-0.851$}{$-0.345$} \\[8pt]
+Reference statements differ & 24 (8) & \est{0.522}{$-0.011$}{0.784} & \est{0.479}{$-0.121$}{0.836} & \est{0.265}{$-0.002$}{0.572} & \est{$-1.330$}{$-1.838$}{$-0.866$} \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Where the judge read the raters' reference theorems, rank and absolute agreement rise, but the judge remains stricter than the raters.} Agreement with the pooled target, split by whether the reference file in the judge run states the same theorems as the reference the raters rated.
+``Unchanged while rated'' further drops five tasks whose references changed during the rating window.
+The mismatched row includes one task whose judge-run reference matches neither recorded version and states a different number of theorems.
+Brackets give 95\% percentile intervals from 10,000 bootstrap draws over tasks; bias is on the 0--5 scale.
+These subsets were defined after the scores were seen.}
+\label{tab:inputs}
+\end{table}
+
+\subsection{The judge did not always read the raters' references}
+\label{sec:inputs}
+All 75 artifacts in the judge run are byte-identical to the artifacts that were rated.
+The references are not.
+% Provenance: input_audit block of the post hoc JSON; 42 + 9 artifacts match, 15 + 6 + 3 do not.
+For 14 tasks the judge read the reference recorded as rated, and for 3 tasks a later file with the same theorem statements.
+For 7 tasks it read a later reference whose theorem statements had changed, and for 1 task a third version that states 7 theorems where the rated reference stated 5.
+In these 8 tasks, 24 artifacts, the judge's reference theorems therefore differ from the rated ones.
+They include all five tasks whose references, when rated, held only placeholder theorems; the raters scored those artifacts against the placeholders, while the judge scored them against later references with different statements.
+On these 24 artifacts the raters' mean is 3.553 and the judge's is 2.222, a mean bias of $-1.330$ [$-1.838$, $-0.866$] (Table~\ref{tab:inputs}).
+
+On the 51 artifacts whose reference statements match, $r=0.775$ [0.371, 0.915], $\rho=0.565$ [0.197, 0.800] and ICC(A,1) $=0.617$ [0.216, 0.794].
+Five of the matched tasks had references that changed during the rating window, so the version each rater opened is uncertain for them.
+Dropping those tasks leaves 36 artifacts with $\rho=0.632$ [0.237, 0.863].
+The judge stays stricter on matched inputs, with a mean bias of $-0.587$ [$-0.760$, $-0.393$].
+Restricting to matched inputs therefore removes much of the weak rank agreement but not the judge's strictness.
+Because the five placeholder tasks form the whole security family, the matched subset contains no security tasks, so reference mismatch and task family are confounded here.
+
+\subsection{Remapping removes the offset and the association}
+% Provenance: archive README, "Original paper versus later recipe": archived r=0.703349 on 72 items, raw scorer package unavailable; experiment 58 PROTOCOL.md names reproducing it as the run's goal.
+An earlier analysis, whose scorer package is no longer available, reported $r=0.703$ for a GPT-5.3-Codex scorer after an isotonic mapping fitted across a two-fold task split, against one rater's averaged earlier-prompt passes on 72 artifacts.
+The audited run was an attempt to reproduce that result.
+Applying the same procedure to the audited judge gives out-of-fold $r=0.211$ [$-0.123$, 0.505], $\rho=0.046$ [$-0.320$, 0.415] and $\tau_b=0.042$ [$-0.232$, 0.320] (Table~\ref{tab:pooled}).
+% Provenance: isotonic_fold_diagnostics and constant_baselines in the post hoc JSON.
+The remapping preserves order within each fold, where Spearman correlation is 0.596 and 0.238, but each fold is scored by the map fitted on the other fold.
+The fold whose ratings average 2.966 therefore receives predictions averaging 3.376, while the fold whose ratings average 3.468 receives 2.989, and the first fold gets only two distinct values.
+Pooling the two folds scrambles the order between them.
+The remapped scores are nearly unbiased overall, at $-0.018$ [$-0.332$, 0.301], and their mean absolute error, 0.628, is lower than the raw judge's 0.889.
+That error is close to a constant prediction's: it lies 0.077 [$-0.178$, 0.020] below the out-of-fold constant, an interval that includes zero.
+The remapping therefore lowers error by pulling scores toward the human mean rather than by ordering artifacts better.
+Lower absolute error therefore does not imply a better judge; error and rank agreement have to be read together.

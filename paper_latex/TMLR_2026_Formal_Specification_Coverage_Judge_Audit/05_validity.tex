@@ -1,0 +1,40 @@
+% !TEX root = 00_main.tex
+% TLDR: Limits of what this reanalysis can conclude.
+\section{What the Audit Does Not Establish}
+\label{sec:validity}
+
+\paragraph{The deployed scorer.}
+The audited judge differs from the judge behind the benchmark's reported coverage scores in model, rubric, input scope and rating scale (Section~\ref{sec:judge}).
+Our findings bound what the reported correlation says about the audited judge; they do not transfer numerically to the deployed scorer, whose own agreement with these ratings needs a separate audit.
+% TODO(internal-review): a later private VeriBench appendix (paper_original in the archive experiment 01 SOURCE_MANIFEST.json) reports the retired equivalence-rubric judge at Spearman .270 against the all-rater mean, using references from a later snapshot; citing it needs Brando's approval to import that aggregate and its reference-version caveat.
+
+\paragraph{Selection on the evaluation ratings.}
+The full-file configuration was chosen because it agreed best with the same ratings, among three configurations (Section~\ref{sec:judge}).
+Its agreement is a selected value on those ratings, which typically overstates agreement on new ones~\citep{cawley2010overfitting}.
+No untouched test set exists for this judge.
+
+\paragraph{Reconstructed inputs.}
+The input check compares files in the judge run's commit, the best surviving record of what the judge read; uncommitted changes at run time cannot be excluded.
+For five tasks, references changed during the rating window, so the version each rater opened is itself uncertain.
+The matched and mismatched subsets were defined after the scores were seen, and they confound reference mismatch with task family.
+
+\paragraph{A narrow population of artifacts.}
+The pool holds 25 tasks and three samples per task from one older model, generated without tools or compiler feedback.
+Agreement on these artifacts does not establish agreement on outputs of current coding agents, which may differ in length, structure and proof completeness.
+
+\paragraph{Target construction.}
+The pooled target counts participant~1 up to three times, two of them under an earlier prompt.
+The rater-group rows come from the run's receipt without intervals.
+That receipt matched rating rows to artifacts by both the reference and the artifact file name, whereas the per-artifact receipt matched by artifact file name alone; we reproduced both exactly from the rating files.
+% Provenance: label-group receipt row all7_available: r=0.6182627821716673, human_mean=3.1749206349206345, versus per-artifact receipt r=0.6137160164849222, mean 3.207302.
+The two rules keep different rows, so the group receipt's own pooled row, $r=0.618$ with human mean 3.175, differs slightly from the per-artifact receipt's $r=0.614$ with human mean 3.207, which we use.
+The same matching leaves participant~1 with 71 artifacts, and participant~3's file held 44 ratings at the time of the run, against 45 in a later count of the same study.
+Historical raters were told not to use language models, but compliance was not recorded.
+
+\paragraph{Repeatability.}
+The per-artifact receipt stores the mean of three judge calls, not the individual calls.
+We therefore cannot separate disagreement caused by run-to-run variation of the judge from systematic disagreement with the raters.
+
+\paragraph{Agreement is not correctness.}
+Agreement with human raters measures fidelity to a rating procedure, not the logical relation between theorem statements.
+Raters can share errors, and no implication between a reference and an artifact was proved here.

@@ -1,0 +1,49 @@
+{
+  "description": "Pinned private inputs for the aggregate audit of the VeriBench experiment 58 GPT-5.3-Codex human-rubric judge (the launch page's 'raw Pearson about 0.61' check). The source repository remains private and is not linked publicly. Individual ratings and per-item scores are read locally by the script; only aggregates are written to this project.",
+  "analysis_date": "11-12-2026",
+  "source_commit": "be287d9bb2f7bd35ba6db1b8735c9ba10d00eade",
+  "source_files": {
+    "cli_judge_items": {
+      "path": "paper_support/iclr2027/results/MEGAQA_2026-09-08_C_s3_judge/expt58_calibration_cv2_oof_predictions.csv",
+      "sha256": "ff37fc9895855caa3b5def821e0d99e84a0c3ca83d543253450571d2d31746d8",
+      "git_blob": "5e8536caac1bbde35c7d3a045cf8304e3cb047b6",
+      "original": "daaa09451a2361463ebd6cbcc7afbf3aa9354ec7:experiments/58_scsc_gpt53_codex_calibrated_judge/expt_v2/results_human_prompt/calibration_cv2_oof_predictions.csv (same git blob)"
+    },
+    "cli_judge_metrics": {
+      "path": "paper_support/iclr2027/results/MEGAQA_2026-09-08_C_s3_judge/expt58_calibration_metrics.json",
+      "sha256": "7eb4d685fa6ab5eb1a267ac27652999939bd53a5d5b62e9e2940afb6401a0846",
+      "git_blob": "046904426b02679418ebe99352ff47d50794c12f",
+      "original": "daaa09451a2361463ebd6cbcc7afbf3aa9354ec7:experiments/58_scsc_gpt53_codex_calibrated_judge/expt_v2/results_human_prompt/calibration_metrics.json (same git blob)"
+    },
+    "cli_judge_label_groups": {
+      "path": "research_archive/experiments/58_scsc_gpt53_codex_calibrated_judge/expt_v2/results_human_prompt/calibration_label_group_metrics.csv",
+      "sha256": "07a3517eadd96aa7e59f529dc432a45765e41071558743c217907eef5bc540bd",
+      "git_blob": "616d493562ff9a817784c1580a2973c3faefddb2",
+      "original": "daaa09451a2361463ebd6cbcc7afbf3aa9354ec7:experiments/58_scsc_gpt53_codex_calibrated_judge/expt_v2/results_human_prompt/calibration_label_group_metrics.csv (same git blob)"
+    },
+    "items": {
+      "path": "experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/items.jsonl",
+      "sha256": "ad9ed552fc2ffac6328e6010bf6be82215dd74f1eddd791622d433126877a96c",
+      "note": "Rating-era reference and artifact hashes and reference flags; the same pinned file as archive experiment 01's items entry."
+    }
+  },
+  "judge_inputs": {
+    "run_commit": "daaa09451a2361463ebd6cbcc7afbf3aa9354ec7",
+    "reference_root": "veribench_dataset/lean_src/veribench/",
+    "candidate_root": "experiments/41_human_judgment_study/calibration/generated_agents/",
+    "note": "Experiment 58 resolved references and candidates from these roots; the byte-level input audit hashes the files at this commit. Rating files are read locally to reconstruct the receipt's targets; only aggregates are exported.",
+    "rating_files": {
+      "old_pass1": {"path": "experiments/human_labels/old_prompt/participant1_data_pass_1.tsv", "sha256": "f902321c707eaedb0f1e7c282901bf9c9ec7b7bf377283320352eb23be27360a", "git_blob": "02e9ef5f5356f3947e2e43d18a6748bde775b5ea"},
+      "old_pass2": {"path": "experiments/human_labels/old_prompt/participant1_data_pass_2.tsv", "sha256": "1e9e4c3fc72a813cd3998cc7e92eaa5297388746cc5a28ff1037faad9dbd096a", "git_blob": "e23db6628973d8e07824e45c97497f3593009d05"},
+      "participant1_correct": {"path": "experiments/human_labels/participant1_data_correct_prompt.tsv", "sha256": "10216e1b954a98b22dd9eba286b34c85ed00805c698735d54604f3706aee676c", "git_blob": "3201b8dd18b218df9925b1fb388f541f41758d5f"},
+      "participant2": {"path": "experiments/human_labels/participant2_data_pass_1.tsv", "sha256": "8a1cde5ee0a84b77cd5f085167663a54a3dec8fb87e284abeb1aca4cc9ed030d", "git_blob": "3daa07f0fd07225e31fa52898e63550e4314b3a5"},
+      "participant3": {"path": "experiments/human_labels/participant3_data_pass_1.tsv", "sha256": "4ce7469ccb17ac5ca5321c340b41c8461441297f4cb3aec2e7632e37ec41238e", "git_blob": "43bf4e9f4b0de080fc95ed7951ada8eef98145ac"},
+      "participant4": {"path": "experiments/human_labels/participant4_data_pass_1.tsv", "sha256": "e2a778ec7f9bc36bb153baaaca59296e1d356fd9b23b2762bcf0a61f9b8a333e", "git_blob": "6a50e44ac6ad442efab907ab103c9e3c8b3eef70"},
+      "participant5": {"path": "experiments/human_labels/participant5_data_pass_1.tsv", "sha256": "412fdfefd0d88502386f3a893dfac3181226f8e737f71842ec2df51d8609885e", "git_blob": "40f208660c0a6bfba424579b14c9aabf0b986802"}
+    }
+  },
+  "result": "POSTHOC_CLI_RUBRIC_JUDGE_AGREEMENT_11-12-2026.json",
+  "script": "scripts/recompute_cli_rubric_judge_agreement.py",
+  "scope": "Task-bootstrap intervals, absolute agreement, task-mean and within-task correlations, a byte-level input audit, reference-quality and matched-input subsets, constant-prediction baselines, isotonic fold diagnostics and an exact rebuild of the receipt's rater-group rows; no new model calls or ratings.",
+  "verification_scope": "Every receipt value the script reuses is reproduced to 1e-12 before any new statistic is written; source model inference was not rerun."
+}

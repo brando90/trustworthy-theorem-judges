@@ -76,7 +76,7 @@ Before further packet dispatch, read [the common-form amendment](experiments/09_
 
 ## Paper and verification
 
-Use `paper_latex/AAAI_2027_Evaluation_AI_Scientists/`, one file per section and one sentence per source line. Preserve the official vendor style bytes. Keep the submission PDF anonymous and new outcomes explicitly pending. Source comments should link numerical claims to receipts.
+Use `paper_latex/AAAI_2027_Evaluation_AI_Scientists/` for the standalone judge paper and `paper_latex/TMLR_2026_Formal_Specification_Coverage_Judge_Audit/` for the TMLR audit built only from the VeriBench launch page's judge section, each with one file per section and one sentence per source line. Preserve the official vendor style bytes. Keep the submission PDF anonymous and new outcomes explicitly pending. Source comments should link numerical claims to receipts.
 
 Run `python3 scripts/check_project.py`, the experiment's design validator, `python3 scripts/build_paper.py`, and `git diff --check`. Inspect the PDF after substantive edits; commit its current version with the source. Inspect the exact staged diff for private data and secrets, preserve concurrent work, and follow the shared landing rule after requested review and checks pass.
 

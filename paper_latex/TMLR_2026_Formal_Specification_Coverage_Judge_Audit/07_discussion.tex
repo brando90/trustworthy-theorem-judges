@@ -1,0 +1,20 @@
+% !TEX root = 00_main.tex
+% TLDR: A reporting checklist derived from the findings, and the bounded conclusion.
+\section{Recommendations and Conclusion}
+\label{sec:discussion}
+Each check in this audit changed what the reported correlation supports.
+We therefore recommend that an audit of a coverage judge report the following, each with the reason it matters here.
+\begin{enumerate}
+\item \textbf{Intervals over tasks.} Resample tasks rather than artifacts; with 25 tasks, the interval for $r$ spans 0.213 to 0.821 although the independence-based $p$-value is $4.78\times10^{-9}$.
+\item \textbf{Rank and absolute agreement beside Pearson correlation.} Report Spearman and Kendall correlations, ICC(A,1) with ICC(C,1), mean bias and mean absolute error with a constant baseline; here they reveal weaker ordering and a judge that rates 0.825 points low.
+\item \textbf{Agreement within tasks.} When the judge compares outputs for the same task, report within-task agreement; here the centered Pearson correlation is 0.358 and the average within-task Spearman correlation 0.255, against 0.685 for task means.
+\item \textbf{The rater target.} Name the raters behind the target and report alternative targets when raters differ in level; here Pearson correlation ranges from 0.372 to 0.702 across rater groups, and the judge's mean ranges from 1.484 points below one rater to 0.303 points above another.
+\item \textbf{The judge's inputs.} Hash-compare every file the judge reads with the file the raters read before scoring; here 11 of 25 reference files differed in bytes, and 8 stated different theorems from the rated versions.
+\item \textbf{The deployed configuration.} Audit the judge that produces the benchmark's scores, on ratings not used to choose it.
+\end{enumerate}
+These items need no new ratings or model calls when the scores are saved per artifact with their task identifiers and input hashes.
+
+The reported correlation of 0.61 is reproducible.
+On its own, however, it supports only an uncertain, moderate association between one judge and one pooled target.
+The full audit shows a judge that is stricter than every rater group, orders artifacts within a task weakly, and agrees better when it reads the raters' references.
+Reporting judge agreement as an audit rather than as one coefficient makes these properties visible to the benchmark's users.

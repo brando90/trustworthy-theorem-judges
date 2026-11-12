@@ -1,0 +1,71 @@
+% !TEX root = 00_main.tex
+% TLDR: The raters' rubric and the judge's prompts, verbatim apart from added line breaks.
+\section{Rating Rubric and Judge Prompts}
+\label{app:rubric}
+% Provenance: human prompt from the public VeriBench report, Appendix G ("Human rating prompt (used for human collection and LLM adaptation)"); judge prompts from experiment 58 run_current_dataset_cli_scsc.py at daaa09451a2361463ebd6cbcc7afbf3aa9354ec7 (HUMAN_RATING_SYSTEM_PROMPT, make_full_file_prompt).
+The raters' final prompt, as published with the benchmark~\citep{veribench2026}, reads as follows; we added line breaks only.
+\begin{footnotesize}
+\begin{verbatim}
+Rate how well agent Lean theorem statements cover gold Lean theorem statements.
+Use Python source + gold Lean file + agent Lean file.
+Scope: statement coverage only (not proof style/quality).
+Coverage allows the same theorem, logical equivalence, an agent theorem that implies
+the gold theorem, or a small lemma set that recovers the gold theorem.
+
+Checklist:
+  A. key theorems covered?
+  B. pre/postconditions preserved or strengthened?
+  C. theorem spam?
+  D. if spam, handful or dominates?
+
+Base score 0--5: 5 all covered, 4 mostly covered, 3 partial with important gaps,
+2 weak (< half), 1 none covered but relevant non-vacuous theorem, 0 vacuous/broken.
+Spam adjustment: C=No no change; C=Yes and D=handful lower up to 1;
+C=Yes and D=dominates lower up to 2.
+\end{verbatim}
+\end{footnotesize}
+
+The audited judge received the following system prompt, verbatim.
+\begin{footnotesize}
+\begin{verbatim}
+You are a Lean 4 theorem-coverage judge.
+
+Rate how well agent Lean theorem statements cover gold Lean theorem statements.
+Use the Python source, gold Lean file, and agent Lean file.
+
+Scope: statement coverage only, not proof style or proof quality.
+Coverage allows the same theorem, a logically equivalent theorem, a stronger
+theorem implying the gold theorem, or a small lemma set that recovers the gold
+theorem. Ignore theorem names unless they reveal semantic mismatch.
+
+Base score 0--5:
+5 = all gold guarantees covered
+4 = mostly covered; only 1-2 minor gaps
+3 = partial; at least one important gap
+2 = weak; only a few gold theorems covered (< half)
+1 = no gold theorem covered, but at least one non-vacuous relevant theorem
+0 = vacuous/broken; no meaningful relevant theorem coverage
+
+Spam adjustment:
+- no spam: no change
+- handful of spam theorems: lower by up to 1
+- spam dominates: lower by up to 2
+
+Return JSON only with this schema:
+{
+  "A_key_gold_theorems_covered": "Y" | "N",
+  "B_pre_post_preserved_or_strengthened": "Y" | "N",
+  "C_theorem_spam": "Y" | "N",
+  "D_spam_severity": "N/A" | "handful" | "dominates",
+  "base_score_0_5": <number>,
+  "spam_adjustment": <number>,
+  "final_score_0_5": <number>,
+  "confidence": "Low" | "Med" | "High",
+  "rationale": "<2-4 sentences naming covered and missing gold content>"
+}
+\end{verbatim}
+\end{footnotesize}
+
+Its user prompt repeats the task statement, embeds the three files in fenced code blocks under the headings \texttt{Python Source}, \texttt{Gold Lean File} and \texttt{Agent Lean File}, and closes with the checklist, the base-score scale and the spam adjustment above.
+The run's parser reads \texttt{final\_score\_0\_5} and falls back to other score fields only when that field is missing or outside 0--5.
+The artifact's judge score is the mean of the three parsed scores.

@@ -1,0 +1,780 @@
+{
+  "description": "Post hoc supplement computed 11-12-2026 from frozen historical data; no new human ratings or model calls; original receipts unchanged.",
+  "source_commit": "be287d9bb2f7bd35ba6db1b8735c9ba10d00eade",
+  "judge": "gpt-5.3-codex through codex exec, model_reasoning_effort xhigh, human rating prompt over full Python, reference Lean and candidate Lean files, mean of 3 calls per item (VeriBench experiment 58, run committed 05-20-2026 at daaa09451a2361463ebd6cbcc7afbf3aa9354ec7)",
+  "target": "human_score_0_5: per-item mean of all available ratings in the seven pooled rating files (five raters; one rater's two earlier-prompt passes included), 0-5 scale",
+  "scale": "0-5; mean bias is judge minus human, positive means the judge is more lenient",
+  "method": "95% percentile bootstrap sampling whole tasks with replacement (each task keeps its three candidates); 10000 draws; seed 20261112. Isotonic out-of-fold predictions are held fixed, so their intervals condition on the two fitted fold mappings.",
+  "icc_definitions": "ICC(A,1) two-way absolute agreement single score (Shrout-Fleiss ICC(2,1)); ICC(C,1) two-way consistency single score (ICC(3,1)); judge and pooled human mean as the two columns",
+  "p_values": "Receipt p-values test zero association and treat the 75 items as independent, ignoring task clustering; bootstrap intervals are descriptive (p-val=n/a).",
+  "source_data_publication": "Aggregate statistics only; no per-item or individual human ratings included.",
+  "n_items": 75,
+  "n_tasks": 25,
+  "item_level": {
+    "raw": {
+      "pearson_r": {
+        "value": 0.6137160164849222,
+        "lo": 0.21266555764873002,
+        "hi": 0.8207897218598849,
+        "valid_draws": 10000
+      },
+      "spearman_rho": {
+        "value": 0.37545227346885196,
+        "lo": 0.013470410901061271,
+        "hi": 0.6679132158526718,
+        "valid_draws": 10000
+      },
+      "kendall_tau_b": {
+        "value": 0.299644592649118,
+        "lo": 0.020982918880864544,
+        "hi": 0.5452397920689267,
+        "valid_draws": 10000
+      },
+      "mean_judge": {
+        "value": 2.3822222222222225,
+        "lo": 2.066666666666667,
+        "hi": 2.6799999999999997,
+        "valid_draws": 10000
+      },
+      "mean_human": {
+        "value": 3.207301587301587,
+        "lo": 2.8803174603174604,
+        "hi": 3.498738095238095,
+        "valid_draws": 10000
+      },
+      "mean_bias": {
+        "value": -0.8250793650793652,
+        "lo": -1.0822222222222222,
+        "hi": -0.5939682539682539,
+        "valid_draws": 10000
+      },
+      "mean_absolute_error": {
+        "value": 0.8885714285714286,
+        "lo": 0.6945873015873015,
+        "hi": 1.1215873015873017,
+        "valid_draws": 10000
+      },
+      "icc_a1": {
+        "value": 0.429334416868853,
+        "lo": 0.10980219047470763,
+        "hi": 0.6619210950353375,
+        "valid_draws": 10000
+      },
+      "icc_c1": {
+        "value": 0.6125387835508497,
+        "lo": 0.20577602004312928,
+        "hi": 0.8191807282029566,
+        "valid_draws": 10000
+      },
+      "pearson_minus_spearman": {
+        "value": 0.23826374301607028,
+        "lo": 0.06118566357005062,
+        "hi": 0.40784251242171654,
+        "valid_draws": 10000
+      }
+    },
+    "isotonic_two_fold_task_split": {
+      "pearson_r": {
+        "value": 0.21079568149482486,
+        "lo": -0.12309311240117399,
+        "hi": 0.5047768703470047,
+        "valid_draws": 10000
+      },
+      "spearman_rho": {
+        "value": 0.046114189147808606,
+        "lo": -0.32000839237638,
+        "hi": 0.4152968039974182,
+        "valid_draws": 10000
+      },
+      "kendall_tau_b": {
+        "value": 0.041557826932867664,
+        "lo": -0.23189310660065918,
+        "hi": 0.3202883316382504,
+        "valid_draws": 10000
+      },
+      "mean_judge": {
+        "value": 3.1897692990239572,
+        "lo": 3.0602182662920243,
+        "hi": 3.3096111727299613,
+        "valid_draws": 10000
+      },
+      "mean_human": {
+        "value": 3.207301587301587,
+        "lo": 2.8803174603174604,
+        "hi": 3.498738095238095,
+        "valid_draws": 10000
+      },
+      "mean_bias": {
+        "value": -0.017532288277630148,
+        "lo": -0.33187861908048266,
+        "hi": 0.3012789855072461,
+        "valid_draws": 10000
+      },
+      "mean_absolute_error": {
+        "value": 0.6278921423641922,
+        "lo": 0.431777455305794,
+        "hi": 0.8483743488941473,
+        "valid_draws": 10000
+      },
+      "icc_a1": {
+        "value": 0.16705472218766013,
+        "lo": -0.10199592146544743,
+        "hi": 0.3789748024903907,
+        "valid_draws": 10000
+      },
+      "icc_c1": {
+        "value": 0.16525169341913695,
+        "lo": -0.10758906588573944,
+        "hi": 0.38692021593468884,
+        "valid_draws": 10000
+      },
+      "pearson_minus_spearman": {
+        "value": 0.16468149234701626,
+        "lo": -0.0273782989829337,
+        "hi": 0.3415299418393682,
+        "valid_draws": 10000
+      }
+    }
+  },
+  "receipt_p_values": {
+    "raw": {
+      "pearson_p": 4.780690416269486e-09,
+      "spearman_p": 0.0009026883217061428,
+      "kendall_p": 0.00044935846094126705
+    },
+    "isotonic_two_fold_task_split": {
+      "pearson_p": 0.06947180422598134,
+      "spearman_p": 0.6944213595474692,
+      "kendall_p": 0.6365425792147907
+    }
+  },
+  "input_audit": {
+    "note": "Compares the files in the judge run's commit with the rating-era hashes in the pinned item manifest; the run read its working tree at run time, which the commit is the best available record of.",
+    "run_commit": "daaa09451a2361463ebd6cbcc7afbf3aa9354ec7",
+    "candidates_byte_identical_to_rating_era": 75,
+    "artifacts_by_reference_version": {
+      "later_snapshot | annotation-vs-snapshot statements_changed | placeholder False | changed in rating window False | statements match False": 6,
+      "later_snapshot | annotation-vs-snapshot statements_changed | placeholder True | changed in rating window False | statements match False": 15,
+      "later_snapshot | annotation-vs-snapshot statements_identical | placeholder False | changed in rating window False | statements match True": 9,
+      "other | annotation-vs-snapshot statements_changed | placeholder False | changed in rating window False | statements match False": 3,
+      "rating_era | annotation-vs-snapshot identical | placeholder False | changed in rating window False | statements match True": 27,
+      "rating_era | annotation-vs-snapshot identical | placeholder False | changed in rating window True | statements match True": 6,
+      "rating_era | annotation-vs-snapshot statements_changed | placeholder False | changed in rating window True | statements match True": 3,
+      "rating_era | annotation-vs-snapshot statements_identical | placeholder False | changed in rating window True | statements match True": 6
+    },
+    "artifacts_with_rating_era_reference_statements": 51,
+    "mismatched_artifacts_with_judge_run_theorem_count_different_from_rated": 21,
+    "third_version_reference_theorem_counts": [
+      [
+        5,
+        7,
+        9
+      ]
+    ],
+    "third_version_reference_theorem_counts_order": "rated, judge run, later snapshot"
+  },
+  "reference_subsets_raw": {
+    "ordinary_references": {
+      "n_items": 60,
+      "n_tasks": 20,
+      "pearson_r": {
+        "value": 0.777650854999657,
+        "lo": 0.4545376184888321,
+        "hi": 0.9012826776317184,
+        "valid_draws": 10000
+      },
+      "spearman_rho": {
+        "value": 0.6178926686115732,
+        "lo": 0.31986271077915046,
+        "hi": 0.8113726362198185,
+        "valid_draws": 10000
+      },
+      "kendall_tau_b": {
+        "value": 0.49158885787281315,
+        "lo": 0.2501994473362793,
+        "hi": 0.676738217242861,
+        "valid_draws": 10000
+      },
+      "mean_judge": {
+        "value": 2.3777777777777778,
+        "lo": 2.0166666666666666,
+        "hi": 2.711111111111111,
+        "valid_draws": 10000
+      },
+      "mean_human": {
+        "value": 2.9757936507936504,
+        "lo": 2.6392757936507936,
+        "hi": 3.2579365079365075,
+        "valid_draws": 10000
+      },
+      "mean_bias": {
+        "value": -0.5980158730158731,
+        "lo": -0.7503968253968254,
+        "hi": -0.4241865079365082,
+        "valid_draws": 10000
+      },
+      "mean_absolute_error": {
+        "value": 0.6773809523809524,
+        "lo": 0.5634920634920636,
+        "hi": 0.7948412698412697,
+        "valid_draws": 10000
+      },
+      "icc_a1": {
+        "value": 0.6187325297763875,
+        "lo": 0.28051009665270593,
+        "hi": 0.7767392874297754,
+        "valid_draws": 10000
+      },
+      "icc_c1": {
+        "value": 0.7720010113711682,
+        "lo": 0.43785850909718455,
+        "hi": 0.8977915194075646,
+        "valid_draws": 10000
+      },
+      "pearson_minus_spearman": {
+        "value": 0.1597581863880838,
+        "lo": -0.0020524952783394224,
+        "hi": 0.3469542632605084,
+        "valid_draws": 10000
+      }
+    },
+    "ordinary_and_unambiguous_references": {
+      "n_items": 45,
+      "n_tasks": 15,
+      "pearson_r": {
+        "value": 0.7624940502542665,
+        "lo": 0.43719476891952663,
+        "hi": 0.8955015625968689,
+        "valid_draws": 10000
+      },
+      "spearman_rho": {
+        "value": 0.6701531612814321,
+        "lo": 0.35082541013734386,
+        "hi": 0.8521570180960136,
+        "valid_draws": 10000
+      },
+      "kendall_tau_b": {
+        "value": 0.5236990360781693,
+        "lo": 0.2596856347552097,
+        "hi": 0.7118443603634852,
+        "valid_draws": 10000
+      },
+      "mean_judge": {
+        "value": 2.2074074074074073,
+        "lo": 1.762962962962963,
+        "hi": 2.6370370370370373,
+        "valid_draws": 10000
+      },
+      "mean_human": {
+        "value": 2.8375661375661374,
+        "lo": 2.4301190476190477,
+        "hi": 3.1978835978835978,
+        "valid_draws": 10000
+      },
+      "mean_bias": {
+        "value": -0.6301587301587303,
+        "lo": -0.8148148148148148,
+        "hi": -0.40211640211640204,
+        "valid_draws": 10000
+      },
+      "mean_absolute_error": {
+        "value": 0.735978835978836,
+        "lo": 0.6148148148148149,
+        "hi": 0.8629629629629628,
+        "valid_draws": 10000
+      },
+      "icc_a1": {
+        "value": 0.6154909338886251,
+        "lo": 0.27159309649151,
+        "hi": 0.7758927297197931,
+        "valid_draws": 10000
+      },
+      "icc_c1": {
+        "value": 0.7575745911102132,
+        "lo": 0.4201803702886868,
+        "hi": 0.8901661627778431,
+        "valid_draws": 10000
+      },
+      "pearson_minus_spearman": {
+        "value": 0.09234088897283443,
+        "lo": -0.031914496962409465,
+        "hi": 0.26799321126516434,
+        "valid_draws": 10000
+      }
+    },
+    "judge_reference_statements_match_rating_era": {
+      "n_items": 51,
+      "n_tasks": 17,
+      "pearson_r": {
+        "value": 0.7747070960406546,
+        "lo": 0.3710207484281324,
+        "hi": 0.9152963094486205,
+        "valid_draws": 10000
+      },
+      "spearman_rho": {
+        "value": 0.5649561451325608,
+        "lo": 0.19695349069068038,
+        "hi": 0.8004039132472535,
+        "valid_draws": 10000
+      },
+      "kendall_tau_b": {
+        "value": 0.4510016004371739,
+        "lo": 0.15254696045781072,
+        "hi": 0.6719368899446877,
+        "valid_draws": 10000
+      },
+      "mean_judge": {
+        "value": 2.457516339869281,
+        "lo": 2.0653594771241828,
+        "hi": 2.8104575163398695,
+        "valid_draws": 10000
+      },
+      "mean_human": {
+        "value": 3.044817927170868,
+        "lo": 2.6965219421101767,
+        "hi": 3.328664799253034,
+        "valid_draws": 10000
+      },
+      "mean_bias": {
+        "value": -0.5873015873015872,
+        "lo": -0.7600373482726424,
+        "hi": -0.3930905695611578,
+        "valid_draws": 10000
+      },
+      "mean_absolute_error": {
+        "value": 0.6741363211951449,
+        "lo": 0.5443510737628385,
+        "hi": 0.8085901027077498,
+        "valid_draws": 10000
+      },
+      "icc_a1": {
+        "value": 0.6168947834117716,
+        "lo": 0.21619211363081361,
+        "hi": 0.793635956284526,
+        "valid_draws": 10000
+      },
+      "icc_c1": {
+        "value": 0.7652608667216207,
+        "lo": 0.35055269535659367,
+        "hi": 0.9100889645452841,
+        "valid_draws": 10000
+      },
+      "pearson_minus_spearman": {
+        "value": 0.20975095090809381,
+        "lo": -0.0215807587263697,
+        "hi": 0.42652659391297076,
+        "valid_draws": 10000
+      }
+    },
+    "judge_reference_statements_match_and_unchanged_in_window": {
+      "n_items": 36,
+      "n_tasks": 12,
+      "pearson_r": {
+        "value": 0.7638803238508909,
+        "lo": 0.3573736011263408,
+        "hi": 0.9136975244862766,
+        "valid_draws": 10000
+      },
+      "spearman_rho": {
+        "value": 0.6323335052918563,
+        "lo": 0.23685199199193543,
+        "hi": 0.863070273638941,
+        "valid_draws": 10000
+      },
+      "kendall_tau_b": {
+        "value": 0.492748369673389,
+        "lo": 0.1712225006867158,
+        "hi": 0.7324403620032036,
+        "valid_draws": 10000
+      },
+      "mean_judge": {
+        "value": 2.2777777777777777,
+        "lo": 1.7500000000000002,
+        "hi": 2.768518518518518,
+        "valid_draws": 10000
+      },
+      "mean_human": {
+        "value": 2.9007936507936503,
+        "lo": 2.4232473544973545,
+        "hi": 3.283068783068783,
+        "valid_draws": 10000
+      },
+      "mean_bias": {
+        "value": -0.623015873015873,
+        "lo": -0.8505621693121694,
+        "hi": -0.3452380952380953,
+        "valid_draws": 10000
+      },
+      "mean_absolute_error": {
+        "value": 0.746031746031746,
+        "lo": 0.5965608465608466,
+        "hi": 0.9007936507936508,
+        "valid_draws": 10000
+      },
+      "icc_a1": {
+        "value": 0.6237112952083314,
+        "lo": 0.21595123562637872,
+        "hi": 0.8072518469195776,
+        "valid_draws": 10000
+      },
+      "icc_c1": {
+        "value": 0.7548106091476278,
+        "lo": 0.3396717785161659,
+        "hi": 0.9072137865842765,
+        "valid_draws": 10000
+      },
+      "pearson_minus_spearman": {
+        "value": 0.1315468185590346,
+        "lo": -0.06082995960282884,
+        "hi": 0.35740288008517546,
+        "valid_draws": 10000
+      }
+    },
+    "judge_reference_statements_differ_from_rating_era": {
+      "n_items": 24,
+      "n_tasks": 8,
+      "pearson_r": {
+        "value": 0.5223217586862101,
+        "lo": -0.011105455323214193,
+        "hi": 0.7839719678197892,
+        "valid_draws": 10000
+      },
+      "spearman_rho": {
+        "value": 0.47936898177573695,
+        "lo": -0.12106832860662424,
+        "hi": 0.8355044770412123,
+        "valid_draws": 10000
+      },
+      "kendall_tau_b": {
+        "value": 0.37070362138604585,
+        "lo": -0.09852333592944403,
+        "hi": 0.7090983732122925,
+        "valid_draws": 10000
+      },
+      "mean_judge": {
+        "value": 2.2222222222222223,
+        "lo": 1.7496527777777782,
+        "hi": 2.7361111111111107,
+        "valid_draws": 10000
+      },
+      "mean_human": {
+        "value": 3.552579365079365,
+        "lo": 2.89781746031746,
+        "hi": 4.10218253968254,
+        "valid_draws": 10000
+      },
+      "mean_bias": {
+        "value": -1.330357142857143,
+        "lo": -1.8383184523809524,
+        "hi": -0.8660466269841273,
+        "valid_draws": 10000
+      },
+      "mean_absolute_error": {
+        "value": 1.3442460317460316,
+        "lo": 0.8849206349206348,
+        "hi": 1.8452380952380951,
+        "valid_draws": 10000
+      },
+      "icc_a1": {
+        "value": 0.26527886691383823,
+        "lo": -0.002210414003304917,
+        "hi": 0.5723171409380293,
+        "valid_draws": 10000
+      },
+      "icc_c1": {
+        "value": 0.5222934102293847,
+        "lo": -0.008966894572047152,
+        "hi": 0.7779234743280778,
+        "valid_draws": 10000
+      },
+      "pearson_minus_spearman": {
+        "value": 0.04295277691047317,
+        "lo": -0.13534220359178928,
+        "hi": 0.2440120322958808,
+        "valid_draws": 10000
+      }
+    }
+  },
+  "constant_baselines": {
+    "note": "Mean absolute error of predicting a constant: the pooled human mean of all 75 items (in-sample, optimistic) or the mean of the other two-fold task-split fold (matching the information available to the isotonic remapping). Differences are paired: scorer error minus other-fold constant error on the same draws; negative favors the scorer.",
+    "in_sample_human_mean": 0.6430391534391536,
+    "other_fold_human_mean": {
+      "value": 0.7048270248270246,
+      "lo": 0.48854375254375254,
+      "hi": 0.9565014245014243,
+      "valid_draws": 10000
+    },
+    "raw_minus_other_fold_constant": {
+      "value": 0.18374440374440373,
+      "lo": -0.0983776963776964,
+      "hi": 0.4401115181115181,
+      "valid_draws": 10000
+    },
+    "isotonic_minus_other_fold_constant": {
+      "value": -0.07693488246283267,
+      "lo": -0.1784860125209504,
+      "hi": 0.019896350773679978,
+      "valid_draws": 10000
+    }
+  },
+  "isotonic_fold_diagnostics": {
+    "note": "Each fold's predictions come from the map fitted on the other fold's tasks.",
+    "fold_0": {
+      "n_items": 39,
+      "n_tasks": 13,
+      "human_mean": 2.9664224664224665,
+      "raw_spearman_within_fold": 0.5413696106515202,
+      "isotonic_spearman_within_fold": 0.5961899935498022,
+      "isotonic_distinct_values": 2,
+      "isotonic_mean": 3.375537505972288
+    },
+    "fold_1": {
+      "n_items": 36,
+      "n_tasks": 12,
+      "human_mean": 3.4682539682539684,
+      "raw_spearman_within_fold": 0.26320489336094977,
+      "isotonic_spearman_within_fold": 0.23791792607034504,
+      "isotonic_distinct_values": 6,
+      "isotonic_mean": 2.9885204081632644
+    }
+  },
+  "raw_mean_per_task_spearman": {
+    "value": 0.2549038105676658,
+    "lo": -0.07320508075688774,
+    "hi": 0.579059716087828,
+    "valid_draws": 10000,
+    "n_tasks_with_varying_scores": 20,
+    "note": "Spearman correlation of the three artifacts within each task, averaged over tasks where neither the judge nor the human scores are constant; each draw averages over its eligible sampled tasks."
+  },
+  "raw_task_means": {
+    "pearson_r": {
+      "value": 0.6849750997956914,
+      "lo": 0.15042724941395552,
+      "hi": 0.9106833078252958,
+      "valid_draws": 10000
+    },
+    "spearman_rho": {
+      "value": 0.47378622250446184,
+      "lo": -0.004676244839824159,
+      "hi": 0.8248647385317774,
+      "valid_draws": 10000
+    },
+    "kendall_tau_b": {
+      "value": 0.35995750983773267,
+      "lo": -0.03291473963150487,
+      "hi": 0.6935316270119911,
+      "valid_draws": 10000
+    },
+    "n": 25
+  },
+  "raw_within_task_centered": {
+    "pearson_r": {
+      "value": 0.35767643847454805,
+      "lo": 0.054733479580629185,
+      "hi": 0.6352990182216578,
+      "valid_draws": 10000
+    },
+    "spearman_rho": {
+      "value": 0.3265792782872155,
+      "lo": 0.020538074544116772,
+      "hi": 0.6011430430412368,
+      "valid_draws": 10000
+    },
+    "note": "Scores centered within each task before correlating; removes between-task differences."
+  },
+  "rater_group_targets_from_receipt": {
+    "note": "Copied from the experiment 58 label-group receipt; point estimates only, no intervals in the source. Group targets: lenient = participant 1 earlier-prompt passes plus participants 4 and 5; expert = participant 1 corrected prompt plus participants 2 and 3; five_independent excludes the earlier-prompt passes. raw_n counts items with a rating in that group.",
+    "raw_judge_mean_all_75_items": 2.3822222222222225,
+    "rows": {
+      "lenient_set": {
+        "human_mean": 3.5733333333333333,
+        "raw_n": 75,
+        "raw_pearson_r": 0.7017788975110746,
+        "raw_spearman_rho": 0.6031114381391831,
+        "raw_kendall_tau": 0.48576727529084185,
+        "cv2_pearson_r": 0.5341917047133767,
+        "cv2_spearman_rho": 0.5126688321818971,
+        "cv2_kendall_tau": 0.40605521570045916,
+        "judge_mean_minus_human_mean": -1.1911111111111108
+      },
+      "expert_harsh_set": {
+        "human_mean": 2.631111111111111,
+        "raw_n": 75,
+        "raw_pearson_r": 0.37164707124564444,
+        "raw_spearman_rho": 0.2996008869887235,
+        "raw_kendall_tau": 0.21809850226503924,
+        "cv2_pearson_r": 0.04279438541338611,
+        "cv2_spearman_rho": 0.00645122729021145,
+        "cv2_kendall_tau": 0.020651792575318018,
+        "judge_mean_minus_human_mean": -0.24888888888888872
+      },
+      "five_independent_no_old_prompt_repeat": {
+        "human_mean": 2.9893333333333336,
+        "raw_n": 75,
+        "raw_pearson_r": 0.49959464773117584,
+        "raw_spearman_rho": 0.3391625090461109,
+        "raw_kendall_tau": 0.2665721176625797,
+        "cv2_pearson_r": 0.040612811567713916,
+        "cv2_spearman_rho": -0.01028999460606623,
+        "cv2_kendall_tau": -0.003452494634494733,
+        "judge_mean_minus_human_mean": -0.6071111111111112
+      },
+      "all7_available": {
+        "human_mean": 3.1749206349206345,
+        "raw_n": 75,
+        "raw_pearson_r": 0.6182627821716673,
+        "raw_spearman_rho": 0.37655679114326335,
+        "raw_kendall_tau": 0.2994440097713455,
+        "cv2_pearson_r": 0.2166871762829845,
+        "cv2_spearman_rho": 0.03937214589709661,
+        "cv2_kendall_tau": 0.0328796046605006,
+        "judge_mean_minus_human_mean": -0.792698412698412
+      },
+      "participant1_correct": {
+        "human_mean": 2.6901408450704225,
+        "raw_n": 71,
+        "raw_pearson_r": 0.2747959666550203,
+        "raw_spearman_rho": 0.20876165577649938,
+        "raw_kendall_tau": 0.15121093990329573,
+        "cv2_pearson_r": 0.05160845062430578,
+        "cv2_spearman_rho": 0.05393226585802767,
+        "cv2_kendall_tau": 0.0354189918829742
+      },
+      "participant2": {
+        "human_mean": 2.533333333333333,
+        "raw_n": 75,
+        "raw_pearson_r": 0.31261721674721843,
+        "raw_spearman_rho": 0.26873506270168346,
+        "raw_kendall_tau": 0.20813452182051098,
+        "cv2_pearson_r": -0.0013254831444379223,
+        "cv2_spearman_rho": -0.0072655208857293615,
+        "cv2_kendall_tau": 0.00725801695318245,
+        "judge_mean_minus_human_mean": -0.15111111111111075
+      },
+      "participant3": {
+        "human_mean": 2.227272727272727,
+        "raw_n": 44,
+        "raw_pearson_r": 0.7417360969181439,
+        "raw_spearman_rho": 0.4422862212508081,
+        "raw_kendall_tau": 0.3588539725152884,
+        "cv2_pearson_r": 0.5649335312317013,
+        "cv2_spearman_rho": 0.30167754447389833,
+        "cv2_kendall_tau": 0.246630219562537
+      },
+      "participant4": {
+        "human_mean": 3.8666666666666667,
+        "raw_n": 75,
+        "raw_pearson_r": 0.5196409002267449,
+        "raw_spearman_rho": 0.4041985990408494,
+        "raw_kendall_tau": 0.3355106832700421,
+        "cv2_pearson_r": 0.17959930777650823,
+        "cv2_spearman_rho": 0.20999780868493598,
+        "cv2_kendall_tau": 0.19009614495010724,
+        "judge_mean_minus_human_mean": -1.4844444444444442
+      },
+      "participant5": {
+        "human_mean": 3.1333333333333333,
+        "raw_n": 75,
+        "raw_pearson_r": 0.47382138081115355,
+        "raw_spearman_rho": 0.3000331670299202,
+        "raw_kendall_tau": 0.24657457242630482,
+        "cv2_pearson_r": 0.30599665104985907,
+        "cv2_spearman_rho": 0.23575494689054094,
+        "cv2_kendall_tau": 0.2021310626229988,
+        "judge_mean_minus_human_mean": -0.7511111111111108
+      },
+      "old_pass1": {
+        "human_mean": 4.033333333333333,
+        "raw_n": 60,
+        "raw_pearson_r": 0.33924034429813005,
+        "raw_spearman_rho": 0.3562887478850408,
+        "raw_kendall_tau": 0.2919754542338936,
+        "cv2_pearson_r": 0.4220989894543206,
+        "cv2_spearman_rho": 0.3608968701287382,
+        "cv2_kendall_tau": 0.30195631519694843
+      },
+      "old_pass2": {
+        "human_mean": 3.5833333333333335,
+        "raw_n": 60,
+        "raw_pearson_r": 0.40104379196756806,
+        "raw_spearman_rho": 0.3953963310616248,
+        "raw_kendall_tau": 0.34261063602552233,
+        "cv2_pearson_r": 0.35083256900519566,
+        "cv2_spearman_rho": 0.35241470184652135,
+        "cv2_kendall_tau": 0.30622899644976803
+      }
+    }
+  },
+  "rater_group_reconstruction": {
+    "note": "Rebuilt from the run's seven rating files. Rows need a tab-separated numeric score. The per-artifact pooled target (matched by artifact file name) reproduces the receipt exactly; every label-group row (matched by reference and artifact file names) reproduces the receipt's count, human mean and Pearson r to 1e-12. Point estimates only.",
+    "per_artifact_pooled_target_reproduced": true,
+    "rows": {
+      "all7_available": {
+        "n_items": 75,
+        "human_mean": 3.1749206349206345,
+        "judge_mean_on_these_items": 2.3822222222222225,
+        "judge_minus_human_mean": -0.792698412698412
+      },
+      "lenient_set": {
+        "n_items": 75,
+        "human_mean": 3.5733333333333333,
+        "judge_mean_on_these_items": 2.3822222222222225,
+        "judge_minus_human_mean": -1.1911111111111108
+      },
+      "expert_harsh_set": {
+        "n_items": 75,
+        "human_mean": 2.631111111111111,
+        "judge_mean_on_these_items": 2.3822222222222225,
+        "judge_minus_human_mean": -0.24888888888888872
+      },
+      "five_independent_no_old_prompt_repeat": {
+        "n_items": 75,
+        "human_mean": 2.9893333333333336,
+        "judge_mean_on_these_items": 2.3822222222222225,
+        "judge_minus_human_mean": -0.6071111111111112
+      },
+      "old_pass1": {
+        "n_items": 60,
+        "human_mean": 4.033333333333333,
+        "judge_mean_on_these_items": 2.422222222222222,
+        "judge_minus_human_mean": -1.6111111111111112
+      },
+      "old_pass2": {
+        "n_items": 60,
+        "human_mean": 3.5833333333333335,
+        "judge_mean_on_these_items": 2.422222222222222,
+        "judge_minus_human_mean": -1.1611111111111114
+      },
+      "participant1_correct": {
+        "n_items": 71,
+        "human_mean": 2.6901408450704225,
+        "judge_mean_on_these_items": 2.36150234741784,
+        "judge_minus_human_mean": -0.32863849765258246
+      },
+      "participant2": {
+        "n_items": 75,
+        "human_mean": 2.533333333333333,
+        "judge_mean_on_these_items": 2.3822222222222225,
+        "judge_minus_human_mean": -0.15111111111111075
+      },
+      "participant3": {
+        "n_items": 44,
+        "human_mean": 2.227272727272727,
+        "judge_mean_on_these_items": 2.5303030303030307,
+        "judge_minus_human_mean": 0.30303030303030365
+      },
+      "participant4": {
+        "n_items": 75,
+        "human_mean": 3.8666666666666667,
+        "judge_mean_on_these_items": 2.3822222222222225,
+        "judge_minus_human_mean": -1.4844444444444442
+      },
+      "participant5": {
+        "n_items": 75,
+        "human_mean": 3.1333333333333333,
+        "judge_mean_on_these_items": 2.3822222222222225,
+        "judge_minus_human_mean": -0.7511111111111108
+      }
+    }
+  }
+}

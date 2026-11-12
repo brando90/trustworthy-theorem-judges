@@ -1,0 +1,31 @@
+% !TEX root = 00_main.tex
+% TLDR: One reported judge--human correlation hides uncertainty, rank and level disagreement, target dependence and mismatched judge inputs.
+% Provenance for every number: experiments/archive/19_audit_gpt_5_3_codex_rubric_judge_on_75_rated_outputs_start_12Nov2026_end_12Nov2026/POSTHOC_CLI_RUBRIC_JUDGE_AGREEMENT_11-12-2026.json (post hoc, 11-12-2026), which reproduces the receipt values r=0.6137, rho=0.3755 to 1e-12.
+\begin{abstract}
+% CS197 move 1: problem motivation (failure mode) -- coverage scores depend on an LLM judge.
+Lean~4 formalization benchmarks use language-model judges to score whether an agent's theorem statements cover a human-written reference.
+% CS197 move 2: assumption (setup bit) -- one correlation with human ratings is taken to validate the judge.
+Such a judge is often justified by one correlation between its scores and human ratings.
+% CS197 move 3: contribution (bit flip) -- audit the reported correlation rather than report it.
+We audit one such justification, a reported Pearson correlation of 0.61, and show what the single coefficient leaves out.
+% CS197 move 4a: instantiation (bit flip instantiation) -- same artifacts, shared rubric.
+A GPT-5.3-Codex judge scored 75 Lean artifacts from 25 tasks that five human raters had rated under a shared 0--5 coverage rubric.
+% CS197 move 4b: instantiation (bit flip instantiation) -- existing scores only; task resampling, absolute agreement, input check.
+We reanalyze the saved scores with task-level resampling, rank and absolute agreement, and a byte-level check of the judge's inputs.
+% CS197 move 5a: evaluation (headline numbers) -- uncertainty and rank; item-level, pooled target.
+The correlation's 95\% task-bootstrap interval is [0.21, 0.82], and Spearman correlation is 0.38.
+% CS197 move 5b: evaluation (diagnostic result) -- level; mean bias -0.825 on 0-5, judge minus pooled human mean.
+The judge also rates artifacts 0.83 points below the human mean on the 0--5 scale.
+% CS197 move 5c: evaluation (diagnostic result) -- target; experiment 58 label-group receipt, point estimates.
+Against lenient raters the correlation is 0.70; against expert raters it is 0.37.
+% CS197 move 5d: evaluation (diagnostic result) -- inputs; judge_reference_statements_match_rating_era subset, rho=0.564956.
+For 24 artifacts the judge's reference theorems differ from those the raters saw.
+On the other 51, Spearman correlation is 0.56.
+% CS197 move 5e: evaluation (diagnostic result) -- isotonic remapping, out of fold: bias -0.018, rho=0.046.
+A supervised score remapping removes the offset but also nearly all association.
+% CS197 move 6: implication (north star) -- from one coefficient to an auditable measurement.
+We recommend that coverage-judge audits report task-level intervals, rank and absolute agreement, the rater target, and whether the judge saw the raters' inputs.
+\end{abstract}
+% Alternate opening A (failure-mode-first): A language-model judge can correlate with human ratings of Lean theorems while ranking them differently, rating them lower and reading different references.
+% Alternate opening B (contrast-first): A judge's correlation of 0.61 with human raters can mean anything from strong agreement to almost none, depending on what the coefficient averages over.
+% Alternate opening C (question-first): What does a single judge--human correlation establish about a language-model judge of theorem coverage?
