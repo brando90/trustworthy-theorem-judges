@@ -16,14 +16,14 @@ def digest(path):
 
 def main():
     assert (ROOT / "AGENTS.md").read_bytes() == (ROOT / "CLAUDE.md").read_bytes(), "Entry points differ"
-    subprocess.run([sys.executable, str(ROOT / "experiments/02_probabilistic_ordinal_judge/scripts/validate_design.py")], check=True)
+    subprocess.run([sys.executable, str(ROOT / "experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5/scripts/validate_design.py")], check=True)
     subprocess.run([sys.executable, "-m", "unittest", "discover", "-s",
-                    str(ROOT / "experiments/09_human_rating_collection/support/tests")], check=True)
+                    str(ROOT / "experiments/09_prepare_packets_and_collect_human_ratings/support/tests")], check=True)
     legacy = ROOT / "experiments/archive/01_veribench_25_tasks_3_samples_5_raters_judge_evaluation"
     manifest = json.loads((legacy / "SOURCE_MANIFEST.json").read_text())
     for filename, key in manifest["byte_exact_copies"].items():
         assert digest(legacy / filename) == manifest["source_files"][key]["sha256"], filename
-    source = ROOT / "experiments/02_probabilistic_ordinal_judge/sources"
+    source = ROOT / "experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5/sources"
     provenance = json.loads((source / "provenance.json").read_text())
     assert digest(source / provenance["file"]) == provenance["sha256"], "Pasted plan changed"
     paper = ROOT / "paper_latex/AAAI_2027_Evaluation_AI_Scientists"

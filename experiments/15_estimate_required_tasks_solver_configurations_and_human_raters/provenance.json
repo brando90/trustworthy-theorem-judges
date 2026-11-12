@@ -1,0 +1,329 @@
+{
+  "captured": "11-11-2026",
+  "timezone": "America/Los_Angeles",
+  "scope": "Read-only visible message-body recovery; coverage limits in SOURCE_INDEX.md",
+  "public_files": [
+    {
+      "path": "CKPT_rating_tensor_planning.md",
+      "sha256": "27efc7f164e0c7a71fc3b34b3ea10584002fb19b729f205726563dc6c137a008",
+      "bytes": 4844
+    },
+    {
+      "path": "METHODS_AND_ALLOCATION.md",
+      "sha256": "604939476c35d567d2a60c218fe9983496ed53f2ba6ca330a6cc0219691cbd80",
+      "bytes": 20554
+    },
+    {
+      "path": "README.md",
+      "sha256": "8bf0ba0ff398e7c4f6243615a67eab70f0759d9b949fcc73572440c5de6637fe",
+      "bytes": 9047
+    },
+    {
+      "path": "SOURCE_INDEX.md",
+      "sha256": "c232074cb5901998d4c6b0ece5be0db5d1353432265e10e62cadca93d573855b",
+      "bytes": 11335
+    },
+    {
+      "path": "assets/rating_tensor_source_recovery_11-11-2026.png",
+      "sha256": "f4b88b57039ecb2d74d57d485c46c2cf053317f0f363e6d6d8350ee4a0cd944d",
+      "bytes": 12843134
+    },
+    {
+      "path": "assets/supplied_recommendation_11-11-2026.txt",
+      "sha256": "da794dc22ec5472731cf69ee8d6cdad1c0712bd4f07d78c4ac39ed2ba641975e",
+      "bytes": 5126
+    },
+    {
+      "path": "sources/chatgpt_pro.md",
+      "sha256": "32c7287f708aa2e162ddb6fb07368facdedcb105eecf89114cb12232eadbcbab",
+      "bytes": 164693
+    },
+    {
+      "path": "sources/claude.md",
+      "sha256": "2d1023c218d086f8d843f5061caaa7d26daf9723186eab800101fbbecb475c6c",
+      "bytes": 56131
+    },
+    {
+      "path": "sources/earlier_local_plans.md",
+      "sha256": "1c0b8be8911bc459799f1f9e8aa4cf3cad6e255f656e30f3db03b1a05802fc49",
+      "bytes": 41684
+    },
+    {
+      "path": "sources/gemini_argon_high.md",
+      "sha256": "c85b59d7e7bb783dc22a419826dff60a6ae1b1bbf6043a7788d27845301ddf3b",
+      "bytes": 93750
+    }
+  ],
+  "local_archive": [
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/chatgpt_6aecd8ba-8cd0-83e8-abbd-9b2df24689b2_connector.json",
+      "sha256": "3a9d541068f402f38c2d6334f6031677b108d5b8996218c8b55e6374fad884d9",
+      "bytes": 23314
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/chatgpt_6af21580-7588-83e8-8b09-1913bba9d716_connector.json",
+      "sha256": "4f2b3b7eaeacc18726f1e2d5d2f34e691d93b1836dcd67bdd35cfa42980b1c9c",
+      "bytes": 96829
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/chatgpt_branch_available.json",
+      "sha256": "f30e6dc50ef15345da19f85f6e2d5fe1c5164e88c4ba7f7514a25b642dc69c8d",
+      "bytes": 76065
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/chatgpt_shared_complete.json",
+      "sha256": "8a21523907ee04c76590bdebde70cc994dcf149ffe1837088c89bb6117b02ca5",
+      "bytes": 77760
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/claude.json",
+      "sha256": "de0b15db50f6541ed4f61fe62f919d1d8439ca9eb40c7180b612c1c8d96f57e4",
+      "bytes": 57709
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/claude_sizing_1.json",
+      "sha256": "ba70d5c24ec1ad70de9a77172f6e44906d9332df7b7de4016759e9f3494f40ea",
+      "bytes": 90246
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/claude_sizing_2.json",
+      "sha256": "ad2bf576e43bd47e01124246c064a9ccdc7ede6e0a816cd0c5f90921f1858133",
+      "bytes": 29202
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/claude_sizing_4.json",
+      "sha256": "3b23eebf794b566132691fc9988067c31bd0f6bcf5980d1e367bbfd2a6415336",
+      "bytes": 18660
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/claude_sizing_5.json",
+      "sha256": "da9edd1c6e6c82c017740befb767c4916ddaa762a697c0b1d7056ffb80d1f124",
+      "bytes": 8736
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/claude_sizing_6.json",
+      "sha256": "8471aa18f6dccd2a1ebc582d9bf32bc2431ca0edc767c0e36ec72781be7a1988",
+      "bytes": 10152
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/earlier_local_plans.draft.md",
+      "sha256": "c2bd17fe292798f8c267ae123c60c16c4445e16545c28f50b95c4b1639ce9349",
+      "bytes": 41685
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/earlier_local_plans_meta.json",
+      "sha256": "c13b340136313c07dcb1f5e98fa3adf5a0a208f82bbf17ae9a4f47fd9fbec404",
+      "bytes": 1622
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/gemini_argon_high_distributions.md",
+      "sha256": "81fb937fb30c92f2a8020a66c61a35bbe089ca298e603570da0cde4ae9d7ce87",
+      "bytes": 106999
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/gemini_bounds_complete.json",
+      "sha256": "7160a1b95a19cc23eaaca55e1f4a7a4b8986a91ed8e2eaa99842e4fd5167a63a",
+      "bytes": 100883
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/gemini_distributions_complete.json",
+      "sha256": "95d794273bce6111eb6f25ba426efdd71f69a4b0faaeb1a4f8d0c4827897c421",
+      "bytes": 111073
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/google_sync_receipt.json",
+      "sha256": "41ff0825ac749ef6a672ac66de00757beb1cf37a5c29c98936c60a37f46a126b",
+      "bytes": 843
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/google_history_coverage_correction_receipt.json",
+      "sha256": "604b38a639c4e80c2da5f039e297228c894d60184e16510829d871366c6fca8e",
+      "bytes": 542
+    },
+    {
+      "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/google_experiment_relocation_receipt.json",
+      "sha256": "fa4f8914d748bebbf235a002c425b5f62a4df27c7de94fdc3ea9233d5617847b",
+      "bytes": 723
+    }
+  ],
+  "links": {
+    "sources/chatgpt_pro.md": [
+      "https://aclanthology.org/2022.tacl-1.6/?utm_source=chatgpt.com",
+      "https://aclanthology.org/2023.emnlp-main.153/?utm_source=chatgpt.com",
+      "https://aclanthology.org/2026.emnlp-main.436/?utm_source=chatgpt.com",
+      "https://arxiv.org/abs/0712.1111?utm_source=chatgpt.com",
+      "https://arxiv.org/abs/2406.18403?utm_source=chatgpt.com",
+      "https://arxiv.org/abs/2610.37868?utm_source=chatgpt.com",
+      "https://chatgpt.com/c/6aecd8ba-8cd0-83e8-abbd-9b2df24689b2",
+      "https://chatgpt.com/c/6af21580-7588-83e8-8b09-1913bba9d716",
+      "https://chatgpt.com/share/6aee2147-9648-83e8-9ea5-685a565ffe54",
+      "https://github.com/brando90/judges-dont-need-psychometrics-or-corr",
+      "https://github.com/brando90/trustworthy-theorem-judges",
+      "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/PREPARATION_11-09-2026.md",
+      "https://people.eecs.berkeley.edu/~bartlett/courses/281b-sp08/13.pdf?utm_source=chatgpt.com",
+      "https://proceedings.iclr.cc/paper_files/paper/2024/hash/803485352e61e3ebf41221e4776c9fd4-Abstract-Conference.html?utm_source=chatgpt.com",
+      "https://proceedings.neurips.cc/paper_files/paper/2025/hash/2b1a5611403691061e6b279d13f3d0c6-Abstract-Conference.html?utm_source=chatgpt.com",
+      "https://sites.stat.washington.edu/people/raftery/Research/PDF/Gneiting2007jasa.pdf?utm_source=chatgpt.com",
+      "https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf?utm_source=chatgpt.com",
+      "https://stat.uw.edu/research/tech-reports/strictly-proper-scoring-rules-prediction-and-estimation-revised?utm_source=chatgpt.com",
+      "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/exacbino.htm?utm_source=chatgpt.com",
+      "https://www.jmlr.org/papers/v11/cawley10a.html?utm_source=chatgpt.com"
+    ],
+    "sources/claude.md": [
+      "https://claude.ai/chat/8e71dba8-d073-482a-90fc-724ff86b3edc",
+      "https://github.com/brando90/judges-dont-need-psychometrics-or-corr",
+      "https://github.com/brando90/trustworthy-theorem-judges"
+    ],
+    "sources/earlier_local_plans.md": [
+      "https://docs.google.com/document/d/1qmc9ezrx7N-7Y9uohC7kW59WblaO30mvJ1jVBzykQg0/edit?usp=drivesdk",
+      "https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws/edit",
+      "https://doi.org/10.1002/qj.2270",
+      "https://doi.org/10.1198/016214506000001437",
+      "https://doi.org/10.1214/12-AOAS547",
+      "https://empslocal.ex.ac.uk/people/staff/ferro/Publications/ferro2013.pdf",
+      "https://github.com/brando90/harbor-datasets/tree/c9dfd8e3b535f58184440aa02d37c148d145a82c/datasets/veribench_v1_3",
+      "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_probabilistic_ordinal_judge/rating_tensor_planning/sources/earlier_local_plans.md",
+      "https://github.com/brando90/veribench/blob/01f639c1f2242cdef3b977715d91a7c978ea7fcd/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/RATING_TENSOR_SAMPLE_SIZE_11-04-2026.md",
+      "https://github.com/brando90/veribench/blob/codex/human-rating-note-11-04-2026-8fa1104e/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/RATING_TENSOR_SAMPLE_SIZE_11-04-2026.md",
+      "https://github.com/brando90/veribench/blob/main/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/CONDITIONAL_RATING_AGREEMENT_AND_TRANSFER_11-05-2026.md",
+      "https://github.com/brando90/veribench/blob/main/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/FULL_BENCHMARK_FIXED_PANEL_11-05-2026.md",
+      "https://itl.nist.gov/div898/software/dataplot/refman1/auxillar/sdconfli.htm",
+      "https://online.stat.psu.edu/stat505/Lesson05",
+      "https://openreview.net/pdf/2accae7bf4d97dbd20b9f0dd716156be8f105d6f.pdf",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC5502906/",
+      "https://pubmed.ncbi.nlm.nih.gov/28342902/",
+      "https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf",
+      "https://www.sciencedirect.com/science/article/pii/S0378375813000633"
+    ],
+    "sources/gemini_argon_high.md": [
+      "https://gemini.google.com/app/fb26fe19addf5b07#6d0b81e342f8bc4f"
+    ]
+  },
+  "historical_snapshot_origins": [
+    {
+      "name": "RATING_TENSOR_SAMPLE_SIZE_11-04-2026.md",
+      "source": "/Users/brandomiranda/veribench/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/RATING_TENSOR_SAMPLE_SIZE_11-04-2026.md",
+      "read_from": "/tmp/ttj-older-sample-size.md",
+      "sha256": "f3b4c4414ce08e7d4689eed0ebe6fcac05017153c8eb31826307d9093d830633",
+      "status": "Immutable Git object 01f639c1f2242cdef3b977715d91a7c978ea7fcd"
+    },
+    {
+      "name": "FULL_BENCHMARK_FIXED_PANEL_11-05-2026.md",
+      "source": "/Users/brandomiranda/veribench/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/FULL_BENCHMARK_FIXED_PANEL_11-05-2026.md",
+      "read_from": "/Users/brandomiranda/veribench/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/FULL_BENCHMARK_FIXED_PANEL_11-05-2026.md",
+      "sha256": "203ccc1b0be888422bea42165c67e4765f151b7cf8133cdf81093002d1d2aaf3",
+      "status": "Local working file; embedded GitHub main URL returned 404 on 11-11-2026"
+    },
+    {
+      "name": "CONDITIONAL_RATING_AGREEMENT_AND_TRANSFER_11-05-2026.md",
+      "source": "/Users/brandomiranda/veribench/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/CONDITIONAL_RATING_AGREEMENT_AND_TRANSFER_11-05-2026.md",
+      "read_from": "/Users/brandomiranda/veribench/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/CONDITIONAL_RATING_AGREEMENT_AND_TRANSFER_11-05-2026.md",
+      "sha256": "dcd5cce1e057d55c60cbbb2a45c786fb7cefb14f7b23514bc74733e63e1b9d5a",
+      "status": "Local working file; embedded GitHub main URL returned 404 on 11-11-2026"
+    }
+  ],
+  "review": {
+    "requested_tier": "light: one opposite-company review plus fixes and deterministic verification",
+    "classification": "scientific planning; no reference-data edits",
+    "requested_model": "claude-fable-5-2",
+    "actual_response_model": "claude-fable-5-2",
+    "effort_configured": "max",
+    "auth": "claude.ai subscription; init apiKeySource none",
+    "permission_mode": "bypassPermissions",
+    "verdict": "FIXES_REQUIRED; six findings addressed by root; no automatic re-review",
+    "evidence": [
+      {
+        "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/qa_fable_5_2_max/reviewed_manifest.json",
+        "sha256": "ade57f95821d7d763ea25c4916e28f18131105d6638cc3dc2d86d61ebad64bf7"
+      },
+      {
+        "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/qa_fable_5_2_max/prompt.md",
+        "sha256": "7b2dd47ae1e57bf9e36dd0b63144e0e9ae04b9413a509263d703eab380efa68f"
+      },
+      {
+        "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/qa_fable_5_2_max/launch.json",
+        "sha256": "9723d6e3b3eb919b70efe110d603a844acb321bd4ec909cab12e298e82fc3cd4"
+      },
+      {
+        "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/qa_fable_5_2_max/result.json",
+        "sha256": "f77843e69e15303cc90bd1cca171bae1834706390026756809d734bc335f7311"
+      },
+      {
+        "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/qa_fable_5_2_max/review.md",
+        "sha256": "79a9fe00ab838e113b052fa1d5e69472613bcb10dc6aa363f94a2a065edc1d15"
+      },
+      {
+        "path": "/Users/brandomiranda/.local/share/trustworthy-theorem-judges/rating_tensor_source_archive/qa_fable_5_2_max/stream.jsonl",
+        "sha256": "aafc28ad09334489873028d5553ae79d7c4a2e4936ad1fbe7cf2ab2c50e08c6c"
+      }
+    ],
+    "dispositions_record": "CKPT_rating_tensor_planning.md"
+  },
+  "google_sync": {
+    "date": "11-11-2026",
+    "document_id": "1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws",
+    "url": "https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws",
+    "revision": "AHj4eMQNzaJaDcQ4MPwxGiZH483bI3DOGHp5_Sz39gStiKNZXin4mFLxUuXdvyGr7gXwHpbeu7RkaruiJH7THMAj9NzLFHfXiMwpJxAEaO8",
+    "matched": true,
+    "heading": "HEADING_1",
+    "linked_urls": [
+      "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_probabilistic_ordinal_judge/rating_tensor_planning/README.md",
+      "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_probabilistic_ordinal_judge/rating_tensor_planning/METHODS_AND_ALLOCATION.md",
+      "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/02_probabilistic_ordinal_judge/rating_tensor_planning/SOURCE_INDEX.md"
+    ]
+  },
+  "markdown_normalization": "Line-ending trailing spaces and final blank lines normalized; all source words preserved; raw capture records retained locally.",
+  "history_coverage_recheck": {
+    "date": "11-11-2026",
+    "original_chat_url": "https://chatgpt.com/c/6aecd8ba-8cd0-83e8-abbd-9b2df24689b2",
+    "browser_observation": "Nine recent message bodies and Loading older messages…; the marker alone is not evidence of an unseen interval.",
+    "saved_connector_pages": {
+      "original": {
+        "hasMore": false,
+        "nextCursor": null
+      },
+      "branch": {
+        "hasMore": false,
+        "nextCursor": null
+      }
+    },
+    "overlap": "Branch messages 1–8 correspond to shared messages 3–10; branch 9–10 are the summary/formulations exchange.",
+    "identified_estimates_present": [
+      35840,
+      28160,
+      20480,
+      14848
+    ],
+    "specific_missing_message_identified": false,
+    "new_source_messages_added": 0,
+    "conclusion": "All identified sizing exchanges are included; exhaustive thread completeness unverified. No further recovery task justified.",
+    "google_companion_correction": {
+      "date": "11-11-2026",
+      "document_id": "1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws",
+      "revision": "AHj4eMTdOSOJeMYsm3jZH9m6ni8eyGhmkZ-y1IGwJ_4VipArZINA8OUjXSEtbWIaXRu7Q2cKhr02Qu1uAtEM-ZiWxB6oTITVGDtSkHOYKd4",
+      "correction": "Coverage recheck (11-11-2026): all identified T/A/H estimates are already included. No specific missing intervening message was identified; the browser's loading marker does not establish a gap. Exhaustive original-thread coverage is unverified.",
+      "matched": true,
+      "old_definite_gap_claim_absent": true
+    }
+  },
+  "experiment_relocation": {
+    "date": "11-11-2026",
+    "current_home": "experiments/15_estimate_required_tasks_solver_configurations_and_human_raters",
+    "user_requested_experiment_number": 15,
+    "relocation_record": "../archive/README.md",
+    "source_exports_and_attachments_byte_identical": true,
+    "google_companion": {
+      "date": "11-11-2026",
+      "document_id": "1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws",
+      "revision": "AHj4eMSMky95IKdf4y1Ake6QoC1Y-NqGok788tOq-kqiK6FkEaJ3rUrcdh8iot0zKdoCl_NpIs953kOUSo0mFHdiUIKJyUPFSdvAPjMeh1g",
+      "experiment15": true,
+      "optional_proposal": true,
+      "old_path_absent": true,
+      "linked_urls": [
+        "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_rating_tensor_size_estimation/README.md",
+        "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_rating_tensor_size_estimation/METHODS_AND_ALLOCATION.md",
+        "https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_rating_tensor_size_estimation/SOURCE_INDEX.md"
+      ]
+    }
+  }
+}

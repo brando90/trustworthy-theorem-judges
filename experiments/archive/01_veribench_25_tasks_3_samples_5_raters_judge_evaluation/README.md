@@ -6,7 +6,7 @@
 
 **Status:** Historical evidence imported on 11-06-2026 from the committed VeriBench sources listed in [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json).
 The original files remain in their source project because its paper still cites them.
-This folder preserves historical evidence; current rating collection is tracked separately in [experiment 09](../../09_human_rating_collection/README.md).
+This folder preserves historical evidence; current rating collection is tracked separately in [experiment 09](../../09_prepare_packets_and_collect_human_ratings/README.md).
 This archive concerns artificial intelligence (AI) / large language model (LLM) judges of formal specification coverage (FSC); it does not validate a prover-based judge.
 
 Experiment 100 reports **Kendall tau-b 0.698, Spearman rho 0.826, Pearson r 0.858**.
@@ -144,6 +144,6 @@ No public bibliographic identifier was established by this import; cite these ar
 
 ## Historical judge-selection decision, relocated 11-09-2026
 
-The [10-07-2026 decision memo](JUDGE_SELECTION_DECISION_10-07-2026.md) moved here from VeriBench without changing its bytes; its [migration receipt](JUDGE_SELECTION_MIGRATION_11-09-2026.json) records the source revision, path and digest. It preserves the decision to keep rating set N evaluation-only and consider a separate task-disjoint selection pool later. Its old status, recommendations and numerical summaries are historical records, not a new experiment or a replacement for the [current prospective design](../../02_probabilistic_ordinal_judge/README.md) and [active human-rating collection](../../09_human_rating_collection/README.md).
+The [10-07-2026 decision memo](JUDGE_SELECTION_DECISION_10-07-2026.md) moved here from VeriBench without changing its bytes; its [migration receipt](JUDGE_SELECTION_MIGRATION_11-09-2026.json) records the source revision, path and digest. It preserves the decision to keep rating set N evaluation-only and consider a separate task-disjoint selection pool later. Its old status, recommendations and numerical summaries are historical records, not a new experiment or a replacement for the [current prospective design](../../02_design_a_judge_that_predicts_human_ratings_0_to_5/README.md) and [active human-rating collection](../../09_prepare_packets_and_collect_human_ratings/README.md).
 
 This relocation covers only the standalone decision memo. The larger historical judge experiments remain in VeriBench; the migration receipt records their candidate destinations and retained code, data and provenance dependencies. No judging runtime or experimental result changed.
