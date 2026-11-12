@@ -6,3 +6,5 @@
 4. Enter a final 0–5 score and the AI-assisted-rating attestation for each file. Please estimate the minutes spent and your confidence. A one-sentence rationale is **preferred but optional**; use `problem_note` for any issue.
 
 Your Sheet saves automatically; no copy or email return is needed. The included `ratings.csv` is an alternative form, not a second submission. Leave unfinished scores blank. If a reference prevents a rating, add a problem note and email brandojazz@gmail.com. Notify Brando before changing completed ratings.
+
+After the warm-up, [open your main rating task: 54 files in 25 folders](main_rating_task/START_HERE.md). It uses the same rubric and columns.

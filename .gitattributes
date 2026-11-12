@@ -3,5 +3,10 @@ paper_latex/AAAI_2027_Evaluation_AI_Scientists/vendor/aaai2027.sty -whitespace
 paper_latex/AAAI_2027_Evaluation_AI_Scientists/vendor/aaai2027.bst -whitespace
 
 # Preserve warm-up task bytes copied from the delivered archive.
-experiments/09_human_rating_collection/rating_task_packet/warm_up_01_median/** -whitespace
-experiments/09_human_rating_collection/rating_task_packet/warm_up_02_greatest_common_divisor/** -whitespace
+experiments/09_prepare_packets_and_collect_human_ratings/rating_task_packet/warm_up_01_median/** -whitespace
+experiments/09_prepare_packets_and_collect_human_ratings/rating_task_packet/warm_up_02_greatest_common_divisor/** -whitespace
+
+# Preserve copied main-task scientific payload bytes; prose/forms remain checked.
+experiments/09_prepare_packets_and_collect_human_ratings/rating_task_packet/main_rating_task/task_*/python_source/*.py -whitespace
+experiments/09_prepare_packets_and_collect_human_ratings/rating_task_packet/main_rating_task/task_*/gold_lean/*.lean -whitespace
+experiments/09_prepare_packets_and_collect_human_ratings/rating_task_packet/main_rating_task/task_*/agent_lean/*.lean -whitespace

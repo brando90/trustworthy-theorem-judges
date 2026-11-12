@@ -2,58 +2,54 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/README.md>
 
-**TLDR:** To do Brando’s six-file warm-up, open [the task instructions and personal Google Sheet link](rating_task_packet/START_HERE.md). This page also links the editable packet, collected ratings and completion status.
+**TLDR:** Start with [Brando’s six-file warm-up and personal Google Sheet](rating_task_packet/START_HERE.md). Then use [the current main task: 54 files in 25 task folders](rating_task_packet/main_rating_task/START_HERE.md). Collected ratings and completion status are below.
 
-**Main-packet decision, 11-11-2026:** a replacement centered on native Claude Code, native Codex and Pi is being prepared, with a smaller Terminus 2 comparison: **85 artifacts and 170 independent ratings planned**. [Allocation and preparation status](support/COORDINATOR_README.md#native-heavy-replacement--user-decision-11-11-2026). The warm-up is unchanged. The original 125-item main sheets and response snapshots below remain historical records; do not send the old main packet as the default.
+## Do or edit the task
 
-## What belongs here
+- **Warm-up first:** [instructions and Sheet link](rating_task_packet/START_HERE.md), [blank form](rating_task_packet/ratings.csv), [median task](rating_task_packet/warm_up_01_median/) and [greatest-common-divisor task](rating_task_packet/warm_up_02_greatest_common_divisor/).
+- **Current main task:** [instructions and Brando’s Sheet link](rating_task_packet/main_rating_task/START_HERE.md), [blank form](rating_task_packet/main_rating_task/ratings.csv) and [task files](rating_task_packet/main_rating_task/).
+- **Shared rules:** [scoring rubric](rating_task_packet/human_judgements_prompt.md) and [column guide](rating_task_packet/RATING_FORM_GUIDE.md). The warm-up and main task use the same eleven columns and scoring rubric.
+- **Email preview:** [editable email draft](rating_task_packet/EMAIL_INSTRUCTIONS_V0.md). Editing the packet or a draft sends nothing.
 
-| Folder | What it is for |
-| --- | --- |
-| [rating_task_packet/](rating_task_packet/) | Editable instructions, rubric, form guide, email draft, blank form and task files. Changes are drafts until reviewed and packaged for delivery. |
-| [ratings/](ratings/README.md) | Collected responses, named by person, with every live Google Sheet and matching comma-separated value (CSV) file linked. |
-| [support/](support/README.md) | Coordinator records, provenance, scripts and tests. You do not need these to do your ratings. |
+Final score and the combined artificial intelligence (AI) assistance/human-rating attestation are required for new ratings. Estimate time and confidence; a one-sentence rationale is **preferred but optional**. Use problem notes for issues. Internal record keys are hidden in Sheets but retained in comma-separated value (CSV) files.
 
-This README is the single collection overview: task links, people and completion status. Do not create separate index or status summaries at this level.
+**Prepared, 11-11-2026:** the new main packet contains **54 returned candidate files across 25 tasks**: 25 from native Codex, 19 from native Claude Code and ten from Terminus 2 with Grok. All 50 newly attempted Claude Code/Pi tasks are terminal; Pi produced no captured submission at the required output path. The **31 missing outputs** remain in the execution records, outside the human-rating packet. These are preparation counts, not human scores or a judge-validation result. [Allocation, execution and packet evidence](support/COORDINATOR_README.md#native-heavy-replacement--user-decision-11-11-2026).
 
-## Edit or prepare the task
+**Before team dispatch:** finish Brando’s pilot, review the exact revised recipient-specific email text, then explicitly say to send. Rylan’s and Sri’s replacement packets and personal Sheets are prepared; no revised team packet was sent. The warm-up is unchanged. Old main packets and 125-row Sheets remain historical records and are **not the default task**.
 
-- [START_HERE.md](rating_task_packet/START_HERE.md): short instructions and personal Sheet link.
-- [Scoring rubric](rating_task_packet/human_judgements_prompt.md) and [column guide](rating_task_packet/RATING_FORM_GUIDE.md): what to rate and what to enter.
-- [Email draft](rating_task_packet/EMAIL_INSTRUCTIONS_V0.md) and [blank form](rating_task_packet/ratings.csv): editable working copies, not collected responses.
-- [Median task](rating_task_packet/warm_up_01_median/) and [greatest-common-divisor task](rating_task_packet/warm_up_02_greatest_common_divisor/): Python, reference and three candidate files each.
-
-**Current form:** final score and the combined artificial intelligence (AI) assistance/human-rating attestation are required for new ratings. Estimate time and confidence; a one-sentence rationale is **preferred but optional**. Use problem notes for issues. Sheets and CSVs share eleven stored columns, with internal keys hidden in Sheets; the scoring rubric is unchanged.
-
-[Existing warm-up packets and prior email previews](support/PREPARATION_11-09-2026.md#current-prepared-version--11-11-2026) remain available. Main-packet previews will be replaced after native outputs are reconciled. **Before team dispatch:** finish Brando’s pilot, approve the revised email text, then explicitly say to send. No reminders or revised team packets were sent in this preparation. Editing this folder sends nothing. Delivered archives remain unchanged.
-
-**Warm-up versus main packet:** the six warm-up candidates are historical Claude 3.7 Sonnet outputs. The preserved original main packet has all 125 later frontier-model outputs: 25 tasks × five configurations, targeting two independent ratings each (250 ratings). [Verified provenance](support/COORDINATOR_README.md#warm-up-versus-main-packet-provenance--checked-11-11-2026) · [Packet checks, tensor dimensions and larger-study proposals](support/COORDINATOR_README.md#current-collection-size-and-readiness--checked-11-11-2026).
-
-Brando has already viewed other raters’ warm-up answers, so his warm-up is coordinator practice, not an independent blinded submission. Descriptive task paths map to historical record keys in [the path mapping](support/WARMUP_PATHS.json).
+The six warm-up candidates are historical Claude 3.7 Sonnet outputs. [Verified provenance](support/COORDINATOR_README.md#warm-up-versus-main-packet-provenance--checked-11-11-2026). Brando has already viewed other raters’ warm-up answers, so his warm-up is coordinator practice, not an independent blinded submission. [Descriptive-path mapping](support/WARMUP_PATHS.json).
 
 ## Ratings and completion
 
-**Last checked: 11-11-2026.** There are **15 numeric warm-up ratings and three N/A reference-issue entries; no completed main ratings** in the checked sheets. All 15 numeric ratings match existing imports; this check found no new or revised ratings. Local files are saved snapshots, not a live background mirror.
+**Last checked: 11-11-2026.** The saved responses contain **15 numeric warm-up ratings and three N/A reference-issue entries; no completed main ratings**. Packet preparation added no ratings. Local CSV files are snapshots, not a live background mirror.
 
-| Person | Warm-up data / completion | Main assignment / next work |
+| Person | Warm-up data / completion | Current main assignment / next work |
 | --- | --- | --- |
-| Brando Miranda | [CSV](ratings/Brando_Miranda__warmup_A1.csv): 0/6 | [Main CSV](ratings/Brando_Miranda__setN_A1.csv): 0/125; author ratings are additional |
-| Rylan Schaeffer | [CSV](ratings/Rylan_Schaeffer__warmup_T01.csv): 6/6; qualified | [Main CSV](ratings/Rylan_Schaeffer__setN_T01.csv): 0/10 assigned, folders N17 and N21 |
-| Srivatsava Daruru (Sri) | [CSV](ratings/Srivatsava_Daruru_Sri__warmup_T05.csv): 6/6; qualified | [Main CSV](ratings/Srivatsava_Daruru_Sri__setN_T05.csv): 0/10 assigned, folders N01 and N23 |
+| Brando Miranda | [CSV](ratings/Brando_Miranda__warmup_A1.csv): 0/6 | [Current main CSV](ratings/Brando_Miranda__native_main_A1.csv): 0/54; author ratings are additional |
+| Rylan Schaeffer | [CSV](ratings/Rylan_Schaeffer__warmup_T01.csv): 6/6; qualified | [Current main CSV](ratings/Rylan_Schaeffer__native_main_T01.csv): 0/4, across his original two tasks; prepared, unsent |
+| Srivatsava Daruru (Sri) | [CSV](ratings/Srivatsava_Daruru_Sri__warmup_T05.csv): 6/6; qualified | [Current main CSV](ratings/Srivatsava_Daruru_Sri__native_main_T05.csv): 0/4, across his original two tasks; prepared, unsent |
 | Yegor Denisov-Blanch | [CSV](ratings/Yegor_Denisov-Blanch__warmup_T02.csv): 3 numeric + 3 N/A | Existing extra-only decision; no primary assignment |
 | Dilara Soylu | [CSV](ratings/Dilara_Soylu__warmup_T03.csv): 0/6 | Warm-up pending |
 | Allen Nie | [CSV](ratings/Allen_Nie__warmup_T04.csv): 0/6 | Warm-up pending |
 | Donald Poindexter Jr | [CSV](ratings/Donald_Poindexter_Jr__warmup_T06.csv): 0/6 | Warm-up pending |
 | Simon Obstbaum | [CSV](ratings/Simon_Obstbaum__warmup_T07.csv): 0/6 | Warm-up pending |
 | Nikil Ravi | [CSV](ratings/Nikil_Ravi__warmup_V02.csv): 0/6 | Warm-up pending |
-| Slava Naprienko | No returned CSV found for the original emailed warm-up in earlier scoped mail searches; [replacement form](support/SLAVA_CSV_NAME_FIRST_11-11-2026.md) is prepared, unsent, with six blank rows | Completion unverified; no Google Sheet |
+| Slava Naprienko | No returned CSV found in earlier scoped mail searches; [replacement form](support/SLAVA_CSV_NAME_FIRST_11-11-2026.md) is prepared, unsent, with six blank rows | Completion unverified; no Google Sheet |
 
-**[Open everyone’s live Google Sheets and matching raw CSVs](ratings/README.md).** Rylan and Sri’s main sheets display 125 rows, but only ten items each are assigned. Rylan’s original notes and Sri’s recorded times/notes are preserved; [Rylan’s notes are also readable here](support/RYLAN_NOTES.md).
+**[Open all 15 Google Sheets and matching raw CSVs](ratings/README.md):** nine warm-up Sheets, three current main Sheets and three historical main Sheets. Rylan’s original notes and Sri’s recorded times/notes are preserved; [Rylan’s notes are also readable here](support/RYLAN_NOTES.md).
 
-**Original-round assignment snapshot, separate from the replacement above:** the inherited primary collection requires **250 main ratings**: two qualified independent ratings for each of 125 candidate files. **20 are assigned but blank; 230 remain unassigned.** Warm-ups, N/A entries and blank forms are not completed main ratings. Re-exported copies are not new observations. Historical volunteer capacity is not a renewed commitment. Jacob and Mo declined; Bo and Sanmi are excluded from recruitment. Unassigned prospects are not missing submissions.
+**Current collection target:** two independent human ratings per returned candidate file, **108 ratings total**. Eight slots are assigned but blank (four each for Rylan and Sri); **100 slots remain unassigned**. Brando’s 54 author ratings are additional. Warm-ups, N/A entries, blank forms and repeat exports are not completed main ratings. Historical volunteer capacity is not a renewed commitment; unassigned prospects are not missing submissions. Jacob and Mo declined; Bo and Sanmi are excluded from recruitment.
 
-## Provenance
+**Historical main round:** the original 125-candidate packet targeted 250 independent ratings, with 20 assigned but blank and 230 unassigned. Its three 125-row Sheets and CSVs are preserved in [the historical table](ratings/README.md#historical-main-sheets--not-the-current-task); these old counts do not add to the current target.
 
-Raw responses retain spelling, capitalization, blanks, N/A entries and row order. Names and stable IDs are verified identity metadata; assistant-filled timing/background annotations were removed. [Normalized analysis files](ratings/analysis/) are separate and are not additional observations.
+## Where things belong
 
-[Collection summary](ratings/SUMMARY.json) · [Raw hashes and source ranges](ratings/RAW_MANIFEST.json) · [Import workflow and source receipts](support/IDENTITY_AND_IMPORT.md#collection-evidence--11-11-2026) · [Form verification and history](support/sheet_exports/11-11-2026_final_form/README.md)
+| Folder | Purpose |
+| --- | --- |
+| [rating_task_packet/](rating_task_packet/) | One editable home for instructions, rubric, field guide, email draft, forms and task files. |
+| [ratings/](ratings/README.md) | Named raw responses and links to every personal Sheet. |
+| [support/](support/README.md) | Coordinator records, provenance, scripts and tests; unnecessary for doing your ratings. |
+
+This README is the single overview and completion table. Delivered archives remain unchanged. Raw responses preserve spelling, capitalization, blanks, N/A entries and row order; only verified names and stable IDs are prefilled metadata. Assistant-filled timing/background annotations were removed. [Normalized analysis files](ratings/analysis/) are separate and are not additional observations.
+
+[Collection summary](ratings/SUMMARY.json) · [Raw hashes and source ranges](ratings/RAW_MANIFEST.json) · [Import workflow](support/IDENTITY_AND_IMPORT.md#collection-evidence--11-11-2026) · [Warm-up form verification and history](support/sheet_exports/11-11-2026_final_form/README.md)
