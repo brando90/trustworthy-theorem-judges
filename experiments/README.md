@@ -4,6 +4,8 @@
 
 **TLDR:** Historical VeriBench evidence, prospective human-rating prediction, and prover-outcome forecasting have separate experiment records. The prover studies have completed retrospective analyses and a fresh local feasibility test; broad validation remains pending.
 
+**Looking for the T, A, H rating-count estimates?** The [rating tensor planning folder](02_probabilistic_ordinal_judge/rating_tensor_planning/README.md) is inside experiment 02. It contains the Claude, Gemini and ChatGPT exports, original links, estimate comparison and sizing-method notes.
+
 | Experiment | Status | Evidence or next step |
 | --- | --- | --- |
 | [01_legacy_veribench_judge](01_legacy_veribench_judge/README.md) | Historical evidence import | Aggregate receipts with original conditions, confidence intervals, and exposure limitations; no rerun or new validation. |
