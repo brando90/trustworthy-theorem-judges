@@ -8,7 +8,7 @@
 
 | Effort | Where to start | Status checked 11-11-2026 |
 | --- | --- | --- |
-| Original 25 × 3 × 5 rating study | [Historical judge evidence](experiments/archive/01_legacy_veribench_judge/README.md), [count reconciliation](experiments/07_exp1_metrics/results.md#1-which-count-is-right-343-or-195) | 25 tasks × three candidate generation samples × five rater columns. **75 artifacts; 345 of 375 possible ratings observed; 195 ratings in the three-expert subset.** These are historical data, not three solver systems. |
+| Original 25 × 3 × 5 rating study | [Historical judge evidence](experiments/archive/01_veribench_25_tasks_3_samples_5_raters_judge_evaluation/README.md), [count reconciliation](experiments/07_exp1_metrics/results.md#1-which-count-is-right-343-or-195) | 25 tasks × three candidate generation samples × five rater columns. **75 artifacts; 345 of 375 possible ratings observed; 195 ratings in the three-expert subset.** These are historical data, not three solver systems. |
 | New packet and human-rating collection | [Experiment 09](experiments/09_human_rating_collection/README.md), [editable task](experiments/09_human_rating_collection/rating_task_packet/START_HERE.md) | Replacement emphasizing native Claude Code, Codex and Pi, with fewer Terminus2 artifacts: **85 artifacts and 170 independent ratings planned**. In preparation; completed manifest and collection remain pending. |
 | Estimate T, A and H | [Experiment 15](experiments/15_rating_tensor_size_estimation/README.md), [source conversations](experiments/15_rating_tensor_size_estimation/SOURCE_INDEX.md) | T = tasks, A = solver configurations, H = distinct human raters. Final size remains open. The 544-rating suggestion was optional Codex planning, not a user-required count. |
 

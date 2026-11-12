@@ -10,7 +10,7 @@ The first reorganization preserved these experiment trees byte-for-byte under `e
 
 | Previous home | Current home | Reason and outcome | Preserved tracked files |
 | --- | --- | --- | ---: |
-| `experiments/01_legacy_veribench_judge/` | [01_legacy_veribench_judge](01_legacy_veribench_judge/README.md) | Historical scalar-judge evidence; source receipts remain available to the paper and project checks. | 10 |
+| `experiments/01_legacy_veribench_judge/` | [01_veribench_25_tasks_3_samples_5_raters_judge_evaluation](01_veribench_25_tasks_3_samples_5_raters_judge_evaluation/README.md) | Historical scalar-judge evidence; source receipts remain available to the paper and project checks. | 10 |
 | `experiments/03_prover_target_fsc_judge/` | [03_prover_target_fsc_judge](03_prover_target_fsc_judge/README.md) | Retrospective prover-outcome analysis complete; prospective follow-up belongs to experiment 04. | 17 |
 | `experiments/05_fresh_local_prover_target_judges/` | [05_fresh_local_prover_target_judges](05_fresh_local_prover_target_judges/README.md) | Local feasibility condition complete; no judge validated; broader validation remains in experiment 04. | 55 |
 | `experiments/06_information_loss_vs_correlation_judge_selection/` | [06_information_loss_vs_correlation_judge_selection](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/README.md) | Canonical package already existed in position-paper experiment 03; redundant public copy removed here. | 83 |
@@ -20,6 +20,10 @@ The first reorganization preserved these experiment trees byte-for-byte under `e
 | `experiments/14_open_weight_judge_pool_corr_vs_ce_80_20/` | [14_open_weight_judge_pool_corr_vs_ce_80_20](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/README.md) | Open-weight judge-pool comparison complete; retrospective evidence with mixed objective comparisons. | 59 |
 
 The T, A, H planning bundle moved separately from `experiments/02_probabilistic_ordinal_judge/rating_tensor_planning/` to [experiment 15](../15_rating_tensor_size_estimation/README.md). Its source exports and original attachments retain identical bytes; editable navigation, source index and attribution of the optional Codex pilot proposal were updated. The bundle's current hashes are in [provenance.json](../15_rating_tensor_size_estimation/provenance.json).
+
+## Descriptive name for the original rating study — 11-11-2026
+
+`experiments/archive/01_legacy_veribench_judge/` is now [`experiments/archive/01_veribench_25_tasks_3_samples_5_raters_judge_evaluation/`](01_veribench_25_tasks_3_samples_5_raters_judge_evaluation/README.md). The name identifies the original 25-task VeriBench corpus: three candidate generation samples per task and five rater columns. This archive also contains distinct earlier and later judge analyses of those artifacts; it is not the current human-rating collection. Nine supporting files retain identical bytes; the README now names the study and points to current locations. Frozen migration receipts retain their original paths as provenance.
 
 ## Objective-study ownership consolidation — 11-11-2026
 

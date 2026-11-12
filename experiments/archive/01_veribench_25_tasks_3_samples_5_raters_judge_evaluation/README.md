@@ -1,12 +1,12 @@
-# Historical VeriBench judge–human agreement
+# VeriBench 25-task rating study and subsequent judge evaluations
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/01_legacy_veribench_judge/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/archive/01_veribench_25_tasks_3_samples_5_raters_judge_evaluation/README.md>
 
-**TLDR:** Preserved historical scalar-judge evidence motivates a fresh study; it does not validate the new probability-output judge or a prover judge.
+**TLDR:** This is the original VeriBench corpus of 25 tasks, three generated candidate files per task, and five rater columns, together with its earlier score-mapping analysis and later judge evaluations (VeriBench experiments 100 and 104). The three candidates are generation samples per task, not three solver systems; the analyses below use different rater targets and splits.
 
 **Status:** Historical evidence imported on 11-06-2026 from the committed VeriBench sources listed in [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json).
 The original files remain in their source project because its paper still cites them.
-The new study has not collected or evaluated its fresh human data.
+This folder preserves historical evidence; current rating collection is tracked separately in [experiment 09](../../09_human_rating_collection/README.md).
 This archive concerns artificial intelligence (AI) / large language model (LLM) judges of formal specification coverage (FSC); it does not validate a prover-based judge.
 
 Experiment 100 reports **Kendall tau-b 0.698, Spearman rho 0.826, Pearson r 0.858**.
@@ -136,7 +136,7 @@ No individual or per-item ratings are written into this project.
 To reproduce with access to the original private repository and a Python environment containing NumPy:
 
 ```bash
-python3 experiments/01_legacy_veribench_judge/scripts/recompute_error_intervals.py --source-repo /path/to/veribench
+python3 experiments/archive/01_veribench_25_tasks_3_samples_5_raters_judge_evaluation/scripts/recompute_error_intervals.py --source-repo /path/to/veribench
 ```
 
 The continued private paper's title is *VeriBench: An End-to-End Autoformalization Benchmark for AI Coding Agents in Lean 4*, verified in `paper_latex/TMLR_2026_VeriBench/00_main_tmlr_2026.tex` at the source commit.
@@ -144,6 +144,6 @@ No public bibliographic identifier was established by this import; cite these ar
 
 ## Historical judge-selection decision, relocated 11-09-2026
 
-The [10-07-2026 decision memo](JUDGE_SELECTION_DECISION_10-07-2026.md) moved here from VeriBench without changing its bytes; its [migration receipt](JUDGE_SELECTION_MIGRATION_11-09-2026.json) records the source revision, path and digest. It preserves the decision to keep rating set N evaluation-only and consider a separate task-disjoint selection pool later. Its old status, recommendations and numerical summaries are historical records, not a new experiment or a replacement for the [current prospective design](../02_probabilistic_ordinal_judge/README.md) and [active human-rating collection](../09_human_rating_collection/README.md).
+The [10-07-2026 decision memo](JUDGE_SELECTION_DECISION_10-07-2026.md) moved here from VeriBench without changing its bytes; its [migration receipt](JUDGE_SELECTION_MIGRATION_11-09-2026.json) records the source revision, path and digest. It preserves the decision to keep rating set N evaluation-only and consider a separate task-disjoint selection pool later. Its old status, recommendations and numerical summaries are historical records, not a new experiment or a replacement for the [current prospective design](../../02_probabilistic_ordinal_judge/README.md) and [active human-rating collection](../../09_human_rating_collection/README.md).
 
 This relocation covers only the standalone decision memo. The larger historical judge experiments remain in VeriBench; the migration receipt records their candidate destinations and retained code, data and provenance dependencies. No judging runtime or experimental result changed.

@@ -8,7 +8,7 @@
 
 | Effort | Home | What it contains |
 | --- | --- | --- |
-| Original 25 × 3 × 5 study | [Archived 01](archive/01_legacy_veribench_judge/README.md), [count audit in 07](07_exp1_metrics/results.md#1-which-count-is-right-343-or-195) | 25 tasks, three generation samples per task, five rater columns: 75 artifacts, 345 observed ratings out of 375 slots, including 195 expert-subset ratings. Later judge analyses reuse these data. |
+| Original 25 × 3 × 5 study | [Archived 01](archive/01_veribench_25_tasks_3_samples_5_raters_judge_evaluation/README.md), [count audit in 07](07_exp1_metrics/results.md#1-which-count-is-right-343-or-195) | 25 tasks, three generation samples per task, five rater columns: 75 artifacts, 345 observed ratings out of 375 slots, including 195 expert-subset ratings. Later judge analyses reuse these data. |
 | New human-rating task | [09 — Packet and collection](09_human_rating_collection/README.md) | Editable packet, response values and progress. The authorized replacement emphasizes native Claude Code, Codex and Pi: 85 artifacts and 170 independent ratings planned. Preparation and the completed manifest remain pending. |
 | Rating tensor size estimates | [15 — Estimate T, A, H](15_rating_tensor_size_estimation/README.md) | Original Claude, Gemini and ChatGPT conversations, linked passages and sizing methods. Final allocation is undecided. |
 
