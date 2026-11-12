@@ -1,6 +1,6 @@
 # Single coordinator for human ratings and judge development
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/support/COORDINATION_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/COORDINATION_11-09-2026.md>
 
 **TLDR:** Prepare human grading task is the sole coordinating chat for this collection and the practical human-rating judge using methods 2 and 4. The former Best human-rating judge chat handed its work to that owner; ending its coordination does not mean collection or judge validation is complete.
 

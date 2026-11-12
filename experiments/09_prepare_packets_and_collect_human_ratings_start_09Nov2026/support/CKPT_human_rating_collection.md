@@ -1,6 +1,6 @@
 # Human-rating collection checkpoint
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/support/CKPT_human_rating_collection.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/CKPT_human_rating_collection.md>
 
 **TLDR:** The revised main packet is prepared and verified, not dispatched: 54 real files across 25 tasks, with matching personal Sheets/CSVs for Brando, Rylan and Sri. All 85 planned cells remain documented, including 31 missing submissions; collection and explicit send authorization remain outstanding.
 

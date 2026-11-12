@@ -1,6 +1,6 @@
 # Coordinator reference: human-rating collection
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/support/COORDINATOR_README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/COORDINATOR_README.md>
 
 **TLDR:** The revised main packet is prepared and verified: 54 real candidate files across 25 tasks, with matching personal Sheets and CSVs for Brando, Rylan and Sri. It has not been dispatched; Brando's warm-up, review of the exact recipient messages and explicit send instruction remain before team delivery.
 
@@ -22,7 +22,7 @@ This is supporting coordinator documentation. For the actual rating task, start 
 
 The six files rated by Rylan, Sri and Yegor are historical **Claude 3.7 Sonnet** outputs (`claude-3-7-sonnet-20250219`): two Python tasks (median and greatest common divisor), with three single-call samples per task at temperature 0.7, without a tool/compiler loop. All six current candidate files exactly match the historical experiment 100 inputs, and all six have generation receipts. The wider 75-file pool’s missing receipt concerns `binary_search__agent0`, not these warm-ups. Recent human submissions are new ratings of old candidate files, not newly generated frontier-agent outputs. Reference corrections and form revisions have their own history; they do not change the candidate-generation provenance.
 
-Evidence: [current warm-up file hashes and path mapping](WARMUP_PATHS.json), [historical generation provenance](../../archive/01_veribench_25_tasks_3_samples_5_raters_judge_evaluation/README.md), and the original VeriBench `veribench_dataset/human_labels/calibration/generated_agents/generation_manifest.json` entries for `humaneval_47_median` and `humaneval_13__gcd`. The preserved warm-up manifest names experiment 100’s annotation-era inputs as its source.
+Evidence: [current warm-up file hashes and path mapping](WARMUP_PATHS.json), [historical generation provenance](../../archive/01_veribench_25_tasks_3_samples_5_raters_judge_evaluation_start_06Nov2026_end_06Nov2026/README.md), and the original VeriBench `veribench_dataset/human_labels/calibration/generated_agents/generation_manifest.json` entries for `humaneval_47_median` and `humaneval_13__gcd`. The preserved warm-up manifest names experiment 100’s annotation-era inputs as its source.
 
 The preserved **original main packet (set N)** contains 25 tasks × five configurations = 125 candidate files. Its final manifest (10-08-2026), under `research_artifacts/09_human_rating_collection/legacy_veribench/human_round/sample_setN/SAMPLE_MANIFEST.json`, records 25 files each for Terminus 2 with Claude Fable 5.1, GPT-6 Astra, Grok 4.7, Google’s internal frontier model, and Kimi K3. Amendment C14 identifies Terminus 2 as the harness for all five; these are not native Claude Code/Codex runs. The public composition record does not identify the Google model as Gemini 3.8, Argon or Carbon. Keep individual candidate-to-system mappings sealed. Warm-up ratings alone do not validate agreement on these frontier outputs; their main sheets remain blank in the 11-11-2026 collection snapshot.
 
@@ -106,7 +106,7 @@ For tensor notation, **T** is task identities, **A** is fixed solver configurati
 | Proposed training-only pilot | 32 eligible tasks × four frozen configurations; 128 artifacts | Eight development raters; three ratings normally, eight on 32 artifacts | 544 proposed; not an approved collection amendment |
 | Historical full-study budget | Pinned VeriBench 1.3: 896 task identities × four configurations, plus 512 separate development generation records | Eight development and sixteen audit raters; three base ratings, eight on 512 audit artifacts | 14,848 planned; statistical sufficiency not established |
 
-**Original recommendation, superseded by the native-heavy replacement above:** complete the existing 250-rating frontier evaluation round. Keep the [larger sizing proposals](../../15_estimate_required_tasks_solver_configurations_and_human_raters/README.md#optional-codex-pilot-proposal) separate: the current 25-task packet is not a census of the benchmark and is evaluation-only for the new objective comparison. The proposed training pilot needs eligible identities and a resolved train/validation/test split amendment; it cannot silently reuse these evaluation ratings. Final study size remains conditional on measured variability, workload and a declared precision target. The prospective four-configuration manifest is not implemented merely because this five-configuration packet exists.
+**Original recommendation, superseded by the native-heavy replacement above:** complete the existing 250-rating frontier evaluation round. Keep the [larger sizing proposals](../../15_estimate_required_tasks_solver_configurations_and_human_raters_start_11Nov2026/README.md#optional-codex-pilot-proposal) separate: the current 25-task packet is not a census of the benchmark and is evaluation-only for the new objective comparison. The proposed training pilot needs eligible identities and a resolved train/validation/test split amendment; it cannot silently reuse these evaluation ratings. Final study size remains conditional on measured variability, workload and a declared precision target. The prospective four-configuration manifest is not implemented merely because this five-configuration packet exists.
 
 Before team dispatch, finish Brando’s pilot and obtain approval of the current exact messages plus an explicit send instruction. Existing assignments can then proceed while the remaining qualified-rater assignments are filled. Candidate generation was complete for that original all-Terminus-2 packet; the native-heavy replacement above has now reconciled all 50 new attempts and retained its 54 real files.
 
@@ -155,7 +155,7 @@ Use the native-main review and queue under `research_artifacts/09_human_rating_c
 ## Files
 
 ```text
-09_prepare_packets_and_collect_human_ratings/
+09_prepare_packets_and_collect_human_ratings_start_09Nov2026/
 ├── README.md              # Task links, people and completion status
 ├── rating_task_packet/    # Editable task and participant files
 ├── ratings/               # Collected responses and live-sheet links
@@ -187,7 +187,7 @@ This builder reproduces the original all-Terminus-2 packet, not the current nati
 For an explicitly requested historical build, run from `~/trustworthy-theorem-judges`:
 
 ```sh
-python3 experiments/09_prepare_packets_and_collect_human_ratings/support/scripts/make_team_packet.py \
+python3 experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/scripts/make_team_packet.py \
   research_artifacts/original research_artifacts/team-folder-01-new.zip --folders 1 --rater T01
 ```
 
@@ -217,7 +217,7 @@ The local VeriBench checkout was older than its remote branch. The active utilit
 ## Verification
 
 ```sh
-python3 -m unittest discover -s experiments/09_prepare_packets_and_collect_human_ratings/support/tests -v
+python3 -m unittest discover -s experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/tests -v
 python3 scripts/check_project.py
 git diff --check
 ```

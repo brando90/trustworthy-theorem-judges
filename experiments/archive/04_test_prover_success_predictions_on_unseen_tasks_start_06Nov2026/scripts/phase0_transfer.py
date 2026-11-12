@@ -31,7 +31,7 @@ PRIVATE = PROJECT / 'research_artifacts/phase0_transfer'
 def experiment03_file(recorded_path: str) -> Path:
     """Resolve the archived input without rewriting the frozen phase-0 config."""
     relative = Path(recorded_path).relative_to('experiments/03_prover_target_fsc_judge')
-    return PROJECT / 'experiments/archive/03_predict_prover_success_from_saved_judge_scores_1024_outputs' / relative
+    return PROJECT / 'experiments/archive/03_predict_prover_success_from_saved_judge_scores_1024_outputs_start_06Nov2026_end_06Nov2026' / relative
 
 
 def sha(data: bytes) -> str:

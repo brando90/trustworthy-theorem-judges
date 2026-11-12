@@ -1,6 +1,6 @@
 # Raw participant ratings
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/ratings/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/ratings/README.md>
 
 **TLDR:** Start with the warm-up. The current main Sheets have 54 rows for Brando and four each for Rylan and Sri, all blank. This page links all **15 Sheets** and matching raw CSV snapshots: nine warm-up, three current main and three historical main.
 

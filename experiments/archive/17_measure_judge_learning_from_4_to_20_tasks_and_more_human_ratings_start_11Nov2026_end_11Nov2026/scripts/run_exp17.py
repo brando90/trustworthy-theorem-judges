@@ -2,13 +2,13 @@
 and against the number of human ratings per artifact used for training (1, 2, all), for the CE mixture (④), the Pearson mixture (②) and baselines.
 Cached judges (experiment 12 dataset), CPU only, zero model calls. Test tasks per split are the same 5 as experiment 12 (seeds 20261210+s).
 Usage: ~/.venvs/judge/bin/python run_exp17.py --data dataset.json --out results [--splits 1000 --boot 10000]
-Imports the shared code (common.py, exp10_scripts, vendor_exp03) from ../../16_compare_validation_selection_and_training_on_75_rated_outputs/scripts."""
+Imports the shared code (common.py, exp10_scripts, vendor_exp03) from ../../16_compare_validation_selection_and_training_on_75_rated_outputs_start_11Nov2026_end_11Nov2026/scripts."""
 import argparse, json, sys, time, platform
 from pathlib import Path
 from multiprocessing import Pool
 import numpy as np, scipy
 from scipy.optimize import curve_fit
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'16_compare_validation_selection_and_training_on_75_rated_outputs'/'scripts'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'16_compare_validation_selection_and_training_on_75_rated_outputs_start_11Nov2026_end_11Nov2026'/'scripts'))
 from common import *
 from ce_mixture import fit
 

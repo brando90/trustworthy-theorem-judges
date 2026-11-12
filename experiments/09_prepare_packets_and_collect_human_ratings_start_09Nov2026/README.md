@@ -1,6 +1,6 @@
 # Prepare rating packets and collect human ratings
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/README.md>
 
 **TLDR:** Start with [Brando’s six-file warm-up and personal Google Sheet](rating_task_packet/START_HERE.md). Then use [the current main task: 54 files in 25 task folders](rating_task_packet/main_rating_task/START_HERE.md). Collected ratings and completion status are below.
 
