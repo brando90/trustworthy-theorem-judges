@@ -30,8 +30,8 @@
     },
     {
       "path": "ckpt.md",
-      "sha256": "6aa274185f960a1318fcc3ae881a88b3f7c6c710e318d57e1eb4d73848963408",
-      "bytes": 16359
+      "sha256": "8c0ef41309127f3000adb4f4ddb87e314426dbdb853665ff8c796f9a74a3fb16",
+      "bytes": 16804
     },
     {
       "path": "results/costed_allocation.json",
@@ -409,6 +409,24 @@
       "private_data_read_by_script": false,
       "status": "planning arithmetic; no allocation adopted"
     },
-    "model_review": "none requested for this continuation; deterministic checks only"
+    "model_review": "none requested for this continuation; deterministic checks only",
+    "google_sync": {
+      "date": "11-11-2026",
+      "document_id": "1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws",
+      "document_url": "https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws/edit",
+      "revision_before": "AHj4eMQOza4vq5bxY_0rbjS10B35S_FOeeEbO8rXkMBL8R0pqCZpNOkNhP3I4gdndDl5oFO0Bxcapq0DZmqz992k4gtOkqblkct3-QiFF2g",
+      "revision_after_readback": "AHj4eMRFIV3uEH-W3wH3aOXRjxpqIVPu2pjqCMHTG6z3afT43DJzkXpCKBsBPdJlPmDjG3aT4ppqRrfBDoqqYgPbgbuQEBWNl05OgkQT3V0",
+      "changed_paragraphs": 4,
+      "readback_verified": true,
+      "changes": [
+        "corrected the stale 85-artifact/170-rating sentence in 'Standalone judge paper and three workstreams'",
+        "added the costed-allocation paragraph and decision links to the sizing section",
+        "appended the sizing update to the size-planning paragraph",
+        "repointed two links to the renamed Claude source export"
+      ],
+      "layout_check": "not rendered",
+      "private_receipt": "google_companion_sync_receipt.json in the private receipts folder",
+      "private_receipt_sha256": "35a3a39a73954e2c363d99632f18e6232ffc7ce315787dc060a3da0d8bc0bee1"
+    }
   }
 }

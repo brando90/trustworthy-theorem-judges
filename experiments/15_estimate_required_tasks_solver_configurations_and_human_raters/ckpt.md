@@ -5,7 +5,7 @@
 **TLDR:** Claude Code took over sizing and cleanup on 11-11-2026 and carried out the inherited continuation: stale summaries are corrected, the root `docs/` folder is gone, and the README now holds a costed allocation with three open choices for Brando. The final collection size is still undecided; experiment 09's separate owner handles the human-rating task.
 
 Created: 11-11-2026 22:27 PST
-Last updated: 11-11-2026 23:02 PST
+Last updated: 11-11-2026 23:06 PST
 
 ## Goal
 
@@ -44,7 +44,7 @@ Last updated: 11-11-2026 23:02 PST
 | Inherited step | Outcome on 11-11-2026 |
 | --- | --- |
 | 1. Establish the current state | Done. Revision, checkpoint hash and experiment 09's two frozen manifest hashes matched before any edit. |
-| 2. Make current summaries agree with the packet | Done in the repository: root README, experiment index, paper README, `05_design.tex`, `09_discussion.tex` and the rebuilt eight-page PDF. Google companion status is in the log. |
+| 2. Make current summaries agree with the packet | Done in the repository: root README, experiment index, paper README, `05_design.tex`, `09_discussion.tex` and the rebuilt eight-page PDF. The existing Google companion was corrected and read back. |
 | 3. Finish clutter reduction | Done. Root `docs/` removed by three moves; root README cut from 66 to 39 lines around one tracking table; this folder's comparison now has one home. The old-to-new map is in the [archive index](../archive/README.md#root-notes-folder-source-rename-and-experiment-10-receipt--11-11-2026). |
 | 4. Resolve structural questions | Decided with evidence, no move: experiment 02 stays active; archived 16, 17 and 18 stay here; `paper_latex/` and `scripts/` keep their names. Reasons are in the archive index. |
 | 5. Reconcile the experiment 10 worktree | Receipt text landed after verification; a recovery package reproduces both worktree files byte-for-byte. The checkout is untouched and still registered; removal awaits confirmation. |
@@ -87,6 +87,8 @@ TL;DR: Refresh the costed allocation when real rating times exist, convert Brand
 11-11-2026 22:31 PST — Cross-linked the collection coordinator's separate handoff; both successor identities remain unassigned.
 
 11-11-2026 23:02 PST — Claude Code (`claude-fable-5-2`, effort `max`) accepted sizing and cleanup ownership at 22:40 after verifying revision `3932b6d` and the checkpoint hash, then landed the continuation in the commit that adds this line: corrected packet counts in the root README, experiment index, paper README, two paper sections and the rebuilt eight-page PDF; removed root `docs/` by three byte-preserving moves; renamed the Claude source export; landed experiment 10's receipt text with a verified recovery package; added the costed allocation, its saved result and two checks. Verified: 66 project tests, design validator, sizing and provenance checks, paper build with no overfull boxes or unresolved references, 616 local Markdown links with no new broken link (seven older ones remain in other owners' historical records, plus the frozen source export's embedded links), a dictionary check of 5,932 added words, and `git diff --check`. No rating, model call, collection file, Sheet or email was touched. Google companion update follows separately.
+
+11-11-2026 23:06 PST — Repository work landed as `fd30d71` on `origin/main`. Updated the existing Google Q&A companion in one revision-guarded batch and read it back: the stale 85-artifact/170-rating sentence is corrected, the costed-allocation paragraph and decision links are in the sizing section, and two links to the renamed Claude export are repointed; exactly four paragraphs changed. Page layout was not rendered.
 
 ## Historical source-recovery record
 
