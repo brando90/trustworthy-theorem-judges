@@ -2,16 +2,16 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/support/IDENTITY_AND_IMPORT.md>
 
-**TLDR:** Brando fills his existing Google Sheet normally. Its `A1` code identifies Brando Miranda; collected exports show both the name and ID. Names are for people, IDs are stable keys, and hiding a rater's own name is not a scientific requirement.
+**TLDR:** Brando fills his personal Google Sheet normally. Its `A1` code identifies Brando Miranda; collected exports show both the name and ID. Names are for people, IDs are stable keys, and hiding a rater's own name is not a scientific requirement.
 
 ## Your sheet is correctly identified
 
 - Person: **Brando Miranda**.
 - First column: `rater_name`, prefilled as **Brando Miranda**.
 - Second column: stable `rater_id`, prefilled as **A1**.
-- [Personal Google Sheet](https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit#gid=228912708&range=F2), titled **VeriBench set N rating sheet - rater A1 (Brando)** when checked on 11-11-2026.
+- [Personal warm-up Google Sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit), linked from the current [task instructions](../rating_task_packet/START_HERE.md). The replacement main sheet remains in preparation; use the packet-specific link when it is released.
 - The first required score is `F2`, under `final_score_0_5`. No name or ID needs to be edited by the rater.
-- The current raw table is [ratings/Brando_Miranda__setN_A1.csv](../ratings/Brando_Miranda__setN_A1.csv), starting with `rater_name,rater_id,...`. Its response cells are blank in the current snapshot; the file does not imply completed ratings.
+- The current raw table is [ratings/Brando_Miranda__warmup_A1.csv](../ratings/Brando_Miranda__warmup_A1.csv), starting with `rater_name,rater_id,...`. Its response cells are blank in the current snapshot; the file does not imply completed ratings.
 
 The coordinator's roster and personal-sheet configuration bind A1 to this exact person and spreadsheet. [RATER_IDENTITIES.json](RATER_IDENTITIES.json) records the display-name mapping for exports. Never infer a person's identity from a score or rely only on a typed display name.
 
@@ -56,6 +56,14 @@ This is a coordinator-run collection sync, **not a live background mirror**. Goo
 5. Refresh the [ratings and completion table](../README.md#ratings-and-completion), [all sheet/data links](../ratings/README.md) and collection summary from the same snapshot; verify the named export manifests, then commit and push the named collection artifacts. The name-enrichment command alone does not refresh completion status.
 
 Verified on 11-11-2026: the 12 primary CSVs match the exact restored sheet tables, and all original fields in Rylan, Sri and Yegor’s six-row submissions match pre-enrichment raw snapshots. The three normalized analysis exports reproduce their unchanged historical normalized inputs plus names. Synthetic checks cover A1 naming, zero versus missing scores, repeated export, wrong/unknown identity and duplicate items. No synthetic scores were written into real rating files or Google Sheets.
+
+## Replacement main round: keep its new item identities
+
+The native-agent replacement uses round ID `native-heavy-11-11-2026`. Its `item_id` values and descriptive paths differ from historical `setN` forms. Do not pass these exports into the legacy set-N importer or relabel them with historical IDs. Use the finalized participant `ASSEMBLY_RECEIPT.json` and its `artifact_joins` to validate the assigned items, person, candidate paths and file hashes.
+
+For each collection sync, preserve the fresh live table and source receipt, validate the exact eleven-column schema and first five identity values against that participant's frozen packet, then save the unchanged response values in `ratings/<Person>__native_main_<ID>.csv`. Snapshot the previous version before replacement. Unexpected identifiers, extra/duplicate rows or invalid scores require reconciliation before promoting the export; preserve the source evidence and do not repair participant answers by guessing. Score `0` is observed; an empty score or `N/A` is not a numeric rating. Missing, `no` or `unsure` attestations remain explicit and require coordinator review before treating a new response as complete.
+
+Deduplicate by `(round_id, rater_id, item_id)` and retain revision history. Count independent people per artifact; Brando's practice/author ratings are additional. Reused historical solver bytes do not make newly collected responses old ratings, and repeated exports do not create new observations. Update the raw manifest, both collection README tables and summary together. `build_packet.py verify-sheet` is only the pre-dispatch blank-form equality check; after people respond, compare the live table with its raw response export, not with the original blank form.
 
 ## Collection evidence — 11-11-2026
 
