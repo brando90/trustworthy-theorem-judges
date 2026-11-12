@@ -4,6 +4,20 @@
 
 **TLDR:** Start with [Brando’s six-file warm-up and personal Google Sheet](rating_task_packet/START_HERE.md). Then use [the current main task: 54 files in 25 task folders](rating_task_packet/main_rating_task/START_HERE.md). Collected ratings and completion status are below.
 
+## Send tonight — 11-11-2026
+
+**The first eight emails are prepared; the full main-rating allocation is not yet complete.** The real main pool is fixed at 54 files across 25 tasks: native Codex/GPT-6 Astra (25), native Claude Code/Claude Fable 5.1 (19), and Terminus 2/Grok 4.7 (10). Pi supplied no captured required-path submission. No further generation is required for this prepared round.
+
+| Recipient | Prepared first email | Next stage |
+| --- | --- | --- |
+| Rylan Schaeffer | Four main files, personal Sheet and ZIP | Rate his two assigned tasks |
+| Srivatsava Daruru (Sri) | Four main files, personal Sheet and ZIP | Rate his two assigned tasks |
+| Dilara Soylu, Allen Nie, Donald Poindexter Jr, Simon Obstbaum, Slava Naprienko, Nikil Ravi | Separate six-file warm-up packets and individual return routes | Check warm-up completion/qualification, then assign main tasks |
+
+**One review to use:** [the eight exact recipient emails and attachments](../../private/09_human_rating_collection/preparation_11-09-2026/REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md). All eight bodies, headers and attachments were checked against their recorded hashes on 11-11-2026. They remain unsent under Brando's earlier instruction to keep them prepared for review. His warm-up/pilot and exact-text review precede an explicit send instruction; completing all 54 of his main ratings is not required before the first team send.
+
+The requested finish is Friday, 11-13-2026 if possible, with Sunday, 11-15-2026 final. The full target is 108 independent main ratings: eight slots assigned and blank, **100 still unassigned**. This table covers the existing eight-recipient queue, not every earlier recruitment prospect. Packet readiness does not mean that every main rating has a person assigned.
+
 ## Do or edit the task
 
 - **Warm-up first:** [instructions and Sheet link](rating_task_packet/START_HERE.md), [blank form](rating_task_packet/ratings.csv), [median task](rating_task_packet/warm_up_01_median/) and [greatest-common-divisor task](rating_task_packet/warm_up_02_greatest_common_divisor/).
