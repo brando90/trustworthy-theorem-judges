@@ -45,7 +45,7 @@ def main():
     # The historical budget is validated above; it need not be the current paper design.
     assert "pending" in texts, "Keep the prospective study status explicit"
     for path in ROOT.rglob("*.json"):
-        if "private" not in path.parts and ".git" not in path.parts:
+        if not {"private", "research_artifacts", ".git"}.intersection(path.parts):
             json.loads(path.read_text())
     print("Project checks passed: design, mirrored instructions, sizing arithmetic, source hashes, official style, and paper inputs.")
 

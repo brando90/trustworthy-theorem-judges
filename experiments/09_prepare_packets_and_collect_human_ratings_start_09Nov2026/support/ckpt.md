@@ -5,9 +5,9 @@
 **TLDR:** Take over the complete packet-preparation and collection task. The current 54-file pool is built; next are Brando's trial ratings, instruction review, preparation of the Sri/Yegor/Brando first batch, exact-text approval, dispatch and collection. This checkpoint incorporates the form-consistency handoff; the successor has not yet been identified or verified.
 
 Created: 11-11-2026 22:23 PST
-Last updated: 11-12-2026 10:50 PST
+Last updated: 11-12-2026 11:59 PST
 
-**User-managed continuation, 11-12-2026 10:50 PST:** Brando asked to save the checkpoints and will handle the next steps himself. No experiment 09 Claude takeover was launched. Do not start a successor or send participant emails without his new explicit instruction. The remaining sequence is his trial ratings, instruction review, Yegor’s main materials and exact three-person email review, then his send decision.
+**User-managed continuation, 11-12-2026 11:59 PST:** Brando is driving `experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/` directly. `rating_task_packet/EMAIL_INSTRUCTIONS_V0.md` is now consolidated into a single warm-up + main-task email template aligned with the 11-column schema. Do not send participant emails without his explicit go-ahead on the filled recipient text. The remaining sequence is his trial ratings, instruction review, Yegor’s (`T02`) main assignment/Sheet/packet, fresh dates + filled three-person email review (Sri `T05`, Yegor `T02`, Brando `A1`), then his send decision and assigning the 100 unassigned slots.
 
 ## Goal
 
@@ -174,3 +174,5 @@ Related sizing work is saved separately in [experiment 15’s checkpoint](../../
 - 11-11-2026 22:29 PST — Collection coordinator extended the existing form-helper checkpoint into the full requested manual takeover, retained historical records and verified the current first-batch facts, local links, two manifest hashes and three archive hashes. All 66 project tests passed. Successor not yet named or confirmed.
 
 - 11-12-2026 10:50 PST — Saved final user-managed handoff after Brando said he would handle continuation. Experiment 09 takeover remains unlaunched; participant email remains held. No ratings, Sheets, packet files or scientific settings changed.
+
+- 11-12-2026 11:59 PST — Consolidated `rating_task_packet/EMAIL_INSTRUCTIONS_V0.md` into one template for both warm-up and main tasks with exact 11-column field names and routing notes, updated stale `_start_09Nov2026` checkpoint/doc links, repaired `scripts/check_project.py` JSON walk after `research_artifacts/` rename, reconciled diverged `main` with `origin/main`, and passed all 66 `experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/` tests plus `check_project.py`. No emails sent.
