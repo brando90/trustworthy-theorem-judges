@@ -1,0 +1,37 @@
+{
+  "task_id": "easy_set__20_mysumdigits",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "20_MySumDigits.py": "12df2a4a18060824b7e8ca7785afc9b1470831c3a55e76ac470ba9b93acd531d",
+    "instruction.md": "8ddb9567b9fed472dc934d5f5ca72dfd7806536f9310e6059d7f70e4a8e5f2cf"
+  },
+  "output": "/home/user/lean_project/Veribench/20_MySumDigits.lean",
+  "model_call_performed": false
+}

@@ -1,0 +1,328 @@
+{
+  "updated_at": "2026-11-12T03:23:17.760512+00:00",
+  "status": "interim",
+  "cohort_tasks": 25,
+  "terminal_tasks": 10,
+  "completed_usage_cost_upper_bound_usd": 2.2420530000000003,
+  "unresolved_request_reservations_usd": 1.10592,
+  "invalid_pilot_conservative_usd": 0.7204245,
+  "cost_interpretation": "Conservative cost bounds, ignoring cache discounts, not an invoice; unresolved requests retain the entire pre-request reservation.",
+  "records": [
+    {
+      "task_id": "realcode_set__20_html_escape",
+      "state": "terminal",
+      "status": "provider_error",
+      "artifact_status": "missing",
+      "provider_requests": 40,
+      "completed_usage_cost_upper_bound_usd": 0.38397525,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.38397525,
+      "supervision_recovery": false,
+      "gateway_denials": [
+        {
+          "at": "2026-11-12T00:57:55.078948+00:00",
+          "reason": "Provider request cap reached"
+        }
+      ],
+      "receipt_sha256": "b20194b19e55f468d1b61539032515880578a5307782a1bf3284d08bfc410dd7",
+      "ledger_sha256": "e6533c6fc89d9b0ef3b4262356a6d35efa525807d3ea936f322822f606e13699"
+    },
+    {
+      "task_id": "easy_set__23_is_prime",
+      "state": "terminal",
+      "status": "provider_error",
+      "artifact_status": "missing",
+      "provider_requests": 6,
+      "completed_usage_cost_upper_bound_usd": 0.04462425,
+      "unresolved_request_reservations_usd": 0.110592,
+      "conservative_usd": 0.15521625,
+      "supervision_recovery": false,
+      "gateway_denials": [
+        {
+          "at": "2026-11-12T01:00:01.884792+00:00",
+          "reason": "URLError"
+        }
+      ],
+      "receipt_sha256": "16f74dd0d06d8f1e19b80954197c57dae4adf10b5908d56a3dc203448e4c71c2",
+      "ledger_sha256": "25d47b091d8ee4f91f3b9719bd08d6a0565a9110b0e563e21ef4b75984e17f03"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "state": "terminal",
+      "status": "provider_error",
+      "artifact_status": "missing",
+      "provider_requests": 5,
+      "completed_usage_cost_upper_bound_usd": 0.014004,
+      "unresolved_request_reservations_usd": 0.110592,
+      "conservative_usd": 0.124596,
+      "supervision_recovery": false,
+      "gateway_denials": [
+        {
+          "at": "2026-11-12T01:11:57.796781+00:00",
+          "phase": "generate_content",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        }
+      ],
+      "receipt_sha256": "670bbb73703801a18ee00185420d879aa9a358c8785d09fef2c98cf7082f100d",
+      "ledger_sha256": "f47e023dfcfd881046bc5675e11f50ee5cd64bec7c1c29b058ef9ace1d38e1cc"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "state": "terminal",
+      "status": "provider_error",
+      "artifact_status": "missing",
+      "provider_requests": 4,
+      "completed_usage_cost_upper_bound_usd": 0.010494,
+      "unresolved_request_reservations_usd": 0.110592,
+      "conservative_usd": 0.121086,
+      "supervision_recovery": false,
+      "gateway_denials": [
+        {
+          "at": "2026-11-12T01:24:55.178972+00:00",
+          "phase": "generate_content",
+          "reason": "TimeoutError"
+        }
+      ],
+      "receipt_sha256": "6ddf0fac52cbf3e3bf740eada280a4c0fa995c08abffe1f68156524744494fad",
+      "ledger_sha256": "221e4d9c6d2cd96c3d5be6096e65cb805eb562914f0cd7b02dfe750f47f344a4"
+    },
+    {
+      "task_id": "easy_set__41_duplicate_chars",
+      "state": "terminal",
+      "status": "provider_error",
+      "artifact_status": "missing",
+      "provider_requests": 4,
+      "completed_usage_cost_upper_bound_usd": 0.00379575,
+      "unresolved_request_reservations_usd": 0.331776,
+      "conservative_usd": 0.33557175,
+      "supervision_recovery": false,
+      "gateway_denials": [
+        {
+          "at": "2026-11-12T01:28:45.864470+00:00",
+          "call": 2,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": false,
+          "retry_index": 0,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:28:51.137865+00:00",
+          "call": 3,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": false,
+          "retry_index": 1,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:29:06.328973+00:00",
+          "call": 4,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": true,
+          "retry_index": 2,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:29:06.330033+00:00",
+          "phase": "generate_content",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        }
+      ],
+      "receipt_sha256": "de782510d04662dafd849373550eef960cdfcc46754f2fb6847e863d0738f900",
+      "ledger_sha256": "9d4cd1cfdeddfba2326d297a42dfe79bb1d47c9fd58ed28c2a12327f2316426f"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "state": "terminal",
+      "status": "provider_error",
+      "artifact_status": "missing",
+      "provider_requests": 3,
+      "completed_usage_cost_upper_bound_usd": 0.0,
+      "unresolved_request_reservations_usd": 0.331776,
+      "conservative_usd": 0.331776,
+      "supervision_recovery": false,
+      "gateway_denials": [
+        {
+          "at": "2026-11-12T01:30:11.348360+00:00",
+          "call": 1,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": false,
+          "retry_index": 0,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:30:16.598537+00:00",
+          "call": 2,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": false,
+          "retry_index": 1,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:30:31.832435+00:00",
+          "call": 3,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": true,
+          "retry_index": 2,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:30:31.833180+00:00",
+          "phase": "generate_content",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        }
+      ],
+      "receipt_sha256": "89aac189a0f3339e4166138cefb6b654ed60fb917bba5c50fb9245085cf93fa7",
+      "ledger_sha256": "3a4b706436e5ca619ef4c039f9f9237cda756827caeffc58629937b09660db9f"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "state": "terminal",
+      "status": "timeout",
+      "artifact_status": "missing",
+      "provider_requests": 39,
+      "completed_usage_cost_upper_bound_usd": 0.40236225,
+      "unresolved_request_reservations_usd": 0.110592,
+      "conservative_usd": 0.5129542500000001,
+      "supervision_recovery": false,
+      "gateway_denials": [],
+      "receipt_sha256": "29cf0079aa6e309220e70caf3f8bf70756735534a03957002a2ea12f0eae9b08",
+      "ledger_sha256": "dfbf155fe00a4f32155799afd8766157547570793a7ee423a6ecfd1991b600de"
+    },
+    {
+      "task_id": "cs_set__topological_sort",
+      "state": "terminal",
+      "status": "recovered_native_terminal",
+      "artifact_status": "missing",
+      "provider_requests": 40,
+      "completed_usage_cost_upper_bound_usd": 0.6434775,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.6434775,
+      "supervision_recovery": true,
+      "gateway_denials": [
+        {
+          "at": "2026-11-12T02:59:46.874040+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        }
+      ],
+      "receipt_sha256": "9529e85a9999e88be74f1d7e57dd4b04cd7f453f209daacad53410a56cc538e9",
+      "ledger_sha256": "71659e9844e29ad94f66f2f8f342a6cd4d511401049eaea41be571c9413a11d4"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "state": "terminal",
+      "status": "recovered_native_terminal",
+      "artifact_status": "missing",
+      "provider_requests": 40,
+      "completed_usage_cost_upper_bound_usd": 0.4847865,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.4847865,
+      "supervision_recovery": true,
+      "gateway_denials": [
+        {
+          "at": "2026-11-12T02:58:40.589596+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        }
+      ],
+      "receipt_sha256": "137f182ecd28f7d9f834abb5b89f2aaa7fb90a896f79fec3fe3b1e83200ca118",
+      "ledger_sha256": "4140e65fefef31d510115c42861eb84e42c0698433b44b2c3a68c40c4ffa3428"
+    },
+    {
+      "task_id": "realcode_set__23_base32",
+      "state": "running",
+      "active_full_cap_reserved_usd": 0.75
+    },
+    {
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "state": "running",
+      "active_full_cap_reserved_usd": 0.75
+    },
+    {
+      "task_id": "cs_set__counting_sort",
+      "state": "running",
+      "active_full_cap_reserved_usd": 0.75
+    },
+    {
+      "task_id": "easy_set__16_myfactorial",
+      "state": "terminal",
+      "status": "provider_error",
+      "artifact_status": "missing",
+      "provider_requests": 15,
+      "completed_usage_cost_upper_bound_usd": 0.2545335,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.2545335,
+      "supervision_recovery": false,
+      "gateway_denials": [
+        {
+          "at": "2026-11-12T03:16:17.618875+00:00",
+          "phase": "generate_content",
+          "reason": "Input token cap exceeded"
+        }
+      ],
+      "receipt_sha256": "85b53b45c869d6096aa1e0f91d46f662e6e9cd3eb5ec5052044a5159eee73800",
+      "ledger_sha256": "5bbf9f4df8a6eaa831d1d11d3c5c4a412d74c13e348c037f0713f59eea0d1f20"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "state": "running",
+      "active_full_cap_reserved_usd": 0.75
+    },
+    {
+      "task_id": "easy_set__20_mysumdigits",
+      "state": "unattempted"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "state": "unattempted"
+    },
+    {
+      "task_id": "cs_set__heapsort_algorithm",
+      "state": "unattempted"
+    },
+    {
+      "task_id": "easy_set__19_mypower",
+      "state": "unattempted"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "state": "unattempted"
+    },
+    {
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "state": "unattempted"
+    },
+    {
+      "task_id": "cs_set__edit_distance",
+      "state": "unattempted"
+    },
+    {
+      "task_id": "realcode_set__21_shlex_quote",
+      "state": "unattempted"
+    },
+    {
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "state": "unattempted"
+    },
+    {
+      "task_id": "realcode_set__28_statistics_median_low",
+      "state": "unattempted"
+    },
+    {
+      "task_id": "cs_set__heap_sort",
+      "state": "unattempted"
+    }
+  ]
+}

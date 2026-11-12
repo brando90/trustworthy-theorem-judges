@@ -1,0 +1,34 @@
+{
+  "SpecOnly": {
+    "exit_code": 0,
+    "output": "",
+    "argv": [
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/SpecOnly.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/SpecOnly.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "Context": {
+    "exit_code": 1,
+    "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:1:13: error: type mismatch\n  fun f0 f1 =>\n    ?m.135 = True \u2227\n      ?m.140 = False \u2227\n        ?m.145 = False \u2227 ?m.150 = False \u2227 ?m.155 = True \u2227 ?m.160 = False \u2227 ?m.165 = False \u2227 ?m.170 = False \u2227 f0 = f1\nhas type\n  ?m.174 \u2192 ?m.174 \u2192 Prop : Sort (max 1 ?u.172)\nbut is expected to have type\n  Prop : Type\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:2:11: error: Function expected at\n  f0\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  True\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:3:20: error: Function expected at\n  f0\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  True\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:3:43: error: Function expected at\n  f0\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  False\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:3:68: error: Function expected at\n  f0\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  False\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:4:19: error: Function expected at\n  f1\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  True\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:4:46: error: Function expected at\n  f1\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  True\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:4:71: error: Function expected at\n  f1\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  False\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:5:8: error: Function expected at\n  f1\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  False\n",
+    "argv": [
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean"
+    ],
+    "timeout_seconds": 60
+  }
+}

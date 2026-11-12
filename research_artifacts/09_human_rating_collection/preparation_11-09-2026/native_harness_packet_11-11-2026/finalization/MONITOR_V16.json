@@ -1,0 +1,30 @@
+{
+  "pid": 1941,
+  "started_at": "2026-11-12T03:43:03.845413+00:00",
+  "command": [
+    "/Users/brandomiranda/uv_envs/no-gold-ref-judge/bin/python3",
+    "/Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings/support/scripts/native_packet_generation/finalize_cohort.py",
+    "--cohort",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PLANNED_COHORT_VALID_ENV_V2.json",
+    "--cohort-sha256",
+    "c386e59258e0a8c3c0dec8f0c2e5217d80efbcfb6c2c881c79feb9dcec67b7f2",
+    "--pi-index",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/VALID_INDEX_V3.json",
+    "--condition-lineage",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PROSPECTIVE_CONDITION_LINEAGE_V15.json",
+    "--condition-lineage-sha256",
+    "da111d0cbe342854b895c5f1b3408b3938fb05b43a8b88d0431b3f7f9c99341a",
+    "--output-dir",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization",
+    "--ratable-subset",
+    "--watch",
+    "--poll-seconds",
+    "30",
+    "--watch-seconds",
+    "54000"
+  ],
+  "helper_sha256": "6f9113dc1d46e3ec97a42d9f81b9143f980e6e1607a894234464cd736e6c8bcb",
+  "scope": "One receipt-only writer; V15 binds all six final CC response-cap evidence records. Pi seven untouched tasks remain pending; no premature freeze.",
+  "supersedes_monitor": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization/MONITOR_V15.json",
+  "watch_seconds": 54000
+}

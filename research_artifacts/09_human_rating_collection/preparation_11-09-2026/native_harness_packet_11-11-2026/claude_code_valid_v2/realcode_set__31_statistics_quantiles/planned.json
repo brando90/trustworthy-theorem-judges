@@ -1,0 +1,37 @@
+{
+  "task_id": "realcode_set__31_statistics_quantiles",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "31_statistics_quantiles.py": "ec7999fdd36f74110c5cb04c4aa0befbd056975b34bb685e94c0bb5dda3818f9",
+    "instruction.md": "d9b2939e9e6163cc7c397c8392df7433a9bc7216473c7b7d69e1654772e99843"
+  },
+  "output": "/home/user/lean_project/Veribench/31_statistics_quantiles.lean",
+  "model_call_performed": false
+}

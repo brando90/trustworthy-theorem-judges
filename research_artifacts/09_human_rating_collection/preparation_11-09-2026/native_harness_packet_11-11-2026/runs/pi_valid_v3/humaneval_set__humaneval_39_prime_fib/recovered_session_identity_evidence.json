@@ -1,0 +1,25 @@
+[
+  {
+    "session_file": "private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/pi-sessions_recovered/2026-11-12T02-32-29-883Z_01a1cd99-79ba-763f-8061-0f0d07e585b2.jsonl",
+    "session_sha256": "235f93ee953222920fd09eae9eb44560d40c82273e795ea93ab73f9a55425122",
+    "event": {
+      "type": "model_change",
+      "id": "7829c0fd",
+      "parentId": null,
+      "timestamp": "2026-11-12T02:32:29.917Z",
+      "provider": "allen-google-veribench",
+      "modelId": "gemini-3.8-flash"
+    }
+  },
+  {
+    "session_file": "private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/pi-sessions_recovered/2026-11-12T02-32-29-883Z_01a1cd99-79ba-763f-8061-0f0d07e585b2.jsonl",
+    "session_sha256": "235f93ee953222920fd09eae9eb44560d40c82273e795ea93ab73f9a55425122",
+    "event": {
+      "type": "thinking_level_change",
+      "id": "27962c7f",
+      "parentId": "7829c0fd",
+      "timestamp": "2026-11-12T02:32:29.917Z",
+      "thinkingLevel": "high"
+    }
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "command": [
+    "claude",
+    "-p",
+    "--dangerously-skip-permissions",
+    "--model",
+    "claude-fable-5-2",
+    "--effort",
+    "max",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--name",
+    "TTJ collection README light QA",
+    "--max-turns",
+    "18"
+  ],
+  "cwd": "/Users/brandomiranda/trustworthy-theorem-judges",
+  "auth": "verified claude.ai subscription max_20x",
+  "requested_model": "claude-fable-5-2",
+  "requested_effort": "max",
+  "started_at": "2026-11-11T12:51:05-0800",
+  "allowance": "unknown; one bounded documentation review",
+  "budget": "subscription; no key-billed fallback",
+  "base": "585ce8292ee1ba9ddeaf7271ba2ac50758ba2060"
+}

@@ -1,0 +1,37 @@
+{
+  "task_id": "cs_set__counting_sort",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "counting_sort.py": "874c75909e91d7abcdfe3ad65a72ce738061304df064f93b334044281fe4e6ec",
+    "instruction.md": "e252e1fd7307de83c741a112b433726294ee41e348fc4b56b1f1374c9cd6e4f6"
+  },
+  "output": "/home/user/lean_project/Veribench/counting_sort.lean",
+  "model_call_performed": false
+}

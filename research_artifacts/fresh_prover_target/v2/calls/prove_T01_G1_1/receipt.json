@@ -1,0 +1,28 @@
+{
+  "identity": "prove_T01_G1_1",
+  "role": "proof_search",
+  "started_utc": "2026-11-06T23:25:40.275527+00:00",
+  "request_sha256": "999c38d42731cd5e9f71aa88d7bfae2bd64b63813361ee6f74c9f3e0fa16292c",
+  "num_predict": 2048,
+  "settings": {
+    "think": false,
+    "num_predict": 2048
+  },
+  "seed": 11062327,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 20,
+  "prompt_eval_count": 1255,
+  "thinking_characters": 0,
+  "parsed": {
+    "proof": "by intro f0 f1 h; intro s; rw [h]"
+  },
+  "seconds": 4.558538874989608,
+  "finished_utc": "2026-11-06T23:25:44.835600+00:00",
+  "response_sha256": "16c74788f4371ff4761ba59b5086f44bca5f5183139508e04df750ff798b215a"
+}

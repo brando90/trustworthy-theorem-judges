@@ -1,0 +1,30 @@
+{
+  "identity": "forecast_T03_G1_J1_0",
+  "role": "forecast",
+  "started_utc": "2026-11-06T23:23:10.675335+00:00",
+  "request_sha256": "3e9d4f0cae3dffdfdfcb1fc5a067751f4ae1fb08692316394f39319b74457a50",
+  "num_predict": 1024,
+  "settings": {
+    "think": false,
+    "num_predict": 1024,
+    "prompt": "judge_J1.md"
+  },
+  "seed": 11062226,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 80,
+  "prompt_eval_count": 1029,
+  "thinking_characters": 0,
+  "parsed": {
+    "probability": 0.0,
+    "reason": "The candidate proposition enforces identical behavior for f0 and f1 on all inputs, but the GoldSpec requires f0 to behave differently based on the isRevoked argument (returning true when not revoked and false when revoked), which is impossible to satisfy simultaneously with the equality constraint f0 = f1."
+  },
+  "seconds": 12.221766708011273,
+  "finished_utc": "2026-11-06T23:23:22.899460+00:00",
+  "response_sha256": "075cff8ba034be652366c9112a1acebbbdd098442bdeea1d308f71fab359d582"
+}

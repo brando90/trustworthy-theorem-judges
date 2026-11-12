@@ -1,0 +1,192 @@
+{
+  "task_id": "humaneval_set__humaneval_15_string_sequence",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "humaneval_15_string_sequence.py": "8f4dde6215aa746cbc8642b82008ab0437f73b7f09394d0f001c1bca8d7c1f2d",
+    "instruction.md": "e4622569ec189ff7c90f632d14723d6c867dee8240c8206fb1a255dabaf8412c"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_15_string_sequence.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-7c850267fa67",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794449062.464284,
+  "exit_code": 0,
+  "stop_reason": "native_result",
+  "finished_at": 1794450236.556496,
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 532800,
+  "observed_output_tokens": 87569,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 13,
+    "messages_with_stop": 13,
+    "native_aggregate_usage": {
+      "input_tokens": 296,
+      "cache_creation_input_tokens": 73189,
+      "cache_read_input_tokens": 371746,
+      "output_tokens": 87569,
+      "output_tokens_details": {
+        "thinking_tokens": 70526
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 73189,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 1126219,
+    "stop_reason": "end_turn",
+    "session_id": "99b8e3df-19fa-4d09-94e2-9ebbf1c602c9",
+    "total_cost_usd": 5.938126499999999,
+    "usage": {
+      "input_tokens": 296,
+      "cache_creation_input_tokens": 73189,
+      "cache_read_input_tokens": 371746,
+      "output_tokens": 87569,
+      "output_tokens_details": {
+        "thinking_tokens": 70526
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 73189,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 296,
+        "outputTokens": 87569,
+        "cacheReadInputTokens": 371746,
+        "cacheCreationInputTokens": 73189,
+        "webSearchRequests": 0,
+        "costUSD": 5.938126499999999,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 70526,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 73189,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 13,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The formalization is complete and verified.\n\n**File written:** `/home/user/lean_project/Veribench/humaneval_15_string_sequence.lean`\n\n**Compile check:** `lake env lean` exits 0 with no errors or warnings. The only output is the expected `#eval` results and the \"Unable to find a counter-example\" lines from the eight Plausible property checks.\n\n**Modelling choices.** The input is a natural number, matching the docstring's \"from 0 up to n inclusive\" and the non-negative test inputs. `str(x)` is `toString` and `' '.join` is `\" \".intercalate`, so the functional definition is a direct transcription of the Python one-liner.\n\n**What is stated and proved** (22 theorems, all checked by the kernel using only `propext` and `Quot.sound`, no `sorry`):\n- Properties: the result for 0 is `\"0\"`; the recursive structure for `n + 1` appends a space and the next number; splitting the characters on a space yields exactly the decimal strings of 0 to n in order, a round trip proved via Mathlib's `List.splitOn_intercalate`; the number of spaces is exactly n; the length is the sum of the digit-string lengths plus n; the first character is '0'; the string ends with the decimal representation of n.\n- Correctness: `Pre n \u2192 Post_prop n`, with the post-condition the conjunction of all properties.\n- Equivalence: the imperative `for`-loop version with a mutable accumulator equals the functional one, proved via a general loop-to-fold lemma and induction.\n- Helper lemmas include a no-space lemma for decimal digit strings, which needed a custom proof since no such lemma exists in this Mathlib version.\n\n**Tests.** Unit tests cover all docstring and `check` examples. Every property has a randomized Plausible check and an exhaustive bounded check on inputs 0 to 39. `native_decide` appears only inside `example` tests. An extra bounded test also confirms the Python-like `String.splitOn \" \"` round trip, which is not stated as a theorem because the core `String.splitOn` has no supporting lemmas to reason with.",
+    "ttft_ms": 208767,
+    "type": "result",
+    "duration_ms": 1171295,
+    "uuid": "22df84cc-f6b5-4619-975b-c9a1143fcbd5",
+    "ttft_stream_ms": 3870,
+    "time_to_request_ms": 42,
+    "first_content_frame_ms": 3870,
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "model_usage_since_last_result": {
+      "claude-fable-5-1": {
+        "inputTokens": 296,
+        "outputTokens": 87569,
+        "cacheReadInputTokens": 371746,
+        "cacheCreationInputTokens": 73189,
+        "webSearchRequests": 0,
+        "costUSD": 5.938126499999999,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 70526,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 73189,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    }
+  },
+  "model_identity_verified": true,
+  "candidate_captured": true,
+  "candidate_sha256": "51d81e1dfa8559fdafa53f8061f300404ea4b98d9dd7d45683ab6afc464902b9",
+  "candidate_bytes": 16708,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

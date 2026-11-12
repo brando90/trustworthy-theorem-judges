@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-PRIVATE=ROOT.parents[1]/'private/fresh_prover_target'
+PRIVATE=ROOT.parents[1]/'research_artifacts/fresh_prover_target'
 def read(p):return json.loads(p.read_text())
 def main():
  v1=read(ROOT/'results/analysis.json');v2=read(ROOT/'conditions/nonthinking_v2/results/analysis.json');verification=read(ROOT/'results/verification.json')

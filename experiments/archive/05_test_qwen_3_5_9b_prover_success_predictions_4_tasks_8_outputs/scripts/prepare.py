@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT.parents[1]
-PRIVATE = PROJECT / 'private/fresh_prover_target'
+PRIVATE = PROJECT / 'research_artifacts/fresh_prover_target'
 VB = Path.home() / 'veribench'
 INF = Path.home() / 'veribench-inf'
 VB_REV = 'ec1f9b2a4455549ba98a4fdf94c9d30bf3a0522d'

@@ -1,0 +1,63 @@
+{
+  "target": "Natural.Coverage",
+  "candidate_sha256": "bbe59aa78316fb02a4f158ed36354f17fdabf466ed37326f1dc7583da7a36792",
+  "accepted": false,
+  "compile": {
+    "exit_code": 0,
+    "output": "",
+    "argv": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate__wicdeti\"))",
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate__wicdeti",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate__wicdeti/Candidate.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate__wicdeti/Candidate.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "replay": {
+    "exit_code": 1,
+    "output": "VB169_STRICT_KERNEL_REPLAY_JSON {\"typeExact\":false,\"typeDefEq\":false,\"skippedUnsafeOrPartial\":0,\"replayed\":true,\"olean\":\"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate__wicdeti/Candidate.olean\",\"nonce\":\"f06c4928af3ad7bbdd7f7fd78bdd5a955dd36dd6c333cc26\",\"name\":\"claim\",\"isTheorem\":true,\"extensionEntries\":247,\"error\":\"target type differs from the immutable expected type\",\"collisions\":[],\"candidateImports\":[\"Init\",\"Context\"],\"candidateConstants\":1,\"axioms\":[]}\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/trusted/Replay_f06c4928af3ad7bbdd7f7fd78bdd5a955dd36dd6c333cc26.lean:3:0: error: kernel replay rejected: target type differs from the immutable expected type\n",
+    "argv": [
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/trusted",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/trusted/Replay_f06c4928af3ad7bbdd7f7fd78bdd5a955dd36dd6c333cc26.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "records": [
+    {
+      "typeExact": false,
+      "typeDefEq": false,
+      "skippedUnsafeOrPartial": 0,
+      "replayed": true,
+      "olean": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate__wicdeti/Candidate.olean",
+      "nonce": "f06c4928af3ad7bbdd7f7fd78bdd5a955dd36dd6c333cc26",
+      "name": "claim",
+      "isTheorem": true,
+      "extensionEntries": 247,
+      "error": "target type differs from the immutable expected type",
+      "collisions": [],
+      "candidateImports": [
+        "Init",
+        "Context"
+      ],
+      "candidateConstants": 1,
+      "axioms": []
+    }
+  ],
+  "olean_sha256": "51cef847db11e56b2b1b33d70b327bbde1b3650f8e90a7b10162e3574419e86c",
+  "olean_unchanged": true,
+  "status": "kernel_replay_rejected",
+  "protected_intact": true
+}

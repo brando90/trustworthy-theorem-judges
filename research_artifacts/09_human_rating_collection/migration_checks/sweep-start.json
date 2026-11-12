@@ -1,0 +1,88 @@
+{
+ "results": [
+  {
+   "path": "/Users/brandomiranda/.worktrees/veribench/api-agents",
+   "status": "KEEP",
+   "reasons": [
+    "8 commits on no remote; 23 differ from origin/main: README.md, experiments/133_public_api_terminus2_pi_three_pipeline_integration/CKPT_api_agents.md, experiments/133_public_api_terminus2_pi_three_pipeline_integration/README.md ..."
+   ],
+   "notes": [],
+   "force": false,
+   "branch": "pi/api-agents",
+   "common": "/Users/brandomiranda/veribench/.git"
+  },
+  {
+   "path": "/Users/brandomiranda/.worktrees/veribench/e168-cases",
+   "status": "KEEP",
+   "reasons": [
+    "2 commits on no remote; 672 differ from origin/main: experiments/168_harsh_prover_pd_pf_detection_controls_tiny256_11-04-2026/cases/README.md, experiments/168_harsh_prover_pd_pf_detection_controls_tiny256_11-04-2026/cases/REPORT.md, experiments/168_harsh_prover_pd_pf_detection_controls_tiny256_11-04-2026/cases/cases.csv ..."
+   ],
+   "notes": [],
+   "force": false,
+   "branch": "claude/e168-cases",
+   "common": "/Users/brandomiranda/veribench/.git"
+  },
+  {
+   "path": "/Users/brandomiranda/.worktrees/veribench/prover-headline",
+   "status": "KEEP",
+   "reasons": [
+    "20 uncommitted/untracked paths, 1 commits on no remote; 147 differ from origin/main: AGENTS.md, CLAUDE.md, experiments/168_harsh_prover_pd_pf_detection_controls_tiny256_11-04-2026/AMENDMENT_LOG_11-04-2026.md ...",
+    "27 ignored files not in main checkout: experiments/168_harsh_prover_pd_pf_detection_controls_tiny256_11-04-2026/results/sandbox/logs/sandboxed_P3_include_str_proc_self_environ.log, experiments/168_harsh_prover_pd_pf_detection_controls_tiny256_11-04-2026/results/sandbox/logs/sandboxed_P1_include_str_relative_oracle.log, experiments/168_harsh_prover_pd_pf_detection_controls_tiny256_11-04-2026/results/sandbox/logs/sandboxed_P4_include_str_absolute_pi_config.log ..."
+   ],
+   "notes": [],
+   "force": false,
+   "branch": "claude/prover-fsc-headline-11-04-2026",
+   "common": "/Users/brandomiranda/veribench/.git"
+  },
+  {
+   "path": "/Users/brandomiranda/.worktrees/veribench/vb169-native-pi-transport",
+   "status": "KEEP",
+   "reasons": [
+    "170211 uncommitted/untracked paths (too many to compare)",
+    "3 ignored files not in main checkout: experiments/169_natural_output_prover_fsc_validation_11-06-2026/results/hosted_preflight/private/service_key, experiments/169_natural_output_prover_fsc_validation_11-06-2026/results/hosted_preflight/private/tunnel.log, experiments/169_natural_output_prover_fsc_validation_11-06-2026/results/hosted_preflight/private/tunnel_url"
+   ],
+   "notes": [],
+   "force": false,
+   "branch": "codex/vb169-native-pi-transport",
+   "common": "/Users/brandomiranda/veribench/.git"
+  },
+  {
+   "path": "/Users/brandomiranda/.worktrees/veribench/vb169-natural-extraction",
+   "status": "KEEP",
+   "reasons": [
+    "170308 uncommitted/untracked paths (too many to compare)"
+   ],
+   "notes": [],
+   "force": false,
+   "branch": "codex/vb169-natural-extraction",
+   "common": "/Users/brandomiranda/veribench/.git"
+  },
+  {
+   "path": "/Users/brandomiranda/.worktrees/veribench/vb169-overnight-1106",
+   "status": "KEEP",
+   "reasons": [
+    "95 ignored files not in main checkout: experiments/169_natural_output_prover_fsc_validation_11-06-2026/publication/final_verification_11-07-2026/unit_tests.log, experiments/169_natural_output_prover_fsc_validation_11-06-2026/publication/overnight_11-06-2026_00_main_arxiv_2026_build.log, experiments/169_natural_output_prover_fsc_validation_11-06-2026/publication/overnight_11-06-2026_00_main_tmlr_2026_build.log ..."
+   ],
+   "notes": [],
+   "force": false,
+   "branch": "codex/vb169-overnight-1106",
+   "common": "/Users/brandomiranda/veribench/.git"
+  },
+  {
+   "path": "/Users/brandomiranda/.worktrees/veribench/vbv1-prover-fsc-adoption-1106",
+   "status": "KEEP",
+   "reasons": [
+    "3 uncommitted/untracked paths; 3 differ from origin/main: experiments/169_natural_output_prover_fsc_validation_11-06-2026/results/natural_contexts/full100_ledger.csv, experiments/169_natural_output_prover_fsc_validation_11-06-2026/scripts/extraction_implementation_stanford.md, experiments/169_natural_output_prover_fsc_validation_11-06-2026/scripts/lean/STRICT_CHECKER_REQUIRED.md",
+    "219 ignored files not in main checkout: experiments/169_natural_output_prover_fsc_validation_11-06-2026/publication/continuation_response_001.json, experiments/169_natural_output_prover_fsc_validation_11-06-2026/publication/continuation_runtime.json, experiments/169_natural_output_prover_fsc_validation_11-06-2026/results/archived_proof_replay_v2/pi_primary/C_0970d457475bbd76/Candidate.olean ..."
+   ],
+   "notes": [],
+   "force": false,
+   "branch": "codex/vbv1-prover-fsc-adoption-1106",
+   "common": "/Users/brandomiranda/veribench/.git"
+  }
+ ],
+ "actions": [],
+ "prunable": [],
+ "empty": [],
+ "clones": []
+}

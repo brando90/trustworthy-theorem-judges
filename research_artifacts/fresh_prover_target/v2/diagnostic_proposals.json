@@ -1,0 +1,4 @@
+{
+  "T01_G0": "by\n  refine \u27e8fun _ => 0, fun _ => 0, ?_, ?_\u27e9\n  \u00b7 intro s; rfl\n  \u00b7 intro h\n    have impossible : (0 : Nat) = 1 := h.2.1 'a'\n    omega",
+  "T04_G0": "by\n  refine \u27e8fun _ _ => false, fun _ _ => false, ?_, ?_\u27e9\n  \u00b7 intro a b; rfl\n  \u00b7 intro h\n    have impossible : false = true := (h.1 \"\" \"\").2 rfl\n    cases impossible"
+}

@@ -1,0 +1,30 @@
+{
+  "identity": "preflight_J1_semantic0",
+  "role": "preflight",
+  "started_utc": "2026-11-06T23:19:27.962695+00:00",
+  "request_sha256": "8d84285f3ad3a1d9574a98575f73fc1ae132edef01f732103fe819745a1fd736",
+  "num_predict": 1024,
+  "settings": {
+    "think": false,
+    "num_predict": 1024,
+    "prompt": "judge_J1.md"
+  },
+  "seed": 11062036,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 46,
+  "prompt_eval_count": 464,
+  "thinking_characters": 0,
+  "parsed": {
+    "probability": 1.0,
+    "reason": "The candidate specification is semantically equivalent to the gold specification, and the fixed tactic sequence is sufficient to prove both goals via identity."
+  },
+  "seconds": 6.4722456249874085,
+  "finished_utc": "2026-11-06T23:19:34.437030+00:00",
+  "response_sha256": "1264c1b42427fd8bd45e96590d1d5996670b6aad7c72a16672c656d8c50478e4"
+}

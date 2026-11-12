@@ -1,0 +1,3 @@
+# Review reconciliation
+
+Claude Fable 5.2 / max returned PASS: zero critical, zero major, seven minor findings. All seven were addressed in the same round: retained existing-import/nonduplication wording; identified Slava’s replacement as unsent; named Brando’s entry point and draft status; corrected active layout prose/tree; repaired the repository README dispatch anchor; preserved collection-evidence and no-reminders caveats; polished headers, terminology, hidden-key wording, whitespace and Cursor layout guidance. Also corrected the stale current 18-column sentence in the coordinator guide to the verified eleven-column form. Historical dated source records remain unchanged. No second review requested or run. Parent deterministic checks verify the resulting patch.

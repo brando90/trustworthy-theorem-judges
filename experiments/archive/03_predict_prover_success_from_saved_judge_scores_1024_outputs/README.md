@@ -12,7 +12,7 @@ The first execution reuses 1,024 historical Tiny256 artifacts and learns a proba
 - [Results](RESULTS.md): aggregate metrics and uncertainty, generated from saved receipts.
 - [Protocol](PROTOCOL.md): estimand, Brier loss, splits, controls, limitations and smallest future pilot.
 - [Source audit](SOURCE_AUDIT.md): actual prover implementation, historical gates and integrity gaps.
-- [Runbook](RUNBOOK.md): exact reproduction commands and private/public boundaries.
+- [Runbook](RUNBOOK.md): exact reproduction commands and research_artifacts/public boundaries.
 - [Forecast prompt](prompts/binary_forecast.md): explicit probability of protocol acceptance.
 - [Source hashes](sources/provenance.json), [configuration](config.json), [checkpoint](CKPT_prover_target.md).
 

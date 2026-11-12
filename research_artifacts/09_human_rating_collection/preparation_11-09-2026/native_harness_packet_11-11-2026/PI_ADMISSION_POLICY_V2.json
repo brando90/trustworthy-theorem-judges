@@ -1,0 +1,23 @@
+{
+  "clean_terminal": "Runner completes or reaches an original solver budget without any external provider/transport denial or missing accounting. Artifact absence does not by itself prevent healthy continuation.",
+  "condition_file": "PI_CONDITION_VALID_V6.json",
+  "condition_sha256": "ebed8c67076c340876f81c6d40e20e0ffae2bc08b86dc4d582ac0c467269eb4e",
+  "cooldown_seconds": 1800,
+  "current_seventh_task": "humaneval_set__humaneval_35_max_element",
+  "cutoff_scope": "No additional outage-recovery admission after this cutoff. Healthy serial continuation remains authorized within original per-cell and global budgets.",
+  "frozen_at": "2026-11-12T02:06:10.782114+00:00",
+  "latest_recovery_admission_local": "02:00 AM Pacific on 11-12-2026",
+  "latest_recovery_admission_utc": "2026-11-12T10:00:00+00:00",
+  "maximum_additional_recovery_admissions": 2,
+  "parent_authorization": "Continue untouched cells serially after a clean terminal recovery outcome. If service errors recur, at most two additional recovery admissions tonight, each after a 30-minute cooldown; preserve pending cells if recovery fails. No terminal reruns, model changes or cap resets.",
+  "prior_terminal_at_freeze": 6,
+  "recoverable_service_events": [
+    "HTTP 503 before response, including exhausted two-retry group",
+    "TimeoutError at the configured 600-second provider request timeout"
+  ],
+  "scope": "The original 25-task cohort; first seven attempts remain immutable. This policy governs admission timing for the remaining 18 tasks, after the currently active seventh cell finishes.",
+  "status": "FROZEN",
+  "stop_outcome": "After two recovery admissions are consumed and service failure persists, or recovery-admission cutoff is reached, leave untouched tasks explicitly pending_provider_availability. Never count pending tasks as attempted or zero-scored.",
+  "terminal_outcomes": "Every original task gets at most one solver attempt. Recovered HTTP 503 requests stay inside the same conversation and existing request/time/dollar caps.",
+  "unknown_infrastructure": "Stop admissions for diagnosis; do not automatically retry authentication, quota, malformed payload, missing accounting or unknown errors."
+}

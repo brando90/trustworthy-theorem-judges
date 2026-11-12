@@ -1,0 +1,83 @@
+{
+  "caps": {
+    "attempts_per_task": 1,
+    "max_generation_requests_per_task": 40,
+    "max_input_tokens_per_request": 65536,
+    "max_output_including_thinking_tokens_per_request": 16384,
+    "tasks": 25,
+    "usd_25_task_total": 20.0,
+    "usd_per_task": 0.8,
+    "wall_seconds_per_task": 1800
+  },
+  "checked_at_utc": "2026-11-12T00:34:55.090311+00:00",
+  "cost_planning_examples_not_measurements": [
+    {
+      "assumption": "20 calls/task averaging 4000 input and 1000 output tokens",
+      "total_25_tasks_usd": 3.375
+    },
+    {
+      "assumption": "20 calls/task averaging 12000 input and 4000 output tokens",
+      "total_25_tasks_usd": 12.0
+    }
+  ],
+  "credential_reference": "~/keys/gemini_allen_key.txt; load only at runtime into gateway environment",
+  "fixture_path": "private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_readiness_fixture",
+  "harness": {
+    "name": "Pi",
+    "node": "22.19.0",
+    "package": "@earendil-works/pi-coding-agent@1.5.2",
+    "version": "1.5.2"
+  },
+  "image_id": "sha256:8ca8a93c0c961b171152e43d12822e35dd06f73317aebe9e60f46b88f99ea8de",
+  "isolation": {
+    "gateway": "countTokens before each admitted stream; reserve input plus max output cost; no refund on incomplete response",
+    "host_mounts": [],
+    "no_automatic_retry": true,
+    "runtime_key_location": "gateway container only; solver has dummy key",
+    "solver_network": "private internal-only Docker network",
+    "source_inputs": "parent-approved manifest file allowlist copied into fresh Lean project"
+  },
+  "measured_generation_calls": 0,
+  "model": {
+    "description": "Gemini 3.8 Flash",
+    "displayName": "Gemini 3.8 Flash",
+    "inputTokenLimit": 1048576,
+    "maxTemperature": 2,
+    "name": "models/gemini-3.8-flash",
+    "outputTokenLimit": 65536,
+    "supportedGenerationMethods": [
+      "generateContent",
+      "countTokens",
+      "createCachedContent",
+      "batchGenerateContent"
+    ],
+    "temperature": 1,
+    "thinking": true,
+    "topK": 64,
+    "topP": 0.95,
+    "version": "3.0"
+  },
+  "prices": {
+    "cache_discounts_ignored_for_cap": true,
+    "input_per_million_usd": 0.75,
+    "output_including_thinking_per_million_usd": 3.75,
+    "source": "https://ai.google.dev/gemini-api/docs/pricing/",
+    "valid_through": "12-31-2026"
+  },
+  "provider_route": "Allen Google key, existing authorized VeriBench scope",
+  "remaining_before_measured_execution": [
+    "Parent freezes task manifests and records exact source-only25task cohort",
+    "Parent admits measured Pi cells using frozen config and this immutable image; no model replacement"
+  ],
+  "role": "Practical current Pi comparator; not a claim of strongest Google or frontier model",
+  "runner_path": "experiments/09_human_rating_collection/support/scripts/native_packet_generation/pi_runner.py",
+  "runner_sha256": "0b25799623189faeb48cddbe45546f9a396fe0dc96a853f044f16fd4ca7dd807",
+  "status": "ready_for_parent_manifest_freeze_and_admission",
+  "verified": [
+    "Native Pi offline fixture produced HIGH thinking and16384 output limit",
+    "Full native payload countTokens returned HTTP200,1331 tokens; no generation",
+    "Docker orchestration with invalid fixture key admitted zero generation requests, accounted0; actual Pi reported provider_error",
+    "Budget reservation/refund, input/output/call caps and disallowed tool/thinking rejection checked",
+    "Python compilation and git diff whitespace check pass"
+  ]
+}

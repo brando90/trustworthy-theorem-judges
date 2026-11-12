@@ -1,0 +1,37 @@
+{
+  "task_id": "cs_set__heap_sort",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "heap_sort.py": "9194b262a2b0d0ed6195687c4fdfef67b287f28605d2b3c8ac3cd63a6bfc2fbd",
+    "instruction.md": "f7f290893fba57a91795fa73020836a0465609e64a55e24b55fe4c668afb2bea"
+  },
+  "output": "/home/user/lean_project/Veribench/heap_sort.lean",
+  "model_call_performed": false
+}

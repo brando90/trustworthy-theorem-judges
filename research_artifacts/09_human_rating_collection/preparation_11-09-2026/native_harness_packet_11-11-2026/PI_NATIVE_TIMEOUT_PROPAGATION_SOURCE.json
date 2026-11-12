@@ -1,0 +1,38 @@
+[
+  {
+    "file": "/usr/lib/node_modules/@earendil-works/pi-coding-agent/dist/core/sdk.js",
+    "sha256": "c43e4e1d49ac3ec4b9f48465bf2081bc5980b55f23d44040d02e9046dea45725",
+    "matches": [
+      {
+        "line": 194,
+        "context": "    const cacheWarmer = new CacheWarmer(modelRuntime, sessionManager, () => settingsManager.getCacheWarmingMode(), async (event) => extensionRunnerRef.current?.emitCacheWarmingDecision(event) ?? event.action);\n    const buildRequestOptions = (options = {}) => {\n        const providerRetrySettings = settingsManager.getProviderRetrySettings();\n        const httpIdleTimeoutMs = settingsManager.getHttpIdleTimeoutMs();\n        const effectiveTimeoutMs = httpIdleTimeoutMs === 0 ? 2147483647 : httpIdleTimeoutMs;\n        const headerRunner = extensionRunnerRef.current;\n        return {"
+      },
+      {
+        "line": 200,
+        "context": "        return {\n            ...options,\n            timeoutMs: options.timeoutMs ?? providerRetrySettings.timeoutMs ?? effectiveTimeoutMs,\n            websocketConnectTimeoutMs: options.websocketConnectTimeoutMs ?? settingsManager.getWebSocketConnectTimeoutMs(),\n            maxRetries: options.maxRetries ?? providerRetrySettings.maxRetries,\n            maxRetryDelayMs: options.maxRetryDelayMs ?? providerRetrySettings.maxRetryDelayMs,\n            // Replaces the agent loop's default identity; read per request so telemetry changes apply at once."
+      },
+      {
+        "line": 202,
+        "context": "            timeoutMs: options.timeoutMs ?? providerRetrySettings.timeoutMs ?? effectiveTimeoutMs,\n            websocketConnectTimeoutMs: options.websocketConnectTimeoutMs ?? settingsManager.getWebSocketConnectTimeoutMs(),\n            maxRetries: options.maxRetries ?? providerRetrySettings.maxRetries,\n            maxRetryDelayMs: options.maxRetryDelayMs ?? providerRetrySettings.maxRetryDelayMs,\n            // Replaces the agent loop's default identity; read per request so telemetry changes apply at once.\n            identity: getClientIdentity(settingsManager),\n            transformHeaders: async (headers) => headerRunner?.hasHandlers(\"before_provider_headers\")"
+      },
+      {
+        "line": 203,
+        "context": "            websocketConnectTimeoutMs: options.websocketConnectTimeoutMs ?? settingsManager.getWebSocketConnectTimeoutMs(),\n            maxRetries: options.maxRetries ?? providerRetrySettings.maxRetries,\n            maxRetryDelayMs: options.maxRetryDelayMs ?? providerRetrySettings.maxRetryDelayMs,\n            // Replaces the agent loop's default identity; read per request so telemetry changes apply at once.\n            identity: getClientIdentity(settingsManager),\n            transformHeaders: async (headers) => headerRunner?.hasHandlers(\"before_provider_headers\")\n                ? headerRunner.emitBeforeProviderHeaders(headers)"
+      },
+      {
+        "line": 287,
+        "context": "        transport: settingsManager.getTransport(),\n        thinkingBudgets: settingsManager.getThinkingBudgets(),\n        maxRetryDelayMs: settingsManager.getProviderRetrySettings().maxRetryDelayMs,\n    });\n    // This stream resolves auth through modelRuntime, so summaries must not pre-resolve it (#11520).\n    markRuntimeStreamFunction(agent.streamFunction, modelRuntime);\n    // Restore missing settings metadata for older sessions."
+      }
+    ]
+  },
+  {
+    "file": "/usr/lib/node_modules/@earendil-works/pi-coding-agent/dist/core/settings-manager.js",
+    "sha256": "66edb495ff9767e7f2ce0d2f4e2d102532e4b396ad7bc7c3c648c7c12c0fe71d",
+    "matches": [
+      {
+        "line": 734,
+        "context": "        this.save();\n    }\n    getProviderRetrySettings() {\n        return {\n            timeoutMs: this.settings.retry?.provider?.timeoutMs,\n            maxRetries: this.settings.retry?.provider?.maxRetries,\n            maxRetryDelayMs: this.settings.retry?.provider?.maxRetryDelayMs ?? SETTINGS_DEFAULTS.retry.provider.maxRetryDelayMs,"
+      }
+    ]
+  }
+]

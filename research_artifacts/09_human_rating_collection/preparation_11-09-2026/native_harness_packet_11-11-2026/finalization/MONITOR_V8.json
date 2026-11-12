@@ -1,0 +1,30 @@
+{
+  "pid": 79461,
+  "started_at": "2026-11-12T02:17:13.531180+00:00",
+  "command": [
+    "/Users/brandomiranda/uv_envs/no-gold-ref-judge/bin/python3",
+    "/Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings/support/scripts/native_packet_generation/finalize_cohort.py",
+    "--cohort",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PLANNED_COHORT_VALID_ENV_V2.json",
+    "--cohort-sha256",
+    "c386e59258e0a8c3c0dec8f0c2e5217d80efbcfb6c2c881c79feb9dcec67b7f2",
+    "--pi-index",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/VALID_INDEX_V3.json",
+    "--condition-lineage",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PROSPECTIVE_CONDITION_LINEAGE_V9.json",
+    "--condition-lineage-sha256",
+    "39fb03d76625d6073094a53dd3759f0c5f6586bf6f24ac176fddee556448d693",
+    "--output-dir",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization",
+    "--ratable-subset",
+    "--watch",
+    "--poll-seconds",
+    "30",
+    "--watch-seconds",
+    "54000"
+  ],
+  "helper_sha256": "ae497447dfa00f6e465f7969ace7c1e48ed471b08f49b5c4ef1c49e212ea7664",
+  "scope": "One receipt-only writer; lineage V9 binds exact derived identity/cap evidence without relaxing captured-artifact admission or changing raw receipts.",
+  "supersedes_monitor": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization/MONITOR_V7.json",
+  "watch_seconds": 54000
+}

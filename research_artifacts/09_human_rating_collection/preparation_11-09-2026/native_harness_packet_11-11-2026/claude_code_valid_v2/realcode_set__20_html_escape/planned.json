@@ -1,0 +1,37 @@
+{
+  "task_id": "realcode_set__20_html_escape",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "20_html_escape.py": "6f39b1bd6ebfb76f6d189a05ae0700a231d1b9101eb6a96388a335736485a04c",
+    "instruction.md": "95cbb6dcc34813e5804d2fba2cb1a0850b79dc132fac7768bf593e64a4d3e772"
+  },
+  "output": "/home/user/lean_project/Veribench/20_html_escape.lean",
+  "model_call_performed": false
+}

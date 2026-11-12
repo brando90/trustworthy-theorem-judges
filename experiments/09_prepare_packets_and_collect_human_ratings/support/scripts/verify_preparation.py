@@ -7,7 +7,7 @@ from pathlib import Path
 from zipfile import ZipFile
 
 ROOT = Path(__file__).resolve().parents[4]
-PREP = ROOT / 'private/09_human_rating_collection/preparation_11-09-2026'
+PREP = ROOT / 'research_artifacts/09_human_rating_collection/preparation_11-09-2026'
 
 
 def digest(path):
@@ -28,7 +28,7 @@ def main():
             if name.endswith('/'):
                 continue
             relative = Path(name).relative_to('VeriBench_Brando_Rating_Packet_Human1')
-            assert (ROOT / 'private/original' / relative).read_bytes() == z.read(name), name
+            assert (ROOT / 'research_artifacts/original' / relative).read_bytes() == z.read(name), name
             if relative.parent.name == 'agent_lean':
                 candidates.add((relative.parts[0], relative.name))
     assert len(candidates) == 125

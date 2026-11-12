@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "status": "BUILT_SHEET_MATCHED_NOT_SENT",
+  "release_ready": true,
+  "round_id": "native-heavy-11-11-2026",
+  "cohort_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization/RATABLE_COHORT.json",
+  "cohort_sha256": "8463f6c846839c78fccf8102f3672ff94a20562dba7871b13d81e8cca693de22",
+  "shuffle_seed": "native-heavy-11-11-2026|participant-blinding-v1",
+  "rater_name": "Srivatsava Daruru (Sri)",
+  "rater_id": "T05",
+  "sheet_url": "https://docs.google.com/spreadsheets/d/163ZxKeTXqseLrmwY-b5QjqeBulinHsZAiAPo1zsJdJI/edit",
+  "task_count": 2,
+  "artifact_count": 4,
+  "empty_artifact_count": 0,
+  "packet_directory": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/builds/native_heavy_terminal_v1/T05/rating_task_packet",
+  "archive_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/builds/native_heavy_terminal_v1/T05/rating_packet_native-heavy-11-11-2026_T05.zip",
+  "archive_sha256": "105ec1347c817055469d65ebf09242a7c49cc84f1194c6319403e50102aee015",
+  "files_manifest_sha256": "b3b651f1fdc1507cac9badf931a375e310620fcaa257f23b29fe410184eb68b4",
+  "form_schema_version": "rating_context_v5_11-11-2026",
+  "form_schema_sha256": "4e63560ceda5a1cf1329bd838118c52562ba6a302c4088dc5dc2fbfd253c878e",
+  "rubric_sha256": "a315af368d3667dc23da2183ec8b22ff7e4917b606c5e94dc92bc741aada9735",
+  "guide_sha256": "042fc865a3bb25422a90962f792f11f676f2b7b283408f930230148dc15cb1a4",
+  "configurations": {
+    "historical_codex_astra": {
+      "harness": "Codex",
+      "model": "gpt-6-astra",
+      "effort": "xhigh",
+      "cli_version": "0.154.0",
+      "instruction_version": 5,
+      "expected_artifacts": 25,
+      "cohort": "historical",
+      "source_manifest": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/INPUT_MANIFEST.json",
+        "sha256": "e7a46a58a90cc23491f3db033d7dc749616f160da0b868962a3b5d8ec1b61e29"
+      }
+    },
+    "native_claude_fable": {
+      "harness": "Claude Code",
+      "model": "claude-fable-5-1",
+      "effort": "max",
+      "instruction_version": 8,
+      "expected_artifacts": 25,
+      "cohort": "prospective",
+      "output_root": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2",
+      "planned_condition_snapshot": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+        "sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+        "status_at_planning": "FROZEN"
+      },
+      "finalization_note": "Use only the corrected valid-environment root and exact admitted condition. Original environment-invalid pilot evidence remains excluded and preserved. Resolve every planned cell from its terminal receipt without quality-based reruns or omissions."
+    },
+    "pi_gemini_flash": {
+      "harness": "Pi",
+      "model": "gemini-3.8-flash",
+      "effort": "high",
+      "cli_version": "1.5.2",
+      "instruction_version": 8,
+      "expected_artifacts": 25,
+      "cohort": "prospective",
+      "output_root": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3",
+      "planned_condition_snapshot": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V3.json",
+        "sha256": "a8087b31b8321d82303bd44ef685648ef70db700ae7a1bbd77fbd6d50efe3c52",
+        "status_at_planning": "FROZEN"
+      },
+      "finalization_note": "Use only the corrected valid-environment root and exact admitted condition. Original environment-invalid pilot evidence remains excluded and preserved. Resolve every planned cell from its terminal receipt without quality-based reruns or omissions."
+    },
+    "historical_terminus_grok": {
+      "harness": "Terminus 2",
+      "model": "grok/grok-4.7-xhigh",
+      "effort": "xhigh",
+      "instruction_version": 7,
+      "expected_artifacts": 10,
+      "cohort": "historical",
+      "source_manifest": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/GROK_BASELINE_MANIFEST.json",
+        "sha256": "c7800d83b2b5738dd035c231da8d7a4202d97f051d81a4a1805fd76e831a112a"
+      },
+      "selection_rule": "Sort the 25 task IDs by SHA256 UTF-8(native-heavy-11-11-2026| + task_id), ascending; take the first 10. No outcome-based selection."
+    }
+  },
+  "artifact_joins": [
+    {
+      "round_id": "native-heavy-11-11-2026",
+      "rater_id": "T05",
+      "item_id": "native-heavy-11-11-2026__item082",
+      "task_id": "realcode_set__20_html_escape",
+      "task_folder": "task_11_html_escaping",
+      "candidate_file": "task_11_html_escaping/agent_lean/agent_2.lean",
+      "configuration_id": "historical_codex_astra",
+      "candidate_status": "nonempty",
+      "hashes": {
+        "python": "6f39b1bd6ebfb76f6d189a05ae0700a231d1b9101eb6a96388a335736485a04c",
+        "gold": "9e17161c558cb9d5d3e9d4a81b64a4848b8260d1181958cbc4fea896e220a745",
+        "candidate": "1e3b30b4e78b1ed4dea2c970392caf011c4fdb04a58e387535f06b34aa0f3e3f"
+      },
+      "source_paths": {
+        "python": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/realcode_set__20_html_escape/20_html_escape.py",
+        "gold": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/gold_reference/realcode_set__20_html_escape/20_html_escape.lean",
+        "candidate": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/realcode_set__20_html_escape/candidate.lean"
+      },
+      "payload_content_key": "fa06560da06e7b831dde69e7412ddf09c41ae46c0fd8070f7cbc2f65503dd891",
+      "observation_key": [
+        "native-heavy-11-11-2026",
+        "T05",
+        "native-heavy-11-11-2026__item082"
+      ],
+      "provenance": {
+        "historical_packet_task_folder": "N01",
+        "input_manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/INPUT_MANIFEST.json",
+        "input_manifest_sha256": "e7a46a58a90cc23491f3db033d7dc749616f160da0b868962a3b5d8ec1b61e29",
+        "generation_instruction_version": 5,
+        "source_experiment": "85_E4_vb896_agents_astra_opus5_judges_astra",
+        "historical_original_candidate_path": "/Users/brandomiranda/veribench/research_archive/experiments/85_E4_vb896_agents_astra_opus5_judges_astra/outputs/codex/realcode_set__20_html_escape/candidate.lean",
+        "historical_instruction_sha256": "ba9dbfb8966b21c8830da68b5257aa57822371ae4a6348fc55a21b712e4828c4",
+        "historical_gold_sha256": "800f10c71d342288ff66e66eca5dd7e0faeb5304b6a81aaa8c93e4fe0bd9b066",
+        "historical_condition": {
+          "model": "gpt-6-astra",
+          "effort": "xhigh",
+          "cli_version": "0.154.0",
+          "instruction_version": 5,
+          "historical_instruction_sha256": "ba9dbfb8966b21c8830da68b5257aa57822371ae4a6348fc55a21b712e4828c4",
+          "historical_gold_sha256": "800f10c71d342288ff66e66eca5dd7e0faeb5304b6a81aaa8c93e4fe0bd9b066",
+          "current_gold_matches_historical": false
+        }
+      }
+    },
+    {
+      "round_id": "native-heavy-11-11-2026",
+      "rater_id": "T05",
+      "item_id": "native-heavy-11-11-2026__item017",
+      "task_id": "realcode_set__20_html_escape",
+      "task_folder": "task_11_html_escaping",
+      "candidate_file": "task_11_html_escaping/agent_lean/agent_3.lean",
+      "configuration_id": "native_claude_fable",
+      "candidate_status": "nonempty",
+      "hashes": {
+        "python": "6f39b1bd6ebfb76f6d189a05ae0700a231d1b9101eb6a96388a335736485a04c",
+        "gold": "9e17161c558cb9d5d3e9d4a81b64a4848b8260d1181958cbc4fea896e220a745",
+        "candidate": "8c5151315652663b79b93cc8b59d0d53c8d5cfd759fad1abb519e9dd7d2a53a4"
+      },
+      "source_paths": {
+        "python": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/realcode_set__20_html_escape/20_html_escape.py",
+        "gold": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/gold_reference/realcode_set__20_html_escape/20_html_escape.lean",
+        "candidate": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/realcode_set__20_html_escape/candidate.lean"
+      },
+      "payload_content_key": "9103f2933b6188092082ea31c2be65dbf23468dc111b640a0fe243271aaec4ad",
+      "observation_key": [
+        "native-heavy-11-11-2026",
+        "T05",
+        "native-heavy-11-11-2026__item017"
+      ],
+      "provenance": {
+        "historical_packet_task_folder": "N01",
+        "input_manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/INPUT_MANIFEST.json",
+        "input_manifest_sha256": "e7a46a58a90cc23491f3db033d7dc749616f160da0b868962a3b5d8ec1b61e29",
+        "generation_instruction_version": 8,
+        "expected_receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/realcode_set__20_html_escape/receipt.json",
+        "receipt_sha256": "d68574baca1e678369b577b616177a34ac2b9c6871f7ee533ee48f7f5e891226",
+        "instruction_sha256": "95cbb6dcc34813e5804d2fba2cb1a0850b79dc132fac7768bf593e64a4d3e772",
+        "execution_verified": true,
+        "note": "Actual returned bytes, including partial/empty artifacts; execution status is preserved and is not a correctness verdict.",
+        "execution_status": "TERMINAL",
+        "stop_reason": "wall_time_budget",
+        "execution_condition": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+          "sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c"
+        },
+        "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+        "candidate_bytes": 36420,
+        "blank_content": false
+      }
+    },
+    {
+      "round_id": "native-heavy-11-11-2026",
+      "rater_id": "T05",
+      "item_id": "native-heavy-11-11-2026__item067",
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "task_folder": "task_14_statistical_quantiles",
+      "candidate_file": "task_14_statistical_quantiles/agent_lean/agent_1.lean",
+      "configuration_id": "native_claude_fable",
+      "candidate_status": "nonempty",
+      "hashes": {
+        "python": "ec7999fdd36f74110c5cb04c4aa0befbd056975b34bb685e94c0bb5dda3818f9",
+        "gold": "cae68029f17aee0418e70fba0c062ac9ea478b1b6f3b21b420c9bacd4dad720e",
+        "candidate": "6971708781e513f11d9a80e2384f1b18849c47bcff7c279c33927f4d40d7e8a3"
+      },
+      "source_paths": {
+        "python": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/realcode_set__31_statistics_quantiles/31_statistics_quantiles.py",
+        "gold": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/gold_reference/realcode_set__31_statistics_quantiles/31_statistics_quantiles.lean",
+        "candidate": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/realcode_set__31_statistics_quantiles/candidate.lean"
+      },
+      "payload_content_key": "c2c5b0b5c792c3798da214b572c264af1f95e2a7cbb2f94aa588c114e2e14923",
+      "observation_key": [
+        "native-heavy-11-11-2026",
+        "T05",
+        "native-heavy-11-11-2026__item067"
+      ],
+      "provenance": {
+        "historical_packet_task_folder": "N23",
+        "input_manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/INPUT_MANIFEST.json",
+        "input_manifest_sha256": "e7a46a58a90cc23491f3db033d7dc749616f160da0b868962a3b5d8ec1b61e29",
+        "generation_instruction_version": 8,
+        "expected_receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/realcode_set__31_statistics_quantiles/receipt.json",
+        "receipt_sha256": "6fdb3657317daf2654d3d1eb876bacba07875769e27115aa4dbc67980894ed88",
+        "instruction_sha256": "d9b2939e9e6163cc7c397c8392df7433a9bc7216473c7b7d69e1654772e99843",
+        "execution_verified": true,
+        "note": "Actual returned bytes, including partial/empty artifacts; execution status is preserved and is not a correctness verdict.",
+        "execution_status": "TERMINAL",
+        "stop_reason": "observed_output_token_budget",
+        "execution_condition": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+          "sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c"
+        },
+        "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+        "candidate_bytes": 31823,
+        "blank_content": false
+      }
+    },
+    {
+      "round_id": "native-heavy-11-11-2026",
+      "rater_id": "T05",
+      "item_id": "native-heavy-11-11-2026__item063",
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "task_folder": "task_14_statistical_quantiles",
+      "candidate_file": "task_14_statistical_quantiles/agent_lean/agent_3.lean",
+      "configuration_id": "historical_codex_astra",
+      "candidate_status": "nonempty",
+      "hashes": {
+        "python": "ec7999fdd36f74110c5cb04c4aa0befbd056975b34bb685e94c0bb5dda3818f9",
+        "gold": "cae68029f17aee0418e70fba0c062ac9ea478b1b6f3b21b420c9bacd4dad720e",
+        "candidate": "7ed4098d22cbe1864e061c87d081ae4833edf99bbf57701f1c11d66fd5bbcd38"
+      },
+      "source_paths": {
+        "python": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/realcode_set__31_statistics_quantiles/31_statistics_quantiles.py",
+        "gold": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/gold_reference/realcode_set__31_statistics_quantiles/31_statistics_quantiles.lean",
+        "candidate": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/realcode_set__31_statistics_quantiles/candidate.lean"
+      },
+      "payload_content_key": "06f24473ff2230e41a9ee561cea5a4c2c7c1e24d305ac33bdbab0737eb134763",
+      "observation_key": [
+        "native-heavy-11-11-2026",
+        "T05",
+        "native-heavy-11-11-2026__item063"
+      ],
+      "provenance": {
+        "historical_packet_task_folder": "N23",
+        "input_manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/INPUT_MANIFEST.json",
+        "input_manifest_sha256": "e7a46a58a90cc23491f3db033d7dc749616f160da0b868962a3b5d8ec1b61e29",
+        "generation_instruction_version": 5,
+        "source_experiment": "85_E4_vb896_agents_astra_opus5_judges_astra",
+        "historical_original_candidate_path": "/Users/brandomiranda/veribench/research_archive/experiments/85_E4_vb896_agents_astra_opus5_judges_astra/outputs/codex/realcode_set__31_statistics_quantiles/candidate.lean",
+        "historical_instruction_sha256": "062856857962a9e8ba09c9cb97ba32b497fe6e707cfc8e635aba1530a10a4255",
+        "historical_gold_sha256": "763f0ac5a6551a61b2b36fffe772e76ffec39bc67d35df4877bf84d588581c31",
+        "historical_condition": {
+          "model": "gpt-6-astra",
+          "effort": "xhigh",
+          "cli_version": "0.154.0",
+          "instruction_version": 5,
+          "historical_instruction_sha256": "062856857962a9e8ba09c9cb97ba32b497fe6e707cfc8e635aba1530a10a4255",
+          "historical_gold_sha256": "763f0ac5a6551a61b2b36fffe772e76ffec39bc67d35df4877bf84d588581c31",
+          "current_gold_matches_historical": false
+        }
+      }
+    }
+  ],
+  "deduplication": "Use observation_key for repeated exports/subset copies; preserve provenance for historical joins. Packet copies are not new ratings.",
+  "identity_scope": "Coordinator-only receipt. Labels are neutral and known model/harness/identity tokens are checked. Scientific bytes are unchanged; literal-token checks do not establish absence of every indirect authorship cue.",
+  "sheet_verification": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/builds/native_heavy_terminal_v1/T05/SHEET_MATCH_71cc0348e8dd4c59.json",
+    "sha256": "14a2c0955fdb08d22d2cc06ce0a1190ae53f983a3c068a37b87dc3f9205fac1d",
+    "sheet_csv_equal": true
+  }
+}

@@ -19,7 +19,7 @@ Use Python with NumPy and SciPy. For this machine, the verified interpreter is `
 ```sh
 python3 -m unittest discover -s experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/tests -v
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/scripts/run.py \
-  --data /absolute/authorized/private/dataset.json \
+  --data /absolute/authorized/research_artifacts/dataset.json \
   --out /absolute/new/public_aggregate_results \
   --private-out /absolute/new/private_forecasts
 ```

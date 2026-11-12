@@ -24,8 +24,8 @@ E137 = 'experiments/137_public_vbv1_896_harsh_failure_reasons_and_smooth_compone
 E140 = 'experiments/140_entailment_check_vs_theorem_coverage_tiny256_10-31-2026/manifest_tiny256.json'
 E145 = 'experiments/145_entailment_vacuity_axiom_check_tiny256_11-01-2026/results/per_run.csv'
 E138 = 'experiments/138_tiny256_dt_10-31-2026/cells/'
-SPLIT = PROJECT / 'private/prover_target/split_manifest.json'
-PRIVATE = PROJECT / 'private/phase0_transfer'
+SPLIT = PROJECT / 'research_artifacts/prover_target/split_manifest.json'
+PRIVATE = PROJECT / 'research_artifacts/phase0_transfer'
 
 
 def experiment03_file(recorded_path: str) -> Path:

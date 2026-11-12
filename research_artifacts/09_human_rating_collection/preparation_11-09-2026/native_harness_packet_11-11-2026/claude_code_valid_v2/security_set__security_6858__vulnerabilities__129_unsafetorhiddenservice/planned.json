@@ -1,0 +1,37 @@
+{
+  "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "129_unsafeTorHiddenService.py": "72323a0a2094f2d41a2cc8f3f9880e34d31068dd564b0a9de981ed86030df63f",
+    "instruction.md": "bca923d2dd3ac2e4484bc4fb7e00313404652a12397617ea1155e233bfcac534"
+  },
+  "output": "/home/user/lean_project/Veribench/129_unsafeTorHiddenService.lean",
+  "model_call_performed": false
+}

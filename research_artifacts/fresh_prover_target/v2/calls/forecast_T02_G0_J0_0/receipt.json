@@ -1,0 +1,30 @@
+{
+  "identity": "forecast_T02_G0_J0_0",
+  "role": "forecast",
+  "started_utc": "2026-11-06T23:21:44.194052+00:00",
+  "request_sha256": "1aeab608d5b3d813877df7ea8290209ea1fb528e863b2d52fa72cf2af4ac0cbb",
+  "num_predict": 256,
+  "settings": {
+    "think": false,
+    "num_predict": 256,
+    "prompt": "judge_J0.md"
+  },
+  "seed": 11062226,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 56,
+  "prompt_eval_count": 989,
+  "thinking_characters": 0,
+  "parsed": {
+    "probability": 0.0,
+    "reason": "The candidate function's type signature in the input is missing the return type annotation required by the Lean kernel to match the GoldSpec proposition, making the goal unprovable under the strict constraints."
+  },
+  "seconds": 10.813477332994808,
+  "finished_utc": "2026-11-06T23:21:55.009507+00:00",
+  "response_sha256": "802328f1b5fa5f08bd9e19e44eced25e3b95ec575edc6435ef035c5a07e3ffbb"
+}

@@ -1,0 +1,192 @@
+{
+  "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "75_unsafeCertHostname.py": "3f2f94afbd2a7d07596e5ac6ab9cc81419b90ec279ccda76fb750ba2238ef5b2",
+    "instruction.md": "1e162953ec46ea09bfc9f51bc77e1fb27d8a5af4e7b5465a51b69e67b74c2450"
+  },
+  "output": "/home/user/lean_project/Veribench/75_unsafeCertHostname.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-22e8b38716b6",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794448119.496806,
+  "exit_code": 0,
+  "stop_reason": "native_result",
+  "finished_at": 1794448563.6091342,
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 240020,
+  "observed_output_tokens": 33483,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 7,
+    "messages_with_stop": 7,
+    "native_aggregate_usage": {
+      "input_tokens": 166,
+      "cache_creation_input_tokens": 35869,
+      "cache_read_input_tokens": 170502,
+      "output_tokens": 33483,
+      "output_tokens_details": {
+        "thinking_tokens": 14985
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 35869,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 422101,
+    "stop_reason": "end_turn",
+    "session_id": "a911b55c-41e5-4beb-8aea-ce8c0eb58aa0",
+    "total_cost_usd": 2.4358155000000004,
+    "usage": {
+      "input_tokens": 166,
+      "cache_creation_input_tokens": 35869,
+      "cache_read_input_tokens": 170502,
+      "output_tokens": 33483,
+      "output_tokens_details": {
+        "thinking_tokens": 14985
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 35869,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 166,
+        "outputTokens": 33483,
+        "cacheReadInputTokens": 170502,
+        "cacheCreationInputTokens": 35869,
+        "webSearchRequests": 0,
+        "costUSD": 2.4358155000000004,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 14985,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 35869,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 7,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "Done. The formalization is written to `/home/user/lean_project/Veribench/75_unsafeCertHostname.lean`, compiles with exit 0, and every theorem is proven.\n\n**What the file contains**\n\n- `unsafeCertHostname`, the functional translation that returns `certValid && certNotExpired` and ignores both hostname arguments, plus a `check` function mirroring the Python test harness.\n- Unit tests for all eight assertions of the Python `check`, with `native_decide` used only inside `example` tests.\n- A trivial `Pre` (the Python function accepts any inputs) and nine properties with proofs: result equals valid-and-unexpired, acceptance iff both flags hold, the verdict is independent of both hostnames, a matching SAN is accepted, a mismatched SAN is also accepted (the MITM vulnerability), invalid and expired certificates are rejected, the unsafe checker accepts everything an RFC 6125-style exact-match checker accepts, and a concrete witness that it is strictly weaker (bank.com vs evil.com).\n- `Post_prop` as the conjunction of the per-input properties, and a correctness theorem from `Pre` to `Post_prop`.\n- Property-based tests for every property and for the post-condition: Plausible random tests over strings and Booleans in guard-free Boolean form, plus bounded exhaustive tests over ten sample hostnames and all flag combinations.\n- An imperative `Id.run do` version with a mutable verdict, its tests, and an equivalence theorem with the functional version.\n\n**Verification run**\n\n- `lake env lean` exits 0 with no errors and no warnings. All Plausible checks report \"Unable to find a counter-example\".\n- A scratch copy with `#print axioms` shows all 13 theorems depend on no axioms or only `propext`. No `sorry`, `admit`, new `axiom`, or `native_decide` is used in any theorem.",
+    "ttft_ms": 14601,
+    "type": "result",
+    "duration_ms": 441276,
+    "uuid": "11e37e2f-567f-480c-b6ea-c1049a528b2b",
+    "ttft_stream_ms": 3871,
+    "time_to_request_ms": 42,
+    "first_content_frame_ms": 3871,
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "model_usage_since_last_result": {
+      "claude-fable-5-1": {
+        "inputTokens": 166,
+        "outputTokens": 33483,
+        "cacheReadInputTokens": 170502,
+        "cacheCreationInputTokens": 35869,
+        "webSearchRequests": 0,
+        "costUSD": 2.4358155000000004,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 14985,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 35869,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    }
+  },
+  "model_identity_verified": true,
+  "candidate_captured": true,
+  "candidate_sha256": "d02de54fbb220268b0b3d183423ced9d34546c6766249bbe4a7be656ce9e03b7",
+  "candidate_bytes": 20496,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

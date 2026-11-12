@@ -1,0 +1,71 @@
+{
+  "checked_at": "2026-11-12 02:12:12 UTC",
+  "status": "PASS",
+  "notes": "Nine live Sheet tables match current raw CSV snapshots exactly; all first-five-field values match new blank forms. Participant responses were not changed or copied into blank packets. Slava has CSV-only return route.",
+  "readback_sha256": "eb846bba066816c329ac4ae8dc7f67d2c1b3241e6416b10097b15f8998f9f130",
+  "results": [
+    {
+      "rater_id": "T06",
+      "rows": 6,
+      "identity_match": true,
+      "raw_response_match": true,
+      "packet_sha256": "5ea85fb6b38946bef0674105d201f568d4177bb4b1d86e44f76002505cf732b4"
+    },
+    {
+      "rater_id": "T04",
+      "rows": 6,
+      "identity_match": true,
+      "raw_response_match": true,
+      "packet_sha256": "7baa13caf379f26f86561aa82cac94c9fdb958dc5bbb7d0630f4a8ee49d7d5c8"
+    },
+    {
+      "rater_id": "T03",
+      "rows": 6,
+      "identity_match": true,
+      "raw_response_match": true,
+      "packet_sha256": "004731a99b1a2e676c400f3b1bd8d54059a520eef3457be739987d656a3ef2a7"
+    },
+    {
+      "rater_id": "T07",
+      "rows": 6,
+      "identity_match": true,
+      "raw_response_match": true,
+      "packet_sha256": "8bf9544615c269a90f31392004ad74cdf8c5b0b5f57100f6d50acb781f77c414"
+    },
+    {
+      "rater_id": "V02",
+      "rows": 6,
+      "identity_match": true,
+      "raw_response_match": true,
+      "packet_sha256": "e97f9af35fdc374a98dc113a0f3a912f374fad8771c479cb5b4f68d31270d7eb"
+    },
+    {
+      "rater_id": "T01",
+      "rows": 6,
+      "identity_match": true,
+      "raw_response_match": true,
+      "packet_sha256": "806cc7aa7d323c87fa793e3235a063ba1b3985d7d5d1a0e87836803a12eaacda"
+    },
+    {
+      "rater_id": "T05",
+      "rows": 6,
+      "identity_match": true,
+      "raw_response_match": true,
+      "packet_sha256": "bf670d1ec7b35e98874e5cdecb5adfa0ff06e74ab1b12a021eac7fd3a04e2cb4"
+    },
+    {
+      "rater_id": "T02",
+      "rows": 6,
+      "identity_match": true,
+      "raw_response_match": true,
+      "packet_sha256": "ac9390e62bde792f37c9de11d204213b2172defd25e577baa7546499602deb4e"
+    },
+    {
+      "rater_id": "A1",
+      "rows": 6,
+      "identity_match": true,
+      "raw_response_match": true,
+      "packet_sha256": "333bfc08060e9828e4c6d39126873c90ada95825aef9ab2be93d1945c1d40be5"
+    }
+  ]
+}

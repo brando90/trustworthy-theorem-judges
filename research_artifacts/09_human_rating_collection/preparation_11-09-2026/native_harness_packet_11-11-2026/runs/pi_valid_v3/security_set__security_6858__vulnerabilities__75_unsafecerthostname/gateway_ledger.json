@@ -1,0 +1,104 @@
+{
+  "accounted_usd": 0.33177599999999996,
+  "cap_usd": 0.75,
+  "denials": [
+    {
+      "at": "2026-11-12T01:30:11.348360+00:00",
+      "call": 1,
+      "phase": "generate_content",
+      "reason": "HTTP503 before response",
+      "retry_exhausted": false,
+      "retry_index": 0,
+      "upstream_http_status": 503
+    },
+    {
+      "at": "2026-11-12T01:30:16.598537+00:00",
+      "call": 2,
+      "phase": "generate_content",
+      "reason": "HTTP503 before response",
+      "retry_exhausted": false,
+      "retry_index": 1,
+      "upstream_http_status": 503
+    },
+    {
+      "at": "2026-11-12T01:30:31.832435+00:00",
+      "call": 3,
+      "phase": "generate_content",
+      "reason": "HTTP503 before response",
+      "retry_exhausted": true,
+      "retry_index": 2,
+      "upstream_http_status": 503
+    },
+    {
+      "at": "2026-11-12T01:30:31.833180+00:00",
+      "phase": "generate_content",
+      "reason": "HTTPError",
+      "underlying_error_type": "str",
+      "upstream_http_status": 503
+    }
+  ],
+  "input_price_per_million": 0.75,
+  "model": "gemini-3.8-flash",
+  "output_price_per_million": 3.75,
+  "provider_route": "allen-google-veribench",
+  "requests": [
+    {
+      "admitted_at": "2026-11-12T01:30:11.143295+00:00",
+      "call": 1,
+      "counted_input_tokens": 4173,
+      "finished_at": "2026-11-12T01:30:11.347540+00:00",
+      "http503_before_response": true,
+      "http503_retry_index": 0,
+      "http_status": 503,
+      "input_admission_bound": 5197,
+      "max_output_tokens": 16384,
+      "model_version": null,
+      "payload_sha256": "b77f580005b09b2238ec978794b6aa2df88f23d1072ed808cc01995141fb3e2a",
+      "prior_billed_thought_tokens": 0,
+      "provider_finish_reason": null,
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 1,
+      "transport_retry_exhausted": false
+    },
+    {
+      "admitted_at": "2026-11-12T01:30:16.356554+00:00",
+      "call": 2,
+      "counted_input_tokens": 4173,
+      "finished_at": "2026-11-12T01:30:16.597668+00:00",
+      "http503_before_response": true,
+      "http503_retry_index": 1,
+      "http_status": 503,
+      "input_admission_bound": 5197,
+      "max_output_tokens": 16384,
+      "model_version": null,
+      "payload_sha256": "b77f580005b09b2238ec978794b6aa2df88f23d1072ed808cc01995141fb3e2a",
+      "prior_billed_thought_tokens": 0,
+      "provider_finish_reason": null,
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 1,
+      "transport_retry_exhausted": false
+    },
+    {
+      "admitted_at": "2026-11-12T01:30:31.604073+00:00",
+      "call": 3,
+      "counted_input_tokens": 4173,
+      "finished_at": "2026-11-12T01:30:31.831619+00:00",
+      "http503_before_response": true,
+      "http503_retry_index": 2,
+      "http_status": 503,
+      "input_admission_bound": 5197,
+      "max_output_tokens": 16384,
+      "model_version": null,
+      "payload_sha256": "b77f580005b09b2238ec978794b6aa2df88f23d1072ed808cc01995141fb3e2a",
+      "prior_billed_thought_tokens": 0,
+      "provider_finish_reason": null,
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 1,
+      "transport_retry_exhausted": true
+    }
+  ],
+  "started_at": "2026-11-12T01:30:07.330797+00:00"
+}

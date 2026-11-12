@@ -1,0 +1,18 @@
+{
+  "description": "Retrospective binary prover-outcome forecasting; no fresh semantic or human validation.",
+  "version": "prover_target_retrospective_v1_11-06-2026",
+  "source_revision": "be287d9bb2f7bd35ba6db1b8735c9ba10d00eade",
+  "target": "experiment145_counted_all5",
+  "score": "experiment140_manifest_tc",
+  "split_salt": "ttj03-retrospective-v1-11-06-2026",
+  "task_counts": {"train": 64, "validation": 64, "test": 128},
+  "map_ridge_candidates": [0.0, 0.01, 0.1, 1.0],
+  "primary_metric": "artifact_equal_mean_brier",
+  "selection_metric": "validation_brier",
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 11062026,
+  "new_model_call_cap": 0,
+  "measured_inference_cost_usd": 0,
+  "fresh_test": false,
+  "family_disjointness_verified": false
+}

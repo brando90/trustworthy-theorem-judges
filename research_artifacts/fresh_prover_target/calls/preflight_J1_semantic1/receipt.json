@@ -1,0 +1,29 @@
+{
+  "identity": "preflight_J1_semantic1",
+  "role": "preflight",
+  "started_utc": "2026-11-06T23:16:24.251422+00:00",
+  "request_sha256": "26046ac67d245507119bd9ca90b70bbe44c788974ef1e190945fc315793901b2",
+  "num_predict": 2048,
+  "settings": {
+    "think": true,
+    "num_predict": 2048
+  },
+  "seed": 11062037,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 1972,
+  "prompt_eval_count": 387,
+  "thinking_characters": 7680,
+  "parsed": {
+    "probability": 0,
+    "reason": "The consistency goal requires proving existence of a function satisfying False, which is impossible in the trusted kernel."
+  },
+  "seconds": 154.57916233298602,
+  "finished_utc": "2026-11-06T23:18:58.833258+00:00",
+  "response_sha256": "bc831dec66ba705c0fb82686089fadbefb6aa0406ca4c36ca915d932a492f5b8"
+}

@@ -11,7 +11,7 @@ uv run --python 3.12 --with numpy==2.4.2 --with scipy==1.17.0 python experiments
 git diff --check
 ```
 
-The analysis reads only the revision in `config.json`, validates a complete one-to-one join, snapshots source blobs under ignored `private/prover_target/source/`, and writes aggregate JSON plus source hashes. It does not make model calls, change source data or use individual human ratings. Exact task split identities remain in `private/prover_target/split_manifest.json`; only its hash is public. Source access is required for independent reproduction. Public aggregates alone are not enough to re-run the analysis.
+The analysis reads only the revision in `config.json`, validates a complete one-to-one join, snapshots source blobs under `research_artifacts/prover_target/source/`, and writes aggregate JSON plus source hashes. It does not make model calls, change source data or use individual human ratings. Exact task split identities remain in `research_artifacts/prover_target/split_manifest.json`; only its hash is public. Source access is required for independent reproduction. Public aggregates alone are not enough to re-run the analysis.
 
 The initial protocol is commit `24c9152`, before this statistical analysis. Source aggregate counts were already read, so no prospective-registration claim is made. Results are reproducible under fixed versions/seed; small floating-point differences across numerical libraries may occur.
 

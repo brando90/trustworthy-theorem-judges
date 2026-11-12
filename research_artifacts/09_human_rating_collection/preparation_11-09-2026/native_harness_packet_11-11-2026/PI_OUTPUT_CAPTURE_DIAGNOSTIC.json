@@ -1,0 +1,845 @@
+{
+  "checked_at": "2026-11-12T03:43:33.210227+00:00",
+  "scope": "All eighteen terminal original valid-cohort Pi attempts, including successful-provider/cap-ended attempts and transport failures. Saved evidence only.",
+  "counts": {
+    "terminal_attempts": 18,
+    "verbatim_prompt_and_capture_path_matches": 18,
+    "captured_required_artifacts": 0
+  },
+  "conclusion": "No prompt/capture-path mismatch found. Recorded Lean writes use test.lean, scratch.lean, /tmp/test_warn.lean, or Veribench/test.lean; no recorded tool operation names a required output artifact.",
+  "limitations": [
+    "The runner preserves only the required candidate path and native sessions, not full workspace snapshots; all terminal containers have been removed.",
+    "Shell-command inspection is evidence of recorded destinations, not a proof of every computed filesystem effect.",
+    "Scratch/helper code exists in tool traces. It is not promoted to a final submission, reconstructed, or rescored.",
+    "The two host-interrupted trajectories are supplemented by complete native persisted sessions with explicit incident provenance."
+  ],
+  "rows": [
+    {
+      "task_id": "realcode_set__20_html_escape",
+      "required_output_relative": "Veribench/20_html_escape.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/20_html_escape.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/realcode_set__20_html_escape.json",
+      "manifest_sha256": "3d14fdc8290331c89a1efa0ac06ebc35f6243a3e0765b9107264c7c0ce3582d7",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/realcode_set__20_html_escape/instruction.md",
+      "prompt_sha256": "95cbb6dcc34813e5804d2fba2cb1a0850b79dc132fac7768bf593e64a4d3e772",
+      "prompt_lines_naming_output": [
+        74,
+        126,
+        144
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__20_html_escape/pi-sessions/2026-11-12T00-50-11-287Z_01a1cd3b-ced6-745a-a58b-90bbd0519d77.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "e898a482846370bccfa018ca0f134ae0f866791a5eb63f0fd1dc4d273b3940dc",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v3_5ed1acd6.py",
+      "runner_sha256": "5ed1acd6658abc7086f4b16bff5a46e60adffdf6568f8a67132c40b4ad709496",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [
+        {
+          "path": "test.lean",
+          "session_line": 62,
+          "contains_removal_command": false
+        }
+      ],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "easy_set__23_is_prime",
+      "required_output_relative": "Veribench/23_is_prime.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/23_is_prime.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/easy_set__23_is_prime.json",
+      "manifest_sha256": "de3e6fe4c15ad78ca5aae8370c4bd7b4e05c2259574c323ac37a8a3c7387c627",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/easy_set__23_is_prime/instruction.md",
+      "prompt_sha256": "477f8ac10d612ddbddbda451ec8928b6b28a2f00e72c20983bb90c2be0a0badc",
+      "prompt_lines_naming_output": [
+        72,
+        124,
+        142
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__23_is_prime/pi-sessions/2026-11-12T00-57-59-796Z_01a1cd42-f4f4-7555-8d6d-501b6d579c4a.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "11b9d763ad8afd133afb47aee0265f09f90d7af7505cb0052929dff791a04497",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v3_5ed1acd6.py",
+      "runner_sha256": "5ed1acd6658abc7086f4b16bff5a46e60adffdf6568f8a67132c40b4ad709496",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "required_output_relative": "Veribench/93_unsafeAppEntitlements.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/93_unsafeAppEntitlements.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/security_set__security_6858__vulnerabilities__93_unsafeappentitlements.json",
+      "manifest_sha256": "1259ee5923ca6c68f9598dd5765bae4e2f22213c344aa1664b4cccf70cbb6948",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/instruction.md",
+      "prompt_sha256": "673b75fc3bca5f1a00ffb054edf3e86d5462ea39a1967168ea289c7efe6cd715",
+      "prompt_lines_naming_output": [
+        50,
+        102,
+        120
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/pi-sessions/2026-11-12T01-03-42-620Z_01a1cd48-301b-7399-b017-abc536ee71d9.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "a0e46eb01bfc3830b016c619edb4bd20780e84a012fe8558667f85d2919ac6c7",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v4_f4ac9b97.py",
+      "runner_sha256": "f4ac9b97febe39d458766f5ca444d7bfb57ab21b95ed3ee464457c3b63136ddb",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "required_output_relative": "Veribench/129_unsafeTorHiddenService.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/129_unsafeTorHiddenService.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice.json",
+      "manifest_sha256": "5c0428a4bd53146894a2b2eae69f47d0338086a1d6c48a4f66ac031c8dd66e68",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/instruction.md",
+      "prompt_sha256": "bca923d2dd3ac2e4484bc4fb7e00313404652a12397617ea1155e233bfcac534",
+      "prompt_lines_naming_output": [
+        40,
+        92,
+        110
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/pi-sessions/2026-11-12T01-18-28-213Z_01a1cd55-b375-7341-87d4-330a1a8a8e23.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "33babe3bf1192f0b61c35434b8bffc7025bb63695afec81c4fbc3d1aeb376975",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v5_89498273.py",
+      "runner_sha256": "89498273ae22c49e521469251e59129895dbb40d30a77db46af872f6473dff48",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "easy_set__41_duplicate_chars",
+      "required_output_relative": "Veribench/41_duplicate_chars.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/41_duplicate_chars.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/easy_set__41_duplicate_chars.json",
+      "manifest_sha256": "9f6ef61a0361a85d0a129cba84ecf1a6fc9fb26dad8e41d7363209f23c266ba2",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/easy_set__41_duplicate_chars/instruction.md",
+      "prompt_sha256": "c06f43b09db017f734d964ec8e0fa02e6066253da7cb956f5457bc0457e54934",
+      "prompt_lines_naming_output": [
+        60,
+        112,
+        130
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__41_duplicate_chars/pi-sessions/2026-11-12T01-27-00-795Z_01a1cd5d-85ba-7408-8100-1bbdddfa9fd6.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "870f67c072afed68b4e6f370d398380bfc21764146d9cfd320084db9086d183c",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "required_output_relative": "Veribench/75_unsafeCertHostname.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/75_unsafeCertHostname.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/security_set__security_6858__vulnerabilities__75_unsafecerthostname.json",
+      "manifest_sha256": "8f625500a117807f475ac1a6956e704dd789de7d2db12c8fb70c98a57db45ada",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/security_set__security_6858__vulnerabilities__75_unsafecerthostname/instruction.md",
+      "prompt_sha256": "1e162953ec46ea09bfc9f51bc77e1fb27d8a5af4e7b5465a51b69e67b74c2450",
+      "prompt_lines_naming_output": [
+        58,
+        110,
+        128
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__75_unsafecerthostname/pi-sessions/2026-11-12T01-30-10-831Z_01a1cd60-6c0e-74a2-86f3-1f3501dd4ab6.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "0b80298d269495e77ee70977ecbdaa509e8f1db6a998994aae8ba5b95c1dcc03",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "required_output_relative": "Veribench/humaneval_35_max_element.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/humaneval_35_max_element.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/humaneval_set__humaneval_35_max_element.json",
+      "manifest_sha256": "39227288c72629ba03bfafcfa6f34481c9ce7a482a58c479c71df9565b4e7b97",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/humaneval_set__humaneval_35_max_element/instruction.md",
+      "prompt_sha256": "8a5adb5219cc42294f5097a3f6ffe5d03f19d058dee6c2e196d38ef82f460ee8",
+      "prompt_lines_naming_output": [
+        47,
+        99,
+        117
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_35_max_element/pi-sessions/2026-11-12T02-00-35-911Z_01a1cd7c-4547-7117-9726-06d01c0f6fe6.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "6c09dd414b1e286c1e1f71cc9bc5b3c4915f64a3830ea8b09d0e923f27081143",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [
+        {
+          "path": "/tmp/test_warn.lean",
+          "session_line": 40,
+          "contains_removal_command": true
+        }
+      ],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "cs_set__topological_sort",
+      "required_output_relative": "Veribench/topological_sort.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/topological_sort.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/cs_set__topological_sort.json",
+      "manifest_sha256": "467216f8a0f568be8db4dc20e93492967bdf70cb3441caaf92ec2fedda95434c",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/cs_set__topological_sort/instruction.md",
+      "prompt_sha256": "d18643805dbd9a3abcca2cb9d5aece2f976f331ffffce85a4f7a18d9ed39625e",
+      "prompt_lines_naming_output": [
+        109,
+        161,
+        179
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/pi-sessions_recovered/2026-11-12T02-32-29-787Z_01a1cd99-795a-774b-b3ab-dc277590e8b6.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "f6b1a191872acec3dca33f6d2e143f06e824be4f06b000f2b61503f313857216",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [
+        {
+          "path": "test.lean",
+          "session_line": 14,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 22,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 24,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 26,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 28,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 30,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 32,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 34,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 36,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 38,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 40,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 42,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 44,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 46,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 48,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 50,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 52,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 54,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 56,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 58,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 60,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 62,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 64,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 76,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 78,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 80,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 82,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 84,
+          "contains_removal_command": true
+        }
+      ],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "required_output_relative": "Veribench/humaneval_39_prime_fib.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/humaneval_39_prime_fib.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/humaneval_set__humaneval_39_prime_fib.json",
+      "manifest_sha256": "12999d198a5486d3b1d5c00a7155849e009a1245ac3574962b11e9c3fffd745a",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/humaneval_set__humaneval_39_prime_fib/instruction.md",
+      "prompt_sha256": "bed24b87028f02c7a82885bc437ae51b5ce62972a51b300f4478f1a32f583af3",
+      "prompt_lines_naming_output": [
+        74,
+        126,
+        144
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/pi-sessions_recovered/2026-11-12T02-32-29-883Z_01a1cd99-79ba-763f-8061-0f0d07e585b2.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "235f93ee953222920fd09eae9eb44560d40c82273e795ea93ab73f9a55425122",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "realcode_set__23_base32",
+      "required_output_relative": "Veribench/23_base32.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/23_base32.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/realcode_set__23_base32.json",
+      "manifest_sha256": "2b67ceda0aac767e9070f4c6be461f310430e00d2a3fc3e00454d2d7dc29a01a",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/realcode_set__23_base32/instruction.md",
+      "prompt_sha256": "dc3733926a27eb6b9837e41f2da68c582bd573bcd34b7c066b9b7e4c9a4bab7e",
+      "prompt_lines_naming_output": [
+        137,
+        189,
+        207
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__23_base32/pi-sessions/2026-11-12T03-09-07-539Z_01a1cdbb-0253-7336-9848-5ebe16c5cc58.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "5707fdf0a5ce0436ad35e86a1b2918f7feb632d9865a925be70927c87e238a3f",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [
+        {
+          "path": "scratch.lean",
+          "session_line": 26,
+          "contains_removal_command": true
+        },
+        {
+          "path": "scratch.lean",
+          "session_line": 28,
+          "contains_removal_command": true
+        },
+        {
+          "path": "scratch.lean",
+          "session_line": 36,
+          "contains_removal_command": true
+        },
+        {
+          "path": "scratch.lean",
+          "session_line": 38,
+          "contains_removal_command": true
+        },
+        {
+          "path": "scratch.lean",
+          "session_line": 40,
+          "contains_removal_command": true
+        }
+      ],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "required_output_relative": "Veribench/humaneval_15_string_sequence.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/humaneval_15_string_sequence.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/humaneval_set__humaneval_15_string_sequence.json",
+      "manifest_sha256": "d37e2f4bdf58bc49d9f4b63a59acd4338ae3064ef035ecb7ef93367796a242ee",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/humaneval_set__humaneval_15_string_sequence/instruction.md",
+      "prompt_sha256": "e4622569ec189ff7c90f632d14723d6c867dee8240c8206fb1a255dabaf8412c",
+      "prompt_lines_naming_output": [
+        47,
+        99,
+        117
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_15_string_sequence/pi-sessions/2026-11-12T03-09-12-736Z_01a1cdbb-169f-777f-9dc4-f9c5c64dd3f2.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "510b0c99bbe426221a5432638b5658c8a6f8199186c08061a548d56e9e6ea087",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "cs_set__counting_sort",
+      "required_output_relative": "Veribench/counting_sort.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/counting_sort.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/cs_set__counting_sort.json",
+      "manifest_sha256": "5f5036f6bfce02848397e31c24aadad6407098c178aa3e014eda025598d1a6c1",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/cs_set__counting_sort/instruction.md",
+      "prompt_sha256": "e252e1fd7307de83c741a112b433726294ee41e348fc4b56b1f1374c9cd6e4f6",
+      "prompt_lines_naming_output": [
+        121,
+        173,
+        191
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__counting_sort/pi-sessions/2026-11-12T03-09-17-960Z_01a1cdbb-2b07-76dc-80a6-07ed24f1fcc2.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "72dd18a4ee03f4b15014637db8d9e16fa78d8b4cff80615c3b32bb6776bd7c8f",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "easy_set__16_myfactorial",
+      "required_output_relative": "Veribench/16_MyFactorial.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/16_MyFactorial.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/easy_set__16_myfactorial.json",
+      "manifest_sha256": "6cc1ff4d3fcbc3b6ae85bbbae432331277a344750c2b2de45291e95a2bb2cc87",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/easy_set__16_myfactorial/instruction.md",
+      "prompt_sha256": "382a77a7dcb88a8ab0d432b117b24dd49385d36858df74ab05ef79308a801507",
+      "prompt_lines_naming_output": [
+        67,
+        119,
+        137
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__16_myfactorial/pi-sessions/2026-11-12T03-09-23-092Z_01a1cdbb-3f13-71df-a5a5-bd749d4028b7.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "37c308d234d681893be78f264e3c252694af2963c76941560ba936fdb7923274",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [
+        {
+          "path": "Veribench/test.lean",
+          "session_line": 20,
+          "contains_removal_command": true
+        },
+        {
+          "path": "Veribench/test.lean",
+          "session_line": 20,
+          "contains_removal_command": true
+        }
+      ],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "required_output_relative": "Veribench/humaneval_14_all_prefixes.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/humaneval_set__humaneval_14_all_prefixes.json",
+      "manifest_sha256": "80a38633e5431edf252c3fd6930501fb84eb0a7c01f439c1fd17d174078f43bb",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/humaneval_set__humaneval_14_all_prefixes/instruction.md",
+      "prompt_sha256": "964683b3b6645ed75682c877c378efc15c54731af786ec2ce85c52f9645194c4",
+      "prompt_lines_naming_output": [
+        52,
+        104,
+        122
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_14_all_prefixes/pi-sessions/2026-11-12T03-16-29-638Z_01a1cdc1-c145-72ee-a360-90fdaad13d0b.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "f05cee30055143b2bf44240c5f4d6720be082a191804bb839f8a25509242b249",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 16,
+          "characters": 90
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 20,
+          "characters": 83
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 24,
+          "characters": 110
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 28,
+          "characters": 111
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 32,
+          "characters": 35
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 36,
+          "characters": 30
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 40,
+          "characters": 166
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 44,
+          "characters": 143
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 46,
+          "characters": 132
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 48,
+          "characters": 62
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 52,
+          "characters": 449
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 56,
+          "characters": 400
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 58,
+          "characters": 332
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 62,
+          "characters": 666
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 66,
+          "characters": 83
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 70,
+          "characters": 377
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 74,
+          "characters": 467
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 78,
+          "characters": 89
+        },
+        {
+          "path": "/home/user/lean_project/scratch.lean",
+          "session_line": 82,
+          "characters": 399
+        }
+      ],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "easy_set__20_mysumdigits",
+      "required_output_relative": "Veribench/20_MySumDigits.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/20_MySumDigits.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/easy_set__20_mysumdigits.json",
+      "manifest_sha256": "9ba30d08380686d532b4a3e4a1e705005547dba06fc5a0e8db2dd8c6f8d63be3",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/easy_set__20_mysumdigits/instruction.md",
+      "prompt_sha256": "8ddb9567b9fed472dc934d5f5ca72dfd7806536f9310e6059d7f70e4a8e5f2cf",
+      "prompt_lines_naming_output": [
+        70,
+        122,
+        140
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__20_mysumdigits/pi-sessions/2026-11-12T03-23-55-437Z_01a1cdc8-8ead-7608-bda4-f7dad80a5005.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "42f2ad104a837f6ff4294a24139474f4bb54ec1815a3f18bb721ff00da5930af",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [
+        {
+          "path": "test.lean",
+          "session_line": 22,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 24,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 32,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 34,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 36,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 38,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 40,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 42,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 44,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 46,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 48,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 50,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 52,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 54,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 56,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 58,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 60,
+          "contains_removal_command": true
+        },
+        {
+          "path": "test.lean",
+          "session_line": 62,
+          "contains_removal_command": true
+        }
+      ],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "required_output_relative": "Veribench/humaneval_4_mean_absolute_deviation.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/humaneval_set__humaneval_4_mean_absolute_deviation.json",
+      "manifest_sha256": "de380734529230b2bbdaae8c2bddd2b84bf039f0849f081eff9dd1f240b185b4",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/humaneval_set__humaneval_4_mean_absolute_deviation/instruction.md",
+      "prompt_sha256": "67b7109cfc790f5ae9d3b101b71d2da35bb23a4b57e68e7ac53277f1d92d3028",
+      "prompt_lines_naming_output": [
+        54,
+        106,
+        124
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_4_mean_absolute_deviation/pi-sessions/2026-11-12T03-24-04-949Z_01a1cdc8-b3d5-7501-ba8f-c0ded3039d42.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "c9259da2e1a518530e0212ef9d88f1e0b07297049dccd7666203c2ad01d34eee",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "cs_set__heapsort_algorithm",
+      "required_output_relative": "Veribench/heapsort_algorithm.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/heapsort_algorithm.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/cs_set__heapsort_algorithm.json",
+      "manifest_sha256": "dfc5263ac2f0241f40ffe9e07a712b1ae3cd380a7c6ab06e27e01d6b25dd7129",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/cs_set__heapsort_algorithm/instruction.md",
+      "prompt_sha256": "735e77310c7daf66a69472405c122b0694cb6cdd2a1a34f026472eaa22bd7fe2",
+      "prompt_lines_naming_output": [
+        137,
+        189,
+        207
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heapsort_algorithm/pi-sessions/2026-11-12T03-24-55-145Z_01a1cdc9-77e8-73e2-98b9-1e2559ab505d.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "29670b576e9bf7f4d9f5a2a064a6d681018495ed11c4c7b9e19d755dd489b230",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    },
+    {
+      "task_id": "easy_set__19_mypower",
+      "required_output_relative": "Veribench/19_MyPower.lean",
+      "required_capture_absolute": "/home/user/lean_project/Veribench/19_MyPower.lean",
+      "manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/easy_set__19_mypower.json",
+      "manifest_sha256": "67cac19eb56e5696614ea4912233cafc44c30ca58ebe37096d94a1b86de556b9",
+      "prompt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/solver_inputs_version_8/easy_set__19_mypower/instruction.md",
+      "prompt_sha256": "7894926dec26258f4f9a683b98816275a8967c13d390bf1d07e3bf0f2fb28bf1",
+      "prompt_lines_naming_output": [
+        68,
+        120,
+        138
+      ],
+      "actual_session_contains_verbatim_frozen_instruction": true,
+      "actual_session_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__19_mypower/pi-sessions/2026-11-12T03-31-45-929Z_01a1cdcf-bc88-75d8-9223-3c0ea78ee9f3.jsonl",
+      "actual_session_user_message_line": 5,
+      "actual_session_sha256": "27c343cc572199d392be8969f49bcb174705ac11942547a61fdbadc940f83274",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "runner_capture_matches_prompt": true,
+      "recorded_write_edit_destinations": [],
+      "recorded_lean_shell_redirects": [],
+      "tool_calls_naming_required_output": [],
+      "captured_artifact_status": "missing"
+    }
+  ]
+}

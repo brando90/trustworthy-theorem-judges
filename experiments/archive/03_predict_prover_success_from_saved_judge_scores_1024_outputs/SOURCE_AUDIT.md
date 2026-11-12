@@ -1,7 +1,7 @@
 <!-- TLDR: The existing prover records support operational acceptance analysis, but their bridge faithfulness, proof dependence and historical search budgets limit semantic conclusions. -->
 # Located implementation and evidence
 
-All private VeriBench sources were read from committed revision `be287d9bb2f7bd35ba6db1b8735c9ba10d00eade`, not its shared working tree. Exact paths, byte counts and SHA-256 hashes are in [sources/provenance.json](sources/provenance.json). Restricted source snapshots remain in ignored `private/prover_target/source/`; only aggregate evidence and source metadata are exported here.
+All private VeriBench sources were read from committed revision `be287d9bb2f7bd35ba6db1b8735c9ba10d00eade`, not its shared working tree. Exact paths, byte counts and SHA-256 hashes are in [sources/provenance.json](sources/provenance.json). Restricted source snapshots remain in `research_artifacts/prover_target/source/`; only aggregate evidence and source metadata are exported here.
 
 ## Experiment 117: abstract-function proof search
 
@@ -36,7 +36,7 @@ The patched checker fixes the goal imported from `Clean_*`, parses only a proof 
 
 ## Additional provenance and open questions
 
-The authoritative human-study Google Doc (locator retained privately) was fetched with the Google Drive connector on 11-06-2026; its exact returned text and retrieval metadata are protected in `private/prover_target/human_plan_drive.json`. The exported text omits some rendered equations, so the existing byte-exact supplied plan remains necessary for those formulas. This study changes the response variable, rather than silently altering that human-study plan.
+The authoritative human-study Google Doc (locator retained privately) was fetched with the Google Drive connector on 11-06-2026; its exact returned text and retrieval metadata are protected in `research_artifacts/prover_target/human_plan_drive.json`. The exported text omits some rendered equations, so the existing byte-exact supplied plan remains necessary for those formulas. This study changes the response variable, rather than silently altering that human-study plan.
 
 Named paths searched for exact historical model settings: source 140 README, protocol, manifest; source 142 README; source 145 README and per-run receipts; source 137 README and table provenance. Those sources identify the four historical solver configurations but do not bind an exact judge model to each `tc` value or an exact authoring model/effort to each proof. Such settings are unavailable for this reanalysis; no contemporary model identity is inferred. A new measured run must resolve every scientific pin and its payer before admission.
 

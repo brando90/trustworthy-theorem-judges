@@ -5,7 +5,7 @@
 
 **Companion notes:** [Google Doc](https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws)
 
-The public repository contains code, prompts, model/dependency hashes, opaque artifact rows and aggregates. Exact input and proof reproduction requires authorized access to ignored `private/fresh_prover_target/`. Source snapshots are pinned committed blobs from the private VeriBench repositories; no dirty shared checkout file is an input. Four selected contexts reproduce their original exported hashes and reference-name inventories. Fifteen deterministic controls include faithful implication, consistency, counterexample, inconsistent-premise rejection, wrong goal, added axiom, placeholder, native oracle, forged log and proof-body invariance.
+The public repository contains code, prompts, model/dependency hashes, opaque artifact rows and aggregates. Exact input and proof reproduction requires authorized access to `research_artifacts/fresh_prover_target/`. Source snapshots are pinned committed blobs from the private VeriBench repositories; no dirty shared checkout file is an input. Four selected contexts reproduce their original exported hashes and reference-name inventories. Fifteen deterministic controls include faithful implication, consistency, counterexample, inconsistent-premise rejection, wrong goal, added axiom, placeholder, native oracle, forged log and proof-body invariance.
 
 ## Recompute existing reports
 

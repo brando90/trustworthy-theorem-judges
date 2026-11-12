@@ -1,0 +1,11 @@
+{
+  "classification": "INVALID_ENVIRONMENT_PREFLIGHT",
+  "classified_at": "2026-11-12T00:45:13.818974+00:00",
+  "reason": "Image inherited /home/user/lean_project/.lake/build project artifacts, including compiled benchmark modules; source-only isolation was invalid. Parent stopped cell before admitting further tasks.",
+  "image_id": "sha256:8ca8a93c0c961b171152e43d12822e35dd06f73317aebe9e60f46b88f99ea8de",
+  "valid_cohort_included": false,
+  "parent_recovery_authorized": true,
+  "original_receipt_sha256": "529796cbfa05171e426ab364aad5fc0749e8c4bca4288fcb2b40505013149101",
+  "stream_sha256": "840c7adac00344b59420196e34843f9c6df2fc856206e7e43d4a6faa9f8f82c8",
+  "candidate_captured": false
+}

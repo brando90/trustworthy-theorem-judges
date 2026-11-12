@@ -1,0 +1,137 @@
+diff --git a/experiments/09_human_rating_collection/MIGRATION.json b/experiments/09_human_rating_collection/MIGRATION.json
+index 1854aa0..31b4aac 100644
+--- a/experiments/09_human_rating_collection/MIGRATION.json
++++ b/experiments/09_human_rating_collection/MIGRATION.json
+@@ -28,17 +28,17 @@
+     {
+       "file": "assign_setN_folders.py",
+       "source_sha256": "866ccc47be48604cf82ccdb65e2d6db6e0e44612af375b9cfd5e94f864fb4737",
+-      "ported_sha256": "9a7afd2eb6ce9c6ae0c1bd953f3aeb577ace27b1751b16d8c8d0904ad40bfd71"
++      "ported_sha256": "6a5de27039c823c3ee68060395e20a54bba20609eb82ccac954aaa1f27de5d63"
+     },
+     {
+       "file": "import_rating_sheet.py",
+       "source_sha256": "f05ae1004b74f07697619742c51a914970e4d3db367bf068fabcbe46ea84f518",
+-      "ported_sha256": "455e7d5134a4c818163762e3d9819511a0f2f87d42fd17818ddd933392fb8607"
++      "ported_sha256": "a0dcfd556381b8ad5f24dfea330ac4bbefe3022362cba656d0fb80fa5d41f857"
+     },
+     {
+       "file": "make_rater_zip.py",
+       "source_sha256": "59d853bcdd18383fdecab47e1f65e2f3d2dc5b8dfc73f2da0a5c95cb6752593d",
+-      "ported_sha256": "e8bd52dedf741c6baa40ddb37fe992660f572daafc43a023f8b63e613ee29aac"
++      "ported_sha256": "ebf7dda2bd02917bc0ea2364a85e1ffbf5a928a099263bc956c56008763b217c"
+     },
+     {
+       "file": "packet_release.py",
+@@ -48,14 +48,15 @@
+     {
+       "file": "score_warmup.py",
+       "source_sha256": "0f00fe3dadca1fc5143dc6122f27457ecf21e6b07308e73155169ba95b3d366b",
+-      "ported_sha256": "fa34fa28049409e9322b2c4e3e05ebc51e870d11c64e9299871388bd550a3463"
++      "ported_sha256": "14b5a4bf3ca57a8a380f50092eab0d6a13032ad4160a8ca068813950c7f252e5"
+     }
+   ],
+   "port_adaptations": [
+     "Resolve inputs in the pinned private snapshot, with links to the single private working-state store.",
+     "Read coordinator sheet identifiers from private configuration and omit the personal owner email from the public docstring.",
+     "Refuse to overwrite an existing recipient archive; use a new output directory for a new delivery.",
+-    "Close the warm-up CSV reader through Path.read_text without changing scoring."
++    "Close the warm-up CSV reader through Path.read_text without changing scoring.",
++    "Update usage examples for the new repository root and ignored private output paths."
+   ],
+   "collection_tests_passed": 17,
+   "compatibility_entry_points_verified": 4,
+diff --git a/experiments/09_human_rating_collection/README.md b/experiments/09_human_rating_collection/README.md
+index 0fc206d..7f18319 100644
+--- a/experiments/09_human_rating_collection/README.md
++++ b/experiments/09_human_rating_collection/README.md
+@@ -2,7 +2,7 @@
+ 
+ **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/README.md>
+ 
+-**TLDR:** This is the active home for preparing and collecting human ratings of formal specification coverage. The inherited packets and collection records are preserved. A concurrent preparation update supplies revised deadlines and individual drafts; collaborator dispatch still requires review of the recipient-specific text and an explicit send instruction.
++**TLDR:** This is the active home for preparing and collecting human ratings of formal specification coverage, with inherited packets and collection records preserved. The current preparation record supplies revised deadlines and individual drafts; collaborator dispatch still requires review of the recipient-specific text and an explicit send instruction.
+ 
+ ## Ownership and scope
+ 
+diff --git a/experiments/09_human_rating_collection/scripts/legacy/assign_setN_folders.py b/experiments/09_human_rating_collection/scripts/legacy/assign_setN_folders.py
+index 6701b12..4f2203e 100644
+--- a/experiments/09_human_rating_collection/scripts/legacy/assign_setN_folders.py
++++ b/experiments/09_human_rating_collection/scripts/legacy/assign_setN_folders.py
+@@ -1,7 +1,7 @@
+ # TLDR: Amendment C15 item 5's folder assignment for rating set N: gives each of the 25 task folders two distinct qualified raters within each rater's pledge, pairing one team and one vendor rater per folder while both groups have capacity, and keeps already-delivered folders fixed (--keep); seeded (20261009), zero model calls, uses folder ids only (no system information).
+-"""Usage:
+-  python3 scripts/assign_setN_folders.py --roster human_round/private_ratings_setN/ROSTER.csv \
+-      [--include-pending] [--keep DELIVERED.csv] [--out human_round/private_ratings_setN/ASSIGNMENT.csv]
++"""Usage from the trustworthy-theorem-judges root (supply the current private roster and delivered assignments):
++  python3 experiments/09_human_rating_collection/scripts/legacy/assign_setN_folders.py --roster private/ROSTER.csv \
++      [--include-pending] [--keep private/DELIVERED.csv] [--out private/ASSIGNMENT.csv]
+ 
+ ROSTER.csv columns: rater_id, pool (team|vendor), pledged_folders (int), qualified (yes|no|pending), name (optional).
+ A1 is never assigned (A1 rates every folder as a sensitivity rater, C8 item 3).
+diff --git a/experiments/09_human_rating_collection/scripts/legacy/import_rating_sheet.py b/experiments/09_human_rating_collection/scripts/legacy/import_rating_sheet.py
+index 4fda650..55ff63d 100644
+--- a/experiments/09_human_rating_collection/scripts/legacy/import_rating_sheet.py
++++ b/experiments/09_human_rating_collection/scripts/legacy/import_rating_sheet.py
+@@ -1,10 +1,10 @@
+ # TLDR: C15 item 11: check a rater's exported Google Sheet (CSV), or the rating CSV a rater emailed back (--csv, 10-21-2026), against the packet's item ids, the rater's delivered folders and the allowed values, then keep immutable raw and normalized snapshots plus a provenance receipt in the git-ignored private_ratings_setN/; zero model calls.
+-"""Usage:
+-  python3 scripts/import_rating_sheet.py EXPORT.csv --rater T01 --packet setN|warmup \
++"""Usage from the trustworthy-theorem-judges root (keep exports and outputs under private/):
++  python3 experiments/09_human_rating_collection/scripts/legacy/import_rating_sheet.py private/EXPORT.csv --rater T01 --packet setN|warmup \
+       --file-id DRIVE_FILE_ID --source-modified DRIVE_MODIFIED_TIME [--all-folders] \
+-      [--out-dir human_round/private_ratings_setN] [--receipts <out-dir>/delivery/DELIVERY_RECEIPTS.jsonl]
+-  python3 scripts/import_rating_sheet.py --csv EMAILED.csv --rater V01 --packet warmup \
+-      --source-message-id GMAIL_MESSAGE_ID --source-modified EMAIL_DATE_UTC [--out-dir ...] [--receipts ...]
++      [--out-dir private/IMPORTS] [--receipts <out-dir>/delivery/DELIVERY_RECEIPTS.jsonl]
++  python3 experiments/09_human_rating_collection/scripts/legacy/import_rating_sheet.py --csv private/EMAILED.csv --rater V01 --packet warmup \
++      --source-message-id GMAIL_MESSAGE_ID --source-modified EMAIL_DATE_UTC [--out-dir private/IMPORTS] [--receipts ...]
+ 
+ The second form is the emailed-CSV route (`emailed_csv_v1_2026-10-21`, coordinator ruling 10-21-2026 09:12 PDT): a rater
+ whose delivery receipt says "return_route": "emailed_csv" fills the rating_sheet CSV from the zip and emails it back, so
+@@ -17,7 +17,7 @@ Rejects the import (exit 1, nothing written) when:
+   - required columns are missing, or no row has a final score;
+   - a scored row has no item_id, or an item_id is unknown or appears twice;
+   - a scored item lies outside the folders delivered to this rater (`--all-folders` only for A1, who rates everything);
+-  - the Drive file id is not the personal sheet delivered to this rater (packet v5 receipts carry sheet_id; A1 uses A1_SHEETS),
++  - the Drive file id is not the personal sheet delivered to this rater (packet v5 receipts carry sheet_id; A1 uses private coordinator sheet bindings),
+     or `--all-folders` is used for anyone but A1;
+   - `--csv` is used for a rater whose latest delivery receipt does not say "return_route": "emailed_csv", or a Drive
+     export is given for one whose receipt does; the two routes never mix, and `--csv` takes no Drive file id;
+diff --git a/experiments/09_human_rating_collection/scripts/legacy/make_rater_zip.py b/experiments/09_human_rating_collection/scripts/legacy/make_rater_zip.py
+index 1ed5093..aeebc1b 100644
+--- a/experiments/09_human_rating_collection/scripts/legacy/make_rater_zip.py
++++ b/experiments/09_human_rating_collection/scripts/legacy/make_rater_zip.py
+@@ -1,7 +1,7 @@
+ # TLDR: C15 item 11 delivery: builds one rater's self-contained zip (the packet's instructions plus only that rater's assigned folders, byte-identical to the repo, plus YOUR_RATING_SHEET.txt with the rater's personal Google Sheet link, all listed in a matching FILES.sha256) and logs its contents, sheet and SHA-256 in DELIVERY_RECEIPTS.jsonl; zero model calls.
+-"""Usage:
+-  python3 scripts/make_rater_zip.py --packet setN --rater T01 --folders N03,N17 --sheet-url URL --share-email EMAIL [--out-dir human_round/private_ratings_setN/delivery]
+-  python3 scripts/make_rater_zip.py --packet warmup --rater T01 --sheet-url URL --share-email EMAIL
++"""Usage from the trustworthy-theorem-judges root:
++  python3 experiments/09_human_rating_collection/scripts/legacy/make_rater_zip.py --packet setN --rater T01 --folders N03,N17 --sheet-url URL --share-email EMAIL [--out-dir private/NEW_DELIVERY]
++  python3 experiments/09_human_rating_collection/scripts/legacy/make_rater_zip.py --packet warmup --rater T01 --sheet-url URL --share-email EMAIL
+ 
+ URL is the rater's personal sheet for that packet (owned by the coordinator, shared with the rater's Google account(s) as editor, rater code pre-filled);
+ add --share-email with those account(s).
+diff --git a/experiments/09_human_rating_collection/scripts/legacy/score_warmup.py b/experiments/09_human_rating_collection/scripts/legacy/score_warmup.py
+index 885f6fb..9e073e4 100644
+--- a/experiments/09_human_rating_collection/scripts/legacy/score_warmup.py
++++ b/experiments/09_human_rating_collection/scripts/legacy/score_warmup.py
+@@ -1,12 +1,13 @@
+ # TLDR: Scores returned C15 warm-up sheets against the sealed May expert means under amendment C17 (qualify on W01a-c only, mean absolute difference <= 1.0; the six-file W01+W02 value is printed as a disclosed sensitivity, never a verdict), per rater: qualifying MAE, six-file MAE, per-folder MAE, verdict, Lean familiarity and minutes; a rater who was one of the three May experts is scored against the other two experts' mean (--leave-out-expert); refuses duplicate or incomplete sheets and any key whose digest is not the sealed one; zero model calls, writes nothing.
+-"""Usage: python3 scripts/score_warmup.py SHEET.csv [SHEET2.csv ...] [--qualify-task W01] [--key PATH] [--synthetic-key]
+-       python3 scripts/score_warmup.py SHEET.csv --leave-out-expert K   (one sheet; K = 1, 2 or 3)
++"""Usage from the trustworthy-theorem-judges root:
++  python3 experiments/09_human_rating_collection/scripts/legacy/score_warmup.py private/SHEET.csv [private/SHEET2.csv ...] [--qualify-task W01] [--key PATH] [--synthetic-key]
++  python3 experiments/09_human_rating_collection/scripts/legacy/score_warmup.py private/SHEET.csv --leave-out-expert K   (one sheet; K = 1, 2 or 3)
+ (Use the normalized copies written by import_rating_sheet.py.)
+ 
+ --qualify-task  folder(s) whose items decide qualification; default W01 (amendment C17); repeat the flag for more
+                 folders; ALL = every warm-up item (the pre-C17 C15 rule, now reported only as a sensitivity).
+---key           the sealed key (default human_round/warmup/sealed/WARMUP_KEY.json); its SHA-256 digest must equal
+-                sealed_key_sha256 in human_round/warmup/WARMUP_MANIFEST.json.
++--key           the sealed key (default: the pinned private snapshot); its SHA-256 digest must equal
++                sealed_key_sha256 in that snapshot's human_round/warmup/WARMUP_MANIFEST.json.
+ --synthetic-key self-test only: accept a key whose digest is not the sealed one; every line is then marked SYNTHETIC.
+ --allow-missing-nonqualifying  C17 addendum (10-20-2026): score a sheet whose only missing items lie outside the
+                 qualification task (W02 rows the importer recorded as N/A reference-issue rows); the verdict uses the

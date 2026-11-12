@@ -1,0 +1,1229 @@
+{
+  "completed_at": "2026-11-12T04:50:30.986124+00:00",
+  "status": "all25_original_tasks_terminal",
+  "task_count": 25,
+  "attempted_once": 25,
+  "pending": 0,
+  "captured_required_path_artifacts": 0,
+  "native_harness": "Pi",
+  "native_version": "1.5.2",
+  "model": "gemini-3.8-flash",
+  "thinking": "high",
+  "payer_scope": "Existing Allen Google key, VeriBench scope",
+  "caps_per_cell": {
+    "generation_requests_including_generation_retries": 40,
+    "wall_seconds": 1800,
+    "input_tokens_per_request": 65536,
+    "output_tokens_per_request": 16384,
+    "conservative_usd": 0.75
+  },
+  "counter_definition": "The receipt provider_requests alias counts generation requests including generation retries. countTokens preflights are separate HTTP calls and are not individually counted by that ledger.",
+  "generation_requests_total": 670,
+  "completed_usage_cost_upper_bound_usd": 9.69398325,
+  "unresolved_request_reservations_usd": 1.216512,
+  "valid_cohort_conservative_usd": 10.91049525,
+  "invalid_environment_pilot": {
+    "generation_requests": 39,
+    "completed_usage_cost_upper_bound_usd": 0.7204245,
+    "unresolved_request_reservations_usd": 0.0,
+    "conservative_usd": 0.7204245,
+    "excluded_from25": true
+  },
+  "combined_conservative_usd": 11.63091975,
+  "global_ceiling_usd": 20,
+  "cost_interpretation": "Cost bounds from returned usage, ignoring cache discounts, plus full reservations for incomplete/failed requests. These are not verified invoice charges.",
+  "source_and_egress_audit": {
+    "verbatim_frozen_prompt_verified": 25,
+    "capture_path_matches_instruction": 25,
+    "runtime_uid": 1001,
+    "host_mounts": [],
+    "clean_image": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+    "contract": "Frozen runner asserts an internal-only solver network. A separate gateway permits only the pinned Google generation route, with native function tools and HIGH thinking. Actual first concurrent runtime inspections are preserved in PI_V7_FIRST_TWO_RUNTIME_ISOLATION.json.",
+    "limitation": "Whole workspace snapshots were not retained; zero captured required-path artifacts does not mean no temporary Lean code was written elsewhere."
+  },
+  "records": [
+    {
+      "task_id": "realcode_set__20_html_escape",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Provider request cap reached"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T00:57:55.078948+00:00",
+          "reason": "Provider request cap reached"
+        }
+      ],
+      "generation_requests_including_retries": 40,
+      "completed_usage_cost_upper_bound_usd": 0.38397525,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.38397525,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__20_html_escape/receipt.json",
+      "receipt_sha256": "b20194b19e55f468d1b61539032515880578a5307782a1bf3284d08bfc410dd7",
+      "gateway_ledger_sha256": "e6533c6fc89d9b0ef3b4262356a6d35efa525807d3ea936f322822f606e13699",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v3_5ed1acd6.py",
+      "runner_sha256": "5ed1acd6658abc7086f4b16bff5a46e60adffdf6568f8a67132c40b4ad709496",
+      "original_started_at": "2026-11-12T00:50:07.278313+00:00",
+      "finished_at": "2026-11-12T00:57:55.186408+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/20_html_escape.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__20_html_escape/pi-sessions/2026-11-12T00-50-11-287Z_01a1cd3b-ced6-745a-a58b-90bbd0519d77.jsonl",
+          "sha256": "e898a482846370bccfa018ca0f134ae0f866791a5eb63f0fd1dc4d273b3940dc"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 36,
+        "read": 4
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "easy_set__23_is_prime",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "URLError"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T01:00:01.884792+00:00",
+          "reason": "URLError"
+        }
+      ],
+      "generation_requests_including_retries": 6,
+      "completed_usage_cost_upper_bound_usd": 0.04462425,
+      "unresolved_request_reservations_usd": 0.110592,
+      "conservative_usd": 0.15521625,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__23_is_prime/receipt.json",
+      "receipt_sha256": "16f74dd0d06d8f1e19b80954197c57dae4adf10b5908d56a3dc203448e4c71c2",
+      "gateway_ledger_sha256": "25d47b091d8ee4f91f3b9719bd08d6a0565a9110b0e563e21ef4b75984e17f03",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v3_5ed1acd6.py",
+      "runner_sha256": "5ed1acd6658abc7086f4b16bff5a46e60adffdf6568f8a67132c40b4ad709496",
+      "original_started_at": "2026-11-12T00:57:55.786385+00:00",
+      "finished_at": "2026-11-12T01:00:02.005967+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/23_is_prime.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__23_is_prime/pi-sessions/2026-11-12T00-57-59-796Z_01a1cd42-f4f4-7555-8d6d-501b6d579c4a.jsonl",
+          "sha256": "11b9d763ad8afd133afb47aee0265f09f90d7af7505cb0052929dff791a04497"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 3,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "HTTPError"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T01:11:57.796781+00:00",
+          "phase": "generate_content",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        }
+      ],
+      "generation_requests_including_retries": 5,
+      "completed_usage_cost_upper_bound_usd": 0.014004,
+      "unresolved_request_reservations_usd": 0.110592,
+      "conservative_usd": 0.124596,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/receipt.json",
+      "receipt_sha256": "670bbb73703801a18ee00185420d879aa9a358c8785d09fef2c98cf7082f100d",
+      "gateway_ledger_sha256": "f47e023dfcfd881046bc5675e11f50ee5cd64bec7c1c29b058ef9ace1d38e1cc",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v4_f4ac9b97.py",
+      "runner_sha256": "f4ac9b97febe39d458766f5ca444d7bfb57ab21b95ed3ee464457c3b63136ddb",
+      "original_started_at": "2026-11-12T01:03:38.902771+00:00",
+      "finished_at": "2026-11-12T01:11:57.976536+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/93_unsafeAppEntitlements.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/pi-sessions/2026-11-12T01-03-42-620Z_01a1cd48-301b-7399-b017-abc536ee71d9.jsonl",
+          "sha256": "a0e46eb01bfc3830b016c619edb4bd20780e84a012fe8558667f85d2919ac6c7"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 2,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "TimeoutError"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T01:24:55.178972+00:00",
+          "phase": "generate_content",
+          "reason": "TimeoutError"
+        }
+      ],
+      "generation_requests_including_retries": 4,
+      "completed_usage_cost_upper_bound_usd": 0.010494,
+      "unresolved_request_reservations_usd": 0.110592,
+      "conservative_usd": 0.121086,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/receipt.json",
+      "receipt_sha256": "6ddf0fac52cbf3e3bf740eada280a4c0fa995c08abffe1f68156524744494fad",
+      "gateway_ledger_sha256": "221e4d9c6d2cd96c3d5be6096e65cb805eb562914f0cd7b02dfe750f47f344a4",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v5_89498273.py",
+      "runner_sha256": "89498273ae22c49e521469251e59129895dbb40d30a77db46af872f6473dff48",
+      "original_started_at": "2026-11-12T01:18:24.449726+00:00",
+      "finished_at": "2026-11-12T01:24:55.277396+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/129_unsafeTorHiddenService.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/pi-sessions/2026-11-12T01-18-28-213Z_01a1cd55-b375-7341-87d4-330a1a8a8e23.jsonl",
+          "sha256": "33babe3bf1192f0b61c35434b8bffc7025bb63695afec81c4fbc3d1aeb376975"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 2,
+        "read": 1
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "easy_set__41_duplicate_chars",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "HTTP503 before response",
+        "HTTPError"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T01:28:45.864470+00:00",
+          "call": 2,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": false,
+          "retry_index": 0,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:28:51.137865+00:00",
+          "call": 3,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": false,
+          "retry_index": 1,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:29:06.328973+00:00",
+          "call": 4,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": true,
+          "retry_index": 2,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:29:06.330033+00:00",
+          "phase": "generate_content",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        }
+      ],
+      "generation_requests_including_retries": 4,
+      "completed_usage_cost_upper_bound_usd": 0.00379575,
+      "unresolved_request_reservations_usd": 0.331776,
+      "conservative_usd": 0.33557175,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__41_duplicate_chars/receipt.json",
+      "receipt_sha256": "de782510d04662dafd849373550eef960cdfcc46754f2fb6847e863d0738f900",
+      "gateway_ledger_sha256": "9d4cd1cfdeddfba2326d297a42dfe79bb1d47c9fd58ed28c2a12327f2316426f",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T01:26:57.018540+00:00",
+      "finished_at": "2026-11-12T01:29:06.495129+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/41_duplicate_chars.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__41_duplicate_chars/pi-sessions/2026-11-12T01-27-00-795Z_01a1cd5d-85ba-7408-8100-1bbdddfa9fd6.jsonl",
+          "sha256": "870f67c072afed68b4e6f370d398380bfc21764146d9cfd320084db9086d183c"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 1
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "HTTP503 before response",
+        "HTTPError"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T01:30:11.348360+00:00",
+          "call": 1,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": false,
+          "retry_index": 0,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:30:16.598537+00:00",
+          "call": 2,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": false,
+          "retry_index": 1,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:30:31.832435+00:00",
+          "call": 3,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": true,
+          "retry_index": 2,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T01:30:31.833180+00:00",
+          "phase": "generate_content",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        }
+      ],
+      "generation_requests_including_retries": 3,
+      "completed_usage_cost_upper_bound_usd": 0.0,
+      "unresolved_request_reservations_usd": 0.331776,
+      "conservative_usd": 0.331776,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__75_unsafecerthostname/receipt.json",
+      "receipt_sha256": "89aac189a0f3339e4166138cefb6b654ed60fb917bba5c50fb9245085cf93fa7",
+      "gateway_ledger_sha256": "3a4b706436e5ca619ef4c039f9f9237cda756827caeffc58629937b09660db9f",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T01:30:07.075921+00:00",
+      "finished_at": "2026-11-12T01:30:31.995449+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/75_unsafeCertHostname.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__75_unsafecerthostname/pi-sessions/2026-11-12T01-30-10-831Z_01a1cd60-6c0e-74a2-86f3-1f3501dd4ab6.jsonl",
+          "sha256": "0b80298d269495e77ee70977ecbdaa509e8f1db6a998994aae8ba5b95c1dcc03"
+        }
+      ],
+      "native_tool_counts": {},
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "status": "timeout",
+      "native_stop_reason": "toolUse",
+      "artifact_status": "missing",
+      "causes": [
+        "Original wall-clock cap"
+      ],
+      "denials": [],
+      "generation_requests_including_retries": 39,
+      "completed_usage_cost_upper_bound_usd": 0.40236225,
+      "unresolved_request_reservations_usd": 0.110592,
+      "conservative_usd": 0.5129542500000001,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_35_max_element/receipt.json",
+      "receipt_sha256": "29cf0079aa6e309220e70caf3f8bf70756735534a03957002a2ea12f0eae9b08",
+      "gateway_ledger_sha256": "dfbf155fe00a4f32155799afd8766157547570793a7ee423a6ecfd1991b600de",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T02:00:32.154223+00:00",
+      "finished_at": "2026-11-12T02:30:37.955102+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/humaneval_35_max_element.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_35_max_element/pi-sessions/2026-11-12T02-00-35-911Z_01a1cd7c-4547-7117-9726-06d01c0f6fe6.jsonl",
+          "sha256": "6c09dd414b1e286c1e1f71cc9bc5b3c4915f64a3830ea8b09d0e923f27081143"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 36,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "cs_set__topological_sort",
+      "status": "recovered_native_terminal",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Provider request cap reached",
+        "Host-wrapper-loss incident; original Docker conversation recovered without restart"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T02:59:46.874040+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        }
+      ],
+      "generation_requests_including_retries": 40,
+      "completed_usage_cost_upper_bound_usd": 0.6434775,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.6434775,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/receipt.json",
+      "receipt_sha256": "9529e85a9999e88be74f1d7e57dd4b04cd7f453f209daacad53410a56cc538e9",
+      "gateway_ledger_sha256": "71659e9844e29ad94f66f2f8f342a6cd4d511401049eaea41be571c9413a11d4",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T02:32:25.962477+00:00",
+      "finished_at": "2026-11-12T02:59:48.813967+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/topological_sort.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/pi-sessions_recovered/2026-11-12T02-32-29-787Z_01a1cd99-795a-774b-b3ab-dc277590e8b6.jsonl",
+          "sha256": "f6b1a191872acec3dca33f6d2e143f06e824be4f06b000f2b61503f313857216"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 39,
+        "read": 1
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": {
+        "incident": "Host wrappers ended when their tmux coordinator exited. Existing Docker Pi processes and gateways continued; neither conversation was restarted.",
+        "infrastructure_affected": true,
+        "initial_recovered_receipt_sha256": "d348ba2837b25aeba4601b39ccf9a8e9dae99aabd20d1f7fb268d37b5b63e131",
+        "native_identity_evidence_path": "private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/recovered_session_identity_evidence.json",
+        "native_identity_evidence_sha256": "8ec3ab1f74ee6c86821cbc97a660de660d7ab30ccf3bf8a56718d9a3b32a7c17",
+        "observer_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/observe_pi_orphaned_containers.py",
+        "observer_sha256": "61776d05e98fdf7c5ee52ac43a1a80229bc74cea932a3cf60eec2f9f834d974b",
+        "original_deadline_utc": "2026-11-12T03:02:25.962477+00:00",
+        "original_receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/receipt_before_host_supervision_recovery.json",
+        "original_receipt_sha256": "ce6e0478fa46589e51f0c2903f73804b51a5e81baad41426823838b771a1f0e4",
+        "trajectory_caveat": "Original host trajectory is incomplete after wrapper loss; native persisted sessions are preserved separately in pi-sessions_recovered. No candidate was reconstructed."
+      }
+    },
+    {
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "status": "recovered_native_terminal",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Provider request cap reached",
+        "Host-wrapper-loss incident; original Docker conversation recovered without restart"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T02:58:40.589596+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        }
+      ],
+      "generation_requests_including_retries": 40,
+      "completed_usage_cost_upper_bound_usd": 0.4847865,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.4847865,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/receipt.json",
+      "receipt_sha256": "137f182ecd28f7d9f834abb5b89f2aaa7fb90a896f79fec3fe3b1e83200ca118",
+      "gateway_ledger_sha256": "4140e65fefef31d510115c42861eb84e42c0698433b44b2c3a68c40c4ffa3428",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T02:32:26.114564+00:00",
+      "finished_at": "2026-11-12T02:58:41.947010+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/humaneval_39_prime_fib.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/pi-sessions_recovered/2026-11-12T02-32-29-883Z_01a1cd99-79ba-763f-8061-0f0d07e585b2.jsonl",
+          "sha256": "235f93ee953222920fd09eae9eb44560d40c82273e795ea93ab73f9a55425122"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 40
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": {
+        "incident": "Host wrappers ended when their tmux coordinator exited. Existing Docker Pi processes and gateways continued; neither conversation was restarted.",
+        "infrastructure_affected": true,
+        "initial_recovered_receipt_sha256": "29a1bda4efa5cd8c986e424ba603b1623039e59fd7abeeeeb14ffc15066824c5",
+        "native_identity_evidence_path": "private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/recovered_session_identity_evidence.json",
+        "native_identity_evidence_sha256": "cad050fb59631fa83d4317fe6f9726ce2c8cf89933195ad0722fc12a354d21c6",
+        "observer_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/observe_pi_orphaned_containers.py",
+        "observer_sha256": "61776d05e98fdf7c5ee52ac43a1a80229bc74cea932a3cf60eec2f9f834d974b",
+        "original_deadline_utc": "2026-11-12T03:02:26.114564+00:00",
+        "original_receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/receipt_before_host_supervision_recovery.json",
+        "original_receipt_sha256": "ed18ec9ac2c2267c55da8084117eba000d47c05f9d2d07f546ba403edb54dc03",
+        "trajectory_caveat": "Original host trajectory is incomplete after wrapper loss; native persisted sessions are preserved separately in pi-sessions_recovered. No candidate was reconstructed."
+      }
+    },
+    {
+      "task_id": "realcode_set__23_base32",
+      "status": "process_completed",
+      "native_stop_reason": "length",
+      "artifact_status": "missing",
+      "causes": [
+        "Native output-length stop / provider MAX_TOKENS"
+      ],
+      "denials": [],
+      "generation_requests_including_retries": 19,
+      "completed_usage_cost_upper_bound_usd": 0.39357975,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.39357975,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__23_base32/receipt.json",
+      "receipt_sha256": "4f0cb45088192d35ec2a6c804fc4db2c39f3392bdd53693fc28b1b47e020ad79",
+      "gateway_ledger_sha256": "bd61999a335198003b15d431dd7e79542dfd8b600e958e38aabdc889ba9a7f94",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T03:09:03.812463+00:00",
+      "finished_at": "2026-11-12T03:23:51.546541+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/23_base32.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__23_base32/pi-sessions/2026-11-12T03-09-07-539Z_01a1cdbb-0253-7336-9848-5ebe16c5cc58.jsonl",
+          "sha256": "5707fdf0a5ce0436ad35e86a1b2918f7feb632d9865a925be70927c87e238a3f"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 15,
+        "read": 3
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Provider request cap reached"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T03:24:44.978088+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        }
+      ],
+      "generation_requests_including_retries": 40,
+      "completed_usage_cost_upper_bound_usd": 0.47658,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.47658,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_15_string_sequence/receipt.json",
+      "receipt_sha256": "2230a4f61ae1b521eab73b24d0649c59eac1c57bc253d405cd66624dbb2610a7",
+      "gateway_ledger_sha256": "a84bd0da50658c0d4914991b421b4bb9d765a325e732014cebe5060226d20dca",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T03:09:08.997934+00:00",
+      "finished_at": "2026-11-12T03:24:45.129106+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/humaneval_15_string_sequence.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_15_string_sequence/pi-sessions/2026-11-12T03-09-12-736Z_01a1cdbb-169f-777f-9dc4-f9c5c64dd3f2.jsonl",
+          "sha256": "510b0c99bbe426221a5432638b5658c8a6f8199186c08061a548d56e9e6ea087"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 38,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "cs_set__counting_sort",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Provider request cap reached"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T03:23:43.410686+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        }
+      ],
+      "generation_requests_including_retries": 40,
+      "completed_usage_cost_upper_bound_usd": 0.515985,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.515985,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__counting_sort/receipt.json",
+      "receipt_sha256": "6516e220c78866fd34e4a6182194a94b1ab129f123d775d54e5d8c00a92a84ed",
+      "gateway_ledger_sha256": "1113b53ad9e5a6e570ad1d9582e41d342d777cda083fcca68bef19c21f77eea8",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T03:09:14.204838+00:00",
+      "finished_at": "2026-11-12T03:23:43.565645+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/counting_sort.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__counting_sort/pi-sessions/2026-11-12T03-09-17-960Z_01a1cdbb-2b07-76dc-80a6-07ed24f1fcc2.jsonl",
+          "sha256": "72dd18a4ee03f4b15014637db8d9e16fa78d8b4cff80615c3b32bb6776bd7c8f"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 38,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "easy_set__16_myfactorial",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Input token cap exceeded"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T03:16:17.618875+00:00",
+          "phase": "generate_content",
+          "reason": "Input token cap exceeded"
+        }
+      ],
+      "generation_requests_including_retries": 15,
+      "completed_usage_cost_upper_bound_usd": 0.2545335,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.2545335,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__16_myfactorial/receipt.json",
+      "receipt_sha256": "85b53b45c869d6096aa1e0f91d46f662e6e9cd3eb5ec5052044a5159eee73800",
+      "gateway_ledger_sha256": "5bbf9f4df8a6eaa831d1d11d3c5c4a412d74c13e348c037f0713f59eea0d1f20",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T03:09:19.383973+00:00",
+      "finished_at": "2026-11-12T03:16:17.779383+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/16_MyFactorial.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__16_myfactorial/pi-sessions/2026-11-12T03-09-23-092Z_01a1cdbb-3f13-71df-a5a5-bd749d4028b7.jsonl",
+          "sha256": "37c308d234d681893be78f264e3c252694af2963c76941560ba936fdb7923274"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 13,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Provider request cap reached"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T03:31:32.735805+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        }
+      ],
+      "generation_requests_including_retries": 40,
+      "completed_usage_cost_upper_bound_usd": 0.28260075,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.28260075,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_14_all_prefixes/receipt.json",
+      "receipt_sha256": "da347dade68af967dc641f53a3b44bd11b7dc1364c6f5221c1eacf7b2e50747e",
+      "gateway_ledger_sha256": "770438c694112a45ec277364106e7baac7799a367486a677af707987938d3dc1",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T03:16:25.197824+00:00",
+      "finished_at": "2026-11-12T03:31:32.922222+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_14_all_prefixes/pi-sessions/2026-11-12T03-16-29-638Z_01a1cdc1-c145-72ee-a360-90fdaad13d0b.jsonl",
+          "sha256": "f05cee30055143b2bf44240c5f4d6720be082a191804bb839f8a25509242b249"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 20,
+        "read": 1,
+        "write": 19
+      },
+      "write_edit_paths": [
+        "/home/user/lean_project/scratch.lean"
+      ],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "easy_set__20_mysumdigits",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Cell dollar cap cannot admit next request"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T03:38:07.348963+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        }
+      ],
+      "generation_requests_including_retries": 29,
+      "completed_usage_cost_upper_bound_usd": 0.6680287500000001,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.6680287500000001,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__20_mysumdigits/receipt.json",
+      "receipt_sha256": "9832badc2e488e4ae637e7e3afe78abce50c20ffb6cde5608582f039cb3f0678",
+      "gateway_ledger_sha256": "dacefd6a4b4f284755ea31262a1b9ae29cb7ffe4644067cb50adaf79b626b6fd",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T03:23:50.959057+00:00",
+      "finished_at": "2026-11-12T03:38:07.505319+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/20_MySumDigits.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__20_mysumdigits/pi-sessions/2026-11-12T03-23-55-437Z_01a1cdc8-8ead-7608-bda4-f7dad80a5005.jsonl",
+          "sha256": "42f2ad104a837f6ff4294a24139474f4bb54ec1815a3f18bb721ff00da5930af"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 27,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "HTTP503 before response",
+        "Cell dollar cap cannot admit next request"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T03:31:42.077038+00:00",
+          "call": 17,
+          "phase": "generate_content",
+          "reason": "HTTP503 before response",
+          "retry_exhausted": false,
+          "retry_index": 0,
+          "upstream_http_status": 503
+        },
+        {
+          "at": "2026-11-12T03:37:53.397593+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        }
+      ],
+      "generation_requests_including_retries": 30,
+      "completed_usage_cost_upper_bound_usd": 0.576081,
+      "unresolved_request_reservations_usd": 0.110592,
+      "conservative_usd": 0.686673,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_4_mean_absolute_deviation/receipt.json",
+      "receipt_sha256": "ac6bcf65e90c31cbce3f76f78d3aef1a8787b4b6820d08276a3b6dacb97ae48a",
+      "gateway_ledger_sha256": "f507dcfeda31374ee645c3286e59dab713180be1052ea6fd4a880dd4868815bd",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T03:24:01.140440+00:00",
+      "finished_at": "2026-11-12T03:37:53.561253+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_4_mean_absolute_deviation/pi-sessions/2026-11-12T03-24-04-949Z_01a1cdc8-b3d5-7501-ba8f-c0ded3039d42.jsonl",
+          "sha256": "c9259da2e1a518530e0212ef9d88f1e0b07297049dccd7666203c2ad01d34eee"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 27,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "cs_set__heapsort_algorithm",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "HTTPError"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T03:37:55.758047+00:00",
+          "phase": "count_tokens",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        }
+      ],
+      "generation_requests_including_retries": 28,
+      "completed_usage_cost_upper_bound_usd": 0.327657,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.327657,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heapsort_algorithm/receipt.json",
+      "receipt_sha256": "4f7a98ed206aa9611fa37458f9c3b98760a1cd3d7332e165bff5ce34865b4390",
+      "gateway_ledger_sha256": "fb42b8a2f57a0893d848d9f6976e7acce2291bbc45b82a4f7d1144a700909072",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T03:24:51.375262+00:00",
+      "finished_at": "2026-11-12T03:37:55.909387+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/heapsort_algorithm.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heapsort_algorithm/pi-sessions/2026-11-12T03-24-55-145Z_01a1cdc9-77e8-73e2-98b9-1e2559ab505d.jsonl",
+          "sha256": "29670b576e9bf7f4d9f5a2a064a6d681018495ed11c4c7b9e19d755dd489b230"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 26,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "easy_set__19_mypower",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "HTTPError"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T03:36:41.034933+00:00",
+          "phase": "count_tokens",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        }
+      ],
+      "generation_requests_including_retries": 14,
+      "completed_usage_cost_upper_bound_usd": 0.270708,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.270708,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__19_mypower/receipt.json",
+      "receipt_sha256": "209a883be82a1bd34f07710f6acb59bc4d42b4872249071b2f20c1ad63e3ee75",
+      "gateway_ledger_sha256": "030dd02131863994e73a5f9a9add5abc8edf64f9a7e951dbadd20132f57bc351",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T03:31:42.143413+00:00",
+      "finished_at": "2026-11-12T03:36:41.186130+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/19_MyPower.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__19_mypower/pi-sessions/2026-11-12T03-31-45-929Z_01a1cdcf-bc88-75d8-9223-3c0ea78ee9f3.jsonl",
+          "sha256": "27c343cc572199d392be8969f49bcb174705ac11942547a61fdbadc940f83274"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 12,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Provider request cap reached"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T04:26:17.208540+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        }
+      ],
+      "generation_requests_including_retries": 40,
+      "completed_usage_cost_upper_bound_usd": 0.60131025,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.60131025,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade/receipt.json",
+      "receipt_sha256": "98b26c0fa943d19314197cfa74e6d06a343683e1f6d5632cf760992e2f4283ad",
+      "gateway_ledger_sha256": "ecd74d5b842a9384cac51055d5c7699039e9dc231b9a08155cb098206f262df0",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T04:08:03.957886+00:00",
+      "finished_at": "2026-11-12T04:26:17.318376+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/95_unsafeTlsDowngrade.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade/pi-sessions/2026-11-12T04-08-08-151Z_01a1cdf1-08d7-7718-9a0b-a2f38a211f5d.jsonl",
+          "sha256": "600980d4b37c6ed45df51bb20bb73b01d8f957e02208e6ad11ccfa03fa0ba662"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 38,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Cell dollar cap cannot admit next request"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T04:39:56.198297+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        }
+      ],
+      "generation_requests_including_retries": 36,
+      "completed_usage_cost_upper_bound_usd": 0.64097025,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.64097025,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__safe__125_unsafetpmhash_safe/receipt.json",
+      "receipt_sha256": "36fb5a00585f5abacf651b0a15389c421fcec0c684e738d00c3b6478707ea174",
+      "gateway_ledger_sha256": "19e44be293f412a56053a9ac9658f95982aea7d51f1a947fc2c2aeb2bf9f7f77",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T04:26:26.515169+00:00",
+      "finished_at": "2026-11-12T04:39:56.337615+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/125_unsafeTPMHash_safe.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__safe__125_unsafetpmhash_safe/pi-sessions/2026-11-12T04-26-30-193Z_01a1ce01-d9b0-70ce-ace0-813cdffb9b86.jsonl",
+          "sha256": "e3402d4ab882035ff75d347f1e7073c6d26d6c12f99a106c5d531c55ec94d417"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 36
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "cs_set__edit_distance",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Input token cap exceeded"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T04:31:19.658278+00:00",
+          "phase": "generate_content",
+          "reason": "Input token cap exceeded"
+        }
+      ],
+      "generation_requests_including_retries": 16,
+      "completed_usage_cost_upper_bound_usd": 0.25124175,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.25124175,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__edit_distance/receipt.json",
+      "receipt_sha256": "03218ac21e4217ffc62e4fd69797cb6639bd75bf5db2160dc94ffd26540fcebe",
+      "gateway_ledger_sha256": "af27088f798dbba2a5c8fe49664f1b6f6ee4eaed517526935662bf63a32a0d03",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T04:26:31.707539+00:00",
+      "finished_at": "2026-11-12T04:31:19.835447+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/edit_distance.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__edit_distance/pi-sessions/2026-11-12T04-26-35-405Z_01a1ce01-ee0c-709a-a0ac-100ddc92ad58.jsonl",
+          "sha256": "73aeab202834021641671417ffde2c08dd5ad62e0fdfb4fb8eca9424e7a6b008"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 14,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "realcode_set__21_shlex_quote",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Provider request cap reached"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T04:36:30.345711+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        }
+      ],
+      "generation_requests_including_retries": 40,
+      "completed_usage_cost_upper_bound_usd": 0.427536,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.427536,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__21_shlex_quote/receipt.json",
+      "receipt_sha256": "10caeb6f9bcdd0ac83bbae773748609d6528b7499440ec4b4d4a05a169041ef1",
+      "gateway_ledger_sha256": "7180f930f17cee0d718b2ef5cc05ed908165ae87899d8bb51cd9285b9463f08a",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T04:26:36.897173+00:00",
+      "finished_at": "2026-11-12T04:36:30.450193+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/21_shlex_quote.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__21_shlex_quote/pi-sessions/2026-11-12T04-26-40-604Z_01a1ce02-025c-77cf-a55d-3f1a2a7ae697.jsonl",
+          "sha256": "8e698ee9fe72ad5d2b47dd37e1816df6ecc528bc67b641cbf6ef1a60e2cc95da"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 38,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Cell dollar cap cannot admit next request"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T04:38:05.056460+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        }
+      ],
+      "generation_requests_including_retries": 33,
+      "completed_usage_cost_upper_bound_usd": 0.68438775,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.68438775,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__31_statistics_quantiles/receipt.json",
+      "receipt_sha256": "0468b6fc428e35bf925d298c30b09de8cd1de599ea4b4f9ee63973a49d1ffd38",
+      "gateway_ledger_sha256": "fa83bb92322756809c71605c10925d4e94c809b466ea6ee9e92eeeda2e0e35a1",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T04:26:42.063103+00:00",
+      "finished_at": "2026-11-12T04:38:05.218080+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/31_statistics_quantiles.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__31_statistics_quantiles/pi-sessions/2026-11-12T04-26-45-721Z_01a1ce02-1659-7324-9463-fa20b3cb70b7.jsonl",
+          "sha256": "294f096c79e71cb5ec2611fdeca2dfe5de3946bd48deb634f8dbbcd994946986"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 31,
+        "read": 2
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "realcode_set__28_statistics_median_low",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Cell dollar cap cannot admit next request"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T04:44:59.573002+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        }
+      ],
+      "generation_requests_including_retries": 35,
+      "completed_usage_cost_upper_bound_usd": 0.64588425,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.64588425,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__28_statistics_median_low/receipt.json",
+      "receipt_sha256": "574e57fcdd672abc69b50806889337205f7b73abd868c3bbdcc8eaad8de9e8a9",
+      "gateway_ledger_sha256": "8177a0053dffa0853f91b98bf6a7314a1e0fc8c6480e0415f9a7a72fbc4c9cd4",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T04:31:27.929030+00:00",
+      "finished_at": "2026-11-12T04:44:59.754534+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/28_statistics_median_low.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__28_statistics_median_low/pi-sessions/2026-11-12T04-31-31-678Z_01a1ce06-735d-726d-81a5-8c549040d1c4.jsonl",
+          "sha256": "504ba2045a85acf2003aeeae7a13579a2e880efe74e031b952abb56a46d1e9eb"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 34,
+        "read": 1
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    },
+    {
+      "task_id": "cs_set__heap_sort",
+      "status": "provider_error",
+      "native_stop_reason": "error",
+      "artifact_status": "missing",
+      "causes": [
+        "Cell dollar cap cannot admit next request"
+      ],
+      "denials": [
+        {
+          "at": "2026-11-12T04:48:36.411496+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        }
+      ],
+      "generation_requests_including_retries": 34,
+      "completed_usage_cost_upper_bound_usd": 0.6893797500000001,
+      "unresolved_request_reservations_usd": 0.0,
+      "conservative_usd": 0.6893797500000001,
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heap_sort/receipt.json",
+      "receipt_sha256": "fcbbbeade3dcf17941881cc92c0289f3841fa66904e1e2b7f507f43d4bdc36b2",
+      "gateway_ledger_sha256": "11e963a64d98de160f8c39ddca16bec6618ed16d2047e1c3ce53c1f5344d7208",
+      "runner_snapshot_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "original_started_at": "2026-11-12T04:36:38.783372+00:00",
+      "finished_at": "2026-11-12T04:48:36.561896+00:00",
+      "required_output_absolute": "/home/user/lean_project/Veribench/heap_sort.lean",
+      "prompt_verbatim_in_native_session": true,
+      "native_sessions": [
+        {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heap_sort/pi-sessions/2026-11-12T04-36-42-479Z_01a1ce0b-316f-7578-b5d6-999856547019.jsonl",
+          "sha256": "4f11a75942259f3c84cf83b52706b9d87695c5f3490ab002c0ccd6a3ba57e6aa"
+        }
+      ],
+      "native_tool_counts": {
+        "bash": 29,
+        "read": 5
+      },
+      "write_edit_paths": [],
+      "provider_returned_model_versions": [
+        "gemini-3.8-flash"
+      ],
+      "supervision_recovery": null
+    }
+  ]
+}

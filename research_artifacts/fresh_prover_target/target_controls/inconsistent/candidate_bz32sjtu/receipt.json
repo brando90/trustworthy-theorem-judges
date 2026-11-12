@@ -1,0 +1,67 @@
+{
+  "target": "Natural.Inconsistent",
+  "candidate_sha256": "3515e6a582b8c68f417a5a455518b4710ca8b3406311e8fed23a0081cbe0c647",
+  "accepted": true,
+  "compile": {
+    "exit_code": 0,
+    "output": "",
+    "argv": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/inconsistent/candidate_bz32sjtu\"))",
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/inconsistent/candidate_bz32sjtu",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/inconsistent/candidate_bz32sjtu/Candidate.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/inconsistent/candidate_bz32sjtu/Candidate.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "replay": {
+    "exit_code": 0,
+    "output": "VB169_STRICT_KERNEL_REPLAY_JSON {\"typeExact\":true,\"typeDefEq\":true,\"skippedUnsafeOrPartial\":0,\"replayed\":true,\"olean\":\"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/inconsistent/candidate_bz32sjtu/Candidate.olean\",\"nonce\":\"6891cfd7d97224107cb23c573cf1ae60bb3a2c9ba7297381\",\"name\":\"claim\",\"isTheorem\":true,\"extensionEntries\":247,\"error\":\"\",\"collisions\":[],\"candidateImports\":[\"Init\",\"Context\",\"ProofOnly\"],\"candidateConstants\":4,\"axioms\":[\"propext\",\"Classical.choice\"]}\n",
+    "argv": [
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/inconsistent/trusted",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/inconsistent/trusted/Replay_6891cfd7d97224107cb23c573cf1ae60bb3a2c9ba7297381.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "records": [
+    {
+      "typeExact": true,
+      "typeDefEq": true,
+      "skippedUnsafeOrPartial": 0,
+      "replayed": true,
+      "olean": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/inconsistent/candidate_bz32sjtu/Candidate.olean",
+      "nonce": "6891cfd7d97224107cb23c573cf1ae60bb3a2c9ba7297381",
+      "name": "claim",
+      "isTheorem": true,
+      "extensionEntries": 247,
+      "error": "",
+      "collisions": [],
+      "candidateImports": [
+        "Init",
+        "Context",
+        "ProofOnly"
+      ],
+      "candidateConstants": 4,
+      "axioms": [
+        "propext",
+        "Classical.choice"
+      ]
+    }
+  ],
+  "olean_sha256": "320aa69886784bd6b4d4ff06fcc577696aaa659c5fcb2c34fde508d7a1c7e275",
+  "olean_unchanged": true,
+  "status": "accepted",
+  "protected_intact": true
+}

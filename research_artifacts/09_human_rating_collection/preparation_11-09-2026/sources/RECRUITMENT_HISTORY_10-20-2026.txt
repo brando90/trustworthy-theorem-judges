@@ -1,0 +1,44 @@
+# STATUS: BOTH SENT 10-20-2026 (A: Gmail 1a15ad792cb400dd 19:43:59Z; B: Gmail 1a15ad7c4f07c840 19:44:12Z; coverage quoted as 17 of 50, not 20); do not resend.
+# SCORING NOTE (manager, 10-20-2026 13:15 PDT; private): three of the 19 recruits may be May experts by first name per MAY_PARTICIPANT_MAP_10-20-2026.txt (p1 'Ethan' from ethans_data_correct_prompt.tsv: ehersch@stanford.edu or eth127@stanford.edu, resolve which Ethan before scoring; p3 'Steven': stevendi@stanford.edu, confirm). If one says yes, score their warm-up with score_warmup.py --leave-out-expert 1 (or 3) once confirmed; p2 'Jolene' is not on this list.
+# TLDR: Private send-ready drafts for the 10-21-2026 09:00 manager run (pledges were 20 of 50 at the 10-20 pledge deadline): (A) one reply on the 10-05 recruitment thread to the 19 people who never answered, (B) one ask to Nikil for more Vals raters. Written 10-20-2026 12:40 PDT by the rating round manager; send only if pledges are still below 50 and neither was sent yet (check SENT_LOG.jsonl).
+
+== A. Reply on the 10-05 recruitment thread ==
+Gmail thread 1a10f0351cdda5f8; reply to Brando's 10-08 reminder, message 1a11c63e1ca626ed (connector reply, replyAll false).
+To (19, never answered as of 10-20 12:38 PDT; Mohit declined 10-06 and is excluded; repliers excluded):
+ehersch@stanford.edu, cszkzhou@comp.hkbu.edu.hk, daneshva@stanford.edu, aniva@stanford.edu, iddah@stanford.edu, kacharya@stanford.edu, eobbad@gmail.com, wkirk@stanford.edu, zixiaowang@g.harvard.edu, kaif@stanford.edu, louisely@stanford.edu, rakshitk@stanford.edu, srliu@stanford.edu, stevendi@stanford.edu, santiago@galois.com, sarracino2@llnl.gov, lukedhlee@berkeley.edu, amylucky@stanford.edu, eth127@stanford.edu
+Bcc: sanmi@cs.stanford.edu, bhanml@comp.hkbu.edu.hk (unchanged from the thread's 10-05 and 10-08 messages) + brando.science@gmail.com, brando9@stanford.edu, brandojazz@gmail.com, brando@vals.ai. No CC.
+Body:
+Hi all,
+
+One more try, since we're still short of raters: so far we have raters for 20 of the 50 folder slots we need. Even a few hours over the next two weeks would make a real difference.
+
+What it takes: a 30-45 minute warm-up (six short files with known answers from our May round), then two task folders, roughly 1-2 hours each, due two weeks after you get them; the round closes Fri 11-06. You compare an agent's Lean theorem statements with a reference Lean file and give each agent file a 0-5 coverage score. You never write or check proofs, and you don't need to know Lean well. Small Lean questions to an AI tool are fine; the comparison and the score are yours.
+
+If you can help, just reply "yes" (and how many folders) and I'll send your warm-up packet and personal rating sheet the same day.
+
+Thanks so much!
+Brando (drafted with Claude Opus 5.5)
+-----
+Brando Miranda
+Ph.D. Student
+Computer Science, Stanford University
+EDGE Scholar, Stanford University
+brando9@stanford.edu
+website: https://brando90.github.io/brandomiranda/
+
+== B. Ask Nikil for more Vals raters ==
+Gmail thread 1a11c63f12adbf9e ("VeriBench human ratings: recruiting Lean graders via Zulip?"); reply to message 1a1261cdf208dc90 (Brando's 10-10 message), To nikil@vals.ai, Bcc the four Brando inboxes, no CC.
+Body:
+Hi Nikil,
+
+We're still short of raters: 20 of the 50 folder slots are pledged so far. Would a few more Vals folks be up for rating? Each one does the 30-45 minute warm-up and then two task folders (about 1-2 hours each), and the round closes Fri 11-06. If anyone says yes, just send me their email and I'll send their packet and personal sheet the same day.
+
+Thanks!
+Brando (drafted with Claude Opus 5.5)
+-----
+Brando Miranda
+Ph.D. Student
+Computer Science, Stanford University
+EDGE Scholar, Stanford University
+brando9@stanford.edu
+website: https://brando90.github.io/brandomiranda/

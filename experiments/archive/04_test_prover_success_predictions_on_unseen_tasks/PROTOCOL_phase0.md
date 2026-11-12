@@ -46,6 +46,6 @@ Theorem declarations are counted by the regular expression in the configuration 
 - `mapped` minus the best simple baseline with an interval containing or above zero: the signal is not shown to be specific to the judge rating.
 - Neither result validates a judge, fixes the target's integrity limits or binds a judge identity.
 
-Outputs: aggregate `results/phase0_transfer.json`, source hashes `results/phase0_sources.json`, report `RESULTS_phase0_transfer.md`, ledger `results.md`. Per-artifact rows stay in ignored `private/phase0_transfer/`.
+Outputs: aggregate `results/phase0_transfer.json`, source hashes `results/phase0_sources.json`, report `RESULTS_phase0_transfer.md`, ledger `results.md`. Per-artifact rows stay in `research_artifacts/phase0_transfer/`.
 
 **TLDR-end:** [ttj: experiment 04 Phase 0] Frozen definitions for a zero-call check of whether experiment 03's map transfers to 339 unseen tasks, against constant and simple baselines.

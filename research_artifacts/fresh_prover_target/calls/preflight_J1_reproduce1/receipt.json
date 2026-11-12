@@ -1,0 +1,27 @@
+{
+  "identity": "preflight_J1_reproduce1",
+  "role": "preflight",
+  "started_utc": "2026-11-06T23:12:53.443912+00:00",
+  "request_sha256": "67dc3fdd106c5835329f305d7c7ff6c7bef803c45a7990e499dd1b6e01f51ead",
+  "num_predict": 2048,
+  "settings": {
+    "think": true,
+    "num_predict": 2048
+  },
+  "seed": 11062027,
+  "status": "failed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "length",
+  "eval_count": 2048,
+  "prompt_eval_count": 34,
+  "thinking_characters": 7457,
+  "failure_category": "output_token_budget",
+  "error": "ValueError: Generation ended at token limit or abnormal reason",
+  "seconds": 74.78522624998004,
+  "finished_utc": "2026-11-06T23:14:08.230172+00:00",
+  "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

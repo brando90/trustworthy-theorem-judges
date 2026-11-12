@@ -1,0 +1,25 @@
+[
+  {
+    "session_file": "private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/pi-sessions_recovered/2026-11-12T02-32-29-787Z_01a1cd99-795a-774b-b3ab-dc277590e8b6.jsonl",
+    "session_sha256": "f6b1a191872acec3dca33f6d2e143f06e824be4f06b000f2b61503f313857216",
+    "event": {
+      "type": "model_change",
+      "id": "57ae294b",
+      "parentId": null,
+      "timestamp": "2026-11-12T02:32:29.822Z",
+      "provider": "allen-google-veribench",
+      "modelId": "gemini-3.8-flash"
+    }
+  },
+  {
+    "session_file": "private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/pi-sessions_recovered/2026-11-12T02-32-29-787Z_01a1cd99-795a-774b-b3ab-dc277590e8b6.jsonl",
+    "session_sha256": "f6b1a191872acec3dca33f6d2e143f06e824be4f06b000f2b61503f313857216",
+    "event": {
+      "type": "thinking_level_change",
+      "id": "efd9e140",
+      "parentId": "57ae294b",
+      "timestamp": "2026-11-12T02:32:29.822Z",
+      "thinkingLevel": "high"
+    }
+  }
+]

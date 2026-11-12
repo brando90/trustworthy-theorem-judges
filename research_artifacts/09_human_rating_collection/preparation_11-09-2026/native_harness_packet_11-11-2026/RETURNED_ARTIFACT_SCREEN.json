@@ -1,0 +1,636 @@
+{
+  "schema_version": 2,
+  "checked_at": "2026-11-12T04:52:07.126079+00:00",
+  "scope": "Only hash-verified historical and terminal returned candidates. Lexical identity/credential checks do not establish absence of every secret or indirect authorship cue. No semantic rating, candidate rewriting, silent dropping, or review of pending partial files. Duplicate inventory is exact bytes within the same task; different configuration attempts retain separate provenance.",
+  "prior_screen_sha256": "068c33e7867d0529a5e3fab62c91cf50b328503cee796244e48804b738c99412",
+  "reconciliation": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization/RECONCILIATION.json",
+    "sha256": "3e6ebca13d56ee052f603b90e9eaa8ef869fc80fee73b58c9e829e78e4759c03"
+  },
+  "planned_cohort": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PLANNED_COHORT_VALID_ENV_V2.json",
+    "sha256": "c386e59258e0a8c3c0dec8f0c2e5217d80efbcfb6c2c881c79feb9dcec67b7f2"
+  },
+  "pattern_definitions": {
+    "vendor_or_model_family": "\\b(?:Claude|Gemini|GPT|OpenAI|Anthropic|Grok|Kimi|Codex|Terminus|Fable|Astra)\\b",
+    "pi_explicit_authorship": "\\b(?:generated|written|created|produced|authored)\\s+by\\s+Pi\\b",
+    "private_key_header": "-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----",
+    "provider_key_prefix": "\\b(?:sk-(?:proj-|ant-)?[A-Za-z0-9_-]{20,}|AIza[A-Za-z0-9_-]{30,}|gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[A-Z0-9]{16})\\b",
+    "credential_assignment": "\\b(?:api[_-]?key|access[_-]?token|auth[_-]?token|client[_-]?secret|password)\\b\\s*[:=]\\s*[\\x22\\x27][A-Za-z0-9_./+=-]{12,}[\\x22\\x27]",
+    "bearer_token_literal": "\\bBearer\\s+[A-Za-z0-9_.=-]{25,}",
+    "exact_historical_codex_astra_configuration_id": "historical_codex_astra",
+    "exact_historical_codex_astra_model": "gpt\\-6\\-astra",
+    "exact_historical_codex_astra_harness": "Codex",
+    "exact_native_claude_fable_configuration_id": "native_claude_fable",
+    "exact_native_claude_fable_model": "claude\\-fable\\-5\\-1",
+    "exact_native_claude_fable_harness": "Claude\\ Code",
+    "exact_pi_gemini_flash_configuration_id": "pi_gemini_flash",
+    "exact_pi_gemini_flash_model": "gemini\\-3\\.8\\-flash",
+    "exact_historical_terminus_grok_configuration_id": "historical_terminus_grok",
+    "exact_historical_terminus_grok_model": "grok/grok\\-4\\.7\\-xhigh",
+    "exact_historical_terminus_grok_harness": "Terminus\\ 2"
+  },
+  "counts": {
+    "planned_artifacts": 85,
+    "prospective_attempts_terminal": 50,
+    "artifacts_screened": 54,
+    "artifacts_with_hits": 0,
+    "lexical_hits": 0,
+    "same_task_exact_duplicate_groups": 0,
+    "pending_not_screened": 0,
+    "excluded_missing": 31,
+    "built_archives_verified": 3
+  },
+  "records": [
+    {
+      "item_id": "native-heavy-11-11-2026__item002",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/humaneval_set__humaneval_4_mean_absolute_deviation/candidate.lean",
+      "sha256": "55472b7a7402690fe27d847830e062a349a1b22f882cf26cc1bb952c827feb2c",
+      "bytes": 18450,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item003",
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/humaneval_set__humaneval_14_all_prefixes/candidate.lean",
+      "sha256": "51e0fa8f4fa66152e47e37bdbd3aa1565bafc189ecb3d043d19855eceae5153b",
+      "bytes": 9458,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item005",
+      "task_id": "realcode_set__21_shlex_quote",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/candidates/realcode_set__21_shlex_quote/candidate.lean",
+      "sha256": "eceb47babd1812cd0cf98f8cd778174f6ccf9630026cb270502c520a4558bb73",
+      "bytes": 28004,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item006",
+      "task_id": "easy_set__20_mysumdigits",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/easy_set__20_mysumdigits/candidate.lean",
+      "sha256": "9d695a42a6f56e7828d1e0edb0a069894ba7e8db60c4135a4bd7d1c86b811b85",
+      "bytes": 12991,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item007",
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/humaneval_set__humaneval_15_string_sequence/candidate.lean",
+      "sha256": "b8073d404e52ca711ec98cf27357d82d2e947ee26a087fbb03edd5c6732da1a6",
+      "bytes": 14477,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item008",
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/humaneval_set__humaneval_15_string_sequence/candidate.lean",
+      "sha256": "51d81e1dfa8559fdafa53f8061f300404ea4b98d9dd7d45683ab6afc464902b9",
+      "bytes": 16708,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item012",
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/candidate.lean",
+      "sha256": "6ee86a1916386e784d12c08a9eff134010547d201ee799876b37a8efaf8cf17e",
+      "bytes": 15329,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item013",
+      "task_id": "easy_set__19_mypower",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/candidates/easy_set__19_mypower/candidate.lean",
+      "sha256": "0bf35ee7e5ecd3106cc85a269c0ef33247c74f880461782cba2f4eeab3359fc3",
+      "bytes": 26710,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item016",
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/humaneval_set__humaneval_35_max_element/candidate.lean",
+      "sha256": "f02e39346b0a7b92c68fbd32fe8606b4830fd4e10ad4513271553bad9b547b85",
+      "bytes": 11546,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item017",
+      "task_id": "realcode_set__20_html_escape",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/realcode_set__20_html_escape/candidate.lean",
+      "sha256": "8c5151315652663b79b93cc8b59d0d53c8d5cfd759fad1abb519e9dd7d2a53a4",
+      "bytes": 36420,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item018",
+      "task_id": "cs_set__edit_distance",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/candidates/cs_set__edit_distance/candidate.lean",
+      "sha256": "9db99d1cbc9dc7571ad4d510f690cbcb17bbd9669ccbc906f4c5601128080f3e",
+      "bytes": 40708,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item021",
+      "task_id": "easy_set__41_duplicate_chars",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/easy_set__41_duplicate_chars/candidate.lean",
+      "sha256": "209595ebc2670413c8058f0ae7f108606b9ff31348ef5a1ff9623cc8b7d4ead3",
+      "bytes": 11959,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item022",
+      "task_id": "easy_set__20_mysumdigits",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/easy_set__20_mysumdigits/candidate.lean",
+      "sha256": "5f241fff4efa7232d49789a6a4cb172e6da1c8b71eb8ddeae0353f53bbebb53f",
+      "bytes": 19571,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item023",
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/security_set__security_6858__safe__125_unsafetpmhash_safe/candidate.lean",
+      "sha256": "20bbde4996c7f1b1038c099ef56c75a50e2f33fe577c2a5f055cc0128c2e5621",
+      "bytes": 10622,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item024",
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/security_set__security_6858__vulnerabilities__75_unsafecerthostname/candidate.lean",
+      "sha256": "d02de54fbb220268b0b3d183423ced9d34546c6766249bbe4a7be656ce9e03b7",
+      "bytes": 20496,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item025",
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/humaneval_set__humaneval_39_prime_fib/candidate.lean",
+      "sha256": "eb170edcc2608e960b228f23c6891d6d2671781c9e3d7468b63ee62082a15f76",
+      "bytes": 18045,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item026",
+      "task_id": "realcode_set__23_base32",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/realcode_set__23_base32/candidate.lean",
+      "sha256": "300f53bf74a77570f244ba83aa2d02813165cf3d0ba0dbfe4b64b5267290f489",
+      "bytes": 31952,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item027",
+      "task_id": "cs_set__heapsort_algorithm",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/cs_set__heapsort_algorithm/candidate.lean",
+      "sha256": "8e31ce30afab15fcea823a1f91ca90dc0859af5e6e9d40e78f7e46bb0027507a",
+      "bytes": 27392,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item028",
+      "task_id": "easy_set__19_mypower",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/easy_set__19_mypower/candidate.lean",
+      "sha256": "e7281cf8890e3c58c5e1d2bad31843b24131d7bee9df522d5498938f6e9f6870",
+      "bytes": 11227,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item030",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/candidate.lean",
+      "sha256": "00976d091834c0f9579111cf8350c8fb07ecd7be54f178b35403f8908c6d3e06",
+      "bytes": 11211,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item031",
+      "task_id": "cs_set__topological_sort",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/candidates/cs_set__topological_sort/candidate.lean",
+      "sha256": "f728031fbe571d02099861dc3bbdc7b2cc9e69573227365c21224d02175c455e",
+      "bytes": 28888,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item034",
+      "task_id": "realcode_set__23_base32",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/candidates/realcode_set__23_base32/candidate.lean",
+      "sha256": "67eab885f322104f0d2c96a420c2aaaf0f7265fa87ecf1d282f37116fc20269f",
+      "bytes": 7372,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item036",
+      "task_id": "cs_set__counting_sort",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/cs_set__counting_sort/candidate.lean",
+      "sha256": "7e4f2b1e61ed56269e47f681682fc958d5b2c562d157f62a5028a209d125361e",
+      "bytes": 25162,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item037",
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/security_set__security_6858__safe__125_unsafetpmhash_safe/candidate.lean",
+      "sha256": "c7abd9ce9b2a899ba70e8f06d32f92d8de919f8981c38540f1c252019d89de23",
+      "bytes": 19577,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item038",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/candidate.lean",
+      "sha256": "d11fb06ea972e733d72bf7257b1d24576cc0a3305bd293c7e3e59f8903991980",
+      "bytes": 20205,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item039",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/candidates/humaneval_set__humaneval_4_mean_absolute_deviation/candidate.lean",
+      "sha256": "095cfe1eaa64a7456faaa17de718da5994304dc92908fe7335d88524e00993cb",
+      "bytes": 23951,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item040",
+      "task_id": "cs_set__counting_sort",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/cs_set__counting_sort/candidate.lean",
+      "sha256": "a7ef8a07d3de5181c9538e7454ce5c7d02efb6b645ca36fdc5afd726bc1bc592",
+      "bytes": 20538,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item041",
+      "task_id": "realcode_set__28_statistics_median_low",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/realcode_set__28_statistics_median_low/candidate.lean",
+      "sha256": "f8d76690822c4bf2a6005e5b2859c07d1dc9bd99502f3dc21a99e4636cc2118f",
+      "bytes": 22475,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item045",
+      "task_id": "cs_set__heap_sort",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/cs_set__heap_sort/candidate.lean",
+      "sha256": "1ad2381f14a2fe89dde8f61f28bc940973b4e45e89a20da2192b09d7c251205d",
+      "bytes": 26615,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item048",
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/candidate.lean",
+      "sha256": "868f40a8b3e194c1581630fc601823e15b716d0aa4043f702e70392f2168787b",
+      "bytes": 9716,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item050",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/humaneval_set__humaneval_4_mean_absolute_deviation/candidate.lean",
+      "sha256": "790bdb84d099400138967f339e14fdd07ede6a7a22b6e38060a2d6b1f0372d83",
+      "bytes": 18472,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item051",
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade/candidate.lean",
+      "sha256": "174cc513555766aeda88b92fa05ee4cd589f4f8ea081bc20b4c68729e20b6641",
+      "bytes": 21275,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item053",
+      "task_id": "easy_set__41_duplicate_chars",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/easy_set__41_duplicate_chars/candidate.lean",
+      "sha256": "bfd41e8e30f23ee2ccbded0b3115bc1aa245dc796a69e4a2cab6ca3067c062fb",
+      "bytes": 15774,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item054",
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/humaneval_set__humaneval_14_all_prefixes/candidate.lean",
+      "sha256": "cd25c89e9735a799f3216741b903a0b2152fa453d3f008d62c873404c20c2af0",
+      "bytes": 13949,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item055",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/candidates/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/candidate.lean",
+      "sha256": "defb12b89d7d08cfc594dacdcf2d6e14ffd96ff4177cf5c36b72c864465c0416",
+      "bytes": 24102,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item057",
+      "task_id": "easy_set__16_myfactorial",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/easy_set__16_myfactorial/candidate.lean",
+      "sha256": "fcd55bd4e8af38a3a8bcf3cf22101cdd663b779941dc8aa186c8d9b065bd98a8",
+      "bytes": 18977,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item058",
+      "task_id": "easy_set__23_is_prime",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/easy_set__23_is_prime/candidate.lean",
+      "sha256": "70a6d2feecedef5513f3066121688db8740c1f042c6fab06b65eaafdc82d57aa",
+      "bytes": 15460,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item060",
+      "task_id": "realcode_set__21_shlex_quote",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/realcode_set__21_shlex_quote/candidate.lean",
+      "sha256": "4b89aad18228012834cfed2f57c708346e499e31194290efb2f8aafbc85d493e",
+      "bytes": 23374,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item061",
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/humaneval_set__humaneval_35_max_element/candidate.lean",
+      "sha256": "646f49fbca39c06dd7191162aac04ae51689a0f60c00706d46598a2009e6ddf0",
+      "bytes": 9014,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item062",
+      "task_id": "easy_set__16_myfactorial",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/easy_set__16_myfactorial/candidate.lean",
+      "sha256": "5d3b7678f175e49eb9afac634395961cd371e9113566da16aab797cc887a2bbe",
+      "bytes": 9958,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item063",
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/realcode_set__31_statistics_quantiles/candidate.lean",
+      "sha256": "7ed4098d22cbe1864e061c87d081ae4833edf99bbf57701f1c11d66fd5bbcd38",
+      "bytes": 35851,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item065",
+      "task_id": "cs_set__heap_sort",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/candidates/cs_set__heap_sort/candidate.lean",
+      "sha256": "4a6d0cf43a3fecf6c3665fa1b937181dafef07ff55755066173c4dbaba421465",
+      "bytes": 55681,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item067",
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/realcode_set__31_statistics_quantiles/candidate.lean",
+      "sha256": "6971708781e513f11d9a80e2384f1b18849c47bcff7c279c33927f4d40d7e8a3",
+      "bytes": 31823,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item068",
+      "task_id": "easy_set__19_mypower",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/easy_set__19_mypower/candidate.lean",
+      "sha256": "596e89c39020672cdc8c2087d220967fab528e40b5eba600de10d46ceeaa2642",
+      "bytes": 15962,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item069",
+      "task_id": "cs_set__heapsort_algorithm",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/candidates/cs_set__heapsort_algorithm/candidate.lean",
+      "sha256": "c9506f32bdc2aa60e836bd56232aed0840876420c4ee596e88d9c879508d8510",
+      "bytes": 54289,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item070",
+      "task_id": "realcode_set__28_statistics_median_low",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/realcode_set__28_statistics_median_low/candidate.lean",
+      "sha256": "889b178e1fbbaffd9ccb235a4079a7049767ca0145c775fa4b2a53a3e4261f4b",
+      "bytes": 26447,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item074",
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/security_set__security_6858__vulnerabilities__75_unsafecerthostname/candidate.lean",
+      "sha256": "7976bec1c67b88bff8a9d26edad99223bdc4ae6a7bd076ed8d6bbe58fb9c9dd7",
+      "bytes": 11354,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item075",
+      "task_id": "cs_set__edit_distance",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/cs_set__edit_distance/candidate.lean",
+      "sha256": "84bb90a3c0c0ee8d6bcbbfd99b561c8354bf6f12aa237d210eb4912055e8ba22",
+      "bytes": 31412,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item077",
+      "task_id": "easy_set__23_is_prime",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/candidates/easy_set__23_is_prime/candidate.lean",
+      "sha256": "e1ee05b22d35bbd6cd10912d0fc11f4cf98ba6f0b5ce41fa6c4f8262330a79d2",
+      "bytes": 20069,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item078",
+      "task_id": "cs_set__topological_sort",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/cs_set__topological_sort/candidate.lean",
+      "sha256": "d5f15098a3b6075e9a3e114fd26b0fc240d4640939fd11ddb6268dde6f022252",
+      "bytes": 18855,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item079",
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade/candidate.lean",
+      "sha256": "72fe8c855b47312eb723d64e4f23905fad3d9325eb0e9a951069212cae349a7b",
+      "bytes": 10726,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item081",
+      "task_id": "easy_set__23_is_prime",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/easy_set__23_is_prime/candidate.lean",
+      "sha256": "6be90d96b84d5736c9eda5d4521ac870bcd07f37eb137134246c6a31f2c0b42f",
+      "bytes": 19740,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item082",
+      "task_id": "realcode_set__20_html_escape",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/realcode_set__20_html_escape/candidate.lean",
+      "sha256": "1e3b30b4e78b1ed4dea2c970392caf011c4fdb04a58e387535f06b34aa0f3e3f",
+      "bytes": 16618,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item084",
+      "task_id": "realcode_set__21_shlex_quote",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/existing_candidates/codex_astra_historical/realcode_set__21_shlex_quote/candidate.lean",
+      "sha256": "db9ace4ceeb375383a5a7d9ce0edaaf61e363218666687ed19e2da151de9d826",
+      "bytes": 16099,
+      "verification_state": "FROZEN_RATABLE_ARTIFACT",
+      "hits": []
+    }
+  ],
+  "same_task_exact_byte_duplicates": [],
+  "frozen_cohort": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization/RATABLE_COHORT.json",
+    "sha256": "8463f6c846839c78fccf8102f3672ff94a20562dba7871b13d81e8cca693de22"
+  },
+  "exclusions": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization/EXCLUSIONS.json",
+    "sha256": "a14cfa52ead4917f5a24b88672d05f3a38b490ce39a8c5c217729891b3d024e5"
+  },
+  "final_audit": true,
+  "built_archive_checks": [
+    {
+      "rater_id": "A1",
+      "rater_name": "Brando Miranda",
+      "archive": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/builds/native_heavy_terminal_v1/A1/rating_packet_native-heavy-11-11-2026_A1.zip",
+        "sha256": "e10a0c50a413a5ba750148c3ecba1de89a3eef5cd69f193068bde61dee7d8923"
+      },
+      "assembly_receipt_snapshot": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/builds/native_heavy_terminal_v1/A1/ASSEMBLY_RECEIPT.json",
+        "sha256": "ccf9bd9adcdb76b112bb72b9a9bbbf88a14009d57aeff62e39170e95c2188d7e"
+      },
+      "cohort": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization/RATABLE_COHORT.json",
+        "sha256": "8463f6c846839c78fccf8102f3672ff94a20562dba7871b13d81e8cca693de22"
+      },
+      "artifacts": 54,
+      "tasks": 25,
+      "scientific_byte_comparisons": 162,
+      "all_zip_members_match_editable_packet": true,
+      "all_manifest_hashes_match": true,
+      "all_assigned_item_ids_and_display_paths_match": true,
+      "all_six_response_fields_blank": true,
+      "lexical_hits": [],
+      "cloud_status_scope": "Live Sheet equality and send status belong to coordinator; these payload checks do not certify cloud readback."
+    },
+    {
+      "rater_id": "T01",
+      "rater_name": "Rylan Schaeffer",
+      "archive": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/builds/native_heavy_terminal_v1/T01/rating_packet_native-heavy-11-11-2026_T01.zip",
+        "sha256": "855d167f6f2db72abf6fa272d15888fada2ecb88cd089c5377a027e9cb0b71c6"
+      },
+      "assembly_receipt_snapshot": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/builds/native_heavy_terminal_v1/T01/ASSEMBLY_RECEIPT.json",
+        "sha256": "2d7be7c9aa52c0b8daef5550660b82fd29019d93ea6e81c20c468e5c48eedc4c"
+      },
+      "cohort": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization/RATABLE_COHORT.json",
+        "sha256": "8463f6c846839c78fccf8102f3672ff94a20562dba7871b13d81e8cca693de22"
+      },
+      "artifacts": 4,
+      "tasks": 2,
+      "scientific_byte_comparisons": 12,
+      "all_zip_members_match_editable_packet": true,
+      "all_manifest_hashes_match": true,
+      "all_assigned_item_ids_and_display_paths_match": true,
+      "all_six_response_fields_blank": true,
+      "lexical_hits": [],
+      "cloud_status_scope": "Live Sheet equality and send status belong to coordinator; these payload checks do not certify cloud readback."
+    },
+    {
+      "rater_id": "T05",
+      "rater_name": "Srivatsava Daruru (Sri)",
+      "archive": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/builds/native_heavy_terminal_v1/T05/rating_packet_native-heavy-11-11-2026_T05.zip",
+        "sha256": "105ec1347c817055469d65ebf09242a7c49cc84f1194c6319403e50102aee015"
+      },
+      "assembly_receipt_snapshot": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/builds/native_heavy_terminal_v1/T05/ASSEMBLY_RECEIPT.json",
+        "sha256": "61253ba7b9328d177b243681be7296a1549b07b854bf4b942b244472f903d315"
+      },
+      "cohort": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization/RATABLE_COHORT.json",
+        "sha256": "8463f6c846839c78fccf8102f3672ff94a20562dba7871b13d81e8cca693de22"
+      },
+      "artifacts": 4,
+      "tasks": 2,
+      "scientific_byte_comparisons": 12,
+      "all_zip_members_match_editable_packet": true,
+      "all_manifest_hashes_match": true,
+      "all_assigned_item_ids_and_display_paths_match": true,
+      "all_six_response_fields_blank": true,
+      "lexical_hits": [],
+      "cloud_status_scope": "Live Sheet equality and send status belong to coordinator; these payload checks do not certify cloud readback."
+    }
+  ],
+  "terminal_worker_audits": {
+    "claude_code": {
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_readiness/CC_VALID_V2_FINAL_SUMMARY.json",
+      "sha256": "c774b5fddc9d7e98df27526ebe4f33bbedf32538edd63445c4263c1ee6315f21"
+    },
+    "pi": {
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_FINAL_EXECUTION_AUDIT.json",
+      "sha256": "afed7b83c6471518a67a600a6b44db5a9e256af78c13b27ce0e4b95d3c055940"
+    }
+  },
+  "scientific_payload_hash_check": {
+    "artifact_triples": 54,
+    "distinct_tasks": 25,
+    "unique_python_hashes": 25,
+    "unique_gold_hashes": 25,
+    "all_source_reference_candidate_bytes_match_frozen_cohort": true
+  }
+}

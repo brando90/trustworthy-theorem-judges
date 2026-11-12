@@ -1,0 +1,16 @@
+# TLDR: Optional second sheet (14 rows), one row per blinded agent Lean file of the extension; rate it only after the main 75-row sheet, fill final_score_0_5 on every row following the original rater instructions; every other rating column is an optional note.
+rater_id,item_id,task_folder,candidate_file,A,B,C,D,base_score_0_5,final_score_0_5,confidence,rationale,problem_note
+,E01a,E01,E01/agent_lean/E01a.lean,,,,,,,,,
+,E02a,E02,E02/agent_lean/E02a.lean,,,,,,,,,
+,E03a,E03,E03/agent_lean/E03a.lean,,,,,,,,,
+,E04a,E04,E04/agent_lean/E04a.lean,,,,,,,,,
+,E05a,E05,E05/agent_lean/E05a.lean,,,,,,,,,
+,E06a,E06,E06/agent_lean/E06a.lean,,,,,,,,,
+,E07a,E07,E07/agent_lean/E07a.lean,,,,,,,,,
+,E08a,E08,E08/agent_lean/E08a.lean,,,,,,,,,
+,E09a,E09,E09/agent_lean/E09a.lean,,,,,,,,,
+,E10a,E10,E10/agent_lean/E10a.lean,,,,,,,,,
+,E11a,E11,E11/agent_lean/E11a.lean,,,,,,,,,
+,E12a,E12,E12/agent_lean/E12a.lean,,,,,,,,,
+,E13a,E13,E13/agent_lean/E13a.lean,,,,,,,,,
+,E14a,E14,E14/agent_lean/E14a.lean,,,,,,,,,

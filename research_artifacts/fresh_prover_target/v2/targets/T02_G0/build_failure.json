@@ -1,0 +1,34 @@
+{
+  "SpecOnly": {
+    "exit_code": 0,
+    "output": "",
+    "argv": [
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/SpecOnly.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/SpecOnly.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "Context": {
+    "exit_code": 1,
+    "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/Context.lean:17:0: error: Specification must be exactly one Lean term: <input>:1:40: expected '_' or identifier\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/Context.lean:18:110: error: unknown identifier 'AgentSpec'\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/Context.lean:19:112: error: unknown identifier 'AgentSpec'\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/Context.lean:20:116: error: unknown identifier 'AgentSpec'\n",
+    "argv": [
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/Context.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/Context.lean"
+    ],
+    "timeout_seconds": 60
+  }
+}

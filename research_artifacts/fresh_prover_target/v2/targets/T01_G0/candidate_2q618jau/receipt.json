@@ -1,0 +1,26 @@
+{
+  "target": "Natural.Coverage",
+  "candidate_sha256": "ae1bc68a6b9d9b0c59d574d92926c6236bc747a1af83dd34ed42972aa542f373",
+  "accepted": false,
+  "compile": {
+    "exit_code": 1,
+    "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau/Candidate.lean:2:9: error: unknown identifier 'GoldSpec'\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau/Candidate.lean:3:2: error: no goals to be solved\n",
+    "argv": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau\"))",
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau/Candidate.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau/Candidate.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "status": "proof_rejected",
+  "protected_intact": true
+}

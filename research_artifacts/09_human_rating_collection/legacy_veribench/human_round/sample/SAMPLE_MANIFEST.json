@@ -1,0 +1,433 @@
+{
+ "tldr": "Public manifest of experiment 102's fresh human-rating sample (protocol C1): what was drawn from which inputs, with every rater-facing file pinned by SHA-256; systems and judge scores are only in the sealed key.",
+ "synthetic": false,
+ "created_utc": "2026-09-29T07:40:14.402498+00:00",
+ "seed": 20260929,
+ "script": "experiments/102_harden_tmlr_icml_papers_rescore_with_validated_fsc_judge/scripts/draw_human_round_sample.py",
+ "script_sha256": "bca2b7e562d8bd8bf71b542ac2c394274e0620c569c4074f75d43e91e324d251",
+ "protocol": "experiments/102_harden_tmlr_icml_papers_rescore_with_validated_fsc_judge/PROTOCOL.md",
+ "protocol_sha256": "12c78c0ed2791a752f9eb4363fa772bd1514a8d2f546c04c339de5c45c610c1a",
+ "inputs": {
+  "tier1": {
+   "path": "/lfs/skampere1/0/brando9/veribench_vb102/experiments/102_harden_tmlr_icml_papers_rescore_with_validated_fsc_judge/private/tier1_inputs/items.jsonl",
+   "sha256": "45b002644edce228456c081353ef3552b7f4def4bbdde8d2ba7362ea50f9fc36",
+   "locked_sha256": "45b002644edce228456c081353ef3552b7f4def4bbdde8d2ba7362ea50f9fc36",
+   "lock_git_head": "e9a3e8c95119e1fde0f5b534df62336e25c6133c",
+   "reference_snapshot": "frozen 09-02-2026 reference snapshot as delivered in the task pack /lfs/skampere1/0/brando9/harbor_jobs_expt72/tasks_spec_v2 (tests/gold.lean); 614/614 references byte-match rerun_scored/gold_d_fresh.json and every deployed-judge gold_sha"
+  },
+  "member_runs": {
+   "experiments/102_harden_tmlr_icml_papers_rescore_with_validated_fsc_judge/runs/t1_H2_sol_high": {
+    "main_receipts": 6150,
+    "members": [
+     "H2_sol_high"
+    ]
+   },
+   "experiments/102_harden_tmlr_icml_papers_rescore_with_validated_fsc_judge/runs/t1_H2_opus55_max": {
+    "main_receipts": 6150,
+    "members": [
+     "H2_opus55_max"
+    ]
+   }
+  },
+  "dataset_revision": "5d3747819f5f0d692d8ccdcc29029a687edfc94d",
+  "existing_pool_provenance": {
+   "path": "experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/provenance.json",
+   "sha256": "878d32a28b55b17dc571ed876f70abc8523dd688c11528c60b24bf81c937c484"
+  },
+  "rater_instructions": {
+   "path": "py_src/veribench_prompts/human_judgements_prompt.md",
+   "sha256": "b29e9cafdab10463d29b6ffdbb4700b46ead0e6023278b9b7b69d9ef0ab350af"
+  },
+  "round_instructions": {
+   "path": "experiments/102_harden_tmlr_icml_papers_rescore_with_validated_fsc_judge/human_round/RATER_INSTRUCTIONS.md",
+   "sha256": "9e8077b32d1998fad71b6752f9cd254f1c83a2b3f18e0564d211f3e8824bc464"
+  },
+  "sheet_template": {
+   "path": "experiments/102_harden_tmlr_icml_papers_rescore_with_validated_fsc_judge/human_round/rating_sheet_TEMPLATE.csv",
+   "sha256": "634c4f2cfa2e16e310805cf9e4549befc0e0cf4eec515ead382560e9b71df189"
+  }
+ },
+ "tier1_completeness": {
+  "pending_cells": 0,
+  "pending_examples": [],
+  "coverage": {
+   "claude_code": {
+    "core_tasks": 614,
+    "records": 614,
+    "usable": 614
+   },
+   "codex": {
+    "core_tasks": 614,
+    "records": 613,
+    "usable": 613
+   },
+   "leanstral": {
+    "core_tasks": 614,
+    "records": 613,
+    "usable": 613
+   },
+   "baseline": {
+    "core_tasks": 614,
+    "records": 210,
+    "usable": 210
+   }
+  },
+  "complete": true
+ },
+ "input_problems": [],
+ "exclusions": {
+  "reason_counts": {
+   "eligible": 583,
+   "existing_pool": 25,
+   "no_usable_third_candidate": 1,
+   "codex_not_usable": 1,
+   "existing_pool_sibling": 5
+  },
+  "existing_pool": [
+   "cs_set/binary_search",
+   "cs_set/bubble_sort",
+   "cs_set/insertion_sort",
+   "cs_set/merge_sort",
+   "cs_set/selection_sort",
+   "easy_set/13_MyUppercase",
+   "easy_set/18_MyFibonacci",
+   "easy_set/1_MyAdd",
+   "easy_set/33_MyMinimum",
+   "easy_set/43_replace_spaces",
+   "humaneval_set/humaneval_13__gcd",
+   "humaneval_set/humaneval_31_is_prime",
+   "humaneval_set/humaneval_3_below_zero",
+   "humaneval_set/humaneval_47_median",
+   "humaneval_set/humaneval_8_sum_product",
+   "realcode_set/0_bisect_right",
+   "realcode_set/24_json_decoder",
+   "realcode_set/2_bisect_left",
+   "realcode_set/4_heappush",
+   "realcode_set/5_heappop",
+   "security_set/security_6858/safe/0_unsafeCopy_safe",
+   "security_set/security_6858/safe/1_unsafeMultiply_safe",
+   "security_set/security_6858/safe/4_unsafeCounter_safe",
+   "security_set/security_6858/safe/5_unsafeFormatString_safe",
+   "security_set/security_6858/safe/9_pathTraversal_safe"
+  ],
+  "existing_pool_siblings": [
+   "security_set/security_6858/vulnerabilities/0_unsafeCopy",
+   "security_set/security_6858/vulnerabilities/1_unsafeMultiply",
+   "security_set/security_6858/vulnerabilities/4_unsafeCounter",
+   "security_set/security_6858/vulnerabilities/5_unsafeFormatString",
+   "security_set/security_6858/vulnerabilities/9_pathTraversal"
+  ],
+  "sibling_rule": true,
+  "placeholder_tasks": []
+ },
+ "eligible_per_split": {
+  "easy_set": 36,
+  "cs_set": 19,
+  "humaneval_set": 51,
+  "realcode_set": 27,
+  "security_set": 450
+ },
+ "design": {
+  "tasks": 25,
+  "items": 75,
+  "per_split": 5,
+  "strata_per_split": 5,
+  "stratifier": "Tier-1 validated FSC of the Claude Code candidate; equal-count rank strata within split, ties broken by the seeded stream",
+  "candidates": "claude_code, codex, and alternately leanstral or baseline (slot order easy, cs, humaneval, realcode, security; stratum 1..5; starts with leanstral)",
+  "third_counts": {
+   "leanstral": 13,
+   "baseline": 12
+  },
+  "fallbacks": 4,
+  "rebalanced_slots": 3
+ },
+ "rater_facing": [
+  {
+   "task_folder": "R01",
+   "task": "realcode_set/21_shlex_quote",
+   "python_sha256": "6fead365b7a99a38c6e82cd49a2438d541f90afdc22e08656e4b6a31b580d338",
+   "reference_sha256": "d7385e16744e6e818627690060e6f722a3af16b74ab5f975499d4883d6180042",
+   "candidates": {
+    "R01a": "44b8bc4078a01782ada3043d99225fada2c0b49fee02822b69554074fb967014",
+    "R01b": "434174299cf6d1326ccee962b1fac8cf97acd28838bea301a248c59aa7fbd84d",
+    "R01c": "32c0136327775f421724238d2034052b68e6d695b6a16c92bcadd38d11b22fb8"
+   }
+  },
+  {
+   "task_folder": "R02",
+   "task": "realcode_set/20_html_escape",
+   "python_sha256": "6f39b1bd6ebfb76f6d189a05ae0700a231d1b9101eb6a96388a335736485a04c",
+   "reference_sha256": "f286a8c64394f00996b6447b9ac89cc4321ab06cdacdaaf34830aa3d0d75defb",
+   "candidates": {
+    "R02a": "820898a6b3d2a4422fd44b09a4bcd6a60e7efa3156e1c2fc1f3afcf458eaafae",
+    "R02b": "b4a5ad5ffbed2f1076ab660ecc88f4cc1a17dbb570a7c6f372e5e158de928ac9",
+    "R02c": "16634fa8fbfd38fb5603867e959da7145e0e6087154d34d0c0229fb17ecf841d"
+   }
+  },
+  {
+   "task_folder": "R03",
+   "task": "easy_set/16_MyFactorial",
+   "python_sha256": "e4c85d4c44a69827a816d7b67e22b1fb7e22e0cab18c99427daaba80a22780d7",
+   "reference_sha256": "8da7776f1ba12b3d5e03ec2ab9e290d865cdea48c442cbdfe3a1c9f14440b5cc",
+   "candidates": {
+    "R03a": "7ebcf7430d72bfc2d0b4744de7400895a7c2ffa1f75617da5edc3f3c47075518",
+    "R03b": "95175e8fe7ec1b097e085384662d61dd1eb605d306c64cdd597170dadcb05e00",
+    "R03c": "618888c3080179b5d30f718888ac158b64d6d7e6957ec30533649a3a6a3e1429"
+   }
+  },
+  {
+   "task_folder": "R04",
+   "task": "cs_set/counting_sort",
+   "python_sha256": "874c75909e91d7abcdfe3ad65a72ce738061304df064f93b334044281fe4e6ec",
+   "reference_sha256": "b11bcaee103b35e49948c86206406a7fbeec928949119f4869e2ecbd248704dd",
+   "candidates": {
+    "R04a": "f97236f8260b923d39d0af292587c1e8c6463bd2a210291a0204ec46f2831377",
+    "R04b": "5a547f5542c86b2af4cee5459aa3021dd1e30aff93d330ef98e96b400522df1e",
+    "R04c": "478fc393ee7495d95ee56073dc82a6bd20cdf6d669254bc076a023c7c5c8f940"
+   }
+  },
+  {
+   "task_folder": "R05",
+   "task": "security_set/security_6858/vulnerabilities/129_unsafeTorHiddenService",
+   "python_sha256": "72323a0a2094f2d41a2cc8f3f9880e34d31068dd564b0a9de981ed86030df63f",
+   "reference_sha256": "a18b46e8dc4c16b0751287781c17f3b2f7d65f4d0912b9c80b0cd521574cba1b",
+   "candidates": {
+    "R05a": "e19be96e9eb8cf82f02cb76bf33cd242c22656480a1dcd11a2a05f5f4fbc9b89",
+    "R05b": "c3dcc91c953830c30b42d11a2d8ceb922514f7f2c771e119ec53580fe176c0cb",
+    "R05c": "31203754904a7e509bdb4963a1eee27dd2f57d27abaf570fd63cac180412ae98"
+   }
+  },
+  {
+   "task_folder": "R06",
+   "task": "easy_set/20_MySumDigits",
+   "python_sha256": "12df2a4a18060824b7e8ca7785afc9b1470831c3a55e76ac470ba9b93acd531d",
+   "reference_sha256": "a79422e492bb795e17bf5ae19121f251123357072d6063e8137a60d3cce3a5d7",
+   "candidates": {
+    "R06a": "ca490656e0b543d2e1a220ededf4d107b9dcebbeb85e367c76d9b6bf17eb982c",
+    "R06b": "9dbb7dac5cc9ed9f916962c54f9f9c674422c852d975661655e2b70eea2b2bbc",
+    "R06c": "7f938aa8b4ebdc4e98032fdbe41006d6c06f00c47159478274e31fab720e54b0"
+   }
+  },
+  {
+   "task_folder": "R07",
+   "task": "easy_set/23_is_prime",
+   "python_sha256": "813772624e9ec33a62e3497ba44c094f7ea56e90adbcb3e96483bfd71ddbb379",
+   "reference_sha256": "1fb319c31d9eaa2447938d88091f3f14aca37829016f771d203ba909c14d93e3",
+   "candidates": {
+    "R07a": "71b80143409ab4f989a3e51aec287caa33463fc45f4599649fb6f20fde49d19c",
+    "R07b": "5c3b597933b013777a4505d06bfb0eb4a19bae4a0c5c7d4b8bacb94ede1f9fe0",
+    "R07c": "140a64d7efddccd939585cf6a2042147daf65e86c77071425b3eebbfd1edcd9c"
+   }
+  },
+  {
+   "task_folder": "R08",
+   "task": "cs_set/heapsort_algorithm",
+   "python_sha256": "62c463adc5c197d896bff8e6f8227a6c72deb701ef4337eea0e53c692ee1c979",
+   "reference_sha256": "a9a20b0469f1ba216faa1256deae78e96765e2b716d1e14f35b0d6036e0a0569",
+   "candidates": {
+    "R08a": "574011755ed3d2322ba6b8da34ec32a8077a8a2654cca1bcca70501e3eff9f5f",
+    "R08b": "d9a4aa8fa3ac898d0a3b5c537958ea62de65e0ff5aa57ce56ec6eaafef67c7c3",
+    "R08c": "30792cde4462051982ede966c8fa13aaba292b62e901825f39feed3726e6b660"
+   }
+  },
+  {
+   "task_folder": "R09",
+   "task": "realcode_set/23_base32",
+   "python_sha256": "dc4bc7238f984eccdcbc4824be46e876896849db5f1e64e49d5283199368549b",
+   "reference_sha256": "3b82235e86d9b5d92de19d7d6d893a8670a970d8e10d39e7fe0fb420a518d40a",
+   "candidates": {
+    "R09a": "6eafbb194c68b14a87cd257d01e5087f0f72fe477545a3e7c026a89a266a7416",
+    "R09b": "a61c13b8d61b64ef0c03d930b42ba12bf71fe7460872beca2b7259d1065222e2",
+    "R09c": "013e71ea03cb3f5fb8324aa1d1711a15668e6f74652ac272201c3661a0d42dca"
+   }
+  },
+  {
+   "task_folder": "R10",
+   "task": "realcode_set/28_statistics_median_low",
+   "python_sha256": "8aa9b9fada22f74576c798f4d5ded692b42235aa4e50fec9698554e6374621ed",
+   "reference_sha256": "c8a62727804e976e9a4f81fea4be2696f9a71de2cbc086bb2002f5bcd14c3d62",
+   "candidates": {
+    "R10a": "f7b546e0cffb910a693dfcbcedc1aabc1c94ec7499d51175ca9a70fa1204079c",
+    "R10b": "41c3cd682200b456bc9b65cb991d059a7fe4a22b963fd4a54922a5363b92850c",
+    "R10c": "18825f35ade63631a2146ca3e13498a32f55c0cb3aa7c30432737e826f7edabc"
+   }
+  },
+  {
+   "task_folder": "R11",
+   "task": "cs_set/heap_sort",
+   "python_sha256": "9194b262a2b0d0ed6195687c4fdfef67b287f28605d2b3c8ac3cd63a6bfc2fbd",
+   "reference_sha256": "789925333502774c6ccff395ce69fb857d677df48e3efb4b72725b7ce2b642c8",
+   "candidates": {
+    "R11a": "47a89ca43391c6d407f2a66c065e747ec198bbf93128475a9fb58679a3b5ca5f",
+    "R11b": "b5d5a971629bf15ae53dca69714caf53b52450ea73885e8305d3f8ce8b6b0bf4",
+    "R11c": "c9c112f76cc217bcbff7914e874db09f3154bcc936926e02acb652d50491c94c"
+   }
+  },
+  {
+   "task_folder": "R12",
+   "task": "humaneval_set/humaneval_4_mean_absolute_deviation",
+   "python_sha256": "559fde16be5e57c6080a6793ff0007c7a23a7452bd14a1e2ce3efa1baa85928f",
+   "reference_sha256": "d9ae57b9b0742feebda84032a876fa5609373fc54bf175b9e45ebad2f08dee5b",
+   "candidates": {
+    "R12a": "1cc1cd0e6602389745e76dd3ead3ffc3fe6073cc6a18cd9d66393812b09c4d90",
+    "R12b": "15f4735649e2750a18de8b1c7b61abe9c9d6772bb3c6a2c17b5859e4f80ad9e1",
+    "R12c": "e24a1b23c532ea7bd1f5b0bb2f6f350cba95fa2f399fad238b8b2d8db8d1e08e"
+   }
+  },
+  {
+   "task_folder": "R13",
+   "task": "security_set/security_6858/vulnerabilities/95_unsafeTlsDowngrade",
+   "python_sha256": "3362ddd9ccf29cab0fca41509bda5ce0657eca8bb8aaca4ef1e9311f32babee7",
+   "reference_sha256": "62e622d102b99143f49fec572b02a49605e30dd1eacb7f1fbdd383b52f3c358b",
+   "candidates": {
+    "R13a": "7655f94e6343f50f1a780f5fa2855c973c18285c3a32636a1284ed4717e45e64",
+    "R13b": "3e0b94e23ce414414100dff4fdf62570c00883bf736d28b8fef360c1f242e2fa",
+    "R13c": "91e1f2d47936c1caa75a59d5647ac49ad726b9197ea003fc3502dfb25a3127ca"
+   }
+  },
+  {
+   "task_folder": "R14",
+   "task": "security_set/security_6858/vulnerabilities/93_unsafeAppEntitlements",
+   "python_sha256": "4f8c41339fb8633e962a7c12538c5d16fa6d923c3a7887768bae500c87988619",
+   "reference_sha256": "f2f4bee2b5ed110bffc009fc2434d9fd9e20b69fb6759e776a43fff1f7a4a917",
+   "candidates": {
+    "R14a": "01697d2d255e4e439cf091572e6a2868a06768aa83c13021f4263c36110bdc78",
+    "R14b": "fcfd1ece137e9ae3b7932c610588af93f294965cb824ee61910cd57e5ae9b078",
+    "R14c": "43e792c37aeed26b143e8bc0cc1ee3503b2716460aa6545ff031f96387f7b991"
+   }
+  },
+  {
+   "task_folder": "R15",
+   "task": "realcode_set/31_statistics_quantiles",
+   "python_sha256": "ec7999fdd36f74110c5cb04c4aa0befbd056975b34bb685e94c0bb5dda3818f9",
+   "reference_sha256": "01fee90832f42270ee05452494cfd47187e9fb2f8a44aadd91ed97f2b60844e8",
+   "candidates": {
+    "R15a": "8f82e509cfd34b2d41619ef207b8edc3f5d63997eaa6bb148165e41ca7ea15cc",
+    "R15b": "1146a10eeafeffabaece83668f92c37bf0e48fccced749a4af57f098cf4ad9e1",
+    "R15c": "578d5e7ad935361f7e397fb1824646d5e373960fed598ec0657f3de5bbc11bfa"
+   }
+  },
+  {
+   "task_folder": "R16",
+   "task": "cs_set/topological_sort",
+   "python_sha256": "f8b63f6ebf52572f4f8e7e5fc4c41cebee75b8176c79ce6a64bf2ab57b145632",
+   "reference_sha256": "506ab5f0c899186707b19214e8d48a4d607d2af468eb0175d0cdb6f741f7390a",
+   "candidates": {
+    "R16a": "aeb3b7a18e576feb518e65dfdecde021b6e617f6475c511e1b8f9cb44065df75",
+    "R16b": "4b55213b2f158896e95692878ff2776a1e60caf82a60c8617a3cedd89543b474",
+    "R16c": "8fe5114ee6dac3366c4065d1228d2cc4ef0fd361204a8098e68679024dd4fe69"
+   }
+  },
+  {
+   "task_folder": "R17",
+   "task": "easy_set/19_MyPower",
+   "python_sha256": "ecd27b4fb26b5ec4879b94f40c33474aa9bb42c745681c5247a4f0b6f7d08fd6",
+   "reference_sha256": "e7e37ab936fba5030ecb856c79103a6e70fe84f25551a6a8cacf5372fbb4c1f0",
+   "candidates": {
+    "R17a": "a75a529098271e52f52d2c75ada56959b470919f6405638a284ecf0f1b105131",
+    "R17b": "faecc00eabbb4aff145ecad347bad984bed4a54b78249060823850ada702ee55",
+    "R17c": "5f8e38ce64002faada09e808585d1dea6df7a87e1675e79b9d8ea019b95e5ef0"
+   }
+  },
+  {
+   "task_folder": "R18",
+   "task": "humaneval_set/humaneval_14_all_prefixes",
+   "python_sha256": "9793c5a006d2b3b17518199000cfafb46722dbf17451c773e5e1d4871251db92",
+   "reference_sha256": "d68e216988c9287a279ae29073807214b9e03af3bfd1c771028b506fb3646bdc",
+   "candidates": {
+    "R18a": "139dc00bcaa526d6adc97b5ed7bb4e33fcca7e0c62157aed99e9abc770efcd3b",
+    "R18b": "d315a073cb8aaad1c07e93f4ec164f0a1d0f701782aaff0cd940ed03776750fa",
+    "R18c": "bdc5b901972aef78fd56c2c181ea0eeec97f6b1af6711139d3b3087b07d40f61"
+   }
+  },
+  {
+   "task_folder": "R19",
+   "task": "cs_set/edit_distance",
+   "python_sha256": "64d1e83ce02b690a6a73dd6ed132f512f71cf5071a1df65ff12d32240449baa1",
+   "reference_sha256": "55f2f6dc5b4f995e1d6ff40033431d19f11d7483445fad0f6388f6dc7e07957b",
+   "candidates": {
+    "R19a": "9951312517bccf72bcc8a78ea7af5945a02aefe9d91dc55bcb6a2ccad4161682",
+    "R19b": "9c25d3e4ff2e114b7cc8e50993be1bf89a54f2c9bd48471ea03b31f9b0bc1cf0",
+    "R19c": "75359815cae250e7a10ccee81fc6d5d4cc24667207dbc6fec413b800eca56e33"
+   }
+  },
+  {
+   "task_folder": "R20",
+   "task": "humaneval_set/humaneval_35_max_element",
+   "python_sha256": "4b70c0542c0a72624d51825c14157212b6998cff49b7161ef77e6ae8451006c2",
+   "reference_sha256": "697a711d0e9a9c575e813b845f206e8ac266ecfdc3a183ee1facb076ac80b2df",
+   "candidates": {
+    "R20a": "bccebf0b97c4ddaf29956d86229d877d2a7018e131dba2a3ab7c8a688f76e187",
+    "R20b": "d9bfcad8253a6f04834816c6d8a1d6aad138327d157cfda2697a77da107e547d",
+    "R20c": "daa948c52993334e99a835760c02123cb3d0def96be4ced07b85e7afa20db229"
+   }
+  },
+  {
+   "task_folder": "R21",
+   "task": "security_set/security_6858/vulnerabilities/75_unsafeCertHostname",
+   "python_sha256": "3f2f94afbd2a7d07596e5ac6ab9cc81419b90ec279ccda76fb750ba2238ef5b2",
+   "reference_sha256": "a935f317d605f6175b043af02ec4a6c4fe0343f94de5287391a71f6d0a83b141",
+   "candidates": {
+    "R21a": "67456fd77d1d370b1cb63b4ed7896cfe78036bba63cfdd7ccea1ef61a83391fa",
+    "R21b": "1391cdc75c4a7eaf6e0bc8ed11f5c36214129c7ca09107b8962441c9c3992c45",
+    "R21c": "003ba16797a1f97b25b3f90b5fa8ceeabcfe3dfc93b4c02729a23bec872f9ccb"
+   }
+  },
+  {
+   "task_folder": "R22",
+   "task": "humaneval_set/humaneval_39_prime_fib",
+   "python_sha256": "391562d77b03c0491e2b36756c874726f6aa23497b317928f1f3439e10ec039c",
+   "reference_sha256": "3c380e2ad2ff6a9c8a4762d2a6013880d484f3b018c0da0b36c4c3403cfeabac",
+   "candidates": {
+    "R22a": "02bb3e2975d30cd1530f4ba2c5c445bcafd11598f06ca7e23eb278d65a91ae4f",
+    "R22b": "5881db0a5c419b1884707d850651e65023c7009df2501626481e018a1c61a257",
+    "R22c": "a8bc9e9227866f0798990c1fcc0e63715def85ce008ec76d8240b66963051a03"
+   }
+  },
+  {
+   "task_folder": "R23",
+   "task": "security_set/security_6858/safe/125_unsafeTPMHash_safe",
+   "python_sha256": "6b4d586252669a2458a1891d5b9f28886a77f43e0fa54b06aed18fee736f65a6",
+   "reference_sha256": "3d4be9f00401eba32e7fe951ef6801eecd3de4f72f9b06eafbd093e6e8f86522",
+   "candidates": {
+    "R23a": "4b1c4c987228c0d2e432b7a40fd961eef82a1c84101956d995b153230cccb1f9",
+    "R23b": "cc317c24d73b982de4d4fc38b4ad0b8280bde3b70a2881828b2771b2353fdbf7",
+    "R23c": "2ffc41892697a54276644cd97a26352a3c287d599ff7c2418632ae92e1fb710a"
+   }
+  },
+  {
+   "task_folder": "R24",
+   "task": "easy_set/41_duplicate_chars",
+   "python_sha256": "a242ffd4eb73bcc770495c2f72bc93142ac5dc03c337697646f15a4f3dc1f2e3",
+   "reference_sha256": "04483ab14c963d60a8394bcc0d5718fdbf4273bf5864567390d46b2b87bdf703",
+   "candidates": {
+    "R24a": "3d1abc9f2fa98ca0158590bc296d7c5abcf8c11e8a5479d8f3b72cecd6e815ea",
+    "R24b": "7f8e9783d2e14e20b443876e1ff91f314b8b8f0e149713fe32024ac829c38731",
+    "R24c": "e7954a91a08287806fb8a455266afa869a0eecdb2897c0be49b8b880f85150a4"
+   }
+  },
+  {
+   "task_folder": "R25",
+   "task": "humaneval_set/humaneval_15_string_sequence",
+   "python_sha256": "8f4dde6215aa746cbc8642b82008ab0437f73b7f09394d0f001c1bca8d7c1f2d",
+   "reference_sha256": "3bd8faf82b3ab1b0b8be1cb485bfdf4bf5b471a3d24a7297f14b3fb0c91e89af",
+   "candidates": {
+    "R25a": "8fb15e5e7c422b7c22c1abdef52d8400406cd782be4006b95643a576d0de4344",
+    "R25b": "655261fc93c9518f90435fb2c1fbc83e0060e273ed755be53645d11a30f4c05a",
+    "R25c": "60036dad429b7ebe5668996cc155a7b903399fe970598f73aa4fb600ead0df35"
+   }
+  }
+ ],
+ "packet": {
+  "dir": "packet",
+  "files": 128,
+  "FILES.sha256": "bbbd7cf6c5584d3ada3a408f79ef6563a01825d0b5687f032cf83eaf7033bf1b",
+  "identity_hint_items": 0
+ },
+ "sealed_key": {
+  "relpath": "sealed/UNBLINDING_KEY.json",
+  "sha256": "5fde585b4034f43ff254949caee9741d69b9f6dea8a80ceca0776763ff8f7664",
+  "fingerprint": "28e1cb5013d2925de98a639e3576e1a3ba3519894405e66f2727517fea0ac634",
+  "rule": "commit the key only after every rating sheet is received and committed"
+ }
+}

@@ -1,0 +1,1171 @@
+{
+  "accounted_usd": 0.6680287500000001,
+  "cap_usd": 0.75,
+  "denials": [
+    {
+      "at": "2026-11-12T03:38:07.348963+00:00",
+      "phase": "generate_content",
+      "reason": "Cell dollar cap cannot admit next request"
+    }
+  ],
+  "input_price_per_million": 0.75,
+  "model": "gemini-3.8-flash",
+  "output_price_per_million": 3.75,
+  "provider_route": "allen-google-veribench",
+  "requests": [
+    {
+      "admitted_at": "2026-11-12T03:23:55.672279+00:00",
+      "call": 1,
+      "charged_upper_bound_usd": 0.0034297500000000005,
+      "counted_input_tokens": 4098,
+      "finished_at": "2026-11-12T03:24:16.671606+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 5122,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.0034297500000000005,
+      "payload_sha256": "8c5950fc33fcdc01c292dcaf1c6431874231fcdf931f1a6066865608ccfed8b6",
+      "prior_billed_thought_tokens": 0,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 1,
+      "usage_metadata": {
+        "candidatesTokenCount": 53,
+        "promptTokenCount": 4098,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4098
+          }
+        ],
+        "rawPromptTokenCount": 4149,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 42,
+        "totalTokenCount": 4193
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:24:16.938920+00:00",
+      "call": 2,
+      "charged_upper_bound_usd": 0.00367125,
+      "counted_input_tokens": 4498,
+      "finished_at": "2026-11-12T03:24:28.617481+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 5564,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.00367125,
+      "payload_sha256": "410941a02ea8f318385050b2d2f617dee5f0152737fb595075619ff2ab04efb6",
+      "prior_billed_thought_tokens": 42,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 2,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2066
+          }
+        ],
+        "cachedContentTokenCount": 2066,
+        "candidatesTokenCount": 40,
+        "promptTokenCount": 4540,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4540
+          }
+        ],
+        "rawPromptTokenCount": 4601,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 31,
+        "totalTokenCount": 4611
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:24:28.862249+00:00",
+      "call": 3,
+      "charged_upper_bound_usd": 0.00396525,
+      "counted_input_tokens": 4935,
+      "finished_at": "2026-11-12T03:24:54.399822+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 6032,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.00396525,
+      "payload_sha256": "3bcfe8ff66d3e5df4fd4e238ccaee3ef1405a86c339e61afa3de7092ad9d54ec",
+      "prior_billed_thought_tokens": 73,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 3,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2515
+          }
+        ],
+        "cachedContentTokenCount": 2515,
+        "candidatesTokenCount": 34,
+        "promptTokenCount": 5007,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5007
+          }
+        ],
+        "rawPromptTokenCount": 5078,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 22,
+        "totalTokenCount": 5063
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:24:54.657699+00:00",
+      "call": 4,
+      "charged_upper_bound_usd": 0.00399975,
+      "counted_input_tokens": 5014,
+      "finished_at": "2026-11-12T03:25:09.240405+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 6133,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.00399975,
+      "payload_sha256": "f98a34d9f32e4be000f8ab9e1fd57f8a83b7c5388d9bd823c4c2ad68e7647ad8",
+      "prior_billed_thought_tokens": 95,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 4,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 2981
+          }
+        ],
+        "cachedContentTokenCount": 2981,
+        "candidatesTokenCount": 23,
+        "promptTokenCount": 5108,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5108
+          }
+        ],
+        "rawPromptTokenCount": 5189,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 22,
+        "totalTokenCount": 5153
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:25:09.742876+00:00",
+      "call": 5,
+      "charged_upper_bound_usd": 0.004101,
+      "counted_input_tokens": 5107,
+      "finished_at": "2026-11-12T03:25:25.181657+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 6248,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.004101,
+      "payload_sha256": "7f762f42bbaa8d51cc235636eebaba657be7cb9274d7b8b0433a220c45518b7e",
+      "prior_billed_thought_tokens": 117,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 5,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3085
+          }
+        ],
+        "cachedContentTokenCount": 3085,
+        "candidatesTokenCount": 36,
+        "promptTokenCount": 5223,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5223
+          }
+        ],
+        "rawPromptTokenCount": 5314,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 13,
+        "totalTokenCount": 5272
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:25:25.356920+00:00",
+      "call": 6,
+      "charged_upper_bound_usd": 0.009104250000000001,
+      "counted_input_tokens": 5230,
+      "finished_at": "2026-11-12T03:25:49.430704+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 6384,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.009104250000000001,
+      "payload_sha256": "81e8b78e0272ad2549ae3e8969ab2caf7282271ca687231e0acf4d0de3e42057",
+      "prior_billed_thought_tokens": 130,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 6,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 3204
+          }
+        ],
+        "cachedContentTokenCount": 3204,
+        "candidatesTokenCount": 28,
+        "promptTokenCount": 5359,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5359
+          }
+        ],
+        "rawPromptTokenCount": 5460,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 1328,
+        "totalTokenCount": 6715
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:25:49.810638+00:00",
+      "call": 7,
+      "charged_upper_bound_usd": 0.021837,
+      "counted_input_tokens": 27354,
+      "finished_at": "2026-11-12T03:25:57.455356+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 31548,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.021837,
+      "payload_sha256": "e6377b503b72d89a751f13c00c9051747efd82d1929899e6ba9720ef10af3c83",
+      "prior_billed_thought_tokens": 1458,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 7,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5518
+          }
+        ],
+        "cachedContentTokenCount": 5518,
+        "candidatesTokenCount": 32,
+        "promptTokenCount": 28811,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 28811
+          }
+        ],
+        "rawPromptTokenCount": 28511,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 29,
+        "totalTokenCount": 28872
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:25:57.682509+00:00",
+      "call": 8,
+      "charged_upper_bound_usd": 0.022041,
+      "counted_input_tokens": 27517,
+      "finished_at": "2026-11-12T03:26:25.864939+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 31756,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.022041,
+      "payload_sha256": "2b920d4b297e32631ac9feb7d1ddc227886bec53549afdbf81645de035eaf724",
+      "prior_billed_thought_tokens": 1487,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 8,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 26728
+          }
+        ],
+        "cachedContentTokenCount": 26728,
+        "candidatesTokenCount": 34,
+        "promptTokenCount": 29003,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 29003
+          }
+        ],
+        "rawPromptTokenCount": 28713,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 43,
+        "totalTokenCount": 29080
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:26:26.512029+00:00",
+      "call": 9,
+      "charged_upper_bound_usd": 0.022093500000000002,
+      "counted_input_tokens": 27594,
+      "finished_at": "2026-11-12T03:26:50.579544+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 31884,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.022093500000000002,
+      "payload_sha256": "8021bc3dffb3c799a1800aba2cea51bfefe51043e1887a27449dfa10971b7758",
+      "prior_billed_thought_tokens": 1530,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 9,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 26921
+          }
+        ],
+        "cachedContentTokenCount": 26921,
+        "candidatesTokenCount": 46,
+        "promptTokenCount": 29123,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 29123
+          }
+        ],
+        "rawPromptTokenCount": 28843,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 21,
+        "totalTokenCount": 29190
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:26:53.823450+00:00",
+      "call": 10,
+      "charged_upper_bound_usd": 0.02224425,
+      "counted_input_tokens": 27664,
+      "finished_at": "2026-11-12T03:27:13.696529+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 31982,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.02224425,
+      "payload_sha256": "48f816e71715d5bdcdd253ea79daf69ca32e4910c94bd8a923bdb9a459849288",
+      "prior_billed_thought_tokens": 1551,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 10,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 27043
+          }
+        ],
+        "cachedContentTokenCount": 27043,
+        "candidatesTokenCount": 64,
+        "promptTokenCount": 29214,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 29214
+          }
+        ],
+        "rawPromptTokenCount": 28944,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 25,
+        "totalTokenCount": 29303
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:27:17.528164+00:00",
+      "call": 11,
+      "charged_upper_bound_usd": 0.03235275,
+      "counted_input_tokens": 27747,
+      "finished_at": "2026-11-12T03:27:58.034725+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 32098,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.03235275,
+      "payload_sha256": "2926cb29bc09e8abbde7b07407f45328d39d029f226d9e6032f2f924b6656e9d",
+      "prior_billed_thought_tokens": 1576,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 11,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 27134
+          }
+        ],
+        "cachedContentTokenCount": 27134,
+        "candidatesTokenCount": 57,
+        "promptTokenCount": 29322,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 29322
+          }
+        ],
+        "rawPromptTokenCount": 29062,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 2706,
+        "totalTokenCount": 32085
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:28:28.447904+00:00",
+      "call": 12,
+      "charged_upper_bound_usd": 0.025041,
+      "counted_input_tokens": 28782,
+      "finished_at": "2026-11-12T03:29:05.398287+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 35943,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.025041,
+      "payload_sha256": "65eaebc0d5114663b4bb517ff0e53c97e503f805498ca8d00abb5efc2d31a170",
+      "prior_billed_thought_tokens": 4282,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 12,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 30165
+          }
+        ],
+        "cachedContentTokenCount": 30165,
+        "candidatesTokenCount": 51,
+        "promptTokenCount": 33063,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 33063
+          }
+        ],
+        "rawPromptTokenCount": 31854,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 14,
+        "totalTokenCount": 33128
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:29:05.675982+00:00",
+      "call": 13,
+      "charged_upper_bound_usd": 0.025095000000000003,
+      "counted_input_tokens": 28970,
+      "finished_at": "2026-11-12T03:29:26.917891+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 36163,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.025095000000000003,
+      "payload_sha256": "99d5a8943efeeef473686394fe6cc5626740f6378fa4adf6398b28bbc1f6ea44",
+      "prior_billed_thought_tokens": 4296,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 13,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 30918
+          }
+        ],
+        "cachedContentTokenCount": 30918,
+        "candidatesTokenCount": 23,
+        "promptTokenCount": 33265,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 33265
+          }
+        ],
+        "rawPromptTokenCount": 32066,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 16,
+        "totalTokenCount": 33304
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:29:27.190004+00:00",
+      "call": 14,
+      "charged_upper_bound_usd": 0.0321435,
+      "counted_input_tokens": 29197,
+      "finished_at": "2026-11-12T03:29:58.807088+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 36429,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.0321435,
+      "payload_sha256": "d1e113de7797991fff18f09b8586811a5cbd66f00cac94aa175d44f776f8df0c",
+      "prior_billed_thought_tokens": 4312,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 14,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 31120
+          }
+        ],
+        "cachedContentTokenCount": 31120,
+        "candidatesTokenCount": 117,
+        "promptTokenCount": 33508,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 33508
+          }
+        ],
+        "rawPromptTokenCount": 32319,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 1753,
+        "totalTokenCount": 35378
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:30:02.031795+00:00",
+      "call": 15,
+      "charged_upper_bound_usd": 0.0279585,
+      "counted_input_tokens": 29994,
+      "finished_at": "2026-11-12T03:30:21.066945+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 39059,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.0279585,
+      "payload_sha256": "04fbb1063f3257f6d1d2c4eea19d1f73756ae3d7adc0370a02f2d833fa564950",
+      "prior_billed_thought_tokens": 6065,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 15,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 33485
+          }
+        ],
+        "cachedContentTokenCount": 33485,
+        "candidatesTokenCount": 113,
+        "promptTokenCount": 36058,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 36058
+          }
+        ],
+        "rawPromptTokenCount": 34212,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 131,
+        "totalTokenCount": 36302
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:30:23.982637+00:00",
+      "call": 16,
+      "charged_upper_bound_usd": 0.027951,
+      "counted_input_tokens": 30383,
+      "finished_at": "2026-11-12T03:30:54.951884+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 39618,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.027951,
+      "payload_sha256": "89aef9c805ba89ea3ca6dad87568d672263807bf251f14604ad647a83031452b",
+      "prior_billed_thought_tokens": 6196,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 16,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 33952
+          }
+        ],
+        "cachedContentTokenCount": 33952,
+        "candidatesTokenCount": 55,
+        "promptTokenCount": 36578,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 36578
+          }
+        ],
+        "rawPromptTokenCount": 34649,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 83,
+        "totalTokenCount": 36716
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:30:58.073947+00:00",
+      "call": 17,
+      "charged_upper_bound_usd": 0.02785125,
+      "counted_input_tokens": 30487,
+      "finished_at": "2026-11-12T03:31:28.966963+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 39815,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.02785125,
+      "payload_sha256": "6e231cd4aec99056a8e3cb00b109cc405ef5279a3c3e345756a47233d3024d5c",
+      "prior_billed_thought_tokens": 6279,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 17,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 34394
+          }
+        ],
+        "cachedContentTokenCount": 34394,
+        "candidatesTokenCount": 61,
+        "promptTokenCount": 36765,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 36765
+          }
+        ],
+        "rawPromptTokenCount": 34846,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 13,
+        "totalTokenCount": 36839
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:31:32.993431+00:00",
+      "call": 18,
+      "charged_upper_bound_usd": 0.0280455,
+      "counted_input_tokens": 30773,
+      "finished_at": "2026-11-12T03:31:50.551757+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 40143,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.0280455,
+      "payload_sha256": "620be484bf826f44afa25cdecd5b0d4d07766d4d75593b786df8990b9b03e8c1",
+      "prior_billed_thought_tokens": 6292,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 18,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 34576
+          }
+        ],
+        "cachedContentTokenCount": 34576,
+        "candidatesTokenCount": 48,
+        "promptTokenCount": 37064,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 37064
+          }
+        ],
+        "rawPromptTokenCount": 35155,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 18,
+        "totalTokenCount": 37130
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:31:53.710053+00:00",
+      "call": 19,
+      "charged_upper_bound_usd": 0.028151250000000003,
+      "counted_input_tokens": 30851,
+      "finished_at": "2026-11-12T03:32:22.551462+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 40247,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.028151250000000003,
+      "payload_sha256": "2d2d01b66191c5b5c8fac4b6b8a21d51c2107fd266d7e4361919e95627ae866e",
+      "prior_billed_thought_tokens": 6310,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 19,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 34887
+          }
+        ],
+        "cachedContentTokenCount": 34887,
+        "candidatesTokenCount": 66,
+        "promptTokenCount": 37160,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 37160
+          }
+        ],
+        "rawPromptTokenCount": 35261,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 9,
+        "totalTokenCount": 37235
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:32:25.688618+00:00",
+      "call": 20,
+      "charged_upper_bound_usd": 0.028188750000000002,
+      "counted_input_tokens": 30947,
+      "finished_at": "2026-11-12T03:33:06.835738+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 40361,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.028188750000000002,
+      "payload_sha256": "c1d249f046fae06f9ac49ec3f46af14ff35d1a7385f20628a9f7d554bb991e1f",
+      "prior_billed_thought_tokens": 6319,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 20,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 34984
+          }
+        ],
+        "cachedContentTokenCount": 34984,
+        "candidatesTokenCount": 51,
+        "promptTokenCount": 37265,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 37265
+          }
+        ],
+        "rawPromptTokenCount": 35376,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 13,
+        "totalTokenCount": 37329
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:33:10.025710+00:00",
+      "call": 21,
+      "charged_upper_bound_usd": 0.028299750000000002,
+      "counted_input_tokens": 31077,
+      "finished_at": "2026-11-12T03:33:51.807468+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 40517,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.028299750000000002,
+      "payload_sha256": "f7cbb582abc10d07f928cf05a2b0ebae21975b23fefb730b49a854bb64106a5c",
+      "prior_billed_thought_tokens": 6332,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 21,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 35088
+          }
+        ],
+        "cachedContentTokenCount": 35088,
+        "candidatesTokenCount": 50,
+        "promptTokenCount": 37408,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 37408
+          }
+        ],
+        "rawPromptTokenCount": 35529,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 15,
+        "totalTokenCount": 37473
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:33:54.927972+00:00",
+      "call": 22,
+      "charged_upper_bound_usd": 0.028437749999999998,
+      "counted_input_tokens": 31226,
+      "finished_at": "2026-11-12T03:34:21.282365+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 40696,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.028437749999999998,
+      "payload_sha256": "324645b0df55aa6762577717a5c12022b5fab26992d8e5b6b03c819373301a75",
+      "prior_billed_thought_tokens": 6347,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 22,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 35231
+          }
+        ],
+        "cachedContentTokenCount": 35231,
+        "candidatesTokenCount": 52,
+        "promptTokenCount": 37572,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 37572
+          }
+        ],
+        "rawPromptTokenCount": 35703,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 17,
+        "totalTokenCount": 37641
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:34:24.725633+00:00",
+      "call": 23,
+      "charged_upper_bound_usd": 0.02901,
+      "counted_input_tokens": 31347,
+      "finished_at": "2026-11-12T03:35:02.048729+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 40846,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.02901,
+      "payload_sha256": "2f780e2a12a63ada65ec8ae91d30bda0e3ec488015bf4d3952a40302f379f001",
+      "prior_billed_thought_tokens": 6364,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 23,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 35398
+          }
+        ],
+        "cachedContentTokenCount": 35398,
+        "candidatesTokenCount": 127,
+        "promptTokenCount": 37710,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 37710
+          }
+        ],
+        "rawPromptTokenCount": 35851,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 67,
+        "totalTokenCount": 37904
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:35:05.325887+00:00",
+      "call": 24,
+      "charged_upper_bound_usd": 0.029030999999999998,
+      "counted_input_tokens": 31628,
+      "finished_at": "2026-11-12T03:35:39.421111+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 41222,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.029030999999999998,
+      "payload_sha256": "afe89ec30c3ba1fe38b06b399ae7d957e713a7acaa9031274f4063505ce1c042",
+      "prior_billed_thought_tokens": 6431,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 24,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 35610
+          }
+        ],
+        "cachedContentTokenCount": 35610,
+        "candidatesTokenCount": 52,
+        "promptTokenCount": 38058,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 38058
+          }
+        ],
+        "rawPromptTokenCount": 36124,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 78,
+        "totalTokenCount": 38188
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:35:42.580075+00:00",
+      "call": 25,
+      "charged_upper_bound_usd": 0.030738750000000002,
+      "counted_input_tokens": 31747,
+      "finished_at": "2026-11-12T03:36:23.756363+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 41431,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.030738750000000002,
+      "payload_sha256": "f3dceac0e24c69d6a13937dc9e33504749393d44892242970c78cdb661d63986",
+      "prior_billed_thought_tokens": 6509,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 25,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 35878
+          }
+        ],
+        "cachedContentTokenCount": 35878,
+        "candidatesTokenCount": 141,
+        "promptTokenCount": 38255,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 38255
+          }
+        ],
+        "rawPromptTokenCount": 36331,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 405,
+        "totalTokenCount": 38801
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:36:26.980453+00:00",
+      "call": 26,
+      "charged_upper_bound_usd": 0.029856,
+      "counted_input_tokens": 32025,
+      "finished_at": "2026-11-12T03:36:48.605568+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 42142,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.029856,
+      "payload_sha256": "ef71c9b18360cb07bb011f29da7a9b146cceda708a411b655cfd46ff5bd4fc2e",
+      "prior_billed_thought_tokens": 6914,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 26,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 36119
+          }
+        ],
+        "cachedContentTokenCount": 36119,
+        "candidatesTokenCount": 146,
+        "promptTokenCount": 38938,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 38938
+          }
+        ],
+        "rawPromptTokenCount": 36956,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 28,
+        "totalTokenCount": 39112
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:36:51.800386+00:00",
+      "call": 27,
+      "charged_upper_bound_usd": 0.03021525,
+      "counted_input_tokens": 32186,
+      "finished_at": "2026-11-12T03:37:18.335493+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 42347,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.03021525,
+      "payload_sha256": "091dd86f4d98064aed6ea0dc494f6ea87d1ace5bd75fcf024df40ed03d2154b3",
+      "prior_billed_thought_tokens": 6942,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 27,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 36758
+          }
+        ],
+        "cachedContentTokenCount": 36758,
+        "candidatesTokenCount": 114,
+        "promptTokenCount": 39127,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 39127
+          }
+        ],
+        "rawPromptTokenCount": 37155,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 118,
+        "totalTokenCount": 39359
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:37:21.494062+00:00",
+      "call": 28,
+      "charged_upper_bound_usd": 0.032445,
+      "counted_input_tokens": 32486,
+      "finished_at": "2026-11-12T03:37:38.820787+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 42795,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.032445,
+      "payload_sha256": "9679399a822bd341fc6d7ffb2ffa807f458686e70720c7cb7f5e3943971238b5",
+      "prior_billed_thought_tokens": 7060,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 28,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 37020
+          }
+        ],
+        "cachedContentTokenCount": 37020,
+        "candidatesTokenCount": 63,
+        "promptTokenCount": 39545,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 39545
+          }
+        ],
+        "rawPromptTokenCount": 37499,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 680,
+        "totalTokenCount": 40288
+      }
+    },
+    {
+      "admitted_at": "2026-11-12T03:37:41.991295+00:00",
+      "call": 29,
+      "charged_upper_bound_usd": 0.030729750000000004,
+      "counted_input_tokens": 32834,
+      "finished_at": "2026-11-12T03:38:07.043035+00:00",
+      "http503_retry_index": 0,
+      "http_status": 200,
+      "input_admission_bound": 43858,
+      "max_output_tokens": 16384,
+      "model_version": "gemini-3.8-flash",
+      "observed_cost_upper_bound_usd": 0.030729750000000004,
+      "payload_sha256": "5029545f44762ff75a3af0c1d019bdce9fa703d1a328ff67bc0ff77f2fd52250",
+      "prior_billed_thought_tokens": 7740,
+      "provider_finish_reason": "STOP",
+      "reserved_input_tokens": 65536,
+      "reserved_usd": 0.110592,
+      "transport_group_first_call": 29,
+      "usage_metadata": {
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 37487
+          }
+        ],
+        "cachedContentTokenCount": 37487,
+        "candidatesTokenCount": 50,
+        "promptTokenCount": 40573,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 40573
+          }
+        ],
+        "rawPromptTokenCount": 38367,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 30,
+        "totalTokenCount": 40653
+      }
+    }
+  ],
+  "started_at": "2026-11-12T03:23:51.245704+00:00"
+}

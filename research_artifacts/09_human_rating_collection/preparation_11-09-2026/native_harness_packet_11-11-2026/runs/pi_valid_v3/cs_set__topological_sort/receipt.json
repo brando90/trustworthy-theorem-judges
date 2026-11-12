@@ -1,0 +1,58 @@
+{
+  "accounted_usd": 0.6434775,
+  "actual_model": "gemini-3.8-flash",
+  "actual_provider": "allen-google-veribench",
+  "actual_thinking": "high",
+  "artifact_status": "missing",
+  "attempts": 1,
+  "batch_25_cell_cap_usd": 18.75,
+  "cell_cap_usd": 0.75,
+  "elapsed_seconds": 1642.852,
+  "finished_at": "2026-11-12T02:59:48.813967+00:00",
+  "host_mounts": [],
+  "image_id": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+  "input_files": {
+    "instruction.md": "d18643805dbd9a3abcca2cb9d5aece2f976f331ffffce85a4f7a18d9ed39625e",
+    "topological_sort.py": "f8b63f6ebf52572f4f8e7e5fc4c41cebee75b8176c79ce6a64bf2ab57b145632"
+  },
+  "input_token_cap": 65536,
+  "manifest_sha256": "467216f8a0f568be8db4dc20e93492967bdf70cb3441caaf92ec2fedda95434c",
+  "model": "gemini-3.8-flash",
+  "native_stop_reason": "error",
+  "output_token_cap": 16384,
+  "pi_version_observed": "1.5.2",
+  "pi_version_required": "1.5.2",
+  "provider_requests": 40,
+  "provider_route": "allen-google-veribench",
+  "request_cap": 40,
+  "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+  "runtime_uid": 1001,
+  "started_at": "2026-11-12T02:32:25.962477+00:00",
+  "status": "recovered_native_terminal",
+  "supervision_recovery": {
+    "incident": "Host wrappers ended when their tmux coordinator exited. Existing Docker Pi processes and gateways continued; neither conversation was restarted.",
+    "infrastructure_affected": true,
+    "initial_recovered_receipt_sha256": "d348ba2837b25aeba4601b39ccf9a8e9dae99aabd20d1f7fb268d37b5b63e131",
+    "native_identity_evidence_path": "private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/recovered_session_identity_evidence.json",
+    "native_identity_evidence_sha256": "8ec3ab1f74ee6c86821cbc97a660de660d7ab30ccf3bf8a56718d9a3b32a7c17",
+    "observer_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/observe_pi_orphaned_containers.py",
+    "observer_sha256": "61776d05e98fdf7c5ee52ac43a1a80229bc74cea932a3cf60eec2f9f834d974b",
+    "original_deadline_utc": "2026-11-12T03:02:25.962477+00:00",
+    "original_receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/receipt_before_host_supervision_recovery.json",
+    "original_receipt_sha256": "ce6e0478fa46589e51f0c2903f73804b51a5e81baad41426823838b771a1f0e4",
+    "trajectory_caveat": "Original host trajectory is incomplete after wrapper loss; native persisted sessions are preserved separately in pi-sessions_recovered. No candidate was reconstructed."
+  },
+  "task_id": "cs_set__topological_sort",
+  "thinking": "high",
+  "transport_recovery": {
+    "backoff_seconds": [
+      5,
+      15
+    ],
+    "failed_reservations_retained": true,
+    "http503_before_response_retries": 2,
+    "native_pi_retries_enabled": false,
+    "provider_timeout_seconds": 600
+  },
+  "wall_seconds": 1800
+}

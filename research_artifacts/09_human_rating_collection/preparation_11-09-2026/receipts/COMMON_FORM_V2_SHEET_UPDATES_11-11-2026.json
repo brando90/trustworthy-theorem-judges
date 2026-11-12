@@ -1,0 +1,1456 @@
+[
+  {
+    "spreadsheet_id": "1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A",
+    "before": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "spreadsheetId": "1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A",
+        "spreadsheetUrl": "https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit",
+        "properties": {
+          "title": "VeriBench warm-up rating sheet - rater A1 (Brando)",
+          "locale": "en_US",
+          "timeZone": "America/Los_Angeles"
+        },
+        "sheets": [
+          {
+            "properties": {
+              "sheetId": 665730293,
+              "title": "Untitled",
+              "index": 0,
+              "sheetType": "GRID",
+              "gridProperties": {
+                "rowCount": 1000,
+                "columnCount": 26
+              }
+            },
+            "data": [
+              {
+                "rowData": [
+                  {
+                    "values": [
+                      {
+                        "formattedValue": "rater_id",
+                        "userEnteredValue": {
+                          "stringValue": "rater_id"
+                        }
+                      },
+                      {
+                        "formattedValue": "item_id",
+                        "userEnteredValue": {
+                          "stringValue": "item_id"
+                        }
+                      },
+                      {
+                        "formattedValue": "task_folder",
+                        "userEnteredValue": {
+                          "stringValue": "task_folder"
+                        }
+                      },
+                      {
+                        "formattedValue": "candidate_file",
+                        "userEnteredValue": {
+                          "stringValue": "candidate_file"
+                        }
+                      },
+                      {
+                        "formattedValue": "A",
+                        "userEnteredValue": {
+                          "stringValue": "A"
+                        }
+                      },
+                      {
+                        "formattedValue": "B",
+                        "userEnteredValue": {
+                          "stringValue": "B"
+                        }
+                      },
+                      {
+                        "formattedValue": "C",
+                        "userEnteredValue": {
+                          "stringValue": "C"
+                        }
+                      },
+                      {
+                        "formattedValue": "D",
+                        "userEnteredValue": {
+                          "stringValue": "D"
+                        }
+                      },
+                      {
+                        "formattedValue": "base_score_0_5",
+                        "userEnteredValue": {
+                          "stringValue": "base_score_0_5"
+                        }
+                      },
+                      {
+                        "formattedValue": "final_score_0_5",
+                        "userEnteredValue": {
+                          "stringValue": "final_score_0_5"
+                        }
+                      },
+                      {
+                        "formattedValue": "confidence",
+                        "userEnteredValue": {
+                          "stringValue": "confidence"
+                        }
+                      },
+                      {
+                        "formattedValue": "rationale",
+                        "userEnteredValue": {
+                          "stringValue": "rationale"
+                        }
+                      },
+                      {
+                        "formattedValue": "problem_note",
+                        "userEnteredValue": {
+                          "stringValue": "problem_note"
+                        }
+                      },
+                      {
+                        "formattedValue": "minutes_spent",
+                        "userEnteredValue": {
+                          "stringValue": "minutes_spent"
+                        }
+                      },
+                      {
+                        "formattedValue": "lean_familiarity",
+                        "userEnteredValue": {
+                          "stringValue": "lean_familiarity"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "values": [
+                      {
+                        "formattedValue": "A1",
+                        "userEnteredValue": {
+                          "stringValue": "A1"
+                        }
+                      },
+                      {
+                        "formattedValue": "W01a",
+                        "userEnteredValue": {
+                          "stringValue": "W01a"
+                        }
+                      },
+                      {
+                        "formattedValue": "W01",
+                        "userEnteredValue": {
+                          "stringValue": "W01"
+                        }
+                      },
+                      {
+                        "formattedValue": "W01/agent_lean/W01a.lean",
+                        "userEnteredValue": {
+                          "stringValue": "W01/agent_lean/W01a.lean"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "values": [
+                      {
+                        "formattedValue": "A1",
+                        "userEnteredValue": {
+                          "stringValue": "A1"
+                        }
+                      },
+                      {
+                        "formattedValue": "W01b",
+                        "userEnteredValue": {
+                          "stringValue": "W01b"
+                        }
+                      },
+                      {
+                        "formattedValue": "W01",
+                        "userEnteredValue": {
+                          "stringValue": "W01"
+                        }
+                      },
+                      {
+                        "formattedValue": "W01/agent_lean/W01b.lean",
+                        "userEnteredValue": {
+                          "stringValue": "W01/agent_lean/W01b.lean"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "startRow": 3,
+                "startColumn": 13
+              }
+            ]
+          }
+        ]
+      },
+      "isError": false
+    },
+    "requests": [
+      {
+        "updateCells": {
+          "range": {
+            "sheetId": 665730293,
+            "startRowIndex": 0,
+            "endRowIndex": 1,
+            "startColumnIndex": 13,
+            "endColumnIndex": 17
+          },
+          "rows": [
+            {
+              "values": [
+                {
+                  "userEnteredValue": {
+                    "stringValue": "minutes_spent"
+                  },
+                  "note": "Recommended: approximate minutes spent on this file. Include shared folder reading time in its first file; leave blank if unknown."
+                },
+                {
+                  "userEnteredValue": {
+                    "stringValue": "lean_familiarity"
+                  },
+                  "note": "Recommended: none, some, or fluent. Use the same answer on every row."
+                },
+                {
+                  "userEnteredValue": {
+                    "stringValue": "model_assistance"
+                  },
+                  "note": "Required for new completed ratings. Localized model assistance is encouraged, but optional. Write 'none' if unused; otherwise name the model/tool and briefly describe the help (e.g. 'Claude: explained Lean notation'). You must make the final comparison and choose the score yourself."
+                },
+                {
+                  "userEnteredValue": {
+                    "stringValue": "independent_rating_attestation"
+                  },
+                  "note": "Required for new completed ratings. Choose yes only if: 'I certify that I did not ask a model to do the full rating task for this file. I made the comparison and chose the final score myself.' Choose no or unsure honestly; leave blank until answered. No response is prefilled."
+                }
+              ]
+            }
+          ],
+          "fields": "userEnteredValue,note"
+        }
+      },
+      {
+        "repeatCell": {
+          "range": {
+            "sheetId": 665730293,
+            "startRowIndex": 0,
+            "endRowIndex": 1,
+            "startColumnIndex": 0,
+            "endColumnIndex": 17
+          },
+          "cell": {
+            "userEnteredFormat": {
+              "wrapStrategy": "WRAP",
+              "textFormat": {
+                "bold": true
+              },
+              "verticalAlignment": "MIDDLE"
+            }
+          },
+          "fields": "userEnteredFormat.wrapStrategy,userEnteredFormat.textFormat.bold,userEnteredFormat.verticalAlignment"
+        }
+      },
+      {
+        "updateDimensionProperties": {
+          "range": {
+            "sheetId": 665730293,
+            "dimension": "ROWS",
+            "startIndex": 0,
+            "endIndex": 1
+          },
+          "properties": {
+            "pixelSize": 58
+          },
+          "fields": "pixelSize"
+        }
+      },
+      {
+        "updateDimensionProperties": {
+          "range": {
+            "sheetId": 665730293,
+            "dimension": "COLUMNS",
+            "startIndex": 13,
+            "endIndex": 15
+          },
+          "properties": {
+            "pixelSize": 145
+          },
+          "fields": "pixelSize"
+        }
+      },
+      {
+        "updateDimensionProperties": {
+          "range": {
+            "sheetId": 665730293,
+            "dimension": "COLUMNS",
+            "startIndex": 15,
+            "endIndex": 17
+          },
+          "properties": {
+            "pixelSize": 240
+          },
+          "fields": "pixelSize"
+        }
+      },
+      {
+        "repeatCell": {
+          "range": {
+            "sheetId": 665730293,
+            "startRowIndex": 1,
+            "endRowIndex": 7,
+            "startColumnIndex": 15,
+            "endColumnIndex": 17
+          },
+          "cell": {
+            "userEnteredFormat": {
+              "wrapStrategy": "WRAP"
+            }
+          },
+          "fields": "userEnteredFormat.wrapStrategy"
+        }
+      },
+      {
+        "setDataValidation": {
+          "range": {
+            "sheetId": 665730293,
+            "startRowIndex": 1,
+            "endRowIndex": 7,
+            "startColumnIndex": 16,
+            "endColumnIndex": 17
+          },
+          "rule": {
+            "condition": {
+              "type": "ONE_OF_LIST",
+              "values": [
+                {
+                  "userEnteredValue": "yes"
+                },
+                {
+                  "userEnteredValue": "no"
+                },
+                {
+                  "userEnteredValue": "unsure"
+                }
+              ]
+            },
+            "inputMessage": "Required for new completed ratings. Choose yes only if: 'I certify that I did not ask a model to do the full rating task for this file. I made the comparison and chose the final score myself.' Choose no or unsure honestly; leave blank until answered. No response is prefilled.",
+            "strict": true,
+            "showCustomUi": true
+          }
+        }
+      },
+      {
+        "updateCells": {
+          "range": {
+            "sheetId": 665730293,
+            "startRowIndex": 0,
+            "endRowIndex": 1,
+            "startColumnIndex": 9,
+            "endColumnIndex": 13
+          },
+          "rows": [
+            {
+              "values": [
+                {
+                  "note": "Required: one whole-number final score from 0 to 5. Leave unfinished scores blank."
+                },
+                {
+                  "note": "Optional: low, med, or high."
+                },
+                {
+                  "note": "Optional: your own brief reason for the score. Do not ask a model to write your rating rationale."
+                },
+                {
+                  "note": "Optional: flag ambiguity or a reference problem; give a small concrete example if relevant."
+                }
+              ]
+            }
+          ],
+          "fields": "note"
+        }
+      },
+      {
+        "updateSheetProperties": {
+          "properties": {
+            "sheetId": 665730293,
+            "gridProperties": {
+              "frozenRowCount": 1
+            }
+          },
+          "fields": "gridProperties.frozenRowCount"
+        }
+      }
+    ],
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "spreadsheetId": "1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A",
+        "replies": [
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {}
+        ],
+        "updatedSpreadsheet": null
+      },
+      "isError": false
+    },
+    "after": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "spreadsheetId": "1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A",
+        "spreadsheetUrl": "https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit",
+        "properties": {
+          "title": "VeriBench warm-up rating sheet - rater A1 (Brando)",
+          "locale": "en_US",
+          "timeZone": "America/Los_Angeles"
+        },
+        "sheets": [
+          {
+            "properties": {
+              "sheetId": 665730293,
+              "title": "Untitled",
+              "index": 0,
+              "sheetType": "GRID",
+              "gridProperties": {
+                "rowCount": 1000,
+                "columnCount": 26,
+                "frozenRowCount": 1
+              }
+            },
+            "data": [
+              {
+                "rowData": [
+                  {
+                    "values": [
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "rater_id"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "item_id"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "task_folder"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "candidate_file"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "A"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "B"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "C"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "D"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "base_score_0_5"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "final_score_0_5"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Required: one whole-number final score from 0 to 5. Leave unfinished scores blank."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "confidence"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Optional: low, med, or high."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "rationale"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Optional: your own brief reason for the score. Do not ask a model to write your rating rationale."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "problem_note"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Optional: flag ambiguity or a reference problem; give a small concrete example if relevant."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "minutes_spent"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Recommended: approximate minutes spent on this file. Include shared folder reading time in its first file; leave blank if unknown."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "lean_familiarity"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Recommended: none, some, or fluent. Use the same answer on every row."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "model_assistance"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Required for new completed ratings. Localized model assistance is encouraged, but optional. Write 'none' if unused; otherwise name the model/tool and briefly describe the help (e.g. 'Claude: explained Lean notation'). You must make the final comparison and choose the score yourself."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "independent_rating_attestation"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Required for new completed ratings. Choose yes only if: 'I certify that I did not ask a model to do the full rating task for this file. I made the comparison and chose the final score myself.' Choose no or unsure honestly; leave blank until answered. No response is prefilled."
+                      }
+                    ]
+                  },
+                  {
+                    "values": [
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "A1"
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "W01a"
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "W01"
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "W01/agent_lean/W01a.lean"
+                        }
+                      },
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {
+                        "userEnteredFormat": {
+                          "wrapStrategy": "WRAP"
+                        }
+                      },
+                      {
+                        "userEnteredFormat": {
+                          "wrapStrategy": "WRAP"
+                        },
+                        "dataValidation": {
+                          "condition": {
+                            "type": "ONE_OF_LIST",
+                            "values": [
+                              {
+                                "userEnteredValue": "yes"
+                              },
+                              {
+                                "userEnteredValue": "no"
+                              },
+                              {
+                                "userEnteredValue": "unsure"
+                              }
+                            ]
+                          },
+                          "inputMessage": "Required for new completed ratings. Choose yes only if: 'I certify that I did not ask a model to do the full rating task for this file. I made the comparison and chose the final score myself.' Choose no or unsure honestly; leave blank until answered. No response is prefilled.",
+                          "strict": true,
+                          "showCustomUi": true
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "isError": false
+    }
+  },
+  {
+    "spreadsheet_id": "1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o",
+    "before": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "spreadsheetId": "1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o",
+        "spreadsheetUrl": "https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit",
+        "properties": {
+          "title": "VeriBench set N rating sheet - rater A1 (Brando)",
+          "locale": "en_US",
+          "timeZone": "America/Los_Angeles"
+        },
+        "sheets": [
+          {
+            "properties": {
+              "sheetId": 228912708,
+              "title": "Untitled",
+              "index": 0,
+              "sheetType": "GRID",
+              "gridProperties": {
+                "rowCount": 1000,
+                "columnCount": 26
+              }
+            },
+            "data": [
+              {
+                "rowData": [
+                  {
+                    "values": [
+                      {
+                        "formattedValue": "rater_id",
+                        "userEnteredValue": {
+                          "stringValue": "rater_id"
+                        }
+                      },
+                      {
+                        "formattedValue": "item_id",
+                        "userEnteredValue": {
+                          "stringValue": "item_id"
+                        }
+                      },
+                      {
+                        "formattedValue": "task_folder",
+                        "userEnteredValue": {
+                          "stringValue": "task_folder"
+                        }
+                      },
+                      {
+                        "formattedValue": "candidate_file",
+                        "userEnteredValue": {
+                          "stringValue": "candidate_file"
+                        }
+                      },
+                      {
+                        "formattedValue": "A",
+                        "userEnteredValue": {
+                          "stringValue": "A"
+                        }
+                      },
+                      {
+                        "formattedValue": "B",
+                        "userEnteredValue": {
+                          "stringValue": "B"
+                        }
+                      },
+                      {
+                        "formattedValue": "C",
+                        "userEnteredValue": {
+                          "stringValue": "C"
+                        }
+                      },
+                      {
+                        "formattedValue": "D",
+                        "userEnteredValue": {
+                          "stringValue": "D"
+                        }
+                      },
+                      {
+                        "formattedValue": "base_score_0_5",
+                        "userEnteredValue": {
+                          "stringValue": "base_score_0_5"
+                        }
+                      },
+                      {
+                        "formattedValue": "final_score_0_5",
+                        "userEnteredValue": {
+                          "stringValue": "final_score_0_5"
+                        }
+                      },
+                      {
+                        "formattedValue": "confidence",
+                        "userEnteredValue": {
+                          "stringValue": "confidence"
+                        }
+                      },
+                      {
+                        "formattedValue": "rationale",
+                        "userEnteredValue": {
+                          "stringValue": "rationale"
+                        }
+                      },
+                      {
+                        "formattedValue": "problem_note",
+                        "userEnteredValue": {
+                          "stringValue": "problem_note"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "values": [
+                      {
+                        "formattedValue": "A1",
+                        "userEnteredValue": {
+                          "stringValue": "A1"
+                        }
+                      },
+                      {
+                        "formattedValue": "agent_file01",
+                        "userEnteredValue": {
+                          "stringValue": "agent_file01"
+                        }
+                      },
+                      {
+                        "formattedValue": "Files_To_Rate01",
+                        "userEnteredValue": {
+                          "stringValue": "Files_To_Rate01"
+                        }
+                      },
+                      {
+                        "formattedValue": "agent_file01.lean",
+                        "userEnteredValue": {
+                          "stringValue": "agent_file01.lean"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "values": [
+                      {
+                        "formattedValue": "A1",
+                        "userEnteredValue": {
+                          "stringValue": "A1"
+                        }
+                      },
+                      {
+                        "formattedValue": "agent_file02",
+                        "userEnteredValue": {
+                          "stringValue": "agent_file02"
+                        }
+                      },
+                      {
+                        "formattedValue": "Files_To_Rate01",
+                        "userEnteredValue": {
+                          "stringValue": "Files_To_Rate01"
+                        }
+                      },
+                      {
+                        "formattedValue": "agent_file02.lean",
+                        "userEnteredValue": {
+                          "stringValue": "agent_file02.lean"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "startRow": 3,
+                "startColumn": 13
+              }
+            ]
+          }
+        ]
+      },
+      "isError": false
+    },
+    "requests": [
+      {
+        "updateCells": {
+          "range": {
+            "sheetId": 228912708,
+            "startRowIndex": 0,
+            "endRowIndex": 1,
+            "startColumnIndex": 13,
+            "endColumnIndex": 17
+          },
+          "rows": [
+            {
+              "values": [
+                {
+                  "userEnteredValue": {
+                    "stringValue": "minutes_spent"
+                  },
+                  "note": "Recommended: approximate minutes spent on this file. Include shared folder reading time in its first file; leave blank if unknown."
+                },
+                {
+                  "userEnteredValue": {
+                    "stringValue": "lean_familiarity"
+                  },
+                  "note": "Recommended: none, some, or fluent. Use the same answer on every row."
+                },
+                {
+                  "userEnteredValue": {
+                    "stringValue": "model_assistance"
+                  },
+                  "note": "Required for new completed ratings. Localized model assistance is encouraged, but optional. Write 'none' if unused; otherwise name the model/tool and briefly describe the help (e.g. 'Claude: explained Lean notation'). You must make the final comparison and choose the score yourself."
+                },
+                {
+                  "userEnteredValue": {
+                    "stringValue": "independent_rating_attestation"
+                  },
+                  "note": "Required for new completed ratings. Choose yes only if: 'I certify that I did not ask a model to do the full rating task for this file. I made the comparison and chose the final score myself.' Choose no or unsure honestly; leave blank until answered. No response is prefilled."
+                }
+              ]
+            }
+          ],
+          "fields": "userEnteredValue,note"
+        }
+      },
+      {
+        "repeatCell": {
+          "range": {
+            "sheetId": 228912708,
+            "startRowIndex": 0,
+            "endRowIndex": 1,
+            "startColumnIndex": 0,
+            "endColumnIndex": 17
+          },
+          "cell": {
+            "userEnteredFormat": {
+              "wrapStrategy": "WRAP",
+              "textFormat": {
+                "bold": true
+              },
+              "verticalAlignment": "MIDDLE"
+            }
+          },
+          "fields": "userEnteredFormat.wrapStrategy,userEnteredFormat.textFormat.bold,userEnteredFormat.verticalAlignment"
+        }
+      },
+      {
+        "updateDimensionProperties": {
+          "range": {
+            "sheetId": 228912708,
+            "dimension": "ROWS",
+            "startIndex": 0,
+            "endIndex": 1
+          },
+          "properties": {
+            "pixelSize": 58
+          },
+          "fields": "pixelSize"
+        }
+      },
+      {
+        "updateDimensionProperties": {
+          "range": {
+            "sheetId": 228912708,
+            "dimension": "COLUMNS",
+            "startIndex": 13,
+            "endIndex": 15
+          },
+          "properties": {
+            "pixelSize": 145
+          },
+          "fields": "pixelSize"
+        }
+      },
+      {
+        "updateDimensionProperties": {
+          "range": {
+            "sheetId": 228912708,
+            "dimension": "COLUMNS",
+            "startIndex": 15,
+            "endIndex": 17
+          },
+          "properties": {
+            "pixelSize": 240
+          },
+          "fields": "pixelSize"
+        }
+      },
+      {
+        "repeatCell": {
+          "range": {
+            "sheetId": 228912708,
+            "startRowIndex": 1,
+            "endRowIndex": 126,
+            "startColumnIndex": 15,
+            "endColumnIndex": 17
+          },
+          "cell": {
+            "userEnteredFormat": {
+              "wrapStrategy": "WRAP"
+            }
+          },
+          "fields": "userEnteredFormat.wrapStrategy"
+        }
+      },
+      {
+        "setDataValidation": {
+          "range": {
+            "sheetId": 228912708,
+            "startRowIndex": 1,
+            "endRowIndex": 126,
+            "startColumnIndex": 16,
+            "endColumnIndex": 17
+          },
+          "rule": {
+            "condition": {
+              "type": "ONE_OF_LIST",
+              "values": [
+                {
+                  "userEnteredValue": "yes"
+                },
+                {
+                  "userEnteredValue": "no"
+                },
+                {
+                  "userEnteredValue": "unsure"
+                }
+              ]
+            },
+            "inputMessage": "Required for new completed ratings. Choose yes only if: 'I certify that I did not ask a model to do the full rating task for this file. I made the comparison and chose the final score myself.' Choose no or unsure honestly; leave blank until answered. No response is prefilled.",
+            "strict": true,
+            "showCustomUi": true
+          }
+        }
+      },
+      {
+        "updateCells": {
+          "range": {
+            "sheetId": 228912708,
+            "startRowIndex": 0,
+            "endRowIndex": 1,
+            "startColumnIndex": 9,
+            "endColumnIndex": 13
+          },
+          "rows": [
+            {
+              "values": [
+                {
+                  "note": "Required: one whole-number final score from 0 to 5. Leave unfinished scores blank."
+                },
+                {
+                  "note": "Optional: low, med, or high."
+                },
+                {
+                  "note": "Optional: your own brief reason for the score. Do not ask a model to write your rating rationale."
+                },
+                {
+                  "note": "Optional: flag ambiguity or a reference problem; give a small concrete example if relevant."
+                }
+              ]
+            }
+          ],
+          "fields": "note"
+        }
+      },
+      {
+        "updateSheetProperties": {
+          "properties": {
+            "sheetId": 228912708,
+            "gridProperties": {
+              "frozenRowCount": 1
+            }
+          },
+          "fields": "gridProperties.frozenRowCount"
+        }
+      }
+    ],
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "spreadsheetId": "1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o",
+        "replies": [
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {}
+        ],
+        "updatedSpreadsheet": null
+      },
+      "isError": false
+    },
+    "after": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "spreadsheetId": "1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o",
+        "spreadsheetUrl": "https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit",
+        "properties": {
+          "title": "VeriBench set N rating sheet - rater A1 (Brando)",
+          "locale": "en_US",
+          "timeZone": "America/Los_Angeles"
+        },
+        "sheets": [
+          {
+            "properties": {
+              "sheetId": 228912708,
+              "title": "Untitled",
+              "index": 0,
+              "sheetType": "GRID",
+              "gridProperties": {
+                "rowCount": 1000,
+                "columnCount": 26,
+                "frozenRowCount": 1
+              }
+            },
+            "data": [
+              {
+                "rowData": [
+                  {
+                    "values": [
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "rater_id"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "item_id"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "task_folder"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "candidate_file"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "A"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "B"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "C"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "D"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "base_score_0_5"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "final_score_0_5"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Required: one whole-number final score from 0 to 5. Leave unfinished scores blank."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "confidence"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Optional: low, med, or high."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "rationale"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Optional: your own brief reason for the score. Do not ask a model to write your rating rationale."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "problem_note"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Optional: flag ambiguity or a reference problem; give a small concrete example if relevant."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "minutes_spent"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Recommended: approximate minutes spent on this file. Include shared folder reading time in its first file; leave blank if unknown."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "lean_familiarity"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Recommended: none, some, or fluent. Use the same answer on every row."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "model_assistance"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Required for new completed ratings. Localized model assistance is encouraged, but optional. Write 'none' if unused; otherwise name the model/tool and briefly describe the help (e.g. 'Claude: explained Lean notation'). You must make the final comparison and choose the score yourself."
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "independent_rating_attestation"
+                        },
+                        "userEnteredFormat": {
+                          "verticalAlignment": "MIDDLE",
+                          "wrapStrategy": "WRAP",
+                          "textFormat": {
+                            "bold": true
+                          }
+                        },
+                        "note": "Required for new completed ratings. Choose yes only if: 'I certify that I did not ask a model to do the full rating task for this file. I made the comparison and chose the final score myself.' Choose no or unsure honestly; leave blank until answered. No response is prefilled."
+                      }
+                    ]
+                  },
+                  {
+                    "values": [
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "A1"
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "agent_file01"
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "Files_To_Rate01"
+                        }
+                      },
+                      {
+                        "userEnteredValue": {
+                          "stringValue": "agent_file01.lean"
+                        }
+                      },
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {
+                        "userEnteredFormat": {
+                          "wrapStrategy": "WRAP"
+                        }
+                      },
+                      {
+                        "userEnteredFormat": {
+                          "wrapStrategy": "WRAP"
+                        },
+                        "dataValidation": {
+                          "condition": {
+                            "type": "ONE_OF_LIST",
+                            "values": [
+                              {
+                                "userEnteredValue": "yes"
+                              },
+                              {
+                                "userEnteredValue": "no"
+                              },
+                              {
+                                "userEnteredValue": "unsure"
+                              }
+                            ]
+                          },
+                          "inputMessage": "Required for new completed ratings. Choose yes only if: 'I certify that I did not ask a model to do the full rating task for this file. I made the comparison and chose the final score myself.' Choose no or unsure honestly; leave blank until answered. No response is prefilled.",
+                          "strict": true,
+                          "showCustomUi": true
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "isError": false
+    }
+  }
+]

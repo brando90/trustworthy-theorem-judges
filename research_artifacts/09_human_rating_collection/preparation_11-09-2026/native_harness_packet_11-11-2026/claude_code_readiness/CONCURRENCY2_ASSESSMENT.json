@@ -1,0 +1,32 @@
+{
+  "created_at": "2026-11-12T01:29:31.981115+00:00",
+  "status": "ASSESSMENT_ONLY_NOT_APPLIED",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "native_weekly_utilization_latest": 0.21,
+  "native_status": "allowed",
+  "overage_used": false,
+  "extra_usage_enabled": false,
+  "five_hour_usage": "not exposed in saved account usage or native events",
+  "grant_expiry": "2026-11-24 per earlier sanitized account check",
+  "host": {
+    "logical_cpus": 10,
+    "memory_bytes": 68719476736,
+    "docker_vm_cpus": 10,
+    "docker_vm_memory_bytes": 8321712128
+  },
+  "container_caps": {
+    "claude_code_cpu": 2,
+    "claude_code_memory_bytes": 8589934592,
+    "pi_cpu": "not capped",
+    "pi_memory": "not capped"
+  },
+  "snapshot_container_usage": "At 01:27 UTC CC130.8MiB, Pi96.25MiB, gateways40.9MiB; near-idle CPU. This is not peak compiler memory.",
+  "contract": {
+    "frozen_condition_concurrency_field": null,
+    "driver": "serial single subprocess; one task at a time",
+    "readiness_concurrency_initial": 1,
+    "parent_initial_design": "at most two CC cells; serialize first useful cell"
+  },
+  "assessment": "Concurrency2 can preserve scientific per-cell model/image/time/turn/token limits with an explicit prospective scheduling amendment for unstarted cells. Current source quota and CPU show no block; account short-window limit and peak shared-VM memory are unmeasured. Current Docker VM is only7.75GiB and Pi is uncapped, so simultaneous compiler peaks can cause contention. Do not call extra parallelism guaranteed safe from an idle snapshot.",
+  "implementation_if_admitted": "One batch owner, preserve active cell and all receipts, admit pending IDs in frozen order at max2; amend scheduling only, never modify frozen runner/condition. Stop new admissions on allowance/auth/resource failure. Preserve active-cell wall clocks and all terminal artifacts. Monitor aggregate VM memory and native rate-limit events; no Docker restart or memory reconfiguration while active."
+}

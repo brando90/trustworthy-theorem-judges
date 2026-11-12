@@ -1,0 +1,28 @@
+{
+  "identity": "prove_T01_G0_1",
+  "role": "proof_search",
+  "started_utc": "2026-11-06T23:24:52.735702+00:00",
+  "request_sha256": "5846b664a39a38c29b58c767a048ffedc4768b150811a80bcd51cc8b02d1e552",
+  "num_predict": 2048,
+  "settings": {
+    "think": false,
+    "num_predict": 2048
+  },
+  "seed": 11062327,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 100,
+  "prompt_eval_count": 1255,
+  "thinking_characters": 0,
+  "parsed": {
+    "proof": "by intro f0 f1 h; apply GoldSpec; constructor; simp [h]; constructor; intro c; simp [h]; constructor; intro s; simp [h]; constructor; intro s1 s2; simp [h]; constructor; intro s; simp [h]; constructor; intro s c; simp [h]; constructor; intro s; simp [h]; constructor; intro s; simp [h]; constructor; intro s c; simp [h]"
+  },
+  "seconds": 13.091561416978948,
+  "finished_utc": "2026-11-06T23:25:05.828615+00:00",
+  "response_sha256": "c813c3c68b4c425e6098b2a53d32431eb90f1841dd6996726097d91f9612c4d7"
+}

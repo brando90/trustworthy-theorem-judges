@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_INFRASTRUCTURE_EXCLUSIONS",
+  "recorded_at": "2026-11-12T03:39:46.258742+00:00",
+  "planned_cohort": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PLANNED_COHORT_VALID_ENV_V2.json",
+    "sha256": "c386e59258e0a8c3c0dec8f0c2e5217d80efbcfb6c2c881c79feb9dcec67b7f2"
+  },
+  "authority": "Existing parent-authorized infrastructure-exclusion policy, applied to new exact terminal receipt and ledger evidence. No whole-cell retries or imputed solver-quality scores.",
+  "policy": "Keep the original 85-cell denominator. Infrastructure-affected no-file cells are excluded from human artifact ratings; the separate observed procedure outcome is retained and no causal effect of the incident on artifact absence is asserted.",
+  "excluded_cells": [
+    {
+      "item_id": "native-heavy-11-11-2026__item044",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "670bbb73703801a18ee00185420d879aa9a358c8785d09fef2c98cf7082f100d",
+      "missing_cause": "infrastructure:HTTPError",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/receipt.json",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/gateway_ledger.json",
+        "sha256": "f47e023dfcfd881046bc5675e11f50ee5cd64bec7c1c29b058ef9ace1d38e1cc"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item072",
+      "task_id": "easy_set__23_is_prime",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "16f74dd0d06d8f1e19b80954197c57dae4adf10b5908d56a3dc203448e4c71c2",
+      "missing_cause": "infrastructure:URLError",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__23_is_prime/receipt.json",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__23_is_prime/gateway_ledger.json",
+        "sha256": "25d47b091d8ee4f91f3b9719bd08d6a0565a9110b0e563e21ef4b75984e17f03"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item076",
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "6ddf0fac52cbf3e3bf740eada280a4c0fa995c08abffe1f68156524744494fad",
+      "missing_cause": "infrastructure:TimeoutError",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/receipt.json",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/gateway_ledger.json",
+        "sha256": "221e4d9c6d2cd96c3d5be6096e65cb805eb562914f0cd7b02dfe750f47f344a4"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item020",
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "89aac189a0f3339e4166138cefb6b654ed60fb917bba5c50fb9245085cf93fa7",
+      "missing_cause": "infrastructure:HTTPError",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__75_unsafecerthostname/receipt.json",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__75_unsafecerthostname/gateway_ledger.json",
+        "sha256": "3a4b706436e5ca619ef4c039f9f9237cda756827caeffc58629937b09660db9f"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item043",
+      "task_id": "easy_set__41_duplicate_chars",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "de782510d04662dafd849373550eef960cdfcc46754f2fb6847e863d0738f900",
+      "missing_cause": "infrastructure:HTTPError",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__41_duplicate_chars/receipt.json",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__41_duplicate_chars/gateway_ledger.json",
+        "sha256": "9d4cd1cfdeddfba2326d297a42dfe79bb1d47c9fd58ed28c2a12327f2316426f"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item080",
+      "task_id": "cs_set__topological_sort",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "9529e85a9999e88be74f1d7e57dd4b04cd7f453f209daacad53410a56cc538e9",
+      "missing_cause": "infrastructure:host_supervision_incident",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/gateway_ledger.json",
+        "sha256": "71659e9844e29ad94f66f2f8f342a6cd4d511401049eaea41be571c9413a11d4"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE",
+      "observed_procedure_outcome": "budget_cap:Provider request cap reached",
+      "incident": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_HOST_WRAPPER_LOSS_RECOVERY_RECEIPT.json",
+        "sha256": "fc00170e7b3255a5c0cd2cbaa324aa0d9fa66bf4ccb96f54d190e3294e8e71df"
+      },
+      "causal_attribution": "Not established: native 40-request no-file outcome co-occurred with host-supervision loss; this does not establish a provider outage or that wrapper loss caused no file."
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item011",
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "137f182ecd28f7d9f834abb5b89f2aaa7fb90a896f79fec3fe3b1e83200ca118",
+      "missing_cause": "infrastructure:host_supervision_incident",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/gateway_ledger.json",
+        "sha256": "4140e65fefef31d510115c42861eb84e42c0698433b44b2c3a68c40c4ffa3428"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE",
+      "observed_procedure_outcome": "budget_cap:Provider request cap reached",
+      "incident": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_HOST_WRAPPER_LOSS_RECOVERY_RECEIPT.json",
+        "sha256": "fc00170e7b3255a5c0cd2cbaa324aa0d9fa66bf4ccb96f54d190e3294e8e71df"
+      },
+      "causal_attribution": "Not established: native 40-request no-file outcome co-occurred with host-supervision loss; this does not establish a provider outage or that wrapper loss caused no file."
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item014",
+      "task_id": "cs_set__heapsort_algorithm",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "4f7a98ed206aa9611fa37458f9c3b98760a1cd3d7332e165bff5ce34865b4390",
+      "missing_cause": "infrastructure:HTTPError",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heapsort_algorithm/gateway_ledger.json",
+        "sha256": "fb42b8a2f57a0893d848d9f6976e7acce2291bbc45b82a4f7d1144a700909072"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE",
+      "evidence_note": "Token-counting HTTP503 ended this attempt; native outputs were not replaced and completed request evidence remains preserved."
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item049",
+      "task_id": "easy_set__19_mypower",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "209a883be82a1bd34f07710f6acb59bc4d42b4872249071b2f20c1ad63e3ee75",
+      "missing_cause": "infrastructure:HTTPError",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__19_mypower/gateway_ledger.json",
+        "sha256": "030dd02131863994e73a5f9a9add5abc8edf64f9a7e951dbadd20132f57bc351"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE",
+      "evidence_note": "Token-counting HTTP503 ended this attempt; native outputs were not replaced and completed request evidence remains preserved."
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item071",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "ac6bcf65e90c31cbce3f76f78d3aef1a8787b4b6820d08276a3b6dacb97ae48a",
+      "missing_cause": "infrastructure:budget_cap_after_provider_errors",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_4_mean_absolute_deviation/gateway_ledger.json",
+        "sha256": "f507dcfeda31374ee645c3286e59dab713180be1052ea6fd4a880dd4868815bd"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE",
+      "evidence_note": "Generation HTTP503 occurred before a later dollar-admission-cap stop; both causes remain recorded. Failed request reservation retained; no clean solver-failure interpretation."
+    }
+  ],
+  "parent_disposition": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/INFRASTRUCTURE_DISPOSITION_V4.json",
+    "sha256": "5b588dfc70b4a049170c90c89a0b8ffd5ff56ee9c46b9f3b8a07f1cd847c00c3"
+  }
+}

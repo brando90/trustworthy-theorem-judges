@@ -1,0 +1,397 @@
+[
+  {
+    "artifact": "T01_G0",
+    "target": 0,
+    "status": "bounded_search_unsuccessful",
+    "goals": {
+      "Natural.Nonvacuous": {
+        "fixed_tactic": {
+          "target": "Natural.Nonvacuous",
+          "candidate_sha256": "88762a9ca1f3e252e6264202f69f4c465cf251e811783441303a1b8de0ac4f67",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_bl7i832v/Candidate.lean:3:43: error: `grind` failed\ncase grind\nh : \u2200 (x x_1 : String \u2192 \u2115), \u2203 x_2, \u00acx x_2 = x_1 x_2\n\u22a2 False\n[grind] Goal diagnostics\n  [facts] Asserted facts\n    [prop] \u2200 (x x_1 : String \u2192 \u2115), \u2203 x_2, \u00acx x_2 = x_1 x_2\n  [eqc] True propositions\n    [prop] \u2200 (x x_1 : String \u2192 \u2115), \u2203 x_2, \u00acx x_2 = x_1 x_2\n[grind] Issues\n  [issue] failed to create E-match local theorem for\n        \u2200 (x x_1 : String \u2192 \u2115), \u2203 x_2, \u00acx x_2 = x_1 x_2\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_bl7i832v\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_bl7i832v",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_bl7i832v/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_bl7i832v/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "model_call_status": "completed",
+        "model_proof": {
+          "target": "Natural.Nonvacuous",
+          "candidate_sha256": "acb69a2e33283f4c9f79af8bd34bd414106ab7d8b8613a02b040961060469613",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1/Candidate.lean:1:5: error: type mismatch\n  fun f0 f1 h => ?m.28\nhas type\n  (f0 : String) \u2192 (f1 : ?m.29 f0) \u2192 (h : ?m.30 f0 f1) \u2192 ?m.31 f0 f1 h : Sort (imax ?u.20 ?u.23 ?u.26)\nbut is expected to have type\n  String \u2192 \u2115 : Type\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1/Candidate.lean:2:9: error: invalid constructor \u27e8...\u27e9, expected type must be an inductive type \n  ?m.31 f0 f1 h\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1/Candidate.lean:1:0: error: unsolved goals\ncase h\n\u22a2 \u2203 f1, Natural.AgentSpec sorry f1\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "accepted": false
+      },
+      "Natural.Coverage": {
+        "fixed_tactic": {
+          "target": "Natural.Coverage",
+          "candidate_sha256": "aca156182bbb312800cbc6f68b71eac93eecee1643be481d1bfbbd5d769651d1",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_/Candidate.lean:3:42: warning: aesop: failed to prove the goal after exhaustive search.\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_/Candidate.lean:1:0: error: unsolved goals\ncase left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\n\u22a2 f1 \"\" = 0\n\ncase right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\nc : Char\n\u22a2 f1 { data := [c] } = 1\n\ncase right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns\u2081 s\u2082 : String\n\u22a2 f1 (s\u2081 ++ s\u2082) = f1 s\u2081 + f1 s\u2082\n\ncase right.right.right.left.mp\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\na_1 : f1 s = 0\n\u22a2 s = \"\"\n\ncase right.right.right.left.mpr\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\n\u22a2 f1 \"\" = 0\n\ncase right.right.right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\nc : Char\n\u22a2 f1 (s.push c) = f1 s + 1\n\ncase right.right.right.right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\n\u22a2 f1 \"\" = 0\n\ncase right.right.right.right.right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\nc : Char\n\u22a2 f1 { data := [c] } = 1\n\ncase right.right.right.right.right.right.right\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns s\u2082 : String\n\u22a2 f1 (s ++ s\u2082) = f1 s + f1 s\u2082\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "model_call_status": "completed",
+        "model_proof": {
+          "target": "Natural.Coverage",
+          "candidate_sha256": "ae1bc68a6b9d9b0c59d574d92926c6236bc747a1af83dd34ed42972aa542f373",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau/Candidate.lean:2:9: error: unknown identifier 'GoldSpec'\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau/Candidate.lean:3:2: error: no goals to be solved\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_2q618jau/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "accepted": false
+      }
+    },
+    "context_sha256": "198a298c0001348644d891d636d4ba1d4ee89ed3ed60e70632844e34afd92ac1"
+  },
+  {
+    "artifact": "T01_G1",
+    "target": 0,
+    "status": "bounded_search_unsuccessful",
+    "goals": {
+      "Natural.Nonvacuous": {
+        "fixed_tactic": {
+          "target": "Natural.Nonvacuous",
+          "candidate_sha256": "88762a9ca1f3e252e6264202f69f4c465cf251e811783441303a1b8de0ac4f67",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_5i5gph0n/Candidate.lean:3:43: error: `grind` failed\ncase grind\nh : \u2200 (x x_1 : String \u2192 \u2115), \u2203 x_2, \u00acx x_2 = x_1 x_2\n\u22a2 False\n[grind] Goal diagnostics\n  [facts] Asserted facts\n    [prop] \u2200 (x x_1 : String \u2192 \u2115), \u2203 x_2, \u00acx x_2 = x_1 x_2\n  [eqc] True propositions\n    [prop] \u2200 (x x_1 : String \u2192 \u2115), \u2203 x_2, \u00acx x_2 = x_1 x_2\n[grind] Issues\n  [issue] failed to create E-match local theorem for\n        \u2200 (x x_1 : String \u2192 \u2115), \u2203 x_2, \u00acx x_2 = x_1 x_2\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_5i5gph0n\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_5i5gph0n",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_5i5gph0n/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_5i5gph0n/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "model_call_status": "completed",
+        "model_proof": {
+          "target": "Natural.Nonvacuous",
+          "candidate_sha256": "b5645b197bc67c2fb02b282152b44e4439d7f52ade183a6805fd5b808e0a82b1",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_9y767pu9/Candidate.lean:1:5: error: type mismatch\n  fun f0 f1 h => ?m.28\nhas type\n  (f0 : String) \u2192 (f1 : ?m.29 f0) \u2192 (h : ?m.30 f0 f1) \u2192 ?m.31 f0 f1 h : Sort (imax ?u.20 ?u.23 ?u.26)\nbut is expected to have type\n  String \u2192 \u2115 : Type\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_9y767pu9/Candidate.lean:2:9: error: invalid constructor \u27e8...\u27e9, expected type must be an inductive type \n  ?m.31 f0 f1 h\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_9y767pu9/Candidate.lean:1:0: error: unsolved goals\ncase h\n\u22a2 \u2203 f1, Natural.AgentSpec sorry f1\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_9y767pu9\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_9y767pu9",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_9y767pu9/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_9y767pu9/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "accepted": false
+      },
+      "Natural.Coverage": {
+        "fixed_tactic": {
+          "target": "Natural.Coverage",
+          "candidate_sha256": "aca156182bbb312800cbc6f68b71eac93eecee1643be481d1bfbbd5d769651d1",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_i6z4pfc6/Candidate.lean:3:42: warning: aesop: failed to prove the goal after exhaustive search.\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_i6z4pfc6/Candidate.lean:1:0: error: unsolved goals\ncase left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\n\u22a2 f1 \"\" = 0\n\ncase right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\nc : Char\n\u22a2 f1 { data := [c] } = 1\n\ncase right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns\u2081 s\u2082 : String\n\u22a2 f1 (s\u2081 ++ s\u2082) = f1 s\u2081 + f1 s\u2082\n\ncase right.right.right.left.mp\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\na_1 : f1 s = 0\n\u22a2 s = \"\"\n\ncase right.right.right.left.mpr\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\n\u22a2 f1 \"\" = 0\n\ncase right.right.right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\nc : Char\n\u22a2 f1 (s.push c) = f1 s + 1\n\ncase right.right.right.right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\n\u22a2 f1 \"\" = 0\n\ncase right.right.right.right.right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\nc : Char\n\u22a2 f1 { data := [c] } = 1\n\ncase right.right.right.right.right.right.right\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns s\u2082 : String\n\u22a2 f1 (s ++ s\u2082) = f1 s + f1 s\u2082\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_i6z4pfc6\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_i6z4pfc6",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_i6z4pfc6/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_i6z4pfc6/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "model_call_status": "completed",
+        "model_proof": {
+          "target": "Natural.Coverage",
+          "candidate_sha256": "2fa2508be986f6286a894f35a453281f6c6364889508284b791a1f18cf57c8d6",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_13hctpiy/Candidate.lean:2:9: error: tactic 'introN' failed, insufficient number of binders\nf0 f1 : String \u2192 \u2115\nh : Natural.AgentSpec f0 f1\n\u22a2 Natural.GoldSpec f0 f1\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_13hctpiy\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_13hctpiy",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_13hctpiy/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_13hctpiy/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "accepted": false
+      }
+    },
+    "context_sha256": "198a298c0001348644d891d636d4ba1d4ee89ed3ed60e70632844e34afd92ac1"
+  },
+  {
+    "artifact": "T02_G0",
+    "target": null,
+    "status": "invalid_context",
+    "goals": {},
+    "error": "Context failed: /Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/Context.lean:17:0: error: Specification must be exactly one Lean term: <input>:1:40: expected '_' or identifier\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/Context.lean:18:110: error: unknown identifier 'AgentSpec'\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/Context.lean:19:112: error: unknown identifier 'AgentSpec'\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G0/trusted/Context.lean:20:116: error: unknown identifier 'AgentSpec'\n"
+  },
+  {
+    "artifact": "T02_G1",
+    "target": null,
+    "status": "invalid_context",
+    "goals": {},
+    "error": "Context failed: /Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G1/trusted/Context.lean:17:0: error: Specification must be exactly one Lean term: <input>:1:40: expected '_' or identifier\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G1/trusted/Context.lean:18:110: error: unknown identifier 'AgentSpec'\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G1/trusted/Context.lean:19:112: error: unknown identifier 'AgentSpec'\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T02_G1/trusted/Context.lean:20:116: error: unknown identifier 'AgentSpec'\n"
+  },
+  {
+    "artifact": "T03_G0",
+    "target": null,
+    "status": "invalid_context",
+    "goals": {},
+    "error": "Context failed: randa/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:3:43: error: Function expected at\n  f0\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  False\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:3:68: error: Function expected at\n  f0\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  False\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:4:19: error: Function expected at\n  f1\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  True\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:4:46: error: Function expected at\n  f1\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  True\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:4:71: error: Function expected at\n  f1\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  False\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G0/trusted/Context.lean:5:8: error: Function expected at\n  f1\nbut this term has type\n  ?m.174\n\nNote: Expected a function because this term is being applied to the argument\n  False\n"
+  },
+  {
+    "artifact": "T03_G1",
+    "target": null,
+    "status": "invalid_context",
+    "goals": {},
+    "error": "Context failed: rktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G1/trusted/Context.lean:6:3: error: Function expected at\n  f0\nbut this term has type\n  ?m.127\n\nNote: Expected a function because this term is being applied to the argument\n  True\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G1/trusted/Context.lean:6:16: error: Function expected at\n  f1\nbut this term has type\n  ?m.204 f0\n\nNote: Expected a function because this term is being applied to the argument\n  True\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G1/trusted/Context.lean:6:35: error: Function expected at\n  f0\nbut this term has type\n  ?m.127\n\nNote: Expected a function because this term is being applied to the argument\n  False\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G1/trusted/Context.lean:6:52: error: Function expected at\n  f1\nbut this term has type\n  ?m.204 f0\n\nNote: Expected a function because this term is being applied to the argument\n  False\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G1/trusted/Context.lean:6:71: error: Function expected at\n  f0\nbut this term has type\n  ?m.127\n\nNote: Expected a function because this term is being applied to the argument\n  False\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T03_G1/trusted/Context.lean:6:87: error: Function expected at\n  f1\nbut this term has type\n  ?m.204 f0\n\nNote: Expected a function because this term is being applied to the argument\n  False\n"
+  },
+  {
+    "artifact": "T04_G0",
+    "target": 0,
+    "status": "bounded_search_unsuccessful",
+    "goals": {
+      "Natural.Nonvacuous": {
+        "fixed_tactic": {
+          "target": "Natural.Nonvacuous",
+          "candidate_sha256": "88762a9ca1f3e252e6264202f69f4c465cf251e811783441303a1b8de0ac4f67",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_j48zgpth/Candidate.lean:3:43: error: `grind` failed\ncase grind\nh : \u2200 (x x_1 : String \u2192 String \u2192 Bool), \u2203 x_2 x_3, \u00acx x_2 x_3 = x_1 x_2 x_3\n\u22a2 False\n[grind] Goal diagnostics\n  [facts] Asserted facts\n    [prop] \u2200 (x x_1 : String \u2192 String \u2192 Bool), \u2203 x_2 x_3, \u00acx x_2 x_3 = x_1 x_2 x_3\n  [eqc] True propositions\n    [prop] \u2200 (x x_1 : String \u2192 String \u2192 Bool), \u2203 x_2 x_3, \u00acx x_2 x_3 = x_1 x_2 x_3\n[grind] Issues\n  [issue] failed to create E-match local theorem for\n        \u2200 (x x_1 : String \u2192 String \u2192 Bool), \u2203 x_2 x_3, \u00acx x_2 x_3 = x_1 x_2 x_3\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_j48zgpth\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_j48zgpth",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_j48zgpth/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_j48zgpth/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "model_call_status": "completed",
+        "model_proof": {
+          "target": "Natural.Nonvacuous",
+          "candidate_sha256": "5a00b2ae82c1fabcc214df6b602ce1de1e0b15af75d58f8db684079d52bda769",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_hz86sejn/Candidate.lean:3:15: error: simp made no progress\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_hz86sejn\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_hz86sejn",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_hz86sejn/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_hz86sejn/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "accepted": false
+      },
+      "Natural.Coverage": {
+        "fixed_tactic": {
+          "target": "Natural.Coverage",
+          "candidate_sha256": "aca156182bbb312800cbc6f68b71eac93eecee1643be481d1bfbbd5d769651d1",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_vcgr9jw5/Candidate.lean:3:42: warning: aesop: failed to prove the goal after exhaustive search.\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_vcgr9jw5/Candidate.lean:1:0: error: unsolved goals\ncase left.mp\nf0 f1 : String \u2192 String \u2192 Bool\na : \u2200 (request_origin allowed_origin : String), f0 request_origin allowed_origin = f1 request_origin allowed_origin\nrequestOrigin allowedOrigin : String\na_1 : f1 requestOrigin allowedOrigin = true\n\u22a2 requestOrigin = allowedOrigin\n\ncase left.mpr\nf0 f1 : String \u2192 String \u2192 Bool\na : \u2200 (request_origin allowed_origin : String), f0 request_origin allowed_origin = f1 request_origin allowed_origin\nrequestOrigin : String\n\u22a2 f1 requestOrigin requestOrigin = true\n\ncase right.left\nf0 f1 : String \u2192 String \u2192 Bool\na : \u2200 (request_origin allowed_origin : String), f0 request_origin allowed_origin = f1 request_origin allowed_origin\nrequestOrigin allowedOrigin : String\na_1 : \u00acrequestOrigin = allowedOrigin\n\u22a2 f1 requestOrigin allowedOrigin = false\n\ncase right.right\nf0 f1 : String \u2192 String \u2192 Bool\na : \u2200 (request_origin allowed_origin : String), f0 request_origin allowed_origin = f1 request_origin allowed_origin\nrequestOrigin : String\n\u22a2 f1 requestOrigin requestOrigin = true\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_vcgr9jw5\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_vcgr9jw5",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_vcgr9jw5/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_vcgr9jw5/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "model_call_status": "completed",
+        "model_proof": {
+          "target": "Natural.Coverage",
+          "candidate_sha256": "f0f0e98e24fec58d8c8e6c3b7588ca45fa21d52d46a10f39b7aadeefc0fd7945",
+          "accepted": false,
+          "compile": {
+            "exit_code": 1,
+            "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_2lw84zux/Candidate.lean:2:13: error: unknown identifier 'GoldSpec'\n",
+            "argv": [
+              "/usr/bin/sandbox-exec",
+              "-p",
+              "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_2lw84zux\"))",
+              "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+              "-j1",
+              "-DmaxHeartbeats=400000",
+              "-DElab.async=false",
+              "-R",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_2lw84zux",
+              "-o",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_2lw84zux/Candidate.olean",
+              "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G0/candidate_2lw84zux/Candidate.lean"
+            ],
+            "timeout_seconds": 60
+          },
+          "status": "proof_rejected",
+          "protected_intact": true
+        },
+        "accepted": false
+      }
+    },
+    "context_sha256": "00acf68b0a39ff9f4d3155dbc94a0d21e15e853f556a652662e2e7098b948a32"
+  },
+  {
+    "artifact": "T04_G1",
+    "target": null,
+    "status": "invalid_context",
+    "goals": {},
+    "error": "Context failed: /Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G1/trusted/Context.lean:1:13: error: type mismatch\n  fun f0 f1 => \u2200 (a b : String), ?m.154 = ?m.157\nhas type\n  (f0 : ?m.141) \u2192 ?m.162 f0 \u2192 Prop : Sort (max (max 1 ?u.140) ?u.143)\nbut is expected to have type\n  Prop : Type\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G1/trusted/Context.lean:3:13: error: Function expected at\n  f0\nbut this term has type\n  ?m.141\n\nNote: Expected a function because this term is being applied to the argument\n  a\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T04_G1/trusted/Context.lean:3:22: error: Function expected at\n  f1\nbut this term has type\n  ?m.162 f0\n\nNote: Expected a function because this term is being applied to the argument\n  a\n"
+  }
+]

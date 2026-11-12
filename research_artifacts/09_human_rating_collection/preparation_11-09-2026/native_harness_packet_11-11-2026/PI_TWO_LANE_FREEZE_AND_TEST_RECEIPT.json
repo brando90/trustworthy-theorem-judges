@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-12T02:32:24.823617+00:00",
+  "condition_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V7.json",
+  "condition_sha256": "e9d5fc72cd266b427390de2872b2455d36f47cef61a31931c7992581d79d47ab",
+  "paid_control_calls": 0,
+  "per_cell_runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+  "status": "PASS",
+  "supervisor_file": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/supervise_pi_two_lanes.py",
+  "supervisor_sha256": "78e8c73791d5ae7105f9662d189486ef8892095062672b2fb1292d2248e67d96",
+  "tests_passed": [
+    "missing accounting reserves full cell cap",
+    "unreadable accounting reserves full cell cap",
+    "clean terminal uses conservative matching accounting",
+    "terminal classification {'reason': 'Provider request cap reached'}",
+    "terminal classification {'reason': 'HTTPError', 'upstream_http_status': 503}",
+    "terminal classification {'reason': 'TimeoutError'}",
+    "terminal classification {'reason': 'HTTPError', 'upstream_http_status': 401}",
+    "out-of-order terminal completion preserves admission order and uniqueness",
+    "global full-cap reservation includes invalid pilot and active workers",
+    "actual recovery terminal has no external errors"
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "sheet_url": "https://docs.google.com/spreadsheets/d/163ZxKeTXqseLrmwY-b5QjqeBulinHsZAiAPo1zsJdJI/edit",
+  "range": "Ratings!A1:K7",
+  "values": [
+    [
+      "rater_name",
+      "rater_id",
+      "item_id",
+      "task_folder",
+      "candidate_file",
+      "final_score_0_5",
+      "ai_assisted_rating_attestation",
+      "minutes_spent",
+      "confidence",
+      "rationale",
+      "problem_note"
+    ],
+    [
+      "Srivatsava Daruru (Sri)",
+      "T05",
+      "native-heavy-11-11-2026__item082",
+      "task_11_html_escaping",
+      "task_11_html_escaping/agent_lean/agent_2.lean"
+    ],
+    [
+      "Srivatsava Daruru (Sri)",
+      "T05",
+      "native-heavy-11-11-2026__item017",
+      "task_11_html_escaping",
+      "task_11_html_escaping/agent_lean/agent_3.lean"
+    ],
+    [
+      "Srivatsava Daruru (Sri)",
+      "T05",
+      "native-heavy-11-11-2026__item067",
+      "task_14_statistical_quantiles",
+      "task_14_statistical_quantiles/agent_lean/agent_1.lean"
+    ],
+    [
+      "Srivatsava Daruru (Sri)",
+      "T05",
+      "native-heavy-11-11-2026__item063",
+      "task_14_statistical_quantiles",
+      "task_14_statistical_quantiles/agent_lean/agent_3.lean"
+    ]
+  ],
+  "source": "fresh Google Sheets get_spreadsheet_range readback",
+  "permission_readback": {
+    "id": "163ZxKeTXqseLrmwY-b5QjqeBulinHsZAiAPo1zsJdJI",
+    "title": "VeriBench main rating sheet \u2014 PREPARING \u2014 Srivatsava Daruru \u2014 11-11-2026",
+    "mime_type": null,
+    "size": null,
+    "url": "https://docs.google.com/spreadsheets/d/163ZxKeTXqseLrmwY-b5QjqeBulinHsZAiAPo1zsJdJI/edit?usp=drivesdk",
+    "display_url": "https://docs.google.com/spreadsheets/d/163ZxKeTXqseLrmwY-b5QjqeBulinHsZAiAPo1zsJdJI/edit?usp=drivesdk",
+    "file_or_folder": null,
+    "created_time": null,
+    "modified_time": null,
+    "parent_ids": null,
+    "drive_id": null,
+    "current_user_can_share": null,
+    "has_augmented_permissions": null,
+    "shared": null,
+    "permissions": [
+      {
+        "type": "user",
+        "role": "owner",
+        "emailAddress": "brandojazz@gmail.com",
+        "domain": null,
+        "displayName": null,
+        "allowFileDiscovery": null
+      },
+      {
+        "type": "user",
+        "role": "writer",
+        "emailAddress": "vatsava@gmail.com",
+        "domain": null,
+        "displayName": null,
+        "allowFileDiscovery": null
+      }
+    ],
+    "source_visibility_status": "permission_metadata_available"
+  },
+  "recorded_utc": "2026-11-12T04:51:24.363Z"
+}

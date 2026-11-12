@@ -1,0 +1,192 @@
+{
+  "task_id": "humaneval_set__humaneval_14_all_prefixes",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "humaneval_14_all_prefixes.py": "9793c5a006d2b3b17518199000cfafb46722dbf17451c773e5e1d4871251db92",
+    "instruction.md": "964683b3b6645ed75682c877c378efc15c54731af786ec2ce85c52f9645194c4"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-7f4dec77ba33",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794450247.539808,
+  "exit_code": 0,
+  "stop_reason": "native_result",
+  "finished_at": 1794451066.751026,
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 631363,
+  "observed_output_tokens": 61420,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 15,
+    "messages_with_stop": 15,
+    "native_aggregate_usage": {
+      "input_tokens": 420,
+      "cache_creation_input_tokens": 76633,
+      "cache_read_input_tokens": 492890,
+      "output_tokens": 61420,
+      "output_tokens_details": {
+        "thinking_tokens": 44593
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 76633,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 784486,
+    "stop_reason": "end_turn",
+    "session_id": "88016f7a-4ed3-4d01-9067-93abbacef09c",
+    "total_cost_usd": 4.731082499999999,
+    "usage": {
+      "input_tokens": 420,
+      "cache_creation_input_tokens": 76633,
+      "cache_read_input_tokens": 492890,
+      "output_tokens": 61420,
+      "output_tokens_details": {
+        "thinking_tokens": 44593
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 76633,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 420,
+        "outputTokens": 61420,
+        "cacheReadInputTokens": 492890,
+        "cacheCreationInputTokens": 76633,
+        "webSearchRequests": 0,
+        "costUSD": 4.731082499999999,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 44593,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 76633,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 15,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The formalization is complete, written to `/home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean`, and verified.\n\n**Compile status.** The command below exits 0 with no errors. The only diagnostics are two Plausible \"gave up\" warnings, which come from its final size-0 sample where the string is empty, so the preconditions `i < s.length` and `s \u2260 \"\"` cannot hold. Both properties also have precondition-free property tests next to them that pass.\n\n```\ncd /home/user/lean_project && lake env lean Veribench/humaneval_14_all_prefixes.lean\n```\n\n**Proof status.** All 20 theorems are proven. I checked every one with `#print axioms` in a scratch copy: each depends only on `propext`, `Classical.choice`, and `Quot.sound`. There is no `sorry`, `admit`, or new axiom, and `native_decide` appears only inside `example` tests.\n\n**What the file contains**\n\n- **Functional implementation** `allPrefixes` maps the index range to `s.take (i + 1)`, matching the Python `string[:i+1]` loop.\n- **Unit tests** cover the docstring example, the three `check` cases, and a multi-byte Unicode string.\n- **Pre-condition** accepts every string, as the Python does.\n- **Eleven properties with proofs**: result length equals input length; the i-th element is the first i+1 characters, stated both via `String.take` and via character lists; every element is a prefix of the input; every element is non-empty; the lengths are exactly 1 to n; lengths strictly increase along the list; no duplicates; the last element of a non-empty input is the input itself; the empty string gives the empty list; and a complete characterization that membership equals being a non-empty prefix.\n- **Post-condition** is the conjunction, and `correctness` proves Pre implies Post.\n- **Property-based tests** exist for every property and for the post-condition, using randomized checks over strings plus exhaustive checks over all indices of each sampled string. One early test I wrote was wrong, not the implementation, and I corrected the test.\n- **Imperative implementation** uses `Id.run do` with a mutable array and a `for i in [0:s.length]` loop, with tests and a randomized check.\n- **Equivalence theorem** `equiv` proves the imperative version equals the functional one, using the core range-to-list lemma and a small `foldl`/`push` helper lemma.\n\nThe Batteries lemma `String.take_eq` was the key bridge from `String.take` to list-level `take`, which made the string-level proofs tractable. Scratch probe files in `/tmp` were removed, so only the submission file remains.",
+    "ttft_ms": 6674,
+    "type": "result",
+    "duration_ms": 816424,
+    "uuid": "dd751c27-a1e3-475e-b926-d983da1e7341",
+    "ttft_stream_ms": 3709,
+    "time_to_request_ms": 41,
+    "first_content_frame_ms": 3710,
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "model_usage_since_last_result": {
+      "claude-fable-5-1": {
+        "inputTokens": 420,
+        "outputTokens": 61420,
+        "cacheReadInputTokens": 492890,
+        "cacheCreationInputTokens": 76633,
+        "webSearchRequests": 0,
+        "costUSD": 4.731082499999999,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 44593,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 76633,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    }
+  },
+  "model_identity_verified": true,
+  "candidate_captured": true,
+  "candidate_sha256": "cd25c89e9735a799f3216741b903a0b2152fa453d3f008d62c873404c20c2af0",
+  "candidate_bytes": 13949,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

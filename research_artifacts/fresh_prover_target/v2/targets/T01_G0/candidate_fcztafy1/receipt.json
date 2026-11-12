@@ -1,0 +1,26 @@
+{
+  "target": "Natural.Nonvacuous",
+  "candidate_sha256": "acb69a2e33283f4c9f79af8bd34bd414106ab7d8b8613a02b040961060469613",
+  "accepted": false,
+  "compile": {
+    "exit_code": 1,
+    "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1/Candidate.lean:1:5: error: type mismatch\n  fun f0 f1 h => ?m.28\nhas type\n  (f0 : String) \u2192 (f1 : ?m.29 f0) \u2192 (h : ?m.30 f0 f1) \u2192 ?m.31 f0 f1 h : Sort (imax ?u.20 ?u.23 ?u.26)\nbut is expected to have type\n  String \u2192 \u2115 : Type\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1/Candidate.lean:2:9: error: invalid constructor \u27e8...\u27e9, expected type must be an inductive type \n  ?m.31 f0 f1 h\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1/Candidate.lean:1:0: error: unsolved goals\ncase h\n\u22a2 \u2203 f1, Natural.AgentSpec sorry f1\n",
+    "argv": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1\"))",
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1/Candidate.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_fcztafy1/Candidate.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "status": "proof_rejected",
+  "protected_intact": true
+}

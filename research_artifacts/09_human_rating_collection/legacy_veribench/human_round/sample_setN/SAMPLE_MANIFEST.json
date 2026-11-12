@@ -1,0 +1,46 @@
+{
+ "written_utc": "2026-10-08T21:21:14.742174+00:00",
+ "set": "N",
+ "wave": "final",
+ "seed": 20261005,
+ "folders": 25,
+ "items": 125,
+ "per_system_counts": {
+  "t2_fable51": {
+   "files": 25,
+   "missing": 0
+  },
+  "t2_astra": {
+   "files": 25,
+   "missing": 0
+  },
+  "t2_grok47": {
+   "files": 25,
+   "missing": 0
+  },
+  "t2_gemini_frontier": {
+   "files": 25,
+   "missing": 0
+  },
+  "t2_kimik3": {
+   "files": 25,
+   "missing": 0
+  }
+ },
+ "isolation_flagged_items": 4,
+ "FILES.sha256": "fecfe1e4511f9a8e7e6045dfc5e81d98d7bb48736f54d7e4df75bac2c18785b3",
+ "sealed_key_sha256": "d3c6d4e983114d8fa3696edd7beb3f2d24d7ea67d4dc9b3af270219cfb8c7050",
+ "fingerprint": "652e0c7390b7523fdb483471ab62f0639089952e7abc15fd6bcbe4f180fa06d4",
+ "systems": {
+  "t2_fable51": "frontier_anthropic",
+  "t2_astra": "frontier_openai",
+  "t2_grok47": "frontier_xai",
+  "t2_gemini_frontier": "frontier_google_internal",
+  "t2_kimik3": "open_weights"
+ },
+ "packet_version": 4,
+ "sheet_template": "rating_sheet_TEMPLATE.csv (beside packet/); Google Sheet template https://docs.google.com/spreadsheets/d/1HhHqWLjWo7-dDORBBdQF6klOXua3boknpkfKHEjledc/copy",
+ "sheet_template_sha256": "1a8e21d3d1033eebe46a56f4156ec8f1eb841191c5e710c05f7bf19df494a6a3",
+ "packet": "packet/",
+ "rater_instructions_sha256": "b29e9cafdab10463d29b6ffdbb4700b46ead0e6023278b9b7b69d9ef0ab350af"
+}

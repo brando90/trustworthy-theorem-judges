@@ -1,0 +1,28 @@
+{
+  "identity": "prove_T01_G0_0",
+  "role": "proof_search",
+  "started_utc": "2026-11-06T23:24:40.691936+00:00",
+  "request_sha256": "c0c64fedc74b3586c44f459e16ab2c9a9ebb268098a57e19455ecb20ce3dd4f4",
+  "num_predict": 2048,
+  "settings": {
+    "think": false,
+    "num_predict": 2048
+  },
+  "seed": 11062326,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 37,
+  "prompt_eval_count": 898,
+  "thinking_characters": 0,
+  "parsed": {
+    "proof": "by\n  use fun f0 f1 h => \u27e8fun s => 0, fun s => 0, by simp [h]\u27e9\n"
+  },
+  "seconds": 3.265271708020009,
+  "finished_utc": "2026-11-06T23:24:43.958634+00:00",
+  "response_sha256": "d509fcd6f08893b12ece50373330dcd1d138a662c88f95c0299b3806efe98f95"
+}

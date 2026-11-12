@@ -1,0 +1,21 @@
+{
+  "pid": 52658,
+  "launched_at": "2026-11-12T00:54:53.539094+00:00",
+  "args": [
+    "/usr/bin/caffeinate",
+    "-i",
+    "-s",
+    "python3",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_readiness/run_frozen_batch_v2.py",
+    "--condition",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+    "--condition-sha256",
+    "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+    "--output-dir",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2",
+    "--state-prefix",
+    "VALID_V2"
+  ],
+  "host": "Local Mac Docker Desktop",
+  "model_call_budget": "Frozen25 cells, one attempt each; previous invalid setup excluded and preserved."
+}

@@ -144,9 +144,9 @@ class PacketTests(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 self.build(root, Path(temp) / "packet.zip", digest)
 
-    @unittest.skipUnless((ROOT / "private/original").is_dir(), "Coordinator's original packet is private")
+    @unittest.skipUnless((ROOT / "research_artifacts/original").is_dir(), "Coordinator's original packet is private")
     def test_real_packet_all_folders_preserves_source(self):
-        source = ROOT / "private/original"
+        source = ROOT / "research_artifacts/original"
         with tempfile.TemporaryDirectory() as temp:
             output = Path(temp) / "all.zip"
             subprocess.run([sys.executable, str(EXPERIMENT / "support/scripts/make_team_packet.py"), str(source), str(output)],
@@ -164,7 +164,7 @@ class LegacyImportTests(unittest.TestCase):
         return IMPORTER.check(text, "TEST", {"N01_a", "N01_b"}, {"N01"} if allowed is None else allowed, packet)
 
     def test_private_root_is_new_repository(self):
-        expected = (ROOT / "private/09_human_rating_collection/upstream_source"
+        expected = (ROOT / "research_artifacts/09_human_rating_collection/upstream_source"
                     / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
         self.assertEqual(IMPORTER.EXP, expected)
         self.assertEqual(RELEASE.EXP, expected)

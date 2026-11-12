@@ -1,0 +1,371 @@
+diff --git a/.cursor/rules/project.mdc b/.cursor/rules/project.mdc
+index 72fbdcc..353907d 100644
+--- a/.cursor/rules/project.mdc
++++ b/.cursor/rules/project.mdc
+@@ -3,7 +3,7 @@ description: Shared project instructions, including human-rating file placement
+ alwaysApply: true
+ ---
+ 
+-Read and follow the repository-root AGENTS.md before working in this project. It is the canonical project contract, mirrored byte-for-byte in CLAUDE.md. In particular, follow its human-rating file placement rule: track actual ratings, the named index and completion status directly under experiments/09_human_rating_collection/. For every participant, active personal Google Sheets and current CSV forms/exports begin with `rater_name,rater_id`, with the actual roster-verified name prefilled in each item row. Match CSV snapshots to live table headers and values; import/export by field name. Preserve stable IDs, source responses, assignments and immutable archives; never invent missing scores or attestations. Raw `ratings/` files also preserve exact case, spelling, blanks and N/A rows; never fill response fields with assistant timing estimates, background, confidence or rationale. Keep normalized analysis exports in `ratings/analysis/`, and use `RAW_MANIFEST.json` for current raw source hashes. Use names in rating filenames. Do not ignore, anonymize or relocate these authorized collection deliverables by default. This repository owns collection; related VeriBench, cert-judge and correlation-versus-loss projects link to this workflow.
++Read and follow the repository-root AGENTS.md before working in this project. It is the canonical project contract, mirrored byte-for-byte in CLAUDE.md. In particular, follow its human-rating file placement rule: track actual ratings in experiments/09_human_rating_collection/ratings/ and combine named data links and dated completion status in that experiment’s README.md. For every participant, active personal Google Sheets and current CSV forms/exports begin with `rater_name,rater_id`, with the actual roster-verified name prefilled in each item row. Match CSV snapshots to live table headers and values; import/export by field name. Preserve stable IDs, source responses, assignments and immutable archives; never invent missing scores or attestations. Raw `ratings/` files also preserve exact case, spelling, blanks and N/A rows; never fill response fields with assistant timing estimates, background, confidence or rationale. Keep normalized analysis exports in `ratings/analysis/`, and use `RAW_MANIFEST.json` for current raw source hashes. Use names in rating filenames. Do not ignore, anonymize or relocate these authorized collection deliverables by default. This repository owns collection; related VeriBench, cert-judge and correlation-versus-loss projects link to this workflow.
+ 
+ @AGENTS.md
+ 
+@@ -22,8 +22,8 @@ User decision, 11-11-2026: use the fewest files needed for the actual workflow.
+ 
+ ## Current human-rating form — user decision, 11-11-2026
+ 
+-Warm-up and main forms share eleven columns: five prefilled identifiers (`rater_name`, `rater_id`, `item_id`, `task_folder`, `candidate_file`), `final_score_0_5`, `ai_assisted_rating_attestation`, `minutes_spent`, `confidence`, `rationale`, and `problem_note`. Show the name and candidate path; hide internal keys B:D in Sheets while retaining them in CSVs. Score and attestation are required for newly completed ratings; request a rough per-file time estimate and confidence. Rationale is preferred but optional; problem notes are conditional on an issue. Keep the scoring checklist/base score in the rubric, not as form columns. Preserve all historical responses verbatim, including restored context; never invent times, confidence, rationales or attestations. The [schema](experiments/09_human_rating_collection/support/RATING_FORM_SCHEMA.json) and participant guide are the current contract. Earlier required-only layouts are superseded.
++Warm-up and main forms share eleven columns: five prefilled identifiers (`rater_name`, `rater_id`, `item_id`, `task_folder`, `candidate_file`), `final_score_0_5`, `ai_assisted_rating_attestation`, `minutes_spent`, `confidence`, `rationale`, and `problem_note`. Show the name and candidate path; hide internal keys B:D in Sheets while retaining them in CSVs. Score and attestation are required for newly completed ratings; request a rough per-file time estimate and confidence. Rationale is preferred but optional; problem notes are conditional on an issue. Keep the scoring checklist/base score in the rubric, not as form columns. Preserve all historical responses verbatim, including restored context; never invent times, confidence, rationales or attestations. The [schema](../../experiments/09_human_rating_collection/support/RATING_FORM_SCHEMA.json) and participant guide are the current contract. Earlier required-only layouts are superseded.
+ 
+ Use one `ai_assisted_rating_attestation` field: localized AI use plus personal comparison/scoring, not a separate assistance report. AI use is required prospectively; historical AI use remains unknown. Never translate an earlier independence-only answer into this new attestation. Historical ratings remain valid records under their original conditions.
+ 
+-Collection layout: maintenance scripts live in `experiments/09_human_rating_collection/support/scripts/`, tests in `support/tests/`, and administrative/provenance records in `support/`. The editable task lives in `rating_task_packet/`; collected responses remain in `ratings/`. No new top-level collection maintenance files or duplicate packet copies.
++Collection layout under `experiments/09_human_rating_collection/`: only `README.md`, `rating_task_packet/`, `ratings/` and `support/` at the top level. The README combines task links, named data links and completion status; do not recreate separate top-level index or status files. The editable task lives in `rating_task_packet/`; collected responses remain in `ratings/`. Maintenance scripts, tests and administrative/provenance records live in `support/scripts/`, `support/tests/` and `support/`. Keep one editable packet home.
+diff --git a/AGENTS.md b/AGENTS.md
+index 86e4f42..a05f5d7 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -58,10 +58,10 @@ Before further packet dispatch, read [the common-form amendment](experiments/09_
+ 
+ ## Human-rating file placement — user decision, 11-11-2026
+ 
+-- Brando’s editable task lives in `experiments/09_human_rating_collection/rating_task_packet/`: start instructions, scoring rubric, field guide, email draft, sheet link, blank form and task files. Preserve his edits; do not scatter competing editable copies around the experiment root. The top level keeps only the entry README, ratings/index/status, scripts, packet folder and support folder. Import procedures, study-design notes, administrative records, snapshots and form configuration belong in `support/`; automated tests belong in `support/tests/`. Update live consumers when moving a file. Delivered archives and raw responses remain unchanged.
++- Brando’s editable task lives in `experiments/09_human_rating_collection/rating_task_packet/`: start instructions, scoring rubric, field guide, email draft, sheet link, blank form and task files. Preserve his edits; do not scatter competing editable copies around the experiment root. The top level keeps only `README.md`, `rating_task_packet/`, `ratings/` and `support/`. The README combines task links, named data links and dated completion status; do not create separate top-level index/status files. Maintenance scripts live in `support/scripts/`. Import procedures, study-design notes, administrative records, snapshots and form configuration belong in `support/`; automated tests belong in `support/tests/`. Update live consumers when moving a file. Delivered archives and raw responses remain unchanged.
+ - Raw response preservation — user decision, 11-11-2026: current `ratings/` CSVs must match Google Sheets response values exactly, including case, spelling, blanks and N/A rows. Verified `rater_name,rater_id` are identity metadata; never fill or infer participant time, background, confidence, rationale, assistance or attestation answers. Keep conversational context and withdrawn estimates outside raw tables. Historical normalized exports belong in `ratings/analysis/`; `refresh_named_ratings.py` writes there and must not overwrite primary raw files. Refresh the raw manifest, index and completion status together.
+-- Track the collected rating files, named index and completion status in Git directly under `experiments/09_human_rating_collection/`. Do not ignore, anonymize or move these deliverables into `private/` by default.
+-- Keep actual rating files in `ratings/`, names and data links in `RATINGS_INDEX.md`, and dated completion information in `COMPLETION_STATUS.md`. Link all three prominently from the experiment README.
++- Track collected files in `experiments/09_human_rating_collection/ratings/` and the named completion table in that experiment’s `README.md`. Do not ignore, anonymize or move these deliverables into `private/` by default.
++- Keep actual rating files in `ratings/`. Keep the named completion table and main data links in the experiment `README.md`; `ratings/README.md` lists all live Sheets and matching CSVs. Refresh these together with the raw manifest after collection.
+ - Use person-first filenames such as `Rylan_Schaeffer__warmup_T01.csv` and a first `rater_name` column. Retain the original `rater_id` for matching records and preventing duplicate counts.
+ - **All participants, both formats:** every active personal Google Sheet and current CSV form/export begins with `rater_name,rater_id`, in that order. Prefill the actual roster-verified name on every item row, including unanswered rows; keep the stable ID as the join key. Match the live sheet's table headers and values in its CSV snapshot, and import/export by field name rather than column position. Use the shared schema for future warm-up and main forms, differing only in assigned items/rows. Preserve original imports, delivered archives, responses and assignment boundaries; version revisions and never invent missing scores, assistance disclosures or attestations. Apply this rule to everyone, not only Brando or completed submissions. See [the identity/import workflow](experiments/09_human_rating_collection/support/IDENTITY_AND_IMPORT.md).
+ - Preserve original imports and receipts. Verify that named exports retain every source field and row, record original hashes, and refresh exports, index and status together. Copies are not new observations. Follow [the identity and import workflow](experiments/09_human_rating_collection/support/IDENTITY_AND_IMPORT.md); run `support/scripts/refresh_named_ratings.py` within experiment 09 after validated imports for the separate normalized analysis exports. Export exact live-sheet response tables separately into primary `ratings/` and verify their values against the source. Stable IDs remain join keys, not a requirement to hide names.
+diff --git a/CLAUDE.md b/CLAUDE.md
+index 86e4f42..a05f5d7 100644
+--- a/CLAUDE.md
++++ b/CLAUDE.md
+@@ -58,10 +58,10 @@ Before further packet dispatch, read [the common-form amendment](experiments/09_
+ 
+ ## Human-rating file placement — user decision, 11-11-2026
+ 
+-- Brando’s editable task lives in `experiments/09_human_rating_collection/rating_task_packet/`: start instructions, scoring rubric, field guide, email draft, sheet link, blank form and task files. Preserve his edits; do not scatter competing editable copies around the experiment root. The top level keeps only the entry README, ratings/index/status, scripts, packet folder and support folder. Import procedures, study-design notes, administrative records, snapshots and form configuration belong in `support/`; automated tests belong in `support/tests/`. Update live consumers when moving a file. Delivered archives and raw responses remain unchanged.
++- Brando’s editable task lives in `experiments/09_human_rating_collection/rating_task_packet/`: start instructions, scoring rubric, field guide, email draft, sheet link, blank form and task files. Preserve his edits; do not scatter competing editable copies around the experiment root. The top level keeps only `README.md`, `rating_task_packet/`, `ratings/` and `support/`. The README combines task links, named data links and dated completion status; do not create separate top-level index/status files. Maintenance scripts live in `support/scripts/`. Import procedures, study-design notes, administrative records, snapshots and form configuration belong in `support/`; automated tests belong in `support/tests/`. Update live consumers when moving a file. Delivered archives and raw responses remain unchanged.
+ - Raw response preservation — user decision, 11-11-2026: current `ratings/` CSVs must match Google Sheets response values exactly, including case, spelling, blanks and N/A rows. Verified `rater_name,rater_id` are identity metadata; never fill or infer participant time, background, confidence, rationale, assistance or attestation answers. Keep conversational context and withdrawn estimates outside raw tables. Historical normalized exports belong in `ratings/analysis/`; `refresh_named_ratings.py` writes there and must not overwrite primary raw files. Refresh the raw manifest, index and completion status together.
+-- Track the collected rating files, named index and completion status in Git directly under `experiments/09_human_rating_collection/`. Do not ignore, anonymize or move these deliverables into `private/` by default.
+-- Keep actual rating files in `ratings/`, names and data links in `RATINGS_INDEX.md`, and dated completion information in `COMPLETION_STATUS.md`. Link all three prominently from the experiment README.
++- Track collected files in `experiments/09_human_rating_collection/ratings/` and the named completion table in that experiment’s `README.md`. Do not ignore, anonymize or move these deliverables into `private/` by default.
++- Keep actual rating files in `ratings/`. Keep the named completion table and main data links in the experiment `README.md`; `ratings/README.md` lists all live Sheets and matching CSVs. Refresh these together with the raw manifest after collection.
+ - Use person-first filenames such as `Rylan_Schaeffer__warmup_T01.csv` and a first `rater_name` column. Retain the original `rater_id` for matching records and preventing duplicate counts.
+ - **All participants, both formats:** every active personal Google Sheet and current CSV form/export begins with `rater_name,rater_id`, in that order. Prefill the actual roster-verified name on every item row, including unanswered rows; keep the stable ID as the join key. Match the live sheet's table headers and values in its CSV snapshot, and import/export by field name rather than column position. Use the shared schema for future warm-up and main forms, differing only in assigned items/rows. Preserve original imports, delivered archives, responses and assignment boundaries; version revisions and never invent missing scores, assistance disclosures or attestations. Apply this rule to everyone, not only Brando or completed submissions. See [the identity/import workflow](experiments/09_human_rating_collection/support/IDENTITY_AND_IMPORT.md).
+ - Preserve original imports and receipts. Verify that named exports retain every source field and row, record original hashes, and refresh exports, index and status together. Copies are not new observations. Follow [the identity and import workflow](experiments/09_human_rating_collection/support/IDENTITY_AND_IMPORT.md); run `support/scripts/refresh_named_ratings.py` within experiment 09 after validated imports for the separate normalized analysis exports. Export exact live-sheet response tables separately into primary `ratings/` and verify their values against the source. Stable IDs remain join keys, not a requirement to hide names.
+diff --git a/README.md b/README.md
+index 1d86e36..35db5b5 100644
+--- a/README.md
++++ b/README.md
+@@ -68,7 +68,7 @@ From the repository root, build an archive for the folders assigned to a rater.
+ python3 experiments/09_human_rating_collection/support/scripts/make_team_packet.py private/original private/team-folder-01-new.zip --folders 1
+ ```
+ 
+-Follow the [collection task's current delivery status](experiments/09_human_rating_collection/README.md#current-delivery-status--11-09-2026) before sending. Pass multiple folder numbers to package an assignment. Omit `--folders` to package all 25 folders. Use a new output filename for each build. The builder checks the frozen delivery manifest, preserves the original example bytes and filenames, and includes the rubric, instructions, a blank answer sheet and file checksums. Send the same archive to raters rating the same assignment. Each returns their own completed sheet privately.
++Follow the [collection task's current delivery status](experiments/09_human_rating_collection/README.md#edit-or-prepare-the-task) before sending. Pass multiple folder numbers to package an assignment. Omit `--folders` to package all 25 folders. Use a new output filename for each build. The builder checks the frozen delivery manifest, preserves the original example bytes and filenames, and includes the rubric, instructions, a blank answer sheet and file checksums. Send the same archive to raters rating the same assignment. Each returns their own completed sheet privately.
+ 
+ ## Reference anchoring study
+ 
+diff --git a/experiments/09_human_rating_collection/COMPLETION_STATUS.md b/experiments/09_human_rating_collection/COMPLETION_STATUS.md
+deleted file mode 100644
+index f6c505f..0000000
+--- a/experiments/09_human_rating_collection/COMPLETION_STATUS.md
++++ /dev/null
+@@ -1,37 +0,0 @@
+-# Human-rating collection status — 11-11-2026
+-
+-**Current form, 11-11-2026:** all 12 live Sheets and raw CSVs share eleven columns. Final score and the combined AI-assisted-rating attestation are required for new ratings. Time and confidence are requested; a one-sentence rationale is **preferred but optional**; problem notes are for issues. Original participant notes and times were restored verbatim. Scores, blanks and N/A entries are unchanged. [Verification and history](support/sheet_exports/11-11-2026_final_form/README.md).
+-
+-
+-**TLDR:** Twelve live Google Sheets were checked and exported into ratings/. No new or revised numeric ratings were found: 15 warm-up ratings match existing imports; the delivered main assignments remain blank.
+-
+-| Person | Warm-up | Main assignment / next missing work |
+-| --- | --- | --- |
+-| Rylan Schaeffer | 6/6 numeric ratings; already imported; qualified | 0/10 assigned ratings, folders N17 and N21 |
+-| Srivatsava Daruru (Sri) | 6/6 numeric ratings; already imported; qualified | 0/10 assigned ratings, folders N01 and N23 |
+-| Yegor Denisov-Blanch | 3 numeric ratings plus 3 N/A reference-issue entries; already imported | Preserve existing extra-only decision; no primary assignment |
+-| Dilara Soylu | 0/6 | Warm-up pending |
+-| Allen Nie | 0/6 | Warm-up pending |
+-| Donald Poindexter Jr | 0/6 | Warm-up pending |
+-| Simon Obstbaum | 0/6 | Warm-up pending |
+-| Nikil Ravi | 0/6 | Warm-up pending |
+-| Slava Naprienko | No returned CSV found in scoped mail searches | Email return route, not a Google Sheet; completion unverified |
+-| Brando Miranda | Warm-up sheet 0/6 | Personal full packet 0/125; author ratings are additional |
+-
+-## What is missing
+-
+-The inherited primary collection requires 250 ratings: two independent qualified ratings for each of 125 candidate files. The four delivered folder slots account for 20 assigned ratings, all currently blank. Another 46 folder slots (230 ratings) have not been assigned in the preserved delivery ledger. Pending volunteers' historical capacity is not a renewed commitment. No participant has a completed main assignment in the checked sheets.
+-
+-Jacob and Mo declined; Bo and Sanmi are excluded from recruitment. Unassigned prospects are not counted as missing submissions. No reminders were sent, and the hold on team dispatch remains in force.
+-
+-## Saved evidence and duplicate handling
+-
+-- [SUMMARY.json](ratings/SUMMARY.json): counts, per-sheet sources and comparison records.
+-- [sheet_snapshots.json](../../private/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/sheet_snapshots.json): exact returned range values and metadata for all 12 sheets.
+-- Each packet/rater subfolder contains ratings.csv and SOURCE_RECEIPT.json, including source URL, range, last-modified time and CSV hash.
+-- [SEARCH_RECEIPT.json](../../private/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/SEARCH_RECEIPT.json): sheet inventory and scoped mail-search metadata. Mail searches included Slava's known address, participant attachments since 10-01-2026, and Slava/name/round keywords; no returned rating attachment was found. This is not proof that no offline work exists.
+-- Duplicate keys are round/packet + rater identity + item identity. Revisions replace an observation's current version rather than create another independent observation. Across the checked sources there are 15 numeric observations matching existing imports, zero new keys, zero revised scores and no previously imported scores missing from their source.
+-- Existing canonical imports remain under [the canonical private store](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/); the exact resolved paths are recorded in each source receipt. No canonical import or qualification was changed.
+-- Warm-up observations and N/A entries stay separate from main-task ratings. Blank cells are missing, never zero scores. No judge fitting, selection or sealed-test analysis was performed.
+-
+-This status and the collected rating CSV files are tracked in experiment 09. Detailed source snapshots and mail-search receipts remain in the private collection area. This is collection evidence, not a fresh validation dataset.
+diff --git a/experiments/09_human_rating_collection/RATINGS_INDEX.md b/experiments/09_human_rating_collection/RATINGS_INDEX.md
+deleted file mode 100644
+index d920362..0000000
+--- a/experiments/09_human_rating_collection/RATINGS_INDEX.md
++++ /dev/null
+@@ -1,37 +0,0 @@
+-# Collected human ratings, by person
+-
+-**Current form, 11-11-2026:** all 12 live Sheets and raw CSVs share eleven columns. Final score and the combined AI-assisted-rating attestation are required for new ratings. Time and confidence are requested; a one-sentence rationale is **preferred but optional**; problem notes are for issues. Original participant notes and times were restored verbatim. Scores, blanks and N/A entries are unchanged. [Verification and history](support/sheet_exports/11-11-2026_final_form/README.md).
+-
+-
+-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/RATINGS_INDEX.md>
+-
+-**TLDR:** The raw rating CSVs now match the Google Sheets response tables. There are 15 numeric warm-up ratings and three N/A entries; main ratings remain blank as checked on 11-11-2026.
+-
+-## Open the raw data
+-
+-| Person | Raw CSV | Entries |
+-| --- | --- | --- |
+-| Brando Miranda | [Brando’s warm-up](ratings/Brando_Miranda__warmup_A1.csv) | Six blank rows |
+-| Rylan Schaeffer | [Rylan’s warm-up](ratings/Rylan_Schaeffer__warmup_T01.csv) | Six numeric ratings; original notes; per-file times remain blank |
+-| Srivatsava Daruru (Sri) | [Sri’s warm-up](ratings/Srivatsava_Daruru_Sri__warmup_T05.csv) | Six numeric ratings; his recorded times and notes |
+-| Yegor Denisov-Blanch | [Yegor’s warm-up](ratings/Yegor_Denisov-Blanch__warmup_T02.csv) | All six rows: three numeric ratings and three N/A reference-issue entries |
+-
+-**[Every participant’s live Google Sheet and matching raw CSV](ratings/README.md).** All 12 active sheet tables are available, including blank forms and the three main sheets. The first two columns remain the requested `rater_name,rater_id`; these are verified identity metadata, not rating answers.
+-
+-Response values, capitalization, spelling, blanks, N/A entries and row order are preserved. Rylan’s assistant-filled per-file timing estimates and background annotations have been removed from his sheet and current rating files. [Restoration and verification record](support/RAW_DATA_RESTORATION_11-11-2026.md). [Read Rylan’s original notes](support/RYLAN_NOTES.md).
+-
+-## Current completion status
+-
+-- [Who is done and what is missing](COMPLETION_STATUS.md).
+-- [Machine-readable collection summary](ratings/SUMMARY.json).
+-- [Raw table hashes and exact source ranges](ratings/RAW_MANIFEST.json).
+-
+-Rylan and Sri each completed six warm-up ratings; each main assignment still has ten blank rating rows. Yegor’s three numeric and three N/A entries are preserved; his existing extra-only qualification decision is unchanged. Dilara, Allen, Don, Simon and Nikil each have six blank warm-up rows. No returned CSV was found for Slava in the earlier scoped mail searches. Brando’s six warm-up and 125 main rows are blank in the current sheet snapshot.
+-
+-The primary collection still requires 250 main ratings: 20 assigned but blank and 230 not yet assigned. Brando’s ratings are additional. Warm-ups, blank forms and N/A entries are not completed main ratings. Re-exported copies are not new observations.
+-
+-## Analysis and history
+-
+-[Normalized analysis copies](ratings/analysis/) are separate from the raw files. The historical importer lowercases some labels and keeps only numeric rows; these derived copies must not be presented as the participant’s exact submission. The refresh script now writes there and cannot overwrite the primary raw directory.
+-
+-[Original import receipts](../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/) and prior sheet snapshots remain historical evidence. Earlier name-first snapshots are superseded for current use because they included coordinator timing estimates. [Slava’s prepared CSV](support/SLAVA_CSV_NAME_FIRST_11-11-2026.md) remains unsent, with six blank response rows.
+diff --git a/experiments/09_human_rating_collection/README.md b/experiments/09_human_rating_collection/README.md
+index 693383f..2f38887 100644
+--- a/experiments/09_human_rating_collection/README.md
++++ b/experiments/09_human_rating_collection/README.md
+@@ -1,27 +1,55 @@
+ # Human-rating collection
+ 
+-**Edit the task in [rating_task_packet/](rating_task_packet/).** This is the working folder Brando requested; changes here are drafts until reviewed and packaged for delivery.
++**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/README.md>
+ 
+-| Working file | Why keep it |
++**TLDR:** To do Brando’s six-file warm-up, open [the task instructions and personal Google Sheet link](rating_task_packet/START_HERE.md). This page also links the editable packet, collected ratings and completion status.
++
++## What belongs here
++
++| Folder | What it is for |
+ | --- | --- |
+-| [START_HERE.md](rating_task_packet/START_HERE.md) | Task instructions and your personal Google Sheet link. |
+-| [human_judgements_prompt.md](rating_task_packet/human_judgements_prompt.md) | The actual coverage criteria, 0–5 rubric, spam adjustment and uncertainty rule. |
+-| [RATING_FORM_GUIDE.md](rating_task_packet/RATING_FORM_GUIDE.md) | What each sheet column means and which responses are required. |
+-| [EMAIL_INSTRUCTIONS_V0.md](rating_task_packet/EMAIL_INSTRUCTIONS_V0.md) | Brando’s editable warm-up email draft; review before sending. Team messages are linked in the preparation summary. |
+-| [ratings.csv](rating_task_packet/ratings.csv) | Blank local form for inspecting/editing the packet; not collected responses. |
+-| [warm_up_01_median/](rating_task_packet/warm_up_01_median/) and [warm_up_02_greatest_common_divisor/](rating_task_packet/warm_up_02_greatest_common_divisor/) | Actual Python, reference and six candidate files copied unchanged from the FormV3 packet. |
++| [rating_task_packet/](rating_task_packet/) | Editable instructions, rubric, form guide, email draft, blank form and task files. Changes are drafts until reviewed and packaged for delivery. |
++| [ratings/](ratings/README.md) | Collected responses, named by person, with every live Google Sheet and matching comma-separated value (CSV) file linked. |
++| [support/](support/README.md) | Coordinator records, provenance, scripts and tests. You do not need these to do your ratings. |
++
++This README is the single collection overview: task links, people and completion status. Do not create separate index or status summaries at this level.
++
++## Edit or prepare the task
++
++- [START_HERE.md](rating_task_packet/START_HERE.md): short instructions and personal Sheet link.
++- [Scoring rubric](rating_task_packet/human_judgements_prompt.md) and [column guide](rating_task_packet/RATING_FORM_GUIDE.md): what to rate and what to enter.
++- [Email draft](rating_task_packet/EMAIL_INSTRUCTIONS_V0.md) and [blank form](rating_task_packet/ratings.csv): editable working copies, not collected responses.
++- [Median task](rating_task_packet/warm_up_01_median/) and [greatest-common-divisor task](rating_task_packet/warm_up_02_greatest_common_divisor/): Python, reference and three candidate files each.
++
++**Current form:** final score and the combined artificial intelligence (AI) assistance/human-rating attestation are required for new ratings. Estimate time and confidence; a one-sentence rationale is **preferred but optional**. Use problem notes for issues. Sheets and CSVs share eleven stored columns, with internal keys hidden in Sheets; the scoring rubric is unchanged.
++
++[Prepared packets and exact team email previews](support/PREPARATION_11-09-2026.md#current-prepared-version--11-11-2026) are ready for review. **Before team dispatch:** finish Brando’s pilot, approve the revised email text, then explicitly say to send. No reminders or revised team packets were sent in this preparation. Editing this folder sends nothing. Delivered archives remain unchanged.
++
++Brando has already viewed other raters’ warm-up answers, so his warm-up is coordinator practice, not an independent blinded submission. Descriptive task paths map to historical record keys in [the path mapping](support/WARMUP_PATHS.json).
++
++## Ratings and completion
++
++**Last checked: 11-11-2026.** There are **15 numeric warm-up ratings and three N/A reference-issue entries; no completed main ratings** in the checked sheets. All 15 numeric ratings match existing imports; this check found no new or revised ratings. Local files are saved snapshots, not a live background mirror.
+ 
+-**Current form:** score and combined AI-assisted-rating attestation are required. Please estimate time and confidence; a one-sentence rationale is **preferred but optional**, and problem notes are for issues. Sheets and CSVs share eleven stored columns, with internal keys hidden in Sheets. The scoring rubric is unchanged.
++| Person | Warm-up data / completion | Main assignment / next work |
++| --- | --- | --- |
++| Brando Miranda | [CSV](ratings/Brando_Miranda__warmup_A1.csv): 0/6 | [Main CSV](ratings/Brando_Miranda__setN_A1.csv): 0/125; author ratings are additional |
++| Rylan Schaeffer | [CSV](ratings/Rylan_Schaeffer__warmup_T01.csv): 6/6; qualified | [Main CSV](ratings/Rylan_Schaeffer__setN_T01.csv): 0/10 assigned, folders N17 and N21 |
++| Srivatsava Daruru (Sri) | [CSV](ratings/Srivatsava_Daruru_Sri__warmup_T05.csv): 6/6; qualified | [Main CSV](ratings/Srivatsava_Daruru_Sri__setN_T05.csv): 0/10 assigned, folders N01 and N23 |
++| Yegor Denisov-Blanch | [CSV](ratings/Yegor_Denisov-Blanch__warmup_T02.csv): 3 numeric + 3 N/A | Existing extra-only decision; no primary assignment |
++| Dilara Soylu | [CSV](ratings/Dilara_Soylu__warmup_T03.csv): 0/6 | Warm-up pending |
++| Allen Nie | [CSV](ratings/Allen_Nie__warmup_T04.csv): 0/6 | Warm-up pending |
++| Donald Poindexter Jr | [CSV](ratings/Donald_Poindexter_Jr__warmup_T06.csv): 0/6 | Warm-up pending |
++| Simon Obstbaum | [CSV](ratings/Simon_Obstbaum__warmup_T07.csv): 0/6 | Warm-up pending |
++| Nikil Ravi | [CSV](ratings/Nikil_Ravi__warmup_V02.csv): 0/6 | Warm-up pending |
++| Slava Naprienko | No returned CSV found for the original emailed warm-up in earlier scoped mail searches; [replacement form](support/SLAVA_CSV_NAME_FIRST_11-11-2026.md) is prepared, unsent, with six blank rows | Completion unverified; no Google Sheet |
+ 
+-**Ready-to-use packets and dispatch status:** [preparation summary](support/PREPARATION_11-09-2026.md). Start with your six-file warm-up; team messages stay prepared until you approve sending.
++**[Open everyone’s live Google Sheets and matching raw CSVs](ratings/README.md).** Rylan and Sri’s main sheets display 125 rows, but only ten items each are assigned. Rylan’s original notes and Sri’s recorded times/notes are preserved; [Rylan’s notes are also readable here](support/RYLAN_NOTES.md).
+ 
+-## Collection records
++The inherited primary collection requires **250 main ratings**: two qualified independent ratings for each of 125 candidate files. **20 are assigned but blank; 230 remain unassigned.** Warm-ups, N/A entries and blank forms are not completed main ratings. Re-exported copies are not new observations. Historical volunteer capacity is not a renewed commitment. Jacob and Mo declined; Bo and Sanmi are excluded from recruitment. Unassigned prospects are not missing submissions.
+ 
+-- [ratings/](ratings/README.md): original responses; [RATINGS_INDEX.md](RATINGS_INDEX.md): people, Sheets and data links.
+-- [COMPLETION_STATUS.md](COMPLETION_STATUS.md): who has finished and what remains.
+-- [support/](support/README.md): import procedures, study design, coordinator notes, configuration, history and software tests.
+-- [support/scripts/](support/scripts/): packet-building and import tools; not needed to do your ratings.
++## Provenance
+ 
+-The working packet is for Brando’s coordinator practice: he has already viewed other raters’ warm-up answers. Delivered archives remain unchanged. No email is sent by editing this folder.
++Raw responses retain spelling, capitalization, blanks, N/A entries and row order. Names and stable IDs are verified identity metadata; assistant-filled timing/background annotations were removed. [Normalized analysis files](ratings/analysis/) are separate and are not additional observations.
+ 
+-Folder names spell out the task. Each `agent_lean/` folder contains `agent_1.lean`, `agent_2.lean` and `agent_3.lean`. The sheet’s historical `item_id` is only a stable record key; its folder and filename columns give the current paths. See [path mapping](support/WARMUP_PATHS.json).
++[Collection summary](ratings/SUMMARY.json) · [Raw hashes and source ranges](ratings/RAW_MANIFEST.json) · [Import workflow and source receipts](support/IDENTITY_AND_IMPORT.md#collection-evidence--11-11-2026) · [Form verification and history](support/sheet_exports/11-11-2026_final_form/README.md)
+diff --git a/experiments/09_human_rating_collection/ratings/README.md b/experiments/09_human_rating_collection/ratings/README.md
+index 9f973da..ed99a8c 100644
+--- a/experiments/09_human_rating_collection/ratings/README.md
++++ b/experiments/09_human_rating_collection/ratings/README.md
+@@ -22,7 +22,7 @@
+ 
+ Yegor’s warm-up contains all six submitted rows: three numeric ratings and three `N/A` reference-issue entries. Empty sheets are included for convenience; blank rows are not completed observations. Rylan and Sri each have ten assigned main items even though their sheets display 125 rows.
+ 
+-[Current completion status](../COMPLETION_STATUS.md) · [Raw source ranges, hashes and counts](RAW_MANIFEST.json) · [Restoration record](../support/RAW_DATA_RESTORATION_11-11-2026.md)
++[Current completion status](../README.md#ratings-and-completion) · [Raw source ranges, hashes and counts](RAW_MANIFEST.json) · [Restoration record](../support/RAW_DATA_RESTORATION_11-11-2026.md)
+ 
+ ## Derived analysis files
+ 
+diff --git a/experiments/09_human_rating_collection/support/BRANDO_WARMUP.md b/experiments/09_human_rating_collection/support/BRANDO_WARMUP.md
+index 1f1e43b..8522639 100644
+--- a/experiments/09_human_rating_collection/support/BRANDO_WARMUP.md
++++ b/experiments/09_human_rating_collection/support/BRANDO_WARMUP.md
+@@ -14,4 +14,4 @@ The current packet CSV matches your live sheet. The original and FormV2 archives
+ 
+ Do this warm-up before your full 125-file assignment. You previously viewed other raters’ warm-up responses, so this is coordinator practice with known prior exposure, not an independent blinded evaluation.
+ 
+-[Full-packet Google Sheet](https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit) · [Completion status](../COMPLETION_STATUS.md) · [Coordinator records](README.md)
++[Full-packet Google Sheet](https://docs.google.com/spreadsheets/d/1T14977K9IrUU9JoN_9jUR2uUVbvEP5EsKKl9wh06I_o/edit) · [Completion status](../README.md#ratings-and-completion) · [Coordinator records](README.md)
+diff --git a/experiments/09_human_rating_collection/support/CKPT_human_rating_collection.md b/experiments/09_human_rating_collection/support/CKPT_human_rating_collection.md
+index 0d225c4..c21a5bb 100644
+--- a/experiments/09_human_rating_collection/support/CKPT_human_rating_collection.md
++++ b/experiments/09_human_rating_collection/support/CKPT_human_rating_collection.md
+@@ -12,6 +12,8 @@ Thirteen replacement packets and eight exact team email previews are prepared. O
+ 
+ ## Historical migration state
+ 
++- Overview consolidation, 11-11-2026: task entry points, named rating links and dated completion status now share the experiment README. The redundant top-level index/status files were removed; live links and agent instructions were updated. Raw data, task files and delivered archives are unchanged.
++
+ - Editable packet, 11-11-2026: Brando’s working instructions, rubric, field guide, email draft, personal Sheet link, blank CSV and unchanged W01/W02 task files are in `../rating_task_packet/`. Import/design notes moved here into support; live local links updated. Draft wording still needs reconciliation before dispatch (email J versus score column K; old START_HERE requirements). Thirty checks pass. See `LAYOUT_MOVE_11-11-2026.json` for byte hashes and cross-repository link publication limits.
+ 
+ - Test location, 11-11-2026: automated checks moved from the top-level `tests/` into `support/tests/`. The project verification command and test path resolution use the new location; rating data and packets are unchanged.
+diff --git a/experiments/09_human_rating_collection/support/COORDINATOR_README.md b/experiments/09_human_rating_collection/support/COORDINATOR_README.md
+index 7e8e4f1..1a75a68 100644
+--- a/experiments/09_human_rating_collection/support/COORDINATOR_README.md
++++ b/experiments/09_human_rating_collection/support/COORDINATOR_README.md
+@@ -10,9 +10,9 @@ This is supporting coordinator documentation. For the actual rating task, start
+ 
+ [Brando's six-file warm-up packet, personal Google Sheet and instructions](BRANDO_WARMUP.md). Complete this practice set before the full 125-file packet.
+ 
+-**Current form revision, 11-11-2026:** [one shared warm-up/main form](../rating_task_packet/RATING_FORM_GUIDE.md), with [model-assistance disclosure and an attestation](FORM_AMENDMENT_11-11-2026.md). Brando's two live sheets use this revision; the team queue remains held for his pilot and revised-text review. Dispatch agents must read the amendment before using older prepared emails or packets.
++**Current form revision, 11-11-2026:** [one shared warm-up/main form](../rating_task_packet/RATING_FORM_GUIDE.md), with [combined AI-use and personal-rating attestation](FORM_AMENDMENT_11-11-2026.md), plus time, confidence, rationale and problem notes. All twelve live sheets use the current eleven-column form; the team queue remains held for his pilot and revised-text review. Dispatch agents must read the amendment before using older prepared emails or packets.
+ 
+-**Names first for everyone, 11-11-2026:** all 12 active personal Google Sheets now start with `rater_name,rater_id`, including unanswered forms. [Open every live sheet and its current raw CSV](../ratings/README.md). Seven additional sheets were updated; five already used this layout. Every original cell value, note, validation and format was verified unchanged. New forms use the 18-column schema; historical team forms retain their other existing columns. The same name-first rule applies to future participants and CSV-only submissions.
++**Names first for everyone, 11-11-2026:** all 12 active personal Google Sheets now start with `rater_name,rater_id`, including unanswered forms. [Open every live sheet and its current raw CSV](../ratings/README.md). The earlier name-first rollout is preserved below as history. Current Sheets and CSVs use eleven columns; historical responses and removed columns remain in the source snapshots. The same name-first rule applies to future participants and CSV-only submissions.
+ 
+ [Name-first rollout and cross-project rule receipts](NAME_FIRST_ROLLOUT_11-11-2026.md).
+ 
+@@ -20,17 +20,17 @@ This is supporting coordinator documentation. For the actual rating task, start
+ 
+ ## Open the collected ratings
+ 
+-**Start here: [raw ratings by person — actual CSV files and Google Sheets](../RATINGS_INDEX.md).**
++**Start here: [raw ratings by person — actual CSV files and Google Sheets](../ratings/README.md).**
+ 
+ **Raw-data restoration, 11-11-2026:** removed assistant-filled time estimates and background annotations. Current files in [ratings/](../ratings/README.md) preserve exact response values, blanks, spelling, capitalization and all N/A rows. [What was removed and verified](RAW_DATA_RESTORATION_11-11-2026.md). Historical normalized imports are separate in [ratings/analysis/](../ratings/analysis).
+ 
+ [How your Google Sheet becomes a named rating file, and why IDs are retained](IDENTITY_AND_IMPORT.md).
+ 
+ - [Actual rating CSV files](../ratings).
+-- [Current completion status: who is done and what is missing](../COMPLETION_STATUS.md), checked **11-11-2026**.
++- [Current completion status: who is done and what is missing](../README.md#ratings-and-completion), checked **11-11-2026**.
+ - [Original import receipts](../../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN).
+ 
+-The ratings, named index and completion status are directly in this experiment folder on this Mac. The CSV filenames and first column show each person's name; the original IDs, ratings and notes are preserved. These raw tables contain the same participant submissions, including nonnumeric entries omitted by historical numeric-only imports. They are not additional observations. The rating files, named index and completion status are tracked in Git, as requested on 11-11-2026.
++Collected files are in `ratings/`; named data links and completion status share the experiment README. The CSV filenames and first column show each person's name; the original IDs, ratings and notes are preserved. These raw tables contain the same participant submissions, including nonnumeric entries omitted by historical numeric-only imports. They are not additional observations. The rating files and collection README are tracked in Git, as requested on 11-11-2026.
+ 
+ ## Ownership and scope
+ 
+@@ -56,20 +56,10 @@ The [prospective probabilistic-judge design](../../02_probabilistic_ordinal_judg
+ 
+ ```text
+ 09_human_rating_collection/
+-├── README.md
+-├── MIGRATION.json
+-├── PREPARATION_11-09-2026.md
+-├── CKPT_human_rating_collection.md
+-├── scripts/
+-│   ├── verify_preparation.py
+-│   ├── make_team_packet.py
+-│   └── legacy/
+-│       ├── assign_setN_folders.py
+-│       ├── import_rating_sheet.py
+-│       ├── make_rater_zip.py
+-│       ├── packet_release.py
+-│       └── score_warmup.py
+-└── support/tests/test_collection.py
++├── README.md              # Task links, people and completion status
++├── rating_task_packet/    # Editable task and participant files
++├── ratings/               # Collected responses and live-sheet links
++└── support/               # Records, scripts and tests
+ ```
+ 
+ ### Private materials
+diff --git a/experiments/09_human_rating_collection/support/IDENTITY_AND_IMPORT.md b/experiments/09_human_rating_collection/support/IDENTITY_AND_IMPORT.md
+index 4ebb1be..3b3be9d 100644
+--- a/experiments/09_human_rating_collection/support/IDENTITY_AND_IMPORT.md
++++ b/experiments/09_human_rating_collection/support/IDENTITY_AND_IMPORT.md
+@@ -53,6 +53,18 @@ This is a coordinator-run collection sync, **not a live background mirror**. Goo
+ 
+    It reads already imported files from the canonical import directory, joins [RATER_IDENTITIES.json](RATER_IDENTITIES.json), places `rater_name` first and `rater_id` second, verifies an already-present name against the roster, and writes person-first filenames under `ratings/analysis/`. It refuses an output directory resolving to the primary `ratings/` folder. An unknown or mismatched rater, malformed row or duplicate item stops the batch before output. Normalized-input columns and values are preserved. This is not raw-data recovery: the historical importer already changed some capitalization and omitted Yegor’s N/A rows. The exporter does not load coordinator background or timing estimates. Leading sheet-comment rows remain readable if the new name column shifts the comment into column B. A manifest records source and named-export hashes. It performs no live download, qualification decision or score analysis.
+ 
+-5. Refresh `RATINGS_INDEX.md`, `COMPLETION_STATUS.md` and the collection summary from the same snapshot; verify the named export manifests, then commit and push the named collection artifacts. The name-enrichment command alone does not refresh completion status.
++5. Refresh the [ratings and completion table](../README.md#ratings-and-completion), [all sheet/data links](../ratings/README.md) and collection summary from the same snapshot; verify the named export manifests, then commit and push the named collection artifacts. The name-enrichment command alone does not refresh completion status.
+ 
+ Verified on 11-11-2026: the 12 primary CSVs match the exact restored sheet tables, and all original fields in Rylan, Sri and Yegor’s six-row submissions match pre-enrichment raw snapshots. The three normalized analysis exports reproduce their unchanged historical normalized inputs plus names. Synthetic checks cover A1 naming, zero versus missing scores, repeated export, wrong/unknown identity and duplicate items. No synthetic scores were written into real rating files or Google Sheets.
++
++## Collection evidence — 11-11-2026
++
++- [SUMMARY.json](../ratings/SUMMARY.json): counts, per-sheet sources and comparison records.
++- [sheet_snapshots.json](../../../private/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/sheet_snapshots.json): exact returned range values and metadata for all 12 sheets.
++- Each packet/rater subfolder contains ratings.csv and SOURCE_RECEIPT.json, including source URL, range, last-modified time and CSV hash.
++- [SEARCH_RECEIPT.json](../../../private/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/SEARCH_RECEIPT.json): sheet inventory and scoped mail-search metadata. Mail searches included Slava's known address, participant attachments since 10-01-2026, and Slava/name/round keywords; no returned rating attachment was found. This is not proof that no offline work exists.
++- Duplicate keys are round/packet + rater identity + item identity. Revisions replace an observation's current version rather than create another independent observation. Across the checked sources there are 15 numeric observations matching existing imports, zero new keys, zero revised scores and no previously imported scores missing from their source.
++- Existing canonical imports remain under [the canonical private store](../../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/); the exact resolved paths are recorded in each source receipt. No canonical import or qualification was changed.
++- Warm-up observations and N/A entries stay separate from main-task ratings. Blank cells are missing, never zero scores. No judge fitting, selection or sealed-test analysis was performed. This is collection evidence, not a fresh validation dataset.
++
++[Current raw table hashes and source ranges](../ratings/RAW_MANIFEST.json) and the [final-form verification](sheet_exports/11-11-2026_final_form/README.md) describe the current response tables. Earlier name-first snapshots included coordinator estimates and are historical; the [restoration record](RAW_DATA_RESTORATION_11-11-2026.md) documents their removal from current raw data.
+diff --git a/experiments/09_human_rating_collection/support/RYLAN_NOTES.md b/experiments/09_human_rating_collection/support/RYLAN_NOTES.md
+index 36162d0..025b5b8 100644
+--- a/experiments/09_human_rating_collection/support/RYLAN_NOTES.md
++++ b/experiments/09_human_rating_collection/support/RYLAN_NOTES.md
+@@ -4,7 +4,7 @@
+ 
+ **TLDR:** Six warm-up ratings, with three distinct participant notes. Rylan’s comments are quoted verbatim below; spelling, scores, and blank responses are preserved.
+ 
+-[Original rating data](../ratings/Rylan_Schaeffer__warmup_T01.csv) · [Live Google Sheet](https://docs.google.com/spreadsheets/d/1SiyDKm0b4kmoQIfBomQGgFc8CVb04Rx6ekAW1CjzFFU/edit#gid=1299686922) · [Collection status](../COMPLETION_STATUS.md)
++[Original rating data](../ratings/Rylan_Schaeffer__warmup_T01.csv) · [Live Google Sheet](https://docs.google.com/spreadsheets/d/1SiyDKm0b4kmoQIfBomQGgFc8CVb04Rx6ekAW1CjzFFU/edit#gid=1299686922) · [Collection status](../README.md#ratings-and-completion)
+ 
+ Source checked: **11-11-2026** against the preserved raw sheet snapshot. This is a readable view of the original rating responses, not new observations or a revision of his scores.
+ 

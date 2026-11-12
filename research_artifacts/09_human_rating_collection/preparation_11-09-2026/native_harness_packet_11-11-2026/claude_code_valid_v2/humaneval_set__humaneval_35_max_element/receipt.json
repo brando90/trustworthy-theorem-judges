@@ -1,0 +1,192 @@
+{
+  "task_id": "humaneval_set__humaneval_35_max_element",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "humaneval_35_max_element.py": "4b70c0542c0a72624d51825c14157212b6998cff49b7161ef77e6ae8451006c2",
+    "instruction.md": "8a5adb5219cc42294f5097a3f6ffe5d03f19d058dee6c2e196d38ef82f460ee8"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_35_max_element.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-ac01dd5a7dd5",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794448340.321582,
+  "exit_code": 0,
+  "stop_reason": "native_result",
+  "finished_at": 1794449053.647449,
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 324181,
+  "observed_output_tokens": 53109,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 8,
+    "messages_with_stop": 8,
+    "native_aggregate_usage": {
+      "input_tokens": 196,
+      "cache_creation_input_tokens": 51469,
+      "cache_read_input_tokens": 219407,
+      "output_tokens": 53109,
+      "output_tokens_details": {
+        "thinking_tokens": 39777
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 51469,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 690241,
+    "stop_reason": "end_turn",
+    "session_id": "946a4864-793e-42d0-a4e2-130e0c65dee8",
+    "total_cost_usd": 3.7416417500000003,
+    "usage": {
+      "input_tokens": 196,
+      "cache_creation_input_tokens": 51469,
+      "cache_read_input_tokens": 219407,
+      "output_tokens": 53109,
+      "output_tokens_details": {
+        "thinking_tokens": 39777
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 51469,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 196,
+        "outputTokens": 53109,
+        "cacheReadInputTokens": 219407,
+        "cacheCreationInputTokens": 51469,
+        "webSearchRequests": 0,
+        "costUSD": 3.7416417500000003,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 39777,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 51469,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 8,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The file compiles cleanly, every theorem is fully proved, and the axiom check confirms no theorem depends on anything beyond `propext` and `Quot.sound`.\n\n**Written:** `/home/user/lean_project/Veribench/humaneval_35_max_element.lean`\n\n**Verification run**\n\n```\nlake env lean Veribench/humaneval_35_max_element.lean   # exit 0, no errors or warnings\n```\n\nAll Plausible property tests reported \"Unable to find a counter-example\", and a `#print axioms` sweep over every theorem showed only `propext` and `Quot.sound`. The file contains no `sorry`, `admit`, or `axiom`.\n\n**What the formalization contains**\n\n- **Implementation.** `max_element` on `List Int` starts from the head and folds the Python loop body over the tail. The empty list, where Python raises, yields the default `0` and is excluded by `Pre`.\n- **Precondition.** `Pre l` is `l \u2260 []`.\n- **Properties, each proved.** Membership of the result in the list, upper bound of every element, agreement with the library `List.max?`, uniqueness of the maximum, permutation invariance, and the append rule `max (max_element l) (max_element l')`.\n- **Post-condition and correctness.** `Post_prop` conjoins all six properties, and `correctness` proves `Pre \u2192 Post_prop`.\n- **Property-based tests.** Eight randomized Plausible checks plus seven exhaustive bounded checks over all lists of length 1 to 3 with entries in [-2, 2], covering each property and the post-condition. Non-empty inputs are sampled structurally as `x :: xs`, so there are no \"gave up\" warnings.\n- **Imperative version and equivalence.** `max_element_imp` uses `Id.run do` with a mutable `m := l[0]!` and a `for` loop exactly mirroring the Python. The equivalence theorem `max_element_eq_imp` holds for every list, via a helper lemma reducing the `forIn` loop to the fold, plus a restricted form under `Pre`.",
+    "ttft_ms": 212326,
+    "type": "result",
+    "duration_ms": 710600,
+    "uuid": "362572cf-b313-41a2-b6fe-2048f7d17b4d",
+    "ttft_stream_ms": 3075,
+    "time_to_request_ms": 42,
+    "first_content_frame_ms": 3076,
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "model_usage_since_last_result": {
+      "claude-fable-5-1": {
+        "inputTokens": 196,
+        "outputTokens": 53109,
+        "cacheReadInputTokens": 219407,
+        "cacheCreationInputTokens": 51469,
+        "webSearchRequests": 0,
+        "costUSD": 3.7416417500000003,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 39777,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 51469,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    }
+  },
+  "model_identity_verified": true,
+  "candidate_captured": true,
+  "candidate_sha256": "f02e39346b0a7b92c68fbd32fe8606b4830fd4e10ad4513271553bad9b547b85",
+  "candidate_bytes": 11546,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

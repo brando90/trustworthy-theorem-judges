@@ -1,0 +1,192 @@
+{
+  "task_id": "easy_set__23_is_prime",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "23_is_prime.py": "813772624e9ec33a62e3497ba44c094f7ea56e90adbcb3e96483bfd71ddbb379",
+    "instruction.md": "477f8ac10d612ddbddbda451ec8928b6b28a2f00e72c20983bb90c2be0a0badc"
+  },
+  "output": "/home/user/lean_project/Veribench/23_is_prime.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-c79db69545ea",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794446702.7838879,
+  "exit_code": 0,
+  "stop_reason": "native_result",
+  "finished_at": 1794447699.5427232,
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 938530,
+  "observed_output_tokens": 74705,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 18,
+    "messages_with_stop": 18,
+    "native_aggregate_usage": {
+      "input_tokens": 516,
+      "cache_creation_input_tokens": 72905,
+      "cache_read_input_tokens": 790404,
+      "output_tokens": 74705,
+      "output_tokens_details": {
+        "thinking_tokens": 54141
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 72905,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 942719,
+    "stop_reason": "end_turn",
+    "session_id": "61e5d207-4edb-49d6-b0ad-7055dc9475cd",
+    "total_cost_usd": 5.396110999999999,
+    "usage": {
+      "input_tokens": 516,
+      "cache_creation_input_tokens": 72905,
+      "cache_read_input_tokens": 790404,
+      "output_tokens": 74705,
+      "output_tokens_details": {
+        "thinking_tokens": 54141
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 72905,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 516,
+        "outputTokens": 74705,
+        "cacheReadInputTokens": 790404,
+        "cacheCreationInputTokens": 72905,
+        "webSearchRequests": 0,
+        "costUSD": 5.396110999999999,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 54141,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 72905,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 18,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The task is complete. The Lean file compiles with exit code 0 and every theorem is fully proved.\n\n**What was written** to `/home/user/lean_project/Veribench/23_is_prime.lean`:\n\n- **Implementation.** `isPrime : Int \u2192 Except String Bool` returns the error message for negative input, mirroring the Python `ValueError`, and otherwise runs the 6k\u00b11 trial division. The loop is a recursive `trialLoop` over the same iteration count as Python's `range(5, isqrt(n)+1, 6)`, with `Nat.sqrt` modelling `int(math.sqrt(n))`.\n- **Pre-condition.** `Pre n := 0 \u2264 n`.\n- **Properties, all proved.** No exception on valid input; the result equals `decide (Nat.Prime n.toNat)`; the docstring definition as an iff over integer divisors; the composite characterisation for a `false` answer; the 0 and 1 edge cases; and the negative-input error.\n- **Post-condition and correctness.** `Post_prop` is the conjunction of the four input-dependent properties, and `isPrime_correct : Pre n \u2192 Post_prop n (isPrime n)` is proved.\n- **Imperative version.** `isPrimeImp` uses `Id.run do` with early returns and a `for i in [5:Nat.sqrt m + 1:6]` loop. The equivalence theorem `isPrime_eq_isPrimeImp` is proved by reducing the range loop to `List.range'` and an induction lemma about the loop body.\n- **Tests.** Unit tests cover the docstring and `check` examples, including the negative case. Randomized Plausible tests plus exhaustive bounded tests exist for every property, the post-condition, and the functional/imperative agreement.\n\n**Verification run.** `lake env lean` exits 0 with no errors. A scratch copy with `#print axioms` confirmed all 13 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`. The file contains no `sorry`, `admit`, or `axiom`, and `native_decide` appears only inside `example` tests.\n\n**One thing to note.** Two Plausible checks emit a harmless \"Gave up 1 times\" warning because one random sample missed the precondition. Both properties also have exhaustive bounded tests, so coverage is not affected.",
+    "ttft_ms": 11801,
+    "type": "result",
+    "duration_ms": 994054,
+    "uuid": "98124e90-79e9-4e4e-ba18-d9bd9d75b6dc",
+    "ttft_stream_ms": 9203,
+    "time_to_request_ms": 43,
+    "first_content_frame_ms": 9203,
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "model_usage_since_last_result": {
+      "claude-fable-5-1": {
+        "inputTokens": 516,
+        "outputTokens": 74705,
+        "cacheReadInputTokens": 790404,
+        "cacheCreationInputTokens": 72905,
+        "webSearchRequests": 0,
+        "costUSD": 5.396110999999999,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 54141,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 72905,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    }
+  },
+  "model_identity_verified": true,
+  "candidate_captured": true,
+  "candidate_sha256": "6be90d96b84d5736c9eda5d4521ac870bcd07f37eb137134246c6a31f2c0b42f",
+  "candidate_bytes": 19740,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

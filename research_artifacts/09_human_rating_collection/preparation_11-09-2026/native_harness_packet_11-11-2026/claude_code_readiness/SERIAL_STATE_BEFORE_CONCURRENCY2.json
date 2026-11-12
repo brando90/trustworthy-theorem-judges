@@ -1,0 +1,147 @@
+{
+  "started_at": "2026-11-12T00:54:53.595858+00:00",
+  "pid": 52658,
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "status": "RUNNING",
+  "tasks": {
+    "realcode_set__20_html_escape": {
+      "task_id": "realcode_set__20_html_escape",
+      "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+      "command": [
+        "claude",
+        "-p",
+        "--safe-mode",
+        "--dangerously-skip-permissions",
+        "--permission-prompts",
+        "none",
+        "--model",
+        "claude-fable-5-1",
+        "--effort",
+        "max",
+        "--max-turns",
+        "40",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--no-chrome",
+        "--strict-mcp-config",
+        "--mcp-config",
+        "{\"mcpServers\":{}}",
+        "--disable-slash-commands",
+        "--tools",
+        "Bash,Read,Write,Edit,Glob,Grep",
+        "--disallowed-tools",
+        "WebSearch,WebFetch,Agent,Task"
+      ],
+      "visible_files": {
+        "20_html_escape.py": "6f39b1bd6ebfb76f6d189a05ae0700a231d1b9101eb6a96388a335736485a04c",
+        "instruction.md": "95cbb6dcc34813e5804d2fba2cb1a0850b79dc132fac7768bf593e64a4d3e772"
+      },
+      "output": "/home/user/lean_project/Veribench/20_html_escape.lean",
+      "model_call_performed": true,
+      "container": "ttj-cc-e227a76d7f89",
+      "status": "TERMINAL",
+      "cli_version": "2.1.322 (Claude Code)",
+      "actual_mounts": [],
+      "network": "ttj-native-source-only",
+      "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+      "started_at": 1794444897.2062578,
+      "exit_code": 137,
+      "stop_reason": "wall_time_budget",
+      "finished_at": 1794446699.511074,
+      "actual_models": [
+        "claude-fable-5-1"
+      ],
+      "observed_total_tokens": 928313,
+      "observed_output_tokens": 109248,
+      "usage_evidence": {
+        "source": "provider_stream_events",
+        "complete": true,
+        "messages_seen": 17,
+        "messages_with_stop": 17,
+        "native_aggregate_usage": null
+      },
+      "native_result": null,
+      "model_identity_verified": true,
+      "candidate_captured": true,
+      "candidate_sha256": "8c5151315652663b79b93cc8b59d0d53c8d5cfd759fad1abb519e9dd7d2a53a4",
+      "candidate_bytes": 36420,
+      "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+    },
+    "easy_set__23_is_prime": {
+      "status": "RUNNING",
+      "started_at": "2026-11-12T01:24:59.552710+00:00"
+    },
+    "security_set__security_6858__vulnerabilities__93_unsafeappentitlements": {
+      "status": "PENDING"
+    },
+    "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice": {
+      "status": "PENDING"
+    },
+    "easy_set__41_duplicate_chars": {
+      "status": "PENDING"
+    },
+    "security_set__security_6858__vulnerabilities__75_unsafecerthostname": {
+      "status": "PENDING"
+    },
+    "humaneval_set__humaneval_35_max_element": {
+      "status": "PENDING"
+    },
+    "cs_set__topological_sort": {
+      "status": "PENDING"
+    },
+    "humaneval_set__humaneval_39_prime_fib": {
+      "status": "PENDING"
+    },
+    "realcode_set__23_base32": {
+      "status": "PENDING"
+    },
+    "humaneval_set__humaneval_15_string_sequence": {
+      "status": "PENDING"
+    },
+    "cs_set__counting_sort": {
+      "status": "PENDING"
+    },
+    "easy_set__16_myfactorial": {
+      "status": "PENDING"
+    },
+    "humaneval_set__humaneval_14_all_prefixes": {
+      "status": "PENDING"
+    },
+    "easy_set__20_mysumdigits": {
+      "status": "PENDING"
+    },
+    "humaneval_set__humaneval_4_mean_absolute_deviation": {
+      "status": "PENDING"
+    },
+    "cs_set__heapsort_algorithm": {
+      "status": "PENDING"
+    },
+    "easy_set__19_mypower": {
+      "status": "PENDING"
+    },
+    "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade": {
+      "status": "PENDING"
+    },
+    "security_set__security_6858__safe__125_unsafetpmhash_safe": {
+      "status": "PENDING"
+    },
+    "cs_set__edit_distance": {
+      "status": "PENDING"
+    },
+    "realcode_set__21_shlex_quote": {
+      "status": "PENDING"
+    },
+    "realcode_set__31_statistics_quantiles": {
+      "status": "PENDING"
+    },
+    "realcode_set__28_statistics_median_low": {
+      "status": "PENDING"
+    },
+    "cs_set__heap_sort": {
+      "status": "PENDING"
+    }
+  },
+  "updated_at": "2026-11-12T01:24:59.551620+00:00"
+}

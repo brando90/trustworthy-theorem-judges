@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-12T00:41:29.161869+00:00",
+  "initial_runner_sha256": "0b25799623189faeb48cddbe45546f9a396fe0dc96a853f044f16fd4ca7dd807",
+  "amended_runner_sha256": "7665392594855b48c4999ac59a9988a6e0a694139bc4f11ba3e3fa0542e2986c",
+  "applies_to": "remaining24 not-yet-started cells only",
+  "first_cell": "realcode_set__20_html_escape retains original runner and receipt; no retry",
+  "change": "Count prior billed thinking toward input admission; reserve full65536input plus max16384output before generation; only refund complete actual usage. Caps/model/inputs unchanged.",
+  "checks": {
+    "observed_4518_to_4598": {
+      "prior_thoughts": 80,
+      "admission_bound": 5622,
+      "reserved_input": 65536
+    },
+    "observed_4620_to_4726": {
+      "prior_thoughts": 106,
+      "admission_bound": 5750,
+      "reserved_input": 65536
+    },
+    "conservative_input_cap_rejected": true,
+    "near_dollar_cap_rejected": {
+      "prior": 0.7000140000000001,
+      "reservation": 0.110592,
+      "cap": 0.8
+    }
+  }
+}

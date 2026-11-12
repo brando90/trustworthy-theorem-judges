@@ -1,0 +1,42 @@
+{
+ "written_utc": "2026-10-07T18:45:30.727332+00:00",
+ "set": "N",
+ "wave": 1,
+ "seed": 20261005,
+ "folders": 25,
+ "items": 118,
+ "per_system_counts": {
+  "t2_fable51": {
+   "files": 25,
+   "missing": 0
+  },
+  "t2_astra": {
+   "files": 25,
+   "missing": 0
+  },
+  "t2_grok47": {
+   "files": 23,
+   "missing": 2
+  },
+  "t2_gemini_frontier": {
+   "files": 20,
+   "missing": 5
+  },
+  "terminus2_qwen": {
+   "files": 25,
+   "missing": 0
+  }
+ },
+ "isolation_flagged_items": 4,
+ "FILES.sha256": "f43ede685df5885be4a6fc82e85c77cb12fbdb24c1b8809bd5dc7b7a249859bb",
+ "sealed_key_sha256": "29e01c3be4577f1ffb9fa1f91d3f7c7bf620cbb2e2c235b9c87e90b60b0699fb",
+ "fingerprint": "c37365a248fd11c0c25456403d6f6049eda9a6b898725b14c905e9e7ce50d0fb",
+ "packet_location": "experiment 107 private/setN_packet/ (not in Git: contains an internal pre-release model's outputs)",
+ "systems": {
+  "t2_fable51": "frontier_anthropic",
+  "t2_astra": "frontier_openai",
+  "t2_grok47": "frontier_xai",
+  "t2_gemini_frontier": "frontier_google_internal",
+  "terminus2_qwen": "open_weights"
+ }
+}

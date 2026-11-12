@@ -1,0 +1,13 @@
+def GoldSpec (f0 : String → ℕ) (f1 : String → ℕ) : Prop :=
+  f0 "" = 0 ∧
+    (∀ (c : Char), f0 { data := [c] } = 1) ∧
+      (∀ (s : String), f0 s ≥ 0) ∧
+        (∀ (s₁ s₂ : String), f0 (s₁ ++ s₂) = f0 s₁ + f0 s₂) ∧
+          (∀ (s : String), f0 s = 0 ↔ s = "") ∧
+            (∀ (s : String) (c : Char), f0 (String.push s c) = f0 s + 1) ∧
+              (∀ (s : String),
+                  True →
+                    f0 "" = 0 ∧
+                      (∀ (c : Char), f0 { data := [c] } = 1) ∧
+                        f0 s ≥ 0 ∧ ∀ (s₂ : String), f0 (s ++ s₂) = f0 s + f0 s₂) ∧
+                (∀ (s : String), f0 s = f1 s) ∧ True

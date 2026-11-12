@@ -1,0 +1,109 @@
+item,task,domain,kind,goal,outcome,method,statable,agent_dependent,n_hyps,axioms,note,pp
+0_bisect_right__agent0,0_bisect_right,realcode_set,coverage,VB117Gold.Bisect.bisect_equiv_thm,agent_independent,,True,False,0,,,"∀ {α γ : Type} [inst : LT γ] [inst_1 : DecidableRel fun x1 x2 => x1 < x2] [inst_2 : Coe α γ] [inst_3 : Inhabited α]
+  (a : Array α) (x : γ) (lo : ℕ) (hi? : Option ℕ) (key? : Option (α → γ)),
+  have hi := hi?.getD a.size;
+  VB117Gold.Bisect.bisect_right_imp a x lo hi? key? =
+    VB117Gold.Bisect.bise"
+0_bisect_right__agent0,0_bisect_right,realcode_set,coverage,VB117Gold.Bisect.bisect_left_partition_thm,agent_independent,,True,False,0,,,"∀ {α γ : Type} [inst : LE γ] [inst_1 : LT γ] [inst_2 : DecidableRel fun x1 x2 => x1 < x2] [inst_3 : Coe α γ]
+  [inst_4 : Inhabited α] (a : Array α) (x : γ) (lo hi : ℕ) (key? : Option (α → γ)),
+  (lo ≤ hi ∧
+      hi ≤ a.size ∧
+        ∀ (i j : ℕ), lo ≤ i → i ≤ j → j < hi → VB117Gold.Bisect.toKey a[i]"
+0_bisect_right__agent0,0_bisect_right,realcode_set,coverage,VB117Gold.Bisect.bisect_right_partition_thm,agent_independent,,True,False,0,,,"∀ {α γ : Type} [inst : LE γ] [inst_1 : LT γ] [inst_2 : DecidableRel fun x1 x2 => x1 < x2] [inst_3 : Coe α γ]
+  [inst_4 : Inhabited α] (a : Array α) (x : γ) (lo hi : ℕ) (key? : Option (α → γ)),
+  (lo ≤ hi ∧
+      hi ≤ a.size ∧
+        ∀ (i j : ℕ), lo ≤ i → i ≤ j → j < hi → VB117Gold.Bisect.toKey a[i]"
+0_bisect_right__agent0,0_bisect_right,realcode_set,coverage,VB117Gold.Bisect.correctness_thm,agent_independent,,True,False,0,,,"∀ {α γ : Type} [inst : LE γ] [inst_1 : LT γ] [inst_2 : DecidableRel fun x1 x2 => x1 < x2] [inst_3 : Coe α γ]
+  [inst_4 : Inhabited α] (a : Array α) (x : γ) (lo hi : ℕ) (key? : Option (α → γ)),
+  (lo ≤ hi ∧
+      hi ≤ a.size ∧
+        ∀ (i j : ℕ), lo ≤ i → i ≤ j → j < hi → VB117Gold.Bisect.toKey a[i]"
+18_MyFibonacci__agent0,18_MyFibonacci,easy_set,coverage,VB117Gold.MyFibonacci.correctness_thm,unknown,,True,True,1,,,"∀ (n : ℕ),
+  True →
+    (f0 (Int.ofNat 0)).toNat = 0 ∧
+      (f0 (Int.ofNat 1)).toNat = 1 ∧
+        (f0 (Int.ofNat (n + 2))).toNat = (f0 (Int.ofNat n)).toNat + (f0 (Int.ofNat (n + 1))).toNat ∧
+          (f0 (Int.ofNat n)).toNat ≥ 0 ∧ (n ≥ 1 → (f0 (Int.ofNat (n + 1))).toNat > (f0 (Int.ofNat n)).toNat"
+18_MyFibonacci__agent0,18_MyFibonacci,easy_set,coverage,VB117Gold.MyFibonacci.fibonacci_increasing_thm,unknown,,True,True,1,,,"∀ n ≥ 1, (f0 (Int.ofNat (n + 1))).toNat > (f0 (Int.ofNat n)).toNat"
+18_MyFibonacci__agent0,18_MyFibonacci,easy_set,coverage,VB117Gold.MyFibonacci.fibonacci_nonneg_thm,proved,simp_all,True,True,1,propext,,"∀ (n : ℕ), (f0 (Int.ofNat n)).toNat ≥ 0"
+18_MyFibonacci__agent0,18_MyFibonacci,easy_set,coverage,VB117Gold.MyFibonacci.fibonacci_one_thm,proved,t1_1,True,True,1,propext;Quot.sound;Classical.choice,,(f0 (Int.ofNat 1)).toNat = 1
+18_MyFibonacci__agent0,18_MyFibonacci,easy_set,coverage,VB117Gold.MyFibonacci.fibonacci_rec_thm,unknown,,True,True,1,,,"∀ (n : ℕ), (f0 (Int.ofNat (n + 2))).toNat = (f0 (Int.ofNat n)).toNat + (f0 (Int.ofNat (n + 1))).toNat"
+18_MyFibonacci__agent0,18_MyFibonacci,easy_set,coverage,VB117Gold.MyFibonacci.fibonacci_zero_thm,proved,t1_1,True,True,1,Classical.choice;propext;Quot.sound,,(f0 (Int.ofNat 0)).toNat = 0
+18_MyFibonacci__agent0,18_MyFibonacci,easy_set,coverage,VB117Gold.MyFibonacci.myFibonacci_equivalence_thm,unknown,,True,True,1,,,"∀ (n : ℕ), (f0 (Int.ofNat n)).toNat = VB117Gold.MyFibonacci.myFibonacciImp n"
+3_heappop__agent0,3_heappop,realcode_set,coverage,VB117Gold.HeapPop.correctness_thm,agent_independent,,True,False,0,,,"∀ {α : Type} [inst : LT α] [inst_1 : DecidableRel fun x1 x2 => x1 < x2] [inst_2 : Inhabited α] [inst_3 : LE α]
+  [inst_4 : DecidableRel fun x1 x2 => x1 ≤ x2] (heap : Array α),
+  VB117Gold.HeapPop.checkInvariant heap = true ∧ heap.size > 0 →
+    (have res := VB117Gold.HeapPop.heappop_functional heap;"
+3_heappop__agent0,3_heappop,realcode_set,coverage,VB117Gold.HeapPop.heappop_equiv_thm,agent_independent,,True,False,0,,,"∀ {α : Type} [inst : LT α] [inst_1 : DecidableRel fun x1 x2 => x1 < x2] [inst_2 : Inhabited α] (heap : Array α),
+  VB117Gold.HeapPop.heappop_imp heap = VB117Gold.HeapPop.heappop_functional heap"
+3_heappop__agent0,3_heappop,realcode_set,coverage,VB117Gold.HeapPop.heappop_invariant_thm,agent_independent,,True,False,0,,,"∀ {α : Type} [inst : LT α] [inst_1 : DecidableRel fun x1 x2 => x1 < x2] [inst_2 : Inhabited α] [inst_3 : LE α]
+  [inst_4 : DecidableRel fun x1 x2 => x1 ≤ x2] (heap : Array α),
+  VB117Gold.HeapPop.checkInvariant heap = true ∧ heap.size > 0 →
+    have res := VB117Gold.HeapPop.heappop_functional heap;
+"
+43_replace_spaces__agent0,43_replace_spaces,easy_set,coverage,VB117Gold.ReplaceSpaces.correctness_thm,refuted,const_0,True,True,0,propext,,"∀ (s : String),
+  True →
+    f0 """" = """" ∧
+      ¬((f0 s).data.any fun x => decide (x = ' ')) = true ∧
+        (f0 s).length = s.length ∧
+          (∀ c ∈ s.data, c = ' ' → c ∉ (f0 s).data ∧ '_' ∈ (f0 s).data) ∧ ∀ c ∈ s.data, c ≠ ' ' → c ∈ (f0 s).data"
+43_replace_spaces__agent0,43_replace_spaces,easy_set,coverage,VB117Gold.ReplaceSpaces.empty_string_thm,refuted,const_1,True,True,0,,,"f0 """" = """""
+43_replace_spaces__agent0,43_replace_spaces,easy_set,coverage,VB117Gold.ReplaceSpaces.length_preserved_thm,refuted,const_0,True,True,0,,,"∀ (s : String), (f0 s).length = s.length"
+43_replace_spaces__agent0,43_replace_spaces,easy_set,coverage,VB117Gold.ReplaceSpaces.no_spaces_thm,refuted,proj_0,True,True,0,,,"∀ (s : String), ¬((f0 s).data.any fun x => decide (x = ' ')) = true"
+43_replace_spaces__agent0,43_replace_spaces,easy_set,coverage,VB117Gold.ReplaceSpaces.non_space_preservation_thm,refuted,const_0,True,True,0,propext,,"∀ (s : String), ∀ c ∈ s.data, c ≠ ' ' → c ∈ (f0 s).data"
+43_replace_spaces__agent0,43_replace_spaces,easy_set,coverage,VB117Gold.ReplaceSpaces.replaceSpaces_equivalence_thm,refuted,const_0,True,True,0,propext,,"∀ (s : String), f0 s = VB117Gold.ReplaceSpaces.replaceSpacesImp s"
+43_replace_spaces__agent0,43_replace_spaces,easy_set,coverage,VB117Gold.ReplaceSpaces.space_replacement_thm,refuted,const_0,True,True,0,propext,,"∀ (s : String), ∀ c ∈ s.data, c = ' ' → c ∉ (f0 s).data ∧ '_' ∈ (f0 s).data"
+5_unsafeFormatString_safe__agent0,5_unsafeFormatString_safe,security_set,coverage,VB117Gold.SafeUnsafeFormatString.correctness_thm,agent_independent,,True,False,0,,,True → True
+9_pathTraversal_safe__agent0,9_pathTraversal_safe,security_set,coverage,VB117Gold.SafePathTraversal.correctness_thm,agent_independent,,True,False,0,,,True → True
+bubble_sort__agent0,bubble_sort,cs_set,coverage,VB117Gold.BubbleSort.bubbleSort_equivalence_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ),
+  List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs)) = VB117Gold.BubbleSort.bubbleSortImp xs"
+bubble_sort__agent0,bubble_sort,cs_set,coverage,VB117Gold.BubbleSort.main_correctness_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ),
+  True →
+    VB117Gold.BubbleSort.SortedNat (List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs))) ∧
+      (List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs))).Perm xs ∧
+        (match List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat "
+bubble_sort__agent0,bubble_sort,cs_set,coverage,VB117Gold.BubbleSort.membership_preservation_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ) (y : ℕ), y ∈ List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs)) ↔ y ∈ xs"
+bubble_sort__agent0,bubble_sort,cs_set,coverage,VB117Gold.BubbleSort.minimum_front_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ),
+  match List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs)) with
+  | [] => True
+  | h :: tail => ∀ y ∈ xs, h ≤ y"
+bubble_sort__agent0,bubble_sort,cs_set,coverage,VB117Gold.BubbleSort.permutation_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ), (List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs))).Perm xs"
+bubble_sort__agent0,bubble_sort,cs_set,coverage,VB117Gold.BubbleSort.sorted_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ), VB117Gold.BubbleSort.SortedNat (List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs)))"
+humaneval_13__gcd__agent0,humaneval_13__gcd,humaneval_set,coverage,VB117Gold.MyGcd.commutativity_thm,agent_independent,,True,False,0,,,"∀ (a b : ℕ), VB117Gold.MyGcd.gcd a b = VB117Gold.MyGcd.gcd b a"
+humaneval_13__gcd__agent0,humaneval_13__gcd,humaneval_set,coverage,VB117Gold.MyGcd.correctness_thm,agent_independent,,True,False,0,,,"∀ (a b : ℕ),
+  True →
+    VB117Gold.MyGcd.gcd a a = a ∧
+      (VB117Gold.MyGcd.gcd a 0 = a ∧ VB117Gold.MyGcd.gcd 0 a = a) ∧
+        VB117Gold.MyGcd.gcd a b = VB117Gold.MyGcd.gcd b a ∧
+          (have g := VB117Gold.MyGcd.gcd a b;
+            a % g = 0 ∧ b % g = 0) ∧
+            ∀ (d : ℕ), a % d = 0 "
+humaneval_13__gcd__agent0,humaneval_13__gcd,humaneval_set,coverage,VB117Gold.MyGcd.divisibility_thm,agent_independent,,True,False,0,,,"∀ (a b : ℕ),
+  have g := VB117Gold.MyGcd.gcd a b;
+  a % g = 0 ∧ b % g = 0"
+humaneval_13__gcd__agent0,humaneval_13__gcd,humaneval_set,coverage,VB117Gold.MyGcd.gcd_equivalence_thm,agent_independent,,True,False,0,,,"∀ (a b : ℕ), VB117Gold.MyGcd.gcd a b = VB117Gold.MyGcd.gcdImp a b"
+humaneval_13__gcd__agent0,humaneval_13__gcd,humaneval_set,coverage,VB117Gold.MyGcd.gcd_self_thm,agent_independent,,True,False,0,,,"∀ (a : ℕ), VB117Gold.MyGcd.gcd a a = a"
+humaneval_13__gcd__agent0,humaneval_13__gcd,humaneval_set,coverage,VB117Gold.MyGcd.gcd_zero_thm,agent_independent,,True,False,0,,,"∀ (a : ℕ), VB117Gold.MyGcd.gcd a 0 = a ∧ VB117Gold.MyGcd.gcd 0 a = a"
+humaneval_13__gcd__agent0,humaneval_13__gcd,humaneval_set,coverage,VB117Gold.MyGcd.maximality_thm,agent_independent,,True,False,0,,,"∀ (a b d : ℕ), a % d = 0 ∧ b % d = 0 → d ≤ VB117Gold.MyGcd.gcd a b"
+humaneval_47_median__agent0,humaneval_47_median,humaneval_set,coverage,VB117Gold.Median.correctness_thm,unknown,,True,True,2,,,"∀ (l : List ℤ),
+  True → f0 [] = 0.0 ∧ (∀ (x : ℤ), f0 [x] = Float.ofInt x) ∧ (VB117Gold.Median.insertionSort l).length = l.length"
+humaneval_47_median__agent0,humaneval_47_median,humaneval_set,coverage,VB117Gold.Median.empty_list_thm,unknown,,True,True,2,,,f0 [] = 0.0
+humaneval_47_median__agent0,humaneval_47_median,humaneval_set,coverage,VB117Gold.Median.median_equivalence_thm,unknown,,True,True,2,,,"∀ (l : List ℤ), f0 l = VB117Gold.Median.medianImp l"
+humaneval_47_median__agent0,humaneval_47_median,humaneval_set,coverage,VB117Gold.Median.singleton_thm,unknown,,True,True,2,,,"∀ (x : ℤ), f0 [x] = Float.ofInt x"
+humaneval_47_median__agent0,humaneval_47_median,humaneval_set,coverage,VB117Gold.Median.sort_length_thm,agent_independent,,True,False,0,,,"∀ (l : List ℤ), (VB117Gold.Median.insertionSort l).length = l.length"
+selection_sort__agent0,selection_sort,cs_set,coverage,VB117Gold.SelectionSort.main_correctness_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ),
+  True →
+    VB117Gold.SelectionSort.SortedNat (List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs))) ∧
+      (List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs))).Perm xs ∧
+        (match List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofN"
+selection_sort__agent0,selection_sort,cs_set,coverage,VB117Gold.SelectionSort.membership_preservation_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ) (y : ℕ), y ∈ List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs)) ↔ y ∈ xs"
+selection_sort__agent0,selection_sort,cs_set,coverage,VB117Gold.SelectionSort.minimum_front_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ),
+  match List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs)) with
+  | [] => True
+  | h :: tail => ∀ y ∈ xs, h ≤ y"
+selection_sort__agent0,selection_sort,cs_set,coverage,VB117Gold.SelectionSort.permutation_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ), (List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs))).Perm xs"
+selection_sort__agent0,selection_sort,cs_set,coverage,VB117Gold.SelectionSort.selectionSort_equivalence_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ),
+  List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs)) = VB117Gold.SelectionSort.selectionSortImp xs"
+selection_sort__agent0,selection_sort,cs_set,coverage,VB117Gold.SelectionSort.sorted_thm,unknown,,True,True,1,,,"∀ (xs : List ℕ),
+  VB117Gold.SelectionSort.SortedNat (List.map (fun y => y.toNat) (f0 (List.map (fun y => Int.ofNat y) xs)))"

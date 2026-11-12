@@ -1,0 +1,426 @@
+{
+ "tldr": "Public manifest of experiment 102's rating set B (amendment C9, addendum C9.1): the 25 set-A tasks with up to three agent files each from experiment 107's Terminus 2 condition, every rater-facing file pinned by SHA-256; which system wrote which file and every judge value are only in the sealed key.",
+ "synthetic": false,
+ "set": "B",
+ "created_utc": "2026-10-01T08:02:20.609160+00:00",
+ "seed": 20261007,
+ "script": "experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/scripts/build_setb_packet.py",
+ "script_sha256": "8f1cbcbcfb86507221f43a14b7eed64d265ee6800b9eea59e32a494b0e5db3b2",
+ "source_experiment": "107",
+ "protocol": "experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/PROTOCOL.md (amendments 1, 4, 6, 7, 8)",
+ "systems": {
+  "t2_fable51": {
+   "role": "frontier_claude_code",
+   "agent": "terminus2",
+   "agent_label": "Vals Terminus 2 (bounded bundle brando_terminus_astra_smoke republished as vb107_terminus2 with a gateway-only egress allowlist), substitute harness for the Claude system",
+   "agent_bundle": "vb107_terminus2",
+   "model": "anthropic/claude-fable-5-1-xhigh",
+   "effort": "xhigh",
+   "effort_mechanism": "gateway selector suffix -xhigh plus -k reasoning_effort xhigh",
+   "route": "Valkyrie (Terminus 2, Vals model gateway)",
+   "conditions": [
+    "expt107-t2-frontier-v1",
+    "expt107-t2-frontier-v1-maxout"
+   ],
+   "run_ids_of_files_of_record": [
+    "1c97aa9b-1e4f-48ae-9dff-232fbeb2496f",
+    "3b3f8f25-df45-49b3-9ad8-d1b035053d45",
+    "52e98747-d292-48f2-ac43-f54d41db3d82"
+   ]
+  },
+  "t2_astra": {
+   "role": "frontier_codex",
+   "agent": "terminus2",
+   "agent_label": "Vals Terminus 2 (bounded bundle brando_terminus_astra_smoke republished as vb107_terminus2 with a gateway-only egress allowlist), substitute harness for the OpenAI system",
+   "agent_bundle": "vb107_terminus2",
+   "model": "openai/gpt-6-astra-xhigh",
+   "effort": "xhigh",
+   "effort_mechanism": "gateway selector suffix -xhigh plus -k reasoning_effort xhigh",
+   "route": "Valkyrie (Terminus 2, Vals model gateway)",
+   "conditions": [
+    "expt107-t2-frontier-v1"
+   ],
+   "run_ids_of_files_of_record": [
+    "6b74f807-661d-4da0-af51-522a677fedd7",
+    "cda23dac-157e-485f-aa99-a82b0a27efd3"
+   ]
+  },
+  "terminus2_qwen": {
+   "role": "open_weights",
+   "agent": "terminus2",
+   "agent_label": "Vals Terminus 2 (bounded bundle brando_terminus_astra_smoke republished as vb107_terminus2 with a gateway-only egress allowlist): the best open agent already in Brando's Valkyrie",
+   "agent_bundle": "vb107_terminus2",
+   "model": "alibaba/qwen3.8-max",
+   "effort": "xhigh",
+   "effort_mechanism": "-k reasoning_effort xhigh (Terminus 2 kwarg; the gateway maps it for Qwen's thinking mode if supported)",
+   "route": "Valkyrie (Terminus 2, Vals model gateway)",
+   "conditions": [
+    "expt107-t2-frontier-v1"
+   ],
+   "run_ids_of_files_of_record": [
+    "7bf6736f-8078-4cc1-bfc7-e53b0396c5d9",
+    "8171a5aa-83a9-45f3-a895-79f746a74384"
+   ]
+  }
+ },
+ "harness_disclosure": "all three systems run in the Terminus 2 agent through Valkyrie (experiment 102 addendum C9.1): native Claude Code and Codex are blocked on a Vals provider-key secret (experiment 107 amendment 1); Qwen Code is not served",
+ "instruction_version": "<!-- VeriBench agent-spec v7 (2026-09-29 kernel-checked proof policy) -->",
+ "task_instruction_sha256": {
+  "realcode_set__21_shlex_quote": "7baa4c89d5f447bae826f70ad4842a4aa3dbd723c643e4922050210d1fc8a74a",
+  "realcode_set__20_html_escape": "99c4293d7918718bb2cbc4c938b68e4fb01ecb6a694c0d59cbb7c6fdaa49ef4e",
+  "easy_set__16_myfactorial": "083f96315f67ec701ac2dc91150046a4f2760afa58c7287d6fd543a8dbe14a65",
+  "cs_set__counting_sort": "7694e188dd2789d18c13a1f6bdbddcaf9d9cee9fa74ecf1dbf094b646974deac",
+  "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice": "1afed0acf178c53079a88e8fc9f0dda8367c1e63891f8212c32cdeff0e9b7ad3",
+  "easy_set__20_mysumdigits": "7662f5e136e330154ec0d72c11ed9ce98d7309d53b7cf1382900b4475633ac68",
+  "easy_set__23_is_prime": "954b0cdccf63d3f3c8ecb4f43939946e64b7ab0438f783999e95f2002d11d759",
+  "cs_set__heapsort_algorithm": "08b781a7ce20c890f39f217a9c79d42737fb2ca542f0a86fe7f33640bd3449ef",
+  "realcode_set__23_base32": "ee76ca855cea84906b63f0f965dc3abec4d2d1288e3bc9cd04d275537f7a734a",
+  "realcode_set__28_statistics_median_low": "66027187cfc88121fecd99122ed86d67a9c5747c992c4df06443430cb7cd09b8",
+  "cs_set__heap_sort": "c5ab9a15c0a20c9d76b50f4efb1c96d2e71bdbef07981c1d30f873c99a97000e",
+  "humaneval_set__humaneval_4_mean_absolute_deviation": "f41542c8175e31d8e7d44064fc6241a9f0f241ef6ba8ff600cefca825e241b0f",
+  "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade": "5a59a87811cd96ff489fc8d469f0faa7139d024c72a978403ed93d3fb4acd982",
+  "security_set__security_6858__vulnerabilities__93_unsafeappentitlements": "f82123f2a8464bb85072909da8f23c0df78992c8c069a45ec078a27f8ae1eaf8",
+  "realcode_set__31_statistics_quantiles": "1d39bcaf201a874b5f6583b816f5f5eda551c7770aba26a011bd7c31169bbd93",
+  "cs_set__topological_sort": "3508ee479f85d2b3889306fc2c70319f515061edb64cf46dfc27dea48973a872",
+  "easy_set__19_mypower": "a92490b509bf1f06500e03aecdb430155bcba150de41f6f567cac259025809b2",
+  "humaneval_set__humaneval_14_all_prefixes": "dc35bf9b62b745e220ddf22dea4fc3f84d76bb7114cbefe791554e1a0c675aae",
+  "cs_set__edit_distance": "8999b4d03a79c726963b26342200b697f7f66b7a5e486027ce4fed84d68064c9",
+  "humaneval_set__humaneval_35_max_element": "5b325a7e1a0031c73a8c6f78e36e856db42d850fd8e10e18e8c2bc422f63e35f",
+  "security_set__security_6858__vulnerabilities__75_unsafecerthostname": "7666fee8d67582be0f97b1b404289e850ee6c074967ed1064b5218b2e266f3e6",
+  "humaneval_set__humaneval_39_prime_fib": "a856a423e77e4d3d72c9ead4d58cbc519344683b78296bae06c1da41015a7d0b",
+  "security_set__security_6858__safe__125_unsafetpmhash_safe": "7d66db437f0664b80c3a85698c1046f97b2bba41f019fb1aa5a68e3221540c4f",
+  "easy_set__41_duplicate_chars": "dbf0d3ff86880ef0faf34f92c2c6cf989e5cff6f9f0cb3913afc785c8f0e6d21",
+  "humaneval_set__humaneval_15_string_sequence": "96852751f03a7e25bce43cfeea0fd9a8797d923111137853e50d34d7cdeff247"
+ },
+ "file_of_record_rule": "amendment 8: the original's file (collected, or a hash-verified recovered original) when its run did not end on MaxOutputTokensExceededError; otherwise the recovery_1 file; otherwise the amendment 7 maxout file; otherwise a cap-cut partial file; a cell with no file contributes no candidate (its task shows two files), is listed as missing in the sealed key and counts 0 in fixed-denominator aggregates",
+ "per_system_counts": {
+  "t2_fable51": {
+   "candidates": 25,
+   "missing": 0,
+   "provenance": {
+    "recovered_original": 7,
+    "maxout_resend": 4,
+    "recovery_1": 14
+   }
+  },
+  "t2_astra": {
+   "candidates": 25,
+   "missing": 0,
+   "provenance": {
+    "recovered_original": 24,
+    "recovery_1": 1
+   }
+  },
+  "terminus2_qwen": {
+   "candidates": 25,
+   "missing": 0,
+   "provenance": {
+    "recovered_original": 10,
+    "recovery_1": 15
+   }
+  }
+ },
+ "design": {
+  "tasks": 25,
+  "items": 75,
+  "missing_cells": 0,
+  "folders": "F01-F25 = seeded permutation of set A's 25 tasks (NumPy default_rng, seed above)",
+  "letters": "one seeded order of the three systems per task; letters a-c go to the task's present candidates in that order",
+  "gold_and_python": "byte-identical to set A's packet (the frozen 09-02-2026 judge-seen reference and the solver's Python), original file names",
+  "missing": "a cell with no file contributes no candidate; its task folder shows two files"
+ },
+ "rater_facing": [
+  {
+   "task_folder": "F01",
+   "task": "realcode_set/21_shlex_quote",
+   "python_sha256": "6fead365b7a99a38c6e82cd49a2438d541f90afdc22e08656e4b6a31b580d338",
+   "reference_sha256": "d7385e16744e6e818627690060e6f722a3af16b74ab5f975499d4883d6180042",
+   "candidates": {
+    "F01a": "8028e1ac009c04e1acf0f86226b5e9916e83755665a2a437b7cfd5240bbadf02",
+    "F01b": "e078f31ea767dbfdddbe611279066ed551ba5be159dedac06d72b8aa4a88cf6c",
+    "F01c": "1c58d1c148b85b542f93361aa18c672fd8fa205f614fdeb80c537dec84edbea3"
+   }
+  },
+  {
+   "task_folder": "F02",
+   "task": "humaneval_set/humaneval_39_prime_fib",
+   "python_sha256": "391562d77b03c0491e2b36756c874726f6aa23497b317928f1f3439e10ec039c",
+   "reference_sha256": "3c380e2ad2ff6a9c8a4762d2a6013880d484f3b018c0da0b36c4c3403cfeabac",
+   "candidates": {
+    "F02a": "3043a71dcab91cb15636144a9540ae68adbfb0aebeef0119d02804cad73e1188",
+    "F02b": "d62dd1d42c69fad81fc46de41a1d71c8f8f6f70d88c9251a5a9634587dcebd76",
+    "F02c": "cd55d3172a64ed88a32a8286f844a36a057daff75621989eec49e8b5d0c44c9e"
+   }
+  },
+  {
+   "task_folder": "F03",
+   "task": "easy_set/16_MyFactorial",
+   "python_sha256": "e4c85d4c44a69827a816d7b67e22b1fb7e22e0cab18c99427daaba80a22780d7",
+   "reference_sha256": "8da7776f1ba12b3d5e03ec2ab9e290d865cdea48c442cbdfe3a1c9f14440b5cc",
+   "candidates": {
+    "F03a": "e2be48a13b4fbd54c31658868b0684266511035499916dcf5033569f3819ff5f",
+    "F03b": "10bb83cd4b4401bed4fe7e3e6e3b2d28142a1bbe7d685dc8a0a15e06484363d0",
+    "F03c": "ee94ffc077c12c4dfebe21462e1adb3a00adf2480b04201e3528fed8749a2c32"
+   }
+  },
+  {
+   "task_folder": "F04",
+   "task": "cs_set/counting_sort",
+   "python_sha256": "874c75909e91d7abcdfe3ad65a72ce738061304df064f93b334044281fe4e6ec",
+   "reference_sha256": "b11bcaee103b35e49948c86206406a7fbeec928949119f4869e2ecbd248704dd",
+   "candidates": {
+    "F04a": "e7bb754ed9e4b35d628fcb10e000f82b5a4284d18b7b2c67111cfa821df2a4ba",
+    "F04b": "8987658d69387fc9dcc53ab9f54249990937b1dea78e9d5319f97a649c7f5f7c",
+    "F04c": "401a87b4816842d893f9c73550efd32214ad39414bcfaa242eaba4c1cf963b67"
+   }
+  },
+  {
+   "task_folder": "F05",
+   "task": "cs_set/edit_distance",
+   "python_sha256": "64d1e83ce02b690a6a73dd6ed132f512f71cf5071a1df65ff12d32240449baa1",
+   "reference_sha256": "55f2f6dc5b4f995e1d6ff40033431d19f11d7483445fad0f6388f6dc7e07957b",
+   "candidates": {
+    "F05a": "9c5c6b0d4d9a2b2a21fd300e6edbea958e75b4dc99c7a4736691c035b8ee0857",
+    "F05b": "9c462e5258977383df842554cab6c4ce093523244fa50fe165750110467a6dc1",
+    "F05c": "1a042d109eabe774e427d9ab67a2807fffb8e626931e10ecebd239f76abb9641"
+   }
+  },
+  {
+   "task_folder": "F06",
+   "task": "humaneval_set/humaneval_35_max_element",
+   "python_sha256": "4b70c0542c0a72624d51825c14157212b6998cff49b7161ef77e6ae8451006c2",
+   "reference_sha256": "697a711d0e9a9c575e813b845f206e8ac266ecfdc3a183ee1facb076ac80b2df",
+   "candidates": {
+    "F06a": "a837bab59bbbfc64774f9d574b896cdddcb387ed04c997247efb8761cb149b2f",
+    "F06b": "c4548de5241bc568d76f3856f2ec899adb9ea58b360630987a694f6148f2a2db",
+    "F06c": "dffd2f2a17b159bb8d0fb68fcc216e268dd158386c250f1f0d242195e20c5f4b"
+   }
+  },
+  {
+   "task_folder": "F07",
+   "task": "cs_set/topological_sort",
+   "python_sha256": "f8b63f6ebf52572f4f8e7e5fc4c41cebee75b8176c79ce6a64bf2ab57b145632",
+   "reference_sha256": "506ab5f0c899186707b19214e8d48a4d607d2af468eb0175d0cdb6f741f7390a",
+   "candidates": {
+    "F07a": "ba4a69fcbb8d39a374ebc52781ff50d28a0e2bde47e401ec614809a2cf2a5bf4",
+    "F07b": "875cff66b40daf3e560a88fdb5f4c6f7280681bb144119d8b46decd2977469dd",
+    "F07c": "58be383b6d448c1081509a7a2f35a726c67c0d2832519013996e7b14eb1429c6"
+   }
+  },
+  {
+   "task_folder": "F08",
+   "task": "realcode_set/28_statistics_median_low",
+   "python_sha256": "8aa9b9fada22f74576c798f4d5ded692b42235aa4e50fec9698554e6374621ed",
+   "reference_sha256": "c8a62727804e976e9a4f81fea4be2696f9a71de2cbc086bb2002f5bcd14c3d62",
+   "candidates": {
+    "F08a": "9659dc065f215b960ee70c9275d24af260db387c5b8ae973f49f1e360810da49",
+    "F08b": "a8e42bd5ca179a8a0dc325b28dfe4397143ea390aaaba563f2b94333336a6eab",
+    "F08c": "90433eaa3af1b2b2675c204e1168ae69b19d14af2d5e93298a7443ee72225c51"
+   }
+  },
+  {
+   "task_folder": "F09",
+   "task": "cs_set/heap_sort",
+   "python_sha256": "9194b262a2b0d0ed6195687c4fdfef67b287f28605d2b3c8ac3cd63a6bfc2fbd",
+   "reference_sha256": "789925333502774c6ccff395ce69fb857d677df48e3efb4b72725b7ce2b642c8",
+   "candidates": {
+    "F09a": "72981a1baa91b2db9df7309c93c25c73b510f13f37eeb427188583ece4ed72d2",
+    "F09b": "6c251c59b6aae617141efe0643e2e9dab5909abd4c6ddfe4920f3619c7a69cf9",
+    "F09c": "e193c72b3d26526c596bb8a823e6bef89338247a29c5c2216c858bade19627ea"
+   }
+  },
+  {
+   "task_folder": "F10",
+   "task": "easy_set/20_MySumDigits",
+   "python_sha256": "12df2a4a18060824b7e8ca7785afc9b1470831c3a55e76ac470ba9b93acd531d",
+   "reference_sha256": "a79422e492bb795e17bf5ae19121f251123357072d6063e8137a60d3cce3a5d7",
+   "candidates": {
+    "F10a": "3157d27c3baac974866fc25621592ccccfe6d67e958b12ec94662541ae15c8d2",
+    "F10b": "e9ed5c692de8694c714e89c23119ad96d37bf879b53f6c44c485886037081745",
+    "F10c": "e897c861a16fd30d522fa8d7c5a93d75fa4343b3a16cd8244af83016fdf5b287"
+   }
+  },
+  {
+   "task_folder": "F11",
+   "task": "security_set/security_6858/vulnerabilities/93_unsafeAppEntitlements",
+   "python_sha256": "4f8c41339fb8633e962a7c12538c5d16fa6d923c3a7887768bae500c87988619",
+   "reference_sha256": "f2f4bee2b5ed110bffc009fc2434d9fd9e20b69fb6759e776a43fff1f7a4a917",
+   "candidates": {
+    "F11a": "9c3adb8750bb45d4f0af18384d54f5ad879dc7612729acc7e02cd5350da2b983",
+    "F11b": "aba7436f21b60599c548f726a0016234a77a62eb9ac088d2c964088c599d7b8e",
+    "F11c": "71eccf9b14b5508ee293069ac7c6736b798326f011cd875d249ed8ccaae9a5d4"
+   }
+  },
+  {
+   "task_folder": "F12",
+   "task": "realcode_set/31_statistics_quantiles",
+   "python_sha256": "ec7999fdd36f74110c5cb04c4aa0befbd056975b34bb685e94c0bb5dda3818f9",
+   "reference_sha256": "01fee90832f42270ee05452494cfd47187e9fb2f8a44aadd91ed97f2b60844e8",
+   "candidates": {
+    "F12a": "c8eb214a56b8412b92a728d5b9b37a41b17795f5097cbee85c7ef53ee2dcd2d3",
+    "F12b": "64349f41e6da6df8a856ed46483948de076b959d0ddd8ed60daf9225da977d61",
+    "F12c": "1b8c1b9020aa0c589b95bf305125231564a9a19786420998a49b09be879e24c7"
+   }
+  },
+  {
+   "task_folder": "F13",
+   "task": "easy_set/41_duplicate_chars",
+   "python_sha256": "a242ffd4eb73bcc770495c2f72bc93142ac5dc03c337697646f15a4f3dc1f2e3",
+   "reference_sha256": "04483ab14c963d60a8394bcc0d5718fdbf4273bf5864567390d46b2b87bdf703",
+   "candidates": {
+    "F13a": "687cfa5358b78d966eaf5be6aba5910a5d9da9d1ce715b0745979523b916aa8a",
+    "F13b": "a90a6e7aaa5305e83355d6029c2ac6cdce63b02fe42cc03d2981a90519d566f1",
+    "F13c": "8cdf07a12b4ab9e9b386d6b3c52be4bf1331da24e841c3c3ed63d7de5f4e9349"
+   }
+  },
+  {
+   "task_folder": "F14",
+   "task": "security_set/security_6858/vulnerabilities/129_unsafeTorHiddenService",
+   "python_sha256": "72323a0a2094f2d41a2cc8f3f9880e34d31068dd564b0a9de981ed86030df63f",
+   "reference_sha256": "a18b46e8dc4c16b0751287781c17f3b2f7d65f4d0912b9c80b0cd521574cba1b",
+   "candidates": {
+    "F14a": "4eaafa01d45c366e4565a9af6729f4681e78e1efe5997b939bea5c7c9cfd4f3c",
+    "F14b": "b90a328bbfa0ffabcab3749ff0145192875124a2c71836fac06b324e35fa024c",
+    "F14c": "a4baa7cd496e73bdad32cb2697f777cd00eab32c3b23933d2b31f8d9de9b0336"
+   }
+  },
+  {
+   "task_folder": "F15",
+   "task": "security_set/security_6858/safe/125_unsafeTPMHash_safe",
+   "python_sha256": "6b4d586252669a2458a1891d5b9f28886a77f43e0fa54b06aed18fee736f65a6",
+   "reference_sha256": "3d4be9f00401eba32e7fe951ef6801eecd3de4f72f9b06eafbd093e6e8f86522",
+   "candidates": {
+    "F15a": "7c85ca07bf0021c4ef647218a51e722bf7ca79a16df899bb8fa1bd67d4cdd761",
+    "F15b": "f43544c3b4d3ed042554abfc869875316233cf236dc4c597ffebefb6fdfe4869",
+    "F15c": "1162146d1ed94c84634c5f0cff35a8a783fe74403fe298df9bc5396cea167f6c"
+   }
+  },
+  {
+   "task_folder": "F16",
+   "task": "realcode_set/23_base32",
+   "python_sha256": "dc4bc7238f984eccdcbc4824be46e876896849db5f1e64e49d5283199368549b",
+   "reference_sha256": "3b82235e86d9b5d92de19d7d6d893a8670a970d8e10d39e7fe0fb420a518d40a",
+   "candidates": {
+    "F16a": "173829214d36f9da2a5f418e20b4373eeb2d4563e4a1ee437633b1ebc5bc2661",
+    "F16b": "79aebe8712cbd31efbcfe492fb1b368d3e7f06ff8ee6748668d5a68bce9490bd",
+    "F16c": "c0fa1377ad1ec4321f250e6e57848aae413b8f446059b2a2a96aec448b65f3ee"
+   }
+  },
+  {
+   "task_folder": "F17",
+   "task": "easy_set/23_is_prime",
+   "python_sha256": "813772624e9ec33a62e3497ba44c094f7ea56e90adbcb3e96483bfd71ddbb379",
+   "reference_sha256": "1fb319c31d9eaa2447938d88091f3f14aca37829016f771d203ba909c14d93e3",
+   "candidates": {
+    "F17a": "030244baa86fc0cda6895a9f4af14e522524bebf1e9a714977f5a15bdbdcaeeb",
+    "F17b": "570ab3e775533e315761928f7e15e0aefa7c0e2b8dd73be4127ed148b8a5d6cb",
+    "F17c": "8dd951a7f9ae84f0e4e859015e90aaacecc2507ff79c4d4755e29f0919f0eef6"
+   }
+  },
+  {
+   "task_folder": "F18",
+   "task": "humaneval_set/humaneval_14_all_prefixes",
+   "python_sha256": "9793c5a006d2b3b17518199000cfafb46722dbf17451c773e5e1d4871251db92",
+   "reference_sha256": "d68e216988c9287a279ae29073807214b9e03af3bfd1c771028b506fb3646bdc",
+   "candidates": {
+    "F18a": "af2d61519456ce230254aeff11ec1b51b606e7f964589515770adabb517c66e0",
+    "F18b": "145bd4a4fb2a1105874a1a30fbdde618f47b79b0dc898b4edbe49dced998535c",
+    "F18c": "0751f60f20273a65ce7856be32789ce945e670cae7a748c35f249cc260288e71"
+   }
+  },
+  {
+   "task_folder": "F19",
+   "task": "security_set/security_6858/vulnerabilities/75_unsafeCertHostname",
+   "python_sha256": "3f2f94afbd2a7d07596e5ac6ab9cc81419b90ec279ccda76fb750ba2238ef5b2",
+   "reference_sha256": "a935f317d605f6175b043af02ec4a6c4fe0343f94de5287391a71f6d0a83b141",
+   "candidates": {
+    "F19a": "ef37825cd7f84a7b3f37315852106c264594c27b381139cdaed048b50ae8a5ee",
+    "F19b": "372c60a983437e3838b88d82c98509d31b3db8f809e13ec280b1f8f5c1662c9a",
+    "F19c": "49ba1e09148982716929686f63853fea10def266f445e5a90b73b605535e3fa9"
+   }
+  },
+  {
+   "task_folder": "F20",
+   "task": "humaneval_set/humaneval_4_mean_absolute_deviation",
+   "python_sha256": "559fde16be5e57c6080a6793ff0007c7a23a7452bd14a1e2ce3efa1baa85928f",
+   "reference_sha256": "d9ae57b9b0742feebda84032a876fa5609373fc54bf175b9e45ebad2f08dee5b",
+   "candidates": {
+    "F20a": "64156e8e5349759dd687cea2110e3175d5e28937b3262e8c91e485ef5972f4ec",
+    "F20b": "def0c719b7326610092d472f0336ef894e39057b7268aaa1009713d265b23746",
+    "F20c": "60568fbd541b77248a1fda407ee86e8d79ec3dc48de263041f144fe4b9ba1a36"
+   }
+  },
+  {
+   "task_folder": "F21",
+   "task": "easy_set/19_MyPower",
+   "python_sha256": "ecd27b4fb26b5ec4879b94f40c33474aa9bb42c745681c5247a4f0b6f7d08fd6",
+   "reference_sha256": "e7e37ab936fba5030ecb856c79103a6e70fe84f25551a6a8cacf5372fbb4c1f0",
+   "candidates": {
+    "F21a": "3e68d73789f44c87c8d973b9ef6dc2943d16ddb6675ba9476bde31a19c87534e",
+    "F21b": "4f137345e1655e8ca65765f9f5ef36d2b4c9a0947049a8f8372cdac391f4c9b2",
+    "F21c": "917144fa11ca57e7317c25e1e6923c22e9800fc5847dd46dea8904fd03fc92a7"
+   }
+  },
+  {
+   "task_folder": "F22",
+   "task": "security_set/security_6858/vulnerabilities/95_unsafeTlsDowngrade",
+   "python_sha256": "3362ddd9ccf29cab0fca41509bda5ce0657eca8bb8aaca4ef1e9311f32babee7",
+   "reference_sha256": "62e622d102b99143f49fec572b02a49605e30dd1eacb7f1fbdd383b52f3c358b",
+   "candidates": {
+    "F22a": "ab73c3374c296a3bc85dd2f556ae517913ff22c24232e61dc570428a27e82be3",
+    "F22b": "228415c5904854981b012cd5108eb00947f5f617f161cc60b1a7f6dc6ee70506",
+    "F22c": "ebb441681169af871647de2583f52a5dff2b942526d2c3daf0772eb1d186e47f"
+   }
+  },
+  {
+   "task_folder": "F23",
+   "task": "cs_set/heapsort_algorithm",
+   "python_sha256": "62c463adc5c197d896bff8e6f8227a6c72deb701ef4337eea0e53c692ee1c979",
+   "reference_sha256": "a9a20b0469f1ba216faa1256deae78e96765e2b716d1e14f35b0d6036e0a0569",
+   "candidates": {
+    "F23a": "1fe11cba31061bda3017762a5476dc3a62ce54cc2fc1430e182663b67acc8451",
+    "F23b": "df96fc1bcc9f78fd6bcc5f8d5712154c50a1da3ac5c7cfa37bbd5a0319c564ed",
+    "F23c": "5c80f97b79d24ac1a74de0350712841c634348c0294a74453a9a63c1ad037efe"
+   }
+  },
+  {
+   "task_folder": "F24",
+   "task": "humaneval_set/humaneval_15_string_sequence",
+   "python_sha256": "8f4dde6215aa746cbc8642b82008ab0437f73b7f09394d0f001c1bca8d7c1f2d",
+   "reference_sha256": "3bd8faf82b3ab1b0b8be1cb485bfdf4bf5b471a3d24a7297f14b3fb0c91e89af",
+   "candidates": {
+    "F24a": "cb21a1db2c0d136de8beb101064768a656e3229b88626bfe6b22bf6cce206054",
+    "F24b": "e19448d7050df5a64e8d92d2026674e3cd3ac469257126d0fc4235f988a403ec",
+    "F24c": "62a6a92c6b8865c42999c7838813259b3e0f252015874aa41878049cdaf0439f"
+   }
+  },
+  {
+   "task_folder": "F25",
+   "task": "realcode_set/20_html_escape",
+   "python_sha256": "6f39b1bd6ebfb76f6d189a05ae0700a231d1b9101eb6a96388a335736485a04c",
+   "reference_sha256": "f286a8c64394f00996b6447b9ac89cc4321ab06cdacdaaf34830aa3d0d75defb",
+   "candidates": {
+    "F25a": "18cc171c34273370d14d001615ebe0a77320d341f8bd97483f36a42ca0a6003c",
+    "F25b": "f53bb5434ae9d47eb4e959f1cf197c6ed28a7a4e0b0a578e6d9a88e4b0945d99",
+    "F25c": "eaadf8fdcee175bf47c6925a5f15af8a990f8a1cd5b62e667c11bb7aa98c21f6"
+   }
+  }
+ ],
+ "rater_instructions": {
+  "path": "py_src/veribench_prompts/human_judgements_prompt.md",
+  "sha256": "b29e9cafdab10463d29b6ffdbb4700b46ead0e6023278b9b7b69d9ef0ab350af"
+ },
+ "packet": {
+  "dir": "packet",
+  "files": 128,
+  "FILES.sha256": "3cd22324af5de886b0963ddd04c1c334d5b2ad1fe453ad92a7ff129229bad41f",
+  "identity_hint_items": 0
+ },
+ "sealed_key": {
+  "relpath": "sealed/UNBLINDING_KEY.json",
+  "sha256": "d580637af7ab73e1bf2ffb855266827f8e8c74d7c4d18f7dd8a4806d85f53ae7",
+  "fingerprint": "482c65b8673fb0478648638f68db02fb3a6399ae0e8c95e5f9ea9e314c4faa89",
+  "held_at": "experiment 107 private/sealed/setB/UNBLINDING_KEY.json on the execution host (not in Git)",
+  "rule": "commit the key at relpath only after every set-B rating sheet is received and committed"
+ }
+}

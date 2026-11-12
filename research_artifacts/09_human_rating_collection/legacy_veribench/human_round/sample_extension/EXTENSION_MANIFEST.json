@@ -1,0 +1,217 @@
+{
+ "tldr": "Public manifest of the balancing extension of experiment 102's human-rating sample (addendum C7 item 4): an optional second sheet of the undrawn third-slot candidates, every rater-facing file pinned by SHA-256; systems and judge scores are only in the sealed key.",
+ "synthetic": false,
+ "created_utc": "2026-09-30T22:43:54.096010+00:00",
+ "seed": 20260929,
+ "stream": "first child of numpy SeedSequence(seed), spawn_key (0,); statistically independent of the main draw's root stream",
+ "decision": "Brando delegated the C7 balancing decision on 09-30-2026; adopted as an optional second sheet rated only after the main 75 items",
+ "script": "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/scripts/draw_balancing_extension.py",
+ "script_sha256": "317676773b4a2094dbaaa3ad76c0e2cf50ec16e658bf63ee02b662e56218db4d",
+ "base_script": "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/scripts/draw_human_round_sample.py",
+ "base_script_sha256": "bca2b7e562d8bd8bf71b542ac2c394274e0620c569c4074f75d43e91e324d251",
+ "protocol_c7": {
+  "path": "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/PROTOCOL_AMENDMENT_C7.md",
+  "sha256": "f66ac3f322230032d2ff559339871161cfde498009391fd82235663f419a51da"
+ },
+ "main_sample": {
+  "manifest": "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/human_round/sample/SAMPLE_MANIFEST.json",
+  "manifest_sha256": "7c90ca597710f77815b177d87dcc25d5bb8a58888f37edaf267b902fe8e6539b",
+  "fingerprint": "28e1cb5013d2925de98a639e3576e1a3ba3519894405e66f2727517fea0ac634",
+  "reproduced": true,
+  "sealed_key_sha256": "5fde585b4034f43ff254949caee9741d69b9f6dea8a80ceca0776763ff8f7664",
+  "sealed_key_present_and_matching": true
+ },
+ "inputs": {
+  "tier1": {
+   "path": "/lfs/skampere1/0/brando9/vb100/experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/private/tier1_inputs/items.jsonl",
+   "sha256": "45b002644edce228456c081353ef3552b7f4def4bbdde8d2ba7362ea50f9fc36",
+   "locked_sha256": "45b002644edce228456c081353ef3552b7f4def4bbdde8d2ba7362ea50f9fc36"
+  },
+  "member_runs": {
+   "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/runs/t1_H2_sol_high": {
+    "main_receipts": 6150,
+    "members": [
+     "H2_sol_high"
+    ]
+   },
+   "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/runs/t1_H2_opus55_max": {
+    "main_receipts": 6150,
+    "members": [
+     "H2_opus55_max"
+    ]
+   }
+  },
+  "dataset_revision": "5d3747819f5f0d692d8ccdcc29029a687edfc94d"
+ },
+ "design": {
+  "main_tasks": 25,
+  "extension_items": 14,
+  "unavailable_tasks": 11,
+  "unavailable_reason_counts": {
+   "no Tier-1 record": 11
+  },
+  "items_per_system": {
+   "original_75": {
+    "claude_code": 25,
+    "codex": 25,
+    "leanstral": 13,
+    "baseline": 12
+   },
+   "extension": {
+    "claude_code": 0,
+    "codex": 0,
+    "leanstral": 12,
+    "baseline": 2
+   },
+   "combined": {
+    "claude_code": 25,
+    "codex": 25,
+    "leanstral": 25,
+    "baseline": 14
+   }
+  },
+  "rule": "per sampled task, the third-slot system the main draw did not take, when usable under the main draw's rule (record status not bad, both judge members COMPLETE, finite validated FSC, candidate bound by SHA-256) and with the same judge-seen reference and Python as the main packet; an unusable candidate is not replaced",
+  "rating_order": "optional; rated only after the main 75-item sheet is complete",
+  "analysis": "C7 item 4: per-system statistics on the original 75 items and on the original plus extension items"
+ },
+ "rater_facing": [
+  {
+   "task_folder": "E01",
+   "task": "realcode_set/28_statistics_median_low",
+   "python_sha256": "8aa9b9fada22f74576c798f4d5ded692b42235aa4e50fec9698554e6374621ed",
+   "reference_sha256": "c8a62727804e976e9a4f81fea4be2696f9a71de2cbc086bb2002f5bcd14c3d62",
+   "candidates": {
+    "E01a": "966c74bf79fd73f1997c0a967b83e670653e7a8e22d21ab767a806fdeafb721c"
+   }
+  },
+  {
+   "task_folder": "E02",
+   "task": "security_set/security_6858/vulnerabilities/95_unsafeTlsDowngrade",
+   "python_sha256": "3362ddd9ccf29cab0fca41509bda5ce0657eca8bb8aaca4ef1e9311f32babee7",
+   "reference_sha256": "62e622d102b99143f49fec572b02a49605e30dd1eacb7f1fbdd383b52f3c358b",
+   "candidates": {
+    "E02a": "84555431232158696ffd2b741c3fca1a9360d9a02c784f43ca3ca5c4f9a77eea"
+   }
+  },
+  {
+   "task_folder": "E03",
+   "task": "security_set/security_6858/safe/125_unsafeTPMHash_safe",
+   "python_sha256": "6b4d586252669a2458a1891d5b9f28886a77f43e0fa54b06aed18fee736f65a6",
+   "reference_sha256": "3d4be9f00401eba32e7fe951ef6801eecd3de4f72f9b06eafbd093e6e8f86522",
+   "candidates": {
+    "E03a": "68b5b41cadffe8556f33053ae8aba3b8fb49f61789b86a7988b7e8300b013bb7"
+   }
+  },
+  {
+   "task_folder": "E04",
+   "task": "humaneval_set/humaneval_39_prime_fib",
+   "python_sha256": "391562d77b03c0491e2b36756c874726f6aa23497b317928f1f3439e10ec039c",
+   "reference_sha256": "3c380e2ad2ff6a9c8a4762d2a6013880d484f3b018c0da0b36c4c3403cfeabac",
+   "candidates": {
+    "E04a": "0dd2b4cf9777ac409ae42f0cfea08938578cd07731a8b6c3328beb3dc555438e"
+   }
+  },
+  {
+   "task_folder": "E05",
+   "task": "easy_set/19_MyPower",
+   "python_sha256": "ecd27b4fb26b5ec4879b94f40c33474aa9bb42c745681c5247a4f0b6f7d08fd6",
+   "reference_sha256": "e7e37ab936fba5030ecb856c79103a6e70fe84f25551a6a8cacf5372fbb4c1f0",
+   "candidates": {
+    "E05a": "358a2cb40774f105ccdfd29778dc5f65e5a09532ca6f2729b69e49b6b4658059"
+   }
+  },
+  {
+   "task_folder": "E06",
+   "task": "humaneval_set/humaneval_35_max_element",
+   "python_sha256": "4b70c0542c0a72624d51825c14157212b6998cff49b7161ef77e6ae8451006c2",
+   "reference_sha256": "697a711d0e9a9c575e813b845f206e8ac266ecfdc3a183ee1facb076ac80b2df",
+   "candidates": {
+    "E06a": "5fd9c2b5a85c6f6704c2cf9cd7847dfb86784574fcececf167b5d3f773936d34"
+   }
+  },
+  {
+   "task_folder": "E07",
+   "task": "humaneval_set/humaneval_14_all_prefixes",
+   "python_sha256": "9793c5a006d2b3b17518199000cfafb46722dbf17451c773e5e1d4871251db92",
+   "reference_sha256": "d68e216988c9287a279ae29073807214b9e03af3bfd1c771028b506fb3646bdc",
+   "candidates": {
+    "E07a": "ee6abf3fb3608b35e77155c32467452c7ba271ddc7355bdc728e95bd9187bea5"
+   }
+  },
+  {
+   "task_folder": "E08",
+   "task": "easy_set/41_duplicate_chars",
+   "python_sha256": "a242ffd4eb73bcc770495c2f72bc93142ac5dc03c337697646f15a4f3dc1f2e3",
+   "reference_sha256": "04483ab14c963d60a8394bcc0d5718fdbf4273bf5864567390d46b2b87bdf703",
+   "candidates": {
+    "E08a": "d7fc14bf0cbe0283bc373910d116029d29c5bcb8156d75c6735da0c5123dbbd0"
+   }
+  },
+  {
+   "task_folder": "E09",
+   "task": "realcode_set/21_shlex_quote",
+   "python_sha256": "6fead365b7a99a38c6e82cd49a2438d541f90afdc22e08656e4b6a31b580d338",
+   "reference_sha256": "d7385e16744e6e818627690060e6f722a3af16b74ab5f975499d4883d6180042",
+   "candidates": {
+    "E09a": "1fdb6e1549e1e68b00a6cc36865969b090651ab0fe551ca4eedbf8004fdea949"
+   }
+  },
+  {
+   "task_folder": "E10",
+   "task": "easy_set/16_MyFactorial",
+   "python_sha256": "e4c85d4c44a69827a816d7b67e22b1fb7e22e0cab18c99427daaba80a22780d7",
+   "reference_sha256": "8da7776f1ba12b3d5e03ec2ab9e290d865cdea48c442cbdfe3a1c9f14440b5cc",
+   "candidates": {
+    "E10a": "3fc36c2d2907dd9ae127a3e8c0a703404e4eede573c28eb907374e6df8c6b3c4"
+   }
+  },
+  {
+   "task_folder": "E11",
+   "task": "security_set/security_6858/vulnerabilities/129_unsafeTorHiddenService",
+   "python_sha256": "72323a0a2094f2d41a2cc8f3f9880e34d31068dd564b0a9de981ed86030df63f",
+   "reference_sha256": "a18b46e8dc4c16b0751287781c17f3b2f7d65f4d0912b9c80b0cd521574cba1b",
+   "candidates": {
+    "E11a": "cb0858e08adbe6fad3899677208287a2ed14766a6c2d9481406b6e7e67ea0a14"
+   }
+  },
+  {
+   "task_folder": "E12",
+   "task": "cs_set/heap_sort",
+   "python_sha256": "9194b262a2b0d0ed6195687c4fdfef67b287f28605d2b3c8ac3cd63a6bfc2fbd",
+   "reference_sha256": "789925333502774c6ccff395ce69fb857d677df48e3efb4b72725b7ce2b642c8",
+   "candidates": {
+    "E12a": "9d530707d5be1e876a5d6e0405b3085f7c2e285d14c5167eb521c5903d43ad0c"
+   }
+  },
+  {
+   "task_folder": "E13",
+   "task": "cs_set/edit_distance",
+   "python_sha256": "64d1e83ce02b690a6a73dd6ed132f512f71cf5071a1df65ff12d32240449baa1",
+   "reference_sha256": "55f2f6dc5b4f995e1d6ff40033431d19f11d7483445fad0f6388f6dc7e07957b",
+   "candidates": {
+    "E13a": "00a8392b5d2ae40a7e191ca1f3c5210ec64adca7fd1f9f5c7b042985c83b924a"
+   }
+  },
+  {
+   "task_folder": "E14",
+   "task": "humaneval_set/humaneval_4_mean_absolute_deviation",
+   "python_sha256": "559fde16be5e57c6080a6793ff0007c7a23a7452bd14a1e2ce3efa1baa85928f",
+   "reference_sha256": "d9ae57b9b0742feebda84032a876fa5609373fc54bf175b9e45ebad2f08dee5b",
+   "candidates": {
+    "E14a": "1d5c63e38c60d25e8045d8721ce3bf94fe18e806a99fc0e0ce3f5c17724ee99b"
+   }
+  }
+ ],
+ "packet": {
+  "dir": "packet",
+  "files": 45,
+  "FILES.sha256": "6f61fbe0577dbc0e2a6d97e1ac6894b6e8c3b5f4e24027ad8877f49284be8ad8",
+  "identity_hint_items": 0
+ },
+ "sealed_key": {
+  "relpath": "sealed/EXTENSION_KEY.json",
+  "sha256": "1e26b1ec1f51efca7d992d34d3b6c100d76f23051ac8d7cefcc0e2253df34b31",
+  "fingerprint": "32a8329cf6b30ea8dbe225bc9f235955f8f0a4300f9733d64ba2b2a6133c4086",
+  "rule": "commit the key only after every rating sheet, including every extension sheet, is received and committed"
+ }
+}

@@ -1,0 +1,28 @@
+{
+  "accounted_usd": 0.5391915,
+  "cells": [
+    {
+      "accounted_usd": 0.38397525,
+      "artifact_status": "missing",
+      "provider_requests": 40,
+      "receipt": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__20_html_escape/receipt.json",
+      "status": "provider_error",
+      "task_id": "realcode_set__20_html_escape"
+    },
+    {
+      "accounted_usd": 0.15521625,
+      "artifact_status": "missing",
+      "provider_requests": 6,
+      "receipt": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__23_is_prime/receipt.json",
+      "status": "provider_error",
+      "task_id": "easy_set__23_is_prime"
+    }
+  ],
+  "condition_sha256": "a8087b31b8321d82303bd44ef685648ef70db700ae7a1bbd77fbd6d50efe3c52",
+  "current_task": "easy_set__23_is_prime",
+  "global_accounted_usd": 1.259616,
+  "halt_reason": "Provider/runner failure: investigate before further admission; no cell retry",
+  "invalid_pilot_cost_upper_bound_usd": 0.7204245,
+  "started_at": "2026-11-12T00:50:07.175082+00:00",
+  "status": "STOPPED_INFRASTRUCTURE_REVIEW"
+}

@@ -1,0 +1,66 @@
+{
+  "at": "2026-11-12T02:05:31.263918+00:00",
+  "scheduler_amendment_sha256": "3cff26fd98cbe935f0406d8c06b51f03d888ffa4f0b775dc583869d34fa74a17",
+  "added_lanes": [
+    {
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "native_init": {
+        "model": "claude-fable-5-1",
+        "permissionMode": "bypassPermissions",
+        "apiKeySource": "none",
+        "claude_code_version": "2.1.322",
+        "cwd": "/home/user/lean_project"
+      },
+      "actual_models": [
+        "claude-fable-5-1"
+      ],
+      "useful_actions": [
+        {
+          "line": 56,
+          "tool_id": "toolu_01BsMatxtWTkGZXFsFnWqMya",
+          "name": "Bash",
+          "description": "Inspect Lean project layout",
+          "input_sha256": "437202fceb2fb7080361f9787789947996ef8b3432b4bc8d458bdda5ceb44ae4",
+          "result_seen": true,
+          "is_error": false,
+          "result_sha256": "eb36f8772344e08b88a128a09c0a3205e1d0e1f70749d6527a28871811a07e1c"
+        }
+      ]
+    },
+    {
+      "task_id": "realcode_set__23_base32",
+      "native_init": {
+        "model": "claude-fable-5-1",
+        "permissionMode": "bypassPermissions",
+        "apiKeySource": "none",
+        "claude_code_version": "2.1.322",
+        "cwd": "/home/user/lean_project"
+      },
+      "actual_models": [
+        "claude-fable-5-1"
+      ],
+      "useful_actions": [
+        {
+          "line": 57,
+          "tool_id": "toolu_01AyCNeFpAXtx6BzThVQPCDM",
+          "name": "Bash",
+          "description": "Inspect Lean project layout and toolchain",
+          "input_sha256": "011427267bef10b402efe133e8fc78abe442e97bc672c8718a80a4ef37ab1ac6",
+          "result_seen": true,
+          "is_error": false,
+          "result_sha256": "63d193fc20470ad5e7ddb1fdae44070e90d2e998cdc7249985e51e007219dafd"
+        },
+        {
+          "line": 124,
+          "tool_id": "toolu_018BytMNgcxoBo984UpvmguZ",
+          "name": "Bash",
+          "description": "Check that Mathlib imports compile and time it",
+          "input_sha256": "b4c943d11e750cbe5ad985d95e4ff6094146215b1e40596246fc25a6c923b368",
+          "result_seen": true,
+          "is_error": false,
+          "result_sha256": "ea1d09169130cc60fea7eb7fbb603f4be898a82ab2bd297a602131b97d13d330"
+        }
+      ]
+    }
+  ]
+}

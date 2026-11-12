@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-12T02:01:28.468553+00:00",
+  "status": "ASSESSMENT_ONLY_NOT_APPLIED",
+  "proposal_max_concurrency": 4,
+  "current_concurrency": 2,
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "current_container_cgroup_measurements": [
+    {
+      "container": "ttj-cc-03c7859ac394",
+      "memory.current": "151879680\n",
+      "memory.peak": "572854272\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu.stat": "usage_usec 5460860\nuser_usec 4178899\nsystem_usec 1281960\nnice_usec 0\nnr_periods 886\nnr_throttled 2\nthrottled_usec 713519\nnr_bursts 0\nburst_usec 0\n",
+      "cpu.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=127409\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=125313\n",
+      "memory.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n"
+    },
+    {
+      "container": "ttj-cc-ac01dd5a7dd5",
+      "memory.current": "158269440\n",
+      "memory.peak": "751644672\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu.stat": "usage_usec 14174238\nuser_usec 11807471\nsystem_usec 2366767\nnice_usec 0\nnr_periods 1467\nnr_throttled 2\nthrottled_usec 241823\nnr_bursts 0\nburst_usec 0\n",
+      "cpu.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=95824\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=89840\n",
+      "memory.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n"
+    }
+  ],
+  "quota": {
+    "maximum_weekly_utilization": 0.23,
+    "any_rejected": false,
+    "any_overage": false,
+    "five_hour_window": "not exposed"
+  },
+  "docker_vm": {
+    "cpus": 10,
+    "memory_bytes": 8321712128
+  },
+  "current_pi_solver_containers": 0,
+  "recommendation": "Four CC lanes are reasonable under the existing prospective admission guards: four2CPU caps use8 of10 virtual CPUs; currently observed compiler/agent peaks are0.53 and0.70GiB, far below VM7.75GiB. These are current-cell measured peaks, not bounds for unseen tasks. Keep no-overage route, native rejection/85%weekly reserve stop,1.5GiB memory-available admission gate, and memory-pressure monitoring. Do not interrupt active calls or change per-cell condition.",
+  "remaining_bound_at_assessment": {
+    "unfinished_cells": 19,
+    "two_lane_max_minutes_ignoring_elapsed": 300,
+    "four_lane_max_minutes_ignoring_elapsed": 150,
+    "excludes": "setup/cleanup and provider or resource holds; current active elapsed time makes these conservative"
+  },
+  "uncertainties": [
+    "Unexposed short-window/provider concurrency allowance",
+    "Future task peak Lean memory may exceed observed0.70GiB",
+    "Competing host workloads or Pi resumption could add contention; re-evaluate new admissions then"
+  ],
+  "needed_change": "Explicit prospective scheduling amendment only, scoped to17 untouched tasks; replace coordinator while adopting the same2 active runner PIDs, preserve original condition/runner/image/caps/task order."
+}

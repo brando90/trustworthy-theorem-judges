@@ -1,0 +1,28 @@
+{
+  "identity": "prove_T04_G0_1",
+  "role": "proof_search",
+  "started_utc": "2026-11-06T23:26:52.915328+00:00",
+  "request_sha256": "c837e33059b9e2d075064efe1005ef174bbceca76ce292d9dc769cb9f1d5e016",
+  "num_predict": 2048,
+  "settings": {
+    "think": false,
+    "num_predict": 2048
+  },
+  "seed": 11062327,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 140,
+  "prompt_eval_count": 1042,
+  "thinking_characters": 0,
+  "parsed": {
+    "proof": "by\n  intro f0 f1 h\n  unfold GoldSpec\n  constructor\n  \u00b7 intro req allow\n    rw [h req allow]\n  \u00b7 constructor\n    \u00b7 intro hne\n      rw [h]\n      exact hne\n    \u00b7 intro heq\n      rw [h]\n      exact heq\n    \u00b7 constructor\n      \u00b7 intro heq\n        rw [h]\n        exact heq\n      \u00b7 intro hne\n        rw [h]\n        exact hne\n    \u00b7 constructor\n      \u00b7 intro req allow\n        rw [h req allow]\n      \u00b7 trivial"
+  },
+  "seconds": 11.266312291991198,
+  "finished_utc": "2026-11-06T23:27:04.182956+00:00",
+  "response_sha256": "1a90068f35f7ba937b173c177e84a58a0e868eda7248c10b5fd215c3b72bcb90"
+}

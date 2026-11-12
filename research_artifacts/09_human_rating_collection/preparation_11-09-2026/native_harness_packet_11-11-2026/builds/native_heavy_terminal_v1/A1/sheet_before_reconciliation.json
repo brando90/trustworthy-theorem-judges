@@ -1,0 +1,837 @@
+{
+  "id": "A1",
+  "range": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "range": "Ratings!A1:K86",
+      "majorDimension": "ROWS",
+      "values": [
+        [
+          "rater_name",
+          "rater_id",
+          "item_id",
+          "task_folder",
+          "candidate_file",
+          "final_score_0_5",
+          "ai_assisted_rating_attestation",
+          "minutes_spent",
+          "confidence",
+          "rationale",
+          "problem_note"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item045",
+          "task_01_heap_sort",
+          "task_01_heap_sort/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item066",
+          "task_01_heap_sort",
+          "task_01_heap_sort/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item065",
+          "task_01_heap_sort",
+          "task_01_heap_sort/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item047",
+          "task_01_heap_sort",
+          "task_01_heap_sort/agent_lean/agent_4.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item035",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item018",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item085",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item075",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_4.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item055",
+          "task_03_application_entitlements",
+          "task_03_application_entitlements/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item044",
+          "task_03_application_entitlements",
+          "task_03_application_entitlements/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item038",
+          "task_03_application_entitlements",
+          "task_03_application_entitlements/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item030",
+          "task_03_application_entitlements",
+          "task_03_application_entitlements/agent_lean/agent_4.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item007",
+          "task_04_integer_string_sequence",
+          "task_04_integer_string_sequence/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item010",
+          "task_04_integer_string_sequence",
+          "task_04_integer_string_sequence/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item008",
+          "task_04_integer_string_sequence",
+          "task_04_integer_string_sequence/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item057",
+          "task_05_factorial",
+          "task_05_factorial/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item073",
+          "task_05_factorial",
+          "task_05_factorial/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item062",
+          "task_05_factorial",
+          "task_05_factorial/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item059",
+          "task_06_counting_sort",
+          "task_06_counting_sort/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item040",
+          "task_06_counting_sort",
+          "task_06_counting_sort/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item036",
+          "task_06_counting_sort",
+          "task_06_counting_sort/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item051",
+          "task_07_transport_layer_security_downgrade",
+          "task_07_transport_layer_security_downgrade/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item079",
+          "task_07_transport_layer_security_downgrade",
+          "task_07_transport_layer_security_downgrade/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item083",
+          "task_07_transport_layer_security_downgrade",
+          "task_07_transport_layer_security_downgrade/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item052",
+          "task_08_base32_encoding",
+          "task_08_base32_encoding/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item026",
+          "task_08_base32_encoding",
+          "task_08_base32_encoding/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item056",
+          "task_08_base32_encoding",
+          "task_08_base32_encoding/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item034",
+          "task_08_base32_encoding",
+          "task_08_base32_encoding/agent_lean/agent_4.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item006",
+          "task_09_sum_of_digits",
+          "task_09_sum_of_digits/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item001",
+          "task_09_sum_of_digits",
+          "task_09_sum_of_digits/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item022",
+          "task_09_sum_of_digits",
+          "task_09_sum_of_digits/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item015",
+          "task_10_lower_median",
+          "task_10_lower_median/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item041",
+          "task_10_lower_median",
+          "task_10_lower_median/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item070",
+          "task_10_lower_median",
+          "task_10_lower_median/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item042",
+          "task_11_html_escaping",
+          "task_11_html_escaping/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item082",
+          "task_11_html_escaping",
+          "task_11_html_escaping/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item017",
+          "task_11_html_escaping",
+          "task_11_html_escaping/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item050",
+          "task_12_mean_absolute_deviation",
+          "task_12_mean_absolute_deviation/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item071",
+          "task_12_mean_absolute_deviation",
+          "task_12_mean_absolute_deviation/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item002",
+          "task_12_mean_absolute_deviation",
+          "task_12_mean_absolute_deviation/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item039",
+          "task_12_mean_absolute_deviation",
+          "task_12_mean_absolute_deviation/agent_lean/agent_4.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item072",
+          "task_13_primality_testing",
+          "task_13_primality_testing/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item081",
+          "task_13_primality_testing",
+          "task_13_primality_testing/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item077",
+          "task_13_primality_testing",
+          "task_13_primality_testing/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item058",
+          "task_13_primality_testing",
+          "task_13_primality_testing/agent_lean/agent_4.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item067",
+          "task_14_statistical_quantiles",
+          "task_14_statistical_quantiles/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item046",
+          "task_14_statistical_quantiles",
+          "task_14_statistical_quantiles/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item063",
+          "task_14_statistical_quantiles",
+          "task_14_statistical_quantiles/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item004",
+          "task_15_prime_fibonacci_search",
+          "task_15_prime_fibonacci_search/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item011",
+          "task_15_prime_fibonacci_search",
+          "task_15_prime_fibonacci_search/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item025",
+          "task_15_prime_fibonacci_search",
+          "task_15_prime_fibonacci_search/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item074",
+          "task_16_certificate_hostname",
+          "task_16_certificate_hostname/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item020",
+          "task_16_certificate_hostname",
+          "task_16_certificate_hostname/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item024",
+          "task_16_certificate_hostname",
+          "task_16_certificate_hostname/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item069",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item014",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item027",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item033",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_4.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item078",
+          "task_18_topological_sorting",
+          "task_18_topological_sorting/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item019",
+          "task_18_topological_sorting",
+          "task_18_topological_sorting/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item031",
+          "task_18_topological_sorting",
+          "task_18_topological_sorting/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item080",
+          "task_18_topological_sorting",
+          "task_18_topological_sorting/agent_lean/agent_4.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item054",
+          "task_19_string_prefixes",
+          "task_19_string_prefixes/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item009",
+          "task_19_string_prefixes",
+          "task_19_string_prefixes/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item003",
+          "task_19_string_prefixes",
+          "task_19_string_prefixes/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item028",
+          "task_20_integer_exponentiation",
+          "task_20_integer_exponentiation/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item068",
+          "task_20_integer_exponentiation",
+          "task_20_integer_exponentiation/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item013",
+          "task_20_integer_exponentiation",
+          "task_20_integer_exponentiation/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item049",
+          "task_20_integer_exponentiation",
+          "task_20_integer_exponentiation/agent_lean/agent_4.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item048",
+          "task_21_tor_hidden_service",
+          "task_21_tor_hidden_service/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item076",
+          "task_21_tor_hidden_service",
+          "task_21_tor_hidden_service/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item012",
+          "task_21_tor_hidden_service",
+          "task_21_tor_hidden_service/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item005",
+          "task_22_shell_quoting",
+          "task_22_shell_quoting/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item060",
+          "task_22_shell_quoting",
+          "task_22_shell_quoting/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item084",
+          "task_22_shell_quoting",
+          "task_22_shell_quoting/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item032",
+          "task_22_shell_quoting",
+          "task_22_shell_quoting/agent_lean/agent_4.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item043",
+          "task_23_duplicate_characters",
+          "task_23_duplicate_characters/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item021",
+          "task_23_duplicate_characters",
+          "task_23_duplicate_characters/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item053",
+          "task_23_duplicate_characters",
+          "task_23_duplicate_characters/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item037",
+          "task_24_trusted_platform_module_hash_safe",
+          "task_24_trusted_platform_module_hash_safe/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item023",
+          "task_24_trusted_platform_module_hash_safe",
+          "task_24_trusted_platform_module_hash_safe/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item064",
+          "task_24_trusted_platform_module_hash_safe",
+          "task_24_trusted_platform_module_hash_safe/agent_lean/agent_3.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item061",
+          "task_25_maximum_list_element",
+          "task_25_maximum_list_element/agent_lean/agent_1.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item016",
+          "task_25_maximum_list_element",
+          "task_25_maximum_list_element/agent_lean/agent_2.lean"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item029",
+          "task_25_maximum_list_element",
+          "task_25_maximum_list_element/agent_lean/agent_3.lean"
+        ]
+      ]
+    },
+    "isError": false
+  },
+  "cells": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "spreadsheetId": "1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM",
+      "spreadsheetUrl": "https://docs.google.com/spreadsheets/d/1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM/edit",
+      "properties": {
+        "title": "VeriBench main rating sheet \u2014 PREPARING \u2014 Brando Miranda \u2014 11-11-2026",
+        "locale": "en_US",
+        "timeZone": "America/Los_Angeles"
+      },
+      "sheets": [
+        {
+          "properties": {
+            "sheetId": 665730293,
+            "title": "Ratings",
+            "index": 0,
+            "sheetType": "GRID",
+            "gridProperties": {
+              "rowCount": 86,
+              "columnCount": 11,
+              "frozenRowCount": 1,
+              "frozenColumnCount": 1
+            }
+          },
+          "data": [
+            {
+              "rowData": [
+                {
+                  "values": [
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "rater_name"
+                      },
+                      "note": "Prefilled identifier; keep unchanged."
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "rater_id"
+                      },
+                      "note": "Prefilled identifier; keep unchanged."
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "item_id"
+                      },
+                      "note": "Prefilled identifier; keep unchanged."
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "task_folder"
+                      },
+                      "note": "Prefilled identifier; keep unchanged."
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "candidate_file"
+                      },
+                      "note": "Prefilled identifier; keep unchanged."
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "final_score_0_5"
+                      },
+                      "note": "Required: final whole-number score 0\u20135 under the scoring rubric. Leave unfinished or unrateable scores blank; explain reference issues in problem_note."
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "ai_assisted_rating_attestation"
+                      },
+                      "note": "I used AI for localized assistance. I personally compared the specifications and chose the final score; I did not delegate the rating task to AI. Answer yes, no or unsure; nobody prefills this."
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "minutes_spent"
+                      },
+                      "note": "Requested: your approximate minutes for this file (e.g. 10 or 5-10). Include shared folder reading once, with its first file. Do not report a whole-session total on every row."
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "confidence"
+                      },
+                      "note": "Requested: low, medium or high confidence in your chosen rating. Low = substantial uncertainty; medium = some uncertainty; high = confident in the comparison. Historical values retain their exact spelling."
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "rationale"
+                      },
+                      "note": "Preferred but optional: one sentence naming the main coverage or missing guarantee behind your score. Your own words; no need for a long explanation."
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "problem_note"
+                      },
+                      "note": "Fill if something prevented or complicated the rating, especially an incorrect reference: describe the issue and, if possible, a small counterexample. Otherwise leave blank."
+                    }
+                  ]
+                },
+                {
+                  "values": [
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "Brando Miranda"
+                      }
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "A1"
+                      }
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "native-heavy-11-11-2026__item045"
+                      }
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "task_01_heap_sort"
+                      }
+                    },
+                    {
+                      "userEnteredValue": {
+                        "stringValue": "task_01_heap_sort/agent_lean/agent_1.lean"
+                      }
+                    },
+                    {
+                      "dataValidation": {
+                        "condition": {
+                          "type": "ONE_OF_LIST",
+                          "values": [
+                            {
+                              "userEnteredValue": "0"
+                            },
+                            {
+                              "userEnteredValue": "1"
+                            },
+                            {
+                              "userEnteredValue": "2"
+                            },
+                            {
+                              "userEnteredValue": "3"
+                            },
+                            {
+                              "userEnteredValue": "4"
+                            },
+                            {
+                              "userEnteredValue": "5"
+                            }
+                          ]
+                        },
+                        "inputMessage": "Required: choose a whole-number score from 0 to 5. Leave unfinished/unrateable rows blank.",
+                        "strict": true,
+                        "showCustomUi": true
+                      }
+                    },
+                    {
+                      "dataValidation": {
+                        "condition": {
+                          "type": "ONE_OF_LIST",
+                          "values": [
+                            {
+                              "userEnteredValue": "yes"
+                            },
+                            {
+                              "userEnteredValue": "no"
+                            },
+                            {
+                              "userEnteredValue": "unsure"
+                            }
+                          ]
+                        },
+                        "inputMessage": "I used AI for localized assistance. I personally compared the specifications and chose the final score; I did not delegate the rating task to AI.",
+                        "strict": true,
+                        "showCustomUi": true
+                      }
+                    },
+                    {},
+                    {
+                      "dataValidation": {
+                        "condition": {
+                          "type": "ONE_OF_LIST",
+                          "values": [
+                            {
+                              "userEnteredValue": "low"
+                            },
+                            {
+                              "userEnteredValue": "medium"
+                            },
+                            {
+                              "userEnteredValue": "high"
+                            }
+                          ]
+                        },
+                        "inputMessage": "Confidence in your score: low, medium or high. Historical spelling is preserved.",
+                        "showCustomUi": true
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "isError": false
+  }
+}

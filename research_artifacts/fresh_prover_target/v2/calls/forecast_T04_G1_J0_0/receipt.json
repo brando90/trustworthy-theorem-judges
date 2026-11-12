@@ -1,0 +1,30 @@
+{
+  "identity": "forecast_T04_G1_J0_0",
+  "role": "forecast",
+  "started_utc": "2026-11-06T23:23:45.765039+00:00",
+  "request_sha256": "8255295233550dc2668be4af8e02eef5054b32e837d7866b68cccdacb91f878e",
+  "num_predict": 256,
+  "settings": {
+    "think": false,
+    "num_predict": 256,
+    "prompt": "judge_J0.md"
+  },
+  "seed": 11062226,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 66,
+  "prompt_eval_count": 867,
+  "thinking_characters": 0,
+  "parsed": {
+    "probability": 0.0,
+    "reason": "The candidate proposition only asserts that f0 and f1 are identical functions, but the GoldSpec requires them to specifically implement the exact string-equality logic defined in the Python source, which is a much stronger constraint that arbitrary functions cannot satisfy."
+  },
+  "seconds": 10.293865500018,
+  "finished_utc": "2026-11-06T23:23:56.061329+00:00",
+  "response_sha256": "8bd7beb065adc1d5f102889d79168e9649cb06f993aab15496eb0a89380d73a4"
+}

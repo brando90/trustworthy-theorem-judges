@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-12T03:44:11.940370+00:00",
+  "cc_solver_containers_remaining": [],
+  "native_network_previous_members": [
+    "ttj-native-egress"
+  ],
+  "actions": [
+    "Removed completed CC-only egress proxy",
+    "Removed empty CC-only internal network"
+  ],
+  "shared_image_preserved": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+  "pi_containers_networks_untouched": true,
+  "old_experiment_path_alias": "Preserved; parent removes only after both native conditions finish."
+}

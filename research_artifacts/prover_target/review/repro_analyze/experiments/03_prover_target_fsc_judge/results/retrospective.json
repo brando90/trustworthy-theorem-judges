@@ -1,0 +1,1396 @@
+{
+  "status": "completed_retrospective_no_calls",
+  "fresh_validation": false,
+  "config_sha256": "fd28684f86e887c1e46696d16cca57f175d6c1c94c6d7e1f31cd1c72b751c8c2",
+  "script_sha256": "ae7ac1e156e02a73ebd21451b83132d236447fb2470d2840ab0e7b3968a737ca",
+  "source_revision": "be287d9bb2f7bd35ba6db1b8735c9ba10d00eade",
+  "rows": 1024,
+  "tasks": 256,
+  "missing_join_rows": 0,
+  "acceptance_counts": {
+    "astra": {
+      "raw": 212,
+      "four": 212,
+      "y": 209
+    },
+    "claude_code": {
+      "raw": 213,
+      "four": 184,
+      "y": 181
+    },
+    "codex": {
+      "raw": 199,
+      "four": 189,
+      "y": 186
+    },
+    "fable51": {
+      "raw": 216,
+      "four": 216,
+      "y": 213
+    }
+  },
+  "conditions": {
+    "all_agents": {
+      "excluded_solver": null,
+      "train_artifacts": 256,
+      "validation_artifacts": 256,
+      "training_prevalence": 0.80078125,
+      "candidates": [
+        {
+          "ridge": 0.0,
+          "coefficients": [
+            -7.402941748053847,
+            9.463768107149697
+          ],
+          "validation_brier": 0.1487408063361585
+        },
+        {
+          "ridge": 0.01,
+          "coefficients": [
+            -0.4682886766748154,
+            1.9807417301428798
+          ],
+          "validation_brier": 0.1933661674678176
+        },
+        {
+          "ridge": 0.1,
+          "coefficients": [
+            1.151640109682595,
+            0.2530032606037391
+          ],
+          "validation_brier": 0.21718406699418732
+        },
+        {
+          "ridge": 1.0,
+          "coefficients": [
+            1.366623359675123,
+            0.025910413307247773
+          ],
+          "validation_brier": 0.22027810607982712
+        }
+      ],
+      "selected_ridge": 0.0,
+      "test": {
+        "artifacts": 512,
+        "tasks": 128,
+        "positives": 405,
+        "metrics": {
+          "mapped": {
+            "brier": {
+              "value": 0.10717885127171119,
+              "ci95": [
+                0.07833821612848733,
+                0.13882583577667154
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.2199112584517351,
+              "ci95": [
+                0.18898587779224688,
+                0.25358796547382306
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": 0.007477908213835812,
+              "ci95": [
+                -0.036175557404149315,
+                0.05375195090282017
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.798493533213836,
+              "ci95": [
+                0.7621089560536319,
+                0.8308614600388701
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.791015625,
+              "ci95": [
+                0.728515625,
+                0.8515625
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.595934532116355,
+              "ci95": [
+                0.45758664999896576,
+                0.7043828930012391
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": 0.6210776000853602,
+              "ci95": [
+                0.47250456144003783,
+                0.7394988900291315
+              ],
+              "valid_resamples": 10000
+            },
+            "auroc": {
+              "value": 0.7988923502942195,
+              "ci95": [
+                0.7185289521931048,
+                0.8682610031644181
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": 0.5986140935653007,
+              "ci95": [
+                0.4574910482384551,
+                0.7115762017346949
+              ],
+              "valid_resamples": 10000
+            }
+          },
+          "constant": {
+            "brier": {
+              "value": 0.1654052734375,
+              "ci95": [
+                0.1289825439453125,
+                0.2030029296875
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.3249359130859375,
+              "ci95": [
+                0.28851318359375,
+                0.3625335693359375
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": 0.009765625,
+              "ci95": [
+                -0.05078125,
+                0.072265625
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.80078125,
+              "ci95": [
+                0.80078125,
+                0.80078125
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.791015625,
+              "ci95": [
+                0.728515625,
+                0.8515625
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            },
+            "spearman": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            },
+            "auroc": {
+              "value": 0.5,
+              "ci95": [
+                0.5,
+                0.5
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            }
+          },
+          "raw_scalar": {
+            "brier": {
+              "value": 0.1405078125,
+              "ci95": [
+                0.09978076171875001,
+                0.18478613281249995
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.171484375,
+              "ci95": [
+                0.12480468750000001,
+                0.221484375
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": 0.15195312500000002,
+              "ci95": [
+                0.1044921875,
+                0.202734375
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.94296875,
+              "ci95": [
+                0.9177734375,
+                0.9646484375
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.791015625,
+              "ci95": [
+                0.728515625,
+                0.8515625
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.5757252574757658,
+              "ci95": [
+                0.45963370610695703,
+                0.6729040519874495
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": 0.6210776000853602,
+              "ci95": [
+                0.47250456144003783,
+                0.7394988900291315
+              ],
+              "valid_resamples": 10000
+            },
+            "auroc": {
+              "value": 0.7988923502942195,
+              "ci95": [
+                0.7185289521931048,
+                0.8682610031644181
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": 0.5986140935653007,
+              "ci95": [
+                0.4574910482384551,
+                0.7115762017346949
+              ],
+              "valid_resamples": 10000
+            }
+          }
+        },
+        "paired_brier_difference": {
+          "value": -0.058226422165788806,
+          "ci95": [
+            -0.08741558671751744,
+            -0.03103262789462241
+          ],
+          "valid_resamples": 10000
+        }
+      }
+    },
+    "exclude_astra": {
+      "excluded_solver": "astra",
+      "train_artifacts": 192,
+      "validation_artifacts": 192,
+      "training_prevalence": 0.78125,
+      "candidates": [
+        {
+          "ridge": 0.0,
+          "coefficients": [
+            -5.903612513527734,
+            7.75779567678394
+          ],
+          "validation_brier": 0.16405288784823116
+        },
+        {
+          "ridge": 0.01,
+          "coefficients": [
+            -0.5055612615147635,
+            1.907626290724547
+          ],
+          "validation_brier": 0.20565808094503368
+        },
+        {
+          "ridge": 0.1,
+          "coefficients": [
+            1.033583237823873,
+            0.25457610804701825
+          ],
+          "validation_brier": 0.23133346447591482
+        },
+        {
+          "ridge": 1.0,
+          "coefficients": [
+            1.248281455364661,
+            0.026217209265046417
+          ],
+          "validation_brier": 0.2349412251003317
+        }
+      ],
+      "selected_ridge": 0.0,
+      "test": {
+        "artifacts": 128,
+        "tasks": 128,
+        "positives": 103,
+        "metrics": {
+          "mapped": {
+            "brier": {
+              "value": 0.10372384439221846,
+              "ci95": [
+                0.06938485869195544,
+                0.1410634825418452
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.23256181851463997,
+              "ci95": [
+                0.19566298000732757,
+                0.27219813175435986
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": 0.0007945671892442847,
+              "ci95": [
+                -0.05224051642345996,
+                0.05947423598517965
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.8054820671892444,
+              "ci95": [
+                0.7744503262160713,
+                0.831993675173876
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.8046875,
+              "ci95": [
+                0.734375,
+                0.8671875
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.6143927607823213,
+              "ci95": [
+                0.46270656705648433,
+                0.7479040947181125
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": 0.7117277011897356,
+              "ci95": [
+                0.5384677679399401,
+                0.8552604454586671
+              ],
+              "valid_resamples": 10000
+            },
+            "auroc": {
+              "value": 0.827378640776699,
+              "ci95": [
+                0.7298599249482401,
+                0.9188817380852844
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": 0.6914439598006747,
+              "ci95": [
+                0.5261502028621755,
+                0.8299318660971255
+              ],
+              "valid_resamples": 10000
+            }
+          },
+          "constant": {
+            "brier": {
+              "value": 0.15771484375,
+              "ci95": [
+                0.12255859375,
+                0.197265625
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.32861328125,
+              "ci95": [
+                0.29345703125,
+                0.3681640625
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": -0.0234375,
+              "ci95": [
+                -0.0859375,
+                0.046875
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.78125,
+              "ci95": [
+                0.78125,
+                0.78125
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.8046875,
+              "ci95": [
+                0.734375,
+                0.8671875
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            },
+            "spearman": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            },
+            "auroc": {
+              "value": 0.5,
+              "ci95": [
+                0.5,
+                0.5
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            }
+          },
+          "raw_scalar": {
+            "brier": {
+              "value": 0.136953125,
+              "ci95": [
+                0.087109375,
+                0.19195507812499998
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.16171875,
+              "ci95": [
+                0.10703125,
+                0.22109375000000003
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": 0.15234375,
+              "ci95": [
+                0.09687499999999999,
+                0.2140625
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.95703125,
+              "ci95": [
+                0.9328125,
+                0.97734375
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.8046875,
+              "ci95": [
+                0.734375,
+                0.8671875
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.5894978058692472,
+              "ci95": [
+                0.4634838006030408,
+                0.7244534085690082
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": 0.7117277011897356,
+              "ci95": [
+                0.5384677679399401,
+                0.8552604454586671
+              ],
+              "valid_resamples": 10000
+            },
+            "auroc": {
+              "value": 0.827378640776699,
+              "ci95": [
+                0.7298599249482401,
+                0.9188817380852844
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": 0.6914439598006747,
+              "ci95": [
+                0.5261502028621755,
+                0.8299318660971255
+              ],
+              "valid_resamples": 10000
+            }
+          }
+        },
+        "paired_brier_difference": {
+          "value": -0.05399099935778154,
+          "ci95": [
+            -0.08008651477963416,
+            -0.030490724690283397
+          ],
+          "valid_resamples": 10000
+        }
+      }
+    },
+    "exclude_claude_code": {
+      "excluded_solver": "claude_code",
+      "train_artifacts": 192,
+      "validation_artifacts": 192,
+      "training_prevalence": 0.828125,
+      "candidates": [
+        {
+          "ridge": 0.0,
+          "coefficients": [
+            -8.093534265860688,
+            10.517714246986895
+          ],
+          "validation_brier": 0.12875222424833851
+        },
+        {
+          "ridge": 0.01,
+          "coefficients": [
+            -0.507651083182249,
+            2.230723956264273
+          ],
+          "validation_brier": 0.17559466571637683
+        },
+        {
+          "ridge": 0.1,
+          "coefficients": [
+            1.2990003504822758,
+            0.2895963910040251
+          ],
+          "validation_brier": 0.20329683309545943
+        },
+        {
+          "ridge": 1.0,
+          "coefficients": [
+            1.544335298368775,
+            0.029674058273613992
+          ],
+          "validation_brier": 0.2068746429740551
+        }
+      ],
+      "selected_ridge": 0.0,
+      "test": {
+        "artifacts": 128,
+        "tasks": 128,
+        "positives": 96,
+        "metrics": {
+          "mapped": {
+            "brier": {
+              "value": 0.13616465980468417,
+              "ci95": [
+                0.09108926794833302,
+                0.186616223215192
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.22888676069712713,
+              "ci95": [
+                0.18149564825132633,
+                0.2810839246529615
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": 0.07582444772599663,
+              "ci95": [
+                0.016212198940342898,
+                0.14058130942316754
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.8258244477259964,
+              "ci95": [
+                0.7845173089411126,
+                0.8631715896361593
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.75,
+              "ci95": [
+                0.671875,
+                0.8203125
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.5526127224081913,
+              "ci95": [
+                0.39257077552687586,
+                0.6884679481557076
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": 0.6062167171383597,
+              "ci95": [
+                0.4335686605362135,
+                0.7577461169548102
+              ],
+              "valid_resamples": 10000
+            },
+            "auroc": {
+              "value": 0.7750651041666666,
+              "ci95": [
+                0.6841989987484356,
+                0.8632142857142857
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": 0.5846442017823285,
+              "ci95": [
+                0.42125974674229927,
+                0.7303831098770321
+              ],
+              "valid_resamples": 10000
+            }
+          },
+          "constant": {
+            "brier": {
+              "value": 0.193603515625,
+              "ci95": [
+                0.1474609375,
+                0.244873046875
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.3359375,
+              "ci95": [
+                0.289794921875,
+                0.38720703125
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": 0.078125,
+              "ci95": [
+                0.0078125,
+                0.15625
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.828125,
+              "ci95": [
+                0.828125,
+                0.828125
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.75,
+              "ci95": [
+                0.671875,
+                0.8203125
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            },
+            "spearman": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            },
+            "auroc": {
+              "value": 0.5,
+              "ci95": [
+                0.5,
+                0.5
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            }
+          },
+          "raw_scalar": {
+            "brier": {
+              "value": 0.178984375,
+              "ci95": [
+                0.12319921875000002,
+                0.240548828125
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.21171874999999998,
+              "ci95": [
+                0.15078125,
+                0.27656250000000004
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": 0.19453125,
+              "ci95": [
+                0.13203125000000002,
+                0.2617382812499997
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.94453125,
+              "ci95": [
+                0.91875,
+                0.9671875000000001
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.75,
+              "ci95": [
+                0.671875,
+                0.8203125
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.5436894935415267,
+              "ci95": [
+                0.40648717010474583,
+                0.6682598546914439
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": 0.6062167171383597,
+              "ci95": [
+                0.4335686605362135,
+                0.7577461169548102
+              ],
+              "valid_resamples": 10000
+            },
+            "auroc": {
+              "value": 0.7750651041666666,
+              "ci95": [
+                0.6841989987484356,
+                0.8632142857142857
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": 0.5846442017823285,
+              "ci95": [
+                0.42125974674229927,
+                0.7303831098770321
+              ],
+              "valid_resamples": 10000
+            }
+          }
+        },
+        "paired_brier_difference": {
+          "value": -0.05743885582031583,
+          "ci95": [
+            -0.09447672032078792,
+            -0.02270594595986693
+          ],
+          "valid_resamples": 10000
+        }
+      }
+    },
+    "exclude_codex": {
+      "excluded_solver": "codex",
+      "train_artifacts": 192,
+      "validation_artifacts": 192,
+      "training_prevalence": 0.8177083333333334,
+      "candidates": [
+        {
+          "ridge": 0.0,
+          "coefficients": [
+            -11.848020764907394,
+            14.102845651698633
+          ],
+          "validation_brier": 0.13694262759244188
+        },
+        {
+          "ridge": 0.01,
+          "coefficients": [
+            -0.2006952926042324,
+            1.7724378518081438
+          ],
+          "validation_brier": 0.1911617370815326
+        },
+        {
+          "ridge": 0.1,
+          "coefficients": [
+            1.3093788690251473,
+            0.19865533122824208
+          ],
+          "validation_brier": 0.20678240057794325
+        },
+        {
+          "ridge": 1.0,
+          "coefficients": [
+            1.4815277213890286,
+            0.020082305794199937
+          ],
+          "validation_brier": 0.20844658547173353
+        }
+      ],
+      "selected_ridge": 0.0,
+      "test": {
+        "artifacts": 128,
+        "tasks": 128,
+        "positives": 98,
+        "metrics": {
+          "mapped": {
+            "brier": {
+              "value": 0.11356742760430255,
+              "ci95": [
+                0.07191701971587286,
+                0.1583694913517277
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.20705827601793786,
+              "ci95": [
+                0.16333470008895035,
+                0.25432150502143236
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": -0.029625865642146674,
+              "ci95": [
+                -0.0859846312451887,
+                0.028345966655011445
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.7359991343578534,
+              "ci95": [
+                0.6792197263995524,
+                0.7896599141465964
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.765625,
+              "ci95": [
+                0.6875,
+                0.8359375
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.6229250615609819,
+              "ci95": [
+                0.454261033652855,
+                0.7696051104985447
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": 0.5727878350767035,
+              "ci95": [
+                0.3902807334743371,
+                0.7276246525809944
+              ],
+              "valid_resamples": 10000
+            },
+            "auroc": {
+              "value": 0.8,
+              "ci95": [
+                0.7015017738125287,
+                0.8935929375512921
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": 0.5426700821217714,
+              "ci95": [
+                0.37267691736093655,
+                0.6871778304710291
+              ],
+              "valid_resamples": 10000
+            }
+          },
+          "constant": {
+            "brier": {
+              "value": 0.1821560329861111,
+              "ci95": [
+                0.1374782986111111,
+                0.2317979600694444
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.33121744791666663,
+              "ci95": [
+                0.28653971354166663,
+                0.38085937499999994
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": 0.05208333333333338,
+              "ci95": [
+                -0.018229166666666616,
+                0.13020833333333337
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.8177083333333335,
+              "ci95": [
+                0.8177083333333335,
+                0.8177083333333335
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.765625,
+              "ci95": [
+                0.6875,
+                0.8359375
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            },
+            "auroc": {
+              "value": 0.5,
+              "ci95": [
+                0.5,
+                0.5
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            }
+          },
+          "raw_scalar": {
+            "brier": {
+              "value": 0.13523437500000002,
+              "ci95": [
+                0.08703125,
+                0.18671875
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.18046874999999998,
+              "ci95": [
+                0.12734375,
+                0.23671875
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": 0.14296875,
+              "ci95": [
+                0.08671875,
+                0.20234375000000002
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.9085937500000001,
+              "ci95": [
+                0.8734375,
+                0.940625
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.765625,
+              "ci95": [
+                0.6875,
+                0.8359375
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.6219322818767371,
+              "ci95": [
+                0.48330397689318605,
+                0.7461792979701173
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": 0.5727878350767035,
+              "ci95": [
+                0.3902807334743371,
+                0.7276246525809944
+              ],
+              "valid_resamples": 10000
+            },
+            "auroc": {
+              "value": 0.8,
+              "ci95": [
+                0.7015017738125287,
+                0.8935929375512921
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": 0.5426700821217714,
+              "ci95": [
+                0.37267691736093655,
+                0.6871778304710291
+              ],
+              "valid_resamples": 10000
+            }
+          }
+        },
+        "paired_brier_difference": {
+          "value": -0.06858860538180855,
+          "ci95": [
+            -0.11764172868200687,
+            -0.019579519277609123
+          ],
+          "valid_resamples": 10000
+        }
+      }
+    },
+    "exclude_fable51": {
+      "excluded_solver": "fable51",
+      "train_artifacts": 192,
+      "validation_artifacts": 192,
+      "training_prevalence": 0.7760416666666666,
+      "candidates": [
+        {
+          "ridge": 0.0,
+          "coefficients": [
+            -5.876829816164244,
+            7.7089124571383545
+          ],
+          "validation_brier": 0.16338841683400948
+        },
+        {
+          "ridge": 0.01,
+          "coefficients": [
+            -0.5717319674928587,
+            1.9499230289883163
+          ],
+          "validation_brier": 0.19940416249725076
+        },
+        {
+          "ridge": 0.1,
+          "coefficients": [
+            0.9959086202855816,
+            0.2629581821763569
+          ],
+          "validation_brier": 0.2244033101197689
+        },
+        {
+          "ridge": 1.0,
+          "coefficients": [
+            1.2172557749307293,
+            0.027118721882473593
+          ],
+          "validation_brier": 0.22802139479810044
+        }
+      ],
+      "selected_ridge": 0.0,
+      "test": {
+        "artifacts": 128,
+        "tasks": 128,
+        "positives": 108,
+        "metrics": {
+          "mapped": {
+            "brier": {
+              "value": 0.09226140489736137,
+              "ci95": [
+                0.06043254388052936,
+                0.12739246399854967
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.22040580368742063,
+              "ci95": [
+                0.18601260455878352,
+                0.2582527568027277
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": -0.03303212314515994,
+              "ci95": [
+                -0.08317168318053052,
+                0.021801334269425775
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.8107178768548402,
+              "ci95": [
+                0.7811552740391252,
+                0.8357274262930743
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.84375,
+              "ci95": [
+                0.78125,
+                0.90625
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.5710718117528287,
+              "ci95": [
+                0.3785752652198577,
+                0.7286301971588576
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": 0.6371211041456235,
+              "ci95": [
+                0.42482721313114413,
+                0.8095290205980543
+              ],
+              "valid_resamples": 10000
+            },
+            "auroc": {
+              "value": 0.8060185185185185,
+              "ci95": [
+                0.6926588515120625,
+                0.9136678089526664
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": 0.6223509539571044,
+              "ci95": [
+                0.4173962254524663,
+                0.7915583450945686
+              ],
+              "valid_resamples": 10000
+            }
+          },
+          "constant": {
+            "brier": {
+              "value": 0.1364203559027778,
+              "ci95": [
+                0.10191514756944445,
+                0.17092556423611116
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.31022135416666674,
+              "ci95": [
+                0.27571614583333337,
+                0.34472656250000006
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": -0.06770833333333343,
+              "ci95": [
+                -0.13020833333333343,
+                -0.005208333333333384
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.7760416666666665,
+              "ci95": [
+                0.7760416666666665,
+                0.7760416666666665
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.84375,
+              "ci95": [
+                0.78125,
+                0.90625
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            },
+            "auroc": {
+              "value": 0.5,
+              "ci95": [
+                0.5,
+                0.5
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": null,
+              "ci95": null,
+              "valid_resamples": 0
+            }
+          },
+          "raw_scalar": {
+            "brier": {
+              "value": 0.11085937500000001,
+              "ci95": [
+                0.064921875,
+                0.16218945312499997
+              ],
+              "valid_resamples": 10000
+            },
+            "mae": {
+              "value": 0.13203125000000002,
+              "ci95": [
+                0.08125,
+                0.18828125
+              ],
+              "valid_resamples": 10000
+            },
+            "bias": {
+              "value": 0.11796875000000001,
+              "ci95": [
+                0.06640625,
+                0.175
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_forecast": {
+              "value": 0.96171875,
+              "ci95": [
+                0.93828125,
+                0.98125
+              ],
+              "valid_resamples": 10000
+            },
+            "mean_outcome": {
+              "value": 0.84375,
+              "ci95": [
+                0.78125,
+                0.90625
+              ],
+              "valid_resamples": 10000
+            },
+            "pearson": {
+              "value": 0.5564045723615367,
+              "ci95": [
+                0.39589529186781375,
+                0.7017975493846851
+              ],
+              "valid_resamples": 10000
+            },
+            "spearman": {
+              "value": 0.6371211041456235,
+              "ci95": [
+                0.42482721313114413,
+                0.8095290205980543
+              ],
+              "valid_resamples": 10000
+            },
+            "auroc": {
+              "value": 0.8060185185185185,
+              "ci95": [
+                0.6926588515120625,
+                0.9136678089526664
+              ],
+              "valid_resamples": 10000
+            },
+            "kendall": {
+              "value": 0.6223509539571044,
+              "ci95": [
+                0.4173962254524663,
+                0.7915583450945686
+              ],
+              "valid_resamples": 10000
+            }
+          }
+        },
+        "paired_brier_difference": {
+          "value": -0.04415895100541638,
+          "ci95": [
+            -0.06762132736217862,
+            -0.022680350788542435
+          ],
+          "valid_resamples": 10000
+        }
+      }
+    }
+  },
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 11062026,
+  "p_value": null,
+  "p_value_note": "Descriptive retrospective analysis, no confirmatory test.",
+  "repeat_search_variability": "unavailable: one saved outcome per artifact",
+  "versions": {
+    "numpy": "2.4.2",
+    "scipy": "1.17.0"
+  },
+  "new_measured_model_calls": 0,
+  "incremental_measured_inference_usd": 0
+}

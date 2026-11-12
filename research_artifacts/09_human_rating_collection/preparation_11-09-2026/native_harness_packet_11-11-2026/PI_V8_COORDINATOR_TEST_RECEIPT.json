@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-12T02:46:09.255065+00:00",
+  "checks_passed": [
+    "healthy resource admission",
+    "memory gate",
+    "CPU gate",
+    "four-lane full-cap global reservation",
+    "live runner adoption without restart",
+    "terminal receipt during adoption",
+    "missing terminal evidence fails closed",
+    "unknown accounting reserves full cell cap",
+    "out-of-order terminal completion preserves pending order"
+  ],
+  "test_scope": "deterministic local controls; no provider calls",
+  "prospective_draft_sha256": "7e4dd36a1696d27d943ae341e9b493a1826c8e616e86aff83dbb1e9c80f6663b"
+}

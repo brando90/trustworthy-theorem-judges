@@ -1,0 +1,37 @@
+{
+  "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "95_unsafeTlsDowngrade.py": "3362ddd9ccf29cab0fca41509bda5ce0657eca8bb8aaca4ef1e9311f32babee7",
+    "instruction.md": "cf745665279318d9cfab0880de82945d8c3c940b4cfe5df4004d68b84acb66d8"
+  },
+  "output": "/home/user/lean_project/Veribench/95_unsafeTlsDowngrade.lean",
+  "model_call_performed": false
+}

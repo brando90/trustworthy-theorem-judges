@@ -1,0 +1,28 @@
+{
+  "created_at": "2026-11-12T02:13:51.301484+00:00",
+  "task_id": "cs_set__topological_sort",
+  "receipt_sha256": "d2ba8f67cdaf39791247b36eb47392e3e4dac593a361bc0098be7a7ea4ddfcaf",
+  "stream_sha256": "5459c48fd36fc3a2c31afa992b5f6e865eed3bb17680de89b6932a408c26a521",
+  "classification": "DECLARED_RESPONSE_TOKEN_CAP_NO_FILE",
+  "valid_cohort_outcome": true,
+  "retake_authorized": false,
+  "candidate_captured": false,
+  "evidence": {
+    "native_api_error": "max_output_tokens",
+    "native_terminal_reason": "api_error",
+    "native_is_error": true,
+    "native_subtype": "success",
+    "native_num_turns": 5,
+    "native_result": "API Error: Claude's response exceeded the 16384 output token maximum. To configure this behavior, set the CLAUDE_CODE_MAX_OUTPUT_TOKENS environment variable.",
+    "provider_model_usage_keys": [
+      "claude-fable-5-1"
+    ],
+    "raw_actual_models": [
+      "<synthetic>",
+      "claude-fable-5-1"
+    ],
+    "tool_history": "One Bash layout/toolchain inspection; no Write/Edit or candidate-path write command."
+  },
+  "model_identity_disposition": "The <synthetic> envelope is a native-client error message, not a second provider/model. Provider modelUsage and real assistant responses are only claude-fable-5-1. Original model_identity_verified=false is preserved but superseded for provenance by this explicit derived disposition.",
+  "scope": "No score/correctness claim. Missing-file attempt stays in fixed25 denominator under original declared cap."
+}

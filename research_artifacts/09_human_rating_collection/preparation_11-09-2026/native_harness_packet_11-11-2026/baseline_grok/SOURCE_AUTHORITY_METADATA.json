@@ -1,0 +1,132 @@
+{
+  "retrieved_at": "2026-11-12T00:28:25.051405+00:00",
+  "source_host": "skampere2.stanford.edu",
+  "scope": "Only the selected t2_grok47 task/source/run/path/hash/size/isolation metadata. No judge scores or human ratings read.",
+  "selection_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/TASK_SELECTION.json",
+  "selection_sha256": "390397db69372c5b547a619e0baa41aa37bcf3671a3b3b7e909f45adf2d4bc0e",
+  "authority_path": "/dfs/scratch0/brando9/vb107_sealed_backup/setN_file_of_record_v3/setN_file_of_record.json",
+  "authority_sha256": "5fbb7df4630f3c6224d4b186b1a333df6181a47320a57780b65d039d463ab65f",
+  "selected_rows": [
+    {
+      "attempt": 1,
+      "file_bytes": 28888,
+      "file_sha256": "f728031fbe571d02099861dc3bbdc7b2cc9e69573227365c21224d02175c455e",
+      "isolation_pass": true,
+      "part": "turncap",
+      "path": "/lfs/skampere2/0/brando9/veribench_vb107/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/private/jobs/t2_grok47_turncap/cs_set__topological_sort/verifier/solution.lean",
+      "run_id": "2babb4ae-2b8a-4000-bef5-1a237f6a7531",
+      "source": "turncap_file",
+      "status": "measured",
+      "task_id": "cs_set__topological_sort"
+    },
+    {
+      "attempt": 1,
+      "file_bytes": 24102,
+      "file_sha256": "defb12b89d7d08cfc594dacdcf2d6e14ffd96ff4177cf5c36b72c864465c0416",
+      "isolation_pass": false,
+      "part": "main",
+      "path": "/lfs/skampere2/0/brando9/veribench_vb107/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/private/jobs/t2_grok47_main/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/verifier/solution.lean",
+      "run_id": "c15d3af9-72bd-4665-99f3-81d4fe9b8b9b",
+      "source": "original_file",
+      "status": "measured",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements"
+    },
+    {
+      "attempt": 1,
+      "file_bytes": 54289,
+      "file_sha256": "c9506f32bdc2aa60e836bd56232aed0840876420c4ee596e88d9c879508d8510",
+      "isolation_pass": true,
+      "part": "turncap",
+      "path": "/lfs/skampere2/0/brando9/veribench_vb107/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/private/jobs/t2_grok47_turncap/cs_set__heapsort_algorithm/verifier/solution.lean",
+      "run_id": "2babb4ae-2b8a-4000-bef5-1a237f6a7531",
+      "source": "turncap_file",
+      "status": "measured",
+      "task_id": "cs_set__heapsort_algorithm"
+    },
+    {
+      "attempt": 1,
+      "file_bytes": 28004,
+      "file_sha256": "eceb47babd1812cd0cf98f8cd778174f6ccf9630026cb270502c520a4558bb73",
+      "isolation_pass": true,
+      "part": "turncap",
+      "path": "/lfs/skampere2/0/brando9/veribench_vb107/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/private/jobs/t2_grok47_turncap/realcode_set__21_shlex_quote/verifier/solution.lean",
+      "run_id": "2babb4ae-2b8a-4000-bef5-1a237f6a7531",
+      "source": "turncap_file",
+      "status": "measured",
+      "task_id": "realcode_set__21_shlex_quote"
+    },
+    {
+      "attempt": 1,
+      "file_bytes": 23951,
+      "file_sha256": "095cfe1eaa64a7456faaa17de718da5994304dc92908fe7335d88524e00993cb",
+      "isolation_pass": true,
+      "part": "turncap",
+      "path": "/lfs/skampere2/0/brando9/veribench_vb107/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/private/jobs/t2_grok47_turncap/humaneval_set__humaneval_4_mean_absolute_deviation/verifier/solution.lean",
+      "run_id": "2babb4ae-2b8a-4000-bef5-1a237f6a7531",
+      "source": "turncap_file",
+      "status": "measured",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation"
+    },
+    {
+      "attempt": 1,
+      "file_bytes": 7372,
+      "file_sha256": "67eab885f322104f0d2c96a420c2aaaf0f7265fa87ecf1d282f37116fc20269f",
+      "isolation_pass": true,
+      "part": "turncap",
+      "path": "/lfs/skampere2/0/brando9/veribench_vb107/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/private/jobs/t2_grok47_turncap/realcode_set__23_base32/verifier/solution.lean",
+      "run_id": "2babb4ae-2b8a-4000-bef5-1a237f6a7531",
+      "source": "turncap_file",
+      "status": "measured",
+      "task_id": "realcode_set__23_base32"
+    },
+    {
+      "attempt": 1,
+      "file_bytes": 40708,
+      "file_sha256": "9db99d1cbc9dc7571ad4d510f690cbcb17bbd9669ccbc906f4c5601128080f3e",
+      "isolation_pass": true,
+      "part": "turncap",
+      "path": "/lfs/skampere2/0/brando9/veribench_vb107/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/private/jobs/t2_grok47_turncap/cs_set__edit_distance/verifier/solution.lean",
+      "run_id": "2babb4ae-2b8a-4000-bef5-1a237f6a7531",
+      "source": "turncap_file",
+      "status": "measured",
+      "task_id": "cs_set__edit_distance"
+    },
+    {
+      "attempt": 1,
+      "file_bytes": 55681,
+      "file_sha256": "4a6d0cf43a3fecf6c3665fa1b937181dafef07ff55755066173c4dbaba421465",
+      "isolation_pass": true,
+      "part": "turncap",
+      "path": "/lfs/skampere2/0/brando9/veribench_vb107/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/private/jobs/t2_grok47_turncap/cs_set__heap_sort/verifier/solution.lean",
+      "run_id": "2babb4ae-2b8a-4000-bef5-1a237f6a7531",
+      "source": "turncap_file",
+      "status": "measured",
+      "task_id": "cs_set__heap_sort"
+    },
+    {
+      "attempt": 1,
+      "file_bytes": 20069,
+      "file_sha256": "e1ee05b22d35bbd6cd10912d0fc11f4cf98ba6f0b5ce41fa6c4f8262330a79d2",
+      "isolation_pass": true,
+      "part": "turncap",
+      "path": "/lfs/skampere2/0/brando9/veribench_vb107/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/private/jobs/t2_grok47_turncap/easy_set__23_is_prime/verifier/solution.lean",
+      "run_id": "2babb4ae-2b8a-4000-bef5-1a237f6a7531",
+      "source": "turncap_file",
+      "status": "measured",
+      "task_id": "easy_set__23_is_prime"
+    },
+    {
+      "attempt": 1,
+      "file_bytes": 26710,
+      "file_sha256": "0bf35ee7e5ecd3106cc85a269c0ef33247c74f880461782cba2f4eeab3359fc3",
+      "isolation_pass": true,
+      "part": "turncap",
+      "path": "/lfs/skampere2/0/brando9/veribench_vb107/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/private/jobs/t2_grok47_turncap/easy_set__19_mypower/verifier/solution.lean",
+      "run_id": "2babb4ae-2b8a-4000-bef5-1a237f6a7531",
+      "source": "turncap_file",
+      "status": "measured",
+      "task_id": "easy_set__19_mypower"
+    }
+  ],
+  "system": "t2_grok47"
+}

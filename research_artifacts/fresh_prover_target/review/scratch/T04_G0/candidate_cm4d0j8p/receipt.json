@@ -1,0 +1,26 @@
+{
+  "target": "Natural.Nonvacuous",
+  "candidate_sha256": "88762a9ca1f3e252e6264202f69f4c465cf251e811783441303a1b8de0ac4f67",
+  "accepted": false,
+  "compile": {
+    "exit_code": 1,
+    "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T04_G0/candidate_cm4d0j8p/Candidate.lean:3:43: error: `grind` failed\ncase grind\nh : \u2200 (x x_1 : String \u2192 String \u2192 Bool), \u2203 x_2 x_3, \u00acx x_2 x_3 = x_1 x_2 x_3\n\u22a2 False\n[grind] Goal diagnostics\n  [facts] Asserted facts\n    [prop] \u2200 (x x_1 : String \u2192 String \u2192 Bool), \u2203 x_2 x_3, \u00acx x_2 x_3 = x_1 x_2 x_3\n  [eqc] True propositions\n    [prop] \u2200 (x x_1 : String \u2192 String \u2192 Bool), \u2203 x_2 x_3, \u00acx x_2 x_3 = x_1 x_2 x_3\n[grind] Issues\n  [issue] failed to create E-match local theorem for\n        \u2200 (x x_1 : String \u2192 String \u2192 Bool), \u2203 x_2 x_3, \u00acx x_2 x_3 = x_1 x_2 x_3\n",
+    "argv": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T04_G0/candidate_cm4d0j8p\"))",
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T04_G0/candidate_cm4d0j8p",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T04_G0/candidate_cm4d0j8p/Candidate.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T04_G0/candidate_cm4d0j8p/Candidate.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "status": "proof_rejected",
+  "protected_intact": true
+}

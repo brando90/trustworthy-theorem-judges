@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-12T01:38:16.359862+00:00",
+  "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "scheduler_amendment_sha256": "015d5b1642e0ea6c3eedc02f227993e03478c515ff906bfce09b935ca61fa991",
+  "native_init": {
+    "model": "claude-fable-5-1",
+    "permissionMode": "bypassPermissions",
+    "apiKeySource": "none",
+    "claude_code_version": "2.1.322",
+    "cwd": "/home/user/lean_project"
+  },
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "useful_tool_actions": [
+    {
+      "line": 242,
+      "tool_id": "toolu_01P6A8BQFWMgP5o6cp6MCaVT",
+      "name": "Bash",
+      "description": "Inspect Lean project layout and toolchain",
+      "input_sha256": "f904d0e2f4462c573b6a6509f02d9af27ee150b52a5f3db24439bc513cb61df3"
+    },
+    {
+      "line": 533,
+      "tool_id": "toolu_01EUHB6kFihu1jT5iPgPz9iL",
+      "name": "Bash",
+      "description": "Probe Plausible samplers, sublists, and proof tactics",
+      "input_sha256": "c1382189848ee8f846396f4bc8fa8f368afd91e633f2b7da033e9d38ea2340b2"
+    }
+  ],
+  "first_lane_preserved_runner_pid": 64674
+}

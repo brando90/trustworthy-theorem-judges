@@ -1,0 +1,2814 @@
+{
+  "schema_version": 1,
+  "status": "PLANNED_NOT_SENT_NO_GOOGLE_EDITS",
+  "prepared_at": "2026-11-12T00:41:37.984363+00:00",
+  "round_id": "native-heavy-11-11-2026",
+  "cohort_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PLANNED_COHORT.json",
+  "cohort_sha256": "67e9a678c98bc7d0c0f3c4de8441aa24aac71903d14aedd31de5e00e4e1b863f",
+  "original_assignment_source": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/ASSIGNMENT_delivered.csv",
+    "sha256": "7dccc6f949b81c1199d28dedb6ba1b8ef29dca1fcb0dd7121c4e634fa88387eb"
+  },
+  "verified_roster_source": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/experiments/09_human_rating_collection/support/RATER_IDENTITIES.json",
+    "sha256": "c714747775fba422de1c457a908cd6693f2a67888fd78ba2deb3a935caf7e67e"
+  },
+  "assignment_rule": "Preserve each non-provisional delivered T01/T05 task and slot; translate task identity only. Each receives all3or4 artifacts for those same2 tasks. Brando A1 rates all85 additionally. Do not infer assignments from whole-cohort sheet display or recruit/assign others.",
+  "target": "Two distinct qualified primary raters per artifact; Brando is additional and never fills a primary slot.",
+  "counts": {
+    "tasks": 25,
+    "artifacts": 85,
+    "primary_slots_required": 170,
+    "primary_slots_assigned": 14,
+    "primary_slots_unassigned": 156,
+    "brando_additional_rows": 85,
+    "existing_primary_participants": 2
+  },
+  "participants": {
+    "A1": {
+      "rater_name": "Brando Miranda",
+      "role": "additional_author_ratings",
+      "assignment_status": "planned_not_sent",
+      "task_ids": [
+        "cs_set__heap_sort",
+        "cs_set__edit_distance",
+        "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+        "humaneval_set__humaneval_15_string_sequence",
+        "easy_set__16_myfactorial",
+        "cs_set__counting_sort",
+        "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+        "realcode_set__23_base32",
+        "easy_set__20_mysumdigits",
+        "realcode_set__28_statistics_median_low",
+        "realcode_set__20_html_escape",
+        "humaneval_set__humaneval_4_mean_absolute_deviation",
+        "easy_set__23_is_prime",
+        "realcode_set__31_statistics_quantiles",
+        "humaneval_set__humaneval_39_prime_fib",
+        "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+        "cs_set__heapsort_algorithm",
+        "cs_set__topological_sort",
+        "humaneval_set__humaneval_14_all_prefixes",
+        "easy_set__19_mypower",
+        "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+        "realcode_set__21_shlex_quote",
+        "easy_set__41_duplicate_chars",
+        "security_set__security_6858__safe__125_unsafetpmhash_safe",
+        "humaneval_set__humaneval_35_max_element"
+      ],
+      "task_count": 25,
+      "artifact_count": 85,
+      "original_assignment_rows": [],
+      "item_ids": [
+        "native-heavy-11-11-2026__item045",
+        "native-heavy-11-11-2026__item066",
+        "native-heavy-11-11-2026__item065",
+        "native-heavy-11-11-2026__item047",
+        "native-heavy-11-11-2026__item035",
+        "native-heavy-11-11-2026__item018",
+        "native-heavy-11-11-2026__item085",
+        "native-heavy-11-11-2026__item075",
+        "native-heavy-11-11-2026__item055",
+        "native-heavy-11-11-2026__item044",
+        "native-heavy-11-11-2026__item038",
+        "native-heavy-11-11-2026__item030",
+        "native-heavy-11-11-2026__item007",
+        "native-heavy-11-11-2026__item010",
+        "native-heavy-11-11-2026__item008",
+        "native-heavy-11-11-2026__item057",
+        "native-heavy-11-11-2026__item073",
+        "native-heavy-11-11-2026__item062",
+        "native-heavy-11-11-2026__item059",
+        "native-heavy-11-11-2026__item040",
+        "native-heavy-11-11-2026__item036",
+        "native-heavy-11-11-2026__item051",
+        "native-heavy-11-11-2026__item079",
+        "native-heavy-11-11-2026__item083",
+        "native-heavy-11-11-2026__item052",
+        "native-heavy-11-11-2026__item026",
+        "native-heavy-11-11-2026__item056",
+        "native-heavy-11-11-2026__item034",
+        "native-heavy-11-11-2026__item006",
+        "native-heavy-11-11-2026__item001",
+        "native-heavy-11-11-2026__item022",
+        "native-heavy-11-11-2026__item015",
+        "native-heavy-11-11-2026__item041",
+        "native-heavy-11-11-2026__item070",
+        "native-heavy-11-11-2026__item042",
+        "native-heavy-11-11-2026__item082",
+        "native-heavy-11-11-2026__item017",
+        "native-heavy-11-11-2026__item050",
+        "native-heavy-11-11-2026__item071",
+        "native-heavy-11-11-2026__item002",
+        "native-heavy-11-11-2026__item039",
+        "native-heavy-11-11-2026__item072",
+        "native-heavy-11-11-2026__item081",
+        "native-heavy-11-11-2026__item077",
+        "native-heavy-11-11-2026__item058",
+        "native-heavy-11-11-2026__item067",
+        "native-heavy-11-11-2026__item046",
+        "native-heavy-11-11-2026__item063",
+        "native-heavy-11-11-2026__item004",
+        "native-heavy-11-11-2026__item011",
+        "native-heavy-11-11-2026__item025",
+        "native-heavy-11-11-2026__item074",
+        "native-heavy-11-11-2026__item020",
+        "native-heavy-11-11-2026__item024",
+        "native-heavy-11-11-2026__item069",
+        "native-heavy-11-11-2026__item014",
+        "native-heavy-11-11-2026__item027",
+        "native-heavy-11-11-2026__item033",
+        "native-heavy-11-11-2026__item078",
+        "native-heavy-11-11-2026__item019",
+        "native-heavy-11-11-2026__item031",
+        "native-heavy-11-11-2026__item080",
+        "native-heavy-11-11-2026__item054",
+        "native-heavy-11-11-2026__item009",
+        "native-heavy-11-11-2026__item003",
+        "native-heavy-11-11-2026__item028",
+        "native-heavy-11-11-2026__item068",
+        "native-heavy-11-11-2026__item013",
+        "native-heavy-11-11-2026__item049",
+        "native-heavy-11-11-2026__item048",
+        "native-heavy-11-11-2026__item076",
+        "native-heavy-11-11-2026__item012",
+        "native-heavy-11-11-2026__item005",
+        "native-heavy-11-11-2026__item060",
+        "native-heavy-11-11-2026__item084",
+        "native-heavy-11-11-2026__item032",
+        "native-heavy-11-11-2026__item043",
+        "native-heavy-11-11-2026__item021",
+        "native-heavy-11-11-2026__item053",
+        "native-heavy-11-11-2026__item037",
+        "native-heavy-11-11-2026__item023",
+        "native-heavy-11-11-2026__item064",
+        "native-heavy-11-11-2026__item061",
+        "native-heavy-11-11-2026__item016",
+        "native-heavy-11-11-2026__item029"
+      ],
+      "columns": [
+        "rater_name",
+        "rater_id",
+        "item_id",
+        "task_folder",
+        "candidate_file",
+        "final_score_0_5",
+        "ai_assisted_rating_attestation",
+        "minutes_spent",
+        "confidence",
+        "rationale",
+        "problem_note"
+      ],
+      "sheet_values": [
+        [
+          "rater_name",
+          "rater_id",
+          "item_id",
+          "task_folder",
+          "candidate_file",
+          "final_score_0_5",
+          "ai_assisted_rating_attestation",
+          "minutes_spent",
+          "confidence",
+          "rationale",
+          "problem_note"
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item045",
+          "task_01_heap_sort",
+          "task_01_heap_sort/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item066",
+          "task_01_heap_sort",
+          "task_01_heap_sort/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item065",
+          "task_01_heap_sort",
+          "task_01_heap_sort/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item047",
+          "task_01_heap_sort",
+          "task_01_heap_sort/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item035",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item018",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item085",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item075",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item055",
+          "task_03_application_entitlements",
+          "task_03_application_entitlements/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item044",
+          "task_03_application_entitlements",
+          "task_03_application_entitlements/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item038",
+          "task_03_application_entitlements",
+          "task_03_application_entitlements/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item030",
+          "task_03_application_entitlements",
+          "task_03_application_entitlements/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item007",
+          "task_04_integer_string_sequence",
+          "task_04_integer_string_sequence/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item010",
+          "task_04_integer_string_sequence",
+          "task_04_integer_string_sequence/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item008",
+          "task_04_integer_string_sequence",
+          "task_04_integer_string_sequence/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item057",
+          "task_05_factorial",
+          "task_05_factorial/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item073",
+          "task_05_factorial",
+          "task_05_factorial/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item062",
+          "task_05_factorial",
+          "task_05_factorial/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item059",
+          "task_06_counting_sort",
+          "task_06_counting_sort/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item040",
+          "task_06_counting_sort",
+          "task_06_counting_sort/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item036",
+          "task_06_counting_sort",
+          "task_06_counting_sort/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item051",
+          "task_07_transport_layer_security_downgrade",
+          "task_07_transport_layer_security_downgrade/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item079",
+          "task_07_transport_layer_security_downgrade",
+          "task_07_transport_layer_security_downgrade/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item083",
+          "task_07_transport_layer_security_downgrade",
+          "task_07_transport_layer_security_downgrade/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item052",
+          "task_08_base32_encoding",
+          "task_08_base32_encoding/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item026",
+          "task_08_base32_encoding",
+          "task_08_base32_encoding/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item056",
+          "task_08_base32_encoding",
+          "task_08_base32_encoding/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item034",
+          "task_08_base32_encoding",
+          "task_08_base32_encoding/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item006",
+          "task_09_sum_of_digits",
+          "task_09_sum_of_digits/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item001",
+          "task_09_sum_of_digits",
+          "task_09_sum_of_digits/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item022",
+          "task_09_sum_of_digits",
+          "task_09_sum_of_digits/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item015",
+          "task_10_lower_median",
+          "task_10_lower_median/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item041",
+          "task_10_lower_median",
+          "task_10_lower_median/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item070",
+          "task_10_lower_median",
+          "task_10_lower_median/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item042",
+          "task_11_html_escaping",
+          "task_11_html_escaping/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item082",
+          "task_11_html_escaping",
+          "task_11_html_escaping/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item017",
+          "task_11_html_escaping",
+          "task_11_html_escaping/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item050",
+          "task_12_mean_absolute_deviation",
+          "task_12_mean_absolute_deviation/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item071",
+          "task_12_mean_absolute_deviation",
+          "task_12_mean_absolute_deviation/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item002",
+          "task_12_mean_absolute_deviation",
+          "task_12_mean_absolute_deviation/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item039",
+          "task_12_mean_absolute_deviation",
+          "task_12_mean_absolute_deviation/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item072",
+          "task_13_primality_testing",
+          "task_13_primality_testing/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item081",
+          "task_13_primality_testing",
+          "task_13_primality_testing/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item077",
+          "task_13_primality_testing",
+          "task_13_primality_testing/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item058",
+          "task_13_primality_testing",
+          "task_13_primality_testing/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item067",
+          "task_14_statistical_quantiles",
+          "task_14_statistical_quantiles/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item046",
+          "task_14_statistical_quantiles",
+          "task_14_statistical_quantiles/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item063",
+          "task_14_statistical_quantiles",
+          "task_14_statistical_quantiles/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item004",
+          "task_15_prime_fibonacci_search",
+          "task_15_prime_fibonacci_search/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item011",
+          "task_15_prime_fibonacci_search",
+          "task_15_prime_fibonacci_search/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item025",
+          "task_15_prime_fibonacci_search",
+          "task_15_prime_fibonacci_search/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item074",
+          "task_16_certificate_hostname",
+          "task_16_certificate_hostname/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item020",
+          "task_16_certificate_hostname",
+          "task_16_certificate_hostname/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item024",
+          "task_16_certificate_hostname",
+          "task_16_certificate_hostname/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item069",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item014",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item027",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item033",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item078",
+          "task_18_topological_sorting",
+          "task_18_topological_sorting/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item019",
+          "task_18_topological_sorting",
+          "task_18_topological_sorting/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item031",
+          "task_18_topological_sorting",
+          "task_18_topological_sorting/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item080",
+          "task_18_topological_sorting",
+          "task_18_topological_sorting/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item054",
+          "task_19_string_prefixes",
+          "task_19_string_prefixes/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item009",
+          "task_19_string_prefixes",
+          "task_19_string_prefixes/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item003",
+          "task_19_string_prefixes",
+          "task_19_string_prefixes/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item028",
+          "task_20_integer_exponentiation",
+          "task_20_integer_exponentiation/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item068",
+          "task_20_integer_exponentiation",
+          "task_20_integer_exponentiation/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item013",
+          "task_20_integer_exponentiation",
+          "task_20_integer_exponentiation/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item049",
+          "task_20_integer_exponentiation",
+          "task_20_integer_exponentiation/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item048",
+          "task_21_tor_hidden_service",
+          "task_21_tor_hidden_service/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item076",
+          "task_21_tor_hidden_service",
+          "task_21_tor_hidden_service/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item012",
+          "task_21_tor_hidden_service",
+          "task_21_tor_hidden_service/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item005",
+          "task_22_shell_quoting",
+          "task_22_shell_quoting/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item060",
+          "task_22_shell_quoting",
+          "task_22_shell_quoting/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item084",
+          "task_22_shell_quoting",
+          "task_22_shell_quoting/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item032",
+          "task_22_shell_quoting",
+          "task_22_shell_quoting/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item043",
+          "task_23_duplicate_characters",
+          "task_23_duplicate_characters/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item021",
+          "task_23_duplicate_characters",
+          "task_23_duplicate_characters/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item053",
+          "task_23_duplicate_characters",
+          "task_23_duplicate_characters/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item037",
+          "task_24_trusted_platform_module_hash_safe",
+          "task_24_trusted_platform_module_hash_safe/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item023",
+          "task_24_trusted_platform_module_hash_safe",
+          "task_24_trusted_platform_module_hash_safe/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item064",
+          "task_24_trusted_platform_module_hash_safe",
+          "task_24_trusted_platform_module_hash_safe/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item061",
+          "task_25_maximum_list_element",
+          "task_25_maximum_list_element/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item016",
+          "task_25_maximum_list_element",
+          "task_25_maximum_list_element/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Brando Miranda",
+          "A1",
+          "native-heavy-11-11-2026__item029",
+          "task_25_maximum_list_element",
+          "task_25_maximum_list_element/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    "T01": {
+      "rater_name": "Rylan Schaeffer",
+      "role": "continued_existing_primary_assignment",
+      "assignment_status": "planned_not_sent",
+      "task_ids": [
+        "cs_set__edit_distance",
+        "cs_set__heapsort_algorithm"
+      ],
+      "task_count": 2,
+      "artifact_count": 8,
+      "original_assignment_rows": [
+        {
+          "task_folder": "N17",
+          "slot": "2",
+          "rater_id": "T01",
+          "provisional": "no"
+        },
+        {
+          "task_folder": "N21",
+          "slot": "1",
+          "rater_id": "T01",
+          "provisional": "no"
+        }
+      ],
+      "item_ids": [
+        "native-heavy-11-11-2026__item035",
+        "native-heavy-11-11-2026__item018",
+        "native-heavy-11-11-2026__item085",
+        "native-heavy-11-11-2026__item075",
+        "native-heavy-11-11-2026__item069",
+        "native-heavy-11-11-2026__item014",
+        "native-heavy-11-11-2026__item027",
+        "native-heavy-11-11-2026__item033"
+      ],
+      "columns": [
+        "rater_name",
+        "rater_id",
+        "item_id",
+        "task_folder",
+        "candidate_file",
+        "final_score_0_5",
+        "ai_assisted_rating_attestation",
+        "minutes_spent",
+        "confidence",
+        "rationale",
+        "problem_note"
+      ],
+      "sheet_values": [
+        [
+          "rater_name",
+          "rater_id",
+          "item_id",
+          "task_folder",
+          "candidate_file",
+          "final_score_0_5",
+          "ai_assisted_rating_attestation",
+          "minutes_spent",
+          "confidence",
+          "rationale",
+          "problem_note"
+        ],
+        [
+          "Rylan Schaeffer",
+          "T01",
+          "native-heavy-11-11-2026__item035",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Rylan Schaeffer",
+          "T01",
+          "native-heavy-11-11-2026__item018",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Rylan Schaeffer",
+          "T01",
+          "native-heavy-11-11-2026__item085",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Rylan Schaeffer",
+          "T01",
+          "native-heavy-11-11-2026__item075",
+          "task_02_edit_distance",
+          "task_02_edit_distance/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Rylan Schaeffer",
+          "T01",
+          "native-heavy-11-11-2026__item069",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Rylan Schaeffer",
+          "T01",
+          "native-heavy-11-11-2026__item014",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Rylan Schaeffer",
+          "T01",
+          "native-heavy-11-11-2026__item027",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Rylan Schaeffer",
+          "T01",
+          "native-heavy-11-11-2026__item033",
+          "task_17_heapsort_algorithm",
+          "task_17_heapsort_algorithm/agent_lean/agent_4.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    "T05": {
+      "rater_name": "Srivatsava Daruru (Sri)",
+      "role": "continued_existing_primary_assignment",
+      "assignment_status": "planned_not_sent",
+      "task_ids": [
+        "realcode_set__20_html_escape",
+        "realcode_set__31_statistics_quantiles"
+      ],
+      "task_count": 2,
+      "artifact_count": 6,
+      "original_assignment_rows": [
+        {
+          "task_folder": "N01",
+          "slot": "1",
+          "rater_id": "T05",
+          "provisional": "no"
+        },
+        {
+          "task_folder": "N23",
+          "slot": "1",
+          "rater_id": "T05",
+          "provisional": "no"
+        }
+      ],
+      "item_ids": [
+        "native-heavy-11-11-2026__item042",
+        "native-heavy-11-11-2026__item082",
+        "native-heavy-11-11-2026__item017",
+        "native-heavy-11-11-2026__item067",
+        "native-heavy-11-11-2026__item046",
+        "native-heavy-11-11-2026__item063"
+      ],
+      "columns": [
+        "rater_name",
+        "rater_id",
+        "item_id",
+        "task_folder",
+        "candidate_file",
+        "final_score_0_5",
+        "ai_assisted_rating_attestation",
+        "minutes_spent",
+        "confidence",
+        "rationale",
+        "problem_note"
+      ],
+      "sheet_values": [
+        [
+          "rater_name",
+          "rater_id",
+          "item_id",
+          "task_folder",
+          "candidate_file",
+          "final_score_0_5",
+          "ai_assisted_rating_attestation",
+          "minutes_spent",
+          "confidence",
+          "rationale",
+          "problem_note"
+        ],
+        [
+          "Srivatsava Daruru (Sri)",
+          "T05",
+          "native-heavy-11-11-2026__item042",
+          "task_11_html_escaping",
+          "task_11_html_escaping/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Srivatsava Daruru (Sri)",
+          "T05",
+          "native-heavy-11-11-2026__item082",
+          "task_11_html_escaping",
+          "task_11_html_escaping/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Srivatsava Daruru (Sri)",
+          "T05",
+          "native-heavy-11-11-2026__item017",
+          "task_11_html_escaping",
+          "task_11_html_escaping/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Srivatsava Daruru (Sri)",
+          "T05",
+          "native-heavy-11-11-2026__item067",
+          "task_14_statistical_quantiles",
+          "task_14_statistical_quantiles/agent_lean/agent_1.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Srivatsava Daruru (Sri)",
+          "T05",
+          "native-heavy-11-11-2026__item046",
+          "task_14_statistical_quantiles",
+          "task_14_statistical_quantiles/agent_lean/agent_2.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Srivatsava Daruru (Sri)",
+          "T05",
+          "native-heavy-11-11-2026__item063",
+          "task_14_statistical_quantiles",
+          "task_14_statistical_quantiles/agent_lean/agent_3.lean",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    }
+  },
+  "primary_slots": [
+    {
+      "item_id": "native-heavy-11-11-2026__item001",
+      "task_id": "easy_set__20_mysumdigits",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item001",
+      "task_id": "easy_set__20_mysumdigits",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item002",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item002",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item003",
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item003",
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item004",
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item004",
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item005",
+      "task_id": "realcode_set__21_shlex_quote",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item005",
+      "task_id": "realcode_set__21_shlex_quote",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item006",
+      "task_id": "easy_set__20_mysumdigits",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item006",
+      "task_id": "easy_set__20_mysumdigits",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item007",
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item007",
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item008",
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item008",
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item009",
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item009",
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item010",
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item010",
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item011",
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item011",
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item012",
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item012",
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item013",
+      "task_id": "easy_set__19_mypower",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item013",
+      "task_id": "easy_set__19_mypower",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item014",
+      "task_id": "cs_set__heapsort_algorithm",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item014",
+      "task_id": "cs_set__heapsort_algorithm",
+      "slot": 2,
+      "rater_id": "T01",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item015",
+      "task_id": "realcode_set__28_statistics_median_low",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item015",
+      "task_id": "realcode_set__28_statistics_median_low",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item016",
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item016",
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item017",
+      "task_id": "realcode_set__20_html_escape",
+      "slot": 1,
+      "rater_id": "T05",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item017",
+      "task_id": "realcode_set__20_html_escape",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item018",
+      "task_id": "cs_set__edit_distance",
+      "slot": 1,
+      "rater_id": "T01",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item018",
+      "task_id": "cs_set__edit_distance",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item019",
+      "task_id": "cs_set__topological_sort",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item019",
+      "task_id": "cs_set__topological_sort",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item020",
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item020",
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item021",
+      "task_id": "easy_set__41_duplicate_chars",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item021",
+      "task_id": "easy_set__41_duplicate_chars",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item022",
+      "task_id": "easy_set__20_mysumdigits",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item022",
+      "task_id": "easy_set__20_mysumdigits",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item023",
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item023",
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item024",
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item024",
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item025",
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item025",
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item026",
+      "task_id": "realcode_set__23_base32",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item026",
+      "task_id": "realcode_set__23_base32",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item027",
+      "task_id": "cs_set__heapsort_algorithm",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item027",
+      "task_id": "cs_set__heapsort_algorithm",
+      "slot": 2,
+      "rater_id": "T01",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item028",
+      "task_id": "easy_set__19_mypower",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item028",
+      "task_id": "easy_set__19_mypower",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item029",
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item029",
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item030",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item030",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item031",
+      "task_id": "cs_set__topological_sort",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item031",
+      "task_id": "cs_set__topological_sort",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item032",
+      "task_id": "realcode_set__21_shlex_quote",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item032",
+      "task_id": "realcode_set__21_shlex_quote",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item033",
+      "task_id": "cs_set__heapsort_algorithm",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item033",
+      "task_id": "cs_set__heapsort_algorithm",
+      "slot": 2,
+      "rater_id": "T01",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item034",
+      "task_id": "realcode_set__23_base32",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item034",
+      "task_id": "realcode_set__23_base32",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item035",
+      "task_id": "cs_set__edit_distance",
+      "slot": 1,
+      "rater_id": "T01",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item035",
+      "task_id": "cs_set__edit_distance",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item036",
+      "task_id": "cs_set__counting_sort",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item036",
+      "task_id": "cs_set__counting_sort",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item037",
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item037",
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item038",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item038",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item039",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item039",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item040",
+      "task_id": "cs_set__counting_sort",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item040",
+      "task_id": "cs_set__counting_sort",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item041",
+      "task_id": "realcode_set__28_statistics_median_low",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item041",
+      "task_id": "realcode_set__28_statistics_median_low",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item042",
+      "task_id": "realcode_set__20_html_escape",
+      "slot": 1,
+      "rater_id": "T05",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item042",
+      "task_id": "realcode_set__20_html_escape",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item043",
+      "task_id": "easy_set__41_duplicate_chars",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item043",
+      "task_id": "easy_set__41_duplicate_chars",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item044",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item044",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item045",
+      "task_id": "cs_set__heap_sort",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item045",
+      "task_id": "cs_set__heap_sort",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item046",
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "slot": 1,
+      "rater_id": "T05",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item046",
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item047",
+      "task_id": "cs_set__heap_sort",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item047",
+      "task_id": "cs_set__heap_sort",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item048",
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item048",
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item049",
+      "task_id": "easy_set__19_mypower",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item049",
+      "task_id": "easy_set__19_mypower",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item050",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item050",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item051",
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item051",
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item052",
+      "task_id": "realcode_set__23_base32",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item052",
+      "task_id": "realcode_set__23_base32",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item053",
+      "task_id": "easy_set__41_duplicate_chars",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item053",
+      "task_id": "easy_set__41_duplicate_chars",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item054",
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item054",
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item055",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item055",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item056",
+      "task_id": "realcode_set__23_base32",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item056",
+      "task_id": "realcode_set__23_base32",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item057",
+      "task_id": "easy_set__16_myfactorial",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item057",
+      "task_id": "easy_set__16_myfactorial",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item058",
+      "task_id": "easy_set__23_is_prime",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item058",
+      "task_id": "easy_set__23_is_prime",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item059",
+      "task_id": "cs_set__counting_sort",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item059",
+      "task_id": "cs_set__counting_sort",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item060",
+      "task_id": "realcode_set__21_shlex_quote",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item060",
+      "task_id": "realcode_set__21_shlex_quote",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item061",
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item061",
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item062",
+      "task_id": "easy_set__16_myfactorial",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item062",
+      "task_id": "easy_set__16_myfactorial",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item063",
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "slot": 1,
+      "rater_id": "T05",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item063",
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item064",
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item064",
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item065",
+      "task_id": "cs_set__heap_sort",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item065",
+      "task_id": "cs_set__heap_sort",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item066",
+      "task_id": "cs_set__heap_sort",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item066",
+      "task_id": "cs_set__heap_sort",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item067",
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "slot": 1,
+      "rater_id": "T05",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item067",
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item068",
+      "task_id": "easy_set__19_mypower",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item068",
+      "task_id": "easy_set__19_mypower",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item069",
+      "task_id": "cs_set__heapsort_algorithm",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item069",
+      "task_id": "cs_set__heapsort_algorithm",
+      "slot": 2,
+      "rater_id": "T01",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item070",
+      "task_id": "realcode_set__28_statistics_median_low",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item070",
+      "task_id": "realcode_set__28_statistics_median_low",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item071",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item071",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item072",
+      "task_id": "easy_set__23_is_prime",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item072",
+      "task_id": "easy_set__23_is_prime",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item073",
+      "task_id": "easy_set__16_myfactorial",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item073",
+      "task_id": "easy_set__16_myfactorial",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item074",
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item074",
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item075",
+      "task_id": "cs_set__edit_distance",
+      "slot": 1,
+      "rater_id": "T01",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item075",
+      "task_id": "cs_set__edit_distance",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item076",
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item076",
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item077",
+      "task_id": "easy_set__23_is_prime",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item077",
+      "task_id": "easy_set__23_is_prime",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item078",
+      "task_id": "cs_set__topological_sort",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item078",
+      "task_id": "cs_set__topological_sort",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item079",
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item079",
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item080",
+      "task_id": "cs_set__topological_sort",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item080",
+      "task_id": "cs_set__topological_sort",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item081",
+      "task_id": "easy_set__23_is_prime",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item081",
+      "task_id": "easy_set__23_is_prime",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item082",
+      "task_id": "realcode_set__20_html_escape",
+      "slot": 1,
+      "rater_id": "T05",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item082",
+      "task_id": "realcode_set__20_html_escape",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item083",
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item083",
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item084",
+      "task_id": "realcode_set__21_shlex_quote",
+      "slot": 1,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item084",
+      "task_id": "realcode_set__21_shlex_quote",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item085",
+      "task_id": "cs_set__edit_distance",
+      "slot": 1,
+      "rater_id": "T01",
+      "status": "continued_existing_assignment"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item085",
+      "task_id": "cs_set__edit_distance",
+      "slot": 2,
+      "rater_id": null,
+      "status": "unassigned"
+    }
+  ],
+  "task_display_paths": {
+    "cs_set__heap_sort": "task_01_heap_sort",
+    "cs_set__edit_distance": "task_02_edit_distance",
+    "security_set__security_6858__vulnerabilities__93_unsafeappentitlements": "task_03_application_entitlements",
+    "humaneval_set__humaneval_15_string_sequence": "task_04_integer_string_sequence",
+    "easy_set__16_myfactorial": "task_05_factorial",
+    "cs_set__counting_sort": "task_06_counting_sort",
+    "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade": "task_07_transport_layer_security_downgrade",
+    "realcode_set__23_base32": "task_08_base32_encoding",
+    "easy_set__20_mysumdigits": "task_09_sum_of_digits",
+    "realcode_set__28_statistics_median_low": "task_10_lower_median",
+    "realcode_set__20_html_escape": "task_11_html_escaping",
+    "humaneval_set__humaneval_4_mean_absolute_deviation": "task_12_mean_absolute_deviation",
+    "easy_set__23_is_prime": "task_13_primality_testing",
+    "realcode_set__31_statistics_quantiles": "task_14_statistical_quantiles",
+    "humaneval_set__humaneval_39_prime_fib": "task_15_prime_fibonacci_search",
+    "security_set__security_6858__vulnerabilities__75_unsafecerthostname": "task_16_certificate_hostname",
+    "cs_set__heapsort_algorithm": "task_17_heapsort_algorithm",
+    "cs_set__topological_sort": "task_18_topological_sorting",
+    "humaneval_set__humaneval_14_all_prefixes": "task_19_string_prefixes",
+    "easy_set__19_mypower": "task_20_integer_exponentiation",
+    "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice": "task_21_tor_hidden_service",
+    "realcode_set__21_shlex_quote": "task_22_shell_quoting",
+    "easy_set__41_duplicate_chars": "task_23_duplicate_characters",
+    "security_set__security_6858__safe__125_unsafetpmhash_safe": "task_24_trusted_platform_module_hash_safe",
+    "humaneval_set__humaneval_35_max_element": "task_25_maximum_list_element"
+  },
+  "warnings": [
+    "This plans replacement forms; no current or historical Sheet, archive or response has been edited.",
+    "Only the score and attestation are required for new completed rows; all response fields remain blank.",
+    "A planned artifact row does not establish its candidate exists. Finalization must resolve pending outputs before dispatch."
+  ]
+}

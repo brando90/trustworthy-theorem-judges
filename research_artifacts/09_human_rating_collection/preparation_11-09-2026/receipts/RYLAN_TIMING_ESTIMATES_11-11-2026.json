@@ -1,0 +1,1256 @@
+{
+  "date": "11-11-2026",
+  "range": "Untitled!N1:N8",
+  "sum_minutes": 60,
+  "kind": "coordinator estimates from approximate packet report",
+  "outside_range_unchanged": true,
+  "before": {
+    "spreadsheetId": "1SiyDKm0b4kmoQIfBomQGgFc8CVb04Rx6ekAW1CjzFFU",
+    "spreadsheetUrl": "https://docs.google.com/spreadsheets/d/1SiyDKm0b4kmoQIfBomQGgFc8CVb04Rx6ekAW1CjzFFU/edit",
+    "properties": {
+      "title": "VeriBench warm-up rating sheet - T01",
+      "locale": "en_US",
+      "timeZone": "America/Los_Angeles"
+    },
+    "sheets": [
+      {
+        "properties": {
+          "sheetId": 1299686922,
+          "title": "Untitled",
+          "index": 0,
+          "sheetType": "GRID",
+          "gridProperties": {
+            "rowCount": 1000,
+            "columnCount": 26
+          }
+        },
+        "data": [
+          {
+            "rowData": [
+              {
+                "values": [
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "# TLDR: C15 warm-up sheet"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "one row per agent file (6 rows); fill final_score_0_5"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "minutes_spent and lean_familiarity."
+                    }
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "rater_id"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "item_id"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "task_folder"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "candidate_file"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "A"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "B"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "C"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "D"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "base_score_0_5"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "final_score_0_5"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "confidence"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "rationale"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "problem_note"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "minutes_spent"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "lean_familiarity"
+                    }
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W01a"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W01"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W01/agent_lean/W01a.lean"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 0
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 0
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate"
+                    }
+                  },
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W01b"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W01"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W01/agent_lean/W01b.lean"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 0
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 0
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate"
+                    }
+                  },
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W01c"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W01"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W01/agent_lean/W01c.lean"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 2
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 2
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate"
+                    }
+                  },
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W02a"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W02"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W02/agent_lean/W02a.lean"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "Misses gold's largest divsor rule and agreement with imperative"
+                    }
+                  },
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W02b"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W02"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W02/agent_lean/W02b.lean"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "Y"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "Doesn't show agreement with imperative version"
+                    }
+                  },
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W02c"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W02"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "W02/agent_lean/W02c.lean"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "Y"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "Doesn't show agreement with imperative version"
+                    }
+                  },
+                  {},
+                  {
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "after": {
+    "spreadsheetId": "1SiyDKm0b4kmoQIfBomQGgFc8CVb04Rx6ekAW1CjzFFU",
+    "spreadsheetUrl": "https://docs.google.com/spreadsheets/d/1SiyDKm0b4kmoQIfBomQGgFc8CVb04Rx6ekAW1CjzFFU/edit",
+    "properties": {
+      "title": "VeriBench warm-up rating sheet - T01",
+      "locale": "en_US",
+      "timeZone": "America/Los_Angeles"
+    },
+    "sheets": [
+      {
+        "properties": {
+          "sheetId": 1299686922,
+          "title": "Untitled",
+          "index": 0,
+          "sheetType": "GRID",
+          "gridProperties": {
+            "rowCount": 1000,
+            "columnCount": 26
+          }
+        },
+        "data": [
+          {
+            "rowData": [
+              {
+                "values": [
+                  {
+                    "formattedValue": "# TLDR: C15 warm-up sheet",
+                    "userEnteredValue": {
+                      "stringValue": "# TLDR: C15 warm-up sheet"
+                    }
+                  },
+                  {
+                    "formattedValue": "one row per agent file (6 rows); fill final_score_0_5",
+                    "userEnteredValue": {
+                      "stringValue": "one row per agent file (6 rows); fill final_score_0_5"
+                    }
+                  },
+                  {
+                    "formattedValue": "minutes_spent and lean_familiarity.",
+                    "userEnteredValue": {
+                      "stringValue": "minutes_spent and lean_familiarity."
+                    }
+                  },
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {},
+                  {
+                    "formattedValue": "Coordinator time estimates; total ~60 min",
+                    "userEnteredValue": {
+                      "stringValue": "Coordinator time estimates; total ~60 min"
+                    }
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "formattedValue": "rater_id",
+                    "userEnteredValue": {
+                      "stringValue": "rater_id"
+                    }
+                  },
+                  {
+                    "formattedValue": "item_id",
+                    "userEnteredValue": {
+                      "stringValue": "item_id"
+                    }
+                  },
+                  {
+                    "formattedValue": "task_folder",
+                    "userEnteredValue": {
+                      "stringValue": "task_folder"
+                    }
+                  },
+                  {
+                    "formattedValue": "candidate_file",
+                    "userEnteredValue": {
+                      "stringValue": "candidate_file"
+                    }
+                  },
+                  {
+                    "formattedValue": "A",
+                    "userEnteredValue": {
+                      "stringValue": "A"
+                    }
+                  },
+                  {
+                    "formattedValue": "B",
+                    "userEnteredValue": {
+                      "stringValue": "B"
+                    }
+                  },
+                  {
+                    "formattedValue": "C",
+                    "userEnteredValue": {
+                      "stringValue": "C"
+                    }
+                  },
+                  {
+                    "formattedValue": "D",
+                    "userEnteredValue": {
+                      "stringValue": "D"
+                    }
+                  },
+                  {
+                    "formattedValue": "base_score_0_5",
+                    "userEnteredValue": {
+                      "stringValue": "base_score_0_5"
+                    }
+                  },
+                  {
+                    "formattedValue": "final_score_0_5",
+                    "userEnteredValue": {
+                      "stringValue": "final_score_0_5"
+                    }
+                  },
+                  {
+                    "formattedValue": "confidence",
+                    "userEnteredValue": {
+                      "stringValue": "confidence"
+                    }
+                  },
+                  {
+                    "formattedValue": "rationale",
+                    "userEnteredValue": {
+                      "stringValue": "rationale"
+                    }
+                  },
+                  {
+                    "formattedValue": "problem_note",
+                    "userEnteredValue": {
+                      "stringValue": "problem_note"
+                    }
+                  },
+                  {
+                    "formattedValue": "minutes_spent",
+                    "userEnteredValue": {
+                      "stringValue": "minutes_spent"
+                    },
+                    "note": "Coordinator estimates entered by Codex at Brando's request on 11-11-2026. Rylan reported only the approximate packet total: 'Like an hour?' (WhatsApp 11-11-2026 10:29:44 AM). These six allocations sum to 60 minutes; they are not measured per-file durations."
+                  },
+                  {
+                    "formattedValue": "lean_familiarity",
+                    "userEnteredValue": {
+                      "stringValue": "lean_familiarity"
+                    }
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "formattedValue": "T01",
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "formattedValue": "W01a",
+                    "userEnteredValue": {
+                      "stringValue": "W01a"
+                    }
+                  },
+                  {
+                    "formattedValue": "W01",
+                    "userEnteredValue": {
+                      "stringValue": "W01"
+                    }
+                  },
+                  {
+                    "formattedValue": "W01/agent_lean/W01a.lean",
+                    "userEnteredValue": {
+                      "stringValue": "W01/agent_lean/W01a.lean"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N/A",
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "formattedValue": "0",
+                    "userEnteredValue": {
+                      "numberValue": 0
+                    }
+                  },
+                  {
+                    "formattedValue": "0",
+                    "userEnteredValue": {
+                      "numberValue": 0
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "formattedValue": "The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate",
+                    "userEnteredValue": {
+                      "stringValue": "The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate"
+                    }
+                  },
+                  {
+                    "formattedValue": "15",
+                    "userEnteredValue": {
+                      "numberValue": 15
+                    },
+                    "userEnteredFormat": {
+                      "numberFormat": {
+                        "type": "NUMBER",
+                        "pattern": "0"
+                      }
+                    },
+                    "note": "Coordinator estimates entered by Codex at Brando's request on 11-11-2026. Rylan reported only the approximate packet total: 'Like an hour?' (WhatsApp 11-11-2026 10:29:44 AM). These six allocations sum to 60 minutes; they are not measured per-file durations.\nW01a: First median file, including shared rubric/source/reference familiarization."
+                  },
+                  {
+                    "formattedValue": "None",
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "formattedValue": "T01",
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "formattedValue": "W01b",
+                    "userEnteredValue": {
+                      "stringValue": "W01b"
+                    }
+                  },
+                  {
+                    "formattedValue": "W01",
+                    "userEnteredValue": {
+                      "stringValue": "W01"
+                    }
+                  },
+                  {
+                    "formattedValue": "W01/agent_lean/W01b.lean",
+                    "userEnteredValue": {
+                      "stringValue": "W01/agent_lean/W01b.lean"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N/A",
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "formattedValue": "0",
+                    "userEnteredValue": {
+                      "numberValue": 0
+                    }
+                  },
+                  {
+                    "formattedValue": "0",
+                    "userEnteredValue": {
+                      "numberValue": 0
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "formattedValue": "The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate",
+                    "userEnteredValue": {
+                      "stringValue": "The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate"
+                    }
+                  },
+                  {
+                    "formattedValue": "5",
+                    "userEnteredValue": {
+                      "numberValue": 5
+                    },
+                    "userEnteredFormat": {
+                      "numberFormat": {
+                        "type": "NUMBER",
+                        "pattern": "0"
+                      }
+                    },
+                    "note": "Coordinator estimates entered by Codex at Brando's request on 11-11-2026. Rylan reported only the approximate packet total: 'Like an hour?' (WhatsApp 11-11-2026 10:29:44 AM). These six allocations sum to 60 minutes; they are not measured per-file durations.\nW01b: Related median specification after familiarization."
+                  },
+                  {
+                    "formattedValue": "None",
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "formattedValue": "T01",
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "formattedValue": "W01c",
+                    "userEnteredValue": {
+                      "stringValue": "W01c"
+                    }
+                  },
+                  {
+                    "formattedValue": "W01",
+                    "userEnteredValue": {
+                      "stringValue": "W01"
+                    }
+                  },
+                  {
+                    "formattedValue": "W01/agent_lean/W01c.lean",
+                    "userEnteredValue": {
+                      "stringValue": "W01/agent_lean/W01c.lean"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N/A",
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "formattedValue": "2",
+                    "userEnteredValue": {
+                      "numberValue": 2
+                    }
+                  },
+                  {
+                    "formattedValue": "2",
+                    "userEnteredValue": {
+                      "numberValue": 2
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "formattedValue": "The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate",
+                    "userEnteredValue": {
+                      "stringValue": "The gold answer says that median of an empty list should be 0; I think this is incorrect. It should be NaN or something else to indicate"
+                    }
+                  },
+                  {
+                    "formattedValue": "5",
+                    "userEnteredValue": {
+                      "numberValue": 5
+                    },
+                    "userEnteredFormat": {
+                      "numberFormat": {
+                        "type": "NUMBER",
+                        "pattern": "0"
+                      }
+                    },
+                    "note": "Coordinator estimates entered by Codex at Brando's request on 11-11-2026. Rylan reported only the approximate packet total: 'Like an hour?' (WhatsApp 11-11-2026 10:29:44 AM). These six allocations sum to 60 minutes; they are not measured per-file durations.\nW01c: Related median specification after familiarization."
+                  },
+                  {
+                    "formattedValue": "None",
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "formattedValue": "T01",
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "formattedValue": "W02a",
+                    "userEnteredValue": {
+                      "stringValue": "W02a"
+                    }
+                  },
+                  {
+                    "formattedValue": "W02",
+                    "userEnteredValue": {
+                      "stringValue": "W02"
+                    }
+                  },
+                  {
+                    "formattedValue": "W02/agent_lean/W02a.lean",
+                    "userEnteredValue": {
+                      "stringValue": "W02/agent_lean/W02a.lean"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N/A",
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "formattedValue": "3",
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {
+                    "formattedValue": "3",
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "formattedValue": "Misses gold's largest divsor rule and agreement with imperative",
+                    "userEnteredValue": {
+                      "stringValue": "Misses gold's largest divsor rule and agreement with imperative"
+                    }
+                  },
+                  {
+                    "formattedValue": "15",
+                    "userEnteredValue": {
+                      "numberValue": 15
+                    },
+                    "userEnteredFormat": {
+                      "numberFormat": {
+                        "type": "NUMBER",
+                        "pattern": "0"
+                      }
+                    },
+                    "note": "Coordinator estimates entered by Codex at Brando's request on 11-11-2026. Rylan reported only the approximate packet total: 'Like an hour?' (WhatsApp 11-11-2026 10:29:44 AM). These six allocations sum to 60 minutes; they are not measured per-file durations.\nW02a: First greatest-common-divisor file, including the new multi-property reference."
+                  },
+                  {
+                    "formattedValue": "None",
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "formattedValue": "T01",
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "formattedValue": "W02b",
+                    "userEnteredValue": {
+                      "stringValue": "W02b"
+                    }
+                  },
+                  {
+                    "formattedValue": "W02",
+                    "userEnteredValue": {
+                      "stringValue": "W02"
+                    }
+                  },
+                  {
+                    "formattedValue": "W02/agent_lean/W02b.lean",
+                    "userEnteredValue": {
+                      "stringValue": "W02/agent_lean/W02b.lean"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "Y",
+                    "userEnteredValue": {
+                      "stringValue": "Y"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N/A",
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "formattedValue": "3",
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {
+                    "formattedValue": "3",
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "formattedValue": "Doesn't show agreement with imperative version",
+                    "userEnteredValue": {
+                      "stringValue": "Doesn't show agreement with imperative version"
+                    }
+                  },
+                  {
+                    "formattedValue": "10",
+                    "userEnteredValue": {
+                      "numberValue": 10
+                    },
+                    "userEnteredFormat": {
+                      "numberFormat": {
+                        "type": "NUMBER",
+                        "pattern": "0"
+                      }
+                    },
+                    "note": "Coordinator estimates entered by Codex at Brando's request on 11-11-2026. Rylan reported only the approximate packet total: 'Like an hour?' (WhatsApp 11-11-2026 10:29:44 AM). These six allocations sum to 60 minutes; they are not measured per-file durations.\nW02b: Common-divisor and greatest-divisor specification comparison."
+                  },
+                  {
+                    "formattedValue": "None",
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              },
+              {
+                "values": [
+                  {
+                    "formattedValue": "T01",
+                    "userEnteredValue": {
+                      "stringValue": "T01"
+                    }
+                  },
+                  {
+                    "formattedValue": "W02c",
+                    "userEnteredValue": {
+                      "stringValue": "W02c"
+                    }
+                  },
+                  {
+                    "formattedValue": "W02",
+                    "userEnteredValue": {
+                      "stringValue": "W02"
+                    }
+                  },
+                  {
+                    "formattedValue": "W02/agent_lean/W02c.lean",
+                    "userEnteredValue": {
+                      "stringValue": "W02/agent_lean/W02c.lean"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "Y",
+                    "userEnteredValue": {
+                      "stringValue": "Y"
+                    }
+                  },
+                  {
+                    "formattedValue": "N",
+                    "userEnteredValue": {
+                      "stringValue": "N"
+                    }
+                  },
+                  {
+                    "formattedValue": "N/A",
+                    "userEnteredValue": {
+                      "stringValue": "N/A"
+                    }
+                  },
+                  {
+                    "formattedValue": "3",
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {
+                    "formattedValue": "3",
+                    "userEnteredValue": {
+                      "numberValue": 3
+                    }
+                  },
+                  {},
+                  {},
+                  {
+                    "formattedValue": "Doesn't show agreement with imperative version",
+                    "userEnteredValue": {
+                      "stringValue": "Doesn't show agreement with imperative version"
+                    }
+                  },
+                  {
+                    "formattedValue": "10",
+                    "userEnteredValue": {
+                      "numberValue": 10
+                    },
+                    "userEnteredFormat": {
+                      "numberFormat": {
+                        "type": "NUMBER",
+                        "pattern": "0"
+                      }
+                    },
+                    "note": "Coordinator estimates entered by Codex at Brando's request on 11-11-2026. Rylan reported only the approximate packet total: 'Like an hour?' (WhatsApp 11-11-2026 10:29:44 AM). These six allocations sum to 60 minutes; they are not measured per-file durations.\nW02c: Several separately stated greatest-common-divisor properties to compare."
+                  },
+                  {
+                    "formattedValue": "None",
+                    "userEnteredValue": {
+                      "stringValue": "None"
+                    },
+                    "note": "Coordinator context, 11-11-2026: Brando Miranda reports that Rylan took a programming-languages course with Aiken. This is relevant programming-languages background. The displayed 'None' is Rylan's original self-report of Lean-specific familiarity, not a statement that he has no relevant experience."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

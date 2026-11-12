@@ -1,0 +1,3834 @@
+{
+ "tldr": "75-item FSC judge-validation pool (25 VBV1 tasks x 3 claude-3-7-sonnet-20250219 samples at T=0.7; 74/75 recorded in manifest, binary_search__agent0 attributed only by README) with per-rater ratings, split, and experiment 100 H2 ensemble scores. Zero model calls.",
+ "created_by": "build_manifest.py (scratchpad x110), 10-09-2026",
+ "sources": {
+  "items_jsonl": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/items.jsonl",
+  "inputs_manifest": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/MANIFEST.json",
+  "provenance": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/provenance.json",
+  "candidates_dir": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates",
+  "references_rater_era_dir": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation",
+  "references_snapshot_dir": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot",
+  "python_dir": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python",
+  "splits_json": "/Users/brandomiranda/veribench/experiments/75_J1_validating_formal_spec_judge_train_val_test/results/splits.json",
+  "ratings_items_csv": "/Users/brandomiranda/veribench/experiments/75_J1_validating_formal_spec_judge_train_val_test/data_description/items.csv",
+  "rating_data_doc": "/Users/brandomiranda/veribench/experiments/75_J1_validating_formal_spec_judge_train_val_test/HUMAN_JUDGMENT_DATA.md",
+  "raw_rater_tsvs": "/Users/brandomiranda/veribench/veribench_dataset/human_labels/participant{1..5}_*.tsv",
+  "candidate_pool_readme": "/Users/brandomiranda/veribench/veribench_dataset/human_labels/calibration/README.md",
+  "generation_manifest": "/Users/brandomiranda/veribench/veribench_dataset/human_labels/calibration/generated_agents/generation_manifest.json",
+  "h2_configs": [
+   "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/configs/H2_sol_high.json",
+   "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/configs/H2_opus55_max.json"
+  ],
+  "h2_runs": {
+   "train": [
+    "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/runs/p3_i2_H2_sol_high",
+    "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/runs/p3_i3_H2_opus55_max"
+   ],
+   "val": [
+    "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/runs/p4_val_H2_sol_high",
+    "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/runs/p4_val_H2_opus55_max"
+   ],
+   "test": [
+    "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/runs/p5_test_H2_sol_high",
+    "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/runs/p5_test_H2_opus55_max"
+   ]
+  },
+  "h2_ensembles": [
+   "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/results/ensembles/train_H2_sol_plus_H2_opus.json",
+   "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/results/ensembles/val_H2_sol_plus_H2_opus.json",
+   "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/results/ensembles/test_H2_sol_plus_H2_opus.json"
+  ],
+  "test_receipt": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/results/TEST_RECEIPT.json",
+  "validation_selection": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/results/VALIDATION_SELECTION.json",
+  "train_test_gap_audit": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/results/sanity/TRAIN_TEST_GAP.md",
+  "tie_fix_note": "/Users/brandomiranda/veribench/experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/REPORT.md (finding 1)"
+ },
+ "notes": [
+  "Judge scores are 0-1 (0-5 / 5). Ensemble = mean of the two member medians (median of k=3 each); rounded to 1e-9 here, which is the experiment 102 tie fix (validation Spearman 0.880 vs 0.870 reported in exp 100 files).",
+  "Human target = mean of available participant 1-3 ratings / 5; participant 3 missing all easy_set and security_set tasks (30 items -> expert_n=2). Participants 4,5 are secondary only.",
+  "Placeholder references at rating time (Pre/Post := True) on five security_set tasks; five cs_set sorting/search tasks had references change during the rating window (ref_ambiguous_in_window)."
+ ],
+ "summary": {
+  "train": {
+   "n_items": 30,
+   "n_tasks": 10,
+   "mean_judge": 0.6366666666666667,
+   "mean_human": 0.5633333333333334,
+   "mean_bias_judge_minus_human": 0.07333333333333336
+  },
+  "val": {
+   "n_items": 15,
+   "n_tasks": 5,
+   "mean_judge": 0.6533333333333333,
+   "mean_human": 0.5555555555555556,
+   "mean_bias_judge_minus_human": 0.09777777777777774
+  },
+  "test": {
+   "n_items": 30,
+   "n_tasks": 10,
+   "mean_judge": 0.6533333333333333,
+   "mean_human": 0.4722222222222222,
+   "mean_bias_judge_minus_human": 0.1811111111111111
+  },
+  "all": {
+   "n_items": 75,
+   "n_tasks": 25,
+   "mean_judge": 0.6466666666666667,
+   "mean_human": 0.5253333333333333,
+   "mean_bias_judge_minus_human": 0.1213333333333334
+  }
+ },
+ "candidate_sha_mismatches": 0,
+ "items": [
+  {
+   "item": "0_bisect_right__agent0",
+   "task": "0_bisect_right",
+   "domain": "realcode_set",
+   "split": "train",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/0_bisect_right__agent0.lean",
+   "candidate_sha256": "c452ecb51e65d216ca5d402f4e2ba4d592e7374079a68cee737a0519f697c986",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/0_bisect_right.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/0_bisect_right.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/0_bisect_right.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 4,
+   "n_cand_theorems": 2,
+   "cand_sorry_count": 2,
+   "cand_lines": 120,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 4.0,
+    "participant3": 3.0,
+    "participant4": 4.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.7333333333333333,
+   "all5_mean_0_1": 0.76,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_ensemble_0_1": 0.6
+  },
+  {
+   "item": "0_bisect_right__agent1",
+   "task": "0_bisect_right",
+   "domain": "realcode_set",
+   "split": "train",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/0_bisect_right__agent1.lean",
+   "candidate_sha256": "4953c6d1991b48e7a751937fc3adb48e7d78165a085fd2a7b119241c4ca94300",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/0_bisect_right.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/0_bisect_right.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/0_bisect_right.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 4,
+   "n_cand_theorems": 2,
+   "cand_sorry_count": 2,
+   "cand_lines": 124,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 4.0,
+    "participant3": 3.0,
+    "participant4": 4.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.7333333333333333,
+   "all5_mean_0_1": 0.76,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "0_bisect_right__agent2",
+   "task": "0_bisect_right",
+   "domain": "realcode_set",
+   "split": "train",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/0_bisect_right__agent2.lean",
+   "candidate_sha256": "f1d556f0d04a377b1a563c4ccd0fbfa796f442af7c89c942ff3d7f0e51b143f0",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/0_bisect_right.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/0_bisect_right.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/0_bisect_right.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 4,
+   "n_cand_theorems": 3,
+   "cand_sorry_count": 3,
+   "cand_lines": 130,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 4.0,
+    "participant3": 3.0,
+    "participant4": 4.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.7333333333333333,
+   "all5_mean_0_1": 0.72,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "0_unsafeCopy_safe__agent0",
+   "task": "0_unsafeCopy_safe",
+   "domain": "security_set",
+   "split": "test",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/0_unsafeCopy_safe__agent0.lean",
+   "candidate_sha256": "d2a0ba750277c167a74169c8eb8cdd12974e3c88e38df7f1c665a9f2fc7d2f12",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/0_unsafeCopy_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/0_unsafeCopy_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/0_unsafeCopy_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 94,
+   "ratings_0_5": {
+    "participant1": 5.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 5.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 1.0,
+   "all5_mean_0_1": 1.0,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "0_unsafeCopy_safe__agent1",
+   "task": "0_unsafeCopy_safe",
+   "domain": "security_set",
+   "split": "test",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/0_unsafeCopy_safe__agent1.lean",
+   "candidate_sha256": "ed9ae4d06e082a57052ff8149aec4ca30ad970d8babc348bf67417f07f9b7fd1",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/0_unsafeCopy_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/0_unsafeCopy_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/0_unsafeCopy_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 69,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 5.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.9,
+   "all5_mean_0_1": 0.95,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "0_unsafeCopy_safe__agent2",
+   "task": "0_unsafeCopy_safe",
+   "domain": "security_set",
+   "split": "test",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/0_unsafeCopy_safe__agent2.lean",
+   "candidate_sha256": "3a55635303b3134656743ca8f5296584d0f659a00bf9542ab2a9fa5c2136bc92",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/0_unsafeCopy_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/0_unsafeCopy_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/0_unsafeCopy_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 74,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.9,
+   "all5_mean_0_1": 0.9,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "13_MyUppercase__agent0",
+   "task": "13_MyUppercase",
+   "domain": "easy_set",
+   "split": "val",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/13_MyUppercase__agent0.lean",
+   "candidate_sha256": "5743ef278b38013109c017007018f5141f74cceae656e4836f640ca7bacac46f",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/13_MyUppercase.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/13_MyUppercase.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/13_MyUppercase.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 7,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 29,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 1.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.3,
+   "all5_mean_0_1": 0.6,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "13_MyUppercase__agent1",
+   "task": "13_MyUppercase",
+   "domain": "easy_set",
+   "split": "val",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/13_MyUppercase__agent1.lean",
+   "candidate_sha256": "0455ff6b5919a05dea0dc116cac880ccaa77c0f4bab1fcacc3ab3d4cef2e9f0f",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/13_MyUppercase.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/13_MyUppercase.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/13_MyUppercase.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 7,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 0,
+   "cand_lines": 36,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 1.0,
+    "participant3": null,
+    "participant4": 1.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.2,
+   "all5_mean_0_1": 0.25,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_ensemble_0_1": 0.0
+  },
+  {
+   "item": "13_MyUppercase__agent2",
+   "task": "13_MyUppercase",
+   "domain": "easy_set",
+   "split": "val",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/13_MyUppercase__agent2.lean",
+   "candidate_sha256": "54ee4d0b3f4782d6fb0496fdcda59c28b36d0ece3434c8d0520a8e43906afe61",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/13_MyUppercase.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/13_MyUppercase.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/13_MyUppercase.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 7,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 34,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 0.0,
+    "participant3": null,
+    "participant4": 1.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.1,
+   "all5_mean_0_1": 0.3,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_ensemble_0_1": 0.0
+  },
+  {
+   "item": "18_MyFibonacci__agent0",
+   "task": "18_MyFibonacci",
+   "domain": "easy_set",
+   "split": "train",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/18_MyFibonacci__agent0.lean",
+   "candidate_sha256": "884a01bd3fffb85d21e28c866a44caf2e1479602b66f13c88b68aa62a77da753",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/18_MyFibonacci.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/18_MyFibonacci.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/18_MyFibonacci.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 7,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 67,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 2.0,
+    "participant3": null,
+    "participant4": 3.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.5,
+   "all5_mean_0_1": 0.6,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.7
+  },
+  {
+   "item": "18_MyFibonacci__agent1",
+   "task": "18_MyFibonacci",
+   "domain": "easy_set",
+   "split": "train",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/18_MyFibonacci__agent1.lean",
+   "candidate_sha256": "4c7671c1bccdba0d44fb67f9ebc39c1e733e639e9d28a2101ca3bbd4f0993329",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/18_MyFibonacci.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/18_MyFibonacci.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/18_MyFibonacci.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 7,
+   "n_cand_theorems": 2,
+   "cand_sorry_count": 3,
+   "cand_lines": 60,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 1.0,
+    "participant3": null,
+    "participant4": 1.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.3,
+   "all5_mean_0_1": 0.3,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.4
+  },
+  {
+   "item": "18_MyFibonacci__agent2",
+   "task": "18_MyFibonacci",
+   "domain": "easy_set",
+   "split": "train",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/18_MyFibonacci__agent2.lean",
+   "candidate_sha256": "213be36d7c68a2b355cde6b483e95df6f90f40a74cf574d1e9ccc1cc86d7da05",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/18_MyFibonacci.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/18_MyFibonacci.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/18_MyFibonacci.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 7,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 57,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 1.0,
+    "participant3": null,
+    "participant4": 1.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.3,
+   "all5_mean_0_1": 0.35,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.4
+  },
+  {
+   "item": "1_MyAdd__agent0",
+   "task": "1_MyAdd",
+   "domain": "easy_set",
+   "split": "test",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/1_MyAdd__agent0.lean",
+   "candidate_sha256": "add65189e1132abd3c8b290c9566c9aab6b13ea2b952bd8d697fa2442a161562",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/1_MyAdd.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/1_MyAdd.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/1_MyAdd.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 6,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 43,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 0.0,
+    "participant3": null,
+    "participant4": 2.0,
+    "participant5": 5.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.1,
+   "all5_mean_0_1": 0.4,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.2
+  },
+  {
+   "item": "1_MyAdd__agent1",
+   "task": "1_MyAdd",
+   "domain": "easy_set",
+   "split": "test",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/1_MyAdd__agent1.lean",
+   "candidate_sha256": "1ce133172f232df867dd582d50ff6f7400f644acf51ac50cf11d811071ba4dac",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/1_MyAdd.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/1_MyAdd.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/1_MyAdd.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 6,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 40,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 0.0,
+    "participant3": null,
+    "participant4": 2.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.1,
+   "all5_mean_0_1": 0.25,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.80",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.2
+  },
+  {
+   "item": "1_MyAdd__agent2",
+   "task": "1_MyAdd",
+   "domain": "easy_set",
+   "split": "test",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/1_MyAdd__agent2.lean",
+   "candidate_sha256": "2228334dec49279ba151037eda0555aefe5000ac1cc250f7a070dc3a22c34374",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/1_MyAdd.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/1_MyAdd.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/1_MyAdd.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 6,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 47,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 0.0,
+    "participant3": null,
+    "participant4": 2.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.1,
+   "all5_mean_0_1": 0.35,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.2
+  },
+  {
+   "item": "1_bisect_left__agent0",
+   "task": "1_bisect_left",
+   "domain": "realcode_set",
+   "split": "test",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/1_bisect_left__agent0.lean",
+   "candidate_sha256": "b4f7d7070bf91c23fce19685114e3eca8ada17097da65808328c05bf4c65f6d3",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/1_bisect_left.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/1_bisect_left.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/1_bisect_left.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 4,
+   "n_cand_theorems": 3,
+   "cand_sorry_count": 3,
+   "cand_lines": 120,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 2.0,
+    "participant3": 3.0,
+    "participant4": 4.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.5333333333333333,
+   "all5_mean_0_1": 0.64,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.60"
+    ]
+   },
+   "h2_ensemble_0_1": 0.7
+  },
+  {
+   "item": "1_bisect_left__agent1",
+   "task": "1_bisect_left",
+   "domain": "realcode_set",
+   "split": "test",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/1_bisect_left__agent1.lean",
+   "candidate_sha256": "d46d07e981863ee858d861b860104b4e82b50bea44a847724433a1271428310b",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/1_bisect_left.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/1_bisect_left.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/1_bisect_left.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 4,
+   "n_cand_theorems": 2,
+   "cand_sorry_count": 2,
+   "cand_lines": 177,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 2.0,
+    "participant3": 4.0,
+    "participant4": 4.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.6666666666666667,
+   "all5_mean_0_1": 0.72,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.60",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_ensemble_0_1": 0.7
+  },
+  {
+   "item": "1_bisect_left__agent2",
+   "task": "1_bisect_left",
+   "domain": "realcode_set",
+   "split": "test",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/1_bisect_left__agent2.lean",
+   "candidate_sha256": "9f749c1de2a536393e352a9ba25ef0cabfb4ed66bfdf8b0b59f4ebb3fb03c12c",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/1_bisect_left.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/1_bisect_left.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/1_bisect_left.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 4,
+   "n_cand_theorems": 4,
+   "cand_sorry_count": 4,
+   "cand_lines": 95,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 4.0,
+    "participant3": 3.0,
+    "participant4": 4.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.6666666666666667,
+   "all5_mean_0_1": 0.6799999999999999,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_ensemble_0_1": 0.6
+  },
+  {
+   "item": "1_unsafeMultiply_safe__agent0",
+   "task": "1_unsafeMultiply_safe",
+   "domain": "security_set",
+   "split": "val",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/1_unsafeMultiply_safe__agent0.lean",
+   "candidate_sha256": "3436f62b433971dc275197fee6a5c2cc24a11b2d0f13752dfca13738a592f539",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/1_unsafeMultiply_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/1_unsafeMultiply_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/1_unsafeMultiply_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 53,
+   "ratings_0_5": {
+    "participant1": 5.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 1.0,
+   "all5_mean_0_1": 0.9,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "1_unsafeMultiply_safe__agent1",
+   "task": "1_unsafeMultiply_safe",
+   "domain": "security_set",
+   "split": "val",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/1_unsafeMultiply_safe__agent1.lean",
+   "candidate_sha256": "9f0ad9d9e160f0b042593b49d74fc379b232831d47229cb7ef063abf6c7661c7",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/1_unsafeMultiply_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/1_unsafeMultiply_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/1_unsafeMultiply_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 48,
+   "ratings_0_5": {
+    "participant1": 5.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 1.0,
+   "all5_mean_0_1": 0.9,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "1_unsafeMultiply_safe__agent2",
+   "task": "1_unsafeMultiply_safe",
+   "domain": "security_set",
+   "split": "val",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/1_unsafeMultiply_safe__agent2.lean",
+   "candidate_sha256": "3d966d3d146d2fdea18a74712d137ebe898d7207fb7d0277660e5664e14c4ee7",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/1_unsafeMultiply_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/1_unsafeMultiply_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/1_unsafeMultiply_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 2,
+   "cand_sorry_count": 2,
+   "cand_lines": 81,
+   "ratings_0_5": {
+    "participant1": 5.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 1.0,
+   "all5_mean_0_1": 0.85,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "2_heappush__agent0",
+   "task": "2_heappush",
+   "domain": "realcode_set",
+   "split": "val",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/2_heappush__agent0.lean",
+   "candidate_sha256": "e726fe512d80ee23423513b3b17612362c4d09828487c774380e97e7ae6f836d",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/2_heappush.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/2_heappush.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/2_heappush.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 3,
+   "n_cand_theorems": 3,
+   "cand_sorry_count": 3,
+   "cand_lines": 88,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 3.0,
+    "participant3": 2.0,
+    "participant4": 3.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.5333333333333333,
+   "all5_mean_0_1": 0.5599999999999999,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_ensemble_0_1": 0.6
+  },
+  {
+   "item": "2_heappush__agent1",
+   "task": "2_heappush",
+   "domain": "realcode_set",
+   "split": "val",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/2_heappush__agent1.lean",
+   "candidate_sha256": "47b1faa209641d1a6f0b7984df9bd2a5823e8a0a2d292c66f818c40b958a2f0c",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/2_heappush.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/2_heappush.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/2_heappush.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 3,
+   "n_cand_theorems": 3,
+   "cand_sorry_count": 3,
+   "cand_lines": 102,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 4.0,
+    "participant3": 3.0,
+    "participant4": 4.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.7333333333333333,
+   "all5_mean_0_1": 0.72,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "2_heappush__agent2",
+   "task": "2_heappush",
+   "domain": "realcode_set",
+   "split": "val",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/2_heappush__agent2.lean",
+   "candidate_sha256": "e275ccd928ab8af95eb1baef1efff7d405e7320c869745a00567a2842b123b99",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/2_heappush.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/2_heappush.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/2_heappush.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 3,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 94,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 3.0,
+    "participant3": 3.0,
+    "participant4": 4.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.6666666666666667,
+   "all5_mean_0_1": 0.6799999999999999,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.60"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "33_MyMinimum__agent0",
+   "task": "33_MyMinimum",
+   "domain": "easy_set",
+   "split": "test",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/33_MyMinimum__agent0.lean",
+   "candidate_sha256": "b39f47f5d96217699486d041b083c37260a0954df49bb84d8b3612f6be0df6ab",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/33_MyMinimum.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/33_MyMinimum.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/33_MyMinimum.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 11,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 51,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 0.0,
+    "participant3": null,
+    "participant4": 4.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.2,
+   "all5_mean_0_1": 0.4,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.4,
+    "raw_repeats": [
+     "0.40",
+     "0.20",
+     "0.40"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.4,
+    "raw_repeats": [
+     "0.40",
+     "0.40",
+     "0.40"
+    ]
+   },
+   "h2_ensemble_0_1": 0.4
+  },
+  {
+   "item": "33_MyMinimum__agent1",
+   "task": "33_MyMinimum",
+   "domain": "easy_set",
+   "split": "test",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/33_MyMinimum__agent1.lean",
+   "candidate_sha256": "a7396425df3135f133271121f3506bb9e2aa55a8d488f75e63a20ea821ae38fe",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/33_MyMinimum.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/33_MyMinimum.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/33_MyMinimum.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 11,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 56,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 2.0,
+    "participant3": null,
+    "participant4": 4.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.4,
+   "all5_mean_0_1": 0.55,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "33_MyMinimum__agent2",
+   "task": "33_MyMinimum",
+   "domain": "easy_set",
+   "split": "test",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/33_MyMinimum__agent2.lean",
+   "candidate_sha256": "5bef2aad3c15df52fdb2da0a0b8623af325a7ce63c7c965ab520176f43e16cdd",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/33_MyMinimum.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/33_MyMinimum.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/33_MyMinimum.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 11,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 45,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 2.0,
+    "participant3": null,
+    "participant4": 4.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.3,
+   "all5_mean_0_1": 0.5,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "3_heappop__agent0",
+   "task": "3_heappop",
+   "domain": "realcode_set",
+   "split": "train",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/3_heappop__agent0.lean",
+   "candidate_sha256": "698aa00dfe7e5d4efd2ac46ed6c7d0d4700cff237007c37c9502aebe3a9bd25e",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/3_heappop.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/3_heappop.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/3_heappop.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 3,
+   "n_cand_theorems": 3,
+   "cand_sorry_count": 3,
+   "cand_lines": 141,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 1.0,
+    "participant3": 3.0,
+    "participant4": 4.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.33333333333333337,
+   "all5_mean_0_1": 0.48,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.4,
+    "raw_repeats": [
+     "0.40",
+     "0.40",
+     "0.40"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.40",
+     "0.60"
+    ]
+   },
+   "h2_ensemble_0_1": 0.5
+  },
+  {
+   "item": "3_heappop__agent1",
+   "task": "3_heappop",
+   "domain": "realcode_set",
+   "split": "train",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/3_heappop__agent1.lean",
+   "candidate_sha256": "150056dbe9628a0f7f4791397ea434ad2e617ceb922ebe4dadf858239d63081d",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/3_heappop.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/3_heappop.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/3_heappop.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 3,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 115,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 2.0,
+    "participant3": 3.0,
+    "participant4": 4.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.4,
+   "all5_mean_0_1": 0.52,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_ensemble_0_1": 0.6
+  },
+  {
+   "item": "3_heappop__agent2",
+   "task": "3_heappop",
+   "domain": "realcode_set",
+   "split": "train",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/3_heappop__agent2.lean",
+   "candidate_sha256": "80b14edc15ebb9ee96317be3dd94231c8c07b94cbf071c270dc7107a227ab375",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/3_heappop.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/3_heappop.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/3_heappop.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 3,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 114,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 4.0,
+    "participant3": 2.0,
+    "participant4": 4.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.6,
+   "all5_mean_0_1": 0.64,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.7
+  },
+  {
+   "item": "43_replace_spaces__agent0",
+   "task": "43_replace_spaces",
+   "domain": "easy_set",
+   "split": "train",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/43_replace_spaces__agent0.lean",
+   "candidate_sha256": "8dcb8682d6d47490dd5e10a3acbc4c0c454ef6c6301aa1537fa7087df94df301",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/43_replace_spaces.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/43_replace_spaces.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/43_replace_spaces.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 7,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 5,
+   "cand_lines": 49,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 4.0,
+    "participant3": null,
+    "participant4": 3.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.8,
+   "all5_mean_0_1": 0.75,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.4,
+    "raw_repeats": [
+     "0.40",
+     "0.40",
+     "0.40"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_ensemble_0_1": 0.5
+  },
+  {
+   "item": "43_replace_spaces__agent1",
+   "task": "43_replace_spaces",
+   "domain": "easy_set",
+   "split": "train",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/43_replace_spaces__agent1.lean",
+   "candidate_sha256": "144dd7f023ba68468e676ce5d545dd67b4ad0dad3cb9a23edf530b49ff6b00d5",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/43_replace_spaces.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/43_replace_spaces.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/43_replace_spaces.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 7,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 45,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 2.0,
+    "participant3": null,
+    "participant4": 3.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.6,
+   "all5_mean_0_1": 0.55,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.60",
+     "0.60",
+     "0.60"
+    ]
+   },
+   "h2_ensemble_0_1": 0.6
+  },
+  {
+   "item": "43_replace_spaces__agent2",
+   "task": "43_replace_spaces",
+   "domain": "easy_set",
+   "split": "train",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/43_replace_spaces__agent2.lean",
+   "candidate_sha256": "49004274f13322991bd4a63e992b960798a0b7bc483a62a7899b0fb6908340a0",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/43_replace_spaces.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/43_replace_spaces.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/43_replace_spaces.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 7,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 42,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 0.0,
+    "participant3": null,
+    "participant4": 1.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.1,
+   "all5_mean_0_1": 0.25,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_ensemble_0_1": 0.0
+  },
+  {
+   "item": "4_json_decoder__agent0",
+   "task": "4_json_decoder",
+   "domain": "realcode_set",
+   "split": "test",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/4_json_decoder__agent0.lean",
+   "candidate_sha256": "89bb87f9cb49af64dae08d1fb48fa54b3987a31d710cb82f2af0c5af25f32d90",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/4_json_decoder.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/4_json_decoder.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/4_json_decoder.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 4,
+   "n_cand_theorems": 5,
+   "cand_sorry_count": 2,
+   "cand_lines": 315,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 1.0,
+    "participant3": 1.0,
+    "participant4": 1.0,
+    "participant5": 0.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.2,
+   "all5_mean_0_1": 0.16,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.20",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.1
+  },
+  {
+   "item": "4_json_decoder__agent1",
+   "task": "4_json_decoder",
+   "domain": "realcode_set",
+   "split": "test",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/4_json_decoder__agent1.lean",
+   "candidate_sha256": "2e14d2d368a62a5d8d819cc5fee196b46ded684333fbbadf270c97b0b8868a70",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/4_json_decoder.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/4_json_decoder.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/4_json_decoder.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 4,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 272,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 0.0,
+    "participant3": 0.0,
+    "participant4": 0.0,
+    "participant5": 0.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.06666666666666667,
+   "all5_mean_0_1": 0.04,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_ensemble_0_1": 0.0
+  },
+  {
+   "item": "4_json_decoder__agent2",
+   "task": "4_json_decoder",
+   "domain": "realcode_set",
+   "split": "test",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/4_json_decoder__agent2.lean",
+   "candidate_sha256": "9a6264c071466ce056f8cf8691088b4db821c5660718117dde9cc28fe9e3988f",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/4_json_decoder.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/4_json_decoder.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/4_json_decoder.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 4,
+   "n_cand_theorems": 5,
+   "cand_sorry_count": 7,
+   "cand_lines": 278,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 1.0,
+    "participant3": 0.0,
+    "participant4": 2.0,
+    "participant5": 0.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.13333333333333333,
+   "all5_mean_0_1": 0.16,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.2
+  },
+  {
+   "item": "4_unsafeCounter_safe__agent0",
+   "task": "4_unsafeCounter_safe",
+   "domain": "security_set",
+   "split": "test",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/4_unsafeCounter_safe__agent0.lean",
+   "candidate_sha256": "aca6f8383cae56b7da423fe989fd35e63e1e35ef3de03530c00f4591193b76be",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/4_unsafeCounter_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/4_unsafeCounter_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/4_unsafeCounter_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 4,
+   "cand_sorry_count": 4,
+   "cand_lines": 211,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.9,
+   "all5_mean_0_1": 0.9,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "4_unsafeCounter_safe__agent1",
+   "task": "4_unsafeCounter_safe",
+   "domain": "security_set",
+   "split": "test",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/4_unsafeCounter_safe__agent1.lean",
+   "candidate_sha256": "6e67e164e2a0bf8704209d02994fd703b342b8348f9911e9cacf213deba0d8ce",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/4_unsafeCounter_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/4_unsafeCounter_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/4_unsafeCounter_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 3,
+   "cand_sorry_count": 4,
+   "cand_lines": 93,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.9,
+   "all5_mean_0_1": 0.9,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "4_unsafeCounter_safe__agent2",
+   "task": "4_unsafeCounter_safe",
+   "domain": "security_set",
+   "split": "test",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/4_unsafeCounter_safe__agent2.lean",
+   "candidate_sha256": "ed1ccd479d998a7831c2d6d79b7ad95abe0a36133dc8f05ec47b5b56d3d7fffb",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/4_unsafeCounter_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/4_unsafeCounter_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/4_unsafeCounter_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 4,
+   "cand_sorry_count": 4,
+   "cand_lines": 104,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.9,
+   "all5_mean_0_1": 0.85,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "5_unsafeFormatString_safe__agent0",
+   "task": "5_unsafeFormatString_safe",
+   "domain": "security_set",
+   "split": "train",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/5_unsafeFormatString_safe__agent0.lean",
+   "candidate_sha256": "573daba6cba4ead055eb33c77fa0f0e44d9938badb663c15c1936f033edb88c4",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/5_unsafeFormatString_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/5_unsafeFormatString_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/5_unsafeFormatString_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 46,
+   "ratings_0_5": {
+    "participant1": 5.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 1.0,
+   "all5_mean_0_1": 0.9,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "0.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "5_unsafeFormatString_safe__agent1",
+   "task": "5_unsafeFormatString_safe",
+   "domain": "security_set",
+   "split": "train",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/5_unsafeFormatString_safe__agent1.lean",
+   "candidate_sha256": "efcb9e3ceed11910045f8573903f056ce52f98b4c11f3329bb9e19e35307cb06",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/5_unsafeFormatString_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/5_unsafeFormatString_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/5_unsafeFormatString_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 47,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.9,
+   "all5_mean_0_1": 0.85,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "5_unsafeFormatString_safe__agent2",
+   "task": "5_unsafeFormatString_safe",
+   "domain": "security_set",
+   "split": "train",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/5_unsafeFormatString_safe__agent2.lean",
+   "candidate_sha256": "f54b079327e36babac66a7951ff50cd639d99c5f8c4b3e0c90b885b0a32b5238",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/5_unsafeFormatString_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/5_unsafeFormatString_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/5_unsafeFormatString_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 3,
+   "cand_sorry_count": 0,
+   "cand_lines": 39,
+   "ratings_0_5": {
+    "participant1": 5.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 0.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 1.0,
+   "all5_mean_0_1": 0.75,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.1
+  },
+  {
+   "item": "9_pathTraversal_safe__agent0",
+   "task": "9_pathTraversal_safe",
+   "domain": "security_set",
+   "split": "train",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/9_pathTraversal_safe__agent0.lean",
+   "candidate_sha256": "12841f2dcef0893fe63a919e7068b707f01b9ad1d09122ae1d1fccab12eb8a46",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/9_pathTraversal_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/9_pathTraversal_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/9_pathTraversal_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 98,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 5.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.9,
+   "all5_mean_0_1": 0.95,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "9_pathTraversal_safe__agent1",
+   "task": "9_pathTraversal_safe",
+   "domain": "security_set",
+   "split": "train",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/9_pathTraversal_safe__agent1.lean",
+   "candidate_sha256": "ee25b3a141d4652868d1450697f4ec904879f429b5a4efc1dbef935f717f4757",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/9_pathTraversal_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/9_pathTraversal_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/9_pathTraversal_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 84,
+   "ratings_0_5": {
+    "participant1": 5.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 1.0,
+   "all5_mean_0_1": 0.95,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "9_pathTraversal_safe__agent2",
+   "task": "9_pathTraversal_safe",
+   "domain": "security_set",
+   "split": "train",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/9_pathTraversal_safe__agent2.lean",
+   "candidate_sha256": "1eacc84a05b42aa16a0380a75c1007f6ed81b0eff3b68595f3f6b30743e05076",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/9_pathTraversal_safe.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/9_pathTraversal_safe.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/9_pathTraversal_safe.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": true,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 1,
+   "n_cand_theorems": 3,
+   "cand_sorry_count": 3,
+   "cand_lines": 135,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 5.0,
+    "participant3": null,
+    "participant4": 5.0,
+    "participant5": 5.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 2,
+   "human_target_0_1": 0.9,
+   "all5_mean_0_1": 0.95,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 1.0,
+    "raw_repeats": [
+     "1.00",
+     "1.00",
+     "1.00"
+    ]
+   },
+   "h2_ensemble_0_1": 1.0
+  },
+  {
+   "item": "binary_search__agent0",
+   "task": "binary_search",
+   "domain": "cs_set",
+   "split": "val",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/binary_search__agent0.lean",
+   "candidate_sha256": "19a52f795da4db0605893bea29d1d916310ac15741b10caead5808bbb50fea66",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/binary_search.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/binary_search.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/binary_search.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 13,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 79,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 3.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.5333333333333333,
+   "all5_mean_0_1": 0.6799999999999999,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "binary_search__agent1",
+   "task": "binary_search",
+   "domain": "cs_set",
+   "split": "val",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/binary_search__agent1.lean",
+   "candidate_sha256": "50479437c89e0bea530f498bb95a56ad4f743169971f9b63fa9ed03dd50b97d3",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/binary_search.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/binary_search.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/binary_search.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 13,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 56,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 3.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.4666666666666667,
+   "all5_mean_0_1": 0.6,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.4,
+    "raw_repeats": [
+     "0.40",
+     "0.40",
+     "0.40"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.6
+  },
+  {
+   "item": "binary_search__agent2",
+   "task": "binary_search",
+   "domain": "cs_set",
+   "split": "val",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/binary_search__agent2.lean",
+   "candidate_sha256": "fe3c281c9ffc7285e714e0dd6ad2e01aaf1ffc9087a22991d1d10477b58f0586",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/binary_search.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/binary_search.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/binary_search.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 13,
+   "n_cand_theorems": 4,
+   "cand_sorry_count": 3,
+   "cand_lines": 70,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 4.0,
+    "participant3": 3.0,
+    "participant4": 3.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.6666666666666667,
+   "all5_mean_0_1": 0.6799999999999999,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "bubble_sort__agent0",
+   "task": "bubble_sort",
+   "domain": "cs_set",
+   "split": "train",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/bubble_sort__agent0.lean",
+   "candidate_sha256": "9acb9bad7537afb76c7770c8e8b4d16e2246944fd20573b2e57958e0c74ba926",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/bubble_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/bubble_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/bubble_sort.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 17,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 80,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 3.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 5.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.5333333333333333,
+   "all5_mean_0_1": 0.72,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "bubble_sort__agent1",
+   "task": "bubble_sort",
+   "domain": "cs_set",
+   "split": "train",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/bubble_sort__agent1.lean",
+   "candidate_sha256": "cde5a0cd32f36a01bb90ef45b09d25a2fa9907814bc3cc9a3bec10815c3a6cb6",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/bubble_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/bubble_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/bubble_sort.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 17,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 2,
+   "cand_lines": 86,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 4.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.6666666666666667,
+   "all5_mean_0_1": 0.6799999999999999,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "bubble_sort__agent2",
+   "task": "bubble_sort",
+   "domain": "cs_set",
+   "split": "train",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/bubble_sort__agent2.lean",
+   "candidate_sha256": "6a5d050d61d8b8812a35661fe4f393cf62dee6d6715eb56beb5041e3ec54622b",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/bubble_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/bubble_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/bubble_sort.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 17,
+   "n_cand_theorems": 4,
+   "cand_sorry_count": 3,
+   "cand_lines": 104,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 3.0,
+    "participant3": 3.0,
+    "participant4": 5.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.6666666666666667,
+   "all5_mean_0_1": 0.6799999999999999,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "humaneval_13__gcd__agent0",
+   "task": "humaneval_13__gcd",
+   "domain": "humaneval_set",
+   "split": "train",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_13__gcd__agent0.lean",
+   "candidate_sha256": "ab74ed52a49b1e9b96eba2ed891967c0a2ca9c49b357389664b1edf64a598e61",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_13__gcd.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_13__gcd.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_13__gcd.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 8,
+   "n_cand_theorems": 7,
+   "cand_sorry_count": 6,
+   "cand_lines": 66,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 4.0,
+    "participant3": 4.0,
+    "participant4": 4.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.8,
+   "all5_mean_0_1": 0.76,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "humaneval_13__gcd__agent1",
+   "task": "humaneval_13__gcd",
+   "domain": "humaneval_set",
+   "split": "train",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_13__gcd__agent1.lean",
+   "candidate_sha256": "78e822b62795a1750ba4d9646872530fa661c2c43c8113ba1e1bd843e53831e5",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_13__gcd.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_13__gcd.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_13__gcd.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 8,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 2,
+   "cand_lines": 63,
+   "ratings_0_5": {
+    "participant1": 4.0,
+    "participant2": 3.0,
+    "participant3": 3.0,
+    "participant4": 3.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.6666666666666667,
+   "all5_mean_0_1": 0.64,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "humaneval_13__gcd__agent2",
+   "task": "humaneval_13__gcd",
+   "domain": "humaneval_set",
+   "split": "train",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_13__gcd__agent2.lean",
+   "candidate_sha256": "0f3f2ad129d9e0d6a79ee84f90e59c053ff32e5bd490c3bf991f9afd0252820c",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_13__gcd.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_13__gcd.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_13__gcd.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 8,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 40,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 2.0,
+    "participant3": 3.0,
+    "participant4": 4.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.4666666666666667,
+   "all5_mean_0_1": 0.5599999999999999,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.60"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "humaneval_31_is_prime__agent0",
+   "task": "humaneval_31_is_prime",
+   "domain": "humaneval_set",
+   "split": "test",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_31_is_prime__agent0.lean",
+   "candidate_sha256": "46da9a9578a98ac788b8288975a1dac25eceb3de3b6eff0d350dc7438350c6ab",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_31_is_prime.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_31_is_prime.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_31_is_prime.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 6,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 57,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 1.0,
+    "participant3": 4.0,
+    "participant4": 4.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.4666666666666667,
+   "all5_mean_0_1": 0.6,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "humaneval_31_is_prime__agent1",
+   "task": "humaneval_31_is_prime",
+   "domain": "humaneval_set",
+   "split": "test",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_31_is_prime__agent1.lean",
+   "candidate_sha256": "08d13433273921e04e955032a512fac64c86764ea9a1a6ee6ccc1ca109efe6c2",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_31_is_prime.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_31_is_prime.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_31_is_prime.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 6,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 65,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 2.0,
+    "participant3": 4.0,
+    "participant4": 4.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.5333333333333333,
+   "all5_mean_0_1": 0.64,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "humaneval_31_is_prime__agent2",
+   "task": "humaneval_31_is_prime",
+   "domain": "humaneval_set",
+   "split": "test",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_31_is_prime__agent2.lean",
+   "candidate_sha256": "3554791457fd6c764b2bda7987f4d089f7cb8034a3269e9f52b8ecd0777482c8",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_31_is_prime.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_31_is_prime.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_31_is_prime.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 6,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 40,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 1.0,
+    "participant3": 4.0,
+    "participant4": 4.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.4666666666666667,
+   "all5_mean_0_1": 0.6,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "humaneval_3_below_zero__agent0",
+   "task": "humaneval_3_below_zero",
+   "domain": "humaneval_set",
+   "split": "test",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_3_below_zero__agent0.lean",
+   "candidate_sha256": "504bbcb9d8d5297a888efbe356f1352b8b04f01139bb998b82cef73be0720a06",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_3_below_zero.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_3_below_zero.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_3_below_zero.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 9,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 59,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 1.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.33333333333333337,
+   "all5_mean_0_1": 0.5599999999999999,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.6,
+    "raw_repeats": [
+     "0.80",
+     "0.60",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.7
+  },
+  {
+   "item": "humaneval_3_below_zero__agent1",
+   "task": "humaneval_3_below_zero",
+   "domain": "humaneval_set",
+   "split": "test",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_3_below_zero__agent1.lean",
+   "candidate_sha256": "b0d2e5a6c072df1fed485e8dad60233765345eb041085407e36cc92b7d875a02",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_3_below_zero.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_3_below_zero.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_3_below_zero.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 9,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 66,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 0.0,
+    "participant3": 0.0,
+    "participant4": 5.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.06666666666666667,
+   "all5_mean_0_1": 0.32,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_ensemble_0_1": 0.0
+  },
+  {
+   "item": "humaneval_3_below_zero__agent2",
+   "task": "humaneval_3_below_zero",
+   "domain": "humaneval_set",
+   "split": "test",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_3_below_zero__agent2.lean",
+   "candidate_sha256": "4d366a9abc0837aea0f5b7a69701942c70d925cdbd724237bfb9ea53f12eda9f",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_3_below_zero.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_3_below_zero.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_3_below_zero.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 9,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 53,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 1.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 1.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.33333333333333337,
+   "all5_mean_0_1": 0.44000000000000006,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "humaneval_47_median__agent0",
+   "task": "humaneval_47_median",
+   "domain": "humaneval_set",
+   "split": "train",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_47_median__agent0.lean",
+   "candidate_sha256": "ded807f1cf77f8153d455895861590d8cccd157b8144ec2071836cc33fac6b89",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_47_median.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_47_median.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_47_median.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 5,
+   "n_cand_theorems": 2,
+   "cand_sorry_count": 2,
+   "cand_lines": 60,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 0.0,
+    "participant3": 0.0,
+    "participant4": 2.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.06666666666666667,
+   "all5_mean_0_1": 0.2,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.2
+  },
+  {
+   "item": "humaneval_47_median__agent1",
+   "task": "humaneval_47_median",
+   "domain": "humaneval_set",
+   "split": "train",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_47_median__agent1.lean",
+   "candidate_sha256": "76d8a71001e74e334530f901edf24c05dd55d38ed24e10e135485914eae671a7",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_47_median.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_47_median.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_47_median.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 5,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 47,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 0.0,
+    "participant3": 0.0,
+    "participant4": 2.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.06666666666666667,
+   "all5_mean_0_1": 0.24,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_ensemble_0_1": 0.0
+  },
+  {
+   "item": "humaneval_47_median__agent2",
+   "task": "humaneval_47_median",
+   "domain": "humaneval_set",
+   "split": "train",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_47_median__agent2.lean",
+   "candidate_sha256": "c306897f39c8eeee337aa44ba1f88e9e81503181b39a6c7ac0b6cd3343e0ff49",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_47_median.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_47_median.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_47_median.py",
+   "ref_status": "statements_changed",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 5,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 56,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 0.0,
+    "participant3": 0.0,
+    "participant4": 2.0,
+    "participant5": 1.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.06666666666666667,
+   "all5_mean_0_1": 0.16,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.0,
+    "raw_repeats": [
+     "0.00",
+     "0.00",
+     "0.00"
+    ]
+   },
+   "h2_ensemble_0_1": 0.0
+  },
+  {
+   "item": "humaneval_8_sum_product__agent0",
+   "task": "humaneval_8_sum_product",
+   "domain": "humaneval_set",
+   "split": "val",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_8_sum_product__agent0.lean",
+   "candidate_sha256": "3becc6120ccc08c632cbeae715d5efdc6d7dab7c604a9d571a5bb1f0c86812bf",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_8_sum_product.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_8_sum_product.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_8_sum_product.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 14,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 62,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 2.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.4666666666666667,
+   "all5_mean_0_1": 0.64,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.4,
+    "raw_repeats": [
+     "0.20",
+     "0.60",
+     "0.40"
+    ]
+   },
+   "h2_ensemble_0_1": 0.6
+  },
+  {
+   "item": "humaneval_8_sum_product__agent1",
+   "task": "humaneval_8_sum_product",
+   "domain": "humaneval_set",
+   "split": "val",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_8_sum_product__agent1.lean",
+   "candidate_sha256": "82d78c2b01c1067ad6ea2a39660b603f1617205c07768fac96e212123662c317",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_8_sum_product.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_8_sum_product.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_8_sum_product.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 14,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 54,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 1.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.33333333333333337,
+   "all5_mean_0_1": 0.52,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.20",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.5
+  },
+  {
+   "item": "humaneval_8_sum_product__agent2",
+   "task": "humaneval_8_sum_product",
+   "domain": "humaneval_set",
+   "split": "val",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/humaneval_8_sum_product__agent2.lean",
+   "candidate_sha256": "fc4e25f28ddc0b666a944367e06a524a918438b56fdc45a0beaadcde36542991",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/humaneval_8_sum_product.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/humaneval_8_sum_product.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/humaneval_8_sum_product.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": false,
+   "n_ref_theorems_rater_era": 14,
+   "n_cand_theorems": 2,
+   "cand_sorry_count": 3,
+   "cand_lines": 62,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 1.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.33333333333333337,
+   "all5_mean_0_1": 0.52,
+   "h2_sol_high": {
+    "run": "p4_val_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p4_val_H2_opus55_max",
+    "median_0_1": 0.2,
+    "raw_repeats": [
+     "0.20",
+     "0.40",
+     "0.20"
+    ]
+   },
+   "h2_ensemble_0_1": 0.5
+  },
+  {
+   "item": "insertion_sort__agent0",
+   "task": "insertion_sort",
+   "domain": "cs_set",
+   "split": "test",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/insertion_sort__agent0.lean",
+   "candidate_sha256": "bde45d54c855a124e60f2a9748298b35ca0d6fb2de505aa772a9597fe528fd59",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/insertion_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/insertion_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/insertion_sort.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 10,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 2,
+   "cand_lines": 66,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 3.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 5.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.4666666666666667,
+   "all5_mean_0_1": 0.6799999999999999,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "insertion_sort__agent1",
+   "task": "insertion_sort",
+   "domain": "cs_set",
+   "split": "test",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/insertion_sort__agent1.lean",
+   "candidate_sha256": "67c763516e961af107fc1037138dc9c61725514a9d2d869f242a81d1272ca21f",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/insertion_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/insertion_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/insertion_sort.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 10,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 84,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 2.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.4666666666666667,
+   "all5_mean_0_1": 0.5599999999999999,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "insertion_sort__agent2",
+   "task": "insertion_sort",
+   "domain": "cs_set",
+   "split": "test",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/insertion_sort__agent2.lean",
+   "candidate_sha256": "5b9506d7d2b595b6ed72d32c8a7e595553d96137bffefb16637a2abab3d22969",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/insertion_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/insertion_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/insertion_sort.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 10,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 76,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 2.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 2.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.4666666666666667,
+   "all5_mean_0_1": 0.5599999999999999,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "merge_sort__agent0",
+   "task": "merge_sort",
+   "domain": "cs_set",
+   "split": "test",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/merge_sort__agent0.lean",
+   "candidate_sha256": "47e5454689e1b1fe576a6c0b9750795340dfadf0ca48ec328e00b5fec3306e45",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/merge_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/merge_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/merge_sort.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 23,
+   "n_cand_theorems": 4,
+   "cand_sorry_count": 4,
+   "cand_lines": 105,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 3.0,
+    "participant3": 3.0,
+    "participant4": 5.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.6,
+   "all5_mean_0_1": 0.72,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "merge_sort__agent1",
+   "task": "merge_sort",
+   "domain": "cs_set",
+   "split": "test",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/merge_sort__agent1.lean",
+   "candidate_sha256": "2702e5d29aec35dc6c307d2fa48750d93e6a90a875526851be347d2f22b55c01",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/merge_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/merge_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/merge_sort.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 23,
+   "n_cand_theorems": 3,
+   "cand_sorry_count": 3,
+   "cand_lines": 114,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 3.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.5333333333333333,
+   "all5_mean_0_1": 0.64,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "merge_sort__agent2",
+   "task": "merge_sort",
+   "domain": "cs_set",
+   "split": "test",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/merge_sort__agent2.lean",
+   "candidate_sha256": "95259fa04856a4ffe45e32053d1bf26d297a298279799b5153c54a2e18ea05cd",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/merge_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/merge_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/merge_sort.py",
+   "ref_status": "identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 23,
+   "n_cand_theorems": 4,
+   "cand_sorry_count": 2,
+   "cand_lines": 74,
+   "ratings_0_5": {
+    "participant1": 3.0,
+    "participant2": 2.0,
+    "participant3": 2.0,
+    "participant4": 3.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.4666666666666667,
+   "all5_mean_0_1": 0.5599999999999999,
+   "h2_sol_high": {
+    "run": "p5_test_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p5_test_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "selection_sort__agent0",
+   "task": "selection_sort",
+   "domain": "cs_set",
+   "split": "train",
+   "agent_sample": "agent0",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/selection_sort__agent0.lean",
+   "candidate_sha256": "a344eca8f64299102424fa91b08a6b104e613bd1e712de23df5efe47de7a4ea4",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/selection_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/selection_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/selection_sort.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 15,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 88,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 2.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.33333333333333337,
+   "all5_mean_0_1": 0.5599999999999999,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "selection_sort__agent1",
+   "task": "selection_sort",
+   "domain": "cs_set",
+   "split": "train",
+   "agent_sample": "agent1",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/selection_sort__agent1.lean",
+   "candidate_sha256": "00576bbb687010a834154f91b3446faa56712eb4b4d1b24679454efafaf938a5",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/selection_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/selection_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/selection_sort.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 15,
+   "n_cand_theorems": 1,
+   "cand_sorry_count": 1,
+   "cand_lines": 81,
+   "ratings_0_5": {
+    "participant1": 1.0,
+    "participant2": 1.0,
+    "participant3": 2.0,
+    "participant4": 5.0,
+    "participant5": 3.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.26666666666666666,
+   "all5_mean_0_1": 0.48,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  },
+  {
+   "item": "selection_sort__agent2",
+   "task": "selection_sort",
+   "domain": "cs_set",
+   "split": "train",
+   "agent_sample": "agent2",
+   "candidate_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/candidates/selection_sort__agent2.lean",
+   "candidate_sha256": "a52d4fe23ea9d16a80203563f957fc08efaa63b74a49829eae0910483f2a7c8b",
+   "candidate_sha_verified": true,
+   "reference_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/annotation/selection_sort.lean",
+   "reference_snapshot_db1b16e87_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/references/snapshot/selection_sort.lean",
+   "python_rater_era_path": "/Users/brandomiranda/veribench/experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test/inputs/python/annotation/selection_sort.py",
+   "ref_status": "statements_identical",
+   "ref_placeholder_at_rating": false,
+   "ref_ambiguous_in_window": true,
+   "n_ref_theorems_rater_era": 15,
+   "n_cand_theorems": 3,
+   "cand_sorry_count": 2,
+   "cand_lines": 95,
+   "ratings_0_5": {
+    "participant1": 2.0,
+    "participant2": 3.0,
+    "participant3": 2.0,
+    "participant4": 3.0,
+    "participant5": 4.0
+   },
+   "expert_raters_used_in_target": "participant1-3 (available ones)",
+   "expert_n": 3,
+   "human_target_0_1": 0.4666666666666667,
+   "all5_mean_0_1": 0.5599999999999999,
+   "h2_sol_high": {
+    "run": "p3_i2_H2_sol_high",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_opus55_max": {
+    "run": "p3_i3_H2_opus55_max",
+    "median_0_1": 0.8,
+    "raw_repeats": [
+     "0.80",
+     "0.80",
+     "0.80"
+    ]
+   },
+   "h2_ensemble_0_1": 0.8
+  }
+ ]
+}

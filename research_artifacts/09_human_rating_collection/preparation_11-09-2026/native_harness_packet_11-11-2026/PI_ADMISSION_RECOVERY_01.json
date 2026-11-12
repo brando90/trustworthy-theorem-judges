@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-12T01:32:04.246996+00:00",
+  "change": "Admission timing only: hold after sixthterminalcell,30minute cooldown, thenone untouchedtask underV6; reassess before any further task. No model/effort/source/caps changes and no retriesofterminaltasks.",
+  "condition_file": "PI_CONDITION_VALID_V6.json",
+  "condition_sha256": "ebed8c67076c340876f81c6d40e20e0ffae2bc08b86dc4d582ac0c467269eb4e",
+  "driver": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/run_pi_valid_v6_one_recovery_cell.py",
+  "driver_sha256": "598cf00cd7664f369f10c732d02032ef6c22cc2558930cb6ab09cc8965e3ee5f",
+  "evidence": {
+    "caution": "Forum reports corroborate overload, but are not proof of the cause of eachrequest; actualper-cellledgers are authoritative.",
+    "external_context": "https://discuss.ai.google.dev/t/gemini-3-8-flash-api-continuously-returning-http-503-model-shows-operational-on-status-page/197810",
+    "observed": "Five provider/transport failures among sixattemptedvalidcells; firstcellhit40callcap; no artifacts."
+  },
+  "next_attempt_not_before": "2026-11-12T02:00:31.995449+00:00",
+  "parent_authorization": "Hold after activecell; max30minute admissioncooldown,thenone nextattempt and reassess. Preserve allattempts; supervisor staysalive.",
+  "prior_attempted_task_ids": [
+    "realcode_set__20_html_escape",
+    "easy_set__23_is_prime",
+    "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+    "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+    "easy_set__41_duplicate_chars",
+    "security_set__security_6858__vulnerabilities__75_unsafecerthostname"
+  ],
+  "status": "FROZEN"
+}

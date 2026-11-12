@@ -1,0 +1,84 @@
+{
+  "sheet_url": "https://docs.google.com/spreadsheets/d/1-SHyTtsFYuuXFxqGcBfjRSDvlE7MJBQOjVU3ynLFHU8/edit",
+  "range": "Ratings!A1:K9",
+  "values": [
+    [
+      "rater_name",
+      "rater_id",
+      "item_id",
+      "task_folder",
+      "candidate_file",
+      "final_score_0_5",
+      "ai_assisted_rating_attestation",
+      "minutes_spent",
+      "confidence",
+      "rationale",
+      "problem_note"
+    ],
+    [
+      "Rylan Schaeffer",
+      "T01",
+      "native-heavy-11-11-2026__item018",
+      "task_02_edit_distance",
+      "task_02_edit_distance/agent_lean/agent_2.lean"
+    ],
+    [
+      "Rylan Schaeffer",
+      "T01",
+      "native-heavy-11-11-2026__item075",
+      "task_02_edit_distance",
+      "task_02_edit_distance/agent_lean/agent_4.lean"
+    ],
+    [
+      "Rylan Schaeffer",
+      "T01",
+      "native-heavy-11-11-2026__item069",
+      "task_17_heapsort_algorithm",
+      "task_17_heapsort_algorithm/agent_lean/agent_1.lean"
+    ],
+    [
+      "Rylan Schaeffer",
+      "T01",
+      "native-heavy-11-11-2026__item027",
+      "task_17_heapsort_algorithm",
+      "task_17_heapsort_algorithm/agent_lean/agent_3.lean"
+    ]
+  ],
+  "source": "fresh Google Sheets get_spreadsheet_range readback",
+  "permission_readback": {
+    "id": "1-SHyTtsFYuuXFxqGcBfjRSDvlE7MJBQOjVU3ynLFHU8",
+    "title": "VeriBench main rating sheet \u2014 PREPARING \u2014 Rylan Schaeffer \u2014 11-11-2026",
+    "mime_type": null,
+    "size": null,
+    "url": "https://docs.google.com/spreadsheets/d/1-SHyTtsFYuuXFxqGcBfjRSDvlE7MJBQOjVU3ynLFHU8/edit?usp=drivesdk",
+    "display_url": "https://docs.google.com/spreadsheets/d/1-SHyTtsFYuuXFxqGcBfjRSDvlE7MJBQOjVU3ynLFHU8/edit?usp=drivesdk",
+    "file_or_folder": null,
+    "created_time": null,
+    "modified_time": null,
+    "parent_ids": null,
+    "drive_id": null,
+    "current_user_can_share": null,
+    "has_augmented_permissions": null,
+    "shared": null,
+    "permissions": [
+      {
+        "type": "user",
+        "role": "owner",
+        "emailAddress": "brandojazz@gmail.com",
+        "domain": null,
+        "displayName": null,
+        "allowFileDiscovery": null
+      },
+      {
+        "type": "user",
+        "role": "writer",
+        "emailAddress": "RylanSchaeffer@gmail.com",
+        "domain": null,
+        "displayName": null,
+        "allowFileDiscovery": null
+      }
+    ],
+    "source_visibility_status": "permission_metadata_available"
+  },
+  "recorded_utc": "2026-11-12T04:51:24.363Z"
+}

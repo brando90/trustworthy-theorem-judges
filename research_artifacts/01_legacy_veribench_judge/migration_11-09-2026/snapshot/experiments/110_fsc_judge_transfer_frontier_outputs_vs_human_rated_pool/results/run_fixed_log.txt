@@ -1,0 +1,38 @@
+POOLED_FM (deployed set)                                k=8/15  127s
+exp102:claude_code                                      k=9/15  140s
+exp102:codex                                            k=10/15  152s
+exp102:baseline                                         k=12/15  163s
+exp103:single_call:claude-opus-5-max                    k=7/15  175s
+exp103:single_call:gemini-3.1-pro-high                  k=11/15  188s
+exp103:single_call:gpt-5.6-luna-high                    k=9/15  201s
+exp103:single_call:gpt-5.6-sol-high                     k=8/15  213s
+exp103:single_call:gpt-6-astra-high                     k=10/15  226s
+exp103:single_call:gpt-6-luna-high                      k=8/15  238s
+exp103:agent:gpt-6-luna-high                            k=8/15  253s
+exp102:leanstral                                        k=13/15  266s
+exp103:single_call:qwen3.6-27b-thinking                 k=10/15  277s
+exp103:single_call:claude-opus-5-max|recovery_1         k=8/15  287s
+exp103:single_call:gemini-3.1-pro-high|recovery_1       k=12/15  297s
+exp103:single_call:gpt-5.6-luna-high|recovery_1         k=9/15  307s
+exp103:single_call:gpt-5.6-sol-high|recovery_1          k=11/15  316s
+exp103:single_call:gpt-6-astra-high|recovery_1          k=10/15  326s
+exp103:single_call:gpt-6-luna-high|recovery_1           k=9/15  335s
+exp103:single_call:qwen3.6-27b-thinking|recovery_1      k=10/15  345s
+exp107:setN_packet                                      k=6/13  354s
+exp107:setB_packet                                      k=7/13  363s
+POOLED_FM matched to the 25 pool tasks                  k=8/15  375s
+exp102:claude_code [matched]                            k=8/15  386s
+exp102:codex [matched]                                  k=9/15  396s
+exp102:baseline [matched]                               k=12/15  407s
+exp103:single_call:claude-opus-5-max [matched]          k=6/15  417s
+exp103:single_call:gemini-3.1-pro-high [matched]        k=10/15  428s
+exp103:single_call:gpt-5.6-luna-high [matched]          k=8/15  438s
+exp103:single_call:gpt-5.6-sol-high [matched]           k=8/15  450s
+exp103:single_call:gpt-6-astra-high [matched]           k=9/15  464s
+exp103:single_call:gpt-6-luna-high [matched]            k=8/15  477s
+exp103:agent:gpt-6-luna-high [matched]                  k=8/15  489s
+/private/tmp/claude-501/-Users-brandomiranda-veribench/8d6adb1b-dc16-45a4-8c91-7f6511b79702/scratchpad/x110/analyze.py:521: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  for m, fn in (("spearman", lambda ix: stats.spearmanr(jj[ix], hh[ix]).statistic),
+/private/tmp/claude-501/-Users-brandomiranda-veribench/8d6adb1b-dc16-45a4-8c91-7f6511b79702/scratchpad/x110/analyze.py:303: RuntimeWarning: invalid value encountered in scalar divide
+  return float((msr - mse) / (msr + (k - 1) * mse + k / n * (msc - mse)))
+done 530s

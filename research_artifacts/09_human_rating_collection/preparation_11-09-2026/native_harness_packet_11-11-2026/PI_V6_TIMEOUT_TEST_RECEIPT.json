@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-12T01:26:49.005587+00:00",
+  "nativePi_and_gateway_timeout_seconds": 600,
+  "output": "test_503_recovery_exhausts_after_three_calls_and_honors_dollar_cap (test_native_pi_budget.BudgetTests.test_503_recovery_exhausts_after_three_calls_and_honors_dollar_cap) ... ok\ntest_count_tokens_omits_prior_billed_thinking (test_native_pi_budget.BudgetTests.test_count_tokens_omits_prior_billed_thinking) ... ok\ntest_fake_503_transport_retries_same_request_and_keeps_reservations (test_native_pi_budget.BudgetTests.test_fake_503_transport_retries_same_request_and_keeps_reservations) ... ok\ntest_incomplete_response_keeps_reservation_and_stops_new_admission (test_native_pi_budget.BudgetTests.test_incomplete_response_keeps_reservation_and_stops_new_admission) ... ok\ntest_next_request_rejected_near_seventy_five_cent_cap (test_native_pi_budget.BudgetTests.test_next_request_rejected_near_seventy_five_cent_cap) ... ok\ntest_request_and_output_caps (test_native_pi_budget.BudgetTests.test_request_and_output_caps) ... ok\ntest_transport_recovery_does_not_retry_non_503 (test_native_pi_budget.BudgetTests.test_transport_recovery_does_not_retry_non_503) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.059s\n\nOK\n",
+  "paid_calls": 0,
+  "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+  "status": "PASS",
+  "test_sha256": "16195dd926a5b1d61b2137f6aea4766868ba59af658f46d867655c11b5649b51",
+  "tests": 7
+}

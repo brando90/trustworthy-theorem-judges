@@ -1,0 +1,13 @@
+Review one requested light QA round for experiment 03 in trustworthy-theorem-judges.
+Requested reviewer: claude-fable-5-1, effort max. Full access, routine approvals disabled, existing Claude subscription only.
+Review immutable commit 6b288c71e09a2233e6465b6910ccfc7547e6ad8d from base 03e4416, owned scope experiments/03_prover_target_fsc_judge/ only. Do not review or edit the parent's other files. You may read private/prover_target/source/ for the exact committed source evidence and private/prover_target/split_manifest.json. This is a public repository: private raw inputs, identities, secrets and per-artifact data remain private. Your role is an independent review, not a measured forecasting run; do not call a measured judge or prover. Existing funding pause remains binding.
+User wants a cheaper alternative research target: FS means unproved theorem statement, and the judge forecasts a fixed prover's observed binary success under specified configuration/budget. It is a different target from human rating distributions. A valid checked implication proof is positive evidence; failed search is not false implication.
+Inspect README, PROTOCOL, SOURCE_AUDIT, RESULTS, code, config, results and hashes. Verify statistical implementation, split/selection boundaries, counts/claims, target/proof dependence, historical-exposure caveats, source faithfulness and privacy. Read exact source evidence where needed, including GoldChkLib and source168. The one binary label source is source145 counted_all5; source140 tc is only a scalar feature. Confirm no false semantic-oracle or fresh-validation claim. Check Brier decomposition and the claim about prospective need for no human count.
+Run the reproduction and deterministic checks from RUNBOOK if useful. Use uv Python 3.12 with numpy2.4.2/scipy1.17.0 because host system numpy architecture is broken. Request is a correctness and structural review of a scientific result; substantive unsupported conclusions or incorrect data/scoring are critical. Report concrete counterexamples. Do not modify the reviewed source; the builder will apply fixes and verify, with no automatic second review.
+Write your review to private/prover_target/review/verdict.md, and end with:
+VERDICT: PASS | FAIL
+CRITICAL_ISSUES: count
+MAJOR_ISSUES: count
+STRUCTURAL: PASS | IMPROVED | SKIP
+SUMMARY: 1-2 sentences
+Include actual model/effort evidence if available and tests run. Read AGENTS instructions and mandatory relevant shared rules. No collaborator messages.

@@ -1,0 +1,26 @@
+{
+  "target": "Natural.Coverage",
+  "candidate_sha256": "aa6d475ad0d1fa63ad0ca76f10f18db4b80c5b9e9fd00128f7df5152454ce8f9",
+  "accepted": false,
+  "compile": {
+    "exit_code": 1,
+    "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T04_G0/candidate_mqa0rcl8/Candidate.lean:2:6: error: type mismatch\n  h\nhas type\n  Natural.AgentSpec f0 f1 : Prop\nbut is expected to have type\n  Natural.GoldSpec f0 f1 : Prop\n",
+    "argv": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T04_G0/candidate_mqa0rcl8\"))",
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T04_G0/candidate_mqa0rcl8",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T04_G0/candidate_mqa0rcl8/Candidate.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T04_G0/candidate_mqa0rcl8/Candidate.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "status": "proof_rejected",
+  "protected_intact": true
+}

@@ -1,0 +1,53 @@
+{
+  "created_at": "2026-11-12T01:34:23.668152+00:00",
+  "status": "FROZEN",
+  "authority": "Parent authorized at most2 concurrent CC cells on untouched tasks, retaining active cell and all scientific caps.",
+  "scheduler_version": 3,
+  "scheduler_sha256": "8c56c2909793a5749a37bdc815725a7ff8ab853c90e45d369fc48e2157c9c24d",
+  "previous_scheduler_sha256": "28219153085b192bca69c1786e213b3764bb5d42826937cd18f63397ee201339",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+  "max_concurrent_claude_code_cells": 2,
+  "untouched_task_scope": [
+    "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+    "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+    "easy_set__41_duplicate_chars",
+    "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+    "humaneval_set__humaneval_35_max_element",
+    "cs_set__topological_sort",
+    "humaneval_set__humaneval_39_prime_fib",
+    "realcode_set__23_base32",
+    "humaneval_set__humaneval_15_string_sequence",
+    "cs_set__counting_sort",
+    "easy_set__16_myfactorial",
+    "humaneval_set__humaneval_14_all_prefixes",
+    "easy_set__20_mysumdigits",
+    "humaneval_set__humaneval_4_mean_absolute_deviation",
+    "cs_set__heapsort_algorithm",
+    "easy_set__19_mypower",
+    "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+    "security_set__security_6858__safe__125_unsafetpmhash_safe",
+    "cs_set__edit_distance",
+    "realcode_set__21_shlex_quote",
+    "realcode_set__31_statistics_quantiles",
+    "realcode_set__28_statistics_median_low",
+    "cs_set__heap_sort"
+  ],
+  "adopted_active_pids": {
+    "easy_set__23_is_prime": 64674
+  },
+  "old_supervisor_pid": 52658,
+  "active_cell_restarted": false,
+  "per_cell_limits_changed": false,
+  "task_order_changed": false,
+  "resource_disclosure": "Shared Docker VM10CPUs/7.75GiB; each CC container2CPU/8GiB maximum; Pi shares VM. No Docker restart/resizing.",
+  "admission_controls": {
+    "minimum_vm_available_bytes": 1610612736,
+    "maximum_full_memory_pressure_avg10_percent": 1.0,
+    "maximum_weekly_utilization_before_hold": 0.85,
+    "stop_new_starts_on_native_rejection_or_overage": true,
+    "meaning": "Scheduling reserve only; active cell clocks and attempt/token budgets are never reset. Resource waits do not alter an admitted cell."
+  },
+  "native_quota_evidence": "Latest allowed at21%weekly, no overage; five-hour limit not exposed.",
+  "comparability_note": "Concurrency is a prospective execution-scheduling amendment; tool resource contention may differ, recorded alongside the fixed per-cell condition."
+}

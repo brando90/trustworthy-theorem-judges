@@ -1,0 +1,26 @@
+{
+  "target": "Natural.Coverage",
+  "candidate_sha256": "3662bea7d2f932fd995fb5c2d1b8e0dd79d76e09d67dd9952952752f4f5fa136",
+  "accepted": false,
+  "compile": {
+    "exit_code": 1,
+    "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T01_G0/candidate_6svmxkvm/Candidate.lean:1:0: error: unsolved goals\nf0 f1 : String \u2192 \u2115\nh : Natural.AgentSpec f0 f1\n\u22a2 f0 \"\" = 0 \u2227\n    (\u2200 (c : Char), f0 { data := [c] } = 1) \u2227\n      (\u2200 (s\u2081 s\u2082 : String), f0 (s\u2081 ++ s\u2082) = f0 s\u2081 + f0 s\u2082) \u2227\n        (\u2200 (s : String), f0 s = 0 \u2194 s = \"\") \u2227\n          (\u2200 (s : String) (c : Char), f0 (s.push c) = f0 s + 1) \u2227\n            (\u2200 (s : String),\n                f0 \"\" = 0 \u2227 (\u2200 (c : Char), f0 { data := [c] } = 1) \u2227 \u2200 (s\u2082 : String), f0 (s ++ s\u2082) = f0 s + f0 s\u2082) \u2227\n              \u2200 (s : String), f0 s = f1 s\n",
+    "argv": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T01_G0/candidate_6svmxkvm\"))",
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T01_G0/candidate_6svmxkvm",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T01_G0/candidate_6svmxkvm/Candidate.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/review/scratch/T01_G0/candidate_6svmxkvm/Candidate.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "status": "proof_rejected",
+  "protected_intact": true
+}

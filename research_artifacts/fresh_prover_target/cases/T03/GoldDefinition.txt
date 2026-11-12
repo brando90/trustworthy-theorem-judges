@@ -1,0 +1,12 @@
+def GoldSpec (f0 : Bool → Bool → Bool) (f1 : Bool → Bool → Bool) : Prop :=
+  (∀ (isRevoked : Bool), isRevoked = Bool.true → f0 Bool.true isRevoked = Bool.false) ∧
+    (∀ (isRevoked : Bool), f0 Bool.false isRevoked = Bool.false) ∧
+      (∀ (isRevoked : Bool), isRevoked = Bool.false → f0 Bool.true isRevoked = Bool.true) ∧
+        (∀ (hasDelegation isRevoked : Bool),
+            hasDelegation = Bool.true ∧ isRevoked = Bool.false →
+              (isRevoked = Bool.true → f0 Bool.true isRevoked = Bool.false) ∧
+                f0 Bool.false isRevoked = Bool.false ∧
+                  (isRevoked = Bool.false → f0 Bool.true isRevoked = Bool.true)) ∧
+          (∀ (hasDelegation isRevoked : Bool),
+              f0 hasDelegation isRevoked = f1 hasDelegation isRevoked) ∧
+            True

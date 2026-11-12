@@ -1,0 +1,70 @@
+{
+  "checked_at": "2026-11-12T02:38:58.085893+00:00",
+  "scope": "first two concurrent V7 workers; read-only runtime inspection; no keys or env captured",
+  "containers": [
+    {
+      "name": "ttj-pi-solver-12505ab066cd",
+      "image": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+      "user": "user",
+      "mounts": [],
+      "network_names": [
+        {
+          "name": "ttj-pi-net-12505ab066cd",
+          "internal": true
+        }
+      ],
+      "host_port_bindings": {},
+      "started_at": "2026-11-12T02:32:26.424210804Z"
+    },
+    {
+      "name": "ttj-pi-solver-c82d4f5ffc7e",
+      "image": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+      "user": "user",
+      "mounts": [],
+      "network_names": [
+        {
+          "name": "ttj-pi-net-c82d4f5ffc7e",
+          "internal": true
+        }
+      ],
+      "host_port_bindings": {},
+      "started_at": "2026-11-12T02:32:26.291935053Z"
+    },
+    {
+      "name": "ttj-pi-gateway-12505ab066cd",
+      "image": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+      "user": "root",
+      "mounts": [],
+      "network_names": [
+        {
+          "name": "bridge",
+          "internal": false
+        },
+        {
+          "name": "ttj-pi-net-12505ab066cd",
+          "internal": true
+        }
+      ],
+      "host_port_bindings": {},
+      "started_at": "2026-11-12T02:32:26.27666122Z"
+    },
+    {
+      "name": "ttj-pi-gateway-c82d4f5ffc7e",
+      "image": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+      "user": "root",
+      "mounts": [],
+      "network_names": [
+        {
+          "name": "bridge",
+          "internal": false
+        },
+        {
+          "name": "ttj-pi-net-c82d4f5ffc7e",
+          "internal": true
+        }
+      ],
+      "host_port_bindings": {},
+      "started_at": "2026-11-12T02:32:26.116504762Z"
+    }
+  ]
+}

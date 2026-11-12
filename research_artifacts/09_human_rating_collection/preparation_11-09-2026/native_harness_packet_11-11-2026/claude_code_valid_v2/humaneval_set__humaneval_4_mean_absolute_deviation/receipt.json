@@ -1,0 +1,192 @@
+{
+  "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "humaneval_4_mean_absolute_deviation.py": "559fde16be5e57c6080a6793ff0007c7a23a7452bd14a1e2ce3efa1baa85928f",
+    "instruction.md": "67b7109cfc790f5ae9d3b101b71d2da35bb23a4b57e68e7ac53277f1d92d3028"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-681533e2bb58",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794451071.264717,
+  "exit_code": 0,
+  "stop_reason": "native_result",
+  "finished_at": 1794452233.759041,
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 826250,
+  "observed_output_tokens": 82284,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 19,
+    "messages_with_stop": 19,
+    "native_aggregate_usage": {
+      "input_tokens": 518,
+      "cache_creation_input_tokens": 69935,
+      "cache_read_input_tokens": 673513,
+      "output_tokens": 82284,
+      "output_tokens_details": {
+        "thinking_tokens": 53737
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 69935,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 1043440,
+    "stop_reason": "end_turn",
+    "session_id": "cb0b0680-d958-43cc-bc29-eb73bcacb8ab",
+    "total_cost_usd": 5.686458250000001,
+    "usage": {
+      "input_tokens": 518,
+      "cache_creation_input_tokens": 69935,
+      "cache_read_input_tokens": 673513,
+      "output_tokens": 82284,
+      "output_tokens_details": {
+        "thinking_tokens": 53737
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 69935,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 518,
+        "outputTokens": 82284,
+        "cacheReadInputTokens": 673513,
+        "cacheCreationInputTokens": 69935,
+        "webSearchRequests": 0,
+        "costUSD": 5.686458250000001,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 53737,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 69935,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 19,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The formalization is complete, compiled, and verified.\n\n**Deliverable** written to `/home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean` (470 lines). The final `lake env lean` run exits 0 with zero errors and zero warnings.\n\n**Structure of the file**\n\n- **Float layer.** `meanAbsoluteDeviation` mirrors the Python code using left-to-right folds like Python's `sum`. An `Option`-valued variant models the `ZeroDivisionError` on the empty list. Unit tests reproduce the three assertions of the Python `check` function with the same tolerance.\n- **Pre-condition.** `Pre xs := xs \u2260 []`, shared by both layers.\n- **Mathematical model.** `mean` and `mad` are defined generically over any linearly ordered field, so they cover both `\u211a` and `\u211d`. Nine properties are stated and proved: the defining equations in product form, non-negativity, zero exactly for constant data, translation invariance, absolute homogeneity under scaling, permutation invariance, bounds between the smallest and largest deviation, the two-point closed form, and zero deviation for replicated data. `Post_prop` is their conjunction and `correctness` proves `Pre \u2192 Post_prop`.\n- **Property-based tests.** Thirteen Plausible checks on the exact `\u211a` instance all pass with no discarded samples, since non-empty inputs are generated as `x :: xs`. An exhaustive bounded check covers the post-condition conjunction. One further check confirms the imperative model agrees with the functional one on random inputs.\n- **Imperative versions.** Both layers have an `Id.run do` implementation with two mutable accumulators. Equivalence to the functional version is proved for each. The Float proof is purely structural, so it does not depend on any opaque Float arithmetic law.\n- **Layer correspondence.** `mad_rat_cast` proves the `\u211a` and `\u211d` instances agree under `Rat.cast`, so the executable `\u211a` tests are evidence for the `\u211d` model.\n\n**Verification performed**\n\n- `#print axioms` on all 24 theorems, run on a scratch copy outside the submission, shows only `propext`, `Classical.choice` and `Quot.sound`.\n- The file contains no `sorry`, `admit`, or `axiom`. All 16 uses of `native_decide` are inside `example` tests, none inside a theorem.\n\nOne point to be aware of: the Float implementation cannot be connected to the mathematical model by proof, because Lean's `Float` arithmetic is opaque. The property theorems therefore hold for the exact model, which is the stated mathematical intent of the Python program, while the Float layer is covered by ground tests and the structural equivalence proof.",
+    "ttft_ms": 5412,
+    "type": "result",
+    "duration_ms": 1159727,
+    "uuid": "994a892f-3f0c-41ff-8518-e0f8117259c3",
+    "ttft_stream_ms": 2929,
+    "time_to_request_ms": 44,
+    "first_content_frame_ms": 2930,
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "model_usage_since_last_result": {
+      "claude-fable-5-1": {
+        "inputTokens": 518,
+        "outputTokens": 82284,
+        "cacheReadInputTokens": 673513,
+        "cacheCreationInputTokens": 69935,
+        "webSearchRequests": 0,
+        "costUSD": 5.686458250000001,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 53737,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 69935,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    }
+  },
+  "model_identity_verified": true,
+  "candidate_captured": true,
+  "candidate_sha256": "790bdb84d099400138967f339e14fdd07ede6a7a22b6e38060a2d6b1f0372d83",
+  "candidate_bytes": 18472,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

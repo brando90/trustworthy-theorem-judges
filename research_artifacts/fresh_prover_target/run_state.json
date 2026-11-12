@@ -1,0 +1,239 @@
+{
+  "started_utc": "2026-11-06T23:12:12.162489+00:00",
+  "started_epoch": 1794006732.162697,
+  "calls": {
+    "preflight_J0_reproduce0": {
+      "identity": "preflight_J0_reproduce0",
+      "role": "preflight",
+      "started_utc": "2026-11-06T23:12:12.174203+00:00",
+      "request_sha256": "b0d393c94273ed73b9be356fca94d3126bbd999a1f001c2afc2dfcc727ce4ea5",
+      "num_predict": 256,
+      "settings": {
+        "think": false,
+        "num_predict": 256
+      },
+      "seed": 11062026,
+      "status": "completed",
+      "runtime": {
+        "model": "qwen3.5:9b-q4_K_M",
+        "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+        "server_version": "0.40.8"
+      },
+      "done_reason": "stop",
+      "eval_count": 56,
+      "prompt_eval_count": 36,
+      "thinking_characters": 0,
+      "parsed": {
+        "probability": 0.25,
+        "reason": "This corresponds to a 25% chance, such as the probability of rolling a specific number on a fair four-sided die or flipping two coins and getting exactly one head."
+      },
+      "seconds": 9.545681332994718,
+      "finished_utc": "2026-11-06T23:12:21.720611+00:00",
+      "response_sha256": "75f09a1873d1953cee47b30061e59e0cebace6e5171d90a3320d2b4a1f773005"
+    },
+    "preflight_J0_reproduce1": {
+      "identity": "preflight_J0_reproduce1",
+      "role": "preflight",
+      "started_utc": "2026-11-06T23:12:21.735889+00:00",
+      "request_sha256": "6b43b1546df0e52e9a622571e8a8e551de930b5c40cbba7684d245c26bf5c30c",
+      "num_predict": 256,
+      "settings": {
+        "think": false,
+        "num_predict": 256
+      },
+      "seed": 11062027,
+      "status": "completed",
+      "runtime": {
+        "model": "qwen3.5:9b-q4_K_M",
+        "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+        "server_version": "0.40.8"
+      },
+      "done_reason": "stop",
+      "eval_count": 49,
+      "prompt_eval_count": 36,
+      "thinking_characters": 0,
+      "parsed": {
+        "probability": 0.75,
+        "reason": "This represents a 75% chance of success, equivalent to a 3-to-1 odds ratio in favor of the event occurring."
+      },
+      "seconds": 1.7110526250035036,
+      "finished_utc": "2026-11-06T23:12:23.447680+00:00",
+      "response_sha256": "b277acaf1d30299d7de561e54a70d06dcd651049b2704e5a0c049df551ab8cd8"
+    },
+    "preflight_J0_semantic0": {
+      "identity": "preflight_J0_semantic0",
+      "role": "preflight",
+      "started_utc": "2026-11-06T23:12:23.461761+00:00",
+      "request_sha256": "e6c879d65e5aa6c897d9dfd909a45a30c8970c2458dfb76b5ac6eabbc3c8d718",
+      "num_predict": 256,
+      "settings": {
+        "think": false,
+        "num_predict": 256
+      },
+      "seed": 11062036,
+      "status": "completed",
+      "runtime": {
+        "model": "qwen3.5:9b-q4_K_M",
+        "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+        "server_version": "0.40.8"
+      },
+      "done_reason": "stop",
+      "eval_count": 40,
+      "prompt_eval_count": 382,
+      "thinking_characters": 0,
+      "parsed": {
+        "probability": 1.0,
+        "reason": "The fixed tactic succeeds for both goals by identity, satisfying the condition that both goals receive accepted proofs."
+      },
+      "seconds": 2.2732213330164086,
+      "finished_utc": "2026-11-06T23:12:25.735652+00:00",
+      "response_sha256": "8ab703f7066ab66fc634a1fdbd0a9c9ae8a1ad54cd12216654263282a17156f0"
+    },
+    "preflight_J0_semantic1": {
+      "identity": "preflight_J0_semantic1",
+      "role": "preflight",
+      "started_utc": "2026-11-06T23:12:25.750174+00:00",
+      "request_sha256": "02d7333554ae42d66c5e0039a650128c34338e47a3a1513a4445069d703bd8f7",
+      "num_predict": 256,
+      "settings": {
+        "think": false,
+        "num_predict": 256
+      },
+      "seed": 11062037,
+      "status": "completed",
+      "runtime": {
+        "model": "qwen3.5:9b-q4_K_M",
+        "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+        "server_version": "0.40.8"
+      },
+      "done_reason": "stop",
+      "eval_count": 42,
+      "prompt_eval_count": 389,
+      "thinking_characters": 0,
+      "parsed": {
+        "probability": 0.0,
+        "reason": "The consistency goal requires proving the existence of a function satisfying False, which is impossible in the trusted kernel regardless of tactic attempts or proof search."
+      },
+      "seconds": 2.1927158329926897,
+      "finished_utc": "2026-11-06T23:12:27.943586+00:00",
+      "response_sha256": "deaf5c8c7aa022cd28efbfd87a175b13da08d82793dd3448f0b578978d494f96"
+    },
+    "preflight_J1_reproduce0": {
+      "identity": "preflight_J1_reproduce0",
+      "role": "preflight",
+      "started_utc": "2026-11-06T23:12:27.954815+00:00",
+      "request_sha256": "8f82c362f967f8a33ff456c9f4e95013efc0436690ff8e1b08797a8754aefb41",
+      "num_predict": 2048,
+      "settings": {
+        "think": true,
+        "num_predict": 2048
+      },
+      "seed": 11062026,
+      "status": "completed",
+      "runtime": {
+        "model": "qwen3.5:9b-q4_K_M",
+        "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+        "server_version": "0.40.8"
+      },
+      "done_reason": "stop",
+      "eval_count": 808,
+      "prompt_eval_count": 34,
+      "thinking_characters": 2776,
+      "parsed": {
+        "probability": 0.25,
+        "reason": "Rolling a specific outcome on a fair four-sided die has a 1 in 4 chance, which equals 0.25."
+      },
+      "seconds": 25.46930337502272,
+      "finished_utc": "2026-11-06T23:12:53.424892+00:00",
+      "response_sha256": "cba2412bb54c50633dda9269fac18f0a0cb6fda70f92feec11fcb5a33e03e30b"
+    },
+    "preflight_J1_reproduce1": {
+      "identity": "preflight_J1_reproduce1",
+      "role": "preflight",
+      "started_utc": "2026-11-06T23:12:53.443912+00:00",
+      "request_sha256": "67dc3fdd106c5835329f305d7c7ff6c7bef803c45a7990e499dd1b6e01f51ead",
+      "num_predict": 2048,
+      "settings": {
+        "think": true,
+        "num_predict": 2048
+      },
+      "seed": 11062027,
+      "status": "failed",
+      "runtime": {
+        "model": "qwen3.5:9b-q4_K_M",
+        "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+        "server_version": "0.40.8"
+      },
+      "done_reason": "length",
+      "eval_count": 2048,
+      "prompt_eval_count": 34,
+      "thinking_characters": 7457,
+      "failure_category": "output_token_budget",
+      "error": "ValueError: Generation ended at token limit or abnormal reason",
+      "seconds": 74.78522624998004,
+      "finished_utc": "2026-11-06T23:14:08.230172+00:00",
+      "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "preflight_J1_semantic0": {
+      "identity": "preflight_J1_semantic0",
+      "role": "preflight",
+      "started_utc": "2026-11-06T23:14:08.254875+00:00",
+      "request_sha256": "9ab65a45b95c8df861af5b4ca6ef6279ba5df64df02857caca70d32298e42625",
+      "num_predict": 2048,
+      "settings": {
+        "think": true,
+        "num_predict": 2048
+      },
+      "seed": 11062036,
+      "status": "failed",
+      "runtime": {
+        "model": "qwen3.5:9b-q4_K_M",
+        "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+        "server_version": "0.40.8"
+      },
+      "done_reason": "length",
+      "eval_count": 2048,
+      "prompt_eval_count": 380,
+      "thinking_characters": 8477,
+      "failure_category": "output_token_budget",
+      "error": "ValueError: Generation ended at token limit or abnormal reason",
+      "seconds": 135.95034812498488,
+      "finished_utc": "2026-11-06T23:16:24.206945+00:00",
+      "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "preflight_J1_semantic1": {
+      "identity": "preflight_J1_semantic1",
+      "role": "preflight",
+      "started_utc": "2026-11-06T23:16:24.251422+00:00",
+      "request_sha256": "26046ac67d245507119bd9ca90b70bbe44c788974ef1e190945fc315793901b2",
+      "num_predict": 2048,
+      "settings": {
+        "think": true,
+        "num_predict": 2048
+      },
+      "seed": 11062037,
+      "status": "completed",
+      "runtime": {
+        "model": "qwen3.5:9b-q4_K_M",
+        "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+        "server_version": "0.40.8"
+      },
+      "done_reason": "stop",
+      "eval_count": 1972,
+      "prompt_eval_count": 387,
+      "thinking_characters": 7680,
+      "parsed": {
+        "probability": 0,
+        "reason": "The consistency goal requires proving existence of a function satisfying False, which is impossible in the trusted kernel."
+      },
+      "seconds": 154.57916233298602,
+      "finished_utc": "2026-11-06T23:18:58.833258+00:00",
+      "response_sha256": "bc831dec66ba705c0fb82686089fadbefb6aa0406ca4c36ca915d932a492f5b8"
+    }
+  },
+  "phase": "all",
+  "status": "stopped",
+  "updated_utc": "2026-11-06T23:18:58.839697+00:00",
+  "pid": 94597,
+  "error": "AssertionError: Model preflight failed; stop new admissions without retry"
+}

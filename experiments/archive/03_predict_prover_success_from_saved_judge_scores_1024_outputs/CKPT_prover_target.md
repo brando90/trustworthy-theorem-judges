@@ -15,8 +15,8 @@ Last updated: 11-06-2026 11:57 PST
 - Claude Fable/max review completed: PASS, 0 critical, 2 major findings fixed. Published on origin/main at e12117f98c3b50fae32a107349afc1a9be2c08ea.
 ## Next steps
 - Completed: reviewed study, project links and mirrored instructions published; Google findings companion updated and verified.
-- Future measured study: validate a faithful statement-only target and establish an eligible funding route before the separate pilot. All 83 private files are hash-verified in canonical private/prover_target/.
-- Reproduce: see RUNBOOK.md; source blobs and split manifest are protected under private/prover_target/.
+- Future measured study: validate a faithful statement-only target and establish an eligible funding route before the separate pilot. All 83 private files are hash-verified in canonical research_artifacts/prover_target/.
+- Reproduce: see RUNBOOK.md; source blobs and split manifest are protected under research_artifacts/prover_target/.
 ## Brando to-do
 - None for the completed zero-call study; a later paid run needs an eligible route under the existing gate.
 ## Log

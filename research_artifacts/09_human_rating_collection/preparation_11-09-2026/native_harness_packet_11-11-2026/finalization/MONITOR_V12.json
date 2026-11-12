@@ -1,0 +1,30 @@
+{
+  "pid": 96967,
+  "started_at": "2026-11-12T03:24:57.648522+00:00",
+  "command": [
+    "/Users/brandomiranda/uv_envs/no-gold-ref-judge/bin/python3",
+    "/Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings/support/scripts/native_packet_generation/finalize_cohort.py",
+    "--cohort",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PLANNED_COHORT_VALID_ENV_V2.json",
+    "--cohort-sha256",
+    "c386e59258e0a8c3c0dec8f0c2e5217d80efbcfb6c2c881c79feb9dcec67b7f2",
+    "--pi-index",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_task_manifests/VALID_INDEX_V3.json",
+    "--condition-lineage",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PROSPECTIVE_CONDITION_LINEAGE_V13.json",
+    "--condition-lineage-sha256",
+    "930bde872c806aafc20ea07fee876293e971acb385a890b3c2fd196bd82276f7",
+    "--output-dir",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization",
+    "--ratable-subset",
+    "--watch",
+    "--poll-seconds",
+    "30",
+    "--watch-seconds",
+    "54000"
+  ],
+  "helper_sha256": "1ebc9a026919b39f5e5451de2c6021c931acf91c6f5aa78c62971f0ec95c4c7e",
+  "scope": "One receipt-only writer. V13 binds narrow recovered native receipts/incident evidence and V9 untouched-task scheduling, without raw or generation changes.",
+  "supersedes_monitor": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/finalization/MONITOR_V11.json",
+  "watch_seconds": 54000
+}

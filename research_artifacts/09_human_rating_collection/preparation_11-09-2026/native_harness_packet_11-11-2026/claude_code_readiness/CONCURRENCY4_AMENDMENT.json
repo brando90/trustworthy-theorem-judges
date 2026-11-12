@@ -1,0 +1,50 @@
+{
+  "created_at": "2026-11-12T02:03:08.408523+00:00",
+  "status": "FROZEN",
+  "authority": "Parent authorized at most4 concurrent CC cells on untouched tasks, adopting both healthy existing runner processes unchanged.",
+  "scheduler_version": 4,
+  "scheduler_sha256": "5d0827eecdf9a0a035ab8cca7409d3644809863a1478cee7f1219e9daf924878",
+  "previous_scheduler_sha256": "8c56c2909793a5749a37bdc815725a7ff8ab853c90e45d369fc48e2157c9c24d",
+  "previous_amendment_sha256": "015d5b1642e0ea6c3eedc02f227993e03478c515ff906bfce09b935ca61fa991",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+  "max_concurrent_claude_code_cells": 4,
+  "untouched_task_scope": [
+    "humaneval_set__humaneval_39_prime_fib",
+    "realcode_set__23_base32",
+    "humaneval_set__humaneval_15_string_sequence",
+    "cs_set__counting_sort",
+    "easy_set__16_myfactorial",
+    "humaneval_set__humaneval_14_all_prefixes",
+    "easy_set__20_mysumdigits",
+    "humaneval_set__humaneval_4_mean_absolute_deviation",
+    "cs_set__heapsort_algorithm",
+    "easy_set__19_mypower",
+    "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+    "security_set__security_6858__safe__125_unsafetpmhash_safe",
+    "cs_set__edit_distance",
+    "realcode_set__21_shlex_quote",
+    "realcode_set__31_statistics_quantiles",
+    "realcode_set__28_statistics_median_low",
+    "cs_set__heap_sort"
+  ],
+  "adopted_active_pids": {
+    "humaneval_set__humaneval_35_max_element": 71969,
+    "cs_set__topological_sort": 72413
+  },
+  "old_supervisor_pid": 68292,
+  "active_cell_restarted": false,
+  "per_cell_limits_changed": false,
+  "task_order_changed": false,
+  "resource_disclosure": "Shared Docker VM10CPUs/7.75GiB; each CC container2CPU/8GiB maximum; up to4CC containers request8CPUs in aggregate. Pi may recover/resume and shares VM; its current presence is recorded at new admissions. No Docker restart/resizing.",
+  "resource_evidence_file": "CONCURRENCY4_ASSESSMENT.json",
+  "admission_controls": {
+    "minimum_vm_available_bytes": 1610612736,
+    "maximum_full_memory_pressure_avg10_percent": 1.0,
+    "maximum_weekly_utilization_before_hold": 0.85,
+    "stop_new_starts_on_native_rejection_or_overage": true,
+    "meaning": "Scheduling reserve only; active clocks and scientific attempts/budgets are never reset. Hold new admissions rather than terminate healthy active cells."
+  },
+  "native_quota_evidence": "Allowed at23%weekly, no overage; five-hour/concurrent-request limit not exposed.",
+  "comparability_note": "Scheduling amendment for candidate collection, not a new per-cell solver condition or task retake. Shared CPU/memory contention remains recorded."
+}

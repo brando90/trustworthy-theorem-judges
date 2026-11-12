@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_PROSPECTIVE_CONDITION_LINEAGE",
+  "recorded_at": "2026-11-12T02:09:41.976665+00:00",
+  "planned_cohort": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PLANNED_COHORT_VALID_ENV_V2.json",
+    "sha256": "c386e59258e0a8c3c0dec8f0c2e5217d80efbcfb6c2c881c79feb9dcec67b7f2"
+  },
+  "authority": "Parent authorized healthy serial Pi continuation after the active seventh attempt, with at most two additional outage-recovery admissions after 30-minute cooldowns and no new recovery admission after 02:00 AM Pacific on 11-12-2026. All original cells, limits and per-task conditions remain unchanged.",
+  "change": "Bind the Pi admission policy V2, exact supervisor hash and seven passing classifier controls. Untouched tasks remain pending provider availability if bounded recovery is exhausted; they are never relabeled as failed or assigned scores. No terminal attempt is rerun.",
+  "configurations": {
+    "native_claude_fable": [
+      {
+        "condition": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+          "sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c"
+        },
+        "runner": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runner_snapshots/claude_code_valid_v2_7bff1a4e.py",
+          "sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce"
+        },
+        "task_ids": [
+          "realcode_set__20_html_escape",
+          "easy_set__23_is_prime",
+          "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+          "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+          "easy_set__41_duplicate_chars",
+          "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+          "humaneval_set__humaneval_35_max_element",
+          "cs_set__topological_sort",
+          "humaneval_set__humaneval_39_prime_fib",
+          "realcode_set__23_base32",
+          "humaneval_set__humaneval_15_string_sequence",
+          "cs_set__counting_sort",
+          "easy_set__16_myfactorial",
+          "humaneval_set__humaneval_14_all_prefixes",
+          "easy_set__20_mysumdigits",
+          "humaneval_set__humaneval_4_mean_absolute_deviation",
+          "cs_set__heapsort_algorithm",
+          "easy_set__19_mypower",
+          "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+          "security_set__security_6858__safe__125_unsafetpmhash_safe",
+          "cs_set__edit_distance",
+          "realcode_set__21_shlex_quote",
+          "realcode_set__31_statistics_quantiles",
+          "realcode_set__28_statistics_median_low",
+          "cs_set__heap_sort"
+        ],
+        "output_root": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2"
+      }
+    ],
+    "pi_gemini_flash": [
+      {
+        "condition": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V3.json",
+          "sha256": "a8087b31b8321d82303bd44ef685648ef70db700ae7a1bbd77fbd6d50efe3c52"
+        },
+        "runner": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v3_5ed1acd6.py",
+          "sha256": "5ed1acd6658abc7086f4b16bff5a46e60adffdf6568f8a67132c40b4ad709496"
+        },
+        "task_ids": [
+          "realcode_set__20_html_escape",
+          "easy_set__23_is_prime"
+        ],
+        "output_root": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3"
+      },
+      {
+        "condition": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V4.json",
+          "sha256": "e2c20b4fd8632a260da69ba70044ee4a7e8a12e8871d245876d33fe7776d3e3b"
+        },
+        "runner": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v4_f4ac9b97.py",
+          "sha256": "f4ac9b97febe39d458766f5ca444d7bfb57ab21b95ed3ee464457c3b63136ddb"
+        },
+        "task_ids": [
+          "security_set__security_6858__vulnerabilities__93_unsafeappentitlements"
+        ],
+        "output_root": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3"
+      },
+      {
+        "condition": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V5.json",
+          "sha256": "2a0e7772b0079fee90ec0da24933113fae4222bcc868b931d3bb4df5e559c5a0"
+        },
+        "runner": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v5_89498273.py",
+          "sha256": "89498273ae22c49e521469251e59129895dbb40d30a77db46af872f6473dff48"
+        },
+        "task_ids": [
+          "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice"
+        ],
+        "output_root": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3"
+      },
+      {
+        "condition": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V6.json",
+          "sha256": "ebed8c67076c340876f81c6d40e20e0ffae2bc08b86dc4d582ac0c467269eb4e"
+        },
+        "runner": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/pi_runner_versions/pi_runner_valid_v6_d2be5ac2.py",
+          "sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04"
+        },
+        "task_ids": [
+          "easy_set__41_duplicate_chars",
+          "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+          "humaneval_set__humaneval_35_max_element",
+          "cs_set__topological_sort",
+          "humaneval_set__humaneval_39_prime_fib",
+          "realcode_set__23_base32",
+          "humaneval_set__humaneval_15_string_sequence",
+          "cs_set__counting_sort",
+          "easy_set__16_myfactorial",
+          "humaneval_set__humaneval_14_all_prefixes",
+          "easy_set__20_mysumdigits",
+          "humaneval_set__humaneval_4_mean_absolute_deviation",
+          "cs_set__heapsort_algorithm",
+          "easy_set__19_mypower",
+          "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+          "security_set__security_6858__safe__125_unsafetpmhash_safe",
+          "cs_set__edit_distance",
+          "realcode_set__21_shlex_quote",
+          "realcode_set__31_statistics_quantiles",
+          "realcode_set__28_statistics_median_low",
+          "cs_set__heap_sort"
+        ],
+        "output_root": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3"
+      }
+    ]
+  },
+  "parent_lineage": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PROSPECTIVE_CONDITION_LINEAGE_V7.json",
+    "sha256": "53be2e72c6cb2785b6276112c98b710c65d178c5bd3896e9e89546aab005ec26"
+  },
+  "transport_recovery_test": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_V5_FAKE503_TEST_RECEIPT.json",
+    "sha256": "ef57027e4d5943580f68b6f19f1879116e8dce8fa81d02edb524122e47eb0632"
+  },
+  "infrastructure_disposition": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/INFRASTRUCTURE_DISPOSITION_V3.json",
+    "sha256": "0c21086afa8b01942476ac4965f6206576d568089cb98e37c28beb51a4ed31f2"
+  },
+  "timeout_control_test": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_V6_TIMEOUT_TEST_RECEIPT.json",
+    "sha256": "41e4840b8109133eea8c191ddd786041c93f46a905c0755f52296f8a870af8df"
+  },
+  "scheduler_records": [
+    {
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_ADMISSION_RECOVERY_01.json",
+      "sha256": "793ea7bda9b81b443a00e803c3d56596585d2eac44f329b8ba54de7960d0d331"
+    },
+    {
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_readiness/CONCURRENCY2_AMENDMENT.json",
+      "sha256": "015d5b1642e0ea6c3eedc02f227993e03478c515ff906bfce09b935ca61fa991"
+    },
+    {
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_readiness/CONCURRENCY4_AMENDMENT.json",
+      "sha256": "3cff26fd98cbe935f0406d8c06b51f03d888ffa4f0b775dc583869d34fa74a17"
+    },
+    {
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_ADMISSION_POLICY_V2.json",
+      "sha256": "98777eae16d27694c2a1966925b62317a6c78e78623133d7a9cf5b28b19d72c6"
+    },
+    {
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_ADMISSION_POLICY_V2_RUNNER_BINDING.json",
+      "sha256": "b21a1cbd627128e095ea2928a8887f9fe985f2fd103538eec2d7b1a2c54b8bce"
+    },
+    {
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_ADMISSION_POLICY_V2_TEST_RECEIPT.json",
+      "sha256": "bf5ce079eae7837cec35093f72ae193585e0a5d75eeae3b83c25ad95fb85445f"
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "93_unsafeAppEntitlements.py": "4f8c41339fb8633e962a7c12538c5d16fa6d923c3a7887768bae500c87988619",
+    "instruction.md": "673b75fc3bca5f1a00ffb054edf3e86d5462ea39a1967168ea289c7efe6cd715"
+  },
+  "output": "/home/user/lean_project/Veribench/93_unsafeAppEntitlements.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-290a355d38a3",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794447267.0298429,
+  "exit_code": 0,
+  "stop_reason": "native_result",
+  "finished_at": 1794447695.493736,
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 293984,
+  "observed_output_tokens": 28670,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 8,
+    "messages_with_stop": 8,
+    "native_aggregate_usage": {
+      "input_tokens": 226,
+      "cache_creation_input_tokens": 36543,
+      "cache_read_input_tokens": 228545,
+      "output_tokens": 28670,
+      "output_tokens_details": {
+        "thinking_tokens": 15962
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 36543,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 365410,
+    "stop_reason": "end_turn",
+    "session_id": "79c1e38e-7252-4a2f-852a-d29077d67d24",
+    "total_cost_usd": 2.22375625,
+    "usage": {
+      "input_tokens": 226,
+      "cache_creation_input_tokens": 36543,
+      "cache_read_input_tokens": 228545,
+      "output_tokens": 28670,
+      "output_tokens_details": {
+        "thinking_tokens": 15962
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 36543,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 226,
+        "outputTokens": 28670,
+        "cacheReadInputTokens": 228545,
+        "cacheCreationInputTokens": 36543,
+        "webSearchRequests": 0,
+        "costUSD": 2.22375625,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 15962,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 36543,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 8,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The translation is complete and verified. The file `Veribench/93_unsafeAppEntitlements.lean` compiles with exit 0, and all nine theorems are proven with no `sorry`, `admit`, `native_decide`, or new axioms.\n\n**What the file contains**\n\n- **Functional implementation** that ignores all three arguments and returns `true`, matching the Python exactly. A reference `safeAppEntitlements` (resource must be in the entitlement list) formalizes the Python comment \"Safe version \u2192 False\".\n- **Unit tests** mirroring all five Python assertions, plus the safe-version contrast, as `example ... := by native_decide` and `#eval`.\n- **Precondition** `Pre` is `True`, since Python accepts any app id, resource, and entitlement list.\n- **Seven properties**, each with a proven theorem: always granted, entitlement list irrelevant, all inputs irrelevant, access granted without entitlement (the vulnerability), at least as permissive as the safe checker, differs from the safe checker whenever the resource is not granted, and an exact iff characterization of agreement with the safe checker.\n- **Postcondition** as the conjunction of all seven, and `correctness_thm` proving `Pre \u2192 Post_prop`.\n- **Property-based tests** for every property and the postcondition. Each has a randomized Plausible check and an exhaustive bounded check over a pool of app ids, resource names, and all 32 sublists of the resource pool.\n- **Imperative implementation** using `Id.run do` with a mutable `granted` flag, its own tests, and an equivalence theorem closed by `rfl`.\n\n**Verification results**\n\n| Check | Result |\n|---|---|\n| `lake env lean` exit code | 0, no errors |\n| Theorems stated / proven | 9 / 9 |\n| Axioms used | `propext` only (3 theorems), none for the other 6 |\n| Escape hatches | none found |\n\n**One caveat on the PBT output.** Two Plausible checks print a \"Gave up\" warning: the standalone test for \"at least as permissive as safe\" and the full seven-way postcondition conjunction. Both contain a hypothesis that random strings rarely satisfy. As the task instructions direct, each is paired with an exhaustive bounded test on the finite pool, and those pass. The randomized conjunction also needed a raised `synthInstance.maxSize` for instance synthesis, set locally on that single `#eval`.",
+    "ttft_ms": 154497,
+    "type": "result",
+    "duration_ms": 425777,
+    "uuid": "6d87da84-76bb-465d-84dc-9fffb90e5ed8",
+    "ttft_stream_ms": 2752,
+    "time_to_request_ms": 39,
+    "first_content_frame_ms": 2753,
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "model_usage_since_last_result": {
+      "claude-fable-5-1": {
+        "inputTokens": 226,
+        "outputTokens": 28670,
+        "cacheReadInputTokens": 228545,
+        "cacheCreationInputTokens": 36543,
+        "webSearchRequests": 0,
+        "costUSD": 2.22375625,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 15962,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 36543,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    }
+  },
+  "model_identity_verified": true,
+  "candidate_captured": true,
+  "candidate_sha256": "d11fb06ea972e733d72bf7257b1d24576cc0a3305bd293c7e3e59f8903991980",
+  "candidate_bytes": 20205,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

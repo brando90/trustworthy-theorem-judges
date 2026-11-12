@@ -1,0 +1,28 @@
+{
+  "identity": "forecast_T01_G0_J0_0",
+  "role": "forecast",
+  "started_utc": "2026-11-06T23:20:40.947204+00:00",
+  "request_sha256": "76e1fa8791a1effcb0839fa1544290461eda5bf7773573cfaafbeed5b06b84bf",
+  "num_predict": 256,
+  "settings": {
+    "think": false,
+    "num_predict": 256,
+    "prompt": "judge_J0.md"
+  },
+  "seed": 11062226,
+  "status": "failed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "length",
+  "eval_count": 256,
+  "prompt_eval_count": 946,
+  "thinking_characters": 0,
+  "failure_category": "output_token_budget",
+  "error": "ValueError: Generation ended at token limit or abnormal reason",
+  "seconds": 25.86611137498403,
+  "finished_utc": "2026-11-06T23:21:06.817008+00:00",
+  "response_sha256": "50c5ad58934b8f816c828cf74fa61986965b342a51bdd27e9aa3f02cfa41460b"
+}

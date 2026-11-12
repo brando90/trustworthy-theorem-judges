@@ -1,0 +1,29 @@
+{
+  "identity": "generate_T03_G1",
+  "role": "generation",
+  "started_utc": "2026-11-06T23:20:16.020426+00:00",
+  "request_sha256": "c7c73a8d2b4048576ec33e25b09c4d2f16a2923fb7c86fdfe20a83556016f570",
+  "num_predict": 2048,
+  "settings": {
+    "think": false,
+    "num_predict": 2048,
+    "prompt": "generate_G1.md"
+  },
+  "seed": 11062131,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 136,
+  "prompt_eval_count": 494,
+  "thinking_characters": 0,
+  "parsed": {
+    "specification": "fun f0 f1 => (f0 True False = True) \u2227 (f0 True True = False) \u2227 (f0 False False = False) \u2227 (f0 False True = False) \u2227 (f1 True False = True) \u2227 (f1 True True = False) \u2227 (f1 False False = False) \u2227 (f1 False True = False) \u2227 (f0 True False = f1 True False) \u2227 (f0 True True = f1 True True) \u2227 (f0 False False = f1 False False) \u2227 (f0 False True = f1 False True)"
+  },
+  "seconds": 13.352127791004023,
+  "finished_utc": "2026-11-06T23:20:29.388106+00:00",
+  "response_sha256": "8072c518498243a6442f378fbcf48e086477c6ed7bf7323f9cce6d9567320eaf"
+}

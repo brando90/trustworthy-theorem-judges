@@ -1,0 +1,63 @@
+{
+  "target": "Natural.Coverage",
+  "candidate_sha256": "dea06f51fab87fb01df13724c3dd119d50a6e24eab0246b8d1747702751a3d2d",
+  "accepted": false,
+  "compile": {
+    "exit_code": 0,
+    "output": "",
+    "argv": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate_be6gk9u3\"))",
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate_be6gk9u3",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate_be6gk9u3/Candidate.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate_be6gk9u3/Candidate.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "replay": {
+    "exit_code": 1,
+    "output": "VB169_STRICT_KERNEL_REPLAY_JSON {\"typeExact\":false,\"typeDefEq\":false,\"skippedUnsafeOrPartial\":0,\"replayed\":false,\"olean\":\"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate_be6gk9u3/Candidate.olean\",\"nonce\":\"49f23579e4cb8f98278ebf2f8467564228e7aaa5fc39b25a\",\"name\":\"claim\",\"isTheorem\":false,\"extensionEntries\":247,\"error\":\"candidate module adds forbidden axioms: [extra]\",\"collisions\":[],\"candidateImports\":[\"Init\",\"Context\"],\"candidateConstants\":2,\"axioms\":[]}\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/trusted/Replay_49f23579e4cb8f98278ebf2f8467564228e7aaa5fc39b25a.lean:3:0: error: kernel replay rejected: candidate module adds forbidden axioms: [extra]\n",
+    "argv": [
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/trusted",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/trusted/Replay_49f23579e4cb8f98278ebf2f8467564228e7aaa5fc39b25a.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "records": [
+    {
+      "typeExact": false,
+      "typeDefEq": false,
+      "skippedUnsafeOrPartial": 0,
+      "replayed": false,
+      "olean": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/target_controls/good/candidate_be6gk9u3/Candidate.olean",
+      "nonce": "49f23579e4cb8f98278ebf2f8467564228e7aaa5fc39b25a",
+      "name": "claim",
+      "isTheorem": false,
+      "extensionEntries": 247,
+      "error": "candidate module adds forbidden axioms: [extra]",
+      "collisions": [],
+      "candidateImports": [
+        "Init",
+        "Context"
+      ],
+      "candidateConstants": 2,
+      "axioms": []
+    }
+  ],
+  "olean_sha256": "a57dffb203997167629ef4063dc41a7ea9f26681c9b7e19d8bf6455bcb9c2fbb",
+  "olean_unchanged": true,
+  "status": "kernel_replay_rejected",
+  "protected_intact": true
+}

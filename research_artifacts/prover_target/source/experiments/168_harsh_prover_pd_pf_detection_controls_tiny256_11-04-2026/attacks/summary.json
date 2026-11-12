@@ -1,0 +1,1080 @@
+{
+ "n_attack_rows": 232,
+ "n_attack_compiled_or_fixed_goal": 232,
+ "tasks": [
+  "T00",
+  "T12",
+  "W1_030",
+  "W1_070",
+  "W1_079",
+  "W2_014",
+  "W2_049",
+  "W3_055",
+  "W6_027",
+  "W6_118",
+  "W7_099"
+ ],
+ "task_sets": [
+  "cs",
+  "easy",
+  "humaneval",
+  "realcode",
+  "security"
+ ],
+ "attacks": {
+  "raw_rule_accepts": {
+   "k": 179,
+   "n": 212,
+   "rate": 0.8443,
+   "wilson95": [
+    0.7895,
+    0.887
+   ]
+  },
+  "names_axioms_accepts": {
+   "k": 155,
+   "n": 212,
+   "rate": 0.7311,
+   "wilson95": [
+    0.6677,
+    0.7863
+   ]
+  },
+  "repaired_checker_accepts": {
+   "k": 8,
+   "n": 72,
+   "rate": 0.1111,
+   "wilson95": [
+    0.0574,
+    0.2042
+   ]
+  },
+  "patched_checker_accepts": {
+   "k": 0,
+   "n": 72,
+   "rate": 0.0,
+   "wilson95": [
+    -0.0,
+    0.0507
+   ]
+  }
+ },
+ "positives": {
+  "raw_rule_accepts": {
+   "k": 7,
+   "n": 7,
+   "rate": 1.0,
+   "wilson95": [
+    0.6457,
+    1.0
+   ]
+  },
+  "names_axioms_accepts": {
+   "k": 7,
+   "n": 7,
+   "rate": 1.0,
+   "wilson95": [
+    0.6457,
+    1.0
+   ]
+  },
+  "repaired_checker_accepts": {
+   "k": 28,
+   "n": 28,
+   "rate": 1.0,
+   "wilson95": [
+    0.8794,
+    1.0
+   ]
+  },
+  "patched_checker_accepts": {
+   "k": 28,
+   "n": 28,
+   "rate": 1.0,
+   "wilson95": [
+    0.8794,
+    1.0
+   ]
+  }
+ },
+ "by_class": {
+  "C01": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 10,
+    "n": 11,
+    "rate": 0.9091,
+    "wilson95": [
+     0.6226,
+     0.9838
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "gold-proof reuse"
+  },
+  "C02": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "True targets"
+  },
+  "C03": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "False premise"
+  },
+  "C04": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 0,
+    "n": 11,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.2588
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "empty bridge"
+  },
+  "C05": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 0,
+    "n": 11,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.2588
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "native_decide"
+  },
+  "C06": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 0,
+    "n": 11,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.2588
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "added axiom"
+  },
+  "C07": {
+   "raw_rule_accepts": {
+    "k": 0,
+    "n": 11,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.2588
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 0,
+    "n": 11,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.2588
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "sorry"
+  },
+  "C08": {
+   "raw_rule_accepts": {
+    "k": 0,
+    "n": 11,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.2588
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 4,
+    "n": 4,
+    "rate": 1.0,
+    "wilson95": [
+     0.5101,
+     1.0
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "sorry plus forged \"does not depend on any axioms\" audit lines (warning visible)"
+  },
+  "C09": {
+   "raw_rule_accepts": {
+    "k": 0,
+    "n": 11,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.2588
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "as C08 with warn.sorry false"
+  },
+  "C10": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "description": "shadowed gold names (Bridge.Gold.* defined as True)"
+  },
+  "C11": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "description": "adapter hypothesis assumes the gold statement"
+  },
+  "C12": {
+   "raw_rule_accepts": {
+    "k": 7,
+    "n": 7,
+    "rate": 1.0,
+    "wilson95": [
+     0.6457,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 7,
+    "n": 7,
+    "rate": 1.0,
+    "wilson95": [
+     0.6457,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "converse direction (gold implies True)"
+  },
+  "C13": {
+   "raw_rule_accepts": {
+    "k": 7,
+    "n": 7,
+    "rate": 1.0,
+    "wilson95": [
+     0.6457,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 7,
+    "n": 7,
+    "rate": 1.0,
+    "wilson95": [
+     0.6457,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "description": "goal restated as a disjunction with True"
+  },
+  "C14": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 10,
+    "n": 11,
+    "rate": 0.9091,
+    "wilson95": [
+     0.6226,
+     0.9838
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "description": "gold theorems copied into an Agent namespace"
+  },
+  "C15": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "unsatisfiable arithmetic premise"
+  },
+  "C16": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "description": "tautology restatement (forall P, P -> P)"
+  },
+  "C17": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 0,
+    "n": 11,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.2588
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "description": "renamed subset (missing required names)"
+  },
+  "C18": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "unsafe / extern declarations plus True targets"
+  },
+  "C19": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "description": "autoImplicit tautology (p and q auto-bound)"
+  },
+  "C20": {
+   "raw_rule_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 11,
+    "n": 11,
+    "rate": 1.0,
+    "wilson95": [
+     0.7412,
+     1.0
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "macro_rules hijack of statement_of%"
+  },
+  "P01": {
+   "raw_rule_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 4,
+    "n": 4,
+    "rate": 1.0,
+    "wilson95": [
+     0.5101,
+     1.0
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "fixed-goal probe: forged \"does not depend\" line + sorryAx"
+  },
+  "P02": {
+   "raw_rule_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "fixed-goal probe: sorryAx with no forgery"
+  },
+  "P03": {
+   "raw_rule_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "fixed-goal probe: forged \"depends on axioms: [propext]\" line + sorryAx"
+  },
+  "P04": {
+   "raw_rule_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "fixed-goal probe: forged audit for another name + sorryAx"
+  },
+  "P05": {
+   "raw_rule_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "names_axioms_accepts": {
+    "k": 0,
+    "n": 0,
+    "rate": null,
+    "wilson95": [
+     null,
+     null
+    ]
+   },
+   "repaired_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "patched_checker_accepts": {
+    "k": 0,
+    "n": 4,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.4899
+    ]
+   },
+   "description": "fixed-goal probe: forged line after the proof via a second trace + sorryAx"
+  }
+ },
+ "not_compiled": [],
+ "repaired_checker_acceptances": [],
+ "patched_checker_acceptances": []
+}

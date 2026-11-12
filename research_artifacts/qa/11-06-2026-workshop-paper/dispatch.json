@@ -1,0 +1,24 @@
+{
+  "pid": 241,
+  "command": [
+    "claude",
+    "-p",
+    "--dangerously-skip-permissions",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "18",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "cwd": "/private/var/folders/ym/nmb6wx4n4g1c61lp9hwx4h4c0000gn/T/ttj-aaai27-d2h2udal/checkout",
+  "requested_model": "claude-fable-5-1",
+  "requested_effort": "max",
+  "billing": "verified Claude.ai Max subscription; direct API env removed",
+  "role": "acceptance light QA",
+  "base": "03e4416",
+  "output": "review.jsonl"
+}

@@ -1,6 +1,6 @@
 # TLDR: C15 item 11 delivery: builds one rater's self-contained zip (the packet's instructions plus only that rater's assigned folders, byte-identical to the repo, plus YOUR_RATING_SHEET.txt with the rater's personal Google Sheet link, all listed in a matching FILES.sha256) and logs its contents, sheet and SHA-256 in DELIVERY_RECEIPTS.jsonl; zero model calls.
 """Usage from the trustworthy-theorem-judges root:
-  python3 experiments/09_human_rating_collection/support/scripts/legacy/make_rater_zip.py --packet setN --rater T01 --folders N03,N17 --sheet-url URL --share-email EMAIL [--out-dir private/NEW_DELIVERY]
+  python3 experiments/09_human_rating_collection/support/scripts/legacy/make_rater_zip.py --packet setN --rater T01 --folders N03,N17 --sheet-url URL --share-email EMAIL [--out-dir research_artifacts/NEW_DELIVERY]
   python3 experiments/09_human_rating_collection/support/scripts/legacy/make_rater_zip.py --packet warmup --rater T01 --sheet-url URL --share-email EMAIL
 
 URL is the rater's personal sheet for that packet (owned by the coordinator, shared with the rater's Google account(s) as editor, rater code pre-filled);
@@ -18,7 +18,7 @@ from pathlib import Path
 from packet_release import require_release
 
 # Use the pinned committed snapshot, not the stale shared VeriBench checkout.
-EXP = (Path(__file__).resolve().parents[5] / "private/09_human_rating_collection/upstream_source"
+EXP = (Path(__file__).resolve().parents[5] / "research_artifacts/09_human_rating_collection/upstream_source"
        / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
 PACKETS = {"setN": EXP / "human_round/sample_setN/packet", "warmup": EXP / "human_round/warmup/packet"}
 DOCS = ("START_HERE.md", "human_judgements_prompt.md")

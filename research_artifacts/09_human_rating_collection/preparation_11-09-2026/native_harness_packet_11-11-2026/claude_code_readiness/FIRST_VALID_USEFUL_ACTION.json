@@ -1,0 +1,46 @@
+{
+  "verified_at": "2026-11-12T00:56:00.991543+00:00",
+  "task_id": "realcode_set__20_html_escape",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "actual_model": "claude-fable-5-1",
+  "permissionMode": "bypassPermissions",
+  "runtime_preflight": "SOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "first_tool_actions": [
+    {
+      "name": "Bash",
+      "input": {
+        "command": "ls -la && cat lakefile* 2>/dev/null | head -50 && cat lean-toolchain && ls Veribench | head -30",
+        "description": "Inspect Lean project layout"
+      }
+    },
+    {
+      "name": "Bash",
+      "input": {
+        "command": "ls -la Veribench && mkdir -p /tmp/probe && cat > /tmp/probe/p1.lean <<'EOF'\nimport Mathlib\n\n#check @String.replace\n#print String.replace\n#check @List.replicate\n#check @String.mk\n#check @String.data\n#check @String.toList\n#check @String.join\n#check @String.map\n#check @String.foldl\n#check @String.append_assoc\n#check @String.ext\n#check @String.ext_iff\n#check @String.data_append\n#check @String.toList_append\n#check @String.singleton\n#check @String.data_singleton\n#check @String.toList_singleton\n#check @List.flatMap\n#check @List.bind\n#check @String.flatMap\n#check @Plausible.Testable.check\n#check @String.length\n#check @String.join_eq\n#check @String.length_append\n#eval \"abc\".replace \"b\" \"xx\"\n#eval (\"a&b<c>d\\\"e'f\".toList.map Char.toNat)\nEOF\ntime lake env lean /tmp/probe/p1.lean",
+        "description": "Probe String API available in Mathlib/Lean",
+        "timeout": 300000
+      }
+    }
+  ],
+  "provider_message_delta_usage": [
+    {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 12500,
+      "output_tokens": 231,
+      "output_tokens_details": {
+        "thinking_tokens": 50
+      }
+    },
+    {
+      "input_tokens": 32,
+      "cache_creation_input_tokens": 589,
+      "cache_read_input_tokens": 12500,
+      "output_tokens": 494,
+      "output_tokens_details": {
+        "thinking_tokens": 32
+      }
+    }
+  ],
+  "stream_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/realcode_set__20_html_escape/stream.jsonl"
+}

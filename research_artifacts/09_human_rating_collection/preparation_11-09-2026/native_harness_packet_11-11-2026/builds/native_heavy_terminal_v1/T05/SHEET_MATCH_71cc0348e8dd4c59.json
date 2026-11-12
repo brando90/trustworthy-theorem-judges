@@ -1,0 +1,15 @@
+{
+  "status": "MATCH",
+  "sheet_csv_equal": true,
+  "sheet_url": "https://docs.google.com/spreadsheets/d/163ZxKeTXqseLrmwY-b5QjqeBulinHsZAiAPo1zsJdJI/edit",
+  "range": "Ratings!A1:K7",
+  "source_readback": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/builds/native_heavy_terminal_v1/T05/live_sheet_readback.json",
+    "sha256": "71cc0348e8dd4c59105870b877d1b2bfa5fb20dbf4a25b62fc33b6632432972f"
+  },
+  "archive_sha256": "105ec1347c817055469d65ebf09242a7c49cc84f1194c6319403e50102aee015",
+  "ratings_csv_sha256": "b463d661d8b00fa4e6642976863deb591c9f2b114289501decb85d1624b3529c",
+  "expected_table_rows": 5,
+  "observed_table_rows": 5,
+  "normalization": "Only absent trailing cells within each returned row are padded as empty strings. No row dropping, trimming, case changes or reordered columns."
+}

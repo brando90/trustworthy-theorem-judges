@@ -14,7 +14,7 @@ Which metric should be experiment 1 of the judge paper, and how many tasks and h
 
 ## Data
 
-75 artifacts, 25 tasks, three expert columns with 195 ratings (primary), five rater columns with 345 ratings (secondary). Per-item ratings and scores stay in the ignored `private/` directory; this folder holds aggregates only. Judge probabilities are histograms of three sampled repeats (no digit logprobs exist in the receipts), floored at eps = 1e-3.
+75 artifacts, 25 tasks, three expert columns with 195 ratings (primary), five rater columns with 345 ratings (secondary). Per-item ratings and scores stay in the `research_artifacts/` directory; this folder holds aggregates only. Judge probabilities are histograms of three sampled repeats (no digit logprobs exist in the receipts), floored at eps = 1e-3.
 
 ## Run
 

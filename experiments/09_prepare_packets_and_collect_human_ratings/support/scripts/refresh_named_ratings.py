@@ -64,7 +64,7 @@ def named_export(source, identities):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input-dir", type=Path, default=ROOT / "private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN")
+    parser.add_argument("--input-dir", type=Path, default=ROOT / "research_artifacts/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN")
     parser.add_argument("--out-dir", type=Path, default=EXPERIMENT / "ratings/analysis")
     parser.add_argument("--identities", type=Path, default=EXPERIMENT / "support/RATER_IDENTITIES.json")
     args = parser.parse_args()

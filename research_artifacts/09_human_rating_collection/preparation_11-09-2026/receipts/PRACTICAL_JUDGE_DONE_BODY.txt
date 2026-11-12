@@ -1,0 +1,5 @@
+A (TLDR): The cached RPS-versus-Pearson mixture experiment finished with no resolved advantage for either training objective.
+Test: 30 artifacts, 10 tasks, nine families, 78 ratings; normalized RPS difference (proper loss minus Pearson) +0.005241, 95% refit/reselection family-bootstrap interval [-0.068074, +0.014864], 1,998/2,000 valid draws; p-val=n/a.
+Report: https://github.com/brando90/trustworthy-theorem-judges/blob/a03109f68564424c4c9561567a044421181dc521/experiments/10_retrospective_rps_vs_pearson_mixture/results.md
+Runtime 31.841 seconds; zero new inference calls and $0 provider cost. Checks passed; 75/75 exported forecasts replay exactly. Historical exposure and fixed raters limit generalization; this is not fresh semantic-judge validation. START notification was missed, recorded without backdating.
+TLDR-end: [ttj: practical judge] experiments/10_retrospective_rps_vs_pearson_mixture is complete and published; the new independent human-rating collection remains necessary.

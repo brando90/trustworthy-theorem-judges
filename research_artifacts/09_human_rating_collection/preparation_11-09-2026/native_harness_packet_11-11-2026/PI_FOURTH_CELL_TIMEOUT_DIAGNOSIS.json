@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-12T01:26:04.638061+00:00",
+  "classification": "provider pre-response timeout at180s; incomplete output; not solver-quality failure",
+  "decision": "Preserve existing fourthcell; no retry. Prospective longerper-request timeout proposed within unchanged1800s percell budget.",
+  "denials": [
+    {
+      "at": "2026-11-12T01:24:55.178972+00:00",
+      "phase": "generate_content",
+      "reason": "TimeoutError"
+    }
+  ],
+  "request": {
+    "admitted_at": "2026-11-12T01:21:55.021193+00:00",
+    "call": 4,
+    "counted_input_tokens": 4874,
+    "finished_at": "2026-11-12T01:24:55.178550+00:00",
+    "http503_retry_index": 0,
+    "http_status": 502,
+    "input_admission_bound": 6002,
+    "max_output_tokens": 16384,
+    "model_version": null,
+    "payload_sha256": "d559c427cb4f13db4e4ed6c363786dc7c2c0f2ccaaa8e63244340e46f755f6b6",
+    "prior_billed_thought_tokens": 104,
+    "provider_finish_reason": null,
+    "reserved_input_tokens": 65536,
+    "reserved_usd": 0.110592,
+    "transport_group_first_call": 4
+  },
+  "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice"
+}

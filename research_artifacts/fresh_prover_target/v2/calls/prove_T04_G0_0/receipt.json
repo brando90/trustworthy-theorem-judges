@@ -1,0 +1,28 @@
+{
+  "identity": "prove_T04_G0_0",
+  "role": "proof_search",
+  "started_utc": "2026-11-06T23:26:39.057106+00:00",
+  "request_sha256": "237f6737b7a86940ac5d805befb48f23cdc85959a549efb3f0c210f2d8f6719f",
+  "num_predict": 2048,
+  "settings": {
+    "think": false,
+    "num_predict": 2048
+  },
+  "seed": 11062326,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 21,
+  "prompt_eval_count": 943,
+  "thinking_characters": 0,
+  "parsed": {
+    "proof": "by use fun x y => false; use fun x y => false; simp"
+  },
+  "seconds": 5.9167640000232495,
+  "finished_utc": "2026-11-06T23:26:44.975184+00:00",
+  "response_sha256": "bfd8319e8d36b007730e68bb68edbe228a989a8416b8044681c27cfd98894134"
+}

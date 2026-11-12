@@ -1,0 +1,1394 @@
+{
+  "planned_cohort": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PLANNED_COHORT_VALID_ENV_V2.json",
+    "sha256": "c386e59258e0a8c3c0dec8f0c2e5217d80efbcfb6c2c881c79feb9dcec67b7f2"
+  },
+  "planned_artifacts": 85,
+  "ratable_artifacts": 54,
+  "all_prospective_terminal": true,
+  "excluded_cells": [
+    {
+      "item_id": "native-heavy-11-11-2026__item001",
+      "task_id": "easy_set__20_mysumdigits",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__20_mysumdigits/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__20_mysumdigits/receipt.json",
+      "receipt_sha256": "9832badc2e488e4ae637e7e3afe78abce50c20ffb6cde5608582f039cb3f0678",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Cell dollar cap cannot admit next request",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__20_mysumdigits/gateway_ledger.json",
+          "sha256": "dacefd6a4b4f284755ea31262a1b9ae29cb7ffe4644067cb50adaf79b626b6fd"
+        },
+        "last_denial": {
+          "at": "2026-11-12T03:38:07.348963+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        },
+        "request_count": 29,
+        "last_request": {
+          "call": 29,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T03:37:41.991295+00:00",
+          "finished_at": "2026-11-12T03:38:07.043035+00:00"
+        },
+        "accounted_usd": 0.6680287500000001,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item004",
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "configuration_id": "native_claude_fable",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/humaneval_set__humaneval_39_prime_fib/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/humaneval_set__humaneval_39_prime_fib/receipt.json",
+      "receipt_sha256": "0b638cef52ca6a82221184851fa577207b9a9bcd9314931341c056b26ed67059",
+      "execution_status": "TERMINAL",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+        "sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c"
+      },
+      "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+      "stop_reason": "native_result",
+      "exit_code": 1,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:native_response_output_limit",
+      "missing_cause_evidence": {
+        "status": "TERMINAL",
+        "stop_reason": "native_result",
+        "model_call_performed": true,
+        "error_type": null,
+        "native_result_subtype": "success",
+        "native_api_error": "max_output_tokens",
+        "native_terminal_reason": "api_error"
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item009",
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_14_all_prefixes/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_14_all_prefixes/receipt.json",
+      "receipt_sha256": "da347dade68af967dc641f53a3b44bd11b7dc1364c6f5221c1eacf7b2e50747e",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Provider request cap reached",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_14_all_prefixes/gateway_ledger.json",
+          "sha256": "770438c694112a45ec277364106e7baac7799a367486a677af707987938d3dc1"
+        },
+        "last_denial": {
+          "at": "2026-11-12T03:31:32.735805+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        },
+        "request_count": 40,
+        "last_request": {
+          "call": 40,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T03:31:08.876795+00:00",
+          "finished_at": "2026-11-12T03:31:29.058593+00:00"
+        },
+        "accounted_usd": 0.28260075,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item010",
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_15_string_sequence/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_15_string_sequence/receipt.json",
+      "receipt_sha256": "2230a4f61ae1b521eab73b24d0649c59eac1c57bc253d405cd66624dbb2610a7",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Provider request cap reached",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_15_string_sequence/gateway_ledger.json",
+          "sha256": "a84bd0da50658c0d4914991b421b4bb9d765a325e732014cebe5060226d20dca"
+        },
+        "last_denial": {
+          "at": "2026-11-12T03:24:44.978088+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        },
+        "request_count": 40,
+        "last_request": {
+          "call": 40,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T03:24:24.350422+00:00",
+          "finished_at": "2026-11-12T03:24:42.079196+00:00"
+        },
+        "accounted_usd": 0.47658,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item011",
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/receipt.json",
+      "receipt_sha256": "137f182ecd28f7d9f834abb5b89f2aaa7fb90a896f79fec3fe3b1e83200ca118",
+      "execution_status": "recovered_native_terminal",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V7.json",
+        "sha256": "e9d5fc72cd266b427390de2872b2455d36f47cef61a31931c7992581d79d47ab"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "supervision_recovery_evidence": {
+        "original_receipt": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/receipt_before_host_supervision_recovery.json",
+          "sha256": "ed18ec9ac2c2267c55da8084117eba000d47c05f9d2d07f546ba403edb54dc03"
+        },
+        "initial_recovered_receipt": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/receipt_before_recovered_identity_correction.json",
+          "sha256": "29a1bda4efa5cd8c986e424ba603b1623039e59fd7abeeeeb14ffc15066824c5"
+        },
+        "observer": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/observe_pi_orphaned_containers.py",
+          "sha256": "61776d05e98fdf7c5ee52ac43a1a80229bc74cea932a3cf60eec2f9f834d974b"
+        },
+        "identity_evidence": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/recovered_session_identity_evidence.json",
+          "sha256": "cad050fb59631fa83d4317fe6f9726ce2c8cf89933195ad0722fc12a354d21c6"
+        },
+        "incident": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_HOST_WRAPPER_LOSS_RECOVERY_RECEIPT.json",
+          "sha256": "fc00170e7b3255a5c0cd2cbaa324aa0d9fa66bf4ccb96f54d190e3294e8e71df"
+        },
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/gateway_ledger.json",
+          "sha256": "4140e65fefef31d510115c42861eb84e42c0698433b44b2c3a68c40c4ffa3428"
+        },
+        "native_sessions": [
+          {
+            "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/pi-sessions_recovered/2026-11-12T02-32-29-883Z_01a1cd99-79ba-763f-8061-0f0d07e585b2.jsonl",
+            "sha256": "235f93ee953222920fd09eae9eb44560d40c82273e795ea93ab73f9a55425122"
+          }
+        ]
+      },
+      "stop_reason": "error",
+      "exit_code": null,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "infrastructure:host_supervision_incident",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_39_prime_fib/gateway_ledger.json",
+          "sha256": "4140e65fefef31d510115c42861eb84e42c0698433b44b2c3a68c40c4ffa3428"
+        },
+        "last_denial": {
+          "at": "2026-11-12T02:58:40.589596+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        },
+        "request_count": 40,
+        "last_request": {
+          "call": 40,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T02:58:03.937583+00:00",
+          "finished_at": "2026-11-12T02:58:37.725016+00:00"
+        },
+        "accounted_usd": 0.4847865,
+        "execution_status": "recovered_native_terminal",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0,
+        "observed_procedure_outcome": "budget_cap:Provider request cap reached",
+        "supervision_incident": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_HOST_WRAPPER_LOSS_RECOVERY_RECEIPT.json",
+          "sha256": "fc00170e7b3255a5c0cd2cbaa324aa0d9fa66bf4ccb96f54d190e3294e8e71df"
+        },
+        "causal_attribution": "The host-supervision incident co-occurred with the native outcome; its effect on artifact absence is not established."
+      },
+      "solver_failure_attributable": false,
+      "infrastructure_exclusion_authorized": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item014",
+      "task_id": "cs_set__heapsort_algorithm",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heapsort_algorithm/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heapsort_algorithm/receipt.json",
+      "receipt_sha256": "4f7a98ed206aa9611fa37458f9c3b98760a1cd3d7332e165bff5ce34865b4390",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "infrastructure:HTTPError",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heapsort_algorithm/gateway_ledger.json",
+          "sha256": "fb42b8a2f57a0893d848d9f6976e7acce2291bbc45b82a4f7d1144a700909072"
+        },
+        "last_denial": {
+          "at": "2026-11-12T03:37:55.758047+00:00",
+          "phase": "count_tokens",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        },
+        "request_count": 28,
+        "last_request": {
+          "call": 28,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T03:37:33.699925+00:00",
+          "finished_at": "2026-11-12T03:37:54.990352+00:00"
+        },
+        "accounted_usd": 0.327657,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error"
+      },
+      "solver_failure_attributable": false,
+      "infrastructure_exclusion_authorized": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item015",
+      "task_id": "realcode_set__28_statistics_median_low",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__28_statistics_median_low/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__28_statistics_median_low/receipt.json",
+      "receipt_sha256": "574e57fcdd672abc69b50806889337205f7b73abd868c3bbdcc8eaad8de9e8a9",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Cell dollar cap cannot admit next request",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__28_statistics_median_low/gateway_ledger.json",
+          "sha256": "8177a0053dffa0853f91b98bf6a7314a1e0fc8c6480e0415f9a7a72fbc4c9cd4"
+        },
+        "last_denial": {
+          "at": "2026-11-12T04:44:59.573002+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        },
+        "request_count": 35,
+        "last_request": {
+          "call": 35,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T04:44:44.219673+00:00",
+          "finished_at": "2026-11-12T04:44:56.461418+00:00"
+        },
+        "accounted_usd": 0.64588425,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item019",
+      "task_id": "cs_set__topological_sort",
+      "configuration_id": "native_claude_fable",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/cs_set__topological_sort/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/cs_set__topological_sort/receipt.json",
+      "receipt_sha256": "d2ba8f67cdaf39791247b36eb47392e3e4dac593a361bc0098be7a7ea4ddfcaf",
+      "execution_status": "TERMINAL",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+        "sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c"
+      },
+      "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+      "stop_reason": "native_result",
+      "exit_code": 1,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:native_response_output_limit",
+      "missing_cause_evidence": {
+        "status": "TERMINAL",
+        "stop_reason": "native_result",
+        "model_call_performed": true,
+        "error_type": null,
+        "native_result_subtype": "success",
+        "native_api_error": "max_output_tokens",
+        "native_terminal_reason": "api_error"
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item020",
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__75_unsafecerthostname/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__75_unsafecerthostname/receipt.json",
+      "receipt_sha256": "89aac189a0f3339e4166138cefb6b654ed60fb917bba5c50fb9245085cf93fa7",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V6.json",
+        "sha256": "ebed8c67076c340876f81c6d40e20e0ffae2bc08b86dc4d582ac0c467269eb4e"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "infrastructure:HTTPError",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__75_unsafecerthostname/gateway_ledger.json",
+          "sha256": "3a4b706436e5ca619ef4c039f9f9237cda756827caeffc58629937b09660db9f"
+        },
+        "last_denial": {
+          "at": "2026-11-12T01:30:31.833180+00:00",
+          "phase": "generate_content",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        },
+        "request_count": 3,
+        "last_request": {
+          "call": 3,
+          "http_status": 503,
+          "provider_finish_reason": null,
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T01:30:31.604073+00:00",
+          "finished_at": "2026-11-12T01:30:31.831619+00:00"
+        },
+        "accounted_usd": 0.33177599999999996,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error"
+      },
+      "solver_failure_attributable": false,
+      "infrastructure_exclusion_authorized": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item029",
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_35_max_element/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_35_max_element/receipt.json",
+      "receipt_sha256": "29cf0079aa6e309220e70caf3f8bf70756735534a03957002a2ea12f0eae9b08",
+      "execution_status": "timeout",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V6.json",
+        "sha256": "ebed8c67076c340876f81c6d40e20e0ffae2bc08b86dc4d582ac0c467269eb4e"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "toolUse",
+      "exit_code": null,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "timeout",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_35_max_element/gateway_ledger.json",
+          "sha256": "dfbf155fe00a4f32155799afd8766157547570793a7ee423a6ecfd1991b600de"
+        },
+        "last_denial": {},
+        "request_count": 39,
+        "last_request": {
+          "call": 39,
+          "http_status": null,
+          "provider_finish_reason": null,
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T02:30:05.859187+00:00",
+          "finished_at": null
+        },
+        "accounted_usd": 0.5129542500000001,
+        "execution_status": "timeout",
+        "native_stop_reason": "toolUse"
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item032",
+      "task_id": "realcode_set__21_shlex_quote",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__21_shlex_quote/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__21_shlex_quote/receipt.json",
+      "receipt_sha256": "10caeb6f9bcdd0ac83bbae773748609d6528b7499440ec4b4d4a05a169041ef1",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Provider request cap reached",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__21_shlex_quote/gateway_ledger.json",
+          "sha256": "7180f930f17cee0d718b2ef5cc05ed908165ae87899d8bb51cd9285b9463f08a"
+        },
+        "last_denial": {
+          "at": "2026-11-12T04:36:30.345711+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        },
+        "request_count": 40,
+        "last_request": {
+          "call": 40,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T04:36:08.165850+00:00",
+          "finished_at": "2026-11-12T04:36:27.648928+00:00"
+        },
+        "accounted_usd": 0.427536,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item033",
+      "task_id": "cs_set__heapsort_algorithm",
+      "configuration_id": "native_claude_fable",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/cs_set__heapsort_algorithm/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/cs_set__heapsort_algorithm/receipt.json",
+      "receipt_sha256": "2f4cef2b3867e48db935a18a1ac00e6942e93cd5e86afc37ada261e34d974d53",
+      "execution_status": "TERMINAL",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+        "sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c"
+      },
+      "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+      "stop_reason": "native_result",
+      "exit_code": 1,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:native_response_output_limit",
+      "missing_cause_evidence": {
+        "status": "TERMINAL",
+        "stop_reason": "native_result",
+        "model_call_performed": true,
+        "error_type": null,
+        "native_result_subtype": "success",
+        "native_api_error": "max_output_tokens",
+        "native_terminal_reason": "api_error"
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item035",
+      "task_id": "cs_set__edit_distance",
+      "configuration_id": "native_claude_fable",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/cs_set__edit_distance/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/cs_set__edit_distance/receipt.json",
+      "receipt_sha256": "d1abaee6bda33fdb2515f79e3135c88e3242b57380aacea9a9e7616ead980a4b",
+      "execution_status": "TERMINAL",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+        "sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c"
+      },
+      "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+      "stop_reason": "native_result",
+      "exit_code": 1,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:native_response_output_limit",
+      "missing_cause_evidence": {
+        "status": "TERMINAL",
+        "stop_reason": "native_result",
+        "model_call_performed": true,
+        "error_type": null,
+        "native_result_subtype": "success",
+        "native_api_error": "max_output_tokens",
+        "native_terminal_reason": "api_error"
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item042",
+      "task_id": "realcode_set__20_html_escape",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__20_html_escape/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__20_html_escape/receipt.json",
+      "receipt_sha256": "b20194b19e55f468d1b61539032515880578a5307782a1bf3284d08bfc410dd7",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V3.json",
+        "sha256": "a8087b31b8321d82303bd44ef685648ef70db700ae7a1bbd77fbd6d50efe3c52"
+      },
+      "runner_sha256": "5ed1acd6658abc7086f4b16bff5a46e60adffdf6568f8a67132c40b4ad709496",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Provider request cap reached",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__20_html_escape/gateway_ledger.json",
+          "sha256": "e6533c6fc89d9b0ef3b4262356a6d35efa525807d3ea936f322822f606e13699"
+        },
+        "last_denial": {
+          "at": "2026-11-12T00:57:55.078948+00:00",
+          "reason": "Provider request cap reached"
+        },
+        "request_count": 40,
+        "last_request": {
+          "call": 40,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T00:57:37.433659+00:00",
+          "finished_at": "2026-11-12T00:57:52.396319+00:00"
+        },
+        "accounted_usd": 0.38397525,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item043",
+      "task_id": "easy_set__41_duplicate_chars",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__41_duplicate_chars/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__41_duplicate_chars/receipt.json",
+      "receipt_sha256": "de782510d04662dafd849373550eef960cdfcc46754f2fb6847e863d0738f900",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V6.json",
+        "sha256": "ebed8c67076c340876f81c6d40e20e0ffae2bc08b86dc4d582ac0c467269eb4e"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "infrastructure:HTTPError",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__41_duplicate_chars/gateway_ledger.json",
+          "sha256": "9d4cd1cfdeddfba2326d297a42dfe79bb1d47c9fd58ed28c2a12327f2316426f"
+        },
+        "last_denial": {
+          "at": "2026-11-12T01:29:06.330033+00:00",
+          "phase": "generate_content",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        },
+        "request_count": 4,
+        "last_request": {
+          "call": 4,
+          "http_status": 503,
+          "provider_finish_reason": null,
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T01:29:06.145775+00:00",
+          "finished_at": "2026-11-12T01:29:06.328101+00:00"
+        },
+        "accounted_usd": 0.33557175,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error"
+      },
+      "solver_failure_attributable": false,
+      "infrastructure_exclusion_authorized": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item044",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/receipt.json",
+      "receipt_sha256": "670bbb73703801a18ee00185420d879aa9a358c8785d09fef2c98cf7082f100d",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V4.json",
+        "sha256": "e2c20b4fd8632a260da69ba70044ee4a7e8a12e8871d245876d33fe7776d3e3b"
+      },
+      "runner_sha256": "f4ac9b97febe39d458766f5ca444d7bfb57ab21b95ed3ee464457c3b63136ddb",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "infrastructure:HTTPError",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/gateway_ledger.json",
+          "sha256": "f47e023dfcfd881046bc5675e11f50ee5cd64bec7c1c29b058ef9ace1d38e1cc"
+        },
+        "last_denial": {
+          "at": "2026-11-12T01:11:57.796781+00:00",
+          "phase": "generate_content",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        },
+        "request_count": 5,
+        "last_request": {
+          "call": 5,
+          "http_status": 503,
+          "provider_finish_reason": null,
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T01:11:57.176631+00:00",
+          "finished_at": "2026-11-12T01:11:57.798971+00:00"
+        },
+        "accounted_usd": 0.124596,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error"
+      },
+      "solver_failure_attributable": false,
+      "infrastructure_exclusion_authorized": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item046",
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__31_statistics_quantiles/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__31_statistics_quantiles/receipt.json",
+      "receipt_sha256": "0468b6fc428e35bf925d298c30b09de8cd1de599ea4b4f9ee63973a49d1ffd38",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Cell dollar cap cannot admit next request",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__31_statistics_quantiles/gateway_ledger.json",
+          "sha256": "fa83bb92322756809c71605c10925d4e94c809b466ea6ee9e92eeeda2e0e35a1"
+        },
+        "last_denial": {
+          "at": "2026-11-12T04:38:05.056460+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        },
+        "request_count": 33,
+        "last_request": {
+          "call": 33,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 13851,
+          "admitted_at": "2026-11-12T04:37:24.689193+00:00",
+          "finished_at": "2026-11-12T04:38:02.032569+00:00"
+        },
+        "accounted_usd": 0.68438775,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item047",
+      "task_id": "cs_set__heap_sort",
+      "configuration_id": "native_claude_fable",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/cs_set__heap_sort/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/cs_set__heap_sort/receipt.json",
+      "receipt_sha256": "aa2b1a88e4f7eb0623cbce1f7040f467c23482e58185e758164a99f9a3ce9df7",
+      "execution_status": "TERMINAL",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+        "sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c"
+      },
+      "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+      "stop_reason": "native_result",
+      "exit_code": 1,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:native_response_output_limit",
+      "missing_cause_evidence": {
+        "status": "TERMINAL",
+        "stop_reason": "native_result",
+        "model_call_performed": true,
+        "error_type": null,
+        "native_result_subtype": "success",
+        "native_api_error": "max_output_tokens",
+        "native_terminal_reason": "api_error"
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item049",
+      "task_id": "easy_set__19_mypower",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__19_mypower/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__19_mypower/receipt.json",
+      "receipt_sha256": "209a883be82a1bd34f07710f6acb59bc4d42b4872249071b2f20c1ad63e3ee75",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "infrastructure:HTTPError",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__19_mypower/gateway_ledger.json",
+          "sha256": "030dd02131863994e73a5f9a9add5abc8edf64f9a7e951dbadd20132f57bc351"
+        },
+        "last_denial": {
+          "at": "2026-11-12T03:36:41.034933+00:00",
+          "phase": "count_tokens",
+          "reason": "HTTPError",
+          "underlying_error_type": "str",
+          "upstream_http_status": 503
+        },
+        "request_count": 14,
+        "last_request": {
+          "call": 14,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 13614,
+          "admitted_at": "2026-11-12T03:36:13.222440+00:00",
+          "finished_at": "2026-11-12T03:36:40.366044+00:00"
+        },
+        "accounted_usd": 0.270708,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error"
+      },
+      "solver_failure_attributable": false,
+      "infrastructure_exclusion_authorized": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item052",
+      "task_id": "realcode_set__23_base32",
+      "configuration_id": "native_claude_fable",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/realcode_set__23_base32/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2/realcode_set__23_base32/receipt.json",
+      "receipt_sha256": "284c934da7c2b2db3963e2c249eb4a323d169567fedc71d1b94a27e63c05b139",
+      "execution_status": "TERMINAL",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+        "sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c"
+      },
+      "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+      "stop_reason": "native_result",
+      "exit_code": 1,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:native_response_output_limit",
+      "missing_cause_evidence": {
+        "status": "TERMINAL",
+        "stop_reason": "native_result",
+        "model_call_performed": true,
+        "error_type": null,
+        "native_result_subtype": "success",
+        "native_api_error": "max_output_tokens",
+        "native_terminal_reason": "api_error"
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item056",
+      "task_id": "realcode_set__23_base32",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__23_base32/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__23_base32/receipt.json",
+      "receipt_sha256": "4f0cb45088192d35ec2a6c804fc4db2c39f3392bdd53693fc28b1b47e020ad79",
+      "execution_status": "process_completed",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "length",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:native_response_output_limit",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/realcode_set__23_base32/gateway_ledger.json",
+          "sha256": "bd61999a335198003b15d431dd7e79542dfd8b600e958e38aabdc889ba9a7f94"
+        },
+        "last_denial": {},
+        "request_count": 19,
+        "last_request": {
+          "call": 19,
+          "http_status": 200,
+          "provider_finish_reason": "MAX_TOKENS",
+          "max_output_tokens": 1055,
+          "admitted_at": "2026-11-12T03:23:13.636242+00:00",
+          "finished_at": "2026-11-12T03:23:51.372601+00:00"
+        },
+        "accounted_usd": 0.39357975,
+        "execution_status": "process_completed",
+        "native_stop_reason": "length"
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item059",
+      "task_id": "cs_set__counting_sort",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__counting_sort/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__counting_sort/receipt.json",
+      "receipt_sha256": "6516e220c78866fd34e4a6182194a94b1ab129f123d775d54e5d8c00a92a84ed",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Provider request cap reached",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__counting_sort/gateway_ledger.json",
+          "sha256": "1113b53ad9e5a6e570ad1d9582e41d342d777cda083fcca68bef19c21f77eea8"
+        },
+        "last_denial": {
+          "at": "2026-11-12T03:23:43.410686+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        },
+        "request_count": 40,
+        "last_request": {
+          "call": 40,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T03:23:34.735225+00:00",
+          "finished_at": "2026-11-12T03:23:40.372736+00:00"
+        },
+        "accounted_usd": 0.515985,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item064",
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__safe__125_unsafetpmhash_safe/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__safe__125_unsafetpmhash_safe/receipt.json",
+      "receipt_sha256": "36fb5a00585f5abacf651b0a15389c421fcec0c684e738d00c3b6478707ea174",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Cell dollar cap cannot admit next request",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__safe__125_unsafetpmhash_safe/gateway_ledger.json",
+          "sha256": "19e44be293f412a56053a9ac9658f95982aea7d51f1a947fc2c2aeb2bf9f7f77"
+        },
+        "last_denial": {
+          "at": "2026-11-12T04:39:56.198297+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        },
+        "request_count": 36,
+        "last_request": {
+          "call": 36,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T04:39:20.589617+00:00",
+          "finished_at": "2026-11-12T04:39:53.096055+00:00"
+        },
+        "accounted_usd": 0.64097025,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item066",
+      "task_id": "cs_set__heap_sort",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heap_sort/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heap_sort/receipt.json",
+      "receipt_sha256": "fcbbbeade3dcf17941881cc92c0289f3841fa66904e1e2b7f507f43d4bdc36b2",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Cell dollar cap cannot admit next request",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__heap_sort/gateway_ledger.json",
+          "sha256": "11e963a64d98de160f8c39ddca16bec6618ed16d2047e1c3ce53c1f5344d7208"
+        },
+        "last_denial": {
+          "at": "2026-11-12T04:48:36.411496+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        },
+        "request_count": 34,
+        "last_request": {
+          "call": 34,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 10620,
+          "admitted_at": "2026-11-12T04:48:21.913931+00:00",
+          "finished_at": "2026-11-12T04:48:32.791183+00:00"
+        },
+        "accounted_usd": 0.6893797500000001,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item071",
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_4_mean_absolute_deviation/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_4_mean_absolute_deviation/receipt.json",
+      "receipt_sha256": "ac6bcf65e90c31cbce3f76f78d3aef1a8787b4b6820d08276a3b6dacb97ae48a",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "infrastructure:budget_cap_after_provider_errors",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_4_mean_absolute_deviation/gateway_ledger.json",
+          "sha256": "f507dcfeda31374ee645c3286e59dab713180be1052ea6fd4a880dd4868815bd"
+        },
+        "last_denial": {
+          "at": "2026-11-12T03:37:53.397593+00:00",
+          "phase": "generate_content",
+          "reason": "Cell dollar cap cannot admit next request"
+        },
+        "request_count": 30,
+        "last_request": {
+          "call": 30,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 11142,
+          "admitted_at": "2026-11-12T03:37:20.115588+00:00",
+          "finished_at": "2026-11-12T03:37:50.133840+00:00"
+        },
+        "accounted_usd": 0.686673,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 1
+      },
+      "solver_failure_attributable": false,
+      "infrastructure_exclusion_authorized": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item072",
+      "task_id": "easy_set__23_is_prime",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__23_is_prime/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__23_is_prime/receipt.json",
+      "receipt_sha256": "16f74dd0d06d8f1e19b80954197c57dae4adf10b5908d56a3dc203448e4c71c2",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V3.json",
+        "sha256": "a8087b31b8321d82303bd44ef685648ef70db700ae7a1bbd77fbd6d50efe3c52"
+      },
+      "runner_sha256": "5ed1acd6658abc7086f4b16bff5a46e60adffdf6568f8a67132c40b4ad709496",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "infrastructure:URLError",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__23_is_prime/gateway_ledger.json",
+          "sha256": "25d47b091d8ee4f91f3b9719bd08d6a0565a9110b0e563e21ef4b75984e17f03"
+        },
+        "last_denial": {
+          "at": "2026-11-12T01:00:01.884792+00:00",
+          "reason": "URLError"
+        },
+        "request_count": 6,
+        "last_request": {
+          "call": 6,
+          "http_status": 502,
+          "provider_finish_reason": null,
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T01:00:01.722679+00:00",
+          "finished_at": "2026-11-12T01:00:01.886259+00:00"
+        },
+        "accounted_usd": 0.15521625,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error"
+      },
+      "solver_failure_attributable": false,
+      "infrastructure_exclusion_authorized": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item073",
+      "task_id": "easy_set__16_myfactorial",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__16_myfactorial/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__16_myfactorial/receipt.json",
+      "receipt_sha256": "85b53b45c869d6096aa1e0f91d46f662e6e9cd3eb5ec5052044a5159eee73800",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Input token cap exceeded",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__16_myfactorial/gateway_ledger.json",
+          "sha256": "5bbf9f4df8a6eaa831d1d11d3c5c4a412d74c13e348c037f0713f59eea0d1f20"
+        },
+        "last_denial": {
+          "at": "2026-11-12T03:16:17.618875+00:00",
+          "phase": "generate_content",
+          "reason": "Input token cap exceeded"
+        },
+        "request_count": 15,
+        "last_request": {
+          "call": 15,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 11641,
+          "admitted_at": "2026-11-12T03:16:00.009033+00:00",
+          "finished_at": "2026-11-12T03:16:07.725947+00:00"
+        },
+        "accounted_usd": 0.2545335,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item076",
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/receipt.json",
+      "receipt_sha256": "6ddf0fac52cbf3e3bf740eada280a4c0fa995c08abffe1f68156524744494fad",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V5.json",
+        "sha256": "2a0e7772b0079fee90ec0da24933113fae4222bcc868b931d3bb4df5e559c5a0"
+      },
+      "runner_sha256": "89498273ae22c49e521469251e59129895dbb40d30a77db46af872f6473dff48",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "infrastructure:TimeoutError",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/gateway_ledger.json",
+          "sha256": "221e4d9c6d2cd96c3d5be6096e65cb805eb562914f0cd7b02dfe750f47f344a4"
+        },
+        "last_denial": {
+          "at": "2026-11-12T01:24:55.178972+00:00",
+          "phase": "generate_content",
+          "reason": "TimeoutError"
+        },
+        "request_count": 4,
+        "last_request": {
+          "call": 4,
+          "http_status": 502,
+          "provider_finish_reason": null,
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T01:21:55.021193+00:00",
+          "finished_at": "2026-11-12T01:24:55.178550+00:00"
+        },
+        "accounted_usd": 0.121086,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error"
+      },
+      "solver_failure_attributable": false,
+      "infrastructure_exclusion_authorized": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item080",
+      "task_id": "cs_set__topological_sort",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/receipt.json",
+      "receipt_sha256": "9529e85a9999e88be74f1d7e57dd4b04cd7f453f209daacad53410a56cc538e9",
+      "execution_status": "recovered_native_terminal",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V7.json",
+        "sha256": "e9d5fc72cd266b427390de2872b2455d36f47cef61a31931c7992581d79d47ab"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "supervision_recovery_evidence": {
+        "original_receipt": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/receipt_before_host_supervision_recovery.json",
+          "sha256": "ce6e0478fa46589e51f0c2903f73804b51a5e81baad41426823838b771a1f0e4"
+        },
+        "initial_recovered_receipt": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/receipt_before_recovered_identity_correction.json",
+          "sha256": "d348ba2837b25aeba4601b39ccf9a8e9dae99aabd20d1f7fb268d37b5b63e131"
+        },
+        "observer": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/observe_pi_orphaned_containers.py",
+          "sha256": "61776d05e98fdf7c5ee52ac43a1a80229bc74cea932a3cf60eec2f9f834d974b"
+        },
+        "identity_evidence": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/recovered_session_identity_evidence.json",
+          "sha256": "8ec3ab1f74ee6c86821cbc97a660de660d7ab30ccf3bf8a56718d9a3b32a7c17"
+        },
+        "incident": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_HOST_WRAPPER_LOSS_RECOVERY_RECEIPT.json",
+          "sha256": "fc00170e7b3255a5c0cd2cbaa324aa0d9fa66bf4ccb96f54d190e3294e8e71df"
+        },
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/gateway_ledger.json",
+          "sha256": "71659e9844e29ad94f66f2f8f342a6cd4d511401049eaea41be571c9413a11d4"
+        },
+        "native_sessions": [
+          {
+            "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/pi-sessions_recovered/2026-11-12T02-32-29-787Z_01a1cd99-795a-774b-b3ab-dc277590e8b6.jsonl",
+            "sha256": "f6b1a191872acec3dca33f6d2e143f06e824be4f06b000f2b61503f313857216"
+          }
+        ]
+      },
+      "stop_reason": "error",
+      "exit_code": null,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "infrastructure:host_supervision_incident",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__topological_sort/gateway_ledger.json",
+          "sha256": "71659e9844e29ad94f66f2f8f342a6cd4d511401049eaea41be571c9413a11d4"
+        },
+        "last_denial": {
+          "at": "2026-11-12T02:59:46.874040+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        },
+        "request_count": 40,
+        "last_request": {
+          "call": 40,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T02:59:14.177302+00:00",
+          "finished_at": "2026-11-12T02:59:44.087967+00:00"
+        },
+        "accounted_usd": 0.6434775,
+        "execution_status": "recovered_native_terminal",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0,
+        "observed_procedure_outcome": "budget_cap:Provider request cap reached",
+        "supervision_incident": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_HOST_WRAPPER_LOSS_RECOVERY_RECEIPT.json",
+          "sha256": "fc00170e7b3255a5c0cd2cbaa324aa0d9fa66bf4ccb96f54d190e3294e8e71df"
+        },
+        "causal_attribution": "The host-supervision incident co-occurred with the native outcome; its effect on artifact absence is not established."
+      },
+      "solver_failure_attributable": false,
+      "infrastructure_exclusion_authorized": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item083",
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade/receipt.json",
+      "receipt_sha256": "98b26c0fa943d19314197cfa74e6d06a343683e1f6d5632cf760992e2f4283ad",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Provider request cap reached",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade/gateway_ledger.json",
+          "sha256": "ecd74d5b842a9384cac51055d5c7699039e9dc231b9a08155cb098206f262df0"
+        },
+        "last_denial": {
+          "at": "2026-11-12T04:26:17.208540+00:00",
+          "phase": "validate_payload",
+          "reason": "Provider request cap reached"
+        },
+        "request_count": 40,
+        "last_request": {
+          "call": 40,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T04:26:05.650061+00:00",
+          "finished_at": "2026-11-12T04:26:14.552509+00:00"
+        },
+        "accounted_usd": 0.60131025,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item085",
+      "task_id": "cs_set__edit_distance",
+      "configuration_id": "pi_gemini_flash",
+      "terminal": true,
+      "state": "MISSING_OUTPUT",
+      "candidate_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__edit_distance/candidate.lean",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__edit_distance/receipt.json",
+      "receipt_sha256": "03218ac21e4217ffc62e4fd69797cb6639bd75bf5db2160dc94ffd26540fcebe",
+      "execution_status": "provider_error",
+      "execution_condition": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PI_CONDITION_VALID_V9.json",
+        "sha256": "6e787d07a7f623e4ed029128d4514b25b96013ecae6d7e314f8b363fd299ff73"
+      },
+      "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+      "stop_reason": "error",
+      "exit_code": 0,
+      "reason": "Terminal attempt returned no captured artifact",
+      "missing_cause": "budget_cap:Input token cap exceeded",
+      "missing_cause_evidence": {
+        "gateway_ledger": {
+          "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/cs_set__edit_distance/gateway_ledger.json",
+          "sha256": "af27088f798dbba2a5c8fe49664f1b6f6ee4eaed517526935662bf63a32a0d03"
+        },
+        "last_denial": {
+          "at": "2026-11-12T04:31:19.658278+00:00",
+          "phase": "generate_content",
+          "reason": "Input token cap exceeded"
+        },
+        "request_count": 16,
+        "last_request": {
+          "call": 16,
+          "http_status": 200,
+          "provider_finish_reason": "STOP",
+          "max_output_tokens": 16384,
+          "admitted_at": "2026-11-12T04:31:00.172791+00:00",
+          "finished_at": "2026-11-12T04:31:19.088825+00:00"
+        },
+        "accounted_usd": 0.25124175,
+        "execution_status": "provider_error",
+        "native_stop_reason": "error",
+        "contributing_incomplete_or_error_requests": 0
+      },
+      "solver_failure_attributable": true
+    }
+  ],
+  "rule": "Missing outputs remain in the complete execution denominator; no substitute, retry, generated empty file or imputed score."
+}

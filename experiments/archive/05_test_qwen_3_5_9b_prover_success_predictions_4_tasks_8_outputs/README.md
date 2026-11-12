@@ -24,7 +24,7 @@ The local condition differs from VeriBench experiment169's blocked Pi/Gemini tar
 
 The local route is Ollama 0.40.8, `qwen3.5:9b-q4_K_M`, weight digest `56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90`. Official documentation describes the [chat endpoint](https://docs.ollama.com/api/chat) and [thinking controls](https://docs.ollama.com/capabilities/thinking); this run pins the installed digest rather than a floating library alias. Thinking settings, combined output-token counts and thinking-character counts are retained per call; separate thinking-token counts are not exposed. Selection rationale: this installed, idle model provides a no-provider-cost feasibility route while the required hosted route is unavailable. There is no prior matched-domain judge-quality claim for it.
 
-All raw prompts, source files, new statement artifacts, proof attempts and model responses remain under ignored `private/fresh_prover_target/`. Public reports contain hashes, protocol, opaque artifact rows and aggregates. Authorized source access is required to reproduce the source-context checks. No human ratings or sealed human data are used.
+All raw prompts, source files, new statement artifacts, proof attempts and model responses remain under `research_artifacts/fresh_prover_target/`. Public reports contain hashes, protocol, opaque artifact rows and aggregates. Authorized source access is required to reproduce the source-context checks. No human ratings or sealed human data are used.
 
 ## Reproduction
 

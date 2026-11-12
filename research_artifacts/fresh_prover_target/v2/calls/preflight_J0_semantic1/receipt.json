@@ -1,0 +1,30 @@
+{
+  "identity": "preflight_J0_semantic1",
+  "role": "preflight",
+  "started_utc": "2026-11-06T23:19:14.122295+00:00",
+  "request_sha256": "0b35d6fa9db7d51da6983662e62a62c73cc53885fd99b79938c10ca13292ab34",
+  "num_predict": 256,
+  "settings": {
+    "think": false,
+    "num_predict": 256,
+    "prompt": "judge_J0.md"
+  },
+  "seed": 11062037,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 36,
+  "prompt_eval_count": 389,
+  "thinking_characters": 0,
+  "parsed": {
+    "probability": 0.0,
+    "reason": "The consistency goal requires proving the existence of a function satisfying False, which is impossible in a consistent logical system."
+  },
+  "seconds": 5.47992666598293,
+  "finished_utc": "2026-11-06T23:19:19.604080+00:00",
+  "response_sha256": "d322ad3840978c0e01dd2ce2e49f4bca863250ec565c09eb3913bc1b9163ce99"
+}

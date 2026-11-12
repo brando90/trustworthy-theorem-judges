@@ -1,0 +1,152 @@
+{
+  "created_at": "2026-11-12T00:28:23.163616+00:00",
+  "rule": "Sort the 25 task IDs by SHA256 UTF-8(native-heavy-11-11-2026| + task_id), ascending; take the first 10. No outcome-based selection.",
+  "input_manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/INPUT_MANIFEST.json",
+  "input_manifest_sha256": "e7a46a58a90cc23491f3db033d7dc749616f160da0b868962a3b5d8ec1b61e29",
+  "selected_count": 10,
+  "eligible_count": 25,
+  "selected": [
+    {
+      "task_id": "cs_set__topological_sort",
+      "selection_sha256": "03ae9be5ea40afeedb739ec8b12665f7dd0c45cb327010071e425922e5ec2ae8"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "selection_sha256": "125453c36e4483feacb5d9b405fef627170a9764ce135733d4cd60d26f950a0a"
+    },
+    {
+      "task_id": "cs_set__heapsort_algorithm",
+      "selection_sha256": "17c1cc45a6a6b4e9a11a25656529f007eca7a22e1b0da0193b1def83b6f76438"
+    },
+    {
+      "task_id": "realcode_set__21_shlex_quote",
+      "selection_sha256": "1bdc2b0e7e5b489e6a4918303195f29eb9237db3bdf7500ff8df5720e98bcd7c"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "selection_sha256": "32fa5e9c5c4f9f88498b6a9afc9d50c31df144d6962b01ee9180eb28abc1e01b"
+    },
+    {
+      "task_id": "realcode_set__23_base32",
+      "selection_sha256": "4739cd95cbc8a3a074b3327993e966a9efed9e780a2e6a1f225d107ce6c6cbed"
+    },
+    {
+      "task_id": "cs_set__edit_distance",
+      "selection_sha256": "507d3128725c0b268e0c873d9e53c5b9b517c6afd9cfa1787261030370533121"
+    },
+    {
+      "task_id": "cs_set__heap_sort",
+      "selection_sha256": "51945bfb0f0fdb3bb1256fae1257a7b425bedfa5d7cd72961dcc6b1f992b243e"
+    },
+    {
+      "task_id": "easy_set__23_is_prime",
+      "selection_sha256": "562e43efbe9ed644b30c33899c6a260abb3a41166fbae67a7ed5efe7c1472eb0"
+    },
+    {
+      "task_id": "easy_set__19_mypower",
+      "selection_sha256": "5a951ac08f2a19587d1bd359f5c5799d4c29a6e1f6bc33cf8ca8de5405631ed9"
+    }
+  ],
+  "ranked_task_population": [
+    {
+      "task_id": "cs_set__topological_sort",
+      "selection_sha256": "03ae9be5ea40afeedb739ec8b12665f7dd0c45cb327010071e425922e5ec2ae8"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "selection_sha256": "125453c36e4483feacb5d9b405fef627170a9764ce135733d4cd60d26f950a0a"
+    },
+    {
+      "task_id": "cs_set__heapsort_algorithm",
+      "selection_sha256": "17c1cc45a6a6b4e9a11a25656529f007eca7a22e1b0da0193b1def83b6f76438"
+    },
+    {
+      "task_id": "realcode_set__21_shlex_quote",
+      "selection_sha256": "1bdc2b0e7e5b489e6a4918303195f29eb9237db3bdf7500ff8df5720e98bcd7c"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+      "selection_sha256": "32fa5e9c5c4f9f88498b6a9afc9d50c31df144d6962b01ee9180eb28abc1e01b"
+    },
+    {
+      "task_id": "realcode_set__23_base32",
+      "selection_sha256": "4739cd95cbc8a3a074b3327993e966a9efed9e780a2e6a1f225d107ce6c6cbed"
+    },
+    {
+      "task_id": "cs_set__edit_distance",
+      "selection_sha256": "507d3128725c0b268e0c873d9e53c5b9b517c6afd9cfa1787261030370533121"
+    },
+    {
+      "task_id": "cs_set__heap_sort",
+      "selection_sha256": "51945bfb0f0fdb3bb1256fae1257a7b425bedfa5d7cd72961dcc6b1f992b243e"
+    },
+    {
+      "task_id": "easy_set__23_is_prime",
+      "selection_sha256": "562e43efbe9ed644b30c33899c6a260abb3a41166fbae67a7ed5efe7c1472eb0"
+    },
+    {
+      "task_id": "easy_set__19_mypower",
+      "selection_sha256": "5a951ac08f2a19587d1bd359f5c5799d4c29a6e1f6bc33cf8ca8de5405631ed9"
+    },
+    {
+      "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+      "selection_sha256": "5d3efba24032975c273be8bc5e4f14f0f3d082eb5b01df1e8347529f33fc445f"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_15_string_sequence",
+      "selection_sha256": "6fdb59f210956315d4bbafed656769ba65c0f7a65b69fb15be7a2965f3740497"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+      "selection_sha256": "77b0d773b598dfcac851929897888d81a2ce7fbab97f31d8a36d5b138a21ce84"
+    },
+    {
+      "task_id": "realcode_set__31_statistics_quantiles",
+      "selection_sha256": "83fcb509f17cb8615ca0ab54d7c781447195bb4cee6a48bb7bc7fba20c4b5135"
+    },
+    {
+      "task_id": "cs_set__counting_sort",
+      "selection_sha256": "a4eba1af1383010c7e443f00b0b6e37dee8ee03bb44cb896807c2033c07b3faf"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_39_prime_fib",
+      "selection_sha256": "ae00b30c1235473bbaa146d8e0ce87afa7c05253eb1dfb8bc431766f1cc33a43"
+    },
+    {
+      "task_id": "easy_set__20_mysumdigits",
+      "selection_sha256": "b0f4abf1fc132f40b0580328c785721787396945a5455bfc41373692c2598535"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_35_max_element",
+      "selection_sha256": "b1718618903834dd25b47c7062ab8acad8b44cf600aa3ac1bcc793ed9878119f"
+    },
+    {
+      "task_id": "realcode_set__28_statistics_median_low",
+      "selection_sha256": "b61b110807a4046931aacc16f47625e3437a38786285f472f6cd573452f07c2e"
+    },
+    {
+      "task_id": "humaneval_set__humaneval_14_all_prefixes",
+      "selection_sha256": "d1323cbeb69e021fe530424fbaa6d450f313691c8e09d0635a9579d99607a8c4"
+    },
+    {
+      "task_id": "realcode_set__20_html_escape",
+      "selection_sha256": "d225ff0cfe135d03b7318764fbed9a57759c8e533d7e3d7361507c002f26c65d"
+    },
+    {
+      "task_id": "easy_set__16_myfactorial",
+      "selection_sha256": "f29c3a3a137c00d0e2a82e0e4aa65414b465af189dfd7ea65a4f9b1fbc6451a9"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "selection_sha256": "f7f997e9bb6e068294e90022081dae81ce85265b86ee9a86bdcd537b3e90860d"
+    },
+    {
+      "task_id": "easy_set__41_duplicate_chars",
+      "selection_sha256": "fc4884167add3249a44bb4ed360ee020aaff20e8389b803311b868391ef1c5ff"
+    },
+    {
+      "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+      "selection_sha256": "fe20a9f1a500526dad19ba068f5316867b67647e6f3697a74aa2d953df86a12c"
+    }
+  ]
+}

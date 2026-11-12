@@ -1,0 +1,30 @@
+{
+  "identity": "preflight_J0_semantic0",
+  "role": "preflight",
+  "started_utc": "2026-11-06T23:19:08.417088+00:00",
+  "request_sha256": "883905805e19d13c5aa22dfc092bf3088fd0a138ac0d9df4febcb4845fde981c",
+  "num_predict": 256,
+  "settings": {
+    "think": false,
+    "num_predict": 256,
+    "prompt": "judge_J0.md"
+  },
+  "seed": 11062036,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 39,
+  "prompt_eval_count": 382,
+  "thinking_characters": 0,
+  "parsed": {
+    "probability": 1.0,
+    "reason": "The fixed tactic succeeds for both goals by identity, satisfying all constraints without needing additional proof search."
+  },
+  "seconds": 5.671154708979884,
+  "finished_utc": "2026-11-06T23:19:14.090100+00:00",
+  "response_sha256": "5a4d258348958bf40883319b5b5d5f47ef4573c440febfa0d8f164ee0790cdef"
+}

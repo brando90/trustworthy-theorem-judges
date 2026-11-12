@@ -1,0 +1,26 @@
+{
+  "target": "Natural.Coverage",
+  "candidate_sha256": "2fa2508be986f6286a894f35a453281f6c6364889508284b791a1f18cf57c8d6",
+  "accepted": false,
+  "compile": {
+    "exit_code": 1,
+    "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_13hctpiy/Candidate.lean:2:9: error: tactic 'introN' failed, insufficient number of binders\nf0 f1 : String \u2192 \u2115\nh : Natural.AgentSpec f0 f1\n\u22a2 Natural.GoldSpec f0 f1\n",
+    "argv": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_13hctpiy\"))",
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_13hctpiy",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_13hctpiy/Candidate.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G1/candidate_13hctpiy/Candidate.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "status": "proof_rejected",
+  "protected_intact": true
+}

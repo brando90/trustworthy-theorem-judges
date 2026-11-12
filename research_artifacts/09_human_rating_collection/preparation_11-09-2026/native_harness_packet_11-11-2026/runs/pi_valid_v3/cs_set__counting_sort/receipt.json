@@ -1,0 +1,46 @@
+{
+  "accounted_usd": 0.515985,
+  "actual_model": "gemini-3.8-flash",
+  "actual_provider": "allen-google-veribench",
+  "actual_thinking": "high",
+  "artifact_status": "missing",
+  "attempts": 1,
+  "batch_25_cell_cap_usd": 18.75,
+  "cell_cap_usd": 0.75,
+  "elapsed_seconds": 865.848,
+  "exit_code": 0,
+  "finished_at": "2026-11-12T03:23:43.565645+00:00",
+  "host_mounts": [],
+  "image_id": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+  "input_files": {
+    "counting_sort.py": "874c75909e91d7abcdfe3ad65a72ce738061304df064f93b334044281fe4e6ec",
+    "instruction.md": "e252e1fd7307de83c741a112b433726294ee41e348fc4b56b1f1374c9cd6e4f6"
+  },
+  "input_token_cap": 65536,
+  "manifest_sha256": "5f5036f6bfce02848397e31c24aadad6407098c178aa3e014eda025598d1a6c1",
+  "model": "gemini-3.8-flash",
+  "native_stop_reason": "error",
+  "output_token_cap": 16384,
+  "pi_version_observed": "1.5.2",
+  "pi_version_required": "1.5.2",
+  "provider_requests": 40,
+  "provider_route": "allen-google-veribench",
+  "request_cap": 40,
+  "runner_sha256": "d2be5ac2a81b97f0f003b5bb493dacfa618f76719ff1cc73ac733c266b6d1c04",
+  "runtime_uid": 1001,
+  "started_at": "2026-11-12T03:09:14.204838+00:00",
+  "status": "provider_error",
+  "task_id": "cs_set__counting_sort",
+  "thinking": "high",
+  "transport_recovery": {
+    "backoff_seconds": [
+      5,
+      15
+    ],
+    "failed_reservations_retained": true,
+    "http503_before_response_retries": 2,
+    "native_pi_retries_enabled": false,
+    "provider_timeout_seconds": 600
+  },
+  "wall_seconds": 1800
+}

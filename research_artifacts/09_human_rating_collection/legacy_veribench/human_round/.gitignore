@@ -1,0 +1,9 @@
+# TLDR: keep the unblinding key out of Git until every rating sheet is in, and keep stray synthetic outputs out entirely.
+sample/sealed/
+*SYNTHETIC*
+*.tmp
+sample_extension/sealed/
+sample_setB/sealed/
+warmup/sealed/
+private_A1/
+private_ratings_setN/

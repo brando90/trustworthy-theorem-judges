@@ -1,0 +1,98 @@
+{
+  "kind": "synthetic_regression_fixture",
+  "motivation": "Observed frozen invalid pilot assistant envelope reported output_tokens10 after16K thinking truncation. Fixture tests provider message_delta accumulation, duplicate/stale snapshots and terminal aggregate authority.",
+  "events": [
+    {
+      "type": "stream_event",
+      "event": {
+        "type": "message_start",
+        "message": {
+          "id": "fixture_1",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 7699,
+            "cache_read_input_tokens": 4801,
+            "output_tokens": 10
+          }
+        }
+      }
+    },
+    {
+      "type": "stream_event",
+      "event": {
+        "type": "message_delta",
+        "usage": {
+          "output_tokens": 16384
+        }
+      }
+    },
+    {
+      "type": "stream_event",
+      "event": {
+        "type": "message_delta",
+        "usage": {
+          "output_tokens": 16384
+        }
+      }
+    },
+    {
+      "type": "stream_event",
+      "event": {
+        "type": "message_stop"
+      }
+    },
+    {
+      "type": "assistant",
+      "message": {
+        "id": "fixture_1",
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 7699,
+          "cache_read_input_tokens": 4801,
+          "output_tokens": 10
+        }
+      }
+    },
+    {
+      "type": "stream_event",
+      "event": {
+        "type": "message_start",
+        "message": {
+          "id": "fixture_2",
+          "usage": {
+            "input_tokens": 1,
+            "cache_read_input_tokens": 12500,
+            "output_tokens": 1
+          }
+        }
+      }
+    },
+    {
+      "type": "stream_event",
+      "event": {
+        "type": "message_delta",
+        "usage": {
+          "output_tokens": 256
+        }
+      }
+    },
+    {
+      "type": "stream_event",
+      "event": {
+        "type": "message_stop"
+      }
+    },
+    {
+      "type": "result",
+      "usage": {
+        "input_tokens": 3,
+        "cache_creation_input_tokens": 7699,
+        "cache_read_input_tokens": 17301,
+        "output_tokens": 16640
+      }
+    }
+  ],
+  "expected_total_tokens": 41643,
+  "expected_output_tokens": 16640,
+  "status": "PASS"
+}

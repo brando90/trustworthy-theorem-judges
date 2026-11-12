@@ -1,0 +1,55 @@
+{
+  "cost_proof": {
+    "assumption": "Exactly one attempt for each frozen original task. Parallelism cannot increase this bound if a single scheduler enforces unique admissions and each gateway retains its cap.",
+    "cap_per_task_usd": 0.75,
+    "global_ceiling_usd": 20,
+    "invalid_pilot_accounted_usd": 0.7204245,
+    "maximum_total_usd": 19.4704245,
+    "maximum_valid_cost_usd": 18.75,
+    "maximum_valid_tasks": 25
+  },
+  "docker_vm": {
+    "available_kib": 6667744,
+    "cpus": 10,
+    "memory_bytes": 8321712128
+  },
+  "network": {
+    "gateway_alias": "provider-gateway, scoped to the task network",
+    "gateway_port": 8765,
+    "host_mounts": [],
+    "host_port_bindings": {},
+    "solver_network": "one internal-only network per task",
+    "unique_network_and_container_names_per_cell": true
+  },
+  "observed_at": "2026-11-12T02:20:09.834897+00:00",
+  "observed_pi_gateway": {
+    "current_memory_bytes": 23810048,
+    "peak_memory_bytes": 23810048
+  },
+  "observed_pi_solver": {
+    "current_memory_bytes": 125968384,
+    "peak_memory_bytes": 670695424
+  },
+  "provider_assessment": "The current recovery task has more than twenty completed responses without service errors. A clean terminal outcome is still required before recommending activation; two concurrent Google requests have not been empirically tested.",
+  "recommendation": "Conditionally feasible for two lanes after clean terminal recovery, with one tested coordinator and a prospective concurrency amendment. No concurrency change has been made.",
+  "recovery_receipt_sha256": "29cf0079aa6e309220e70caf3f8bf70756735534a03957002a2ea12f0eae9b08",
+  "recovery_terminal": {
+    "accounted_usd": 0.5129542500000001,
+    "accounting_missing": false,
+    "artifact_status": "missing",
+    "completion_class": "clean",
+    "provider_requests": 39,
+    "receipt": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/humaneval_set__humaneval_35_max_element/receipt.json",
+    "status": "timeout",
+    "task_id": "humaneval_set__humaneval_35_max_element"
+  },
+  "required_scheduler_changes": [
+    "Use one coordinator with at most two simultaneous task processes; do not start two copies of the serial driver.",
+    "Record active, terminal and untouched task IDs explicitly; handle out-of-order completion without assuming terminal IDs are a contiguous prefix.",
+    "Freeze a prospective admission amendment and bind exact task scope before changing concurrency. The frozen Pi V6 runner, model, effort, source, token/call/time/cost caps remain unchanged.",
+    "On any service failure, stop new admissions and let existing tasks finish. Recovery admissions are serial, with the shared two-admission limit and 30-minute cooldown. Resume two lanes only after clean recovery.",
+    "Keep every receipt and missing artifact; no terminal reruns."
+  ],
+  "resource_assessment": "Observed memory supports two Pi tasks alongside the existing Claude Code workload. Peak memory and CPU contention can exceed this snapshot; monitor VM availability, disclose shared resources, and stop new admissions if pressure develops without killing healthy active tasks.",
+  "status": "FEASIBLE after clean provider recovery ending at original wall cap; no concurrency change yet"
+}

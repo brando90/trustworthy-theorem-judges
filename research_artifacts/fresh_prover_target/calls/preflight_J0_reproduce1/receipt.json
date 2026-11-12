@@ -1,0 +1,29 @@
+{
+  "identity": "preflight_J0_reproduce1",
+  "role": "preflight",
+  "started_utc": "2026-11-06T23:12:21.735889+00:00",
+  "request_sha256": "6b43b1546df0e52e9a622571e8a8e551de930b5c40cbba7684d245c26bf5c30c",
+  "num_predict": 256,
+  "settings": {
+    "think": false,
+    "num_predict": 256
+  },
+  "seed": 11062027,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 49,
+  "prompt_eval_count": 36,
+  "thinking_characters": 0,
+  "parsed": {
+    "probability": 0.75,
+    "reason": "This represents a 75% chance of success, equivalent to a 3-to-1 odds ratio in favor of the event occurring."
+  },
+  "seconds": 1.7110526250035036,
+  "finished_utc": "2026-11-06T23:12:23.447680+00:00",
+  "response_sha256": "b277acaf1d30299d7de561e54a70d06dcd651049b2704e5a0c049df551ab8cd8"
+}

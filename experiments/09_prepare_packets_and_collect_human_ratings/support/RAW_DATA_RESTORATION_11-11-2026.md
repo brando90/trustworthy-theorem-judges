@@ -22,8 +22,8 @@ Names, IDs, assignment fields and header instructions remain form metadata. No s
 
 - Native before/after readback of all 12 sheets found zero cell differences outside the explicitly cleared values/notes. Formatting, validation and other values were preserved.
 - Each current CSV was parsed back and compared against the exact sheet table; all 12 matched. [Raw manifest](../ratings/RAW_MANIFEST.json) records sheet IDs, ranges, row counts and file hashes.
-- All original fields in the three completed warm-up submissions match the pre-enrichment snapshots under `private/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/`.
-- Full before/after CellData and extraction receipts remain in `private/09_human_rating_collection/preparation_11-09-2026/receipts/RAW_RESTORE_BEFORE_11-11-2026.json`, `RAW_RESTORE_AFTER_11-11-2026.json` and `RAW_TABLES_11-11-2026.json`.
+- All original fields in the three completed warm-up submissions match the pre-enrichment snapshots under `research_artifacts/09_human_rating_collection/preparation_11-09-2026/collected/all_raters_11-11-2026/`.
+- Full before/after CellData and extraction receipts remain in `research_artifacts/09_human_rating_collection/preparation_11-09-2026/receipts/RAW_RESTORE_BEFORE_11-11-2026.json`, `RAW_RESTORE_AFTER_11-11-2026.json` and `RAW_TABLES_11-11-2026.json`.
 - Original historical normalized imports remain untouched. Their named derivatives now live in [ratings/analysis/](../ratings/analysis), clearly labeled non-raw. Yegor’s numeric-only derivative has three rows, while his primary raw CSV has all six.
 - Withdrawn estimates and prior snapshots remain audit history, never current observations. [Archived coordinator additions](audit/removed_coordinator_data_11-11-2026/README.md).
 

@@ -16,7 +16,7 @@
 
 **Start now:** [Brando's warm-up instructions](rating_task_packet/START_HERE.md) and [Google Sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit). Use the trial to identify confusing instructions before sending.
 
-The [eight earlier prepared email previews](../../private/09_human_rating_collection/preparation_11-09-2026/REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md) remain preserved and unsent; they are **not the new three-person first-batch queue**. The [current preparation record](../../private/09_human_rating_collection/preparation_11-09-2026/CURRENT_PREPARATION.json) records this sequence. Yegor's existing extra-only designation remains unchanged; choosing him for the first batch does not silently change his qualification or count his ratings toward the primary target.
+The [eight earlier prepared email previews](../../research_artifacts/09_human_rating_collection/preparation_11-09-2026/REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md) remain preserved and unsent; they are **not the new three-person first-batch queue**. The [current preparation record](../../research_artifacts/09_human_rating_collection/preparation_11-09-2026/CURRENT_PREPARATION.json) records this sequence. Yegor's existing extra-only designation remains unchanged; choosing him for the first batch does not silently change his qualification or count his ratings toward the primary target.
 
 The main pool remains 54 files across 25 tasks: native Codex/GPT-6 Astra (25), native Claude Code/Claude Fable 5.1 (19), and Terminus 2/Grok 4.7 (10). The full allocation is still incomplete: 108 independent main ratings targeted, eight assigned and blank, 100 unassigned. The requested finish remains Friday, 11-13-2026 if possible, with Sunday, 11-15-2026 final.
 

@@ -1,0 +1,29 @@
+{
+  "identity": "preflight_J0_reproduce0",
+  "role": "preflight",
+  "started_utc": "2026-11-06T23:12:12.174203+00:00",
+  "request_sha256": "b0d393c94273ed73b9be356fca94d3126bbd999a1f001c2afc2dfcc727ce4ea5",
+  "num_predict": 256,
+  "settings": {
+    "think": false,
+    "num_predict": 256
+  },
+  "seed": 11062026,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 56,
+  "prompt_eval_count": 36,
+  "thinking_characters": 0,
+  "parsed": {
+    "probability": 0.25,
+    "reason": "This corresponds to a 25% chance, such as the probability of rolling a specific number on a fair four-sided die or flipping two coins and getting exactly one head."
+  },
+  "seconds": 9.545681332994718,
+  "finished_utc": "2026-11-06T23:12:21.720611+00:00",
+  "response_sha256": "75f09a1873d1953cee47b30061e59e0cebace6e5171d90a3320d2b4a1f773005"
+}

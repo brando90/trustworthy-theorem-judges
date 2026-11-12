@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Reproduce experiment 07 on CPU: zero model calls, no paid API.
 # Needs: a checkout of brando90/veribench at be287d9bb2f7bd35ba6db1b8735c9ba10d00eade (VERIBENCH_SRC), python3 with numpy and scipy.
-# Per-item ratings and scores stay in the ignored private/ dir; only aggregate JSON/markdown is committed.
+# Per-item ratings and scores stay in the research_artifacts/ dir; only aggregate JSON/markdown is committed.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../../.." && pwd)"
 PY="${PY:-python3}"
-PRIVATE="${PRIVATE:-$REPO/private/exp07}"
+PRIVATE="${PRIVATE:-$REPO/research_artifacts/exp07}"
 JUDGE_OBJECTIVES_REPO="${JUDGE_OBJECTIVES_REPO:-$REPO/../judges-dont-need-psychometrics-or-corr}"
 IMPORTER="$JUDGE_OBJECTIVES_REPO/experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/import_cached.py"
 : "${VERIBENCH_SRC:?set VERIBENCH_SRC to a veribench checkout at be287d9b}"

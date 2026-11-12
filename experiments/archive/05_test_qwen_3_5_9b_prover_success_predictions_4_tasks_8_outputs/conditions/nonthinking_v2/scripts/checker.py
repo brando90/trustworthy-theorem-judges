@@ -11,7 +11,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PRIVATE = ROOT.parents[3] / 'private/fresh_prover_target/v2'
+PRIVATE = ROOT.parents[3] / 'research_artifacts/fresh_prover_target/v2'
 DEPENDENCIES = PRIVATE / 'dependencies'
 LEAN_PROJECT = Path.home() / 'veribench/veribench_dataset/lean_src'
 AXIOMS = {'propext', 'Classical.choice', 'Quot.sound'}

@@ -1,0 +1,29 @@
+{
+  "identity": "preflight_J1_reproduce0",
+  "role": "preflight",
+  "started_utc": "2026-11-06T23:12:27.954815+00:00",
+  "request_sha256": "8f82c362f967f8a33ff456c9f4e95013efc0436690ff8e1b08797a8754aefb41",
+  "num_predict": 2048,
+  "settings": {
+    "think": true,
+    "num_predict": 2048
+  },
+  "seed": 11062026,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 808,
+  "prompt_eval_count": 34,
+  "thinking_characters": 2776,
+  "parsed": {
+    "probability": 0.25,
+    "reason": "Rolling a specific outcome on a fair four-sided die has a 1 in 4 chance, which equals 0.25."
+  },
+  "seconds": 25.46930337502272,
+  "finished_utc": "2026-11-06T23:12:53.424892+00:00",
+  "response_sha256": "cba2412bb54c50633dda9269fac18f0a0cb6fda70f92feec11fcb5a33e03e30b"
+}

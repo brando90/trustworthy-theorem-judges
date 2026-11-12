@@ -71,10 +71,10 @@ def main():
     matrix={s:{method:summarize(p[index],forecast[index]) for method,forecast in qs.items()}
             for s,index in ix.items()}
     # Per-artifact ratings/forecasts and the source-row trace remain private.
-    dump(private/'forecasts.json',{'row_order':[r['item'] for r in rows],
+    dump(research_artifacts/'forecasts.json',{'row_order':[r['item'] for r in rows],
                                   'predictions':{k:v.tolist() for k,v in qs.items()}})
     first=int(ix['train'][0])
-    dump(private/'training_trace.json',{'source_row_index':first,'row':rows[first],
+    dump(research_artifacts/'training_trace.json',{'source_row_index':first,'row':rows[first],
          'cached_repeat_ratings':{n:d['outputs'][n][first] for n in cfg['candidate_order']},
          'histograms':q[first].tolist(),'human_histogram':p[first].tolist(),
          'predictions':{k:v[first].tolist() for k,v in qs.items()},
@@ -150,14 +150,14 @@ def main():
         'environment':{'python':platform.python_version(),'numpy':np.__version__,'scipy':scipy.__version__},
         'dataset_sha256':cfg['dataset_sha256'],'freeze_sha256':digest(ROOT/'FREEZE.json'),
         'selected_models_before_test_sha256':selected_hash,
-        'private_forecasts_sha256':digest(private/'forecasts.json'),
-        'trace_sha256':digest(private/'training_trace.json'),
+        'private_forecasts_sha256':digest(research_artifacts/'forecasts.json'),
+        'trace_sha256':digest(research_artifacts/'training_trace.json'),
         'literal_compliance':'No prompt or raw semantic judge was changed; the cache supplies scalar ratings only.',
         'inference_calls':0,'provider_cost_usd':0}
     dump(out/'bootstrap_ledger.json',ledger)
     with gzip.open(out/'bootstrap_fit_receipts.json.gz','wt') as f:
         json.dump(receipts,f,allow_nan=False,sort_keys=True)
-    dump(private/'bootstrap_distributions.json',{'refit':refits,'fixed':fixed,'paired':deltas})
+    dump(research_artifacts/'bootstrap_distributions.json',{'refit':refits,'fixed':fixed,'paired':deltas})
     dump(out/'results.json',result)
     print(json.dumps({'status':result['status'],'primary':comparison['rps'],'elapsed_seconds':result['elapsed_seconds']},indent=2))
 

@@ -1,0 +1,30 @@
+{
+  "identity": "forecast_T03_G0_J0_0",
+  "role": "forecast",
+  "started_utc": "2026-11-06T23:22:34.209593+00:00",
+  "request_sha256": "93ff9e480c4211fa98c2276934297c8292b872ead5eb5e7ccd940450a0817945",
+  "num_predict": 256,
+  "settings": {
+    "think": false,
+    "num_predict": 256,
+    "prompt": "judge_J0.md"
+  },
+  "seed": 11062226,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 83,
+  "prompt_eval_count": 907,
+  "thinking_characters": 0,
+  "parsed": {
+    "probability": 0.0,
+    "reason": "The candidate proposition requires f0 and f1 to be identical functions, but the GoldSpec imposes contradictory constraints on f0 (requiring it to return true when isRevoked is false and false when isRevoked is true for the same hasDelegation=true input), making the conjunction of obligations unsatisfiable."
+  },
+  "seconds": 11.954193624987965,
+  "finished_utc": "2026-11-06T23:22:46.182437+00:00",
+  "response_sha256": "76ed9a16e0947558269ad2ec72d38f97380f4a101d584c4931f5649e5d964986"
+}

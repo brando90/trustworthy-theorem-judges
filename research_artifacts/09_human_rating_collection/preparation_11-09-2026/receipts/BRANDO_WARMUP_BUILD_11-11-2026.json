@@ -1,0 +1,35 @@
+{
+  "created_utc": "2026-11-11T18:28:52.268965+00:00",
+  "rater_id": "A1",
+  "rater_name": "Brando Miranda",
+  "source_packet": "private/09_human_rating_collection/preparation_11-09-2026/packets/VeriBench_warmup_T01.zip",
+  "source_sha256": "cf365ab032240cde8007efd75384bc1722cab552f7823a478d75ba08c1bd622f",
+  "packet": "private/09_human_rating_collection/preparation_11-09-2026/packets/VeriBench_Brando_Miranda_Warmup_A1.zip",
+  "packet_sha256": "e175155b5dc3f28fefa2b0c7c84b3e660300ab068f8d88169d6fdd7e57207ca0",
+  "candidates": [
+    "W01/agent_lean/W01a.lean",
+    "W01/agent_lean/W01b.lean",
+    "W01/agent_lean/W01c.lean",
+    "W02/agent_lean/W02a.lean",
+    "W02/agent_lean/W02b.lean",
+    "W02/agent_lean/W02c.lean"
+  ],
+  "unchanged_files": [
+    "START_HERE.md",
+    "W01/agent_lean/W01a.lean",
+    "W01/agent_lean/W01b.lean",
+    "W01/agent_lean/W01c.lean",
+    "W01/gold_lean/humaneval_47_median.lean",
+    "W01/python_source/humaneval_47_median.py",
+    "W02/agent_lean/W02a.lean",
+    "W02/agent_lean/W02b.lean",
+    "W02/agent_lean/W02c.lean",
+    "W02/gold_lean/humaneval_13__gcd.lean",
+    "W02/python_source/humaneval_13__gcd.py",
+    "human_judgements_prompt.md"
+  ],
+  "sheet_id": "1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A",
+  "score_range": "Untitled!J2:J7",
+  "sheet_checked_blank": true,
+  "prior_exposure": "Brando viewed other raters warm-up ratings and Rylan notes before requesting this warm-up. Treat as coordinator practice; do not count as independent blinded evaluation."
+}

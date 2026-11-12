@@ -1,0 +1,192 @@
+{
+  "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "125_unsafeTPMHash_safe.py": "6b4d586252669a2458a1891d5b9f28886a77f43e0fa54b06aed18fee736f65a6",
+    "instruction.md": "10c37400246dbe35d902b2ba75384e8d6f1218e88ae197fdbdf83ce028922a16"
+  },
+  "output": "/home/user/lean_project/Veribench/125_unsafeTPMHash_safe.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-f9d46e8b7004",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794452247.239667,
+  "exit_code": 0,
+  "stop_reason": "native_result",
+  "finished_at": 1794452754.6511948,
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 444828,
+  "observed_output_tokens": 35583,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 10,
+    "messages_with_stop": 10,
+    "native_aggregate_usage": {
+      "input_tokens": 290,
+      "cache_creation_input_tokens": 46293,
+      "cache_read_input_tokens": 362662,
+      "output_tokens": 35583,
+      "output_tokens_details": {
+        "thinking_tokens": 19636
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 46293,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 465675,
+    "stop_reason": "end_turn",
+    "session_id": "d0ed225c-5801-45fd-9d7f-edea56372a48",
+    "total_cost_usd": 2.7985755,
+    "usage": {
+      "input_tokens": 290,
+      "cache_creation_input_tokens": 46293,
+      "cache_read_input_tokens": 362662,
+      "output_tokens": 35583,
+      "output_tokens_details": {
+        "thinking_tokens": 19636
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 46293,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 290,
+        "outputTokens": 35583,
+        "cacheReadInputTokens": 362662,
+        "cacheCreationInputTokens": 46293,
+        "webSearchRequests": 0,
+        "costUSD": 2.7985755,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 19636,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 46293,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 10,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The translation is complete and verified. The file is at `/home/user/lean_project/Veribench/125_unsafeTPMHash_safe.lean`.\n\n**Outcome.** The file compiles with exit code 0 and no warnings. Every theorem is proven, and `#print axioms` on all 15 theorems shows only `propext`, `Classical.choice`, and `Quot.sound`. The file contains no `sorry`, `admit`, or `axiom`, and `native_decide` appears only in `example` tests. All Plausible checks report no counterexample and none give up.\n\n**Modelling choices.**\n- All three Python `int` arguments are `Nat`, since PCR values and extension data are non-negative bit strings. The docstring records this.\n- The source's bitwise operators are kept: XOR is `^^^` and the 32-bit mask is `&&& 0xFFFFFFFF`. A helper theorem shows the mask equals reduction modulo 2^32, which drives the bound proofs.\n- The pre-condition is `True`, because the Python function is total on its inputs.\n\n**What the file contains.**\n- Functional implementation `simulatedHash` and `safeTpmHashCheck`, plus unit tests that mirror all four assertions of the Python `check()` function.\n- Eleven properties with proofs. The central one states the check succeeds exactly when the claim equals the simulated hash. Others cover acceptance of the correct PCR, rejection of forged or oversized claims, 32-bit boundedness, uniqueness and existence of the accepted claim, symmetry in the two inputs, and a collision characterization: two extensions collide exactly when their XORs agree modulo 2^32, proved via coprimality of the odd LCG multiplier.\n- `Post_prop` as a conjunction of the result-related properties, with a `Decidable` instance so Plausible tests it directly, plus exhaustive bounded tests that include the genuinely accepted claim so the implications are not vacuous.\n- The correctness theorem `Pre \u2192 Post_prop`.\n- Imperative implementation `safeTpmHashCheckImp` using `Id.run do` with a mutable accumulator, its tests, the equivalence theorem `imp_equiv`, and a derived correctness theorem for the imperative version.",
+    "ttft_ms": 182336,
+    "type": "result",
+    "duration_ms": 504719,
+    "uuid": "e514b41c-728d-4589-9d47-05a2d7e001ab",
+    "ttft_stream_ms": 5124,
+    "time_to_request_ms": 48,
+    "first_content_frame_ms": 5124,
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "model_usage_since_last_result": {
+      "claude-fable-5-1": {
+        "inputTokens": 290,
+        "outputTokens": 35583,
+        "cacheReadInputTokens": 362662,
+        "cacheCreationInputTokens": 46293,
+        "webSearchRequests": 0,
+        "costUSD": 2.7985755,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 19636,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 46293,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    }
+  },
+  "model_identity_verified": true,
+  "candidate_captured": true,
+  "candidate_sha256": "c7abd9ce9b2a899ba70e8f06d32f92d8de919f8981c38540f1c252019d89de23",
+  "candidate_bytes": 19577,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

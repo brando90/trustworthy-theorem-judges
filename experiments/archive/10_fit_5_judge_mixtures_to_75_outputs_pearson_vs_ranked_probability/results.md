@@ -99,11 +99,11 @@ The [saved parameters](results/selected_models.json) were written and hashed bef
 | method2_pearson | 0.25 | 0.270210, 0.023584, 0.000000, 0.000000, 0.706206 |
 | method4_rps | 0.1 | 0.372685, 0.084584, 0.000000, 0.000000, 0.542731 |
 
-The training marginal is [0.083333, 0.150000, 0.188889, 0.172222, 0.255556, 0.150000]. Use `python3 scripts/predict.py --model results/selected_models.json --ratings /private/input.json --out /private/predictions.json` from this experiment directory. Each input row has `artifact_id` and a `ratings` mapping with exactly three integers for each of the five configuration names. The default method is `validation_selected`. A [replay check](results/export_verification.json) reproduced all 75 saved candidate forecasts exactly. This wrapper does not generate the five upstream forecasts or validate use on fresh artifacts.
+The training marginal is [0.083333, 0.150000, 0.188889, 0.172222, 0.255556, 0.150000]. Use `python3 scripts/predict.py --model results/selected_models.json --ratings /research_artifacts/input.json --out /research_artifacts/predictions.json` from this experiment directory. Each input row has `artifact_id` and a `ratings` mapping with exactly three integers for each of the five configuration names. The default method is `validation_selected`. A [replay check](results/export_verification.json) reproduced all 75 saved candidate forecasts exactly. This wrapper does not generate the five upstream forecasts or validate use on fresh artifacts.
 
 ## Verification and execution
 
-The run completed in 31.840997 seconds with one CPU thread, zero inference calls and zero provider cost. The PID was not captured. A START notice did not precede this short run; the coordinator records that omission and handles the verified completion notification. The private log is `private/10_retrospective_rps_vs_pearson_mixture/RUN_11-09-2026.log`.
+The run completed in 31.840997 seconds with one CPU thread, zero inference calls and zero provider cost. The PID was not captured. A START notice did not precede this short run; the coordinator records that omission and handles the verified completion notification. The private log is `research_artifacts/10_retrospective_rps_vs_pearson_mixture/RUN_11-09-2026.log`.
 
 Six deterministic test groups passed, including objective identity, artifact weighting, solver recovery, independent optimization checks, Pearson degeneracy cases and selection isolation. The post-run [verification](results/verification.json) independently reconstructed 450 fitted forecasts and 693 metric entries: maximum probability difference 2.22e−16, metric difference 6.22e−15 and paired-interval endpoint difference 0. Bootstrap fits were not independently rerun.
 

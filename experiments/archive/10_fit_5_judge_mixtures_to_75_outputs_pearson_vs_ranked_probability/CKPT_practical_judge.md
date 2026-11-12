@@ -20,7 +20,7 @@
 - Paired-paper publication: VeriBench `b2631b5fe64bcb88a77d95043b33a077894b1d1c` incorporates this comparison in both public papers; immutable receipt below.
 - Result: method-4 minus method-2 RPS +0.005241, 95% interval [−0.068074,+0.014864], 1,998/2,000 valid draws; no resolved advantage.
 - Validation selected method4_rps; saved parameters and eligibility receipt are under results/.
-- Private forecasts/logs: canonical private/10_retrospective_rps_vs_pearson_mixture/.
+- Private forecasts/logs: canonical research_artifacts/10_retrospective_rps_vs_pearson_mixture/.
 - Companion: https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws/edit
 - Parent owns communication, collection and final user-facing knowledge synchronization.
 

@@ -1,0 +1,1387 @@
+diff --git a/AGENTS.md b/AGENTS.md
+index 9429c20..798040e 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -23,7 +23,7 @@ This is a research project. Each experiment lives in its own numbered experiment
+ 
+ ## Human-rating task ownership
+ 
+-User decision, 11-09-2026: this repository is the primary owner of preparing and collecting VeriBench human ratings to develop and evaluate a formal specification coverage judge. Keep the collection design, rater instructions, packet preparation, approved email template, assignment tracking and collection status here; participant records and individual ratings remain private.
++User decision, 11-09-2026: this repository is the primary owner of preparing and collecting VeriBench human ratings to develop and evaluate a formal specification coverage judge. The active task is `experiments/09_human_rating_collection/`; keep rater instructions, packet preparation, the approved email template, assignment tracking and collection status there. The prospective collection design remains in `experiments/02_probabilistic_ordinal_judge/`. Participant records and individual ratings remain private.
+ 
+ `cert-judge` and `judges-dont-need-psychometrics-or-corr` may use suitable authorized ratings for their own studies, with consent, provenance and split/exposure history preserved. Cross-link the collection rather than create competing collection workflows. The cross-entropy-versus-correlation objective comparison belongs in `judges-dont-need-psychometrics-or-corr`; it does not take ownership of human-rating preparation. More ratings can support stronger human-agreement evidence, but sample size alone does not establish judge validity, and the separate prover-outcome target does not require human ratings.
+ 
+diff --git a/CLAUDE.md b/CLAUDE.md
+index 9429c20..798040e 100644
+--- a/CLAUDE.md
++++ b/CLAUDE.md
+@@ -23,7 +23,7 @@ This is a research project. Each experiment lives in its own numbered experiment
+ 
+ ## Human-rating task ownership
+ 
+-User decision, 11-09-2026: this repository is the primary owner of preparing and collecting VeriBench human ratings to develop and evaluate a formal specification coverage judge. Keep the collection design, rater instructions, packet preparation, approved email template, assignment tracking and collection status here; participant records and individual ratings remain private.
++User decision, 11-09-2026: this repository is the primary owner of preparing and collecting VeriBench human ratings to develop and evaluate a formal specification coverage judge. The active task is `experiments/09_human_rating_collection/`; keep rater instructions, packet preparation, the approved email template, assignment tracking and collection status there. The prospective collection design remains in `experiments/02_probabilistic_ordinal_judge/`. Participant records and individual ratings remain private.
+ 
+ `cert-judge` and `judges-dont-need-psychometrics-or-corr` may use suitable authorized ratings for their own studies, with consent, provenance and split/exposure history preserved. Cross-link the collection rather than create competing collection workflows. The cross-entropy-versus-correlation objective comparison belongs in `judges-dont-need-psychometrics-or-corr`; it does not take ownership of human-rating preparation. More ratings can support stronger human-agreement evidence, but sample size alone does not establish judge validity, and the separate prover-outcome target does not require human ratings.
+ 
+diff --git a/README.md b/README.md
+index cbf6236..a04fed0 100644
+--- a/README.md
++++ b/README.md
+@@ -18,7 +18,7 @@ This repository owns the AI/agent/LLM judge study. VeriBench's intended evaluati
+ 
+ ## Human-rating task ownership
+ 
+-**Primary owner: `trustworthy-theorem-judges`** (Brando's decision, 11-09-2026). Preparing the human grading task first serves VeriBench and the development and evaluation of a formal specification coverage judge. This repository coordinates the collection design, instructions, packets, approved email template, assignments and collection status. Participant records and individual ratings stay in the approved private store.
++**Primary owner: `trustworthy-theorem-judges`** (Brando's decision, 11-09-2026). Preparing the human grading task first serves VeriBench and the development and evaluation of a formal specification coverage judge. The active task lives in [`experiments/09_human_rating_collection/`](experiments/09_human_rating_collection/README.md), which coordinates instructions, packets, the approved email template, assignments and collection status. Participant records and individual ratings stay in the approved private store.
+ 
+ [cert-judge](https://github.com/brando90/cert-judge) and [judges-dont-need-psychometrics-or-corr](https://github.com/brando90/judges-dont-need-psychometrics-or-corr) can use suitable authorized ratings for their own studies while preserving consent, provenance and split/exposure history. They reference this collection rather than own separate copies of its coordination process. The comparison of cross-entropy against correlation objectives belongs in `judges-dont-need-psychometrics-or-corr`.
+ 
+@@ -26,6 +26,7 @@ A larger, appropriately sampled collection can strengthen evidence about agreeme
+ 
+ ## Methodology and paper
+ 
++- [Human-rating task preparation and collection](experiments/09_human_rating_collection/README.md): the operational home migrated from VeriBench, with private records preserved and the remaining team-delivery blockers stated explicitly.
+ - [Study methodology and collection design](experiments/02_probabilistic_ordinal_judge/README.md): predict the six-category conditional human-rating distribution with the ranked probability score as the primary loss; correlations are secondary diagnostics.
+ - [Historical results and provenance](experiments/01_legacy_veribench_judge/README.md): preserved aggregate receipts, limitations, and a clear separation from new validation.
+ - [Prover-outcome forecasting study](experiments/03_prover_target_fsc_judge/README.md): predict acceptance by a specified proof-search procedure with Brier loss. A retrospective analysis using saved results is complete; fresh statement-only validation remains pending.
+@@ -62,10 +63,10 @@ The coordinator needs the original, extracted VeriBench human-rating packet. The
+ From the repository root, build an archive for the folders assigned to a rater. For example, for folder 1:
+ 
+ ```sh
+-python3 scripts/make_team_packet.py private/original private/team-folder-01.zip --folders 1
++python3 experiments/09_human_rating_collection/scripts/make_team_packet.py private/original private/team-folder-01-new.zip --folders 1
+ ```
+ 
+-Pass multiple folder numbers to package an assignment. Omit `--folders` to package all 25 folders. Use a new output filename for each build. The builder checks the frozen delivery manifest, preserves the original example bytes and filenames, and includes the rubric, instructions, a blank answer sheet and file checksums. Send the same archive to raters rating the same assignment. Each returns their own completed sheet privately.
++Follow the [collection task's current delivery status](experiments/09_human_rating_collection/README.md#current-delivery-status--11-09-2026) before sending. Pass multiple folder numbers to package an assignment. Omit `--folders` to package all 25 folders. Use a new output filename for each build. The builder checks the frozen delivery manifest, preserves the original example bytes and filenames, and includes the rubric, instructions, a blank answer sheet and file checksums. Send the same archive to raters rating the same assignment. Each returns their own completed sheet privately.
+ 
+ ## Reference anchoring study
+ 
+diff --git a/experiments/02_probabilistic_ordinal_judge/README.md b/experiments/02_probabilistic_ordinal_judge/README.md
+index 4d66201..4373306 100644
+--- a/experiments/02_probabilistic_ordinal_judge/README.md
++++ b/experiments/02_probabilistic_ordinal_judge/README.md
+@@ -162,7 +162,7 @@ A fully crossed independent-identities bound or a formula in the product \(TAH\)
+ 
+ Run `python3 experiments/02_probabilistic_ordinal_judge/scripts/validate_design.py` from the repository root. It checks this planned allocation; it does not run judges, generate ratings, or establish readiness to launch.
+ 
+-Next, create the private task-group manifest and rater assignment from these counts, run the training/validation pilot, set the remaining margins and budgets, and record a dated protocol amendment before collecting final-audit ratings. Each artifact record needs task/group/split IDs, stage, agent configuration ID, generation ID, Python/candidate/reference hashes, rubric hash, and judge-input hash; each rating needs its artifact ID, opaque rater ID, pool, ordinal value, timestamp, and assignment record. Each prediction needs probabilities, parsed status, judge/prompt/version IDs, repetition ID, cost receipt, and input hash. The final analysis must be reproducible from these records without exposing identities or sealed ratings in this public repository.
++Coordinate preparation and collection through [`experiments/09_human_rating_collection/`](../09_human_rating_collection/README.md); its inherited packets do not replace this prospective design. Next, create the private task-group manifest and rater assignment from these counts, run the training/validation pilot, set the remaining margins and budgets, and record a dated protocol amendment before collecting final-audit ratings. Each artifact record needs task/group/split IDs, stage, agent configuration ID, generation ID, Python/candidate/reference hashes, rubric hash, and judge-input hash; each rating needs its artifact ID, opaque rater ID, pool, ordinal value, timestamp, and assignment record. Each prediction needs probabilities, parsed status, judge/prompt/version IDs, repetition ID, cost receipt, and input hash. The final analysis must be reproducible from these records without exposing identities or sealed ratings in this public repository.
+ 
+ The adopted plan is preserved verbatim in [sources/gpt_pro_plan_11-06-2026.txt](sources/gpt_pro_plan_11-06-2026.txt), with [hash and source provenance](sources/provenance.json). A dated adoption summary is also in the [Google methodology notes](https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws).
+ 
+diff --git a/experiments/09_human_rating_collection/CKPT_human_rating_collection.md b/experiments/09_human_rating_collection/CKPT_human_rating_collection.md
+new file mode 100644
+index 0000000..6d7d4f8
+--- /dev/null
++++ b/experiments/09_human_rating_collection/CKPT_human_rating_collection.md
+@@ -0,0 +1,30 @@
++# Human-rating collection migration checkpoint
++
++**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/CKPT_human_rating_collection.md>
++
++**TLDR:** Move the active human-rating collection from VeriBench into this experiment without changing delivered materials, opening sealed ratings, or conflating the inherited round with the prospective study.
++
++## State
++
++- Updated: 11-09-2026.
++- Owner: Pi, current human-rating collection session.
++- Canonical task: `~/trustworthy-theorem-judges/experiments/09_human_rating_collection/`.
++- Private working state: `~/trustworthy-theorem-judges/private/09_human_rating_collection/`.
++- Source: VeriBench `experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/human_round/` and its collection utilities.
++- Source checkout contains concurrent changes; preserve its packet/reference edits and unrelated files.
++- Owned detached publication checkout: `~/.worktrees/veribench/human-ratings-move`; remove after the pointer and utility redirects land.
++- Migration: 1,290 private files transferred with matching hashes; four utility redirects and two document redirects verified locally; publication in progress.
++- Current utilities: pinned to committed VeriBench `b292c277e176`, not the older dirty local checkout; matching private snapshot and release helper preserved. Working participant records still have one physical home.
++- Concurrent owner: a separate session owns `PREPARATION_11-09-2026.md`, `scripts/verify_preparation.py`, `private/RATE_TODAY.md`, and the private `preparation_11-09-2026/` record; preserve that work and its publication ownership.
++- Delivery: the concurrent preparation record supersedes the historical deadline; revised individual drafts still require text review and an explicit send instruction.
++- Scientific settings: unchanged; no solver, judge, proof search, or new ratings run.
++- Verification: 17 collection tests pass, including delivered-assignment preservation, emailed submissions, release checks and C17 qualification; both real packet-release gates and the sealed-key digest match. Project and preparation checks passed; all 1,290 transfer hashes and 208 pinned-snapshot/configuration hashes match.
++- Next: publish the two repository changes, verify their remote revisions, remove the owned checkout, then continue collection from the preparation record.
++- Continuation: read this experiment's README and private migration receipt before touching packets or participant records.
++
++## Event log
++
++- 11-09-2026: User explicitly requested the move to this repository's `experiments/`; inventoried legacy consumers and created a detached sparse checkout for VeriBench publication.
++- 11-09-2026: Verified all 1,290 transferred file hashes and ten collection tests; detected concurrent preparation work and linked its current schedule without modifying its private roster or drafts.
++- 11-09-2026: Caught older local utility versions before publication; preserved current committed implementations and their packet-release dependency, retained private sheet bindings, and passed 16 tests plus both real release gates. No real rating was scored.
++- 11-09-2026: Added archive-overwrite protection; all 17 tests pass, including both real inherited packet builds in temporary directories. Reverified 1,290 original and 208 pinned-snapshot/configuration hashes, and all four redirects in both VeriBench checkouts.
+diff --git a/experiments/09_human_rating_collection/MIGRATION.json b/experiments/09_human_rating_collection/MIGRATION.json
+new file mode 100644
+index 0000000..31b4aac
+--- /dev/null
++++ b/experiments/09_human_rating_collection/MIGRATION.json
+@@ -0,0 +1,70 @@
++{
++  "source_repository": "brando90/veribench",
++  "local_snapshot_source_head": "f7fee16c1d74b82891e8945c8bce3a0b2852c39e",
++  "local_snapshot_includes_uncommitted_coordination_and_packet_changes": true,
++  "active_utilities_source_head": "b292c277e176293480a6c63396845f41437bb651",
++  "destination": "experiments/09_human_rating_collection",
++  "private_files_preserved": 1290,
++  "all_private_transfer_hashes_match": true,
++  "local_snapshot_utilities": [
++    {
++      "file": "assign_setN_folders.py",
++      "source_sha256": "31460644938cc088a4d52d33113b22bf5c0114935ff0fc06c8ebf896585b21a2"
++    },
++    {
++      "file": "import_rating_sheet.py",
++      "source_sha256": "a0bbfdba060a659a64f8cded5ab0677ba786d69d8ad40df6ee416910fe3cce96"
++    },
++    {
++      "file": "make_rater_zip.py",
++      "source_sha256": "62752f7619ec8a69ba2faa22f0e61b4ba968297832f7d830cc5eb22baf4a9cae"
++    },
++    {
++      "file": "score_warmup.py",
++      "source_sha256": "c5a63c7f30b5f9ade44a04caf6d7ea07ae52297bad567419f71750c630673a25"
++    }
++  ],
++  "collection_utilities": [
++    {
++      "file": "assign_setN_folders.py",
++      "source_sha256": "866ccc47be48604cf82ccdb65e2d6db6e0e44612af375b9cfd5e94f864fb4737",
++      "ported_sha256": "6a5de27039c823c3ee68060395e20a54bba20609eb82ccac954aaa1f27de5d63"
++    },
++    {
++      "file": "import_rating_sheet.py",
++      "source_sha256": "f05ae1004b74f07697619742c51a914970e4d3db367bf068fabcbe46ea84f518",
++      "ported_sha256": "a0dcfd556381b8ad5f24dfea330ac4bbefe3022362cba656d0fb80fa5d41f857"
++    },
++    {
++      "file": "make_rater_zip.py",
++      "source_sha256": "59d853bcdd18383fdecab47e1f65e2f3d2dc5b8dfc73f2da0a5c95cb6752593d",
++      "ported_sha256": "ebf7dda2bd02917bc0ea2364a85e1ffbf5a928a099263bc956c56008763b217c"
++    },
++    {
++      "file": "packet_release.py",
++      "source_sha256": "0c1bb8bb4a5f6c22eba114f7e87c206e21105cf60b4dfa891137c66f6096551a",
++      "ported_sha256": "d21cf3725a39fa82a8a22d98b44d331afe5c76bb0d442d70d8c4d3a1b9cba398"
++    },
++    {
++      "file": "score_warmup.py",
++      "source_sha256": "0f00fe3dadca1fc5143dc6122f27457ecf21e6b07308e73155169ba95b3d366b",
++      "ported_sha256": "14b5a4bf3ca57a8a380f50092eab0d6a13032ad4160a8ca068813950c7f252e5"
++    }
++  ],
++  "port_adaptations": [
++    "Resolve inputs in the pinned private snapshot, with links to the single private working-state store.",
++    "Read coordinator sheet identifiers from private configuration and omit the personal owner email from the public docstring.",
++    "Refuse to overwrite an existing recipient archive; use a new output directory for a new delivery.",
++    "Close the warm-up CSV reader through Path.read_text without changing scoring.",
++    "Update usage examples for the new repository root and ignored private output paths."
++  ],
++  "collection_tests_passed": 17,
++  "compatibility_entry_points_verified": 4,
++  "private_links_verified": 2,
++  "pinned_snapshot_files_verified": 208,
++  "pinned_snapshot_working_state_links_verified": 2,
++  "packet_releases_verified": 2,
++  "sealed_key_digest_verified": true,
++  "reference_and_candidate_edits": 0,
++  "measured_model_calls": 0
++}
+diff --git a/experiments/09_human_rating_collection/README.md b/experiments/09_human_rating_collection/README.md
+new file mode 100644
+index 0000000..7f18319
+--- /dev/null
++++ b/experiments/09_human_rating_collection/README.md
+@@ -0,0 +1,101 @@
++# Human-rating task preparation and collection
++
++**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/README.md>
++
++**TLDR:** This is the active home for preparing and collecting human ratings of formal specification coverage, with inherited packets and collection records preserved. The current preparation record supplies revised deadlines and individual drafts; collaborator dispatch still requires review of the recipient-specific text and an explicit send instruction.
++
++## Ownership and scope
++
++Brando moved this task from VeriBench on **11-09-2026**. Maintain the collection instructions, packet preparation, approved email, assignment tracking, delivery receipts and collection status here. VeriBench V1's separate direction is formal specification coverage checked by a prover, with artificial intelligence guiding proof search; this move does not change that scorer.
++
++The [prospective probabilistic-judge design](../02_probabilistic_ordinal_judge/README.md) remains the methodology for a new collection. The inherited **set N** (the previously prepared frontier-output rating round) has its own fixed materials, assignment rules and exposure history. Moving it does not turn its outputs or ratings into the prospective study's fresh training, validation or test data.
++
++## Current delivery status — 11-09-2026
++
++**Prepared materials are available; collaborator dispatch is a separate action.** See the [current preparation record](PREPARATION_11-09-2026.md) rather than the old email for the live schedule and individual drafts.
++
++- The preparation record states a preferred finish of **11-13-2026** and final deadline of **11-15-2026**, superseding the historical 11-06-2026 date without rewriting delivered archives.
++- The original approved email names the coordinator's personal sheet and full assignment. The new individual drafts propose the necessary recipient-specific changes; their text approval and dispatch are still separate from this migration.
++- Existing participant records, assignments, returned sheets and delivery receipts moved without changing their contents. New roster decisions and dispatch preparation are recorded separately under `private/09_human_rating_collection/preparation_11-09-2026/`; use that active preparation record instead of treating the imported historical roster as current.
++- The renamed packet has **25 task folders and 125 candidate files**. The team builder creates a separate blank answer sheet while preserving candidate, Python and reference bytes. A successful archive build does not establish recipient-specific delivery readiness.
++- The current preparation record still lists four recipient sheet-permission checks as incomplete. Before sending, finish the recipient, sheet-access, assignment, attachment and approval checks. This migration did not inspect sealed ratings or establish collection completion.
++
++## Files
++
++```text
++09_human_rating_collection/
++├── README.md
++├── MIGRATION.json
++├── PREPARATION_11-09-2026.md
++├── CKPT_human_rating_collection.md
++├── scripts/
++│   ├── verify_preparation.py
++│   ├── make_team_packet.py
++│   └── legacy/
++│       ├── assign_setN_folders.py
++│       ├── import_rating_sheet.py
++│       ├── make_rater_zip.py
++│       ├── packet_release.py
++│       └── score_warmup.py
++└── tests/test_collection.py
++```
++
++### Private materials
++
++This repository is public. The following coordinator paths are ignored, not publication destinations:
++
++| Material | Coordinator path, relative to this repository |
++| --- | --- |
++| Original renamed delivery, unchanged | `private/original/` |
++| Existing team archives, unchanged | `private/team-folder-01.zip`, `private/team-all-folders.zip` |
++| Frozen local coordination documents, packets and sealed materials | `private/09_human_rating_collection/legacy_veribench/human_round/` |
++| Pinned committed source, packet-release records and private sheet bindings | `private/09_human_rating_collection/upstream_source/` |
++| Active preparation, roster, individual drafts and dispatch queue | `private/09_human_rating_collection/preparation_11-09-2026/` |
++| Imported participant records, assignments, submitted sheets and delivery receipts | `private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/` |
++| Coordinator's original delivery and personal records | `private/09_human_rating_collection/legacy_veribench/human_round/private_A1/` |
++| Exact approved email | `private/09_human_rating_collection/legacy_veribench/human_round/RATER_TASK_EMAIL_LOCKED_11-04-2026.md` |
++| Complete file-by-file transfer hashes | `private/09_human_rating_collection/migration_receipt.json` |
++
++The imported `PLAN_setN_rating_round.md` records dated decisions, not the current schedule. Follow [PREPARATION_11-09-2026.md](PREPARATION_11-09-2026.md) for the newer schedule and preparation; preserve the original email's approval history and the localized-assistance wording. Keep delivered archives unchanged; any later approved delivery is a new version with a new receipt. Individual ratings and participant records remain private after collection closes unless separately authorized for release.
++
++## Build a team packet
++
++From `~/trustworthy-theorem-judges`:
++
++```sh
++python3 experiments/09_human_rating_collection/scripts/make_team_packet.py \
++  private/original private/team-folder-01-new.zip --folders 1
++```
++
++Use a new output filename; omit `--folders` for all folders. The builder checks the original delivery manifest and every included file, preserves the scoring rubric apart from its personal-sheet instruction, and includes `START_HERE.md`, `Rating_Instructions.md`, `ratings.csv` and `FILES.sha256`. It does not send anything or modify a delivered packet.
++
++**Keep the sheet layouts distinct.** This builder's renamed `agent_file*.lean` items are not the inherited `Nxx`/`Wxx` item identifiers. The utilities under `scripts/legacy/` serve the inherited sheets only; do not pass a renamed team answer sheet to that importer or infer its item mapping. Preserve explicit item mappings when reconciling later deliveries.
++
++## Current inherited utilities
++
++The local VeriBench checkout was older than its remote branch. The active utilities therefore retain the committed implementation at `b292c277e176`, while the original local files remain separately preserved. Their inputs come from the matching pinned tree under `private/09_human_rating_collection/upstream_source/experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/`; `upstream_source/SOURCE_RECEIPT.json` records its revision and hashes. Its private working-directory links resolve to the single imported participant-record store, not duplicate records.
++
++- Assignment retains `--keep` for already-delivered folders; the assignment utility requires NumPy.
++- Import retains emailed comma-separated value (CSV) submissions, delivery-route and personal-sheet checks, coordinator-only `--all-folders`, and reference-issue handling. Coordinator sheet identifiers live only in private configuration.
++- Warm-up qualification retains amendment C17: the first task (`W01`) determines qualification; the six-file result is a sensitivity, not the qualification verdict. Sealed-key verification, leave-one-expert-out targets, and explicitly permitted missing nonqualifying items remain intact.
++- `packet_release.py` verifies release status, packet hashes and the existing reference-acceptance record before packet building or warm-up scoring. Relocation does not grant release approval.
++- The inherited recipient builder now refuses to overwrite an existing archive. Use a new output directory for a new delivery; its filename and receipt keep the inherited format.
++
++## Migration and historical consumers
++
++[The public transfer receipt](MIGRATION.json) distinguishes the local snapshot revision from the active utility revision and records utility hashes and verification. The complete private inventory preserves **1,290 files** byte-for-byte, including local coordination changes that were not yet committed in VeriBench. No candidate, reference, rating, score or assignment was changed by relocation.
++
++- The four collection utilities and their packet-release helper now run here; VeriBench's former command paths redirect to these implementations.
++- VeriBench's tracked historical packet snapshots and analysis code remain in place because the simulated-rater, judge-transfer and Certification Judge analyses still consume them. They are not a second active collection workflow.
++- The two former ignored private working directories in VeriBench are compatibility links to the new private store, not duplicate copies. The collection owner maintains those links until the inherited analysis consumers are updated; remove them only after checking those consumers. The exact paths are in the private migration receipt.
++- Prospective generation and the old paper rescoring are not moved or resumed. No sealed rating analysis, model inference or proof search is part of this migration.
++
++## Verification
++
++```sh
++python3 -m unittest discover -s experiments/09_human_rating_collection/tests -v
++python3 scripts/check_project.py
++git diff --check
++```
++
++The tests use synthetic packets and submissions, including the current assignment, import, release and qualification rules. When the coordinator's original packet is available, they also verify a real archive build without submitting ratings. Both pinned packet releases and the sealed-key digest were checked separately without scoring real raters. The migration preserves the inherited qualification and assignment algorithms; it does not validate their suitability for the prospective study.
+diff --git a/experiments/09_human_rating_collection/scripts/legacy/assign_setN_folders.py b/experiments/09_human_rating_collection/scripts/legacy/assign_setN_folders.py
+new file mode 100644
+index 0000000..4f2203e
+--- /dev/null
++++ b/experiments/09_human_rating_collection/scripts/legacy/assign_setN_folders.py
+@@ -0,0 +1,133 @@
++# TLDR: Amendment C15 item 5's folder assignment for rating set N: gives each of the 25 task folders two distinct qualified raters within each rater's pledge, pairing one team and one vendor rater per folder while both groups have capacity, and keeps already-delivered folders fixed (--keep); seeded (20261009), zero model calls, uses folder ids only (no system information).
++"""Usage from the trustworthy-theorem-judges root (supply the current private roster and delivered assignments):
++  python3 experiments/09_human_rating_collection/scripts/legacy/assign_setN_folders.py --roster private/ROSTER.csv \
++      [--include-pending] [--keep private/DELIVERED.csv] [--out private/ASSIGNMENT.csv]
++
++ROSTER.csv columns: rater_id, pool (team|vendor), pledged_folders (int), qualified (yes|no|pending), name (optional).
++A1 is never assigned (A1 rates every folder as a sensitivity rater, C8 item 3).
++Without --include-pending only qualified raters get folders; with it, pending raters are planned provisionally
++(for Friday's plan before warm-ups are scored) and marked as such.
++--keep takes an assignment CSV (task_folder, slot, rater_id) of folders already delivered; those rows are pinned
++before anything else is planned, so a re-plan after the roster changes never moves a delivered folder.
++Prints a Markdown summary; writes the assignment CSV (keep it in the git-ignored private_ratings_setN/).
++"""
++import argparse
++import csv
++from pathlib import Path
++
++import numpy as np
++
++# Use the pinned committed snapshot, not the stale shared VeriBench checkout.
++EXP = (Path(__file__).resolve().parents[4] / "private/09_human_rating_collection/upstream_source"
++       / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
++PACKET = EXP / "human_round/sample_setN/packet"
++SEED = 20261009
++PER_FOLDER = 2
++
++
++def load_roster(path, include_pending):
++    raters = []
++    for r in csv.DictReader(line for line in open(path) if not line.startswith("#")):
++        rid = r["rater_id"].strip()
++        status = r["qualified"].strip().lower()
++        if rid == "A1" or status == "no" or (status == "pending" and not include_pending):
++            continue
++        raters.append({"id": rid, "pool": r["pool"].strip().lower(), "pledge": int(r["pledged_folders"]),
++                       "status": status, "left": int(r["pledged_folders"])})
++    return raters
++
++
++def pick(cands, rng):
++    """Most remaining capacity relative to pledge first; seeded random tie-break."""
++    if not cands:
++        return None
++    keys = [(-(c["left"] / c["pledge"]), rng.random()) for c in cands]
++    return cands[min(range(len(cands)), key=lambda i: keys[i])]
++
++
++def load_keep(path, raters):
++    """Delivered (task_folder, rater_id) pairs to pin; every pinned rater must be an eligible rater in the roster."""
++    ids = {r["id"] for r in raters}
++    pinned = {}
++    for r in csv.DictReader(line for line in open(path) if not line.startswith("#")):
++        rid, f = r["rater_id"].strip(), r["task_folder"].strip()
++        if rid not in ids:
++            raise SystemExit(f"--keep: rater {rid} (folder {f}) is not an eligible rater in the roster; fix the roster first")
++        pinned.setdefault(f, []).append(rid)
++    return pinned
++
++
++def assign(folders, raters, seed=SEED, pinned=None):
++    """Pass 1 gives every folder one rater before any folder gets a second (more tasks beat a second rating when
++    capacity is short; C15 simulation). Pass 2 adds a second rater, preferring the other group, so folders get one team
++    and one vendor rater while both groups have capacity. A rater never gets the same folder twice. Pinned
++    (already delivered) folders are filled first and never changed."""
++    rng = np.random.default_rng(seed)
++    order = [folders[i] for i in rng.permutation(len(folders))]
++    plan = {f: [] for f in folders}
++    pool_of = {r["id"]: r["pool"] for r in raters}
++    for f, rids in (pinned or {}).items():
++        if f not in plan:
++            raise SystemExit(f"--keep: unknown folder {f}")
++        for rid in rids:
++            r = next(x for x in raters if x["id"] == rid)
++            if rid in plan[f] or r["left"] <= 0 or len(plan[f]) >= PER_FOLDER:
++                raise SystemExit(f"--keep: cannot pin {rid} to {f} (duplicate, pledge exhausted or folder full)")
++            plan[f].append(rid); r["left"] -= 1
++    for slot in range(PER_FOLDER):
++        for f in order:
++            if len(plan[f]) > slot:
++                continue
++            free = [r for r in raters if r["left"] > 0 and r["id"] not in plan[f]]
++            if plan[f]:
++                other = [r for r in free if r["pool"] != pool_of[plan[f][0]]]
++                free = other or free
++            r = pick(free, rng)
++            if r is None:
++                continue
++            plan[f].append(r["id"]); r["left"] -= 1
++    return plan
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("--roster", required=True)
++    ap.add_argument("--include-pending", action="store_true")
++    ap.add_argument("--keep", default="", help="assignment CSV of already-delivered folders to pin (task_folder, slot, rater_id)")
++    ap.add_argument("--out", default=str(EXP / "human_round/private_ratings_setN/ASSIGNMENT.csv"))
++    ap.add_argument("--folders", type=int, default=0, help="number of folders (default: count N* folders in the final packet)")
++    a = ap.parse_args()
++    n = a.folders or len([p for p in PACKET.glob("N[0-9][0-9]") if p.is_dir()])
++    folders = [f"N{i:02d}" for i in range(1, n + 1)]
++    raters = load_roster(a.roster, a.include_pending)
++    pinned = load_keep(a.keep, raters) if a.keep else {}
++    plan = assign(folders, raters, pinned=pinned)
++    status = {r["id"]: r["status"] for r in raters}
++    Path(a.out).parent.mkdir(parents=True, exist_ok=True)
++    with open(a.out, "w", newline="") as f:
++        w = csv.writer(f)
++        w.writerow(["task_folder", "slot", "rater_id", "provisional"])
++        for fo in folders:
++            for k, rid in enumerate(plan[fo], start=1):
++                w.writerow([fo, k, rid, "yes" if status[rid] == "pending" else "no"])
++    need = PER_FOLDER * len(folders)
++    filled = sum(len(v) for v in plan.values())
++    mixed = sum(1 for v in plan.values() if len({next(r["pool"] for r in raters if r["id"] == x) for x in v}) == 2)
++    print(f"## Set N folder assignment (seed {SEED}){' — PROVISIONAL (includes pending raters)' if a.include_pending else ''}\n")
++    print(f"- Slots filled: {filled}/{need} ({PER_FOLDER} per folder x {len(folders)} folders); unfilled: {need - filled}")
++    print(f"- Folders with one team + one vendor rater: {mixed}/{len(folders)}")
++    print(f"- Capacity offered: {sum(r['pledge'] for r in raters)} folder ratings from {len(raters)} raters")
++    print(f"- Pinned (already delivered, --keep): {sum(len(v) for v in pinned.values())} slots in {len(pinned)} folders\n")
++    print("| Rater | Group | Pledge | Assigned | Folders |\n|---|---|---:|---:|---|")
++    for r in sorted(raters, key=lambda r: r["id"]):
++        mine = [fo for fo in folders if r["id"] in plan[fo]]
++        print(f"| {r['id']}{' (pending)' if r['status'] == 'pending' else ''} | {r['pool']} | {r['pledge']} | {len(mine)} | {', '.join(mine)} |")
++    for k in range(PER_FOLDER):
++        short = [fo for fo in folders if len(plan[fo]) == k]
++        if short:
++            print(f"\nFolders with {k} rater(s): {', '.join(short)}")
++    print(f"\nWrote {a.out}")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/experiments/09_human_rating_collection/scripts/legacy/import_rating_sheet.py b/experiments/09_human_rating_collection/scripts/legacy/import_rating_sheet.py
+new file mode 100644
+index 0000000..55ff63d
+--- /dev/null
++++ b/experiments/09_human_rating_collection/scripts/legacy/import_rating_sheet.py
+@@ -0,0 +1,304 @@
++# TLDR: C15 item 11: check a rater's exported Google Sheet (CSV), or the rating CSV a rater emailed back (--csv, 10-21-2026), against the packet's item ids, the rater's delivered folders and the allowed values, then keep immutable raw and normalized snapshots plus a provenance receipt in the git-ignored private_ratings_setN/; zero model calls.
++"""Usage from the trustworthy-theorem-judges root (keep exports and outputs under private/):
++  python3 experiments/09_human_rating_collection/scripts/legacy/import_rating_sheet.py private/EXPORT.csv --rater T01 --packet setN|warmup \
++      --file-id DRIVE_FILE_ID --source-modified DRIVE_MODIFIED_TIME [--all-folders] \
++      [--out-dir private/IMPORTS] [--receipts <out-dir>/delivery/DELIVERY_RECEIPTS.jsonl]
++  python3 experiments/09_human_rating_collection/scripts/legacy/import_rating_sheet.py --csv private/EMAILED.csv --rater V01 --packet warmup \
++      --source-message-id GMAIL_MESSAGE_ID --source-modified EMAIL_DATE_UTC [--out-dir private/IMPORTS] [--receipts ...]
++
++The second form is the emailed-CSV route (`emailed_csv_v1_2026-10-21`, coordinator ruling 10-21-2026 09:12 PDT): a rater
++whose delivery receipt says "return_route": "emailed_csv" fills the rating_sheet CSV from the zip and emails it back, so
++there is no Drive sheet. The CSV attachment, saved byte for byte, is the export; the receipt records its sha256
++(sha256_export), file name, the Gmail message id, the delivery thread and the email's date (source_modified). The Drive
++route is unchanged. Receipt lines without "folders" (event notes such as a later "sent" record) are not deliveries and
++are skipped.
++
++Rejects the import (exit 1, nothing written) when:
++  - required columns are missing, or no row has a final score;
++  - a scored row has no item_id, or an item_id is unknown or appears twice;
++  - a scored item lies outside the folders delivered to this rater (`--all-folders` only for A1, who rates everything);
++  - the Drive file id is not the personal sheet delivered to this rater (packet v5 receipts carry sheet_id; A1 uses private coordinator sheet bindings),
++    or `--all-folders` is used for anyone but A1;
++  - `--csv` is used for a rater whose latest delivery receipt does not say "return_route": "emailed_csv", or a Drive
++    export is given for one whose receipt does; the two routes never mix, and `--csv` takes no Drive file id;
++  - the export is not UTF-8 text;
++  - the sheet names no rater, or more than one, in `rater_id`;
++  - a value is outside its allowed set, minutes are not a nonnegative number, or lean_familiarity differs between rows;
++  - a warm-up sheet does not score all six warm-up items, except W02 items named with `--reference-issue-items`
++    (C17 addendum of 10-20-2026): those rows must read N/A in final_score_0_5 and carry a stated reference problem
++    in rationale or problem_note; they are kept in the raw snapshot and the receipt, never as scores, and W01 items
++    (the C17 qualification task) can never be named.
++Every accepted import is kept: raw/ and normalized/ get UTC-stamped snapshots that are never overwritten,
++<packet>_<rater>.csv is the latest normalized copy, and RECEIPTS.jsonl logs each import.
++"""
++import argparse
++import csv
++import hashlib
++import io
++import json
++import math
++import sys
++from datetime import datetime, timezone
++from pathlib import Path
++
++# Use the pinned committed snapshot, not the stale shared VeriBench checkout.
++EXP = (Path(__file__).resolve().parents[4] / "private/09_human_rating_collection/upstream_source"
++       / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
++TEMPLATES = {"setN": EXP / "human_round/sample_setN/rating_sheet_TEMPLATE.csv",  # packet v2+: template beside packet/
++             "warmup": EXP / "human_round/warmup/rating_sheet_TEMPLATE.csv"}
++REQUIRED = ("rater_id", "item_id", "final_score_0_5")
++A1_SHEETS_PATH = EXP / "personal_sheet_ids.json"  # Private coordinator sheet bindings.
++ALLOWED = {"A": {"y", "n"}, "B": {"y", "n"}, "C": {"y", "n"}, "D": {"handful", "dominates", "n/a"},
++           "confidence": {"low", "med", "high"}, "lean_familiarity": {"none", "some", "fluent"}}
++YESNO = {"yes": "y", "no": "n"}
++SYNONYMS = {"confidence": {"medium": "med"}}  # C17 addendum 10-20-2026: the spelled-out value of the template's "med"
++NA = {"n/a", "na"}
++QUALIFY_TASKS = ("W01",)  # amendment C17: these warm-up items can never be excused as reference-issue rows
++CSV_ROUTE = "emailed_csv_v1_2026-10-21"  # coordinator ruling 10-21-2026 09:12 PDT: a rating_sheet CSV returned by email
++CONTENT = ("final_score_0_5", "A", "B", "C", "D", "base_score_0_5", "confidence", "rationale", "problem_note", "minutes_spent")
++
++
++def read_rows(text):
++    """Skip only the leading template comment lines, so '#' inside a quoted multi-line note survives."""
++    lines = text.splitlines(keepends=True)
++    i = 0
++    while i < len(lines) and lines[i].startswith("#"):
++        i += 1
++    reader = csv.DictReader(io.StringIO("".join(lines[i:])))
++    return list(reader.fieldnames or []), list(reader)
++
++
++def score(v):
++    v = (v or "").strip()
++    if v == "":
++        return None
++    f = float(v)
++    if not math.isfinite(f) or f != int(f) or not 0 <= f <= 5:
++        raise ValueError(v)
++    return int(f)
++
++
++def check(text, rater, expected_ids, allowed_folders, packet, ref_issue_items=frozenset()):
++    fields, raw_rows = read_rows(text)
++    errors, warnings, out, seen, names, fams = [], [], [], set(), set(), set()
++    ref_issue = {}
++    missing_cols = [c for c in REQUIRED if c not in fields]
++    if missing_cols:
++        return [], [f"missing required columns: {missing_cols}"], [], None, {}
++    for n, r in enumerate(raw_rows, start=2):
++        r = {k: (v or "") for k, v in r.items() if k is not None}
++        iid = r.get("item_id", "").strip()
++        has_content = any(r.get(k, "").strip() for k in CONTENT)
++        if not iid:
++            if has_content:
++                errors.append(f"row {n}: has ratings but no item_id")
++            continue
++        if iid not in expected_ids:
++            errors.append(f"row {n}: unknown item_id {iid!r}")
++            continue
++        if not has_content:
++            continue
++        if iid in seen:
++            errors.append(f"row {n}: duplicate item_id {iid!r}")
++            continue
++        seen.add(iid)
++        if iid in ref_issue_items:
++            note = " / ".join(x for x in (r.get("rationale", "").strip(), r.get("problem_note", "").strip()) if x)
++            if r.get("final_score_0_5", "").strip().lower() not in NA:
++                errors.append(f"row {n} ({iid}): named as a reference-issue row but final_score_0_5 is not N/A")
++            elif not note:
++                errors.append(f"row {n} ({iid}): reference-issue row states no problem in rationale or problem_note")
++            else:
++                ref_issue[iid] = note
++                name = r.get("rater_id", "").strip()
++                if name:
++                    names.add(name)
++            continue
++        try:
++            fs, bs = score(r.get("final_score_0_5")), score(r.get("base_score_0_5"))
++        except ValueError as e:
++            errors.append(f"row {n} ({iid}): score must be a whole number 0-5, got {e.args[0]!r}")
++            continue
++        if fs is None:
++            warnings.append(f"row {n} ({iid}): notes but no final_score_0_5 (row dropped)")
++            continue
++        folder = iid[:3]
++        if allowed_folders is not None and folder not in allowed_folders:
++            errors.append(f"row {n} ({iid}): folder {folder} was not delivered to this rater")
++        for k, ok in ALLOWED.items():
++            v = r.get(k, "").strip().lower()
++            v = YESNO.get(v, v) if k in ("A", "B", "C") else SYNONYMS.get(k, {}).get(v, v)
++            if v and v not in ok:
++                errors.append(f"row {n} ({iid}): {k}={r.get(k)!r} not in {sorted(ok)}")
++            if k in fields:
++                r[k] = v
++        mins = r.get("minutes_spent", "").strip()
++        if mins:
++            try:
++                m = float(mins)
++                if not math.isfinite(m) or m < 0:
++                    raise ValueError
++            except ValueError:
++                errors.append(f"row {n} ({iid}): minutes_spent must be a nonnegative number, got {mins!r}")
++        if r.get("lean_familiarity"):
++            fams.add(r["lean_familiarity"])
++        name = r.get("rater_id", "").strip()
++        if name:
++            names.add(name)
++        r.update(item_id=iid, task_folder=r.get("task_folder", "").strip(), rater_id=rater,
++                 final_score_0_5=fs, base_score_0_5="" if bs is None else bs)
++        out.append(r)
++    if not out:
++        errors.append("no row has a final_score_0_5")
++    if not names:
++        errors.append("rater_id is empty on every rated row")
++    elif len(names) > 1:
++        errors.append(f"more than one rater_id in one sheet: {sorted(names)}")
++    if len(fams) > 1:
++        errors.append(f"lean_familiarity differs between rows: {sorted(fams)}")
++    if packet == "warmup":
++        missing = sorted(expected_ids - {r["item_id"] for r in out} - set(ref_issue))
++        if missing:
++            errors.append(f"warm-up incomplete: no final score for {missing}")
++    elif allowed_folders is not None:
++        unrated = sorted(i for i in expected_ids if i[:3] in allowed_folders and i not in {r["item_id"] for r in out})
++        if unrated:
++            warnings.append(f"partial submission: {len(unrated)} delivered items unrated ({unrated[:5]}...)")
++    unused = sorted(set(ref_issue_items) - set(ref_issue))
++    if unused:
++        errors.append(f"--reference-issue-items {unused} are not N/A reference-issue rows in this sheet")
++    return out, errors, warnings, (sorted(names)[0] if len(names) == 1 else None), ref_issue
++
++
++def latest_receipt(receipts, rater, packet):
++    """The rater's latest delivery receipt for this packet, or None. A line without "folders" is an event note
++    (for example a later "sent" record), not a delivery, and is skipped."""
++    found = None
++    if receipts.exists():
++        for line in receipts.read_text().splitlines():
++            if not line.strip():
++                continue
++            rec = json.loads(line)
++            if rec.get("rater") == rater and rec.get("packet") == packet and "folders" in rec:
++                found = rec  # the latest delivery wins
++    return found
++
++
++def delivered_folders(receipts, rater, packet):
++    rec = latest_receipt(receipts, rater, packet)
++    return set(rec["folders"]) if rec else None
++
++
++def delivered_sheet(receipts, rater, packet):
++    rec = latest_receipt(receipts, rater, packet)
++    return rec.get("sheet_id") if rec else None
++
++
++def personal_sheet(packet):
++    if not A1_SHEETS_PATH.is_file():
++        raise SystemExit("ERROR private coordinator sheet configuration is missing; restore it before importing")
++    return json.loads(A1_SHEETS_PATH.read_text())[packet]
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("export", nargs="?", help="CSV exported from the rater's Drive sheet (Drive route)")
++    ap.add_argument("--csv", metavar="PATH", help=f"emailed-CSV route ({CSV_ROUTE}): the rating_sheet CSV the rater "
++                    "emailed back, saved byte for byte; needs --source-message-id and --source-modified")
++    ap.add_argument("--rater", required=True)
++    ap.add_argument("--packet", choices=sorted(TEMPLATES), required=True)
++    ap.add_argument("--file-id", help="Drive route: Drive file id of the rater's shared sheet")
++    ap.add_argument("--source-modified", help="the sheet's Drive modifiedTime at export (with --csv: the date of the email "
++                    "that carries the CSV, UTC)")
++    ap.add_argument("--source-message-id", help="--csv only: Gmail message id of the rater's email that carries the CSV")
++    ap.add_argument("--all-folders", action="store_true", help="A1 only: rates every folder, no delivery receipt")
++    ap.add_argument("--out-dir", default=str(EXP / "human_round/private_ratings_setN"))
++    ap.add_argument("--receipts", default="")
++    ap.add_argument("--reference-issue-items", default="",
++                    help="warm-up only (C17 addendum 10-20-2026): comma-separated W02 item ids left N/A for a stated reference problem")
++    a = ap.parse_args()
++    if a.csv:
++        clash = [f for f, v in (("EXPORT", a.export), ("--file-id", a.file_id), ("--all-folders", a.all_folders)) if v]
++        if clash:
++            ap.error(f"--csv (emailed-CSV route) cannot be combined with {', '.join(clash)}")
++        need = (("--source-message-id", a.source_message_id), ("--source-modified", a.source_modified))
++    else:
++        if a.source_message_id:
++            ap.error("--source-message-id belongs to the emailed-CSV route (--csv)")
++        need = (("export", a.export), ("--file-id", a.file_id), ("--source-modified", a.source_modified))
++    missing = [f for f, v in need if not v]
++    if missing:
++        ap.error(f"the following arguments are required: {', '.join(missing)}")
++    ref_items = frozenset(x.strip() for x in a.reference_issue_items.split(",") if x.strip())
++    out_dir = Path(a.out_dir)
++    receipts = Path(a.receipts) if a.receipts else out_dir / "delivery" / "DELIVERY_RECEIPTS.jsonl"
++    raw = Path(a.csv or a.export).read_bytes()
++    try:
++        text = raw.decode("utf-8-sig").replace("\r\n", "\n")
++    except UnicodeDecodeError as e:
++        sys.exit(f"ERROR the export is not UTF-8 text ({e}); ask the rater to save it as CSV UTF-8")
++    tfields, trows = read_rows(TEMPLATES[a.packet].read_text())
++    expected = {r["item_id"] for r in trows}
++    allowed = None if a.all_folders else delivered_folders(receipts, a.rater, a.packet)
++    if allowed is None and not a.all_folders:
++        sys.exit(f"ERROR no delivery receipt for {a.rater}/{a.packet} in {receipts} (use --all-folders only for A1)")
++    if a.all_folders and a.rater != "A1":
++        sys.exit("ERROR --all-folders is only for rater A1")
++    delivery = None if a.all_folders else latest_receipt(receipts, a.rater, a.packet)
++    route = (delivery or {}).get("return_route")
++    if a.csv and route != "emailed_csv":
++        sys.exit(f"ERROR --csv: the delivery receipt for {a.rater}/{a.packet} does not say return_route emailed_csv")
++    if not a.csv and route == "emailed_csv":
++        sys.exit(f"ERROR {a.rater}/{a.packet} returns an emailed CSV (delivery receipt return_route); import it with --csv")
++    if not a.csv:
++        # A1 rates from fixed personal sheets; every other rater's sheet comes from their delivery receipt (packet v5).
++        sheet = personal_sheet(a.packet) if a.all_folders else delivered_sheet(receipts, a.rater, a.packet)
++        if not sheet:
++            sys.exit(f"ERROR the delivery receipt for {a.rater}/{a.packet} has no sheet id (pre-v5 delivery); re-deliver with make_rater_zip.py")
++        if sheet != a.file_id:
++            sys.exit(f"ERROR file id {a.file_id} is not the sheet delivered to {a.rater}/{a.packet} ({sheet})")
++    if ref_items and a.packet != "warmup":
++        sys.exit("ERROR --reference-issue-items is only for the warm-up packet")
++    bad = sorted(i for i in ref_items if i not in expected or i.startswith(QUALIFY_TASKS))
++    if bad:
++        sys.exit(f"ERROR --reference-issue-items {bad}: unknown, or in the C17 qualification task {QUALIFY_TASKS}")
++    rows, errors, warnings, submitted, ref_issue = check(text, a.rater, expected, allowed, a.packet, ref_items)
++    for w in warnings:
++        print("WARN", w)
++    if errors:
++        for e in errors:
++            print("ERROR", e)
++        sys.exit(1)
++    buf = io.StringIO()
++    w = csv.DictWriter(buf, fieldnames=tfields, extrasaction="ignore", lineterminator="\n")
++    w.writeheader()
++    w.writerows(sorted(rows, key=lambda r: r["item_id"]))
++    norm = buf.getvalue().encode()
++    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
++    base = f"{a.packet}_{a.rater}"
++    for sub, data in (("raw", raw), ("normalized", norm)):
++        (out_dir / sub).mkdir(parents=True, exist_ok=True)
++        snap = out_dir / sub / f"{base}_{stamp}.csv"
++        if snap.exists():
++            sys.exit(f"ERROR snapshot {snap} already exists; refusing to overwrite")
++        snap.write_bytes(data)
++    (out_dir / f"{base}.csv").write_bytes(norm)
++    source = {"source_file_id": a.file_id, "source_modified": a.source_modified}
++    if a.csv:  # emailed-CSV route: no Drive file, and sha256_export below is the emailed CSV's sha256
++        source = {"source_route": CSV_ROUTE, "source_file_id": None, "source_csv_name": Path(a.csv).name,
++                  "source_message_id": a.source_message_id, "source_thread_id": delivery.get("thread_id"),
++                  "source_modified": a.source_modified}
++    receipt = {"rater": a.rater, "submitted_rater_id": submitted, "packet": a.packet, **source, "imported_utc": stamp,
++               "folders_allowed": sorted(allowed) if allowed is not None else "all",
++               "sha256_export": hashlib.sha256(raw).hexdigest(), "sha256_normalized": hashlib.sha256(norm).hexdigest(),
++               "rows_rated": len(rows), "warnings": warnings,
++               **({"reference_issue_items": ref_issue, "reference_issue_rule": "C17 addendum 10-20-2026"} if ref_issue else {}),
++               "snapshots": [f"raw/{base}_{stamp}.csv", f"normalized/{base}_{stamp}.csv"]}
++    with open(out_dir / "RECEIPTS.jsonl", "a") as f:
++        f.write(json.dumps(receipt) + "\n")
++    print(f"OK {a.rater} ({submitted}) {a.packet}: {len(rows)} rated rows; snapshots {stamp}; "
++          f"sha256 {receipt['sha256_normalized'][:12]}")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/experiments/09_human_rating_collection/scripts/legacy/make_rater_zip.py b/experiments/09_human_rating_collection/scripts/legacy/make_rater_zip.py
+new file mode 100644
+index 0000000..aeebc1b
+--- /dev/null
++++ b/experiments/09_human_rating_collection/scripts/legacy/make_rater_zip.py
+@@ -0,0 +1,105 @@
++# TLDR: C15 item 11 delivery: builds one rater's self-contained zip (the packet's instructions plus only that rater's assigned folders, byte-identical to the repo, plus YOUR_RATING_SHEET.txt with the rater's personal Google Sheet link, all listed in a matching FILES.sha256) and logs its contents, sheet and SHA-256 in DELIVERY_RECEIPTS.jsonl; zero model calls.
++"""Usage from the trustworthy-theorem-judges root:
++  python3 experiments/09_human_rating_collection/scripts/legacy/make_rater_zip.py --packet setN --rater T01 --folders N03,N17 --sheet-url URL --share-email EMAIL [--out-dir private/NEW_DELIVERY]
++  python3 experiments/09_human_rating_collection/scripts/legacy/make_rater_zip.py --packet warmup --rater T01 --sheet-url URL --share-email EMAIL
++
++URL is the rater's personal sheet for that packet (owned by the coordinator, shared with the rater's Google account(s) as editor, rater code pre-filled);
++add --share-email with those account(s).
++"""
++import argparse
++import hashlib
++import io
++import json
++import re
++import zipfile
++from urllib.parse import urlsplit
++from datetime import datetime, timezone
++from pathlib import Path
++from packet_release import require_release
++
++# Use the pinned committed snapshot, not the stale shared VeriBench checkout.
++EXP = (Path(__file__).resolve().parents[4] / "private/09_human_rating_collection/upstream_source"
++       / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
++PACKETS = {"setN": EXP / "human_round/sample_setN/packet", "warmup": EXP / "human_round/warmup/packet"}
++DOCS = ("START_HERE.md", "human_judgements_prompt.md")
++SHEET_PATH = re.compile(r"^/spreadsheets/d/([A-Za-z0-9_-]{20,})(/[A-Za-z]*)?/?$")
++SHEET_NOTE = """Your rating sheet (rater {rater}), for this packet only:
++{url}
++
++It is shared with you as an editor ({emails}); open it while signed in to Google with {that}.
++Type straight into it; it saves as you go. There is nothing to copy, share or send.
++Please don't forward this link.
++"""
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("--packet", choices=sorted(PACKETS), required=True)
++    ap.add_argument("--rater", required=True)
++    ap.add_argument("--folders", default="", help="setN: required comma-separated assigned folders; warmup: always every folder")
++    ap.add_argument("--sheet-url", required=True, help="the rater's personal Google Sheet for this packet")
++    ap.add_argument("--share-email", required=True, help="comma-separated Google account(s) the sheet is shared with as editor")
++    ap.add_argument("--out-dir", default=str(EXP / "human_round/private_ratings_setN/delivery"))
++    a = ap.parse_args()
++    require_release(a.packet)
++    u = urlsplit(a.sheet_url.strip())  # query strings and #gid fragments are dropped
++    m = SHEET_PATH.match(u.path) if (u.scheme, u.netloc) == ("https", "docs.google.com") else None
++    if not m:
++        raise SystemExit(f"--sheet-url must be a Google Sheets link, got {a.sheet_url!r}")
++    sheet_id = m.group(1)
++    sheet_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/edit"
++    pk = PACKETS[a.packet]
++    if b"YOUR_RATING_SHEET.txt" not in (pk / "START_HERE.md").read_bytes():
++        raise SystemExit(f"{a.packet} packet START_HERE.md predates v5 (no personal-sheet step); rebuild the packet first")
++    listing = {line[66:].strip(): line[:64] for line in (pk / "FILES.sha256").read_text().splitlines() if line.strip()}
++    all_folders = sorted({p.split("/")[0] for p in listing if "/" in p})
++    asked = [f.strip() for f in a.folders.split(",") if f.strip()]
++    if a.packet == "setN" and not asked:
++        raise SystemExit("--folders is required for setN (the rater's assigned folders)")
++    if a.packet == "warmup" and asked and sorted(asked) != all_folders:
++        raise SystemExit("the warm-up always ships complete; omit --folders")
++    folders = asked or all_folders
++    missing = [f for f in folders if f not in all_folders]
++    if missing:
++        raise SystemExit(f"unknown folders: {missing}")
++    chosen = [p for p in listing if p in DOCS or p.split("/")[0] in folders]
++    for p in chosen:  # every shipped file must still match the committed packet
++        if hashlib.sha256((pk / p).read_bytes()).hexdigest() != listing[p]:
++            raise SystemExit(f"{p} differs from FILES.sha256; refusing")
++    top = f"VeriBench_{a.packet}_{a.rater}"
++    emails = [e.strip() for e in a.share_email.split(",") if e.strip()]
++    if not emails or not all(re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", e) for e in emails):
++        raise SystemExit(f"--share-email must list email addresses, got {a.share_email!r}")
++    note = SHEET_NOTE.format(rater=a.rater, url=sheet_url, emails=" or ".join(emails),
++                              that="that address" if len(emails) == 1 else "one of those addresses").encode()
++    entries = {p: listing[p] for p in chosen}
++    entries["YOUR_RATING_SHEET.txt"] = hashlib.sha256(note).hexdigest()
++    sub_listing = "".join(f"{entries[p]}  {p}\n" for p in sorted(entries))
++    stamp = (2026, 10, 9, 0, 0, 0)
++    buf = io.BytesIO()
++    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
++        for p in sorted(chosen):
++            info = zipfile.ZipInfo(f"{top}/{p}", date_time=stamp)
++            info.compress_type = zipfile.ZIP_DEFLATED
++            z.writestr(info, (pk / p).read_bytes())
++        for name, data in (("YOUR_RATING_SHEET.txt", note), ("FILES.sha256", sub_listing.encode())):
++            info = zipfile.ZipInfo(f"{top}/{name}", date_time=stamp)
++            info.compress_type = zipfile.ZIP_DEFLATED
++            z.writestr(info, data)
++    out = Path(a.out_dir)
++    out.mkdir(parents=True, exist_ok=True)
++    dest = out / f"{top}.zip"
++    with dest.open("xb") as stream:  # A delivered archive is immutable; use a new output directory.
++        stream.write(buf.getvalue())
++    receipt = {"rater": a.rater, "packet": a.packet, "folders": folders, "files": len(chosen) + 2,
++               "sheet_id": sheet_id, "sheet_url": sheet_url, "shared_with": emails,
++               "zip": dest.name, "zip_sha256": hashlib.sha256(buf.getvalue()).hexdigest(),
++               "files_sha256_listing": hashlib.sha256(sub_listing.encode()).hexdigest(),
++               "built_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")}
++    with open(out / "DELIVERY_RECEIPTS.jsonl", "a") as f:
++        f.write(json.dumps(receipt) + "\n")
++    print(f"OK {dest} ({len(folders)} folders, {len(chosen) + 2} files, sheet {sheet_id[:10]}..., sha256 {receipt['zip_sha256'][:12]})")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/experiments/09_human_rating_collection/scripts/legacy/packet_release.py b/experiments/09_human_rating_collection/scripts/legacy/packet_release.py
+new file mode 100644
+index 0000000..a004438
+--- /dev/null
++++ b/experiments/09_human_rating_collection/scripts/legacy/packet_release.py
+@@ -0,0 +1,29 @@
++# TLDR: Refuse packet delivery and rater qualification when the current packet has unresolved reference defects or an unverified release record.
++import hashlib
++import json
++from pathlib import Path
++
++# Use the pinned committed snapshot, not the stale shared VeriBench checkout.
++EXP = (Path(__file__).resolve().parents[4] / "private/09_human_rating_collection/upstream_source"
++       / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
++STATUS = EXP / "human_round/PACKET_STATUS.json"
++PACKETS = {"warmup": EXP / "human_round/warmup/packet", "setN": EXP / "human_round/sample_setN/packet"}
++
++
++def require_release(packet, status_path=STATUS):
++    state = json.loads(Path(status_path).read_text())["packets"][packet]
++    if state.get("status") != "RELEASED":
++        raise SystemExit(f"{packet}: HOLD — {state['reason']} See human_round/PACKET_STATUS.json.")
++    listing = PACKETS[packet] / "FILES.sha256"
++    if hashlib.sha256(listing.read_bytes()).hexdigest() != state.get("files_sha256_digest"):
++        raise SystemExit(f"{packet}: release digest does not match packet; audit the changed version first")
++    if not state.get("acceptance_record"):
++        raise SystemExit(f"{packet}: no reference acceptance record")
++    acceptance = Path(status_path).resolve().parent / state["acceptance_record"]
++    if not acceptance.is_file() or hashlib.sha256(acceptance.read_bytes()).hexdigest() != state.get("acceptance_record_sha256"):
++        raise SystemExit(f"{packet}: reference acceptance record is missing or changed")
++    for line in listing.read_text().splitlines():
++        digest, rel = line.split(maxsplit=1)
++        path = PACKETS[packet] / rel.lstrip("*")
++        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
++            raise SystemExit(f"{packet}: source changed after release: {rel}")
+diff --git a/experiments/09_human_rating_collection/scripts/legacy/score_warmup.py b/experiments/09_human_rating_collection/scripts/legacy/score_warmup.py
+new file mode 100644
+index 0000000..9e073e4
+--- /dev/null
++++ b/experiments/09_human_rating_collection/scripts/legacy/score_warmup.py
+@@ -0,0 +1,121 @@
++# TLDR: Scores returned C15 warm-up sheets against the sealed May expert means under amendment C17 (qualify on W01a-c only, mean absolute difference <= 1.0; the six-file W01+W02 value is printed as a disclosed sensitivity, never a verdict), per rater: qualifying MAE, six-file MAE, per-folder MAE, verdict, Lean familiarity and minutes; a rater who was one of the three May experts is scored against the other two experts' mean (--leave-out-expert); refuses duplicate or incomplete sheets and any key whose digest is not the sealed one; zero model calls, writes nothing.
++"""Usage from the trustworthy-theorem-judges root:
++  python3 experiments/09_human_rating_collection/scripts/legacy/score_warmup.py private/SHEET.csv [private/SHEET2.csv ...] [--qualify-task W01] [--key PATH] [--synthetic-key]
++  python3 experiments/09_human_rating_collection/scripts/legacy/score_warmup.py private/SHEET.csv --leave-out-expert K   (one sheet; K = 1, 2 or 3)
++(Use the normalized copies written by import_rating_sheet.py.)
++
++--qualify-task  folder(s) whose items decide qualification; default W01 (amendment C17); repeat the flag for more
++                folders; ALL = every warm-up item (the pre-C17 C15 rule, now reported only as a sensitivity).
++--key           the sealed key (default: the pinned private snapshot); its SHA-256 digest must equal
++                sealed_key_sha256 in that snapshot's human_round/warmup/WARMUP_MANIFEST.json.
++--synthetic-key self-test only: accept a key whose digest is not the sealed one; every line is then marked SYNTHETIC.
++--allow-missing-nonqualifying  C17 addendum (10-20-2026): score a sheet whose only missing items lie outside the
++                qualification task (W02 rows the importer recorded as N/A reference-issue rows); the verdict uses the
++                qualification items as usual and the six-file sensitivity is printed as unavailable.
++--leave-out-expert K  leave-one-out target for a rater who was May expert pK (p1-p3; the key's expert_scores_0_5
++                are [p1, p2, p3]): every item's target becomes the mean of the other two experts' May scores, so the
++                rater's own May rating never sits in their target (Brando, 10-20-2026). Scores exactly one sheet. The
++                lenient May raters (p4, p5) and raters new to the May round keep the three-expert mean.
++
++Never show a rater the key or other raters' results before every set-N sheet is in.
++"""
++import argparse
++import csv
++import hashlib
++import io
++import json
++from pathlib import Path
++from packet_release import require_release
++
++# Use the pinned committed snapshot, not the stale shared VeriBench checkout.
++EXP = (Path(__file__).resolve().parents[4] / "private/09_human_rating_collection/upstream_source"
++       / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
++KEY = EXP / "human_round/warmup/sealed/WARMUP_KEY.json"
++MANIFEST = EXP / "human_round/warmup/WARMUP_MANIFEST.json"
++DEFAULT_QUALIFY = ["W01"]  # amendment C17, 10-13-2026
++
++
++def read_rows(path):
++    lines = Path(path).read_text().splitlines(keepends=True)
++    i = 0
++    while i < len(lines) and lines[i].startswith("#"):  # only the leading template comment
++        i += 1
++    return list(csv.DictReader(io.StringIO("".join(lines[i:]))))
++
++
++def mae(scored, target, items):
++    return sum(abs(s - target[i]) for i, s in scored if i in items) / len(items)
++
++
++def main(paths, qualify_tasks, key_path, synthetic, allow_missing_nonqualifying=False, leave_out_expert=None):
++    require_release("warmup")
++    if leave_out_expert is not None and len(paths) != 1:
++        raise SystemExit("--leave-out-expert scores one rater; pass exactly one sheet")
++    key_bytes = Path(key_path).read_bytes()
++    sealed = json.loads(MANIFEST.read_text())["sealed_key_sha256"]
++    digest = hashlib.sha256(key_bytes).hexdigest()
++    if digest != sealed and not synthetic:
++        raise SystemExit(f"key {key_path} has digest {digest[:12]}..., not the sealed {sealed[:12]}...; refusing to score")
++    tag = " [SYNTHETIC KEY, self-test only]" if digest != sealed else ""
++    key = json.loads(key_bytes)
++    cutoff = key["cutoff_mae_0_5"]
++    target = {k["item_id"]: k["expert_mean_0_5"] for k in key["items"]}
++    loo_txt = ""
++    if leave_out_expert is not None:
++        short = sorted(k["item_id"] for k in key["items"]
++                       if len(k.get("expert_scores_0_5") or []) != 3 or None in k["expert_scores_0_5"])
++        if short:
++            raise SystemExit(f"--leave-out-expert needs three May expert scores per item; not available for {short}")
++        target = {k["item_id"]: sum(s for j, s in enumerate(k["expert_scores_0_5"], 1) if j != leave_out_expert) / 2
++                  for k in key["items"]}
++        loo_txt = f" against the leave-one-out target (May expert p{leave_out_expert} omitted)"
++    folders = sorted({i[:3] for i in target})
++    q_tasks = folders if qualify_tasks == ["ALL"] else qualify_tasks
++    unknown = [t for t in q_tasks if t not in folders]
++    if unknown:
++        raise SystemExit(f"--qualify-task {unknown} not in the warm-up folders {folders}")
++    q_items = sorted(i for i in target if i[:3] in q_tasks)
++    rule = f"C17 qualification on {', '.join(q_items)}" if q_tasks != folders else f"qualification on all {len(target)} items (C15 rule)"
++    rule += loo_txt
++    for p in paths:
++        rows = [r for r in read_rows(p) if (r.get("item_id") or "").strip() in target]
++        scored = [((r["item_id"] or "").strip(), float(r["final_score_0_5"])) for r in rows
++                  if (r.get("final_score_0_5") or "").strip()]
++        rater = next((r["rater_id"] for r in rows if (r.get("rater_id") or "").strip()), Path(p).stem)
++        ids = [i for i, _ in scored]
++        dups = sorted({i for i in ids if ids.count(i) > 1})
++        missing = sorted(set(target) - set(ids))
++        excused = allow_missing_nonqualifying and not dups and missing and not set(missing) & set(q_items)
++        if (dups or missing) and not excused:
++            print(f"{rater}: NOT SCORED (duplicates {dups}, missing {missing}){tag}")
++            continue
++        mae_q = mae(scored, target, q_items)
++        mae_all = None if missing else mae(scored, target, sorted(target))
++        have = {i for i, _ in scored}
++        by_folder = ", ".join(f"{f} {mae(scored, target, [i for i in target if i[:3] == f]):.2f}"
++                              if all(i in have for i in target if i[:3] == f) else f"{f} unavailable" for f in folders)
++        fam = sorted({(r.get("lean_familiarity") or "").strip().lower() for r in rows} - {""})
++        mins = [(r.get("minutes_spent") or "").strip() for r in rows]
++        known = [float(m) for m in mins if m]
++        mins_txt = f"{sum(known):g}" + (f" ({mins.count('')} of {len(mins)} files missing)" if mins.count("") else "")
++        verdict = "QUALIFIES" if round(mae_q, 9) <= cutoff else "does not qualify (extra ratings only)"
++        if mae_all is None:
++            six_txt = f"unavailable (not rated: {', '.join(missing)}; C17 addendum 10-20-2026)"
++        else:
++            six_txt = f"{mae_all:.2f} (would {'QUALIFIES' if round(mae_all, 9) <= cutoff else 'does not qualify'})"
++        print(f"{rater}: {rule}: mean abs diff {mae_q:.2f} (cutoff {cutoff}) -> {verdict}; "
++              f"six-file sensitivity (C15 rule, not a target): {six_txt}; by folder: {by_folder}; "
++              f"lean {fam or ['missing']}; minutes {mins_txt}{tag}")
++
++
++if __name__ == "__main__":
++    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
++    ap.add_argument("sheets", nargs="+")
++    ap.add_argument("--qualify-task", action="append", default=None)
++    ap.add_argument("--key", default=str(KEY))
++    ap.add_argument("--synthetic-key", action="store_true")
++    ap.add_argument("--allow-missing-nonqualifying", action="store_true")
++    ap.add_argument("--leave-out-expert", type=int, choices=(1, 2, 3), default=None)
++    a = ap.parse_args()
++    main(a.sheets, a.qualify_task or DEFAULT_QUALIFY, a.key, a.synthetic_key, a.allow_missing_nonqualifying,
++         a.leave_out_expert)
+diff --git a/scripts/make_team_packet.py b/experiments/09_human_rating_collection/scripts/make_team_packet.py
+similarity index 100%
+rename from scripts/make_team_packet.py
+rename to experiments/09_human_rating_collection/scripts/make_team_packet.py
+diff --git a/experiments/09_human_rating_collection/tests/test_collection.py b/experiments/09_human_rating_collection/tests/test_collection.py
+new file mode 100644
+index 0000000..596d26c
+--- /dev/null
++++ b/experiments/09_human_rating_collection/tests/test_collection.py
+@@ -0,0 +1,339 @@
++"""Check packet preservation and inherited import rules without reading real ratings."""
++import contextlib
++import csv
++import hashlib
++import importlib.util
++import io
++import json
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++import unittest
++from unittest.mock import patch
++from zipfile import ZipFile
++
++EXPERIMENT = Path(__file__).resolve().parents[1]
++ROOT = EXPERIMENT.parents[1]
++
++
++def load(name, path):
++    spec = importlib.util.spec_from_file_location(name, path)
++    module = importlib.util.module_from_spec(spec)
++    with patch.object(sys, "path", [str(path.parent), *sys.path]):
++        spec.loader.exec_module(module)
++    return module
++
++
++BUILDER = load("collection_packet", EXPERIMENT / "scripts/make_team_packet.py")
++IMPORTER = load("collection_import", EXPERIMENT / "scripts/legacy/import_rating_sheet.py")
++RELEASE = load("collection_release", EXPERIMENT / "scripts/legacy/packet_release.py")
++WARMUP = load("collection_warmup", EXPERIMENT / "scripts/legacy/score_warmup.py")
++try:
++    ASSIGNER = load("collection_assign", EXPERIMENT / "scripts/legacy/assign_setN_folders.py")
++except ModuleNotFoundError as error:
++    if error.name != "numpy":
++        raise
++    ASSIGNER = None
++
++
++def check_archive(path, expected_rows):
++    with ZipFile(path) as archive:
++        members = set(archive.namelist())
++        listing = archive.read("FILES.sha256").decode().splitlines()
++        listed = set()
++        for line in listing:
++            digest, name = line.split("  ", 1)
++            if hashlib.sha256(archive.read(name)).hexdigest() != digest:
++                raise AssertionError(f"Archive hash mismatch: {name}")
++            listed.add(name)
++        if listed != members - {"FILES.sha256"}:
++            raise AssertionError("Archive manifest is not exhaustive")
++        rows = list(csv.DictReader(io.StringIO(archive.read("ratings.csv").decode())))
++        if len(rows) != expected_rows:
++            raise AssertionError("Unexpected answer-sheet row count")
++        ids = [row["item_id"] for row in rows]
++        if len(set(ids)) != len(ids):
++            raise AssertionError("Duplicate item identifiers")
++        for row in rows:
++            candidate = f"{row['task_folder']}/agent_lean/{row['candidate_file']}"
++            if candidate not in members or row["item_id"] != Path(candidate).stem:
++                raise AssertionError("Answer sheet does not map to candidates")
++            if row["rater_id"] or row["final_score_0_5"]:
++                raise AssertionError("Team sheet must be blank")
++        if "your personal rating sheet" in archive.read("Rating_Instructions.md").decode():
++            raise AssertionError("Coordinator's sheet link leaked into team instructions")
++        return members
++
++
++class PacketTests(unittest.TestCase):
++    def fixture(self, root):
++        data = {
++            "START_HERE.md": b"# Start\n\n## Assistance and reference problems\n\nRate independently.\n",
++            "Rating_Instructions.md": b"# Rubric\n\nOpen [your personal rating sheet](https://example.invalid/private).\n",
++            "Files_To_Rate01/python_source/example.py": b"# Synthetic packaging fixture\n",
++            "Files_To_Rate01/gold_lean/example.lean": b"-- Synthetic packaging fixture, not a proof\n",
++        }
++        for n in range(1, 6):
++            data[f"Files_To_Rate01/agent_lean/agent_file{n:02d}.lean"] = f"-- Synthetic candidate {n}\n".encode()
++        for name, content in data.items():
++            path = root / name
++            path.parent.mkdir(parents=True, exist_ok=True)
++            path.write_bytes(content)
++        manifest = "".join(f"{hashlib.sha256(content).hexdigest()}  {name}\n" for name, content in sorted(data.items())).encode()
++        (root / "FILES.sha256").write_bytes(manifest)
++        return data, hashlib.sha256(manifest).hexdigest()
++
++    def build(self, root, output, manifest_digest):
++        with patch.object(BUILDER, "MANIFEST_SHA256", manifest_digest), patch.object(
++            sys, "argv", ["make_team_packet.py", str(root), str(output), "--folders", "1"]
++        ), contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
++            BUILDER.main()
++
++    def test_packet_preserves_files_and_blank_sheet(self):
++        with tempfile.TemporaryDirectory() as temp:
++            root = Path(temp) / "source"
++            data, digest = self.fixture(root)
++            output = Path(temp) / "packet.zip"
++            self.build(root, output, digest)
++            check_archive(output, 5)
++            with ZipFile(output) as archive:
++                for name, content in data.items():
++                    if name.startswith("Files_To_Rate"):
++                        self.assertEqual(archive.read(name), content)
++            with self.assertRaises(FileExistsError):
++                self.build(root, output, digest)
++
++    def test_rejects_changed_candidate(self):
++        with tempfile.TemporaryDirectory() as temp:
++            root = Path(temp) / "source"
++            _, digest = self.fixture(root)
++            (root / "Files_To_Rate01/agent_lean/agent_file01.lean").write_text("changed")
++            output = Path(temp) / "packet.zip"
++            with self.assertRaises(SystemExit):
++                self.build(root, output, digest)
++            self.assertFalse(output.exists())
++
++    def test_rejects_changed_manifest(self):
++        with tempfile.TemporaryDirectory() as temp:
++            root = Path(temp) / "source"
++            _, digest = self.fixture(root)
++            with (root / "FILES.sha256").open("ab") as stream:
++                stream.write(b"\n")
++            with self.assertRaises(SystemExit):
++                self.build(root, Path(temp) / "packet.zip", digest)
++
++    @unittest.skipUnless((ROOT / "private/original").is_dir(), "Coordinator's original packet is private")
++    def test_real_packet_all_folders_preserves_source(self):
++        source = ROOT / "private/original"
++        with tempfile.TemporaryDirectory() as temp:
++            output = Path(temp) / "all.zip"
++            subprocess.run([sys.executable, str(EXPERIMENT / "scripts/make_team_packet.py"), str(source), str(output)],
++                           check=True, capture_output=True, text=True)
++            members = check_archive(output, 125)
++            with ZipFile(output) as archive:
++                for name in members:
++                    if name.startswith("Files_To_Rate"):
++                        self.assertEqual(archive.read(name), (source / name).read_bytes())
++
++
++class LegacyImportTests(unittest.TestCase):
++    def check(self, rows, allowed=None, packet="setN"):
++        text = "rater_id,item_id,final_score_0_5\n" + rows
++        return IMPORTER.check(text, "TEST", {"N01_a", "N01_b"}, {"N01"} if allowed is None else allowed, packet)
++
++    def test_private_root_is_new_repository(self):
++        expected = (ROOT / "private/09_human_rating_collection/upstream_source"
++                    / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
++        self.assertEqual(IMPORTER.EXP, expected)
++        self.assertEqual(RELEASE.EXP, expected)
++        self.assertEqual(WARMUP.EXP, expected)
++
++    def test_accepts_synthetic_rating_without_writing(self):
++        rows, errors, warnings, name, reference_issues = self.check("TEST,N01_a,3\n")
++        self.assertFalse(reference_issues)
++        self.assertFalse(errors)
++        self.assertEqual(rows[0]["final_score_0_5"], 3)
++        self.assertTrue(warnings)  # Other assigned item is still missing.
++        self.assertEqual(name, "TEST")
++
++    def test_rejects_invalid_or_duplicate_scores(self):
++        for text in ("TEST,N01_a,6\n", "TEST,N01_a,2.5\n", "TEST,N01_a,nan\n",
++                     "TEST,N01_a,3\nTEST,N01_a,4\n", ",N01_a,3\n"):
++            with self.subTest(text=text):
++                self.assertTrue(self.check(text)[1])
++
++    def test_rejects_unassigned_folder(self):
++        self.assertTrue(self.check("TEST,N01_a,3\n", allowed={"N02"})[1])
++
++    def test_rejects_incomplete_warmup(self):
++        self.assertTrue(self.check("TEST,N01_a,3\n", packet="warmup")[1])
++
++    def test_renamed_team_ids_are_not_legacy_ids(self):
++        self.assertTrue(self.check("TEST,agent_file01,3\n")[1])
++
++
++class CurrentProtocolTests(unittest.TestCase):
++    @unittest.skipUnless(RELEASE.STATUS.is_file(), "Pinned inherited packets are private")
++    def test_legacy_packets_preserve_release_files_and_refuse_overwrite(self):
++        with tempfile.TemporaryDirectory() as temp:
++            for packet in ("setN", "warmup"):
++                with self.subTest(packet=packet):
++                    output = Path(temp) / packet
++                    command = [sys.executable, str(EXPERIMENT / "scripts/legacy/make_rater_zip.py"),
++                               "--packet", packet, "--rater", "SYNTHETIC",
++                               "--sheet-url", "https://docs.google.com/spreadsheets/d/synthetic_test_sheet_id_00001/edit",
++                               "--share-email", "rater@example.invalid", "--out-dir", str(output)]
++                    if packet == "setN":
++                        command += ["--folders", "N01"]
++                    subprocess.run(command, check=True, capture_output=True, text=True)
++                    archive_path = next(output.glob("*.zip"))
++                    original_bytes = archive_path.read_bytes()
++                    receipts = output / "DELIVERY_RECEIPTS.jsonl"
++                    original_receipt = receipts.read_bytes()
++                    receipt = json.loads(original_receipt)
++                    self.assertEqual(receipt["zip_sha256"], hashlib.sha256(original_bytes).hexdigest())
++                    top = f"VeriBench_{packet}_SYNTHETIC/"
++                    with ZipFile(archive_path) as archive:
++                        listed = set()
++                        for line in archive.read(top + "FILES.sha256").decode().splitlines():
++                            digest, name = line.split("  ", 1)
++                            data = archive.read(top + name)
++                            self.assertEqual(hashlib.sha256(data).hexdigest(), digest)
++                            listed.add(top + name)
++                            if name != "YOUR_RATING_SHEET.txt":
++                                self.assertEqual(data, (RELEASE.PACKETS[packet] / name).read_bytes())
++                        self.assertEqual(listed, set(archive.namelist()) - {top + "FILES.sha256"})
++                    repeat = subprocess.run(command, capture_output=True, text=True)
++                    self.assertNotEqual(repeat.returncode, 0)
++                    self.assertIn("FileExistsError", repeat.stderr)
++                    self.assertEqual(archive_path.read_bytes(), original_bytes)
++                    self.assertEqual(receipts.read_bytes(), original_receipt)
++
++    @unittest.skipIf(ASSIGNER is None, "Assignment utility requires numpy")
++    def test_delivered_assignments_stay_pinned(self):
++        raters = [{"id": rid, "pool": pool, "pledge": 4, "left": 4, "status": "yes"}
++                  for rid, pool in (("LEFT", "team"), ("RIGHT", "vendor"))]
++        plan = ASSIGNER.assign(["N01", "N02", "N03", "N04"], raters,
++                               pinned={"N01": ["LEFT"], "N02": ["RIGHT"]})
++        self.assertEqual(plan["N01"][0], "LEFT")
++        self.assertEqual(plan["N02"][0], "RIGHT")
++        self.assertTrue(all(set(ids) == {"LEFT", "RIGHT"} for ids in plan.values()))
++        self.assertTrue(all(r["left"] == 0 for r in raters))
++
++    def test_release_checks_status_receipt_and_packet_bytes(self):
++        with tempfile.TemporaryDirectory() as temp:
++            root = Path(temp)
++            packet = root / "packet"
++            packet.mkdir()
++            candidate = packet / "synthetic.txt"
++            candidate.write_bytes(b"synthetic release fixture")
++            listing = packet / "FILES.sha256"
++            listing.write_text(f"{hashlib.sha256(candidate.read_bytes()).hexdigest()}  synthetic.txt\n")
++            acceptance = root / "acceptance.txt"
++            acceptance.write_bytes(b"synthetic acceptance fixture")
++            state = {"status": "HOLD", "reason": "synthetic hold",
++                     "files_sha256_digest": hashlib.sha256(listing.read_bytes()).hexdigest(),
++                     "acceptance_record": acceptance.name,
++                     "acceptance_record_sha256": hashlib.sha256(acceptance.read_bytes()).hexdigest()}
++            status = root / "PACKET_STATUS.json"
++            with patch.object(RELEASE, "PACKETS", {"setN": packet}):
++                status.write_text(json.dumps({"packets": {"setN": state}}))
++                with self.assertRaises(SystemExit):
++                    RELEASE.require_release("setN", status)
++                state["status"] = "RELEASED"
++                status.write_text(json.dumps({"packets": {"setN": state}}))
++                RELEASE.require_release("setN", status)
++                acceptance.write_bytes(b"changed acceptance")
++                with self.assertRaises(SystemExit):
++                    RELEASE.require_release("setN", status)
++                acceptance.write_bytes(b"synthetic acceptance fixture")
++                candidate.write_bytes(b"changed candidate")
++                with self.assertRaises(SystemExit):
++                    RELEASE.require_release("setN", status)
++
++    def test_emailed_csv_import_preserves_raw_bytes_and_route(self):
++        with tempfile.TemporaryDirectory() as temp:
++            root = Path(temp)
++            source = root / "emailed.csv"
++            raw = b"rater_id,item_id,final_score_0_5\r\nTEST,N01_a,3\r\nTEST,N01_b,4\r\n"
++            source.write_bytes(raw)
++            template = root / "template.csv"
++            template.write_text("rater_id,item_id,final_score_0_5\n,N01_a,\n,N01_b,\n")
++            receipts = root / "delivery.jsonl"
++            delivery = {"rater": "TEST", "packet": "setN", "folders": ["N01"],
++                        "return_route": "emailed_csv", "thread_id": "synthetic-thread"}
++            event = {"rater": "TEST", "packet": "setN", "event": "sent"}
++            receipts.write_text(json.dumps(delivery) + "\n" + json.dumps(event) + "\n")
++            self.assertEqual(IMPORTER.latest_receipt(receipts, "TEST", "setN"), delivery)
++            output = root / "output"
++            common = ["--rater", "TEST", "--packet", "setN", "--source-modified", "2026-11-09T00:00:00Z",
++                      "--receipts", str(receipts), "--out-dir", str(output)]
++            with patch.object(IMPORTER, "TEMPLATES", {"setN": template}), contextlib.redirect_stdout(io.StringIO()):
++                with patch.object(sys, "argv", ["import_rating_sheet.py", str(source), "--file-id", "synthetic-sheet", *common]):
++                    with self.assertRaises(SystemExit):
++                        IMPORTER.main()
++                self.assertFalse(output.exists())
++                with patch.object(sys, "argv", ["import_rating_sheet.py", "--csv", str(source),
++                                                 "--source-message-id", "synthetic-message", *common]):
++                    IMPORTER.main()
++            snapshots = list((output / "raw").glob("*.csv"))
++            self.assertEqual(len(snapshots), 1)
++            self.assertEqual(snapshots[0].read_bytes(), raw)
++            receipt = json.loads((output / "RECEIPTS.jsonl").read_text())
++            self.assertEqual(receipt["rows_rated"], 2)
++            self.assertEqual(receipt["source_route"], IMPORTER.CSV_ROUTE)
++            self.assertEqual(receipt["sha256_export"], hashlib.sha256(raw).hexdigest())
++
++    def test_personal_sheet_bindings_are_private_and_required(self):
++        with tempfile.TemporaryDirectory() as temp:
++            path = Path(temp) / "personal_sheet_ids.json"
++            with patch.object(IMPORTER, "A1_SHEETS_PATH", path):
++                with self.assertRaises(SystemExit):
++                    IMPORTER.personal_sheet("setN")
++                path.write_text(json.dumps({"setN": "synthetic-sheet"}))
++                self.assertEqual(IMPORTER.personal_sheet("setN"), "synthetic-sheet")
++
++    def test_reference_issue_rows_are_not_scores(self):
++        rows, errors, warnings, name, issues = IMPORTER.check(
++            "rater_id,item_id,final_score_0_5,problem_note\nTEST,W01_a,4,\nTEST,W02_a,N/A,Synthetic reference issue\n",
++            "TEST", {"W01_a", "W02_a"}, {"W01", "W02"}, "warmup", {"W02_a"})
++        self.assertFalse(errors)
++        self.assertEqual([r["item_id"] for r in rows], ["W01_a"])
++        self.assertEqual(issues, {"W02_a": "Synthetic reference issue"})
++        self.assertEqual(IMPORTER.QUALIFY_TASKS, ("W01",))
++
++    def test_qualification_and_missing_nonqualifying_rows(self):
++        self.assertEqual(WARMUP.DEFAULT_QUALIFY, ["W01"])
++        with tempfile.TemporaryDirectory() as temp:
++            root = Path(temp)
++            key = root / "synthetic-key.json"
++            items = [{"item_id": f"{folder}_{letter}", "expert_mean_0_5": 4,
++                      "expert_scores_0_5": [4, 4, 4]} for folder in ("W01", "W02") for letter in "abc"]
++            key.write_text(json.dumps({"cutoff_mae_0_5": 1.0, "items": items}))
++            manifest = root / "manifest.json"
++            manifest.write_text(json.dumps({"sealed_key_sha256": "0" * 64}))
++            sheet = root / "synthetic-sheet.csv"
++            qualifying = "rater_id,item_id,final_score_0_5\n" + "".join(f"TEST,W01_{x},4\n" for x in "abc")
++            sheet.write_text(qualifying + "".join(f"TEST,W02_{x},0\n" for x in "abc"))
++            # Release behavior has its own fixture above; never open real sealed key values.
++            with patch.object(WARMUP, "MANIFEST", manifest), patch.object(WARMUP, "require_release"):
++                with self.assertRaises(SystemExit):
++                    WARMUP.main([sheet], ["W01"], key, False)
++                output = io.StringIO()
++                with contextlib.redirect_stdout(output):
++                    WARMUP.main([sheet], ["W01"], key, True, leave_out_expert=1)
++                self.assertIn("-> QUALIFIES", output.getvalue())
++                self.assertIn("2.00 (would does not qualify)", output.getvalue())
++                self.assertIn("leave-one-out", output.getvalue())
++                self.assertIn("SYNTHETIC KEY", output.getvalue())
++                sheet.write_text(qualifying)
++                output = io.StringIO()
++                with contextlib.redirect_stdout(output):
++                    WARMUP.main([sheet], ["W01"], key, True, allow_missing_nonqualifying=True)
++                self.assertIn("-> QUALIFIES", output.getvalue())
++                self.assertIn("unavailable", output.getvalue())
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/experiments/README.md b/experiments/README.md
+index a681a2c..3d86d51 100644
+--- a/experiments/README.md
++++ b/experiments/README.md
+@@ -15,4 +15,6 @@
+ | [07_exp1_metrics](07_exp1_metrics/results.md) | Cached metric table and subsampling fit complete 11-09-2026; fresh confirmation pending | Five cached judges, 75 artifacts, 25 tasks, 195 expert ratings: nRMSE, sqrt RPS, KL, constant nRMSE and correlations with 10,000-resample task-level intervals; zero new model calls. |
+ | [08_master_specification_entailment](08_master_specification_entailment/README.md) | Bounded execution complete; parent review pending | 48 constructed controls, 48 primary calls plus one preflight, $0. Raw Brier 0 on 12 eligible test controls; 3/4 ineligible test cases abstained. Controlled feasibility only. |
+ 
++**Human-rating collection:** [`09_human_rating_collection`](09_human_rating_collection/README.md) is the active preparation and collection task, moved from VeriBench on 11-09-2026. It preserves the inherited round separately from experiment 02's prospective design; the [current preparation record](09_human_rating_collection/PREPARATION_11-09-2026.md) supplies revised deadlines and individual drafts, with team dispatch still awaiting text review and an explicit send instruction.
++
+ The existing [reference-anchoring plan](../docs/reference-anchoring-plan.md) is a separate proposed controlled comparison. It can supply semantic and reference-sensitivity checks; its two-rater pilot is not the main study's three/eight-rating collection design. Neither plan has been executed by adding this index.
+diff --git a/scripts/check_project.py b/scripts/check_project.py
+index 344b977..43628ba 100644
+--- a/scripts/check_project.py
++++ b/scripts/check_project.py
+@@ -17,6 +17,8 @@ def digest(path):
+ def main():
+     assert (ROOT / "AGENTS.md").read_bytes() == (ROOT / "CLAUDE.md").read_bytes(), "Entry points differ"
+     subprocess.run([sys.executable, str(ROOT / "experiments/02_probabilistic_ordinal_judge/scripts/validate_design.py")], check=True)
++    subprocess.run([sys.executable, "-m", "unittest", "discover", "-s",
++                    str(ROOT / "experiments/09_human_rating_collection/tests")], check=True)
+     legacy = ROOT / "experiments/01_legacy_veribench_judge"
+     manifest = json.loads((legacy / "SOURCE_MANIFEST.json").read_text())
+     for filename, key in manifest["byte_exact_copies"].items():

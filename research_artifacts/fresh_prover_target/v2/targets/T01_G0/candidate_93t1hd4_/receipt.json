@@ -1,0 +1,26 @@
+{
+  "target": "Natural.Coverage",
+  "candidate_sha256": "aca156182bbb312800cbc6f68b71eac93eecee1643be481d1bfbbd5d769651d1",
+  "accepted": false,
+  "compile": {
+    "exit_code": 1,
+    "output": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_/Candidate.lean:3:42: warning: aesop: failed to prove the goal after exhaustive search.\n/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_/Candidate.lean:1:0: error: unsolved goals\ncase left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\n\u22a2 f1 \"\" = 0\n\ncase right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\nc : Char\n\u22a2 f1 { data := [c] } = 1\n\ncase right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns\u2081 s\u2082 : String\n\u22a2 f1 (s\u2081 ++ s\u2082) = f1 s\u2081 + f1 s\u2082\n\ncase right.right.right.left.mp\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\na_1 : f1 s = 0\n\u22a2 s = \"\"\n\ncase right.right.right.left.mpr\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\n\u22a2 f1 \"\" = 0\n\ncase right.right.right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\nc : Char\n\u22a2 f1 (s.push c) = f1 s + 1\n\ncase right.right.right.right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\n\u22a2 f1 \"\" = 0\n\ncase right.right.right.right.right.right.left\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns : String\nc : Char\n\u22a2 f1 { data := [c] } = 1\n\ncase right.right.right.right.right.right.right\nf0 f1 : String \u2192 \u2115\na : \u2200 (s : String), f0 s = f1 s\ns s\u2082 : String\n\u22a2 f1 (s ++ s\u2082) = f1 s + f1 s\u2082\n",
+    "argv": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny network*)(deny file-write*)(allow file-write* (subpath \"/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_\"))",
+      "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+      "-j1",
+      "-DmaxHeartbeats=400000",
+      "-DElab.async=false",
+      "-R",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_",
+      "-o",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_/Candidate.olean",
+      "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/v2/targets/T01_G0/candidate_93t1hd4_/Candidate.lean"
+    ],
+    "timeout_seconds": 60
+  },
+  "status": "proof_rejected",
+  "protected_intact": true
+}

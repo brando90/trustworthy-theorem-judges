@@ -1,0 +1,180 @@
+{
+  "audited_at": "2026-11-12T00:50:03.344299+00:00",
+  "image_id": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+  "image_config_user": "user",
+  "status": "PASS",
+  "checks": {
+    "default_nonroot_uid": true,
+    "no_host_mounts": true,
+    "network_none": true,
+    "all_capabilities_dropped": true,
+    "no_project_build": true,
+    "no_project_git": true,
+    "empty_project_Veribench": true,
+    "empty_workspace": true,
+    "no_extra_Lean_sources": true,
+    "no_extra_compiled_Lean": true,
+    "no_extra_git": true,
+    "only_expected_empty_Veribench_directory": true,
+    "expected_mathlib_commit": true,
+    "mathlib_source_clean": true,
+    "writable_and_compiles_as_solver_user": true,
+    "no_scan_errors": true
+  },
+  "filesystem_before_synthetic_write": {
+    "project_build_exists": false,
+    "project_git_exists": false,
+    "veribench_sources": [],
+    "workspace_entries": [],
+    "project_files_excluding_dependencies": [
+      "lake-manifest.json",
+      "lakefile.toml",
+      "lean-toolchain"
+    ],
+    "unexpected_lean_files_outside_dependencies_toolchain": [],
+    "unexpected_compiled_lean_files_outside_dependencies_toolchain": [],
+    "git_directories_outside_dependencies_toolchain": [],
+    "benchmark_named_directories_outside_dependencies_toolchain": [
+      "/home/user/lean_project/Veribench"
+    ],
+    "filesystem_scan_errors": [],
+    "dependency_manifest": {
+      "version": "1.1.0",
+      "packagesDir": ".lake/packages",
+      "packages": [
+        {
+          "url": "https://github.com/leanprover-community/mathlib4.git",
+          "type": "git",
+          "subDir": null,
+          "scope": "",
+          "rev": "79e94a093aff4a60fb1b1f92d9681e407124c2ca",
+          "name": "mathlib",
+          "manifestFile": "lake-manifest.json",
+          "inputRev": "v4.22.0",
+          "inherited": false,
+          "configFile": "lakefile.lean"
+        },
+        {
+          "url": "https://github.com/leanprover-community/plausible",
+          "type": "git",
+          "subDir": null,
+          "scope": "leanprover-community",
+          "rev": "b100ad4c5d74a464f497aaa8e7c74d86bf39a56f",
+          "name": "plausible",
+          "manifestFile": "lake-manifest.json",
+          "inputRev": "v4.22.0",
+          "inherited": true,
+          "configFile": "lakefile.toml"
+        },
+        {
+          "url": "https://github.com/leanprover-community/LeanSearchClient",
+          "type": "git",
+          "subDir": null,
+          "scope": "leanprover-community",
+          "rev": "99657ad92e23804e279f77ea6dbdeebaa1317b98",
+          "name": "LeanSearchClient",
+          "manifestFile": "lake-manifest.json",
+          "inputRev": "main",
+          "inherited": true,
+          "configFile": "lakefile.toml"
+        },
+        {
+          "url": "https://github.com/leanprover-community/import-graph",
+          "type": "git",
+          "subDir": null,
+          "scope": "leanprover-community",
+          "rev": "eb164a46de87078f27640ee71e6c3841defc2484",
+          "name": "importGraph",
+          "manifestFile": "lake-manifest.json",
+          "inputRev": "v4.22.0",
+          "inherited": true,
+          "configFile": "lakefile.toml"
+        },
+        {
+          "url": "https://github.com/leanprover-community/ProofWidgets4",
+          "type": "git",
+          "subDir": null,
+          "scope": "leanprover-community",
+          "rev": "1253a071e6939b0faf5c09d2b30b0bfc79dae407",
+          "name": "proofwidgets",
+          "manifestFile": "lake-manifest.json",
+          "inputRev": "v0.0.68",
+          "inherited": true,
+          "configFile": "lakefile.lean"
+        },
+        {
+          "url": "https://github.com/leanprover-community/aesop",
+          "type": "git",
+          "subDir": null,
+          "scope": "leanprover-community",
+          "rev": "1256a18522728c2eeed6109b02dd2b8f207a2a3c",
+          "name": "aesop",
+          "manifestFile": "lake-manifest.json",
+          "inputRev": "v4.22.0",
+          "inherited": true,
+          "configFile": "lakefile.toml"
+        },
+        {
+          "url": "https://github.com/leanprover-community/quote4",
+          "type": "git",
+          "subDir": null,
+          "scope": "leanprover-community",
+          "rev": "917bfa5064b812b7fbd7112d018ea0b4def25ab3",
+          "name": "Qq",
+          "manifestFile": "lake-manifest.json",
+          "inputRev": "v4.22.0",
+          "inherited": true,
+          "configFile": "lakefile.toml"
+        },
+        {
+          "url": "https://github.com/leanprover-community/batteries",
+          "type": "git",
+          "subDir": null,
+          "scope": "leanprover-community",
+          "rev": "240676e9568c254a69be94801889d4b13f3b249f",
+          "name": "batteries",
+          "manifestFile": "lake-manifest.json",
+          "inputRev": "v4.22.0",
+          "inherited": true,
+          "configFile": "lakefile.toml"
+        },
+        {
+          "url": "https://github.com/leanprover/lean4-cli",
+          "type": "git",
+          "subDir": null,
+          "scope": "leanprover",
+          "rev": "c682c91d2d4dd59a7187e2ab977ac25bd1f87329",
+          "name": "Cli",
+          "manifestFile": "lake-manifest.json",
+          "inputRev": "main",
+          "inherited": true,
+          "configFile": "lakefile.toml"
+        }
+      ],
+      "name": "veribench",
+      "lakeDir": ".lake"
+    },
+    "project_uid": 1001,
+    "mathlib_uid": 1001,
+    "workspace_uid": 1001,
+    "lake_manifest_sha256": "d99caf0bc025deb50cb467cb84af15464d248fde48e72aea336191efde4ceef1",
+    "lakefile_sha256": "88ac408cd8ad2da99b825601bf91f446247957352f4a7c4dba3704e39a15f43b",
+    "toolchain_text": "leanprover/lean4:v4.22.0",
+    "mathlib_head": "79e94a093aff4a60fb1b1f92d9681e407124c2ca",
+    "mathlib_origin": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_working_tree_changes": ""
+  },
+  "cli_versions": {
+    "lean": "Lean (version 4.22.0, aarch64-unknown-linux-gnu, commit ba2cbbf09d4978f416e0ebd1fceeebc2c4138c05, Release)",
+    "claude": "2.1.322 (Claude Code)",
+    "pi": "1.5.2"
+  },
+  "synthetic_compile": {
+    "user_uid": 1001,
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "scope": "Independent deterministic rootfs/package metadata audit in a no-network root inspector, followed by nonroot workspace write and Mathlib compile in a separate no-network container with all capabilities dropped and no new privileges. No inference, provider calls, human ratings or judge outcomes. Synthetic files existed only in disposable containers; immutable image unchanged.",
+  "model_call_performed": false
+}

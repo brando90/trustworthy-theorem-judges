@@ -1,0 +1,93 @@
+{
+  "source_access": "restricted source repository; aggregate export only",
+  "source_revision": "be287d9bb2f7bd35ba6db1b8735c9ba10d00eade",
+  "files": [
+    {
+      "path": "experiments/140_entailment_check_vs_theorem_coverage_tiny256_10-31-2026/manifest_tiny256.json",
+      "sha256": "bb74c1f06bec758f9ec37af376dc05d8fb1510d9edc4304614be7ce84497fedc",
+      "bytes": 214506
+    },
+    {
+      "path": "experiments/145_entailment_vacuity_axiom_check_tiny256_11-01-2026/results/per_run.csv",
+      "sha256": "a66e3f1629935ed5b1f88d305d7a1bae4b804f272e858113d8a252d99f6565fe",
+      "bytes": 217334
+    },
+    {
+      "path": "experiments/117_fsc_judge_vs_prover_entailment_correlation_75_human_rated_items/PROTOCOL_phaseA_t2.md",
+      "sha256": "831033bb7ea5fc3c20f47ad3022eb0d202215973dc42442ca14e2a254f1aca1e",
+      "bytes": 2697
+    },
+    {
+      "path": "experiments/117_fsc_judge_vs_prover_entailment_correlation_75_human_rated_items/expt_v1/scripts/VB117Harness.lean",
+      "sha256": "544cc06d93d94e1447db253a9f61abbbdf14bdf45a27a83fd7cc9513d9114997",
+      "bytes": 43306
+    },
+    {
+      "path": "experiments/117_fsc_judge_vs_prover_entailment_correlation_75_human_rated_items/expt_v1/results/g2v2_t2check_goals.csv",
+      "sha256": "0cf1233315c417c98ab23801188c564d7bb75e51ac2137f14704c31a11aac746",
+      "bytes": 12826
+    },
+    {
+      "path": "experiments/140_entailment_check_vs_theorem_coverage_tiny256_10-31-2026/PROTOCOL.md",
+      "sha256": "90a9a826c21192b637140a869055c1611afe8b1cb3c505b29fde3c791585a2af",
+      "bytes": 4948
+    },
+    {
+      "path": "experiments/140_entailment_check_vs_theorem_coverage_tiny256_10-31-2026/LEAN_PROTOCOL.md",
+      "sha256": "951f86acaffb3dcebd301dbc6c4d2a02dd0fff58df3a5adae9df66d238b1e9e1",
+      "bytes": 4715
+    },
+    {
+      "path": "experiments/142_entailment_lean_proofs_all_tiny256_10-31-2026/README.md",
+      "sha256": "5db0fbc95d68bb7ad1dd4bc376177d6b8095b2d7ff99960e8c1c3d19045de782",
+      "bytes": 7814
+    },
+    {
+      "path": "experiments/145_entailment_vacuity_axiom_check_tiny256_11-01-2026/README.md",
+      "sha256": "2d2834f58333f5288547dc1066bee672fed4adec247159a87c657dcc447ff03d",
+      "bytes": 16378
+    },
+    {
+      "path": "experiments/145_entailment_vacuity_axiom_check_tiny256_11-01-2026/lean/GoldChkLib.lean",
+      "sha256": "7805c95aa90b6cd13e88baec32640149aac54b4462acbb7bb0ba2e4b10e801ed",
+      "bytes": 3017
+    },
+    {
+      "path": "experiments/145_entailment_vacuity_axiom_check_tiny256_11-01-2026/lean/WitLib.lean",
+      "sha256": "eb04205ea80bf125d8cc4ee047ed4e45e5661df7cadbbff48df7833fbac920b7",
+      "bytes": 8822
+    },
+    {
+      "path": "experiments/145_entailment_vacuity_axiom_check_tiny256_11-01-2026/lean/AxLib.lean",
+      "sha256": "129d737214ef2cc88d64d38764c60466ecbd6fe34b426b6e3fee9350fb27a168",
+      "bytes": 917
+    },
+    {
+      "path": "experiments/145_entailment_vacuity_axiom_check_tiny256_11-01-2026/scripts/gold_name_check.py",
+      "sha256": "5e075eec943dddfdc63761deb458c4239134d1b6a98c8124965a22d9866c2abf",
+      "bytes": 4532
+    },
+    {
+      "path": "experiments/168_harsh_prover_pd_pf_detection_controls_tiny256_11-04-2026/README.md",
+      "sha256": "42bafc73cf8e20b0b202d19f51d6a5c250a5e08a6dc407fe6d81a690fca9ff60",
+      "bytes": 20959
+    },
+    {
+      "path": "experiments/168_harsh_prover_pd_pf_detection_controls_tiny256_11-04-2026/attacks/summary.json",
+      "sha256": "e6173d9229d42d3312d55bab39b35064361a9c11af54441de6fb22c25c8f325f",
+      "bytes": 15600
+    },
+    {
+      "path": "experiments/168_harsh_prover_pd_pf_detection_controls_tiny256_11-04-2026/scripts/attacks_check_candidate_patched.py",
+      "sha256": "b7f081186ffea260569a581a086f94f142e7dcd76a6fb81d246601d3c66326f5",
+      "bytes": 3326
+    },
+    {
+      "path": "experiments/168_harsh_prover_pd_pf_detection_controls_tiny256_11-04-2026/scripts/prover_pi_runner.py",
+      "sha256": "9a3859be71c2c7381cdca61359b0732400107395657e9eb5fd9d64f9d270cd4b",
+      "bytes": 9379
+    }
+  ],
+  "split_manifest_sha256": "e3a7ca9d0228b27a3bd1ad4bcde467f3a905a87b28e29ed98fd1e44dc0b5736c",
+  "config_sha256": "fd28684f86e887c1e46696d16cca57f175d6c1c94c6d7e1f31cd1c72b751c8c2"
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_INFRASTRUCTURE_EXCLUSIONS",
+  "recorded_at": "2026-11-12T01:27:57.318056+00:00",
+  "planned_cohort": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/PLANNED_COHORT_VALID_ENV_V2.json",
+    "sha256": "c386e59258e0a8c3c0dec8f0c2e5217d80efbcfb6c2c881c79feb9dcec67b7f2"
+  },
+  "authority": "Parent explicitly authorized adding the fourth Pi attempt, terminated by pre-response TimeoutError, as an infrastructure exclusion without rerun; previous two exclusions remain unchanged.",
+  "policy": "These exact existing attempts are excluded from the human packet because no artifact was returned. They remain in the85-cell execution inventory and cost accounting; they are not solver failures or assigned human scores. Additional infrastructure exclusions require a new named, hash-bound disposition.",
+  "excluded_cells": [
+    {
+      "item_id": "native-heavy-11-11-2026__item044",
+      "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "670bbb73703801a18ee00185420d879aa9a358c8785d09fef2c98cf7082f100d",
+      "missing_cause": "infrastructure:HTTPError",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/receipt.json",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__93_unsafeappentitlements/gateway_ledger.json",
+        "sha256": "f47e023dfcfd881046bc5675e11f50ee5cd64bec7c1c29b058ef9ace1d38e1cc"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item072",
+      "task_id": "easy_set__23_is_prime",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "16f74dd0d06d8f1e19b80954197c57dae4adf10b5908d56a3dc203448e4c71c2",
+      "missing_cause": "infrastructure:URLError",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__23_is_prime/receipt.json",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/easy_set__23_is_prime/gateway_ledger.json",
+        "sha256": "25d47b091d8ee4f91f3b9719bd08d6a0565a9110b0e563e21ef4b75984e17f03"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE"
+    },
+    {
+      "item_id": "native-heavy-11-11-2026__item076",
+      "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+      "configuration_id": "pi_gemini_flash",
+      "receipt_sha256": "6ddf0fac52cbf3e3bf740eada280a4c0fa995c08abffe1f68156524744494fad",
+      "missing_cause": "infrastructure:TimeoutError",
+      "receipt_path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/receipt.json",
+      "gateway_ledger": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runs/pi_valid_v3/security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice/gateway_ledger.json",
+        "sha256": "221e4d9c6d2cd96c3d5be6096e65cb805eb562914f0cd7b02dfe750f47f344a4"
+      },
+      "disposition": "EXCLUDE_INFRASTRUCTURE_NOT_SOLVER_FAILURE"
+    }
+  ],
+  "parent_disposition": {
+    "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/INFRASTRUCTURE_DISPOSITION_V1.json",
+    "sha256": "62dd6c5a650df14cbb839b174df0d04ba5fa782ff4775fe438faa947022ed27b"
+  }
+}

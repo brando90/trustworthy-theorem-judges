@@ -1,0 +1,192 @@
+{
+  "task_id": "easy_set__16_myfactorial",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "16_MyFactorial.py": "e4c85d4c44a69827a816d7b67e22b1fb7e22e0cab18c99427daaba80a22780d7",
+    "instruction.md": "382a77a7dcb88a8ab0d432b117b24dd49385d36858df74ab05ef79308a801507"
+  },
+  "output": "/home/user/lean_project/Veribench/16_MyFactorial.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-e61061f83018",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794449915.867456,
+  "exit_code": 0,
+  "stop_reason": "native_result",
+  "finished_at": 1794451278.594826,
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 862820,
+  "observed_output_tokens": 105949,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 16,
+    "messages_with_stop": 16,
+    "native_aggregate_usage": {
+      "input_tokens": 364,
+      "cache_creation_input_tokens": 85815,
+      "cache_read_input_tokens": 670692,
+      "output_tokens": 105949,
+      "output_tokens_details": {
+        "thinking_tokens": 83288
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 85815,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 1323001,
+    "stop_reason": "end_turn",
+    "session_id": "f7bd0318-eaca-4eee-a926-3dd811de1951",
+    "total_cost_usd": 7.1850629999999995,
+    "usage": {
+      "input_tokens": 364,
+      "cache_creation_input_tokens": 85815,
+      "cache_read_input_tokens": 670692,
+      "output_tokens": 105949,
+      "output_tokens_details": {
+        "thinking_tokens": 83288
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 85815,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 364,
+        "outputTokens": 105949,
+        "cacheReadInputTokens": 670692,
+        "cacheCreationInputTokens": 85815,
+        "webSearchRequests": 0,
+        "costUSD": 7.1850629999999995,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 83288,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 85815,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 16,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The formalization is complete, compiled, and verified. The file is at `/home/user/lean_project/Veribench/16_MyFactorial.lean` (463 lines).\n\n**Verification results**\n\n- `lake env lean` exits 0 with no errors and no warnings. The only lines containing \"error\" in the output are the two expected `#eval` printouts of the `ValueError` result for input `-1`.\n- All 27 theorems are proven. `#print axioms` on each shows only `propext`, `Classical.choice`, and `Quot.sound`. No `sorry`, `admit`, new `axiom`, or `native_decide` appears in any theorem proof. `native_decide` is used only in `example` tests.\n- Every randomized Plausible check reports \"Unable to find a counter-example\", with no \"Gave up\" warnings. Bounded exhaustive checks over small ranges pass as well.\n\n**Modelling choices**\n\n- The core `myFactorial : Nat \u2192 Nat` is defined by structural recursion, and `prog : Int \u2192 Except String Int` models the Python function: a negative `int` gives `Except.error` with the program's exact message, otherwise `Except.ok n!`. The Python `isinstance(n, int)` check is enforced by the `Int` type, so the `3.14` test case has no Lean counterpart. The file states this in comments.\n- `Pre n` is `0 \u2264 n`. `Post_prop n r` says the result is `ok` of Mathlib's `n.toNat.factorial`, agrees with the core, is positive, is at least `n`, is divisible by `n` when `n > 0`, and satisfies both edge cases. The correctness theorem proves `Pre \u2192 Post`, and a total-spec theorem adds that inadmissible inputs raise the error with the program's message.\n- Properties proved include the recurrence, agreement with `Nat.factorial`, agreement with the Python loop as a fold over `range(1, n+1)`, positivity, `n \u2264 n!`, monotonicity, divisibility, \"returns normally iff the precondition holds\", and the Python test suite itself as a theorem.\n- The imperative `progImp` mirrors the Python source line by line using `Id.run do`, a mutable accumulator, early returns, and a `for` loop over `List.range' 1 n.toNat`. It is proved equal to `prog` on every input, including the error cases, and the post-condition is transferred to it as a corollary.\n\nOne point worth knowing if you adapt this: `Except` has no `DecidableEq` instance in core, so the file derives one to make the tests executable.",
+    "ttft_ms": 176064,
+    "type": "result",
+    "duration_ms": 1360019,
+    "uuid": "9164f3d6-b184-4d1d-bb25-3173e83d52c9",
+    "ttft_stream_ms": 6533,
+    "time_to_request_ms": 44,
+    "first_content_frame_ms": 6534,
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "model_usage_since_last_result": {
+      "claude-fable-5-1": {
+        "inputTokens": 364,
+        "outputTokens": 105949,
+        "cacheReadInputTokens": 670692,
+        "cacheCreationInputTokens": 85815,
+        "webSearchRequests": 0,
+        "costUSD": 7.1850629999999995,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 83288,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 85815,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    }
+  },
+  "model_identity_verified": true,
+  "candidate_captured": true,
+  "candidate_sha256": "fcd55bd4e8af38a3a8bcf3cf22101cdd663b779941dc8aa186c8d9b065bd98a8",
+  "candidate_bytes": 18977,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

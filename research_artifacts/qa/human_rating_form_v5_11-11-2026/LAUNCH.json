@@ -1,0 +1,19 @@
+{
+  "command": [
+    "claude",
+    "-p",
+    "--dangerously-skip-permissions",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--name",
+    "TTJ final human-rating form light QA"
+  ],
+  "cwd": "/Users/brandomiranda/trustworthy-theorem-judges",
+  "started_utc": "2026-11-11T20:30:37.936944+00:00",
+  "auth": "verified claude.ai subscription, API override variables removed"
+}

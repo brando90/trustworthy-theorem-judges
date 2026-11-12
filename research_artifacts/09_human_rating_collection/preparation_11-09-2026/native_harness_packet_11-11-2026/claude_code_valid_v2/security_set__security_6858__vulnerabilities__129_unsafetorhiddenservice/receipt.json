@@ -1,0 +1,192 @@
+{
+  "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "129_unsafeTorHiddenService.py": "72323a0a2094f2d41a2cc8f3f9880e34d31068dd564b0a9de981ed86030df63f",
+    "instruction.md": "bca923d2dd3ac2e4484bc4fb7e00313404652a12397617ea1155e233bfcac534"
+  },
+  "output": "/home/user/lean_project/Veribench/129_unsafeTorHiddenService.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-5d3e0b60660a",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794447708.2906702,
+  "exit_code": 0,
+  "stop_reason": "native_result",
+  "finished_at": 1794448111.894033,
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 232388,
+  "observed_output_tokens": 30867,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 7,
+    "messages_with_stop": 7,
+    "native_aggregate_usage": {
+      "input_tokens": 166,
+      "cache_creation_input_tokens": 32750,
+      "cache_read_input_tokens": 168605,
+      "output_tokens": 30867,
+      "output_tokens_details": {
+        "thinking_tokens": 14504
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 32750,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 375086,
+    "stop_reason": "end_turn",
+    "session_id": "4fd6cd6b-77d3-4dcf-9714-b52c63c908ac",
+    "total_cost_usd": 2.24216125,
+    "usage": {
+      "input_tokens": 166,
+      "cache_creation_input_tokens": 32750,
+      "cache_read_input_tokens": 168605,
+      "output_tokens": 30867,
+      "output_tokens_details": {
+        "thinking_tokens": 14504
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 32750,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 166,
+        "outputTokens": 30867,
+        "cacheReadInputTokens": 168605,
+        "cacheCreationInputTokens": 32750,
+        "webSearchRequests": 0,
+        "costUSD": 2.24216125,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 14504,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 32750,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 7,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The formalization is written to `/home/user/lean_project/Veribench/129_unsafeTorHiddenService.lean`, compiles with exit 0, and every theorem is fully proved.\n\n**What the file contains**\n\n- **Implementation.** `unsafeTorRendezvous` takes an `Int` address and two `Bool` flags and returns `true` unconditionally, exactly like the Python function. A `check` definition mirrors the four Python assertions.\n- **Unit tests.** Four `example ... := by native_decide` tests plus `#eval` calls reproduce the Python `check()` cases, and `check_thm` proves `check = true` by `decide`.\n- **Pre-condition.** `Pre` is `True`, since the Python function accepts every input.\n- **Properties, all proved.** Always accepts, malicious rendezvous accepted, honest rendezvous accepted, verdict independent of the malicious flag (no authentication), independent of the address (address never vetted), independent of whether the service connects, and a deanonymization property stating that a malicious point the service connects to deanonymizes it for every address.\n- **Post-condition and correctness.** `Post_prop` is the conjunction of all properties, and `correctness_thm` proves `Pre \u2192 Post_prop`.\n- **Property-based tests.** Nine Plausible checks covering each property, the executable Boolean form of the post-condition, and functional-imperative agreement. Two bounded exhaustive tests run over the Python test addresses, their neighbours, a negative value and small values.\n- **Imperative version and equivalence.** `unsafeTorRendezvousImp` uses `Id.run do` with a mutable `accepted` flag, with its own tests, and `functional_imperative_equiv_thm` proves it equals the functional version.\n\n**Verification results**\n\n- Compile output has no errors and no warnings. All Plausible checks report \"Unable to find a counter-example\".\n- A scratch copy with `#print axioms` for all ten theorems shows each depends on no axioms at all.\n- The file contains no `sorry`, `admit`, `axiom`, or `native_decide` inside theorem proofs.\n\nOne judgment call: the address is typed `Int` to match Python's `int` rather than restricting to 32-bit values, preserving the full input domain.",
+    "ttft_ms": 44030,
+    "type": "result",
+    "duration_ms": 400890,
+    "uuid": "849f80b6-a35d-4a63-ada8-7f6303d0941e",
+    "ttft_stream_ms": 4916,
+    "time_to_request_ms": 44,
+    "first_content_frame_ms": 4916,
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "model_usage_since_last_result": {
+      "claude-fable-5-1": {
+        "inputTokens": 166,
+        "outputTokens": 30867,
+        "cacheReadInputTokens": 168605,
+        "cacheCreationInputTokens": 32750,
+        "webSearchRequests": 0,
+        "costUSD": 2.24216125,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 14504,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 32750,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    }
+  },
+  "model_identity_verified": true,
+  "candidate_captured": true,
+  "candidate_sha256": "6ee86a1916386e784d12c08a9eff134010547d201ee799876b37a8efaf8cf17e",
+  "candidate_bytes": 15329,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

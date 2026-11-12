@@ -21,10 +21,10 @@
 - **Verified release:** all three personal `ASSEMBLY_RECEIPT.json` files record `BUILT_SHEET_MATCHED_NOT_SENT`, `release_ready: true` and exact live-Sheet/CSV equality. Brando: 54 files/25 tasks; Rylan and Sri: four files/their original two tasks each. Independent scientific-byte/archive checks passed; source/model joins remain private.
 - **Current collection:** 108 independent ratings needed (two distinct qualified raters per artifact); eight assigned and blank, 100 unassigned. Brando's 54 are additional. Existing warm-up data remains 15 numeric ratings plus three N/A rows; no new main scores are inferred or filled.
 - **Working files:** [main instructions and Sheet](../rating_task_packet/main_rating_task/START_HERE.md), [54-row blank form](../rating_task_packet/main_rating_task/ratings.csv), [named live-sheet snapshots](../ratings/README.md). Warm-up remains in `../rating_task_packet/`.
-- **Evidence:** private native root `private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/`; final manifests in `finalization/`, independent audit `RETURNED_ARTIFACT_SCREEN.json`, matched personal bundles in `builds/native_heavy_terminal_v1/{A1,T01,T05}/`. Full protocol, exact final hashes and recovery caveats: [coordinator reference](COORDINATOR_README.md#native-heavy-replacement--user-decision-11-11-2026).
+- **Evidence:** private native root `research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/`; final manifests in `finalization/`, independent audit `RETURNED_ARTIFACT_SCREEN.json`, matched personal bundles in `builds/native_heavy_terminal_v1/{A1,T01,T05}/`. Full protocol, exact final hashes and recovery caveats: [coordinator reference](COORDINATOR_README.md#native-heavy-replacement--user-decision-11-11-2026).
 - **Verification:** one Claude Fable 5.2/max review completed, findings fixed and deterministic verification completed; no additional model-review round. Frozen raw responses, original deliveries, invalid pilots and operational amendments are preserved.
 - **Remaining:** packet preparation is complete; finish Brando's pilot, review exact recipient text, obtain his send instruction and assign the remaining 100 independent rating slots. A prepared form is not a delivered assignment or a completed rating.
-- **Next coordinator command:** `cat private/09_human_rating_collection/preparation_11-09-2026/REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md`; use `DISPATCH_QUEUE_NATIVE_MAIN_V1.json` in the same directory. The coordinator owns these private records and sending.
+- **Next coordinator command:** `cat research_artifacts/09_human_rating_collection/preparation_11-09-2026/REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md`; use `DISPATCH_QUEUE_NATIVE_MAIN_V1.json` in the same directory. The coordinator owns these private records and sending.
 - **Brando to-do:** complete the six-file warm-up; review revised messages and say when to send. Preferred finish 11-13-2026; final deadline 11-15-2026.
 
 ## Current preparation — 11-11-2026
@@ -49,17 +49,17 @@ Ten FormV6 warm-up archives match the editable guide and rubric title; all nine 
 - Feedback outreach: all three earlier feedback drafts are cancelled; no feedback email is authorized by this update.
 - Historical migration owner: Pi; migration is complete. Current sole collection and practical judge coordinator: [Prepare human grading task](codex://threads/01a1a8f9-dcb7-7381-9368-91d6e51faffd), per [the 11-09-2026 ownership decision](COORDINATION_11-09-2026.md).
 - Canonical task: `~/trustworthy-theorem-judges/experiments/09_human_rating_collection/`.
-- Private working state: `~/trustworthy-theorem-judges/private/09_human_rating_collection/`.
+- Private working state: `~/trustworthy-theorem-judges/research_artifacts/09_human_rating_collection/`.
 - Source: VeriBench `experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/human_round/` and its collection utilities.
 - Source checkout contains concurrent changes; preserve its packet/reference edits and unrelated files.
 - Owned detached publication checkout: `~/.worktrees/veribench/human-ratings-move` removed after verified publication; no temporary checkout remains for this task.
 - Migration: 1,290 private files transferred with matching hashes; four utility redirects and two document redirects published. Commits: trustworthy-theorem-judges `91ecc6312d71`, VeriBench `6a6f6a834c90`; both verified on `origin/main`.
 - Current utilities: pinned to committed VeriBench `b292c277e176`, not the older dirty local checkout; matching private snapshot and release helper preserved. Working participant records still have one physical home.
-- Preparation owner: the sole coordinating chat above owns `PREPARATION_11-09-2026.md`, `support/scripts/verify_preparation.py`, `private/RATE_TODAY.md`, and the private `preparation_11-09-2026/` record. The former separate methodology chat hands its work to the same coordinator.
+- Preparation owner: the sole coordinating chat above owns `PREPARATION_11-09-2026.md`, `support/scripts/verify_preparation.py`, `research_artifacts/RATE_TODAY.md`, and the private `preparation_11-09-2026/` record. The former separate methodology chat hands its work to the same coordinator.
 - Delivery: the concurrent preparation record supersedes the historical deadline; revised individual drafts still require text review and an explicit send instruction.
 - Scientific settings: unchanged; no solver, judge, proof search, or new ratings run.
 - Verification: 17 collection tests pass, including delivered-assignment preservation, emailed submissions, release checks and C17 qualification; both real packet-release gates and the sealed-key digest match. Project and preparation checks passed; all 1,290 transfer hashes and 208 pinned-snapshot/configuration hashes match.
-- Cleanup: zero new home-directory entries; global sweep retained other owners' unique work. Verification logs and small recovery records are in `private/09_human_rating_collection/migration_checks/`.
+- Cleanup: zero new home-directory entries; global sweep retained other owners' unique work. Verification logs and small recovery records are in `research_artifacts/09_human_rating_collection/migration_checks/`.
 - Next: migration and packet preparation are complete; continue collection from the preparation record. All seven recipient sheet-access checks are verified. Recipient-specific text/send approval remains before collaborator dispatch; warm-up qualification and human completion remain collection work.
 - Continuation: read this experiment's README and private migration receipt before touching packets or participant records.
 

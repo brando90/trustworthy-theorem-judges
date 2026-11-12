@@ -1,0 +1,443 @@
+                        Evaluating AI Judges of Formal Specification Coverage
+                            with Conditional Human-Rating Distributions
+
+                                                       Anonymous submission
+
+
+
+
+                             Abstract                                   demonstrates useful human agreement while identifying po-
+                                                                        sition, verbosity, and self-preference effects (Zheng et al.
+  Artificial intelligence (AI) judges are useful evaluation in-         2023). In the present setting, the immediate target is for-
+  struments only to the extent that their ratings measure the
+                                                                        mal specification coverage (FSC): whether candidate theo-
+  intended property. For formal specification coverage, a high
+  correlation with experts does not establish agreement about           rem statements express the properties required by the task,
+  score levels or disagreement between experts on individual            potentially through logical implication rather than textual
+  artifacts. We specify a study in which a judge predicts the           similarity. Human ratings provide an operational compari-
+  six-category human-rating distribution conditional on Python          son for this semantic assessment.
+  source, a candidate Lean formalization, and a gold reference.            Correlation alone leaves the central question unresolved.
+  The primary objective is normalized ranked probability score,         A judge can preserve the ordering of artifacts while system-
+  with correlations and absolute error retained as diagnostics.         atically assigning higher scores than experts. Two judges can
+  A prospective design covers 896 benchmark tasks and four              also have identical pooled score distributions while assign-
+  solver configurations, with 24 distinct experts and a starting
+                                                                        ing those scores to different artifacts. Furthermore, averaging
+  budget of 14,848 individual ratings. Separate task, solver, and
+  expert holdouts test different transfer claims, while controlled      all expert ratings into one target erases whether a particular
+  specification changes test whether human agreement reflects           artifact produces consensus or disagreement. These are dis-
+  the intended construct. Historical VeriBench evidence moti-           tinct failures, and collecting more ratings does not repair the
+  vates the design: a 30-artifact, ten-task test has Spearman cor-      choice of an unsuitable objective.
+  relation 0.826, but its 95% task-bootstrap interval is [0.316,           We therefore define the target as a conditional distribu-
+  0.966] and its normalized judge-minus-expert mean bias is             tion over six ordinal human ratings and evaluate probability
+  +0.181. Those previously exposed data do not validate the             forecasts with a proper scoring rule. The judge receives the
+  proposed judge; fresh human collection and the prospective            source program, candidate formalization, and reference, to-
+  results remain pending. The contribution is a reproducible
+                                                                        gether with a fixed rubric. It predicts how qualified experts
+  measurement protocol that separates predictive agreement,
+  semantic validity, and uncertainty about both.                        following that rubric would distribute their ratings. Normal-
+                                                                        ized ranked probability score (RPS) gives an explicit objec-
+                                                                        tive for this target; correlations remain useful summaries of
+                      1    Introduction                                 expected scores, rather than a substitute for distributional
+                                                                        agreement.
+AI agents increasingly produce artifacts whose quality cannot
+be reduced to whether their code executes. A formalization                 This paper specifies the corresponding data collection, se-
+agent, for example, can produce a Lean program and prove                lection, and evaluation protocol. It distinguishes the number
+every theorem it states while omitting a required property              of tasks, the number of solver configurations, the total num-
+of the original Python program. An evaluation instrument                ber of human raters, and the number of ratings assigned
+must distinguish successful proof construction from adequate            to an artifact. The starting design covers all 896 tasks of a
+specification of the task. This distinction matters when sci-           fixed VeriBench release and four named solver configura-
+entific agents use formal artifacts as evidence: correctness of         tions, while preserving separate evidence for unseen tasks,
+a weak claim does not establish completeness of the intended            excluded solver configurations, and unseen experts. We also
+claim.                                                                  preserve historical judge results with their uncertainty and
+                                                                        exposure limitations instead of treating them as fresh valida-
+   Large language models (LLMs) can compare candidate
+                                                                        tion.
+artifacts with instructions and references at a scale that ex-
+pert review cannot easily match. Prior work on LLM judges                  The contribution is a prospective methodology and histor-
+                                                                        ical case study, not a completed claim that a new judge works.
+This is an anonymized submission for review purposes only. Dis-         Proper scoring rules and dependence-aware inference are es-
+tribution, citation, or public sharing of this manuscript is strictly   tablished tools; our contribution is their operational use for
+prohibited. Copyright and publication details will appear in the        FSC, with auditable inputs, splits, controls, and a collection
+final version if accepted.                                              budget. The project concerns AI, agent, and LLM judges.
+A separate prover judge may use AI to search for an im-               repeated scalar answers. Any subsequently fitted probabil-
+plication proof, but the proof checker determines whether             ity mapping is trained on training ratings and selected on
+that implication was established. Human agreement and a               validation ratings, with its family and constraints recorded
+checked proof answer different questions, and a proof-search          as a separate candidate condition. Its expected normalized
+                                                                                          P5
+timeout establishes neither equivalence nor non-entailment.           rating is µq (z) = r=0 (r/5)qθ (r | z). Each individual hu-
+                                                                      man rating is retained, including disagreement. A histogram
+      2     Target and Measurement Conditions                         of stochastic scalar judge outputs does not by itself represent
+For task t and solver configuration a, let                            the human distribution: model-call instability and human dis-
+                                                                      agreement have different sources. The proposed probability-
+      zta = (xt , ybta , yt∗ ),    Rtah ∈ {0, 1, 2, 3, 4, 5}.   (1)   vector interface is consequently a new judge condition, not a
+                                                                      reinterpretation of an old scalar score.
+Here xt is the original Python source and task contract, ybta
+is the candidate Lean artifact, yt∗ is the reference, and h iden-
+tifies a human rater. The normalized scalar rating is Rtah /5.              3    A Distribution-Sensitive Objective
+The main study displays the complete candidate and refer-             Proper scoring rules reward accurate probability forecasts in
+ence artifacts to raters and the judge, including any proof           expectation (Gneiting
+bodies or sorry placeholders. Both receive identical input                               Pandc
+                                                                                                Raftery 2007). For the cumulative
+                                                                      probabilities Qc = r=0 qr , we use the loss
+contents; the rendered view is recorded, and proof comple-
+tion is a separate variable rather than the coverage target.                                      4
+                                                                                               1X                 2
+                                                                                   S(q, r) =         Qc − 1{r ≤ c} .                (3)
+2.1       What coverage means                                                                  5 c=0
+A formal specification is a theorem statement considered
+without its proof. Coverage concerns the required statements          The factor 1/5 places RPS on [0, 1]. The ordered thresholds
+and the domains and assumptions under which they hold. A              retain the ordinal structure: probability placed many cate-
+candidate may cover a reference statement with a stronger             gories away from an observed rating incurs more cumulative
+statement or with several statements together. Counting the-          error than probability placed in an adjacent category. Equal
+orem names or measuring textual overlap cannot establish              threshold weights are an explicit design choice, not a claim
+this implication. Conversely, narrowing a precondition can            that every practical consequence of a rating is equally spaced.
+remove required cases even when a theorem’s conclusion                   Let Pc = Pr(R ≤ c | z). For each threshold, expansion
+is unchanged. Proof completion is recorded separately from            of the squared error gives
+statement coverage.
+                                                                                  E[S(q, R) | z] = D(q, p∗ ) + U (p∗ ),             (4)
+   The source program constrains the intended behavior but
+                                                                                                             4
+does not automatically resolve a conflict between implemen-                                            1X
+tation behavior, task requirements, and the reference. The                              D(q, p∗ ) =          (Qc − Pc )2 ,          (5)
+                                                                                                       5 c=0
+protocol records such conflicts for independent inspection
+rather than silently choosing one input as infallible. Condi-                                                4
+                                                                                                       1X
+tioning on a reference makes the rating task more concrete; it                             U (p∗ ) =         Pc (1 − Pc ).          (6)
+                                                                                                       5 c=0
+can also make both humans and a judge prefer the reference’s
+representation. Reference sensitivity is therefore a measure-
+ment condition to test, not an assumed benefit of adding the          The first term measures conditional distribution error; the
+reference.                                                            second is the loss remaining even for a perfect forecast of a
+                                                                      disagreeing expert population. Because the cumulative prob-
+2.2       The human distribution                                      abilities determine all six category probabilities, the unre-
+                                                                      stricted expected-loss minimizer is uniquely q = p∗ . This
+Let H denote a specified population of qualified Lean and             fact justifies the target of selection. It does not guarantee that
+formal-methods experts using the same rubric. The target is           a particular model class, prompt search, or finite sample will
+the probability mass function                                         attain that target.
+                    p∗ (r | z) = Pr (Rh (z) = r).               (2)      For equal category spacing on [0, 1], the one-dimensional
+                                  h∼H                                 Wasserstein distance is
+This definition requires a recruitment frame and a rating                                                4
+procedure, including allowed assistance, time guidance, and                                    ∗   1X
+                                                                                      W1 (q, p ) =       |Qc − Pc |.                (7)
+treatment of ambiguous inputs. It does not make a conve-                                           5 c=0
+nience sample representative of all experts. The empirical
+distribution from a fixed recruited panel is a different, nar-        Cauchy–Schwarz gives W1 (q, p∗ )2 ≤ D(q, p∗ ). Thus small
+rower target; both must be labeled when reported.                     excess expected RPS bounds an interpretable distribution
+   The judge predicts qθ (r | z), a nonnegative vector of six         distance. More generally, for a normalized L-Lipschitz utility
+probabilities summing to one. The initial interface elicits           function f , the expectation gap is at most LW1 . This connects
+those six probabilities explicitly as structured output; it does      a distributional claim to uses such as estimating the mean
+not infer them from token likelihoods or the frequency of             rating, without requiring a separate match of every moment.
+3.1   Why correlation or a pooled divergence is                         Collection stage                  Artifacts   Ratings
+      insufficient                                                      128 tasks × 4, train/validation        512      1,536
+Consider human scores (0, 0.25, 0.5) and judge scores                   896 tasks × 4, final audit           3,584     10,752
+(0.5, 0.75, 1). Pearson and rank correlations are one, al-              Five extra on 128 × 4 artifacts          0      2,560
+though every score differs by 0.5. Alternatively, permuting
+predictions among artifacts preserves the marginal score his-           Total                                4,096     14,848
+togram while destroying itemwise agreement. A divergence
+between pooled histograms misses that failure. The required       Table 1: Prospective collection budget, not collected data.
+comparison is conditional on the same artifact, then averaged     The two stages have separate generations and disjoint human
+across artifacts.                                                 pools. Three ratings are assigned initially to every artifact;
+    Logarithmic loss is another proper objective and connects     the dense subset has eight in total.
+to Kullback–Leibler divergence, but it ignores category or-
+der and diverges when the judge assigns zero probability to
+an observed category. With few ratings per artifact, directly                   4   Prospective Study Design
+estimating an entire human probability vector and plugging        The starting population is the fixed public VeriBench release
+it into a divergence is also noisy. RPS can instead score each    veribench@1.3, containing 896 Python tasks. The data
+individual rating without declaring a sparse empirical his-       source is pinned to commit c9dfd8e of the public Harbor
+togram to be the true human distribution. We retain logarith-     dataset collection (VeriBench contributors 2026). Task con-
+mic loss only as an optional prespecified sensitivity analysis    tents, reference versions, instruction version, and toolchain
+with a documented probability-floor policy.                       must be hashed before collection. The four required solver
+                                                                  configurations are Claude Code, Codex, a Gemini agent, and
+3.2   Selection and artifact weighting                            a Grok agent. These names define the intended panel; exact
+For n artifacts, with assigned rater set Hi of size mi , define   model versions, harnesses, tools, effort, and budgets remain
+                    n
+                                                                  to be frozen. They are deliberately selected configurations,
+                 1X 1 X                                           not random draws from every possible future solver.
+          L(θ) =
+          b               S(qθ (zi ), Rih ).                (8)
+                 n i=1 mi
+                              h∈Hi
+                                                                  4.1     Task and human allocation
+Candidate construction uses training data; selection mini-        The initial allocation is 64 training tasks, 64 validation
+mizes this loss on validation data. Artifacts receiving addi-     tasks, and 768 held-out tasks. Related task variants and near-
+tional diagnostic ratings retain the same total weight as other   duplicates are grouped before splitting. If those groups pre-
+artifacts. All candidates, prompt changes, and fitted score       vent the exact counts, the allocation and budget must be
+mappings are recorded because repeated model selection can        amended before test inspection. We recruit 24 qualified ex-
+overfit a validation criterion (Cawley and Talbot 2010). Final    perts: eight for training and validation, and 16 different raters
+test ratings do not enter this process.                           for the final audit. Each artifact receives three independently
+                                                                  submitted ratings from distinct randomly assigned raters in
+3.3   A worked distinction between uncertainty                    the relevant pool. Assignment balances workload and main-
+      sources                                                     tains overlap between raters; it is recorded rather than inferred
+Suppose, illustratively, that half of the qualified raters as-    from a dense tensor.
+sign category zero to one artifact and half assign category          The final audit covers all 896 task identities with fresh
+five. The correct human forecast places probability 1/2 on        solver generations. Consequently, its 128 previously seen
+each endpoint, so every cumulative probability Pc equals 1/2      tasks answer a fresh-output question, while its 768 held-
+for c = 0, . . . , 4. Its expected RPS is 0.25, entirely due to   out tasks answer a task-transfer question. Those strata are
+human disagreement. A judge that always assigns all proba-        reported separately even when a full-benchmark mean is
+bility to category zero has expected RPS 0.50: its additional     also useful. One solver output per task–configuration pair is
+distribution error is 0.25. Both forecasts can be perfectly       collected initially in each stage, without selecting the best
+reproducible across repeated judge calls. The deterministic       of retries. This design does not estimate generation variance
+endpoint forecast is therefore stable but worse at predicting     at a fixed task–configuration pair. Repeated identical bytes
+the human distribution.                                           remain distinct generation records but do not create evidence
+   These numbers are an exact illustrative calculation, not       of independent content.
+observed study results. They show why a low model-repeat             We randomly select 128 of the held-out tasks before ob-
+standard deviation cannot replace the proper-loss comparison      serving their ratings and collect eight total ratings for each
+and why a positive raw RPS cannot by itself imply a defec-        of their four artifacts. These additional five ratings support
+tive judge. The same distinction applies when interpreting        distribution diagnostics; they do not make the empirical cat-
+the dense subset: additional raters estimate the human cu-        egory histogram exact. Table 1 distinguishes new artifacts
+mulative probabilities more precisely, while additional judge     from additional ratings of an existing artifact. The result-
+calls estimate the variability of the probability forecast. The   ing workload is 192 ratings per training/validation rater and
+two replication budgets answer different questions and must       832 per audit rater under exact balancing. These are planned
+be reported separately.                                           counts, not measured or assumed feasible time commitments.
+ Audit stratum             Supported question                      check diagnoses instruction and transport failures; it is never
+                                                                   scored as evidence of semantic ability or included among
+ Full audit (896 tasks)    Agreement on the complete fixed         test artifacts. Before final ratings are opened, we freeze the
+                           benchmark and four evaluated            rubric, assignments, judge versions, analysis, repeat count,
+                           solver configurations.                  failure policy, endpoints, and practical tolerances. Task and
+ 128 seen tasks, fresh     Agreement on new generations            rater exclusions, parser errors, missing outputs, and time-
+ outputs                   from tasks used for training or se-     outs remain in the accounting. The plan is not a completed
+                           lection.                                preregistration: practical thresholds and the feasibility of the
+ 768 held-out tasks        Transfer across task groups un-         proposed workload remain unresolved.
+                           touched in the new selection pro-
+                           cedure.
+ Four excluded-solver      Transfer of that procedure to each
+                                                                     5    Precision, Selection, and Decision Rules
+ fits                      configuration excluded from its         The three dimensions of the study address different uncer-
+                           fit.                                    tainties. More distinct tasks cover a broader set of inputs
+ 16 audit raters           Agreement with new raters, with         and increase the precision of task-averaged comparisons.
+                           wider population inference con-         More solver configurations probe different output distribu-
+                           ditional on recruitment assump-         tions. More distinct raters probe variation between raters,
+                           tions.                                  whereas more ratings of one artifact sharpen information
+                                                                   about that artifact’s rating distribution. The product of these
+Table 2: The holdouts answer different questions. No row           counts is not the number of independent observations.
+alone establishes accuracy on every future task, solver con-
+figuration, or rater.
+                                                                   5.1   A transparent planning calculation
+                                                                   As an illustration, suppose the human-specific contribution
+                                                                   to normalized loss has standard deviation 0.10. For indepen-
+4.2   What is held out                                             dent, representative raters, the normal-approximation 95%
+                                                                   half-width of that contribution would be
+The main judge is trained and selected with all four configu-                                 
+rations’ training and validation outputs. Its audit establishes                       0.10       0.080, H = 6,
+                                                                                 1.96 √ =                                   (9)
+performance on the evaluated configurations, with separate                              H        0.049, H = 16.
+new-task and new-human evidence. It cannot also establish
+that these same configurations were unseen by that judge.          This is a hypothetical component of uncertainty, not an
+   To test transfer to each excluded configuration, we fit four    observed total interval. If repeated ratings share a human-
+additional judges. For each fit, one configuration’s outputs,      specific effect, thousands of ratings by the same few raters
+ratings, and prompt examples are excluded from both training       do not remove it. The calculation motivates recruiting more
+and validation. The fit is evaluated on that configuration’s 768   distinct raters, while the actual allocation must be checked
+held-out tasks using audit raters. All four fits reuse the same    against pilot variance and workload.
+collected audit ratings. These experiments test the transfer          Increasing ratings per artifact from three to eightpreduces
+of the training/selection procedure, not a single judge that       an independent mean’s standard-error factor by 3/8 ≈
+somehow treats all four training configurations as unseen.         0.61. That is a 39% reduction under the stated indepen-
+They also do not establish transfer to arbitrary future model      dence and common-variance approximation, not a guaran-
+versions. Historical task and solver exposure is recorded; a       teed 39% reduction in the final study interval. Balanced
+new split cannot erase earlier prompt design or unknown            reuse of raters creates cross-artifact dependence, and an ex-
+pretraining exposure.                                              act finite-panel analysis differs from independent population
+   The final human pool supplies no ratings for judge selec-       sampling. These conditions are why the dense subset supple-
+tion. An analysis conditional on the 16 recruited audit experts    ments broad task coverage instead of replacing it.
+can establish agreement with that panel. An inference about           For correlations, Fisher’s approximation for independent
+a wider expert population additionally requires a defensible       bivariate-normal pairs is
+recruitment and sampling model. Holding out identities re-                                               √
+                                                                                     SE(atanh ρb) ≈ 1/ n − 3.                (10)
+duces direct leakage but does not by itself make either experts
+or solver configurations representative.                           In the actual study, multiple outputs share a task and ratings
+                                                                   share a rater; substituting n = 14,848 into that formula is
+4.3   Pilot and fixed execution                                    invalid. Nor can additional data be expected to raise the true
+A training/validation-only pilot measures rating time, dis-        correlation: it improves estimation of whatever association
+agreement, fatigue, failure rates, and variance of paired          exists. We therefore size the study against paired proper-
+losses. It also traces one artifact through generation, extrac-    loss precision and expert variation, and report correlation
+tion, human display, judge input, probability parsing, and         intervals under a dependence-aware analysis.
+scoring using content hashes. As an artificial pipeline control,
+the pilot supplies a known rating in the prompt and checks         5.2   Estimating distribution error
+that the returned category or probability vector reproduces it     The raw RPS includes the disagreement term in Equation 6.
+through parsing and normalization. This rating-reproduction        For a fixed artifact and threshold, let Xh = 1{Rh ≤ c} and
+let s2X be the sample variance with denominator m−1. Under                    Statistic       Estimate      95% interval
+independent draws from the specified expert population,
+                                                                              Spearman ρ         0.826     [0.316, 0.966]
+                                           2
+                  Db c = (Qc − X)2 − sX                   (11)
+                                                                              Kendall τb         0.698     [0.216, 0.913]
+                                         m                                    Pearson r          0.858     [0.707, 0.941]
+                                                                              ICC(A,1)           0.727     [0.391, 0.890]
+is unbiased for (Qc − Pc )2 . The subtraction removes the
+variance of the empirical human cumulative probability. We
+average across thresholds and then artifacts. Individual cor-       Table 3: Historical selected ensemble: 30 artifacts from
+rected estimates can be negative and are not clipped before         ten test tasks. Intervals are percentile task bootstraps with
+aggregation. Their intervals, rather than the sign of an indi-      10,000 requested draws. ICC(A,1) is single-score absolute-
+vidual estimate, determine what distribution error remains          agreement intraclass correlation. The split had prior expo-
+compatible with the data.                                           sure; these are not fresh-study results.
+   If the estimand instead concerns a fixed panel of H raters
+sampled uniformly without replacement, the subtraction is
+(1 − m/H)s2X /m. That correction targets the finite-panel           signal explains the apparent gain. The fixed-rubric condition
+mean, not the wider population automatically. More com-             tests the benefit of fitting or selection, while the correlation-
+plicated assignment and nonresponse require corresponding           selected condition tests the choice of selection objective. For
+design-based or model-based adjustments. The dense subset           the last contrast, both selection procedures must search the
+makes this diagnostic more informative but cannot remove            same predefined candidate set with the same information
+uncertainty about unrepresented experts.                            access and computational budget. Otherwise, an observed
+                                                                    difference could reflect search resources or a different model
+5.3   Uncertainty and comparison                                    family rather than the objective.
+Crossed task and rater identities require inference that re-           The pilot must set a minimum meaningful improvement, a
+spects both sources of dependence. Methods for resampling           tolerable distribution error, repeat-instability and failure lim-
+crossed arrays motivate independent reweighting of identi-          its, and the corresponding interval rule. If a claim requires
+ties under appropriate assumptions (Owen and Eckles 2012).          success on all four configurations, inference must account
+The exact sparse-assignment procedure, coverage checks,             for those four simultaneous claims. These thresholds are cur-
+and treatment of small rater counts must be specified using         rently unset; a statistically nonzero improvement alone is not
+pilot data before the test is inspected. We report fixed-panel      the proposed definition of practical success. Later changes
+analyses separately from analyses extending to an expert pop-       after test inspection require fresh evidence or an explicitly
+ulation. Task resampling estimates variation over tasks like        exploratory label.
+those in the benchmark; for the complete fixed benchmark it
+is not uncertainty caused by missing benchmark task iden-                   6    Historical VeriBench Evidence
+tities. The four chosen solver configurations remain fixed in       The historical archive contains several distinct analyses that
+the primary analysis.                                               must not be pooled or described as one original result. An
+    Primary comparisons use paired, artifact-weighted RPS           early analysis reports Pearson correlation 0.703349 on 72
+differences between a constant training-estimated distribu-         scored artifacts from a 75-artifact, 25-task pool. It uses a
+tion, a fixed rubric/reference-assisted judge, a correlation-       GPT-5.3-Codex judge with an isotonic score mapping fit-
+selected judge, and an RPS-selected judge. We also in-              ted on training folds, against the mean of one expert’s two
+clude a non-LLM theorem-count baseline to test whether              earlier-prompt passes. Its Spearman and Kendall values are
+a semantic model improves on a simple structural cue.               0.321143 and 0.265060. These are two-fold task-split valida-
+Let v = min(1, Ncandidate /Nreference ) count theorem state-        tion results without a separate test counterpart; the aggregate
+ments without inspecting their proofs. For u = 5v, place            receipt does not supply confidence intervals.
+probability 1 − (u − ⌊u⌋) at ⌊u⌋ and the remaining mass                A later selected ensemble, source experiment 100, uses
+at the next category, with all mass at five when u = 5.             GPT-6 Sol with high reasoning effort and Claude Opus 5.5
+This defines an ordinal probability forecast for comparison;        with maximum compute effort through the historical Vals
+it does not assert that counts establish coverage. A reference      model gateway. For each member it takes the median of
+with no countable statements is flagged as an invalid baseline      three calls, then averages the two medians: six calls per
+input rather than silently assigned a score. The declaration-       completed scalar score. It uses human rating instructions,
+counting rule is fixed in the pilot. Each probabilistic condition   training-derived conventions, and training examples. The 25
+must produce the same six-category output format. Convert-          tasks are split 10/5/10 into training, validation, and test, re-
+ing a historical scalar judge into a probability forecast is a      taining each task’s three candidates together. The human
+new baseline condition and must be documented. Matched              target is the mean of available ratings from a three-expert
+artifacts and rating assignments reduce unnecessary compar-         panel, divided by five. Of the 30 test artifacts, 18 have three
+ison noise. Unequal model calls, tokens, and runtime must           expert ratings and 12 have two.
+be reported rather than hidden as equivalent budgets.                  The headline correlations in Table 3 coexist with nor-
+    The constant forecast tests whether input-dependent pre-        malized mean absolute error 0.201111 and mean bias
+dictions add information beyond the training rating frequen-        +0.181111, with judge mean 0.653333 and human mean
+cies. The count baseline tests whether a cheap structural           0.472222. Bias is the judge rating minus the expert mean,
+so a positive value indicates greater leniency. A separately        ates fold-specific recipe fits, not the frozen selected ensemble.
+labeled post hoc task bootstrap of the frozen historical data       The archive retains both versions and their labels. All of this
+gives 95% intervals [0.130, 0.273] for absolute error and           historical evidence concerns scalar LLM judges; none mea-
+[0.099, 0.262] for bias. It uses 10,000 draws and reproduces        sures the proposed probability forecasts or validates a prover
+the original point estimates; it is new analysis of old data, not   judge.
+new human evidence. No new significance test is asserted for
+these quantities.                                                         7    Semantic Controls and Reporting
+   Excluding two test tasks whose references were place-
+holders when rated leaves 24 artifacts from eight tasks. On         Agreement with experts using a faulty reference can repro-
+that ordinary-reference subset, Spearman correlation is 0.652       duce the same error rather than measure coverage correctly.
+with interval [−0.166, 0.916], and Pearson correlation is           We therefore accompany the random audit with controls
+0.835 with interval [0.454, 0.958]. The mean bias rises to          whose semantic relationship is checked independently wher-
++0.205556, from judge mean 0.566667 and human mean                  ever possible. These controls do not receive the random au-
+0.361111. The subset correlation intervals use 1,998 nonde-         dit’s sampling interpretation, and their counts and selection
+generate draws out of 2,000 requested task bootstraps. Ref-         process are reported separately.
+erence quality therefore changes both the interpretation and           Removing a necessary obligation should reduce coverage,
+the uncertainty of the headline association.                        provided no remaining statement already implies it. Narrow-
+   The reported mean repeat standard deviation, 0.020488,           ing a precondition should reduce coverage when it excludes
+also needs its original unit. It is computed from three per-        inputs required by the task. Equivalent formulations should
+pass averages, each combining one call from each model.             receive similar ratings, while adding irrelevant or vacuous
+It is not the standard deviation of repeated executions of          statements should not increase meaningful coverage. Chang-
+the complete six-call median-based ensemble. The archive            ing proof bodies without changing statements should pre-
+supplies no interval for that repeat statistic.                     serve a statement-coverage rating. An incomplete or false
+                                                                    reference should trigger discrepancy reporting where the ev-
+   For context, the archived leave-one-expert-out compari-
+                                                                    idence supports it. The exact tolerances and control counts
+son reports Spearman correlation 0.764 over all 75 artifacts
+                                                                    are pilot decisions, not assumed measured properties of the
+and 0.747 over the 45 validation-plus-test artifacts of experi-
+                                                                    judge.
+ment 100. These compare one expert with the other available
+experts and have no uncertainty intervals in the imported ag-          For equivalence controls, compilation of two programs
+gregate. Their task sets and targets differ from the 30-artifact    is insufficient. The relevant implications must preserve do-
+test comparison in Table 3; they cannot establish that the          mains, assumptions, and obligation weights. For negative
+selected judge exceeds human agreement on a matched test            controls, a counterexample should establish that the removed
+set.                                                                obligation is not already entailed. AI can assist in construct-
+                                                                    ing these certificates, but checker acceptance and the assump-
+   Several limitations prevent clean transfer claims.
+                                                                    tions of the certificate must be recorded. Unresolved cases
+Candidate-generation records trace 74 of 75 files to three
+                                                                    remain unresolved rather than being converted into negative
+single-call, zero-shot samples per task from Claude 3.7 Son-
+                                                                    examples by a timeout.
+net at temperature 0.7, with one source receipt missing. These
+are repeated samples of one older model, not three different           The reference-anchoring study is a separate controlled
+coding agents. The source receipt discloses prior exposure to       comparison within this research program. It varies reference
+the test ratings in earlier experiments and an initial descrip-     representation and proof visibility while holding the intended
+tive audit; the exact total number of exposed judge versions        obligations and candidate artifact fixed. Its labels, estimand,
+and resulting selection inflation are not established by the        and pilot counts must not be substituted for those of the main
+inspected records. Nine references changed statement con-           conditional-rating study. Likewise, the human-rating study
+tent between rating and earlier judging, although experiment        does not change an existing benchmark’s prover-based scor-
+100 restored rating-era inputs. The reconstruction remains          ing implementation.
+ambiguous for five tasks whose references changed during
+the rating window; six test artifacts from two tasks carry that     7.1   What the final report must contain
+ambiguity flag. The source appendix also reports three test         The primary table will report RPS, paired baseline differ-
+items whose rating sheet linked a different candidate artifact.     ences, and confidence intervals for all 896 audit tasks, the
+Excluding either group raises test agreement in the source          128 seen tasks with fresh outputs, the 768 held-out tasks,
+analysis, but does not repair the original evidence or jus-         and each solver configuration. The four excluded-solver fits
+tify replacing its full denominator. Neither adding raters to       have their own transfer table and denominators. Distribution-
+those files nor narrowing their intervals would erase these         error diagnostics on the dense subset, means, signed bias,
+provenance limits.                                                  absolute error, Pearson correlation, Spearman correlation,
+   Finally, a separate five-fold automated recipe, source ex-       and Kendall correlation supplement these results. Human–
+periment 104, reports tie-preserving Spearman correlation           human agreement is computed on matched artifacts, and the
+0.603 [0.287, 0.836] over all 75 artifacts and 25 tasks, with       prediction mean is not confused with the full probability
+Kendall 0.498 and Pearson 0.621. Its original floating-point        vector.
+calculation gave Spearman 0.601533; the published adden-               A separate repeatability panel reports variation across re-
+dum preserves mathematical ties before ranking. This evalu-         peated probability vectors and expected scores, the number
+of full judge executions, and the aggregation policy. A stable      Gneiting, T.; and Raftery, A. E. 2007. Strictly Proper Scoring
+but wrong judge can pass a repeatability check, while a cor-        Rules, Prediction, and Estimation. Journal of the American
+rect prediction of human disagreement can intentionally be          Statistical Association, 102(477): 359–378.
+broad. The paper must keep these statements separate. Miss-         Owen, A. B.; and Eckles, D. 2012. Bootstrapping Data Ar-
+ing and failed calls appear with their original denominator;        rays of Arbitrary Order. The Annals of Applied Statistics,
+because RPS is bounded, worst- and best-case completion             6(3): 895–927.
+bounds can show whether missingness could reverse a con-            VeriBench contributors. 2026.           VeriBench 1.3: Pub-
+clusion.                                                            lic Harbor Task Release. 896-task snapshot, commit
+    Public evidence consists of the protocol, configurations,       c9dfd8e3b535f58184440aa02d37c148d145a82c.
+input manifests where distributable, analysis code, and au-
+thorized aggregate results. Participant identities, contact in-     Zheng, L.; Chiang, W.-L.; Sheng, Y.; Zhuang, S.; Wu, Z.;
+formation, consent, individual rating sheets, and sealed test       Zhuang, Y.; Lin, Z.; Li, Z.; Li, D.; Xing, E. P.; Zhang, H.;
+ratings remain in restricted storage. Opaque analysis iden-         Gonzalez, J. E.; and Stoica, I. 2023. Judging LLM-as-a-Judge
+tifiers preserve the assignment structure without exposing          with MT-Bench and Chatbot Arena. Advances in Neural
+identities. Any eventual release of individual ratings requires     Information Processing Systems, 36.
+the corresponding consent and release decision. The his-
+torical import preserves immutable aggregate receipts and
+hashes, with post hoc calculations labeled separately.
+
+        8    Discussion and Current Status
+The proposed objective makes a precise claim possible: un-
+der the stated input conditions and human population, the
+judge predicts a conditional ordinal rating distribution with
+an estimated error and uncertainty. It does not equate agree-
+ment with semantic truth, prove that every artifact is scored
+correctly, or establish transfer to all future agents. Controlled
+semantic checks and prover evidence provide complemen-
+tary evidence about the construct being measured.
+   The 896-task, four-configuration, 24-rater allocation is a
+defensible starting design, not a universal sample-size the-
+orem. The broad task audit addresses the narrow historical
+task sample; distinct solver fits address a missing transfer
+question; separate raters and additional ratings address dif-
+ferent kinds of human uncertainty. Pilot estimates may show
+that the limiting resource is expert time, that the rater pool
+is too narrow, or that a desired precision is infeasible. Such
+findings require a declared revision of the claim or alloca-
+tion rather than presenting a smaller completed subset as the
+original design.
+   Current deliverables are the methodology, machine-
+readable collection budget, reproducibility checks, historical
+aggregate archive, and this paper draft. No fresh rating round,
+probabilistic judge selection, or final audit result is reported
+here. Exact solver pins, practical success tolerances, repeat
+counts, and the final sparse-assignment inference procedure
+remain to be frozen after the pilot and before final test in-
+spection. For evaluation of AI scientists, the broader lesson
+is operational: an instrument should be evaluated against an
+explicit target with uncertainty and transfer claims that cor-
+respond to the actual data, rather than endorsed by a single
+favorable correlation.
+
+                         References
+Cawley, G. C.; and Talbot, N. L. C. 2010. On Over-fitting
+in Model Selection and Subsequent Selection Bias in Perfor-
+mance Evaluation. Journal of Machine Learning Research,
+11: 2079–2107.
+

@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-12T01:17:58.406346+00:00",
+  "paid_calls": 0,
+  "runner_sha256": "89498273ae22c49e521469251e59129895dbb40d30a77db46af872f6473dff48",
+  "status": "PASS",
+  "stderr": "test_503_recovery_exhausts_after_three_calls_and_honors_dollar_cap (test_native_pi_budget.BudgetTests.test_503_recovery_exhausts_after_three_calls_and_honors_dollar_cap) ... ok\ntest_count_tokens_omits_prior_billed_thinking (test_native_pi_budget.BudgetTests.test_count_tokens_omits_prior_billed_thinking) ... ok\ntest_fake_503_transport_retries_same_request_and_keeps_reservations (test_native_pi_budget.BudgetTests.test_fake_503_transport_retries_same_request_and_keeps_reservations) ... ok\ntest_incomplete_response_keeps_reservation_and_stops_new_admission (test_native_pi_budget.BudgetTests.test_incomplete_response_keeps_reservation_and_stops_new_admission) ... ok\ntest_next_request_rejected_near_seventy_five_cent_cap (test_native_pi_budget.BudgetTests.test_next_request_rejected_near_seventy_five_cent_cap) ... ok\ntest_request_and_output_caps (test_native_pi_budget.BudgetTests.test_request_and_output_caps) ... ok\ntest_transport_recovery_does_not_retry_non_503 (test_native_pi_budget.BudgetTests.test_transport_recovery_does_not_retry_non_503) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.066s\n\nOK\n",
+  "stdout": "",
+  "test_file": "/Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings/support/tests/test_native_pi_budget.py",
+  "test_sha256": "45cd2e842f3e00c497a70704da763494fc515c22f3afb44d0a9c9f4fa76eb79a",
+  "tests": 7
+}

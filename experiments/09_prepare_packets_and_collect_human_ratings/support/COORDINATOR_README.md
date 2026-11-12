@@ -24,7 +24,7 @@ The six files rated by Rylan, Sri and Yegor are historical **Claude 3.7 Sonnet**
 
 Evidence: [current warm-up file hashes and path mapping](WARMUP_PATHS.json), [historical generation provenance](../../archive/01_veribench_25_tasks_3_samples_5_raters_judge_evaluation/README.md), and the original VeriBench `veribench_dataset/human_labels/calibration/generated_agents/generation_manifest.json` entries for `humaneval_47_median` and `humaneval_13__gcd`. The preserved warm-up manifest names experiment 100’s annotation-era inputs as its source.
 
-The preserved **original main packet (set N)** contains 25 tasks × five configurations = 125 candidate files. Its final manifest (10-08-2026), under `private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/SAMPLE_MANIFEST.json`, records 25 files each for Terminus 2 with Claude Fable 5.1, GPT-6 Astra, Grok 4.7, Google’s internal frontier model, and Kimi K3. Amendment C14 identifies Terminus 2 as the harness for all five; these are not native Claude Code/Codex runs. The public composition record does not identify the Google model as Gemini 3.8, Argon or Carbon. Keep individual candidate-to-system mappings sealed. Warm-up ratings alone do not validate agreement on these frontier outputs; their main sheets remain blank in the 11-11-2026 collection snapshot.
+The preserved **original main packet (set N)** contains 25 tasks × five configurations = 125 candidate files. Its final manifest (10-08-2026), under `research_artifacts/09_human_rating_collection/legacy_veribench/human_round/sample_setN/SAMPLE_MANIFEST.json`, records 25 files each for Terminus 2 with Claude Fable 5.1, GPT-6 Astra, Grok 4.7, Google’s internal frontier model, and Kimi K3. Amendment C14 identifies Terminus 2 as the harness for all five; these are not native Claude Code/Codex runs. The public composition record does not identify the Google model as Gemini 3.8, Argon or Carbon. Keep individual candidate-to-system mappings sealed. Warm-up ratings alone do not validate agreement on these frontier outputs; their main sheets remain blank in the 11-11-2026 collection snapshot.
 
 ## Why the original packet used Terminus 2 — checked 11-11-2026
 
@@ -63,11 +63,11 @@ The original allocation planned **85 artifacts and 170 independent ratings**. Af
 
 **Verified packets and forms:** Brando has 54 files/25 tasks; Rylan and Sri each have four files/their original two tasks. Each personal assembly receipt records `BUILT_SHEET_MATCHED_NOT_SENT`, `release_ready: true` and exact equality with its live Google Sheet. The independent archive audit verified all scientific bytes, manifests and stable item paths, with no detected identity/credential patterns or same-task byte duplicates. Missing item numbers are intentional: filtering missing submissions did not renumber the frozen 85-cell plan. [Open Brando's promoted main packet](../rating_task_packet/main_rating_task/START_HERE.md); [current CSV](../rating_task_packet/main_rating_task/ratings.csv). The three named `native_main` snapshots in [ratings/](../ratings/README.md) remain blank.
 
-**Evidence:** under `private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/`, `finalization/RATABLE_COHORT.json` (SHA-256 `8463f6c846839c78fccf8102f3672ff94a20562dba7871b13d81e8cca693de22`) binds the 54-file subset; `finalization/EXCLUSIONS.json` (SHA-256 `a14cfa52ead4917f5a24b88672d05f3a38b490ce39a8c5c217729891b3d024e5`) preserves all 31 missing cells. `RETURNED_ARTIFACT_SCREEN.json` holds the independent final audit; `builds/native_heavy_terminal_v1/{A1,T01,T05}/ASSEMBLY_RECEIPT.json` holds personal packet/Sheet checks. These are inventory counts, not judge-validation results; no statistical inference or human-agreement test was run.
+**Evidence:** under `research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/`, `finalization/RATABLE_COHORT.json` (SHA-256 `8463f6c846839c78fccf8102f3672ff94a20562dba7871b13d81e8cca693de22`) binds the 54-file subset; `finalization/EXCLUSIONS.json` (SHA-256 `a14cfa52ead4917f5a24b88672d05f3a38b490ce39a8c5c217729891b3d024e5`) preserves all 31 missing cells. `RETURNED_ARTIFACT_SCREEN.json` holds the independent final audit; `builds/native_heavy_terminal_v1/{A1,T01,T05}/ASSEMBLY_RECEIPT.json` holds personal packet/Sheet checks. These are inventory counts, not judge-validation results; no statistical inference or human-agreement test was run.
 
 Pi made **670 generation requests**, including generation retries; Google `countTokens` preflights are separate HTTP calls. Its conservative total is **$11.63091975**, including the excluded setup pilot, below the **$20** ceiling: $9.69398325 completed-usage upper bound + $1.216512 unresolved reservations + $0.7204245 excluded pilot. This is conservative accounting, not an invoice. Sources: `PI_FINAL_EXECUTION_AUDIT.json` and `claude_code_readiness/CC_VALID_V2_FINAL_SUMMARY.json` under the same private root.
 
-**Reuse audit:** the native Codex candidates are from archived VeriBench experiment 85 (Codex 0.154.0, instruction version 5, 1,800-second allowance). Twenty current corrected gold files differ from historical gold: collect new human ratings against current accepted gold, without transferring historical machine scores. The separate Claude Code/Opus 5.5 private pool (27 outputs) and Pi/Qwen3-Coder-30B private pool (60 task records) have zero exact Python matches. These scoped searches found no reusable intended Claude Code/Fable or Pi/Gemini outputs, without establishing global absence. Private source hashes and joins are in `private/09_human_rating_collection/preparation_11-09-2026/native_harness_audit_11-11-2026/`.
+**Reuse audit:** the native Codex candidates are from archived VeriBench experiment 85 (Codex 0.154.0, instruction version 5, 1,800-second allowance). Twenty current corrected gold files differ from historical gold: collect new human ratings against current accepted gold, without transferring historical machine scores. The separate Claude Code/Opus 5.5 private pool (27 outputs) and Pi/Qwen3-Coder-30B private pool (60 task records) have zero exact Python matches. These scoped searches found no reusable intended Claude Code/Fable or Pi/Gemini outputs, without establishing global absence. Private source hashes and joins are in `research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_audit_11-11-2026/`.
 
 **Execution and collection contract:**
 
@@ -86,7 +86,7 @@ The ten Grok baseline files have been staged and hash-verified: nine original is
 
 The three replacement main Sheets now contain the final blank forms: Brando 54 items, Rylan four and Sri four, preserving the latter two participants' original task identities. Exact live-Sheet/packet equality passed after filtering the missing submissions; earlier 85/eight/six-row forms survive in preparation history. Rylan and Sri retain verified personal editor access without notifications. The current primary target is 108 independent ratings: eight assigned and blank, 100 unassigned; Brando's 54 are additional. No replacement packet has been dispatched.
 
-The two related agents received the decision as an FYI and were told to continue their tasks. Execution state is in [the collection checkpoint](CKPT_human_rating_collection.md); source manifests and run receipts live under `private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/`.
+The two related agents received the decision as an FYI and were told to continue their tasks. Execution state is in [the collection checkpoint](CKPT_human_rating_collection.md); source manifests and run receipts live under `research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/`.
 
 ## Historical collection size and readiness — original packet, 11-11-2026
 
@@ -94,7 +94,7 @@ The two related agents received the decision as an FYI and were told to continue
 
 **The main candidate inventory is complete:** 125 nonempty Lean files, five in each of 25 task folders. All 125 match their recorded candidate hashes. The manifest records 25 files and zero missing for each of the five configurations above. The current FormV5 full archive contains exactly those 125 candidates; Rylan’s and Sri’s ten-file archives contain the corresponding unchanged subsets. Their archive hashes also match the prepared manifest. The original generation handoff retains four isolation-flagged outputs; completeness does not erase those flags or establish judge validity.
 
-**The prepared references match the corrected release:** Brando’s 25/25, Rylan’s 2/2 and Sri’s 2/2 match the pinned accepted references. `support/scripts/legacy/packet_release.py::require_release('setN')` passes the release status, acceptance-record digest and every released file checksum. Use the pinned `private/09_human_rating_collection/upstream_source/` release, accepted on 10-12-2026; the old `legacy_veribench/.../sample_setN/packet/FILES.sha256` predates those reference corrections and is not the current reference-release authority. No candidate or reference was changed by this inventory check.
+**The prepared references match the corrected release:** Brando’s 25/25, Rylan’s 2/2 and Sri’s 2/2 match the pinned accepted references. `support/scripts/legacy/packet_release.py::require_release('setN')` passes the release status, acceptance-record digest and every released file checksum. Use the pinned `research_artifacts/09_human_rating_collection/upstream_source/` release, accepted on 10-12-2026; the old `legacy_veribench/.../sample_setN/packet/FILES.sha256` predates those reference corrections and is not the current reference-release authority. No candidate or reference was changed by this inventory check.
 
 The original authorized target was **25 tasks × five solver configurations × two independent ratings per artifact = 250 main ratings**. [Amendment C15](https://github.com/brando90/veribench/blob/main/experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/PROTOCOL_AMENDMENT_C15.md) explicitly supersedes C14’s earlier three-rating proposal. Brando’s optional 125 ratings are additional, not replacements for either independent rating. At the latest collection snapshot, Rylan and Sri have ten assigned items each, all blank: 20 assigned ratings and 230 still unassigned, with zero completed main ratings. The [main collection overview](../README.md#ratings-and-completion) owns the current named status.
 
@@ -120,7 +120,7 @@ Before team dispatch, finish Brando’s pilot and obtain approval of the current
 
 - [Actual rating CSV files](../ratings).
 - [Current completion status: who is done and what is missing](../README.md#ratings-and-completion), checked **11-11-2026**.
-- [Original import receipts](../../../private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN).
+- [Original import receipts](../../../research_artifacts/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN).
 
 Collected files are in `ratings/`; named data links and completion status share the experiment README. The CSV filenames and first column show each person's name; the original IDs, ratings and notes are preserved. These raw tables contain the same participant submissions, including nonnumeric entries omitted by historical numeric-only imports. They are not additional observations. The rating files and collection README are tracked in Git, as requested on 11-11-2026.
 
@@ -140,7 +140,7 @@ The [prospective probabilistic-judge design](../../02_design_a_judge_that_predic
 
 The replacement main bundles and matching Sheets are ready for review, with all response fields blank. The preferred finish remains 11-13-2026 and final deadline 11-15-2026. Brando completes his warm-up first; the coordinator then uses the revised recipient-specific messages and waits for his explicit send instruction. No collaborator dispatch is authorized merely by `release_ready: true`.
 
-Use the native-main review and queue under `private/09_human_rating_collection/preparation_11-09-2026/`: `REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md` and `DISPATCH_QUEUE_NATIVE_MAIN_V1.json`. Older original-main drafts remain historical; the current FormV6 warm-ups keep their own recipient-specific records. The remaining collection work is 108 independent main ratings, including assignment of 100 slots to qualified raters, plus Brando's optional 54. No main scores have been collected in this revision.
+Use the native-main review and queue under `research_artifacts/09_human_rating_collection/preparation_11-09-2026/`: `REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md` and `DISPATCH_QUEUE_NATIVE_MAIN_V1.json`. Older original-main drafts remain historical; the current FormV6 warm-ups keep their own recipient-specific records. The remaining collection work is 108 independent main ratings, including assignment of 100 slots to qualified raters, plus Brando's optional 54. No main scores have been collected in this revision.
 
 ## Historical delivery preparation — 11-09-2026
 
@@ -148,7 +148,7 @@ Use the native-main review and queue under `private/09_human_rating_collection/p
 
 - The preparation record states a preferred finish of **11-13-2026** and final deadline of **11-15-2026**, superseding the historical 11-06-2026 date without rewriting delivered archives.
 - The original approved email names the coordinator's personal sheet and full assignment. The new individual drafts propose the necessary recipient-specific changes; their text approval and dispatch are still separate from this migration.
-- Existing participant records, assignments, returned sheets and delivery receipts moved without changing their contents. New roster decisions and dispatch preparation are recorded separately under `private/09_human_rating_collection/preparation_11-09-2026/`; use that active preparation record instead of treating the imported historical roster as current.
+- Existing participant records, assignments, returned sheets and delivery receipts moved without changing their contents. New roster decisions and dispatch preparation are recorded separately under `research_artifacts/09_human_rating_collection/preparation_11-09-2026/`; use that active preparation record instead of treating the imported historical roster as current.
 - The renamed packet has **25 task folders and 125 candidate files**. The team builder creates a separate blank answer sheet while preserving candidate, Python and reference bytes. A successful archive build does not establish recipient-specific delivery readiness.
 - All seven recipient sheet-permission checks are complete; the eighth return route is private CSV by email. The private review freezes eight exact recipient messages and original attachment hashes. Team text/send approval and human completion remain outstanding; access verification did not inspect sealed ratings or establish completion.
 
@@ -168,15 +168,15 @@ This repository is public. The following coordinator paths are ignored, not publ
 
 | Material | Coordinator path, relative to this repository |
 | --- | --- |
-| Original renamed delivery, unchanged | `private/original/` |
-| Existing team archives, unchanged | `private/team-folder-01.zip`, `private/team-all-folders.zip` |
-| Frozen local coordination documents, packets and sealed materials | `private/09_human_rating_collection/legacy_veribench/human_round/` |
-| Pinned committed source, packet-release records and private sheet bindings | `private/09_human_rating_collection/upstream_source/` |
-| Active preparation, roster, individual drafts and dispatch queue | `private/09_human_rating_collection/preparation_11-09-2026/` |
-| Imported participant records, assignments, submitted sheets and delivery receipts | `private/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/` |
-| Coordinator's original delivery and personal records | `private/09_human_rating_collection/legacy_veribench/human_round/private_A1/` |
-| Exact approved email | `private/09_human_rating_collection/legacy_veribench/human_round/RATER_TASK_EMAIL_LOCKED_11-04-2026.md` |
-| Complete file-by-file transfer hashes | `private/09_human_rating_collection/migration_receipt.json` |
+| Original renamed delivery, unchanged | `research_artifacts/original/` |
+| Existing team archives, unchanged | `research_artifacts/team-folder-01.zip`, `research_artifacts/team-all-folders.zip` |
+| Frozen local coordination documents, packets and sealed materials | `research_artifacts/09_human_rating_collection/legacy_veribench/human_round/` |
+| Pinned committed source, packet-release records and private sheet bindings | `research_artifacts/09_human_rating_collection/upstream_source/` |
+| Active preparation, roster, individual drafts and dispatch queue | `research_artifacts/09_human_rating_collection/preparation_11-09-2026/` |
+| Imported participant records, assignments, submitted sheets and delivery receipts | `research_artifacts/09_human_rating_collection/legacy_veribench/human_round/private_ratings_setN/` |
+| Coordinator's original delivery and personal records | `research_artifacts/09_human_rating_collection/legacy_veribench/human_round/private_A1/` |
+| Exact approved email | `research_artifacts/09_human_rating_collection/legacy_veribench/human_round/RATER_TASK_EMAIL_LOCKED_11-04-2026.md` |
+| Complete file-by-file transfer hashes | `research_artifacts/09_human_rating_collection/migration_receipt.json` |
 
 The imported `PLAN_setN_rating_round.md` records dated decisions, not the current schedule. Follow [PREPARATION_11-09-2026.md](PREPARATION_11-09-2026.md) for the newer schedule and preparation; preserve the original email's approval history and the localized-assistance wording. Keep delivered archives unchanged; any later approved delivery is a new version with a new receipt. Named collected ratings and completion records are authorized for Git tracking in this experiment; private correspondence, consent and sealed data remain outside public Git.
 
@@ -188,7 +188,7 @@ For an explicitly requested historical build, run from `~/trustworthy-theorem-ju
 
 ```sh
 python3 experiments/09_prepare_packets_and_collect_human_ratings/support/scripts/make_team_packet.py \
-  private/original private/team-folder-01-new.zip --folders 1 --rater T01
+  research_artifacts/original research_artifacts/team-folder-01-new.zip --folders 1 --rater T01
 ```
 
 Use a new output filename and the intended person's verified rater ID (`T01` is Rylan Schaeffer); omit `--folders` for all folders. Omitting `--rater` creates an unassigned template, not a recipient-ready form. The builder checks the original delivery manifest and every included file, preserves the scoring rubric apart from its personal-sheet instruction, and includes `START_HERE.md`, `Rating_Instructions.md`, `ratings.csv` and `FILES.sha256`. It does not send anything or modify a delivered packet.
@@ -197,7 +197,7 @@ Use a new output filename and the intended person's verified rater ID (`T01` is 
 
 ## Current inherited utilities
 
-The local VeriBench checkout was older than its remote branch. The active utilities therefore retain the committed implementation at `b292c277e176`, while the original local files remain separately preserved. Their inputs come from the matching pinned tree under `private/09_human_rating_collection/upstream_source/experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/`; `upstream_source/SOURCE_RECEIPT.json` records its revision and hashes. Its private working-directory links resolve to the single imported participant-record store, not duplicate records.
+The local VeriBench checkout was older than its remote branch. The active utilities therefore retain the committed implementation at `b292c277e176`, while the original local files remain separately preserved. Their inputs come from the matching pinned tree under `research_artifacts/09_human_rating_collection/upstream_source/experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml/`; `upstream_source/SOURCE_RECEIPT.json` records its revision and hashes. Its private working-directory links resolve to the single imported participant-record store, not duplicate records.
 
 - Assignment retains `--keep` for already-delivered folders; the assignment utility requires NumPy.
 - Import retains emailed comma-separated value (CSV) submissions, delivery-route and personal-sheet checks, coordinator-only `--all-folders`, and reference-issue handling. Coordinator sheet identifiers live only in private configuration.

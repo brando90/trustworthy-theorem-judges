@@ -51,7 +51,7 @@ The former public `09_human_rating_collection` path and its temporary alias are 
 3. [Shared schema](RATING_FORM_SCHEMA.json), [form amendment](FORM_AMENDMENT_11-11-2026.md), [response import rules](IDENTITY_AND_IMPORT.md).
 4. [All personal Sheets and saved CSVs](../ratings/README.md), [raw manifest](../ratings/RAW_MANIFEST.json), [summary](../ratings/SUMMARY.json).
 5. [Coordinator details and provenance](COORDINATOR_README.md), [judge-methodology context](JUDGE_FORMULATIONS_11-09-2026.md).
-6. Local private authority: `private/09_human_rating_collection/preparation_11-09-2026/CURRENT_PREPARATION.json`. This records `send_authorized: false` and the current three-person sequence. Keep private recipient correspondence and candidate-to-system mappings private.
+6. Local private authority: `research_artifacts/09_human_rating_collection/preparation_11-09-2026/CURRENT_PREPARATION.json`. This records `send_authorized: false` and the current three-person sequence. Keep private recipient correspondence and candidate-to-system mappings private.
 
 ## Current form contract; earlier simplification is superseded
 
@@ -84,7 +84,7 @@ rater_name,rater_id,item_id,task_folder,candidate_file,final_score_0_5,ai_assist
 - Warm-up: six historical single-call Claude 3.7 Sonnet candidates, three each for median and greatest common divisor. Descriptive folders are `warm_up_01_median` and `warm_up_02_greatest_common_divisor`; anonymous filenames are `agent_1.lean`, etc. Brando has seen other warm-up answers, so his warm-up is coordinator practice, not an independent blinded submission.
 - Main actual pool: 25 historical native Codex/GPT-6 Astra (xhigh), 19 new native Claude Code/Claude Fable 5.1 (max), ten historical Terminus 2/Grok 4.7. Pi/Gemini 3.8 Flash (high) returned zero captured required-path submissions in 25 attempts. All 50 new attempts terminated. Missing outputs are not human score zero. Different historical/new conditions prevent treating this as a causal harness comparison.
 - Original main packet: 125 files / 25 tasks / five Terminus 2 configurations. Preserve it as history; it is not the current default. Likewise the earlier 85-file/170-rating plan is not the final returned inventory.
-- Native preparation root: `private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/`. Final manifests: `finalization/RATABLE_COHORT.json`, `finalization/EXCLUSIONS.json`; personal bundles: `builds/native_heavy_terminal_v1/{A1,T01,T05}/`.
+- Native preparation root: `research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/`. Final manifests: `finalization/RATABLE_COHORT.json`, `finalization/EXCLUSIONS.json`; personal bundles: `builds/native_heavy_terminal_v1/{A1,T01,T05}/`.
 - Rechecked at handoff: cohort SHA-256 `8463f6c846839c78fccf8102f3672ff94a20562dba7871b13d81e8cca693de22`; exclusions SHA-256 `a14cfa52ead4917f5a24b88672d05f3a38b490ce39a8c5c217729891b3d024e5`. Each of the three saved assembly receipts says `BUILT_SHEET_MATCHED_NOT_SENT`, `release_ready: true`. That is saved verification, not a new live read or permission to send.
 - The coordinator checkpoint still contains some older next-step language (complete all six warm-ups; use the eight-person queue). Its latest sequencing paragraph, collection README and CURRENT_PREPARATION supersede that language. Preserve history; reconcile only current guidance when owning the next edit.
 - `verify_preparation.py` checks the historical 125-file/eight-draft preparation. Passing it alone does not validate the new three-person release. Use the native builder and current assembly/readback receipts for current packets.
@@ -101,7 +101,7 @@ rater_name,rater_id,item_id,task_folder,candidate_file,final_score_0_5,ai_assist
 | Sri | Prepared four-file main packet | [Main Sheet](https://docs.google.com/spreadsheets/d/163ZxKeTXqseLrmwY-b5QjqeBulinHsZAiAPo1zsJdJI/edit) |
 | Yegor | Existing six-file warm-up; main packet not yet prepared | [Warm-up Sheet](https://docs.google.com/spreadsheets/d/1AhfJL23U47t61DinUTolwchqHKLaOtR65AFVDD-YOMI/edit) |
 
-The private preparation root is `/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/`. Under it:
+The private preparation root is `/Users/brandomiranda/trustworthy-theorem-judges/research_artifacts/09_human_rating_collection/preparation_11-09-2026/`. Under it:
 
 - `ROSTER.csv` and `ASSIGNMENT_delivered.csv` govern identity, qualification and delivered assignments. T02/Yegor currently has `qualified=no`, `current_status=extra_only`, with no delivered main rows. Do not relabel that record based on his inclusion in the first batch.
 - `drafts/NativeMainV1/EMAIL_A1_BODY.txt`, `EMAIL_A1_HEADERS.json`, `EMAIL_T05_BODY.txt`, `EMAIL_T05_HEADERS.json` are starting drafts, not approved new first-batch text. There is no T02 equivalent yet.
@@ -140,7 +140,7 @@ cd /Users/brandomiranda/trustworthy-theorem-judges
 git fetch origin
 git status --short
 cat experiments/09_prepare_packets_and_collect_human_ratings/README.md
-cat private/09_human_rating_collection/preparation_11-09-2026/CURRENT_PREPARATION.json
+cat research_artifacts/09_human_rating_collection/preparation_11-09-2026/CURRENT_PREPARATION.json
 python3 scripts/check_project.py
 git diff --check
 ```

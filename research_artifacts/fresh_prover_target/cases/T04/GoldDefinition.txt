@@ -1,0 +1,15 @@
+def GoldSpec (f0 : String → String → Bool) (f1 : String → String → Bool) : Prop :=
+  (∀ (requestOrigin allowedOrigin : String),
+      f0 requestOrigin allowedOrigin = Bool.true ↔ requestOrigin = allowedOrigin) ∧
+    (∀ (requestOrigin allowedOrigin : String),
+        requestOrigin ≠ allowedOrigin → f0 requestOrigin allowedOrigin = Bool.false) ∧
+      (∀ (requestOrigin allowedOrigin : String),
+          requestOrigin = allowedOrigin → f0 requestOrigin allowedOrigin = Bool.true) ∧
+        (∀ (requestOrigin allowedOrigin : String),
+            requestOrigin = allowedOrigin →
+              (f0 requestOrigin allowedOrigin = Bool.true ↔ requestOrigin = allowedOrigin) ∧
+                (requestOrigin ≠ allowedOrigin → f0 requestOrigin allowedOrigin = Bool.false) ∧
+                  (requestOrigin = allowedOrigin → f0 requestOrigin allowedOrigin = Bool.true)) ∧
+          (∀ (requestOrigin allowedOrigin : String),
+              f0 requestOrigin allowedOrigin = f1 requestOrigin allowedOrigin) ∧
+            True

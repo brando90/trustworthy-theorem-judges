@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-PRIVATE=ROOT.parents[1]/'private/fresh_prover_target'
+PRIVATE=ROOT.parents[1]/'research_artifacts/fresh_prover_target'
 
 def sha(data):return hashlib.sha256(data).hexdigest()
 def load(path):return json.loads(path.read_text())
@@ -19,22 +19,22 @@ def main():
         freeze=load(exp/'sources/freeze.json');config=load(exp/'config.json')
         for name,digest in freeze['files'].items():assert sha((exp/name).read_bytes())==digest,name
         for name,digest in freeze['runtime_dependencies'].items():assert sha(Path(name).read_bytes())==digest,name
-        assert sha((private/'cases.json').read_bytes())==freeze['private_case_manifest_sha256']
+        assert sha((research_artifacts/'cases.json').read_bytes())==freeze['private_case_manifest_sha256']
         provenance=load(exp/'sources/provenance.json')
-        for item in provenance['sources']:assert sha((private/item['destination']).read_bytes())==item['sha256']
+        for item in provenance['sources']:assert sha((research_artifacts/item['destination']).read_bytes())==item['sha256']
         for stem,receipt_name,hash_key in [('artifacts','generation','private_artifact_sha256'),('targets','target','sha256')]:
-            raw=private/(stem+'.json');receipt=exp/'results'/(receipt_name+'_receipt.json')
+            raw=research_artifacts/(stem+'.json');receipt=exp/'results'/(receipt_name+'_receipt.json')
             if raw.exists():assert sha(raw.read_bytes())==load(receipt)[hash_key]
             else:assert not receipt.exists()
-        if (private/'artifacts.json').exists():
-            projected=[{k:v for k,v in a.items() if k not in {'specification','context_source'}} for a in load(private/'artifacts.json')]
+        if (research_artifacts/'artifacts.json').exists():
+            projected=[{k:v for k,v in a.items() if k not in {'specification','context_source'}} for a in load(research_artifacts/'artifacts.json')]
             assert projected==load(exp/'results/artifact_hashes.json')
-        state=load(private/'run_state.json');states.append(state)
+        state=load(research_artifacts/'run_state.json');states.append(state)
         for identity,record in state['calls'].items():
             assert identity in freeze['planned_calls']
-            receipt=load(private/'calls'/identity/'receipt.json')
+            receipt=load(research_artifacts/'calls'/identity/'receipt.json')
             assert record==receipt
-            request=(private/'calls'/identity/'request.json').read_bytes()
+            request=(research_artifacts/'calls'/identity/'request.json').read_bytes()
             assert sha(request)==record['request_sha256']
             assert record['num_predict']==freeze['planned_calls'][identity]['num_predict']
             assert record['runtime']['model']==config['model'] and record['runtime']['digest']==config['model_digest']

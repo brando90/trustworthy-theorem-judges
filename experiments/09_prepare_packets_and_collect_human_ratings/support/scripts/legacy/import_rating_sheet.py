@@ -1,10 +1,10 @@
 # TLDR: C15 item 11: check a rater's exported Google Sheet (CSV), or the rating CSV a rater emailed back (--csv, 10-21-2026), against the packet's item ids, the rater's delivered folders and the allowed values, then keep immutable raw and normalized snapshots plus a provenance receipt in the git-ignored private_ratings_setN/; zero model calls.
-"""Usage from the trustworthy-theorem-judges root (keep exports and outputs under private/):
-  python3 experiments/09_human_rating_collection/support/scripts/legacy/import_rating_sheet.py private/EXPORT.csv --rater T01 --packet setN|warmup \
+"""Usage from the trustworthy-theorem-judges root (keep exports and outputs under research_artifacts/):
+  python3 experiments/09_human_rating_collection/support/scripts/legacy/import_rating_sheet.py research_artifacts/EXPORT.csv --rater T01 --packet setN|warmup \
       --file-id DRIVE_FILE_ID --source-modified DRIVE_MODIFIED_TIME [--all-folders] \
-      [--out-dir private/IMPORTS] [--receipts <out-dir>/delivery/DELIVERY_RECEIPTS.jsonl]
-  python3 experiments/09_human_rating_collection/support/scripts/legacy/import_rating_sheet.py --csv private/EMAILED.csv --rater V01 --packet warmup \
-      --source-message-id GMAIL_MESSAGE_ID --source-modified EMAIL_DATE_UTC [--out-dir private/IMPORTS] [--receipts ...]
+      [--out-dir research_artifacts/IMPORTS] [--receipts <out-dir>/delivery/DELIVERY_RECEIPTS.jsonl]
+  python3 experiments/09_human_rating_collection/support/scripts/legacy/import_rating_sheet.py --csv research_artifacts/EMAILED.csv --rater V01 --packet warmup \
+      --source-message-id GMAIL_MESSAGE_ID --source-modified EMAIL_DATE_UTC [--out-dir research_artifacts/IMPORTS] [--receipts ...]
 
 The second form is the emailed-CSV route (`emailed_csv_v1_2026-10-21`, coordinator ruling 10-21-2026 09:12 PDT): a rater
 whose delivery receipt says "return_route": "emailed_csv" fills the rating_sheet CSV from the zip and emails it back, so
@@ -43,7 +43,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 # Use the pinned committed snapshot, not the stale shared VeriBench checkout.
-EXP = (Path(__file__).resolve().parents[5] / "private/09_human_rating_collection/upstream_source"
+EXP = (Path(__file__).resolve().parents[5] / "research_artifacts/09_human_rating_collection/upstream_source"
        / "experiments/102_rescore_vbv1_paper_fsc_with_validated_judge_rewrite_tmlr_icml")
 TEMPLATES = {"setN": EXP / "human_round/sample_setN/rating_sheet_TEMPLATE.csv",  # packet v2+: template beside packet/
              "warmup": EXP / "human_round/warmup/rating_sheet_TEMPLATE.csv"}

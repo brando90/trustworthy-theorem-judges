@@ -1,0 +1,30 @@
+{
+  "identity": "forecast_T03_G1_J0_0",
+  "role": "forecast",
+  "started_utc": "2026-11-06T23:22:58.607959+00:00",
+  "request_sha256": "840da4007ae257003b7b60d7a6147acab261ebf026752f91be785a8d242e8a9d",
+  "num_predict": 256,
+  "settings": {
+    "think": false,
+    "num_predict": 256,
+    "prompt": "judge_J0.md"
+  },
+  "seed": 11062226,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 80,
+  "prompt_eval_count": 947,
+  "thinking_characters": 0,
+  "parsed": {
+    "probability": 0.0,
+    "reason": "The candidate proposition forces f0 and f1 to be identical functions, but the GoldSpec requires them to behave differently (f0 must return true when delegation is true and revoked is false, while f1 must return false in that case), making the conjunction of CandidateSpec and GoldSpec logically impossible to satisfy."
+  },
+  "seconds": 12.016606457997113,
+  "finished_utc": "2026-11-06T23:23:10.636917+00:00",
+  "response_sha256": "d8d3b9c811ddb20ac28bc82a396f8f83d1fda5348df99f00a4fa78b049113328"
+}

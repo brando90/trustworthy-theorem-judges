@@ -1,0 +1,30 @@
+{
+  "identity": "preflight_J1_semantic1",
+  "role": "preflight",
+  "started_utc": "2026-11-06T23:19:34.467532+00:00",
+  "request_sha256": "b1d11b084cba89d7e304a8c73f3b950066cff406d672c40e6c45cb6712e63500",
+  "num_predict": 1024,
+  "settings": {
+    "think": false,
+    "num_predict": 1024,
+    "prompt": "judge_J1.md"
+  },
+  "seed": 11062037,
+  "status": "completed",
+  "runtime": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+    "server_version": "0.40.8"
+  },
+  "done_reason": "stop",
+  "eval_count": 37,
+  "prompt_eval_count": 471,
+  "thinking_characters": 0,
+  "parsed": {
+    "probability": 0.0,
+    "reason": "The consistency goal requires proving False, which is impossible in a consistent logical system regardless of tactic attempts or search limits."
+  },
+  "seconds": 5.85253187501803,
+  "finished_utc": "2026-11-06T23:19:40.322657+00:00",
+  "response_sha256": "8788a24d683f2b9d8b1f7fd937b476d783395550a2dee1f92f5f495b2343253e"
+}

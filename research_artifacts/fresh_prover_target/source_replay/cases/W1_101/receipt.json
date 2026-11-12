@@ -1,0 +1,766 @@
+{
+  "id": "Ne579f226b7a3aa9a",
+  "module": "W1_101",
+  "task": "humaneval_set__humaneval_29_filter_by_prefix",
+  "solver": "codex",
+  "category": "humaneval_set",
+  "repo_commit": "32aebee0754944de7ad15d595911ea76b779f8cc",
+  "gold_path": "veribench_dataset/lean_src/veribench/humaneval_set/humaneval_29_filter_by_prefix.lean",
+  "gold_sha256": "7373f57ea13ff2cea3d5fac5b38776621de65fbb554177b45dd7e7be0a052d8a",
+  "solver_path": "experiments/138_tiny256_dt_10-31-2026/cells/codex/humaneval_set__humaneval_29_filter_by_prefix/solver.lean",
+  "solver_sha256": "74541fa1c3066ab43ce137ec6a7b2a076e3d4053078af219c55dab3b2fa47a3d",
+  "lean_version": "Lean (version 4.22.0, arm64-apple-darwin23.6.0, commit ba2cbbf09d4978f416e0ebd1fceeebc2c4138c05, Release)",
+  "lean_toolchain": "leanprover/lean4:v4.22.0",
+  "lake_manifest_sha256": "d99caf0bc025deb50cb467cb84af15464d248fde48e72aea336191efde4ceef1",
+  "extractor_sha256": "048df831ec84b9d77f1fe66c66f48622b80110edbe0c5f1102d2a59207471d0a",
+  "driver_sha256": "2708a255d232808a4cd6f5ca20def6f38d2dabeea413f6a00bbb159546056282",
+  "status": "emitted",
+  "reasons": [],
+  "compiles": [
+    {
+      "source": "Gold.lean",
+      "source_sha256": "32f8277e2ab300e73c40bbe3ee1a61af0570d757df733075d30eaacc8dfa59f2",
+      "exit_code": 0,
+      "seconds": 5.8,
+      "command": [
+        "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+        "-j1",
+        "-DmaxHeartbeats=400000",
+        "-R",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build",
+        "-o",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build/Gold.olean",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build/Gold.lean"
+      ],
+      "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+      "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build:/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/dependencies:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+      "timeout_seconds": 420
+    },
+    {
+      "source": "Agent.lean",
+      "source_sha256": "aba497686eed29ba0482ff4a86bb2325aa29699d33972bc673e4895b630e9499",
+      "exit_code": 0,
+      "seconds": 4.5,
+      "command": [
+        "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+        "-j1",
+        "-DmaxHeartbeats=400000",
+        "-R",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build",
+        "-o",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build/Agent.olean",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build/Agent.lean"
+      ],
+      "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+      "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build:/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/dependencies:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+      "timeout_seconds": 420
+    },
+    {
+      "source": "Extract.lean",
+      "source_sha256": "5af353538fc4c90c2e4f59f254eff62a1e586c919e0960ab9fbca1a692bead74",
+      "exit_code": 0,
+      "seconds": 7.88,
+      "command": [
+        "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+        "-j1",
+        "-DmaxHeartbeats=400000",
+        "-R",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build/Extract.lean"
+      ],
+      "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+      "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build:/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/dependencies:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+      "timeout_seconds": 600
+    },
+    {
+      "source": "Ctx.lean",
+      "source_sha256": "b9a777eeefad43989e9b58456a9380bddfa4bee63e56748e6bfe39b23258effe",
+      "exit_code": 0,
+      "seconds": 4.19,
+      "command": [
+        "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+        "-j1",
+        "-DmaxHeartbeats=400000",
+        "-R",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit",
+        "-o",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit/Ctx.olean",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit/Ctx.lean"
+      ],
+      "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+      "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+      "timeout_seconds": 420
+    },
+    {
+      "source": "Witness_implicit.lean",
+      "source_sha256": "9995fe21f1cfa69752bf3526ea3bc488f0f31ab96c7e2cdb8e87798b3e127949",
+      "exit_code": 0,
+      "seconds": 5.68,
+      "command": [
+        "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+        "-j1",
+        "-DmaxHeartbeats=400000",
+        "-R",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build/Witness_implicit.lean"
+      ],
+      "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+      "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build:/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/dependencies:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+      "timeout_seconds": 600
+    },
+    {
+      "source": "Probe_shape.lean",
+      "source_sha256": "b16d989e1ef8bfdef724b401fc7db6ddcf3bfab8ac63a5ca113dfa8f1f1fe119",
+      "exit_code": 0,
+      "seconds": 4.15,
+      "command": [
+        "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+        "-j1",
+        "-DmaxHeartbeats=400000",
+        "-R",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit/Probe_shape.lean"
+      ],
+      "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+      "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+      "timeout_seconds": 240
+    },
+    {
+      "source": "Probe_leak_gold_only.lean",
+      "source_sha256": "3f5e61a5448670bf918bc3f46aba6785edf68ebe5e6b797b4e89358a997b349a",
+      "exit_code": 1,
+      "seconds": 4.16,
+      "command": [
+        "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+        "-j1",
+        "-DmaxHeartbeats=400000",
+        "-R",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit/Probe_leak_gold_only.lean"
+      ],
+      "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+      "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+      "timeout_seconds": 240
+    },
+    {
+      "source": "Probe_vacuous_coverage.lean",
+      "source_sha256": "f0c9b134e56722048c47a556554f812a5d6a4d277d290f62f3495c9da7c0d7f0",
+      "exit_code": 0,
+      "seconds": 3.8,
+      "command": [
+        "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+        "-j1",
+        "-DmaxHeartbeats=400000",
+        "-R",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit/Probe_vacuous_coverage.lean"
+      ],
+      "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+      "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+      "timeout_seconds": 240
+    },
+    {
+      "source": "Probe_vacuous_witness.lean",
+      "source_sha256": "db57a14646b338ce5147c2cc42dc9c51ecd26567e4f50154fe6247817f6aa5cb",
+      "exit_code": 1,
+      "seconds": 4.26,
+      "command": [
+        "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+        "-j1",
+        "-DmaxHeartbeats=400000",
+        "-R",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit",
+        "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit/Probe_vacuous_witness.lean"
+      ],
+      "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+      "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+      "timeout_seconds": 240
+    }
+  ],
+  "gold_sha256_verified": true,
+  "solver_sha256_verified": true,
+  "gold_source_theorem_names": [
+    "correctness_thm",
+    "empty_list_thm",
+    "empty_prefix_thm",
+    "filter_by_prefix_equivalence_thm",
+    "order_preservation_thm",
+    "prefix_thm",
+    "subset_thm"
+  ],
+  "agent_source_theorem_names": [
+    "exact_filter_thm",
+    "filterByPrefixImperative_loop",
+    "filterByPrefix_correct",
+    "filterByPrefix_equiv",
+    "selected_members_thm"
+  ],
+  "wrapped_gold_sha256": "32f8277e2ab300e73c40bbe3ee1a61af0570d757df733075d30eaacc8dfa59f2",
+  "wrapped_agent_sha256": "aba497686eed29ba0482ff4a86bb2325aa29699d33972bc673e4895b630e9499",
+  "extraction": {
+    "unmatchedGold": [],
+    "unmatchedAgent": [],
+    "status": "emitted",
+    "slots": [
+      {
+        "typePP": "List String → String → List String",
+        "rule": "functional_imperative_convention",
+        "index": 0,
+        "gold": "Gold.StringFilter.filter_by_prefix",
+        "binder": "f0",
+        "agent": "Agent.humaneval_29_filter_by_prefix.filterByPrefix"
+      },
+      {
+        "typePP": "List String → String → List String",
+        "rule": "functional_imperative_convention",
+        "index": 1,
+        "gold": "Gold.StringFilter.filter_by_prefixImp",
+        "binder": "f1",
+        "agent": "Agent.humaneval_29_filter_by_prefix.filterByPrefixImperative"
+      }
+    ],
+    "skippedDecls": [
+      "_private.Gold.0.Gold.StringFilter.filterLoop._unsafe_rec [private]",
+      "_private.Gold.0.Gold.StringFilter.filterLoop.match_1.splitter [private]",
+      "_private.Gold.0.Gold.StringFilter.filterLoop._sunfold [private]",
+      "_private.Gold.0.List.filter.match_1.eq_1 [private]",
+      "_private.Gold.0.Gold.StringFilter.filterLoop.eq_1 [private]",
+      "_private.Gold.0.List.forIn'_cons.match_1.eq_2 [private]",
+      "Agent.humaneval_29_filter_by_prefix.filterByPrefix.eq_1 [generated]",
+      "_private.Agent.0.List.forIn'_cons.match_1.eq_1 [private]",
+      "_private.Gold.0.List.filter.match_1.eq_2 [private]",
+      "Gold.StringFilter.empty_list_thm._simp_1 [generated]",
+      "_private.Agent.0.List.forIn'_cons.match_1.splitter [private]",
+      "Agent.humaneval_29_filter_by_prefix.filterByPrefixImperative.eq_1 [generated]",
+      "Gold.StringFilter.subset_thm._simp_1 [generated]",
+      "_private.Gold.0.Gold.StringFilter.filterLoop_eq [private]",
+      "Gold.StringFilter.prefix_thm._simp_1_1 [generated]",
+      "Gold.StringFilter.prefix_thm._simp_1 [generated]",
+      "_private.Gold.0.Gold.StringFilter.filterLoop [private]",
+      "Gold.StringFilter.filter_by_prefix.eq_1 [generated]",
+      "Gold.StringFilter.filter_by_prefixImp.eq_1 [generated]",
+      "_private.Gold.0.List.filter.match_1.splitter [private]",
+      "_private.Gold.0.Gold.StringFilter.filterLoop.match_1.eq_2 [private]",
+      "_private.Gold.0.Gold.StringFilter.filterLoop.match_1.eq_1 [private]",
+      "Gold.StringFilter.empty_prefix_thm._simp_1 [generated]",
+      "_private.Agent.0.List.forIn'_cons.match_1.eq_2 [private]",
+      "_private.Gold.0.Gold.StringFilter.filter_by_prefixImp_eq_filterLoop [private]",
+      "_private.Gold.0.Gold.StringFilter.startsWith_empty [private]",
+      "_private.Gold.0.List.forIn'_cons.match_1.eq_1 [private]",
+      "_private.Gold.0.List.forIn'_cons.match_1.splitter [private]",
+      "Gold.StringFilter.order_preservation_thm._simp_1 [generated]",
+      "_private.Gold.0.Gold.StringFilter.filterLoop.match_1 [private]",
+      "_private.Gold.0.Gold.StringFilter.filterLoop.eq_2 [private]"
+    ],
+    "residualConstants": [],
+    "reasons": [],
+    "ppMode": "implicit",
+    "ok": true,
+    "notes": [],
+    "nonce": "282bddd24f7c0395e4aec20dba29a5de",
+    "goldTheorems": [
+      "Gold.StringFilter.empty_list_thm",
+      "Gold.StringFilter.empty_prefix_thm",
+      "Gold.StringFilter.subset_thm",
+      "Gold.StringFilter.prefix_thm",
+      "Gold.StringFilter.order_preservation_thm",
+      "Gold.StringFilter.correctness_thm",
+      "Gold.StringFilter.filter_by_prefix_equivalence_thm"
+    ],
+    "goldArgs": [
+      "@Gold.StringFilter.filter_by_prefix",
+      "@Gold.StringFilter.filter_by_prefixImp"
+    ],
+    "decls": [
+      {
+        "typePP": "List String → String → List String",
+        "side": "agent",
+        "role": "impl_fn",
+        "name": "Agent.humaneval_29_filter_by_prefix.filterByPrefix",
+        "kind": "def"
+      },
+      {
+        "typePP": "List String → String → List String",
+        "side": "gold",
+        "role": "impl_fn",
+        "name": "Gold.StringFilter.filter_by_prefix",
+        "kind": "def"
+      },
+      {
+        "typePP": "List String → String → Prop",
+        "side": "agent",
+        "role": "prop_helper",
+        "name": "Agent.humaneval_29_filter_by_prefix.Pre",
+        "kind": "def"
+      },
+      {
+        "typePP": "List String → String → List String → Prop",
+        "side": "agent",
+        "role": "prop_helper",
+        "name": "Agent.humaneval_29_filter_by_prefix.selected_members_prop",
+        "kind": "def"
+      },
+      {
+        "typePP": "∀ (strings : List String) (pre : String),\n    Agent.humaneval_29_filter_by_prefix.selected_members_prop strings pre\n      (Agent.humaneval_29_filter_by_prefix.filterByPrefix strings pre)",
+        "side": "agent",
+        "role": "theorem",
+        "name": "Agent.humaneval_29_filter_by_prefix.selected_members_thm",
+        "kind": "theorem"
+      },
+      {
+        "typePP": "List String → String → List String → Prop",
+        "side": "agent",
+        "role": "prop_helper",
+        "name": "Agent.humaneval_29_filter_by_prefix.exact_filter_prop",
+        "kind": "def"
+      },
+      {
+        "typePP": "∀ (strings : List String) (pre : String),\n    Agent.humaneval_29_filter_by_prefix.exact_filter_prop strings pre\n      (Agent.humaneval_29_filter_by_prefix.filterByPrefix strings pre)",
+        "side": "agent",
+        "role": "theorem",
+        "name": "Agent.humaneval_29_filter_by_prefix.exact_filter_thm",
+        "kind": "theorem"
+      },
+      {
+        "typePP": "List String → String → List String → Prop",
+        "side": "agent",
+        "role": "prop_helper",
+        "name": "Agent.humaneval_29_filter_by_prefix.Post_prop",
+        "kind": "def"
+      },
+      {
+        "typePP": "∀ (strings : List String) (pre : String),\n    Agent.humaneval_29_filter_by_prefix.Pre strings pre →\n      Agent.humaneval_29_filter_by_prefix.Post_prop strings pre\n        (Agent.humaneval_29_filter_by_prefix.filterByPrefix strings pre)",
+        "side": "agent",
+        "role": "theorem",
+        "name": "Agent.humaneval_29_filter_by_prefix.filterByPrefix_correct",
+        "kind": "theorem"
+      },
+      {
+        "typePP": "List String → String → List String",
+        "side": "agent",
+        "role": "impl_fn",
+        "name": "Agent.humaneval_29_filter_by_prefix.filterByPrefixImperative",
+        "kind": "def"
+      },
+      {
+        "typePP": "List String → String → Prop",
+        "side": "gold",
+        "role": "prop_helper",
+        "name": "Gold.StringFilter.Pre",
+        "kind": "def"
+      },
+      {
+        "typePP": "∀ (strings acc : List String) (pre : String),\n    Id.run\n        (have result := acc;\n        do\n        let r ←\n          ForIn.forIn strings result fun string r =>\n              have result := r;\n              if String.startsWith string pre = Bool.true then\n                have result := result ++ [string];\n                do\n                Pure.pure PUnit.unit\n                Pure.pure (ForInStep.yield result)\n              else do\n                Pure.pure PUnit.unit\n                Pure.pure (ForInStep.yield result)\n        have result : List String := r\n        Pure.pure result) =\n      acc ++ Agent.humaneval_29_filter_by_prefix.filterByPrefix strings pre",
+        "side": "agent",
+        "role": "theorem",
+        "name": "Agent.humaneval_29_filter_by_prefix.filterByPrefixImperative_loop",
+        "kind": "theorem"
+      },
+      {
+        "typePP": "String → Prop",
+        "side": "gold",
+        "role": "prop_helper",
+        "name": "Gold.StringFilter.empty_list_prop",
+        "kind": "def"
+      },
+      {
+        "typePP": "∀ (p : String), Gold.StringFilter.empty_list_prop p",
+        "side": "gold",
+        "role": "theorem",
+        "name": "Gold.StringFilter.empty_list_thm",
+        "kind": "theorem"
+      },
+      {
+        "typePP": "List String → Prop",
+        "side": "gold",
+        "role": "prop_helper",
+        "name": "Gold.StringFilter.empty_prefix_prop",
+        "kind": "def"
+      },
+      {
+        "typePP": "∀ (xs : List String), Gold.StringFilter.empty_prefix_prop xs",
+        "side": "gold",
+        "role": "theorem",
+        "name": "Gold.StringFilter.empty_prefix_thm",
+        "kind": "theorem"
+      },
+      {
+        "typePP": "List String → String → Prop",
+        "side": "gold",
+        "role": "prop_helper",
+        "name": "Gold.StringFilter.subset_prop",
+        "kind": "def"
+      },
+      {
+        "typePP": "∀ (xs : List String) (p : String), Gold.StringFilter.subset_prop xs p",
+        "side": "gold",
+        "role": "theorem",
+        "name": "Gold.StringFilter.subset_thm",
+        "kind": "theorem"
+      },
+      {
+        "typePP": "∀ (strings : List String) (pre : String),\n    Agent.humaneval_29_filter_by_prefix.filterByPrefix strings pre =\n      Agent.humaneval_29_filter_by_prefix.filterByPrefixImperative strings pre",
+        "side": "agent",
+        "role": "theorem",
+        "name": "Agent.humaneval_29_filter_by_prefix.filterByPrefix_equiv",
+        "kind": "theorem"
+      },
+      {
+        "typePP": "List String → String → Prop",
+        "side": "gold",
+        "role": "prop_helper",
+        "name": "Gold.StringFilter.prefix_prop",
+        "kind": "def"
+      },
+      {
+        "typePP": "∀ (xs : List String) (p : String), Gold.StringFilter.prefix_prop xs p",
+        "side": "gold",
+        "role": "theorem",
+        "name": "Gold.StringFilter.prefix_thm",
+        "kind": "theorem"
+      },
+      {
+        "typePP": "List String → String → Prop",
+        "side": "gold",
+        "role": "prop_helper",
+        "name": "Gold.StringFilter.order_preservation_prop",
+        "kind": "def"
+      },
+      {
+        "typePP": "∀ (xs : List String) (p : String), Gold.StringFilter.order_preservation_prop xs p",
+        "side": "gold",
+        "role": "theorem",
+        "name": "Gold.StringFilter.order_preservation_thm",
+        "kind": "theorem"
+      },
+      {
+        "typePP": "List String → String → Prop",
+        "side": "gold",
+        "role": "prop_helper",
+        "name": "Gold.StringFilter.Post_prop",
+        "kind": "def"
+      },
+      {
+        "typePP": "∀ (xs : List String) (p : String), Gold.StringFilter.Pre xs p → Gold.StringFilter.Post_prop xs p",
+        "side": "gold",
+        "role": "theorem",
+        "name": "Gold.StringFilter.correctness_thm",
+        "kind": "theorem"
+      },
+      {
+        "typePP": "List String → String → List String",
+        "side": "gold",
+        "role": "impl_fn",
+        "name": "Gold.StringFilter.filter_by_prefixImp",
+        "kind": "def"
+      },
+      {
+        "typePP": "∀ (xs : List String) (p : String),\n    Gold.StringFilter.filter_by_prefix xs p = Gold.StringFilter.filter_by_prefixImp xs p",
+        "side": "gold",
+        "role": "theorem",
+        "name": "Gold.StringFilter.filter_by_prefix_equivalence_thm",
+        "kind": "theorem"
+      }
+    ],
+    "agentTheorems": [
+      "Agent.humaneval_29_filter_by_prefix.selected_members_thm",
+      "Agent.humaneval_29_filter_by_prefix.exact_filter_thm",
+      "Agent.humaneval_29_filter_by_prefix.filterByPrefix_correct",
+      "Agent.humaneval_29_filter_by_prefix.filterByPrefixImperative_loop",
+      "Agent.humaneval_29_filter_by_prefix.filterByPrefix_equiv"
+    ],
+    "agentArgs": [
+      "@Agent.humaneval_29_filter_by_prefix.filterByPrefix",
+      "@Agent.humaneval_29_filter_by_prefix.filterByPrefixImperative"
+    ],
+    "adapterCandidates": []
+  },
+  "slot_rules": [
+    "functional_imperative_convention"
+  ],
+  "match_tier": "convention_disambiguated",
+  "lean_vs_source_names_agree": {
+    "gold": true,
+    "agent": true,
+    "gold_counts": [
+      7,
+      7
+    ],
+    "agent_counts": [
+      5,
+      5
+    ],
+    "gold_only_in_lean": [],
+    "gold_only_in_text": [],
+    "agent_only_in_lean": [],
+    "agent_only_in_text": []
+  },
+  "print_attempts": [
+    {
+      "pp_mode": "implicit",
+      "accepted": true,
+      "reasons": [],
+      "compiles": [
+        {
+          "source": "Ctx.lean",
+          "source_sha256": "b9a777eeefad43989e9b58456a9380bddfa4bee63e56748e6bfe39b23258effe",
+          "exit_code": 0,
+          "seconds": 4.19,
+          "command": [
+            "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+            "-j1",
+            "-DmaxHeartbeats=400000",
+            "-R",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit",
+            "-o",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit/Ctx.olean",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit/Ctx.lean"
+          ],
+          "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+          "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+          "timeout_seconds": 420
+        },
+        {
+          "source": "Witness_implicit.lean",
+          "source_sha256": "9995fe21f1cfa69752bf3526ea3bc488f0f31ab96c7e2cdb8e87798b3e127949",
+          "exit_code": 0,
+          "seconds": 5.68,
+          "command": [
+            "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+            "-j1",
+            "-DmaxHeartbeats=400000",
+            "-R",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build/Witness_implicit.lean"
+          ],
+          "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+          "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/build:/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/dependencies:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+          "timeout_seconds": 600
+        },
+        {
+          "source": "Probe_shape.lean",
+          "source_sha256": "b16d989e1ef8bfdef724b401fc7db6ddcf3bfab8ac63a5ca113dfa8f1f1fe119",
+          "exit_code": 0,
+          "seconds": 4.15,
+          "command": [
+            "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+            "-j1",
+            "-DmaxHeartbeats=400000",
+            "-R",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit/Probe_shape.lean"
+          ],
+          "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+          "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+          "timeout_seconds": 240
+        },
+        {
+          "source": "Probe_leak_gold_only.lean",
+          "source_sha256": "3f5e61a5448670bf918bc3f46aba6785edf68ebe5e6b797b4e89358a997b349a",
+          "exit_code": 1,
+          "seconds": 4.16,
+          "command": [
+            "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+            "-j1",
+            "-DmaxHeartbeats=400000",
+            "-R",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit/Probe_leak_gold_only.lean"
+          ],
+          "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+          "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+          "timeout_seconds": 240
+        },
+        {
+          "source": "Probe_vacuous_coverage.lean",
+          "source_sha256": "f0c9b134e56722048c47a556554f812a5d6a4d277d290f62f3495c9da7c0d7f0",
+          "exit_code": 0,
+          "seconds": 3.8,
+          "command": [
+            "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+            "-j1",
+            "-DmaxHeartbeats=400000",
+            "-R",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit/Probe_vacuous_coverage.lean"
+          ],
+          "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+          "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+          "timeout_seconds": 240
+        },
+        {
+          "source": "Probe_vacuous_witness.lean",
+          "source_sha256": "db57a14646b338ce5147c2cc42dc9c51ecd26567e4f50154fe6247817f6aa5cb",
+          "exit_code": 1,
+          "seconds": 4.26,
+          "command": [
+            "/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean",
+            "-j1",
+            "-DmaxHeartbeats=400000",
+            "-R",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit",
+            "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/probes_implicit/Probe_vacuous_witness.lean"
+          ],
+          "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+          "lean_path": "/Users/brandomiranda/.worktrees/trustworthy-theorem-judges/fresh-prover-judges/private/fresh_prover_target/source_replay/cases/W1_101/ctx_implicit:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Cli/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/batteries/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/Qq/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/aesop/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/importGraph/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/plausible/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/packages/mathlib/.lake/build/lib/lean:/Users/brandomiranda/veribench/veribench_dataset/lean_src/.lake/build/lib/lean:/Users/brandomiranda/.elan/toolchains/leanprover--lean4---v4.22.0/lib/lean",
+          "timeout_seconds": 240
+        }
+      ],
+      "context_path": "ctx_implicit/Ctx.lean",
+      "context_sha256": "b9a777eeefad43989e9b58456a9380bddfa4bee63e56748e6bfe39b23258effe",
+      "static_checks": {
+        "imports": [
+          "Mathlib"
+        ],
+        "imports_only_mathlib": true,
+        "no_gold_or_agent_identifier": true,
+        "no_theorem_declaration": true,
+        "no_tactic_block": true,
+        "no_sorry": true,
+        "no_native_decide": true,
+        "declares_all_targets": true
+      },
+      "context_compiles": true,
+      "roundtrip": {
+        "ok": true,
+        "status": "roundtrip_exact",
+        "detail": "agentExact=true goldExact=true agentDefEq=true goldDefEq=true",
+        "reasons": []
+      },
+      "witness": {
+        "exit_code": 0,
+        "axioms": {
+          "VB169Witness.agent_satisfies": [
+            "propext",
+            "Quot.sound"
+          ],
+          "VB169Witness.gold_instantiation": [
+            "propext",
+            "Quot.sound"
+          ],
+          "VB169Witness.nonvacuous": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        "agent_specification_satisfied": true,
+        "gold_specification_instantiates": true,
+        "nonvacuity_witnessed": true,
+        "axioms_outside_allowlist": []
+      },
+      "controls": {
+        "shape": {
+          "exit_code": 0,
+          "expected_provable": true,
+          "provable": true,
+          "timed_out": false,
+          "tactic_budget_seconds": 240,
+          "as_expected": true
+        },
+        "leak_gold_only": {
+          "exit_code": 1,
+          "expected_provable": false,
+          "provable": false,
+          "timed_out": false,
+          "tactic_budget_seconds": 240,
+          "as_expected": true
+        },
+        "vacuous_coverage": {
+          "exit_code": 0,
+          "expected_provable": true,
+          "provable": true,
+          "timed_out": false,
+          "tactic_budget_seconds": 240,
+          "as_expected": true
+        },
+        "vacuous_witness": {
+          "exit_code": 1,
+          "expected_provable": false,
+          "provable": false,
+          "timed_out": false,
+          "tactic_budget_seconds": 240,
+          "as_expected": true
+        }
+      },
+      "controls_all_as_expected": true
+    }
+  ],
+  "pp_mode": "implicit",
+  "context_path": "ctx_implicit/Ctx.lean",
+  "context_sha256": "b9a777eeefad43989e9b58456a9380bddfa4bee63e56748e6bfe39b23258effe",
+  "context_static_checks": {
+    "imports": [
+      "Mathlib"
+    ],
+    "imports_only_mathlib": true,
+    "no_gold_or_agent_identifier": true,
+    "no_theorem_declaration": true,
+    "no_tactic_block": true,
+    "no_sorry": true,
+    "no_native_decide": true,
+    "declares_all_targets": true
+  },
+  "context_compiles": true,
+  "roundtrip": {
+    "ok": true,
+    "status": "roundtrip_exact",
+    "detail": "agentExact=true goldExact=true agentDefEq=true goldDefEq=true",
+    "reasons": []
+  },
+  "witness": {
+    "exit_code": 0,
+    "axioms": {
+      "VB169Witness.agent_satisfies": [
+        "propext",
+        "Quot.sound"
+      ],
+      "VB169Witness.gold_instantiation": [
+        "propext",
+        "Quot.sound"
+      ],
+      "VB169Witness.nonvacuous": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    "agent_specification_satisfied": true,
+    "gold_specification_instantiates": true,
+    "nonvacuity_witnessed": true,
+    "axioms_outside_allowlist": []
+  },
+  "controls": {
+    "shape": {
+      "exit_code": 0,
+      "expected_provable": true,
+      "provable": true,
+      "timed_out": false,
+      "tactic_budget_seconds": 240,
+      "as_expected": true
+    },
+    "leak_gold_only": {
+      "exit_code": 1,
+      "expected_provable": false,
+      "provable": false,
+      "timed_out": false,
+      "tactic_budget_seconds": 240,
+      "as_expected": true
+    },
+    "vacuous_coverage": {
+      "exit_code": 0,
+      "expected_provable": true,
+      "provable": true,
+      "timed_out": false,
+      "tactic_budget_seconds": 240,
+      "as_expected": true
+    },
+    "vacuous_witness": {
+      "exit_code": 1,
+      "expected_provable": false,
+      "provable": false,
+      "timed_out": false,
+      "tactic_budget_seconds": 240,
+      "as_expected": true
+    }
+  },
+  "controls_all_as_expected": true
+}

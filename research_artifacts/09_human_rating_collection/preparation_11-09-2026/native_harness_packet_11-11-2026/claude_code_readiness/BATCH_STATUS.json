@@ -1,0 +1,138 @@
+{
+  "started_at": "2026-11-12T00:36:34.597879+00:00",
+  "pid": 41799,
+  "condition_sha256": "afcb028cbb65c339d4f1d041fafbcbca9d6f1502b9009528647a05bc6ff70de2",
+  "status": "INVALID_ENVIRONMENT_PREFLIGHT",
+  "tasks": {
+    "realcode_set__20_html_escape": {
+      "task_id": "realcode_set__20_html_escape",
+      "condition_sha256": "afcb028cbb65c339d4f1d041fafbcbca9d6f1502b9009528647a05bc6ff70de2",
+      "command": [
+        "claude",
+        "-p",
+        "--safe-mode",
+        "--dangerously-skip-permissions",
+        "--permission-prompts",
+        "none",
+        "--model",
+        "claude-fable-5-1",
+        "--effort",
+        "max",
+        "--max-turns",
+        "40",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-chrome",
+        "--strict-mcp-config",
+        "--mcp-config",
+        "{\"mcpServers\":{}}",
+        "--disable-slash-commands",
+        "--tools",
+        "Bash,Read,Write,Edit,Glob,Grep",
+        "--disallowed-tools",
+        "WebSearch,WebFetch,Agent,Task"
+      ],
+      "visible_files": {
+        "20_html_escape.py": "6f39b1bd6ebfb76f6d189a05ae0700a231d1b9101eb6a96388a335736485a04c",
+        "instruction.md": "95cbb6dcc34813e5804d2fba2cb1a0850b79dc132fac7768bf593e64a4d3e772"
+      },
+      "output": "/home/user/lean_project/Veribench/20_html_escape.lean",
+      "model_call_performed": true,
+      "container": "ttj-cc-757f752e79d8",
+      "status": "TERMINAL",
+      "cli_version": "2.1.322 (Claude Code)",
+      "actual_mounts": [],
+      "network": "ttj-native-source-only",
+      "started_at": 1794443795.024686,
+      "exit_code": 137,
+      "stop_reason": "process_exit_without_result",
+      "finished_at": 1794444266.258094,
+      "actual_models": [
+        "claude-fable-5-1"
+      ],
+      "observed_total_tokens": 37722,
+      "observed_output_tokens": 30,
+      "usage_event_count": 3,
+      "native_result": null,
+      "model_identity_verified": true,
+      "candidate_captured": false,
+      "candidate_sha256": null,
+      "candidate_bytes": null,
+      "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+    },
+    "easy_set__23_is_prime": {
+      "status": "PENDING"
+    },
+    "security_set__security_6858__vulnerabilities__93_unsafeappentitlements": {
+      "status": "PENDING"
+    },
+    "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice": {
+      "status": "PENDING"
+    },
+    "easy_set__41_duplicate_chars": {
+      "status": "PENDING"
+    },
+    "security_set__security_6858__vulnerabilities__75_unsafecerthostname": {
+      "status": "PENDING"
+    },
+    "humaneval_set__humaneval_35_max_element": {
+      "status": "PENDING"
+    },
+    "cs_set__topological_sort": {
+      "status": "PENDING"
+    },
+    "humaneval_set__humaneval_39_prime_fib": {
+      "status": "PENDING"
+    },
+    "realcode_set__23_base32": {
+      "status": "PENDING"
+    },
+    "humaneval_set__humaneval_15_string_sequence": {
+      "status": "PENDING"
+    },
+    "cs_set__counting_sort": {
+      "status": "PENDING"
+    },
+    "easy_set__16_myfactorial": {
+      "status": "PENDING"
+    },
+    "humaneval_set__humaneval_14_all_prefixes": {
+      "status": "PENDING"
+    },
+    "easy_set__20_mysumdigits": {
+      "status": "PENDING"
+    },
+    "humaneval_set__humaneval_4_mean_absolute_deviation": {
+      "status": "PENDING"
+    },
+    "cs_set__heapsort_algorithm": {
+      "status": "PENDING"
+    },
+    "easy_set__19_mypower": {
+      "status": "PENDING"
+    },
+    "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade": {
+      "status": "PENDING"
+    },
+    "security_set__security_6858__safe__125_unsafetpmhash_safe": {
+      "status": "PENDING"
+    },
+    "cs_set__edit_distance": {
+      "status": "PENDING"
+    },
+    "realcode_set__21_shlex_quote": {
+      "status": "PENDING"
+    },
+    "realcode_set__31_statistics_quantiles": {
+      "status": "PENDING"
+    },
+    "realcode_set__28_statistics_median_low": {
+      "status": "PENDING"
+    },
+    "cs_set__heap_sort": {
+      "status": "PENDING"
+    }
+  },
+  "updated_at": "2026-11-12T00:45:36.022406+00:00"
+}

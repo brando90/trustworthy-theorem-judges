@@ -53,7 +53,7 @@ def main():
     ap.add_argument('--private-results',required=True);args=ap.parse_args()
     root=Path(args.results);private=Path(args.private_results)
     d=json.loads(Path(args.data).read_text());result=json.loads((root/'results.json').read_text())
-    selected=json.loads((root/'selected_models.json').read_text()); forecasts=json.loads((private/'forecasts.json').read_text())
+    selected=json.loads((root/'selected_models.json').read_text()); forecasts=json.loads((research_artifacts/'forecasts.json').read_text())
     assert hashlib.sha256(Path(args.data).read_bytes()).hexdigest()==result['dataset_sha256']
     assert hashlib.sha256((root/'selected_models.json').read_bytes()).hexdigest()==result['selected_models_before_test_sha256']
     order=selected['candidate_order'];eps=selected['epsilon'];max_qerr=0.;max_metric=0.;nmetrics=0
@@ -79,7 +79,7 @@ def main():
                     err=abs(value-reported[metric]);max_metric=max(max_metric,err)
                     assert err<1e-10,(split,method,metric,err)
                 nmetrics+=1
-    boot=json.loads((private/'bootstrap_distributions.json').read_text());max_cierr=0.
+    boot=json.loads((research_artifacts/'bootstrap_distributions.json').read_text());max_cierr=0.
     for metric,values in boot['paired'].items():
         a=[v for v in values if v is not None]
         rep=result['paired_method4_minus_method2'][metric]

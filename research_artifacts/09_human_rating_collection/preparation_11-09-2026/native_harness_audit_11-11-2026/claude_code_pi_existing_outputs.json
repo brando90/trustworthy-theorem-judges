@@ -1,0 +1,1067 @@
+{
+  "audit_date": "11-11-2026",
+  "purpose": "Bounded existing-output availability inventory for native harness extension; no scoring or generation.",
+  "packet_manifest": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/SAMPLE_MANIFEST.json",
+  "packet_manifest_sha256": "15edad01d64f0b618f8a480c9b2ade424d95024f0f46b14e288a1d7d164dea58",
+  "packet_task_count": 25,
+  "packet_python_inputs": [
+    {
+      "packet_folder": "N01",
+      "filename": "20_html_escape.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N01/python_source/20_html_escape.py",
+      "sha256": "6f39b1bd6ebfb76f6d189a05ae0700a231d1b9101eb6a96388a335736485a04c"
+    },
+    {
+      "packet_folder": "N02",
+      "filename": "23_is_prime.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N02/python_source/23_is_prime.py",
+      "sha256": "813772624e9ec33a62e3497ba44c094f7ea56e90adbcb3e96483bfd71ddbb379"
+    },
+    {
+      "packet_folder": "N03",
+      "filename": "93_unsafeAppEntitlements.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N03/python_source/93_unsafeAppEntitlements.py",
+      "sha256": "4f8c41339fb8633e962a7c12538c5d16fa6d923c3a7887768bae500c87988619"
+    },
+    {
+      "packet_folder": "N04",
+      "filename": "129_unsafeTorHiddenService.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N04/python_source/129_unsafeTorHiddenService.py",
+      "sha256": "72323a0a2094f2d41a2cc8f3f9880e34d31068dd564b0a9de981ed86030df63f"
+    },
+    {
+      "packet_folder": "N05",
+      "filename": "41_duplicate_chars.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N05/python_source/41_duplicate_chars.py",
+      "sha256": "a242ffd4eb73bcc770495c2f72bc93142ac5dc03c337697646f15a4f3dc1f2e3"
+    },
+    {
+      "packet_folder": "N06",
+      "filename": "75_unsafeCertHostname.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N06/python_source/75_unsafeCertHostname.py",
+      "sha256": "3f2f94afbd2a7d07596e5ac6ab9cc81419b90ec279ccda76fb750ba2238ef5b2"
+    },
+    {
+      "packet_folder": "N07",
+      "filename": "humaneval_35_max_element.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N07/python_source/humaneval_35_max_element.py",
+      "sha256": "4b70c0542c0a72624d51825c14157212b6998cff49b7161ef77e6ae8451006c2"
+    },
+    {
+      "packet_folder": "N08",
+      "filename": "topological_sort.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N08/python_source/topological_sort.py",
+      "sha256": "f8b63f6ebf52572f4f8e7e5fc4c41cebee75b8176c79ce6a64bf2ab57b145632"
+    },
+    {
+      "packet_folder": "N09",
+      "filename": "humaneval_39_prime_fib.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N09/python_source/humaneval_39_prime_fib.py",
+      "sha256": "391562d77b03c0491e2b36756c874726f6aa23497b317928f1f3439e10ec039c"
+    },
+    {
+      "packet_folder": "N10",
+      "filename": "23_base32.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N10/python_source/23_base32.py",
+      "sha256": "dc4bc7238f984eccdcbc4824be46e876896849db5f1e64e49d5283199368549b"
+    },
+    {
+      "packet_folder": "N11",
+      "filename": "humaneval_15_string_sequence.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N11/python_source/humaneval_15_string_sequence.py",
+      "sha256": "8f4dde6215aa746cbc8642b82008ab0437f73b7f09394d0f001c1bca8d7c1f2d"
+    },
+    {
+      "packet_folder": "N12",
+      "filename": "counting_sort.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N12/python_source/counting_sort.py",
+      "sha256": "874c75909e91d7abcdfe3ad65a72ce738061304df064f93b334044281fe4e6ec"
+    },
+    {
+      "packet_folder": "N13",
+      "filename": "16_MyFactorial.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N13/python_source/16_MyFactorial.py",
+      "sha256": "e4c85d4c44a69827a816d7b67e22b1fb7e22e0cab18c99427daaba80a22780d7"
+    },
+    {
+      "packet_folder": "N14",
+      "filename": "humaneval_14_all_prefixes.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N14/python_source/humaneval_14_all_prefixes.py",
+      "sha256": "9793c5a006d2b3b17518199000cfafb46722dbf17451c773e5e1d4871251db92"
+    },
+    {
+      "packet_folder": "N15",
+      "filename": "20_MySumDigits.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N15/python_source/20_MySumDigits.py",
+      "sha256": "12df2a4a18060824b7e8ca7785afc9b1470831c3a55e76ac470ba9b93acd531d"
+    },
+    {
+      "packet_folder": "N16",
+      "filename": "humaneval_4_mean_absolute_deviation.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N16/python_source/humaneval_4_mean_absolute_deviation.py",
+      "sha256": "559fde16be5e57c6080a6793ff0007c7a23a7452bd14a1e2ce3efa1baa85928f"
+    },
+    {
+      "packet_folder": "N17",
+      "filename": "heapsort_algorithm.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N17/python_source/heapsort_algorithm.py",
+      "sha256": "62c463adc5c197d896bff8e6f8227a6c72deb701ef4337eea0e53c692ee1c979"
+    },
+    {
+      "packet_folder": "N18",
+      "filename": "19_MyPower.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N18/python_source/19_MyPower.py",
+      "sha256": "ecd27b4fb26b5ec4879b94f40c33474aa9bb42c745681c5247a4f0b6f7d08fd6"
+    },
+    {
+      "packet_folder": "N19",
+      "filename": "95_unsafeTlsDowngrade.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N19/python_source/95_unsafeTlsDowngrade.py",
+      "sha256": "3362ddd9ccf29cab0fca41509bda5ce0657eca8bb8aaca4ef1e9311f32babee7"
+    },
+    {
+      "packet_folder": "N20",
+      "filename": "125_unsafeTPMHash_safe.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N20/python_source/125_unsafeTPMHash_safe.py",
+      "sha256": "6b4d586252669a2458a1891d5b9f28886a77f43e0fa54b06aed18fee736f65a6"
+    },
+    {
+      "packet_folder": "N21",
+      "filename": "edit_distance.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N21/python_source/edit_distance.py",
+      "sha256": "64d1e83ce02b690a6a73dd6ed132f512f71cf5071a1df65ff12d32240449baa1"
+    },
+    {
+      "packet_folder": "N22",
+      "filename": "21_shlex_quote.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N22/python_source/21_shlex_quote.py",
+      "sha256": "6fead365b7a99a38c6e82cd49a2438d541f90afdc22e08656e4b6a31b580d338"
+    },
+    {
+      "packet_folder": "N23",
+      "filename": "31_statistics_quantiles.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N23/python_source/31_statistics_quantiles.py",
+      "sha256": "ec7999fdd36f74110c5cb04c4aa0befbd056975b34bb685e94c0bb5dda3818f9"
+    },
+    {
+      "packet_folder": "N24",
+      "filename": "28_statistics_median_low.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N24/python_source/28_statistics_median_low.py",
+      "sha256": "8aa9b9fada22f74576c798f4d5ded692b42235aa4e50fec9698554e6374621ed"
+    },
+    {
+      "packet_folder": "N25",
+      "filename": "heap_sort.py",
+      "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/legacy_veribench/human_round/sample_setN/packet/N25/python_source/heap_sort.py",
+      "sha256": "9194b262a2b0d0ed6195687c4fdfef67b287f28605d2b3c8ac3cd63a6bfc2fbd"
+    }
+  ],
+  "existing_configs": [
+    {
+      "experiment": 25,
+      "directory": "/Users/brandomiranda/vb-priv-bmg/experiments/25_pi_qwen3coder_proxy_rerun_60_staged_10-29-2026",
+      "metadata_path": "/Users/brandomiranda/vb-priv-bmg/experiments/25_pi_qwen3coder_proxy_rerun_60_staged_10-29-2026/README.md",
+      "record_count": 60,
+      "unique_task_ids": [
+        "VB120-AC-46",
+        "VB120-AR-41",
+        "VB120-AR-42",
+        "VB120-BI-42",
+        "VB120-BI-43",
+        "VB120-BI-44",
+        "VB120-BI-46",
+        "VB120-BN-42",
+        "VB120-BN-43",
+        "VB120-BT-42",
+        "VB120-BT-45",
+        "VB120-CO-42",
+        "VB120-CO-43",
+        "VB120-DS-42",
+        "VB120-DS-43",
+        "VB120-DS-44",
+        "VB120-DS-45",
+        "VB120-DS-46",
+        "VB120-EN-41",
+        "VB120-EN-42",
+        "VB120-EN-43",
+        "VB120-FM-41",
+        "VB120-FM-42",
+        "VB120-FM-46",
+        "VB120-GE-41",
+        "VB120-GE-42",
+        "VB120-GM-43",
+        "VB120-GM-44",
+        "VB120-GR-41",
+        "VB120-GR-42",
+        "VB120-GR-44",
+        "VB120-GR-46",
+        "VB120-IN-41",
+        "VB120-IP-42",
+        "VB120-MO-43",
+        "VB120-NT-44",
+        "VB120-OR-42",
+        "VB120-RS-42",
+        "VB120-RS-43",
+        "VB120-RS-44",
+        "VB120-SC-41",
+        "VB120-SC-42",
+        "VB120-SC-43",
+        "VB120-SC-44",
+        "VB120-SC-45",
+        "VB120-SE-41",
+        "VB120-SE-46",
+        "VB120-SI-44",
+        "VB120-SM-41",
+        "VB120-SM-44",
+        "VB120-SM-45",
+        "VB120-SM-46",
+        "VB120-ST-43",
+        "VB120-TM-43",
+        "VB120-TR-41",
+        "VB120-TR-43",
+        "VB120-TR-44",
+        "VB120-TR-45",
+        "VB120-TX-42",
+        "VB120-VO-44"
+      ],
+      "task_identifier_matches": 0,
+      "public_input_source_files_compared": 60,
+      "task_ids_with_available_public_input": 60,
+      "exact_python_hash_matches": [],
+      "public_input_sources": [
+        {
+          "task_id": "VB120-AC-46",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-AC-46/7bb1b903de69/ternary_rule_shadow.py",
+          "sha256": "aaee7c981a25bba1f9839b48d43fef7b91ae59169a720b15a6eaec56275266c6"
+        },
+        {
+          "task_id": "VB120-AR-41",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-AR-41/5c8445b07da9/natural_run_scan.py",
+          "sha256": "c94844106e3135156f9daf9ed75692281fba57ebe2935a39c9ba93db19c50ae2"
+        },
+        {
+          "task_id": "VB120-AR-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-AR-42/9e6e595b3b21/leftmost_max_segment.py",
+          "sha256": "e2243d8471345efb359a873b24f00d572c44db4cb57aa004d05899975a76d5fe"
+        },
+        {
+          "task_id": "VB120-BI-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BI-42/618ab7472b7f/bit_run_filter.py",
+          "sha256": "c680fe94e46aa4dd084156fb8b4632fcd0791e8bfa1d1ccc1d2a73251290730e"
+        },
+        {
+          "task_id": "VB120-BI-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BI-43/e3bc648350c7/slider_ray_attacks.py",
+          "sha256": "34154e9a3024fb3e249dad6cea108ee86d0622d484aaf9ceb79d382dfb188f17"
+        },
+        {
+          "task_id": "VB120-BI-44",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BI-44/93052ab0b33a/ripple_counter_flips.py",
+          "sha256": "1d940fba547892e36dc10fb99d096d65384005904932564a9f205fcd49a3be3f"
+        },
+        {
+          "task_id": "VB120-BI-46",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BI-46/98f02ef308d7/naf_recoding.py",
+          "sha256": "dff1cb432c31765d3ca7fc2cbb82db911bd5c5503afbf26baa1387f045acacad"
+        },
+        {
+          "task_id": "VB120-BN-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BN-42/0df62be697f1/carry_save_accumulator.py",
+          "sha256": "7e0b090866b3d9c07d3824e247e671cf53179db5e6b9a20bd430c02d2148932d"
+        },
+        {
+          "task_id": "VB120-BN-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BN-43/b7c92fc7a975/decimal_cents_ledger.py",
+          "sha256": "e81941f51ccd23568d9dc6566f3f6f542faff2398f409e5f2cb0ae46ea7f6deb"
+        },
+        {
+          "task_id": "VB120-BT-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BT-42/4ca409a3ce35/counted_search_tree.py",
+          "sha256": "80606a71bf6cbad553d55809cb6544f97b58126ebe88b5432e0bab8adf143dc9"
+        },
+        {
+          "task_id": "VB120-BT-45",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BT-45/fac269cf1749/merkle_audit_path.py",
+          "sha256": "3cd12367a25df7f7b131babc148a6b6ac07e1a7c4dd161daea7af8115a1d0994"
+        },
+        {
+          "task_id": "VB120-CO-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-CO-42/1180e93e65f1/composition_gluing_codec.py",
+          "sha256": "918e1562f5c38feca9e38f24925e32487c4f76e76feecd9d83d8a3d824989a33"
+        },
+        {
+          "task_id": "VB120-CO-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-CO-43/3a78fc0971eb/zeckendorf_fibonacci_code.py",
+          "sha256": "ab1aed29fc33903e82844e3956ca82981e1376427f79495af54f8a8abc6d0fc4"
+        },
+        {
+          "task_id": "VB120-DS-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-DS-42/0f22dcb2ab42/generation_slot_map.py",
+          "sha256": "b19f38c81bffb46a28e677120f34b2e0784ecc28d0848d0be4895a13f80759f7"
+        },
+        {
+          "task_id": "VB120-DS-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-DS-43/2f331d1a1f47/unrolled_chunk_list.py",
+          "sha256": "4cccd1b40250a8eced86f4f956ec2d0d2734517ff8c4798bbd4cb539c45b24f6"
+        },
+        {
+          "task_id": "VB120-DS-44",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-DS-44/8ca4f2bc40a9/prefix_sum_tree.py",
+          "sha256": "2c6c5cb9d6c72ce17934e009bfc3e7351646f95f142cf9345bb803e61804d2ae"
+        },
+        {
+          "task_id": "VB120-DS-45",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-DS-45/a3445df23f4d/piece_table_editor.py",
+          "sha256": "aafa2bc5d34c5e8ee2e902a6184065d8895086eb574959e90a1c61a7e8cbcca7"
+        },
+        {
+          "task_id": "VB120-DS-46",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-DS-46/1eacc0613a02/range_tracking_queue.py",
+          "sha256": "3382a138d8ffbcb94c83d5cf6340d7b2846398224178749c00750f7b08a765c7"
+        },
+        {
+          "task_id": "VB120-EN-41",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-EN-41/843ff3424ba4/accm_byte_stuffing.py",
+          "sha256": "85ce8919864e03caeb665e13085d55592b7d75c7340d7c922ba593faa3a6eca5"
+        },
+        {
+          "task_id": "VB120-EN-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-EN-42/f78a5b1fe0f9/zero_run_token_codec.py",
+          "sha256": "f94a78ccd7a6ad8c3612a2d0a8457a3578fb591131e650ab5a8a5fe39dfb5ac4"
+        },
+        {
+          "task_id": "VB120-EN-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-EN-43/438b517cf90a/utf8_scalar_codec.py",
+          "sha256": "6da1aa58d1ae2e762da348e75a2819125cf04cc26b3ca9a4fb84f3de38dfc961"
+        },
+        {
+          "task_id": "VB120-FM-41",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-FM-41/c12def86b345/iban_check_digits.py",
+          "sha256": "35a85a9c14666b59c673b7860321c7567c42f999b83c28f1550a4777431eb340"
+        },
+        {
+          "task_id": "VB120-FM-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-FM-42/e08416357d14/intel_hex_records.py",
+          "sha256": "6ca912c3dac67a2d9e468dfb13060e83b8396f4c7538beb669cd7606550473e9"
+        },
+        {
+          "task_id": "VB120-FM-46",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-FM-46/171b5a2520dd/oid_der_codec.py",
+          "sha256": "510761837c74e6e15c2583360617ccb854fdd3ee6470d9356ba4a975136c019d"
+        },
+        {
+          "task_id": "VB120-GE-41",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-GE-41/c7eaf25ac7b5/bresenham_polyline_raster.py",
+          "sha256": "62abcde34f0fd4611680584c46e6970736d1a0089e237920d591d350fd7c4ca7"
+        },
+        {
+          "task_id": "VB120-GE-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-GE-42/8a2ec4b09545/pareto_peel_layers.py",
+          "sha256": "a9638a42f0d0416f43ef2e4b516e769e76e62f409322429790028d3ec991016e"
+        },
+        {
+          "task_id": "VB120-GM-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-GM-43/ba7b2aeb6ef2/tictactoe_log_referee.py",
+          "sha256": "128d5eea3c8e79d61f182c452ad58c93f6343663450db6c0aca9d2890539efc9"
+        },
+        {
+          "task_id": "VB120-GM-44",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-GM-44/cd9789efef69/tile_merge_row.py",
+          "sha256": "243bf47c548b6f4c818d26e2920d25560a22416ff181c5b4b55b7c605db17959"
+        },
+        {
+          "task_id": "VB120-GR-41",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-GR-41/17af1eff247b/csr_sparse_rows.py",
+          "sha256": "0fb0242e6fcd3fd6819b2e54b382b5cc8b4e2c2e49918c03b7bdf0dc1c7ba614"
+        },
+        {
+          "task_id": "VB120-GR-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-GR-42/975492df0cbf/magic_square_grades.py",
+          "sha256": "e80898982b5c00d8ae427c95539aab7ed548307b02005741037f79fc9a2d182d"
+        },
+        {
+          "task_id": "VB120-GR-44",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-GR-44/bc83c2dc19ac/rock_board_tilt.py",
+          "sha256": "cee06fb7ac344115185ed13ae57c7bd1b5744074ff0276dc894fcab12e9e3cf9"
+        },
+        {
+          "task_id": "VB120-GR-46",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-GR-46/16dacc367399/binary_image_morphology.py",
+          "sha256": "c79f4c52193a53dd14b96f42b291111dcb122c92028b770d53cb81afb8117424"
+        },
+        {
+          "task_id": "VB120-IN-41",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-IN-41/b3136a40e71b/single_sku_backorder_book.py",
+          "sha256": "d8508701ccee8083155cc91dacdbb523b172a6b364294979e9895f8ae05e61ce"
+        },
+        {
+          "task_id": "VB120-IP-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-IP-42/8f84af79831f/starred_pattern_matcher.py",
+          "sha256": "003049f5fc148a2792fdbf5e967f4518cf01abce90cfc55b72cc645240baafb1"
+        },
+        {
+          "task_id": "VB120-MO-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-MO-43/0ee5824ea488/invoice_sku_consolidator.py",
+          "sha256": "dbc9c191ac44f743c87dc22e84a3c71b590a38e8d9fdc3f681beee5800271842"
+        },
+        {
+          "task_id": "VB120-NT-44",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-NT-44/6d6632d08b37/zeckendorf_digits.py",
+          "sha256": "5f7ba393b79f20c74666efe58a9d0fa09824e97ee8a2f32e14447536460941f8"
+        },
+        {
+          "task_id": "VB120-OR-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-OR-42/ea4ca80597d5/seeded_bracket_chalk.py",
+          "sha256": "8ceed4d489292b866422309f31108c471d31df179955108461b1944135ccc442"
+        },
+        {
+          "task_id": "VB120-RS-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-RS-42/065666713c41/aligned_block_allocator.py",
+          "sha256": "449f50eaa6e0376ec6d76c9b8cee594eb3b8238b53ec335d33b9aa9f5ff4cf48"
+        },
+        {
+          "task_id": "VB120-RS-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-RS-43/e424785e8e68/quota_tree_ledger.py",
+          "sha256": "75311e09b93e6c4edcd932364b9335039fbca6b8847a45648bf58fa30981d743"
+        },
+        {
+          "task_id": "VB120-RS-44",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-RS-44/08696402109b/rwlock_fifo_queue.py",
+          "sha256": "e7b11003d98518d99516cd588a01180eea806f1bd95f40ef191f1520f2a99bec"
+        },
+        {
+          "task_id": "VB120-SC-41",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SC-41/7593485385f4/edf_feasibility_tardiness.py",
+          "sha256": "b7c54a2f1676b7b1c4f1878f68430360589825de9e89a6a2fd9bf75d7f5d0f50"
+        },
+        {
+          "task_id": "VB120-SC-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SC-42/2d52d30b0886/earliest_finish_picker.py",
+          "sha256": "eec864fce14044102bdc371b2ddc7f2001bf35ad0590d39bd077f5fa77b09f63"
+        },
+        {
+          "task_id": "VB120-SC-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SC-43/88f8aafdbc84/stride_scheduler.py",
+          "sha256": "69fc7e65e0b372dff36eca80981ad58acfa4cc574058c6ec73aaf69448d28f4c"
+        },
+        {
+          "task_id": "VB120-SC-44",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SC-44/e5fb6c80d3bd/shortest_job_timeline.py",
+          "sha256": "108b16ecdecf879f0f5510bfafd0a20dea6cf749726e9243b98e1867b6a394a2"
+        },
+        {
+          "task_id": "VB120-SC-45",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SC-45/078180fb6dc9/latest_slot_sequencer.py",
+          "sha256": "65e63f5a77b934bde471ba52effad0019517246c1915eddd21f433c70ed5789c"
+        },
+        {
+          "task_id": "VB120-SE-41",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SE-41/c4aabd462de8/plateau_scan.py",
+          "sha256": "22fd2962ef56c3a02d2006f1d84cf5e10b8ac0f91c0aee1e8d803a0d5997458a"
+        },
+        {
+          "task_id": "VB120-SE-46",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SE-46/3eabcf77eef1/lww_quorum_register.py",
+          "sha256": "f800427c25a0f10d22933f59e2bbd057210b9ad8328188d51bab379b49e094c1"
+        },
+        {
+          "task_id": "VB120-SI-44",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SI-44/e68039f2b7cf/bouncing_ants_ring.py",
+          "sha256": "0ccfc188ceb20939d9b2f86da2519da85bb5eb1624992848c1e61f88c1f4b436"
+        },
+        {
+          "task_id": "VB120-SM-41",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SM-41/5188633aa4f6/elevator_scan_batches.py",
+          "sha256": "05aeb26ffd3a073b0a694513261b611caf1616660d6a80b3907cbc8037439cf0"
+        },
+        {
+          "task_id": "VB120-SM-44",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SM-44/6b2143dfe428/paxos_acceptor.py",
+          "sha256": "a2f36e283567f1d5fd68d4f348ec3913f7a088cd419b8ccdb4a437e24f0f75bb"
+        },
+        {
+          "task_id": "VB120-SM-45",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SM-45/4b9bc6dd885b/rw_lock_fifo_queue.py",
+          "sha256": "a47bf77171e8b0832d7950f2f6330d9590177d805c70f729fc21da3eb7c01285"
+        },
+        {
+          "task_id": "VB120-SM-46",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-SM-46/3480c6e3e805/selective_repeat_receiver.py",
+          "sha256": "1eb5fe6a5f7c79abf08d93e0f2bbd0b8c930200fbd529d8e111cb7e1698ba20d"
+        },
+        {
+          "task_id": "VB120-ST-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-ST-43/0970a71cf28c/fuzzy_match_spans.py",
+          "sha256": "98cfa271c8173b0edf8e0ddab83c0a6a7ca9e52822d5b0d2d6408ecb7908dc51"
+        },
+        {
+          "task_id": "VB120-TM-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-TM-43/2fe81a28bbe9/roster_coverage_minutes.py",
+          "sha256": "729f12e0067933bd9dd5af616dd9c84210550ec0644a2af052f1ab13e5b59970"
+        },
+        {
+          "task_id": "VB120-TR-41",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-TR-41/b023e537c223/kept_ancestor_contraction.py",
+          "sha256": "bf53a0a43b3aeb2ff1a7e2170e2600d57b8213f5850d59e1c933a2957b749574"
+        },
+        {
+          "task_id": "VB120-TR-43",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-TR-43/939be8a50958/doubling_root_check.py",
+          "sha256": "79cb674a9919ff4704f346f369f3ad7ef652bbb661fececb6bd5ad736f95ca0b"
+        },
+        {
+          "task_id": "VB120-TR-44",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-TR-44/fa259a554efb/thread_depth_cap.py",
+          "sha256": "a0d38d671f48f1ba950d03b0e7bcc56c5fe0fbe1a003b46aab362c112a4cf5bb"
+        },
+        {
+          "task_id": "VB120-TR-45",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-TR-45/ff4ae10dad11/guarded_subtree_moves.py",
+          "sha256": "2f59fc6fc01a2a2b6ec73a78fa8729338db8389dab10ce4a992e3c88c53ba097"
+        },
+        {
+          "task_id": "VB120-TX-42",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-TX-42/5b5b3dcacb69/indent_layout_tokens.py",
+          "sha256": "bd248fdacbdf276e9693f1a2cec015b5c56f6fffa99d56eecae4d6fe8112c086"
+        },
+        {
+          "task_id": "VB120-VO-44",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-VO-44/c95b04500b17/majority_judgment_ranking.py",
+          "sha256": "f044ca25f93864be94fc876c0fef33885e97d22ff23f2356571c14f80c25484d"
+        }
+      ],
+      "local_candidate_files": [],
+      "verified_reusable_current_packet_tasks": 0,
+      "source_version_caveat": "Public input snapshots by task ID were inspected; these are not assumed byte-bound to the historical execution without a run receipt."
+    },
+    {
+      "experiment": 26,
+      "directory": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026",
+      "metadata_path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/README.md",
+      "record_count": 27,
+      "unique_task_ids": [
+        "VB120-AC-04",
+        "VB120-AC-09",
+        "VB120-AR-04",
+        "VB120-AR-05",
+        "VB120-BI-02",
+        "VB120-BI-04",
+        "VB120-BI-05",
+        "VB120-BI-09",
+        "VB120-BN-04",
+        "VB120-BN-05",
+        "VB120-BN-06",
+        "VB120-BN-09",
+        "VB120-BT-01",
+        "VB120-BT-02",
+        "VB120-BT-04",
+        "VB120-CO-04",
+        "VB120-CO-06",
+        "VB120-CO-07",
+        "VB120-DS-01",
+        "VB120-DS-03",
+        "VB120-DS-04",
+        "VB120-EN-02",
+        "VB120-FM-01",
+        "VB120-IN-01",
+        "VB120-IP-01",
+        "VB120-RS-02",
+        "VB120-TX-01"
+      ],
+      "task_identifier_matches": 0,
+      "public_input_source_files_compared": 64,
+      "task_ids_with_available_public_input": 27,
+      "exact_python_hash_matches": [],
+      "public_input_sources": [
+        {
+          "task_id": "VB120-AC-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-AC-04/f760685eed6c/scope_wildcard_grants.py",
+          "sha256": "5394156d3947ddbf3b3c28cd587597cb4765d866552abf5cea28eda1766181da"
+        },
+        {
+          "task_id": "VB120-AC-09",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-AC-09/2fa9c6f2b564/windowed_request_quota.py",
+          "sha256": "f95459692512ff83779ac755a4069e63cd25ad035593d2f7e03b7f7cc4a635fe"
+        },
+        {
+          "task_id": "VB120-AR-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-AR-04/f71f52fb4ce2/padded_chunk_layout.py",
+          "sha256": "87a29ac09fd5a5f5da7ec0dfc398541288d260c94d78897c6935e854aec295fe"
+        },
+        {
+          "task_id": "VB120-AR-05",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-AR-05/80ce6cfc6c9f/stable_pivot_partition.py",
+          "sha256": "91433ee4b3198dfd3def3b2cecf3fe9da189ec9aa0f1967b8e6b750c9fd1776d"
+        },
+        {
+          "task_id": "VB120-BI-02",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BI-02/372d1a7bbe1f/register_field_patches.py",
+          "sha256": "dd2b2cdfddc39ce3c885c52ca256dfb00fd9f7f94ee9ccd88df02a8e096026bf"
+        },
+        {
+          "task_id": "VB120-BI-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BI-04/d7a6d2cfb36c/lowbit_scan_capacity.py",
+          "sha256": "e666fb92d6a574d9efdcd57400431b63fe35502c472024220ec28df23e9c048e"
+        },
+        {
+          "task_id": "VB120-BI-05",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BI-05/85a311ed259b/bitset_rank_select.py",
+          "sha256": "d4b7759828ba11e9744a47aba4a9c346c49719d636aad10e6ae490dfeb649ea8"
+        },
+        {
+          "task_id": "VB120-BI-09",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BI-09/8c2e2881472f/mask_gather_scatter.py",
+          "sha256": "35eb901ce2e7677f9ea7e1889313eada11ebeb37b610ad12230c02c9168eb2d3"
+        },
+        {
+          "task_id": "VB120-BN-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BN-04/37b64148c058/bignum_schoolbook_multiply.py",
+          "sha256": "8de40494c7e57a48c3b6950ac3d29fdaf39b6325591d49c4f0cdf0ea6af27dae"
+        },
+        {
+          "task_id": "VB120-BN-05",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BN-05/a38e04428700/long_division_digits.py",
+          "sha256": "0d6c6d92c683fe059270bbf4fea80bb99b2c8fff48783b377a7338d9c102efcb"
+        },
+        {
+          "task_id": "VB120-BN-06",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BN-06/f15d0abce54f/saturating_signed_run.py",
+          "sha256": "18d25925d7c632981a1188dde94fe956dce92746e67eb0cdfdbddc98d547efd1"
+        },
+        {
+          "task_id": "VB120-BN-09",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BN-09/4db1bb02d8bd/ones_complement_words.py",
+          "sha256": "9d339b346a2704065c87be433f6814f6a2f94fe6c7e790722b033a0f17a415fa"
+        },
+        {
+          "task_id": "VB120-BT-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BT-01/cd4cb07dc43c/bst_min_extract.py",
+          "sha256": "993ed10c9175fb92675be6ea428b174243856be43c85d8ab394526e18eff311a"
+        },
+        {
+          "task_id": "VB120-BT-02",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BT-02/5a1e2d6f86f9/tree_mirror_metrics.py",
+          "sha256": "fa9ed2ddb63173181dd5c421371a6321254f08d90de92b21b767a176fe723f20"
+        },
+        {
+          "task_id": "VB120-BT-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-BT-04/5bfba0a30759/tree_path_sum_profile.py",
+          "sha256": "2418268eed6a5f5c2b909353204552f0d9147c661e785756ac8cbed1ad21f311"
+        },
+        {
+          "task_id": "VB120-CO-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-CO-04/15536dc9a599/depth_capped_dyck.py",
+          "sha256": "8d0177e76951907d75a452322ee0651f1299a69e8e53bfd85ed17a36bcac0db6"
+        },
+        {
+          "task_id": "VB120-CO-06",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-CO-06/77f4c1cfc8c4/lex_permutation_successor.py",
+          "sha256": "4165137b2e5a95afd7ee03b82b1c6196c09223907fbd71d0c3571d9bfc58f9fb"
+        },
+        {
+          "task_id": "VB120-CO-07",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-CO-07/a5794c2e0827/rgs_set_partitions.py",
+          "sha256": "16d64434b43347bb98b7fb0440ccc9910fa7443a3e227d5ffb8953cd30f2592d"
+        },
+        {
+          "task_id": "VB120-DS-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-DS-01/be36574397a8/bounded_stack_machine.py",
+          "sha256": "a21b15294d4af049cb86294bbc4132182dbbad5a24c01157405b518311680027"
+        },
+        {
+          "task_id": "VB120-DS-03",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-DS-03/6b168fda0655/undo_log_snapshots.py",
+          "sha256": "8bf67f95b03d2f47eae32a09e800806318a0968fc16d682d967c71cab3fe9de9"
+        },
+        {
+          "task_id": "VB120-DS-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-DS-04/a53a419cf306/overwrite_ring_buffer.py",
+          "sha256": "5b531f767f37553714c3aa6edb601bc9899c155811b2307ef82fb3d823544650"
+        },
+        {
+          "task_id": "VB120-EN-02",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-EN-02/5877a76db7e0/fletcher_block_combine.py",
+          "sha256": "567befcb91a6ae142631e2d821a60955fd855bdb9c191813d2c5048bf52e5cc1"
+        },
+        {
+          "task_id": "VB120-FM-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-FM-01/058c4cdaefc3/duration_literal_codec.py",
+          "sha256": "d2432aaac1943831effe395ea5b97652a6eb4d458e2a1b74e88fa19cb0b84145"
+        },
+        {
+          "task_id": "VB120-IN-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-IN-01/6ab92fe91f36/lot_expiry_picker.py",
+          "sha256": "f2c205d8f569ef2294dd57f557af16b9a25a1bb3851528d459e928fbd3f4d51f"
+        },
+        {
+          "task_id": "VB120-IP-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-IP-01/f5f30dc94280/stack_vm_effect.py",
+          "sha256": "6a6832cdb95f589d8f436bd3d4dac197c33fa0acf2477e8e7000d5e8f1913b07"
+        },
+        {
+          "task_id": "VB120-RS-02",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-RS-02/b93368b860f9/battery_reserve_ledger.py",
+          "sha256": "b80d0ba8b2423cf537afdec2447e469f064d59b65815c9c1f2aa4f7b2e635a80"
+        },
+        {
+          "task_id": "VB120-TX-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources/VB120-TX-01/2ccaad719aa0/brace_template_render.py",
+          "sha256": "5ad0036087afb5f98ff60f90532220c0a35a5a20d5df4a8d680a1c015ae46bf7"
+        },
+        {
+          "task_id": "VB120-AC-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/accepted_10-27-2026_N_81/tasks/VB120-AC-04/public/scope_wildcard_grants.py",
+          "sha256": "5394156d3947ddbf3b3c28cd587597cb4765d866552abf5cea28eda1766181da"
+        },
+        {
+          "task_id": "VB120-AR-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/accepted_10-27-2026_N_81/tasks/VB120-AR-04/public/padded_chunk_layout.py",
+          "sha256": "87a29ac09fd5a5f5da7ec0dfc398541288d260c94d78897c6935e854aec295fe"
+        },
+        {
+          "task_id": "VB120-BI-02",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/accepted_10-27-2026_N_81/tasks/VB120-BI-02/public/register_field_patches.py",
+          "sha256": "dd2b2cdfddc39ce3c885c52ca256dfb00fd9f7f94ee9ccd88df02a8e096026bf"
+        },
+        {
+          "task_id": "VB120-BI-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/accepted_10-27-2026_N_81/tasks/VB120-BI-04/public/lowbit_scan_capacity.py",
+          "sha256": "e666fb92d6a574d9efdcd57400431b63fe35502c472024220ec28df23e9c048e"
+        },
+        {
+          "task_id": "VB120-BN-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/accepted_10-27-2026_N_81/tasks/VB120-BN-04/public/bignum_schoolbook_multiply.py",
+          "sha256": "8de40494c7e57a48c3b6950ac3d29fdaf39b6325591d49c4f0cdf0ea6af27dae"
+        },
+        {
+          "task_id": "VB120-CO-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/accepted_10-27-2026_N_81/tasks/VB120-CO-04/public/depth_capped_dyck.py",
+          "sha256": "8d0177e76951907d75a452322ee0651f1299a69e8e53bfd85ed17a36bcac0db6"
+        },
+        {
+          "task_id": "VB120-IN-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/accepted_10-27-2026_N_81/tasks/VB120-IN-01/public/lot_expiry_picker.py",
+          "sha256": "f2c205d8f569ef2294dd57f557af16b9a25a1bb3851528d459e928fbd3f4d51f"
+        },
+        {
+          "task_id": "VB120-IP-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/accepted_10-27-2026_N_81/tasks/VB120-IP-01/public/stack_vm_effect.py",
+          "sha256": "6a6832cdb95f589d8f436bd3d4dac197c33fa0acf2477e8e7000d5e8f1913b07"
+        },
+        {
+          "task_id": "VB120-RS-02",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/accepted_10-27-2026_N_81/tasks/VB120-RS-02/public/battery_reserve_ledger.py",
+          "sha256": "b80d0ba8b2423cf537afdec2447e469f064d59b65815c9c1f2aa4f7b2e635a80"
+        },
+        {
+          "task_id": "VB120-TX-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/data/accepted_10-27-2026_N_81/tasks/VB120-TX-01/public/brace_template_render.py",
+          "sha256": "5ad0036087afb5f98ff60f90532220c0a35a5a20d5df4a8d680a1c015ae46bf7"
+        },
+        {
+          "task_id": "VB120-AC-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-AC-04/public/scope_wildcard_grants.py",
+          "sha256": "5394156d3947ddbf3b3c28cd587597cb4765d866552abf5cea28eda1766181da"
+        },
+        {
+          "task_id": "VB120-AC-09",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-AC-09/public/windowed_request_quota.py",
+          "sha256": "f95459692512ff83779ac755a4069e63cd25ad035593d2f7e03b7f7cc4a635fe"
+        },
+        {
+          "task_id": "VB120-AR-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-AR-04/public/padded_chunk_layout.py",
+          "sha256": "87a29ac09fd5a5f5da7ec0dfc398541288d260c94d78897c6935e854aec295fe"
+        },
+        {
+          "task_id": "VB120-AR-05",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-AR-05/public/stable_pivot_partition.py",
+          "sha256": "91433ee4b3198dfd3def3b2cecf3fe9da189ec9aa0f1967b8e6b750c9fd1776d"
+        },
+        {
+          "task_id": "VB120-BI-02",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-BI-02/public/register_field_patches.py",
+          "sha256": "dd2b2cdfddc39ce3c885c52ca256dfb00fd9f7f94ee9ccd88df02a8e096026bf"
+        },
+        {
+          "task_id": "VB120-BI-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-BI-04/public/lowbit_scan_capacity.py",
+          "sha256": "e666fb92d6a574d9efdcd57400431b63fe35502c472024220ec28df23e9c048e"
+        },
+        {
+          "task_id": "VB120-BI-05",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-BI-05/public/bitset_rank_select.py",
+          "sha256": "d4b7759828ba11e9744a47aba4a9c346c49719d636aad10e6ae490dfeb649ea8"
+        },
+        {
+          "task_id": "VB120-BI-09",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-BI-09/public/mask_gather_scatter.py",
+          "sha256": "35eb901ce2e7677f9ea7e1889313eada11ebeb37b610ad12230c02c9168eb2d3"
+        },
+        {
+          "task_id": "VB120-BN-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-BN-04/public/bignum_schoolbook_multiply.py",
+          "sha256": "8de40494c7e57a48c3b6950ac3d29fdaf39b6325591d49c4f0cdf0ea6af27dae"
+        },
+        {
+          "task_id": "VB120-BN-05",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-BN-05/public/long_division_digits.py",
+          "sha256": "0d6c6d92c683fe059270bbf4fea80bb99b2c8fff48783b377a7338d9c102efcb"
+        },
+        {
+          "task_id": "VB120-BN-06",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-BN-06/public/saturating_signed_run.py",
+          "sha256": "18d25925d7c632981a1188dde94fe956dce92746e67eb0cdfdbddc98d547efd1"
+        },
+        {
+          "task_id": "VB120-BN-09",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-BN-09/public/ones_complement_words.py",
+          "sha256": "9d339b346a2704065c87be433f6814f6a2f94fe6c7e790722b033a0f17a415fa"
+        },
+        {
+          "task_id": "VB120-BT-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-BT-01/public/bst_min_extract.py",
+          "sha256": "993ed10c9175fb92675be6ea428b174243856be43c85d8ab394526e18eff311a"
+        },
+        {
+          "task_id": "VB120-BT-02",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-BT-02/public/tree_mirror_metrics.py",
+          "sha256": "fa9ed2ddb63173181dd5c421371a6321254f08d90de92b21b767a176fe723f20"
+        },
+        {
+          "task_id": "VB120-BT-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-BT-04/public/tree_path_sum_profile.py",
+          "sha256": "2418268eed6a5f5c2b909353204552f0d9147c661e785756ac8cbed1ad21f311"
+        },
+        {
+          "task_id": "VB120-CO-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-CO-04/public/depth_capped_dyck.py",
+          "sha256": "8d0177e76951907d75a452322ee0651f1299a69e8e53bfd85ed17a36bcac0db6"
+        },
+        {
+          "task_id": "VB120-CO-06",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-CO-06/public/lex_permutation_successor.py",
+          "sha256": "4165137b2e5a95afd7ee03b82b1c6196c09223907fbd71d0c3571d9bfc58f9fb"
+        },
+        {
+          "task_id": "VB120-CO-07",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-CO-07/public/rgs_set_partitions.py",
+          "sha256": "16d64434b43347bb98b7fb0440ccc9910fa7443a3e227d5ffb8953cd30f2592d"
+        },
+        {
+          "task_id": "VB120-DS-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-DS-01/public/bounded_stack_machine.py",
+          "sha256": "a21b15294d4af049cb86294bbc4132182dbbad5a24c01157405b518311680027"
+        },
+        {
+          "task_id": "VB120-DS-03",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-DS-03/public/undo_log_snapshots.py",
+          "sha256": "8bf67f95b03d2f47eae32a09e800806318a0968fc16d682d967c71cab3fe9de9"
+        },
+        {
+          "task_id": "VB120-DS-04",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-DS-04/public/overwrite_ring_buffer.py",
+          "sha256": "5b531f767f37553714c3aa6edb601bc9899c155811b2307ef82fb3d823544650"
+        },
+        {
+          "task_id": "VB120-EN-02",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-EN-02/public/fletcher_block_combine.py",
+          "sha256": "567befcb91a6ae142631e2d821a60955fd855bdb9c191813d2c5048bf52e5cc1"
+        },
+        {
+          "task_id": "VB120-FM-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-FM-01/public/duration_literal_codec.py",
+          "sha256": "d2432aaac1943831effe395ea5b97652a6eb4d458e2a1b74e88fa19cb0b84145"
+        },
+        {
+          "task_id": "VB120-IN-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-IN-01/public/lot_expiry_picker.py",
+          "sha256": "f2c205d8f569ef2294dd57f557af16b9a25a1bb3851528d459e928fbd3f4d51f"
+        },
+        {
+          "task_id": "VB120-IP-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-IP-01/public/stack_vm_effect.py",
+          "sha256": "6a6832cdb95f589d8f436bd3d4dac197c33fa0acf2477e8e7000d5e8f1913b07"
+        },
+        {
+          "task_id": "VB120-RS-02",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-RS-02/public/battery_reserve_ledger.py",
+          "sha256": "b80d0ba8b2423cf537afdec2447e469f064d59b65815c9c1f2aa4f7b2e635a80"
+        },
+        {
+          "task_id": "VB120-TX-01",
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates/VB120-TX-01/public/brace_template_render.py",
+          "sha256": "5ad0036087afb5f98ff60f90532220c0a35a5a20d5df4a8d680a1c015ae46bf7"
+        }
+      ],
+      "local_candidate_files": [
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-AC-04/scope_wildcard_grants.lean",
+          "sha256": "362dfb03b6e03efbbaeb046549cf0ec0b43f34aad696e4e872009bb35b135681",
+          "task_id": "VB120-AC-04"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-AC-09/windowed_request_quota.lean",
+          "sha256": "7138281e2b953393a5176a0f37465dafc39aeccd9197eef6d94ee6f4b9aa502f",
+          "task_id": "VB120-AC-09"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-AR-04/padded_chunk_layout.lean",
+          "sha256": "b25cf40a119e75f5602b15869b60276e8c103b8d94792590ee3ea812b353466e",
+          "task_id": "VB120-AR-04"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-AR-05/stable_pivot_partition.lean",
+          "sha256": "d3ef5fc8c1039967ed53ff72b8cc66346cce6a68d65730c946052b07f613559a",
+          "task_id": "VB120-AR-05"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-BI-02/register_field_patches.lean",
+          "sha256": "56b3a0779c2f4ec0d46a31731400a00e001c09417157eaad793ab2641e1f8991",
+          "task_id": "VB120-BI-02"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-BI-04/lowbit_scan_capacity.lean",
+          "sha256": "e5447960f8c0cd32f2e398c48af0844019f68b48b10790f8210ffce9db36f7e6",
+          "task_id": "VB120-BI-04"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-BI-05/bitset_rank_select.lean",
+          "sha256": "99940e1d931a71ccec778f394a0dc741486d83e808ae19290de1a7fcc6df6262",
+          "task_id": "VB120-BI-05"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-BI-09/mask_gather_scatter.lean",
+          "sha256": "1af378ec4bf4127b39904ad1e3a5fc18bd9b17fe2b7f31c01b3b162e0088323c",
+          "task_id": "VB120-BI-09"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-BN-04/bignum_schoolbook_multiply.lean",
+          "sha256": "19bcf2857b356c81a6dc3a539401e0cfe6b7e559e5f26f25d073384903237806",
+          "task_id": "VB120-BN-04"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-BN-05/long_division_digits.lean",
+          "sha256": "43ce648dfdd02441890ebf5a0b55618e038cfff22a6c27e9ec7c640f65fc7b3a",
+          "task_id": "VB120-BN-05"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-BN-06/saturating_signed_run.lean",
+          "sha256": "be2ce475c140a3cdf0e1e13091d9087775568f6629e1ce54c56581b0152853e3",
+          "task_id": "VB120-BN-06"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-BN-09/ones_complement_words.lean",
+          "sha256": "6295608b8dd1902e2364d20839c7a4948144490e1e1c919f4a3302be6ca938fe",
+          "task_id": "VB120-BN-09"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-BT-01/bst_min_extract.lean",
+          "sha256": "8a631eed7bd573aabe63ca834b1bf7653f578d1e943fec482ff2df285228dcfb",
+          "task_id": "VB120-BT-01"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-BT-02/tree_mirror_metrics.lean",
+          "sha256": "c4f56cd16662591040b6cb69867e574f654bab4c879f7cb3304c84321b67f04f",
+          "task_id": "VB120-BT-02"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-BT-04/tree_path_sum_profile.lean",
+          "sha256": "5027153ef6a4ca355dbdc2b1d553e7aad2db72db0053f74c028c92417ca384e5",
+          "task_id": "VB120-BT-04"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-CO-04/depth_capped_dyck.lean",
+          "sha256": "98c86cfa55a605c6b5e7aa554d6c9f2da2ed86833e356b722c505b4755f20004",
+          "task_id": "VB120-CO-04"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-CO-06/lex_permutation_successor.lean",
+          "sha256": "8f5d73a45d587bb3aeabfe1020d8044b773696063b9745f194b2e17351bf0f65",
+          "task_id": "VB120-CO-06"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-CO-07/rgs_set_partitions.lean",
+          "sha256": "52ded267031de2890b6f75416d155fb0813052fd205c95fdb2423814405a8874",
+          "task_id": "VB120-CO-07"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-DS-01/bounded_stack_machine.lean",
+          "sha256": "ca0a3a0a5f19341469f9b35494d1a1814c7bbb4c5e66f2e9c33f22840aabbd01",
+          "task_id": "VB120-DS-01"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-DS-03/undo_log_snapshots.lean",
+          "sha256": "a368cf63e505fc604cdf5291c3d9f5e292617ad2b2cd48fef7b7c40b7713e231",
+          "task_id": "VB120-DS-03"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-DS-04/overwrite_ring_buffer.lean",
+          "sha256": "26cd48429db2ab522c7d2ce310bd265ce97e8279723395e3d8f956cd65f69a13",
+          "task_id": "VB120-DS-04"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-EN-02/fletcher_block_combine.lean",
+          "sha256": "86f97e5212d67dd05d3229e62b0ac7020ec16ba422517dfcc755207e08025c13",
+          "task_id": "VB120-EN-02"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-FM-01/duration_literal_codec.lean",
+          "sha256": "541e42bfde0c14321a84e75a14cc0aa72d7f0268645d0267692a5887101f22a5",
+          "task_id": "VB120-FM-01"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-IN-01/lot_expiry_picker.lean",
+          "sha256": "535279dddc3d1902658bf7022654c9e4856b42521c83021a9ccb4dfa77b38a42",
+          "task_id": "VB120-IN-01"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-IP-01/stack_vm_effect.lean",
+          "sha256": "83da328404acd81499020ba24f0a9b47193a432b32bbbfb481e72b5e4232175f",
+          "task_id": "VB120-IP-01"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-RS-02/battery_reserve_ledger.lean",
+          "sha256": "5fb6b49ee4f58652801a1309b14089647534a21129eb827ebac739ce586285ed",
+          "task_id": "VB120-RS-02"
+        },
+        {
+          "path": "/Users/brandomiranda/vb-priv-bmg/experiments/26_local_frontier_cells_58_10-29-2026/solutions/VB120-TX-01/brace_template_render.lean",
+          "sha256": "198b04b8f35332be77863e3b8232d09c910af59268c8d44855bbdea4eb422ef8",
+          "task_id": "VB120-TX-01"
+        }
+      ],
+      "verified_reusable_current_packet_tasks": 0,
+      "source_version_caveat": "Public input snapshots by task ID were inspected; these are not assumed byte-bound to the historical execution without a run receipt."
+    }
+  ],
+  "intended_extension": [
+    {
+      "configuration": "Native Claude Code + Fable 5.1 (exact effort/budget not frozen)",
+      "verified_reusable_task_count": 0,
+      "additional_task_cells_needed_in_current_inventory": 25,
+      "evidence": "VeriBench experiment 107 native frontier condition was withdrawn NOT_RUN; available experiment 26 is native Claude Code Opus 5.5 on different VB120 tasks."
+    },
+    {
+      "configuration": "Native Pi + backbone matched to an existing Terminus2 condition (backbone/configuration not frozen)",
+      "verified_reusable_task_count": 0,
+      "additional_task_cells_needed_in_current_inventory": 25,
+      "evidence": "Experiment 25 is Pi + Qwen3-Coder-30B-A3B-Instruct-FP8 on 60 different VB120 tasks, not the desired frontier backbone."
+    }
+  ],
+  "bounded_metadata_search": [
+    "/Users/brandomiranda/veribench/experiments/107_vbv1_frontier_2026_agents_claude_code_fable_codex_astra_open_qwen_valkyrie/README.md",
+    "/Users/brandomiranda/veribench/research_archive/experiments/53_updating_results/summary.md",
+    "/Users/brandomiranda/veribench/research_archive/experiments/53_updating_results/consolidated/claude_code_sonnet46__20260506_000145",
+    "/Users/brandomiranda/vb-priv-bmg/data/solver_visible_python_v1/sources",
+    "/Users/brandomiranda/vb-priv-bmg/data/accepted_10-27-2026_N_81/tasks",
+    "/Users/brandomiranda/vb-priv-bmg/experiments/06_v1like_private_tasks_open_weight_agent_proxy_filter_sherlock/candidates"
+  ],
+  "older_cc_pool": "Experiment 53 contains a May 2026 Claude Code Sonnet 4.6 output pool; not claimed as a replacement for the intended current Fable native condition. Not expanded into a full per-task audit.",
+  "limitations": [
+    "Zero verified reusable means none found for the intended configurations in this scoped inventory; it is not proof of global absence.",
+    "Pi experiment 25 local directory contains README and scores only; no native candidate or original run-input copy is there.",
+    "Parent separately audited native Codex coverage; not included here.",
+    "No sealed candidate-to-system key or sealed human ratings were opened."
+  ]
+}

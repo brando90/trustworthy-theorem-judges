@@ -220,7 +220,7 @@ def main():
     blobs, provenance = read_sources(args.source_repo, config['source_revision'])
     rows = load_rows(blobs)
     splits = split_tasks(rows, config)
-    private = PROJECT / 'private/prover_target'
+    private = PROJECT / 'research_artifacts/prover_target'
     private.mkdir(parents=True, exist_ok=True)
     for path, content in blobs.items():
         dest = private / 'source' / path

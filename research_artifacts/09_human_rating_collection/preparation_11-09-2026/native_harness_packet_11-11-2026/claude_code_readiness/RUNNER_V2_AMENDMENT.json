@@ -1,0 +1,44 @@
+{
+  "created_at": "2026-11-12T00:47:25.112881+00:00",
+  "status": "PREPARED_FOR_PARENT_FREEZE",
+  "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+  "image_id": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+  "changes": [
+    "Image copies .lake/packages only; excludes compiled benchmark project cache .lake/build.",
+    "Native CLI adds --include-partial-messages for provider message_delta usage.",
+    "UsageTracker merges cumulative per-message records and uses native result aggregate when available; incomplete counters explicitly marked.",
+    "Before each inference, runtime checks UID1001, absent project .lake/build/.git/Veribench files, then compiles import Mathlib offline."
+  ],
+  "unchanged": [
+    "Model claude-fable-5-1",
+    "effort max",
+    "1800seconds",
+    "40native turns",
+    "one attempt",
+    "16K response limit",
+    "1M total /128K output observed-response thresholds"
+  ],
+  "fixture": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_readiness/USAGE_REGRESSION_FIXTURE.json",
+  "patch": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_readiness/runner_v2_prospective.patch",
+  "invalid_pilot": "../claude_code_outputs/realcode_set__20_html_escape/ENVIRONMENT_INVALIDATION.json",
+  "admission": "No further inference until parent freezes corrected image+runner+valid output root.",
+  "exact_runtime_preflight": {
+    "checked_at": "2026-11-12T00:49:11.045750+00:00",
+    "user_uid": 1001,
+    "network": "ttj-native-source-only",
+    "cap_drop": "ALL",
+    "no_new_privileges": true,
+    "project_build_absent_before_after": true,
+    "project_git_absent": true,
+    "Veribench_directory_empty": true,
+    "lean_output": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+    "model_calls": 0
+  },
+  "known_bad_image_control": {
+    "image": "sha256:8ca8a93c0c961b171152e43d12822e35dd06f73317aebe9e60f46b88f99ea8de",
+    "exit_code": 1,
+    "guard_rejected": true,
+    "error": "benchmark project cache present",
+    "model_calls": 0
+  }
+}

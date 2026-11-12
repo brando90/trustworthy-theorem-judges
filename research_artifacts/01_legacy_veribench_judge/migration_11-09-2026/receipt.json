@@ -1,0 +1,171 @@
+{
+  "summary": "Private byte-preserving import; original paths retained, not a completed runtime migration.",
+  "date": "11-09-2026",
+  "source_repo": "/Users/brandomiranda/veribench",
+  "source_main": "78e1337b27a7e9469168d257457a83afd3306062",
+  "destination": "/Users/brandomiranda/trustworthy-theorem-judges/private/01_legacy_veribench_judge/migration_11-09-2026",
+  "snapshot_count": 23,
+  "files": [
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/CRITERIA.md",
+      "git_blob": "99cbe016b164f7a0bda2df0b58edf2b6888bf265",
+      "sha256": "eb6f245d1fd5e30fb87a5aa0644f83fdbc28657ca8f3c76ffca4889111568029",
+      "bytes": 12401
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/README.md",
+      "git_blob": "c3a164a82b39eba81d4d769cbb21f92f6056238d",
+      "sha256": "4a51f40d3d3106cd25c1de78c7149efbc3ba9b4bd907fd959eda2a9610d279e2",
+      "bytes": 15097
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/inputs/fm_manifest.json.gz",
+      "git_blob": "c8482500b7a5aa26f7da8c4aeb72096540a92674",
+      "sha256": "1b1ab6509cafc56fbb480c5844704a2d343be51f3b0c846cfc3b2643fcc302b7",
+      "bytes": 810743
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/inputs/pool_manifest.json",
+      "git_blob": "b88eaacc22c9aee8c73e82e227736b785d9d515b",
+      "sha256": "bc6042428106f42005cfb06e16c37121d0466350dd3ad5ee8872eaed3c07644f",
+      "bytes": 144520
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/results/features.jsonl.gz",
+      "git_blob": "8c6b8a74bae86d32116aa82816d1adb68b0dc9e3",
+      "sha256": "426a271ee59ac6cc73edf8c9dd8de2fd78db9a119034de5656b5338b53ab1c27",
+      "bytes": 937343
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/results/pre_verify/RESULTS.md",
+      "git_blob": "48018fd328a2f45aab80ce1458f37385e6e6033a",
+      "sha256": "682b80548d4abe2a96d02b3db80a8f6fe2ce08bbe6e86bbdd7a9f538b225f719",
+      "bytes": 22029
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/results/pre_verify/results.json",
+      "git_blob": "d49d4c095c6b9b08dad2cf76e00746bd7565e8e1",
+      "sha256": "d99581c3843f3251de6c78b45bd41240df4014fba0f81306e593204aafb5fd18",
+      "bytes": 478044
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/results/results.json",
+      "git_blob": "07d9018d672a32ded6354f670a1064304d7a0470",
+      "sha256": "0c31e23343fdac25ddfab402319e8d5c871e9163d94e8e93d3827168d41b2fcb",
+      "bytes": 484339
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/results/results.md",
+      "git_blob": "07a9478dbca370194edac3cdf889401e58f75cc9",
+      "sha256": "26356e4b324a405ea48f4eef247a4c63aba970755e69fbff9bbe88e7ef82a9a4",
+      "bytes": 32979
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/results/run_fixed_log.txt",
+      "git_blob": "e17fd6b33d00335cf7553c87eb83cbc13be3031c",
+      "sha256": "bb6c683dc5ca3b2c8b42bc7c2b7664c6e1fd6452741f654afa5347d5bf44cf9a",
+      "bytes": 2858
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/results/run_log.txt",
+      "git_blob": "0d83eedf401680f0e05a642c121ed5f4d14d14ef",
+      "sha256": "d4ba92696eeb54dc376be80581eb8a83c17669bab6d26b9678f316fec15fbe2e",
+      "bytes": 2858
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/scripts/analyze.py",
+      "git_blob": "486049522870ea56ac9b2887d7bec6e1a1d68291",
+      "sha256": "d33b23b531c1877293a954a2ef9cf31c481a89faa33fb93391e6fd46bfd212c3",
+      "bytes": 46473
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/scripts/build_fm_manifest.py",
+      "git_blob": "77c7419c95446108a6fe8d2fa8c4700a7882e5a5",
+      "sha256": "eb714bfcadeab33c6c79de1f606df2a6a5ed2f82f8220c4317836ea5bceadd4f",
+      "bytes": 14779
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/scripts/build_pool_manifest.py",
+      "git_blob": "9439d50d5fffba72b6c0ad6468bd2766f6f8b43d",
+      "sha256": "5cffc8732346be4ad71512e08a47bfeba7de15d022e151c748434968ea6d0f74",
+      "bytes": 5842
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/scripts/extract103_on_snap.py",
+      "git_blob": "3691d60373a10c38c0a11c99caae232c0cca63c8",
+      "sha256": "cffdb0d77477b7aeafeeaa4af5c71374840aae1b51ecb28c33e85bcb2e5b6c31",
+      "bytes": 2460
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/scripts/extract_criteria.py",
+      "git_blob": "efc30e00daf0d9998d247270a26624c9289f3a0c",
+      "sha256": "d72481b87f0f7714574f2450cf08b42d502234e49c8ca1998c4657fabbf1daa1",
+      "bytes": 15028
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/vbv2_condition/CKPT_vbv2_judge_transfer.md",
+      "git_blob": "b522f9ddb2d99b6c66ad07a2028b2c56ac5adb09",
+      "sha256": "24be59cfa017d9bf544c5a74d2f9e32422ed1e700de5209fe6ac270722e3de66",
+      "bytes": 4489
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/vbv2_condition/CRITERIA_VBV2.md",
+      "git_blob": "452a95061ab009d903c0a83f006f7cbb0b7926ce",
+      "sha256": "001c0bdc54b7541d62efcc4ea03bfdaed62e204ca6b70b51342bf035b843fd99",
+      "bytes": 8312
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/vbv2_condition/RESULTS_judge_transfer_vbv2.md",
+      "git_blob": "ade21d9990e775091aad0c9d475c637df2df187e",
+      "sha256": "0f1f52c3276517b3fcf50d0236a53d93c160970633dd6f23c3ee40e5af0b203a",
+      "bytes": 10316
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/vbv2_condition/results.md",
+      "git_blob": "96283a72c7befd27b2168bf56612185c4df54dc6",
+      "sha256": "337821d90be8030deb6c7cea1fd501c08302c58adb0139e0c2b874dc1e65cecf",
+      "bytes": 1731
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/vbv2_condition/results/results_vbv2.json",
+      "git_blob": "5d660da86e8e46a4caa0d3488882eba69c0603a7",
+      "sha256": "91c2f1a6348891ee2deae83c523a80f74d7f41d6e58682efca064cd53723bc8d",
+      "bytes": 143599
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/vbv2_condition/scripts/analyze_vbv2.py",
+      "git_blob": "5332c045d316b7b835877ad3326461eede17d384",
+      "sha256": "c13edd5778aa89f6d463cfb8290952d0508eb8bee4fa59ef575cd25c974fd244",
+      "bytes": 11503
+    },
+    {
+      "path": "experiments/110_fsc_judge_transfer_frontier_outputs_vs_human_rated_pool/vbv2_condition/scripts/gather_vbv2_on_snap.py",
+      "git_blob": "e3215e2e36a9367ff6e33e95b6f9c98464c031db",
+      "sha256": "978f4501eb0a5571aba3d20e35fb647f7306f16bb3d323aa3fb3f0979096bf9d",
+      "bytes": 7611
+    },
+    {
+      "path": "/Users/brandomiranda/veribench/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/CONDITIONAL_RATING_AGREEMENT_AND_TRANSFER_11-05-2026.md",
+      "destination": "criterion_source_notes/CONDITIONAL_RATING_AGREEMENT_AND_TRANSFER_11-05-2026.md",
+      "sha256": "dcd5cce1e057d55c60cbbb2a45c786fb7cefb14f7b23514bc74733e63e1b9d5a",
+      "bytes": 12960,
+      "source": "local_working_file"
+    },
+    {
+      "path": "/Users/brandomiranda/veribench/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/FULL_BENCHMARK_FIXED_PANEL_11-05-2026.md",
+      "destination": "criterion_source_notes/FULL_BENCHMARK_FIXED_PANEL_11-05-2026.md",
+      "sha256": "203ccc1b0be888422bea42165c67e4765f151b7cf8133cdf81093002d1d2aaf3",
+      "bytes": 13782,
+      "source": "local_working_file"
+    },
+    {
+      "path": "/Users/brandomiranda/veribench/experiments/ideas/leave_one_agent_out_fsc_judge_validation_on_human_ratings/notes_11-07-2026/TRANSCRIPTION.md",
+      "destination": "criterion_source_notes/notes_11-07-2026/TRANSCRIPTION.md",
+      "sha256": "2f70584e6be8d0aabaea866f133ce559ff4c5c231afb5b0f40b0c687734dc1b9",
+      "bytes": 8610,
+      "source": "local_working_file"
+    }
+  ],
+  "verified": true,
+  "model_calls": 0
+}

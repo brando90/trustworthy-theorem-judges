@@ -1,0 +1,192 @@
+{
+  "task_id": "easy_set__19_mypower",
+  "condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "19_MyPower.py": "ecd27b4fb26b5ec4879b94f40c33474aa9bb42c745681c5247a4f0b6f7d08fd6",
+    "instruction.md": "7894926dec26258f4f9a683b98816275a8967c13d390bf1d07e3bf0f2fb28bf1"
+  },
+  "output": "/home/user/lean_project/Veribench/19_MyPower.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-be2ce1fd59b2",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794451543.7564192,
+  "exit_code": 0,
+  "stop_reason": "native_result",
+  "finished_at": 1794452809.452062,
+  "actual_models": [
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 689902,
+  "observed_output_tokens": 100759,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 16,
+    "messages_with_stop": 16,
+    "native_aggregate_usage": {
+      "input_tokens": 364,
+      "cache_creation_input_tokens": 62366,
+      "cache_read_input_tokens": 526413,
+      "output_tokens": 100759,
+      "output_tokens_details": {
+        "thinking_tokens": 66631
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 62366,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 1230941,
+    "stop_reason": "end_turn",
+    "session_id": "5eba12ab-dfa0-492f-939a-7fce3f6e2f29",
+    "total_cost_usd": 6.420513250000001,
+    "usage": {
+      "input_tokens": 364,
+      "cache_creation_input_tokens": 62366,
+      "cache_read_input_tokens": 526413,
+      "output_tokens": 100759,
+      "output_tokens_details": {
+        "thinking_tokens": 66631
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 62366,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 364,
+        "outputTokens": 100759,
+        "cacheReadInputTokens": 526413,
+        "cacheCreationInputTokens": 62366,
+        "webSearchRequests": 0,
+        "costUSD": 6.420513250000001,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 66631,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 62366,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 16,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The task is complete. The file is written at `/home/user/lean_project/Veribench/19_MyPower.lean`, compiles with exit code 0, and every theorem is fully proved.\n\n**What the formalization contains**\n\n- **Implementation.** `prog : Int \u2192 Int \u2192 Except String Int` mirrors the Python exactly. Negative inputs give `Except.error` with the Python `ValueError` message text, `exponent = 0` returns 1, otherwise a structural recursion `powerLoop` performs the repeated multiplication. The Python `check` harness is also transcribed and passes for both implementations.\n- **Pre-condition.** `Pre base exponent` is \"both are non-negative\", with a theorem tying it to the Boolean `pre`.\n- **Properties and theorems.** Result equals `base ^ exponent`, the three documented edge cases (`power(n,0)=1`, `power(0,n)=0` for `n>0`, `power(0,0)=1`), `power(n,1)=n`, non-negativity, positivity for positive base, the recurrence `power(b,e+1) = power(b,e)*b`, the exact error on precondition violation, and \"returns normally iff the precondition holds\".\n- **Post-condition and correctness.** `Post_prop` is the conjunction of the result properties, and `correctness_thm` proves `Pre \u2192 Post_prop` for `prog`.\n- **Property-based tests.** Each property and the post-condition has a Plausible check plus a bounded exhaustive check. The admissible-domain checks sample `Nat` so they never give up. Three extra checks over `Int` with a decidable precondition still emit \"gave up\" warnings for a few discarded samples, which is expected and non-fatal.\n- **Imperative version and equivalence.** `progImp` uses `Id.run do` with early returns, a mutable accumulator, and `for _ in [0:exponent.toNat]`. The theorem `prog_eq_progImp_thm` proves it equal to `prog` for all integer inputs via two loop lemmas over `Std.Range` and `List.range'`.\n\n**Verification run**\n\n- `lake env lean Veribench/19_MyPower.lean` exits 0 with no errors and no `sorry`.\n- `#print axioms` on a scratch copy shows all 16 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`. `native_decide` appears only in `example` tests.",
+    "ttft_ms": 6925,
+    "type": "result",
+    "duration_ms": 1262871,
+    "uuid": "946d824e-3cb6-482c-8ced-b8f5b952feaa",
+    "ttft_stream_ms": 4328,
+    "time_to_request_ms": 42,
+    "first_content_frame_ms": 4329,
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "model_usage_since_last_result": {
+      "claude-fable-5-1": {
+        "inputTokens": 364,
+        "outputTokens": 100759,
+        "cacheReadInputTokens": 526413,
+        "cacheCreationInputTokens": 62366,
+        "webSearchRequests": 0,
+        "costUSD": 6.420513250000001,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 66631,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 62366,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    }
+  },
+  "model_identity_verified": true,
+  "candidate_captured": true,
+  "candidate_sha256": "596e89c39020672cdc8c2087d220967fab528e40b5eba600de10d46ceeaa2642",
+  "candidate_bytes": 15962,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

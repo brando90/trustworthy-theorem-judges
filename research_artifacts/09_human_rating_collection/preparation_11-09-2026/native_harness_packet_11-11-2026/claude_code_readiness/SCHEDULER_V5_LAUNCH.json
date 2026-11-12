@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-11-12T02:16:11.471662+00:00",
+  "pid": 78755,
+  "command": [
+    "/usr/bin/caffeinate",
+    "-i",
+    "-s",
+    "python3",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_readiness/run_frozen_batch_v5.py",
+    "--amendment",
+    "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_readiness/SCHEDULER_BUDGET_CLASSIFICATION_AMENDMENT.json",
+    "--amendment-sha256",
+    "5eeeaf477c4ad12728f70f63e7cd96fde76fd53a031a53826cf6c0935fbb1e09"
+  ],
+  "amendment_sha256": "5eeeaf477c4ad12728f70f63e7cd96fde76fd53a031a53826cf6c0935fbb1e09",
+  "adopted_active_pids": {
+    "humaneval_set__humaneval_39_prime_fib": 74618,
+    "realcode_set__23_base32": 74619,
+    "humaneval_set__humaneval_15_string_sequence": 74888
+  },
+  "untouched_count": 14,
+  "old_supervisor_terminated_without_group_signal": 74612
+}

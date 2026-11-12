@@ -1,0 +1,38 @@
+{
+  "status": 200,
+  "countTokens": {
+    "totalTokens": 1331,
+    "systemInstructionsTokens": {
+      "partTokens": [
+        620
+      ],
+      "roleTokens": 1
+    },
+    "contentTokens": [
+      {
+        "partTokens": [
+          4
+        ],
+        "roleTokens": 1
+      }
+    ],
+    "toolTokens": [
+      {
+        "functionDeclarationTokens": [
+          199,
+          139,
+          266,
+          101
+        ]
+      }
+    ],
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 1331
+      }
+    ]
+  },
+  "generation_calls": 0,
+  "payload_sha256": "a69c1105600a86d715c7af5566507ababea4360558b0a41a0a1df87460d41eac"
+}
