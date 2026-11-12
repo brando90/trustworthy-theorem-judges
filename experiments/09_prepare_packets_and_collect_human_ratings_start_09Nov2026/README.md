@@ -27,7 +27,7 @@ The main pool remains 54 files across 25 tasks: native Codex/GPT-6 Astra (25), n
 - **Warm-up first:** [instructions and Sheet link](rating_task_packet/START_HERE.md), [blank form](rating_task_packet/ratings.csv), [median task](rating_task_packet/warm_up_01_median/) and [greatest-common-divisor task](rating_task_packet/warm_up_02_greatest_common_divisor/).
 - **Current main task:** [instructions and Brando’s Sheet link](rating_task_packet/main_rating_task/START_HERE.md), [blank form](rating_task_packet/main_rating_task/ratings.csv) and [task files](rating_task_packet/main_rating_task/).
 - **Shared rules:** [scoring rubric](rating_task_packet/human_judgements_prompt.md) and [column guide](rating_task_packet/RATING_FORM_GUIDE.md). The warm-up and main task use the same eleven columns and scoring rubric.
-- **Email preview:** [editable email draft](rating_task_packet/EMAIL_INSTRUCTIONS_V0.md). Editing the packet or a draft sends nothing.
+- **Email:** [one editable email for the warm-up and the main task](rating_task_packet/EMAIL_INSTRUCTIONS_V0.md). Editing the packet or the draft sends nothing.
 
 Final score and the combined artificial intelligence (AI) assistance/human-rating attestation are required for new ratings. Estimate time and confidence; a one-sentence rationale is **preferred but optional**. Use problem notes for issues. Internal record keys are hidden in Sheets but retained in comma-separated value (CSV) files.
 
