@@ -44,7 +44,7 @@ Compare correlation training with proper-loss training using matched capacity, d
 
 The old 896-task, four-configuration, 24-rater design totals 14,848 planned ratings. It remains a historical budget scenario, not the current packet or an adopted requirement. The preserved older main packet has 125 Terminus2 artifacts and a 250-rating target; the replacement instead plans 85 artifacts and 170 independent ratings, pending execution and collection. Experiment 15 records the open sizing decision and its assumptions.
 
-[Archived studies](experiments/archive/README.md) preserve completed or superseded evidence. Separate prover-target and constructed entailment studies remain linked from the [full index](experiments/README.md); they do not count as human-rating validation.
+[Archived studies](experiments/archive/README.md) preserve completed or superseded applied evidence. General objective-comparison studies 06 and 11–14 now live in the [position-paper project’s archive and experiment 03](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/archive/README.md), with their different conditions and shared-data relationships explained there. Separate prover-target and constructed entailment studies remain linked from the [full index](experiments/README.md); they do not count as human-rating validation.
 
 ## Verify and build
 

@@ -6,7 +6,7 @@
 
 Created 11-09-2026 for Brando Miranda's judge paper (his Nov 7 and Nov 8 voice notes and whiteboard photo). Computed by CPU scripts (Python 3, numpy, scipy); the cached judge scores come from the veribench experiment-100 runs at commit `be287d9`.
 
-**Placement, 11-11-2026:** retained as a current reference for experiment 02’s [metric and sample-size discussion](../02_probabilistic_ordinal_judge/PRIORITY_2_VS_4_11-09-2026.md). Its cached calculations are complete; fresh confirmation is pending. The historical importer now lives in [archived experiment 06](../archive/06_information_loss_vs_correlation_judge_selection/README.md).
+**Placement, 11-11-2026:** retained as a current reference for experiment 02’s [metric and sample-size discussion](../02_probabilistic_ordinal_judge/PRIORITY_2_VS_4_11-09-2026.md). Its cached calculations are complete; fresh confirmation is pending. The historical importer now lives in [the position-paper project’s canonical experiment 06 archive](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/README.md). The runner uses a sibling checkout by default; set `JUDGE_OBJECTIVES_REPO` when that checkout is elsewhere. Existing cached data do not require reimporting.
 
 ## Question
 

@@ -24,6 +24,6 @@
 
 ## Historical evidence
 
-The [archive index](archive/README.md) records outcomes, old-to-new paths and reproduction guidance for experiments 01, 03, 05, 06 and 11–14. Archived evidence remains readable and keeps its original protocols, results and hashes. Numbers are not recycled.
+The [archive index](archive/README.md) keeps local experiments 01, 03 and 05 and records the cross-project moves. General objective-comparison studies 06 and 11–14 now live only in [the position-paper project](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/archive/README.md). Their original protocols, results, hashes and numbers are preserved; linked analyses of the same ratings are not additional collections.
 
 The [reference-anchoring plan](../docs/reference-anchoring-plan.md) remains a separate proposed controlled comparison; it has not been executed by reorganizing these folders.
