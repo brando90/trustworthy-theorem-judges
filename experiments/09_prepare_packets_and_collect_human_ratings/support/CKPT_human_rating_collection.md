@@ -1,14 +1,31 @@
 # Human-rating collection migration checkpoint
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_human_rating_collection/support/CKPT_human_rating_collection.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/support/CKPT_human_rating_collection.md>
 
 **TLDR:** Move the active human-rating collection from VeriBench into this experiment without changing delivered materials, opening sealed ratings, or conflating the inherited round with the prospective study.
+
+## Native-heavy replacement — active, 11-11-2026
+
+- Owner: this coordinating chat; user explicitly authorized preparing a native-heavy real packet.
+- Planned: 25 historical native Codex/Astra + 25 new native Claude Code/Fable 5.1 + 25 new Pi/Gemini 3.8 Flash + ten existing Terminus 2/Grok artifacts; 85 items, 170 independent ratings.
+- Current source manifest: `private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/INPUT_MANIFEST.json`, SHA-256 `e7a46a58a90cc23491f3db033d7dc749616f160da0b868962a3b5d8ec1b61e29`. Exact Python/current accepted gold and historical Codex bytes verified; prospective version-8 namespaces compiled.
+- Workers: `/root/warmup_candidate_trace` runs native Claude Code; `/root/pi_native_packet` runs Pi; `/root/rating_tensor_scope` owns packet assembly and receipt reconciliation; 28 native-packet tests and 61 project tests passed after review fixes. Full-access/no-approval execution and source-only environments verified. Parent owns publication, manifests and packaging.
+- Ten existing Grok files are staged and hash-verified; one historical isolation flag retained. Baseline manifest SHA-256: `c7800d83b2b5738dd035c231da8d7a4202d97f051d81a4a1805fd76e831a112a`.
+- Initial environment pilots invalidated 11-11-2026: project build cache contained compiled benchmark modules; Pi also ran with wrong filesystem ownership. No first-run artifact is valid. Historical manifests retained. Original frozen `CLAUDE_CODE_CONDITION.json` SHA-256 `afcb028cbb65c339d4f1d041fafbcbca9d6f1502b9009528647a05bc6ff70de2`; `PI_CONDITION.json` SHA-256 `1f70b78ccb67868232b173a4081a27a1dfa1bcad84068a76d5b01ad04df69693`. Invalidated image `sha256:8ca8a93c0c961b171152e43d12822e35dd06f73317aebe9e60f46b88f99ea8de`. Claude native events report no overage use and reject overage; no new charges were enabled. Pi retains its $20 batch ceiling.
+- Two related chats received FYI and continue their original tasks. Existing packets, raw ratings, rubric, warm-up and assignments are preserved.
+- Corrected valid runs are active: clean image `2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e`, independent audit `d8d228043f11b3f20ef24f399831c1dccada462e962b0e9c86b993c596e26c7a`. `CC_CONDITION_VALID_V2.json` SHA-256 `d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c`; `PI_CONDITION_VALID_V3.json` SHA-256 `a8087b31b8321d82303bd44ef685648ef70db700ae7a1bbd77fbd6d50efe3c52`. Pi $0.75/cell plus invalid pilot $0.7204245, below $20 total. Native useful actions verified for both; no final valid-count claim yet.
+- New personal blank Sheets verified: A1 85, T01 eight, T05 six; 14 of 170 independent slots assigned. Personal editor access verified without invitations; `NEW_MAIN_SHEETS.json` owns exact links/readbacks.
+- Review: one Claude Fable 5.2/max implementation review completed with fixes for stable subset identifiers, explicit infrastructure exclusions, identity checks and a live-Sheet/CSV release gate. Original report and resolution are in the private `light_qa/` directory; final packet verification remains pending.
+- Transport amendments: Pi V3 covered two cells, V4 the third, V5 the fourth; V6 applies to the remaining 21. V5 introduced at most two HTTP 503 retries, each within the original call/time/cost caps. V6 permits a 600-second response timeout within the unchanged 1,800-second task limit. No terminal cell is rerun; incomplete responses retain cost reservations. Frozen lineage and infrastructure dispositions are private hash-bound records.
+- Availability at 17:27 PST: 35 historical files verified, one fresh Claude Code file returned, four Pi attempts without files (one request cap, three infrastructure), 45 fresh attempts pending. Counts are provisional, not human ratings or correctness results.
+- Next: monitor both bounded batches to terminal state; reconcile artifacts/failures, build and verify replacement packets and matching forms, then prepare revised exact emails for review. No team dispatch without Brando's send instruction. Combined RUN START self-email `1a1cd2f0eeb505a2` sent and read back; parent owns DONE notice.
+- Details and limits: [coordinator contract](COORDINATOR_README.md#native-heavy-replacement--user-decision-11-11-2026).
 
 ## Current preparation — 11-11-2026
 
 Use [the experiment README](../README.md) and [the current preparation section](PREPARATION_11-09-2026.md#current-prepared-version--11-11-2026). The working packet is in `../rating_task_packet/`; current raw data is in `../ratings/`; scripts/tests are in `scripts/` and `tests/` relative to this support folder. All twelve sheets and raw exports now share eleven columns: name, four stable identifiers, score, combined attestation, minutes, confidence, rationale and problem note. Rationale is preferred but optional. New required AI assistance is prospective; original human notes and times were restored verbatim, without inferred responses.
 
-Thirteen replacement packets and eight exact team email previews are prepared. Older drafts are historical; CURRENT_PREPARATION.json in the private preparation folder selects FormV5. Nothing has been sent in this revision. Brando's pilot, revised-text approval and explicit send instruction remain before team dispatch. Collection counts remain 15 numeric warm-ups, three N/A entries and no completed main ratings. Preserve the existing assigned subsets and prior-exposure history.
+Thirteen earlier replacement packets and eight exact team email previews were prepared. Their main-packet drafts are now historical: CURRENT_PREPARATION.json selects native-heavy preparation and holds the old main default; FormV5 warm-ups remain available. Nothing has been sent in this revision. Brando's pilot, revised-text approval and explicit send instruction remain before team dispatch. Collection counts remain 15 numeric warm-ups, three N/A entries and no completed main ratings. Preserve the existing assigned subsets and prior-exposure history.
 
 ## Historical migration state
 
@@ -59,3 +76,13 @@ Thirteen replacement packets and eight exact team email previews are prepared. O
 - 11-09-2026 11:15 PST: Published both migration commits to `origin/main` and verified remote revisions; parsed-code comparison found only declared port adaptations, and the paper built in scratch without changing the canonical PDF. Removed the owned checkout, retained other owners' work, and preserved verification records privately. No collaborator email was sent by this migration.
 
 - 11-11-2026 all-participant identity rollout: verified all 12 active personal Google Sheets; inserted names in the seven remaining sheets, retained five already correct sheets, and exported exact table snapshots under `sheet_exports/11-11-2026_all_raters_name_first/`. All original cells, notes, validation and formats match before/after; browser visibility checks passed. Prepared Slava's six-row CSV-only warm-up without sending or changing delivered archives. Added the all-participant name-first rule to Codex, Claude and Cursor entry points and propagated to related repositories; see `NAME_FIRST_ROLLOUT_11-11-2026.md` for publication receipts. Existing ratings and assignment counts are unchanged.
+
+- 11-11-2026 native-heavy decision: audited exact input compatibility, staged 25 historical Codex candidates and corrected version-8 generation inputs, and began source-only native Claude Code/Pi preparation. The native-heavy replacement supersedes the old main-packet dispatch default; no generation or collaborator email had occurred at this checkpoint.
+
+- 11-11-2026 16:36 PST: Froze both execution conditions and admitted the two native 25-cell batches. Verified combined RUN START self-email delivery. Existing raw ratings and delivered archives remain unchanged; worker receipts own runtime progress.
+
+- 11-11-2026 16:45 PST: Quarantined both first attempts as invalid environment pilots after compiled benchmark artifacts were found in the image. No valid new candidates accepted. Both batches stopped before a second admission; clean image and runtime/accounting fixes are in verification. Three replacement main Sheets contain verified blank forms (85/8/6 rows); none sent.
+
+- 11-11-2026 16:56 PST: Clean-image independent audit passed; both corrected native batches began useful source-only work. Three main forms verified in native Sheets, including optional fields; Rylan/Sri editor access granted with notifications disabled and verified by Drive metadata. Participant email remains held.
+
+- 11-11-2026 17:27 PST: First valid Claude Code candidate captured at the original wall limit. Four Pi attempts ended without artifacts; request-cap and infrastructure causes remain separate. Review fixes passed 61 project tests. Prepared Sheets remain undispatched until final artifact reconciliation.

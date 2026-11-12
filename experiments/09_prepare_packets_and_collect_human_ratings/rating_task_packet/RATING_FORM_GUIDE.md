@@ -1,6 +1,6 @@
 # What to enter for each file
 
-Your name and file path are prefilled. Internal identifiers are hidden in Google Sheets and retained in CSVs; keep them unchanged.
+Your name (`rater_name`) and file path (`candidate_file`) are prefilled. The internal person key (`rater_id`), item key (`item_id`) and folder (`task_folder`) are also prefilled; they are hidden in Google Sheets and retained in CSVs. Keep these five fields unchanged.
 
 | Column | What to enter |
 | --- | --- |

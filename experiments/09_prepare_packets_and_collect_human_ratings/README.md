@@ -4,6 +4,8 @@
 
 **TLDR:** To do Brando’s six-file warm-up, open [the task instructions and personal Google Sheet link](rating_task_packet/START_HERE.md). This page also links the editable packet, collected ratings and completion status.
 
+**Main-packet decision, 11-11-2026:** a replacement centered on native Claude Code, native Codex and Pi is being prepared, with a smaller Terminus 2 comparison: **85 artifacts and 170 independent ratings planned**. [Allocation and preparation status](support/COORDINATOR_README.md#native-heavy-replacement--user-decision-11-11-2026). The warm-up is unchanged. The original 125-item main sheets and response snapshots below remain historical records; do not send the old main packet as the default.
+
 ## What belongs here
 
 | Folder | What it is for |
@@ -23,9 +25,9 @@ This README is the single collection overview: task links, people and completion
 
 **Current form:** final score and the combined artificial intelligence (AI) assistance/human-rating attestation are required for new ratings. Estimate time and confidence; a one-sentence rationale is **preferred but optional**. Use problem notes for issues. Sheets and CSVs share eleven stored columns, with internal keys hidden in Sheets; the scoring rubric is unchanged.
 
-[Prepared packets and exact team email previews](support/PREPARATION_11-09-2026.md#current-prepared-version--11-11-2026) are ready for review. **Before team dispatch:** finish Brando’s pilot, approve the revised email text, then explicitly say to send. No reminders or revised team packets were sent in this preparation. Editing this folder sends nothing. Delivered archives remain unchanged.
+[Existing warm-up packets and prior email previews](support/PREPARATION_11-09-2026.md#current-prepared-version--11-11-2026) remain available. Main-packet previews will be replaced after native outputs are reconciled. **Before team dispatch:** finish Brando’s pilot, approve the revised email text, then explicitly say to send. No reminders or revised team packets were sent in this preparation. Editing this folder sends nothing. Delivered archives remain unchanged.
 
-**Warm-up versus main packet:** the six warm-up candidates are historical Claude 3.7 Sonnet outputs. The separate main packet has all 125 later frontier-model outputs: 25 tasks × five configurations, targeting two independent ratings each (250 ratings). [Verified provenance](support/COORDINATOR_README.md#warm-up-versus-main-packet-provenance--checked-11-11-2026) · [Packet checks, tensor dimensions and larger-study proposals](support/COORDINATOR_README.md#current-collection-size-and-readiness--checked-11-11-2026).
+**Warm-up versus main packet:** the six warm-up candidates are historical Claude 3.7 Sonnet outputs. The preserved original main packet has all 125 later frontier-model outputs: 25 tasks × five configurations, targeting two independent ratings each (250 ratings). [Verified provenance](support/COORDINATOR_README.md#warm-up-versus-main-packet-provenance--checked-11-11-2026) · [Packet checks, tensor dimensions and larger-study proposals](support/COORDINATOR_README.md#current-collection-size-and-readiness--checked-11-11-2026).
 
 Brando has already viewed other raters’ warm-up answers, so his warm-up is coordinator practice, not an independent blinded submission. Descriptive task paths map to historical record keys in [the path mapping](support/WARMUP_PATHS.json).
 
@@ -48,7 +50,7 @@ Brando has already viewed other raters’ warm-up answers, so his warm-up is coo
 
 **[Open everyone’s live Google Sheets and matching raw CSVs](ratings/README.md).** Rylan and Sri’s main sheets display 125 rows, but only ten items each are assigned. Rylan’s original notes and Sri’s recorded times/notes are preserved; [Rylan’s notes are also readable here](support/RYLAN_NOTES.md).
 
-The inherited primary collection requires **250 main ratings**: two qualified independent ratings for each of 125 candidate files. **20 are assigned but blank; 230 remain unassigned.** Warm-ups, N/A entries and blank forms are not completed main ratings. Re-exported copies are not new observations. Historical volunteer capacity is not a renewed commitment. Jacob and Mo declined; Bo and Sanmi are excluded from recruitment. Unassigned prospects are not missing submissions.
+**Original-round assignment snapshot, separate from the replacement above:** the inherited primary collection requires **250 main ratings**: two qualified independent ratings for each of 125 candidate files. **20 are assigned but blank; 230 remain unassigned.** Warm-ups, N/A entries and blank forms are not completed main ratings. Re-exported copies are not new observations. Historical volunteer capacity is not a renewed commitment. Jacob and Mo declined; Bo and Sanmi are excluded from recruitment. Unassigned prospects are not missing submissions.
 
 ## Provenance
 
