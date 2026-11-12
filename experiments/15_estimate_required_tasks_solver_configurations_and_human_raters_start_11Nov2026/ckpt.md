@@ -1,6 +1,6 @@
 # Continue rating-size estimation and simplify the judge repository
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_estimate_required_tasks_solver_configurations_and_human_raters/ckpt.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_11Nov2026/ckpt.md>
 
 **TLDR:** Claude Code took over sizing and cleanup on 11-11-2026 and carried out the inherited continuation: stale summaries are corrected, the root `docs/` folder is gone, and the README now holds a costed allocation with three open choices for Brando. The final collection size is still undecided; experiment 09's separate owner handles the human-rating task.
 
@@ -24,7 +24,7 @@ Last updated: 11-11-2026 23:08 PST
 - Nothing blocks. A final size needs Brando's three choices and two measurements: main-task rating time, and the spread of the paired difference for the actual judges.
 ## Next steps
 
-- [p 9/10] When trial ratings with `minutes_spent` reach experiment 09, run `python3 experiments/15_estimate_required_tasks_solver_configurations_and_human_raters/scripts/costed_allocation.py --write --tables`, update the quoted hours, then `scripts/refresh_provenance_hashes.py --write`.
+- [p 9/10] When trial ratings with `minutes_spent` reach experiment 09, run `python3 experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_11Nov2026/scripts/costed_allocation.py --write --tables`, update the quoted hours, then `scripts/refresh_provenance_hashes.py --write`.
 - [p 8/10] After Brando picks claim, precision and workload cap, write the identity-split amendment with experiment 02's owner and freeze counts before any collection.
 - [p 6/10] Remove the experiment 10 worktree once Brando confirms; its recovery package is verified.
 ## Brando to-do
@@ -56,7 +56,7 @@ Last updated: 11-11-2026 23:08 PST
 ## Coordination
 
 - **Sizing and cleanup owner:** Claude Code session `e5556c18-2c10-4562-a2ae-6978ca6b39b3`; its Remote Control link is in the private receipts. Former owner: Codex chat [Recover rating-data estimates](codex://threads/01a1cc5b-af60-77d1-8f1e-2207b1f121d1), which stops writing these files once the takeover is verified. Private receipts: `/Users/brandomiranda/.local/share/trustworthy-theorem-judges/claude_takeover_11-11-2026/`.
-- **Collection owner:** unchanged and separate. [Experiment 09's handoff](../09_prepare_packets_and_collect_human_ratings/support/ckpt.md) is authoritative; its successor was still unnamed at this update (`successor_chat` is `null` in the private preparation record). This session read experiment 09's files and changed none of them.
+- **Collection owner:** unchanged and separate. [Experiment 09's handoff](../09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/ckpt.md) is authoritative; its successor was still unnamed at this update (`successor_chat` is `null` in the private preparation record). This session read experiment 09's files and changed none of them.
 - **Latest collection sequence:** Brando's trial, instruction review, then the Sri, Yegor and Brando first batch after explicit send approval. Others are held. This is context, not authority to send mail.
 - **Experiment 10 worktree:** `~/.worktrees/trustworthy-theorem-judges/paper-publication-receipt-11-10-2026`, detached at `7dc735a`, last modified 11-10-2026 09:47, no process using it. Recovery package: `experiment_10_worktree_recovery/` under the private receipts folder.
 - **Do not recreate:** a root `docs/` folder, the retired `experiments/09_human_rating_collection` alias, or a source export named `claude.md` or `agents.md` (agent clients load those names as instructions).
@@ -67,7 +67,7 @@ Last updated: 11-11-2026 23:08 PST
 ## Takeover prompt
 
 ```text
-Continue the rating-size decision support in /Users/brandomiranda/trustworthy-theorem-judges. Read experiments/15_estimate_required_tasks_solver_configurations_and_human_raters/ckpt.md and README.md in full, refresh the repository and shared instructions, and inspect Git state and active owners before editing.
+Continue the rating-size decision support in /Users/brandomiranda/trustworthy-theorem-judges. Read experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_11Nov2026/ckpt.md and README.md in full, refresh the repository and shared instructions, and inspect Git state and active owners before editing.
 
 The repository cleanup is finished: do not recreate a root docs/ folder or rename paper_latex/ or scripts/ without Brando's decision. The remaining work depends on inputs that did not exist on 11-11-2026. First, when experiment 09 holds participant-entered minutes_spent for main-task files, rerun scripts/costed_allocation.py --write --tables, update the hours quoted in README.md and METHODS_AND_ALLOCATION.md, and refresh provenance.json with scripts/refresh_provenance_hashes.py --write. Second, when Brando chooses the claim, the precision target and the workload cap, turn the matching scenario into a prospective identity-split amendment with experiment 02's owner, and freeze task-family, solver and rater identities and counts before any collection. Third, remove the experiment 10 worktree only after Brando confirms.
 

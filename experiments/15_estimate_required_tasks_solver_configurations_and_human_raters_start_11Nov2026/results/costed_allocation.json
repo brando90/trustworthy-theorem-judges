@@ -8,7 +8,7 @@
   },
   "paired_rps_contrast_sd": {
     "averaged_forecasts_25_tasks": {
-      "source": "experiments/archive/17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings/results/results.json",
+      "source": "experiments/archive/17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings_start_11Nov2026_end_11Nov2026/results/results.json",
       "what": "proper-loss mixture minus Pearson mixture, 20 training tasks; each held-out forecast averaged over the splits that tested it",
       "point": -0.005626,
       "interval_95": [
@@ -35,7 +35,7 @@
       }
     },
     "one_fit_fixed_about_9_test_families": {
-      "source": "experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/results/results.json",
+      "source": "experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability_start_09Nov2026_end_09Nov2026/results/results.json",
       "what": "RPS-trained mixture minus Pearson mixture on the original test split, fitted judges held fixed",
       "point": 0.005241,
       "interval_95": [
@@ -62,7 +62,7 @@
       }
     },
     "refit_and_reselect_about_9_test_families": {
-      "source": "experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/results/results.json",
+      "source": "experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability_start_09Nov2026_end_09Nov2026/results/results.json",
       "what": "same contrast, refitting and reselecting both judges inside every resample; skewed interval, rough",
       "point": 0.005241,
       "interval_95": [
@@ -95,7 +95,7 @@
     "observed_gap_at_20_training_tasks": 0.005626
   },
   "one_judge_rps_level": {
-    "source": "experiments/archive/17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings/results/results.json",
+    "source": "experiments/archive/17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings_start_11Nov2026_end_11Nov2026/results/results.json",
     "what": "held-out RPS of the proper-loss mixture at 20 training tasks",
     "point": 0.136239,
     "interval_95": [
@@ -117,7 +117,7 @@
     }
   },
   "learning_curve": {
-    "source": "experiments/archive/17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings/results/results.json",
+    "source": "experiments/archive/17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings_start_11Nov2026_end_11Nov2026/results/results.json",
     "what": "held-out RPS of the proper-loss mixture minus its value at 20 training tasks",
     "excess_over_20_tasks": {
       "4": 0.013325,
@@ -134,7 +134,7 @@
     "two_ratings_per_file_instead_of_all": 0.000392
   },
   "current_packet": {
-    "source": "experiments/09_prepare_packets_and_collect_human_ratings/rating_task_packet/main_rating_task/ratings.csv",
+    "source": "experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/rating_task_packet/main_rating_task/ratings.csv",
     "files": 54,
     "tasks": 25,
     "files_per_task": 2.16,
@@ -147,7 +147,7 @@
     "independent_rating_target": 108
   },
   "review_time": {
-    "source": "experiments/09_prepare_packets_and_collect_human_ratings/ratings",
+    "source": "experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/ratings",
     "entered_minutes": {
       "warm_up": {
         "entries": 6,

@@ -23,9 +23,9 @@ HERE = Path(__file__).resolve().parent
 EXPERIMENT = HERE.parent
 ROOT = EXPERIMENT.parents[1]
 ARCHIVE = ROOT / "experiments/archive"
-LEARNING_CURVE = ARCHIVE / "17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings/results/results.json"
-MIXTURE_TEST = ARCHIVE / "10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/results/results.json"
-COLLECTION = ROOT / "experiments/09_prepare_packets_and_collect_human_ratings"
+LEARNING_CURVE = ARCHIVE / "17_measure_judge_learning_from_4_to_20_tasks_and_more_human_ratings_start_11Nov2026_end_11Nov2026/results/results.json"
+MIXTURE_TEST = ARCHIVE / "10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability_start_09Nov2026_end_09Nov2026/results/results.json"
+COLLECTION = ROOT / "experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026"
 MAIN_TASK = COLLECTION / "rating_task_packet/main_rating_task"
 OUTPUT = EXPERIMENT / "results/costed_allocation.json"
 

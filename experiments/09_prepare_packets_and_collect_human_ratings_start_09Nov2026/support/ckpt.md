@@ -1,6 +1,6 @@
 # Handoff: finish human-rating packets and collection
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/support/ckpt.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/ckpt.md>
 
 **TLDR:** Take over the complete packet-preparation and collection task. The current 54-file pool is built; next are Brando's trial ratings, instruction review, preparation of the Sri/Yegor/Brando first batch, exact-text approval, dispatch and collection. This checkpoint incorporates the form-consistency handoff; the successor has not yet been identified or verified.
 
@@ -43,7 +43,7 @@ Brando asked the sole collection coordinator to save its remaining work for a di
 ## Read these current sources
 
 Repository: `/Users/brandomiranda/trustworthy-theorem-judges`.
-Current collection: `experiments/09_prepare_packets_and_collect_human_ratings/`.
+Current collection: `experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/`.
 The former public `09_human_rating_collection` path and its temporary alias are retired. The private preparation directory intentionally retains that historical name.
 
 1. [Collection overview and latest first-batch decision](../README.md).
@@ -139,7 +139,7 @@ Methods 2 and 4 compare training correlation with a proper probabilistic trainin
 cd /Users/brandomiranda/trustworthy-theorem-judges
 git fetch origin
 git status --short
-cat experiments/09_prepare_packets_and_collect_human_ratings/README.md
+cat experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/README.md
 cat private/09_human_rating_collection/preparation_11-09-2026/CURRENT_PREPARATION.json
 python3 scripts/check_project.py
 git diff --check
@@ -154,7 +154,7 @@ Use connected Sheets tools for exact table reads/writes and read back edits. Scr
 ```text
 Take over the complete human-rating packet preparation and collection task in /Users/brandomiranda/trustworthy-theorem-judges.
 
-Read AGENTS.md and /Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings/support/ckpt.md. Verify CURRENT_PREPARATION.json and the actual files, then record your chat ID, ownership and first useful action in the existing checkpoint. The outgoing coordinator stops writes after publishing this handoff; keep one writer and preserve other agents' work.
+Read AGENTS.md and /Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/ckpt.md. Verify CURRENT_PREPARATION.json and the actual files, then record your chat ID, ownership and first useful action in the existing checkpoint. The outgoing coordinator stops writes after publishing this handoff; keep one writer and preserve other agents' work.
 
 Follow Brando's latest sequence: he grades a few files first; review the actual rater instructions using his feedback; prepare the first batch only for Sri, Yegor and Brando. Yegor's main assignment, Sheet, packet and exact email still need preparation. Keep all other recipients held. Show the exact first-batch emails for review and send only after Brando's explicit go-ahead. The old eight-person queue is not the new first batch.
 
@@ -163,7 +163,7 @@ Continue independent preparation while Brando grades, including the concrete rem
 TL;DR: Finish the three-person pilot dispatch and remaining human-rating collection from the saved checkpoint, with Brando's own grading and send decision in his hands.
 ```
 
-Related sizing work is saved separately in [experiment 15’s checkpoint](../../15_estimate_required_tasks_solver_configurations_and_human_raters/ckpt.md). Its Claude session completed sizing/cleanup; that was not an experiment 09 takeover.
+Related sizing work is saved separately in [experiment 15’s checkpoint](../../15_estimate_required_tasks_solver_configurations_and_human_raters_start_11Nov2026/ckpt.md). Its Claude session completed sizing/cleanup; that was not an experiment 09 takeover.
 
 ## Log
 

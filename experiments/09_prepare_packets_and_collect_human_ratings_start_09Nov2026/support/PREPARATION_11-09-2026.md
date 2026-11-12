@@ -1,6 +1,6 @@
 # Human-rating preparation — 11-09-2026
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/support/PREPARATION_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/PREPARATION_11-09-2026.md>
 
 **TLDR:** The existing rating packet is available in this repository's private store. The preferred deadline is Friday, 11-13-2026; the final deadline is Sunday, 11-15-2026. Personal rating can start; collaborator dispatch remains a separate, explicitly approved action.
 
@@ -53,4 +53,4 @@ Before using this protocol, read the [required judge-development context](JUDGE_
 
 The inherited delivery ledger records four of the 50 required folder assignments as delivered, not completed. Other consenting participants still need their warm-up status resolved before primary assignments. Recruitment and completed human ratings cannot be substituted by packet preparation. All seven sheet-access checks are complete. Scoped owner-inbox searches for recent participant rating replies found no new matching replies; that does not establish whether a sheet is complete. Review the concrete individual drafts before authorizing team delivery, then reconcile any intervening replies or completion metadata without opening sealed scores.
 
-Run `python3 experiments/09_prepare_packets_and_collect_human_ratings/support/scripts/verify_preparation.py` on the coordinator's machine to check the frozen packet, identity mapping, assignment continuity, and proposed messages. The private data are deliberately absent from public clones.
+Run `python3 experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/support/scripts/verify_preparation.py` on the coordinator's machine to check the frozen packet, identity mapping, assignment continuity, and proposed messages. The private data are deliberately absent from public clones.

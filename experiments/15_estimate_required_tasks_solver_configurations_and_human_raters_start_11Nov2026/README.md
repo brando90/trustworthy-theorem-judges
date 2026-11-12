@@ -1,10 +1,10 @@
 # Estimate required tasks, solver configurations and human raters
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_estimate_required_tasks_solver_configurations_and_human_raters/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_11Nov2026/README.md>
 
 **TLDR:** Finish the current 108-rating evaluation packet; do not adopt a larger total yet. How many held-out task families a later study needs depends on one unmeasured quantity, and existing evidence puts it anywhere from 3 to 155 families for a ±0.01 comparison, with 37 as the middle case. None of the recovered Claude, Gemini or ChatGPT totals establishes statistical sufficiency.
 
-**Status, 11-11-2026:** source recovery and a costed allocation from existing evidence are complete; the final study size is an open decision for Brando (three choices below). No new ratings, judge training, model inference or fitted scaling law are reported here. Experiment 02 (`02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026`) owns the judge methodology; experiment 09 (`09_prepare_packets_and_collect_human_ratings`) owns the current packet and collection.
+**Status, 11-11-2026:** source recovery and a costed allocation from existing evidence are complete; the final study size is an open decision for Brando (three choices below). No new ratings, judge training, model inference or fitted scaling law are reported here. Experiment 02 (`02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026`) owns the judge methodology; experiment 09 (`09_prepare_packets_and_collect_human_ratings_start_09Nov2026`) owns the current packet and collection.
 
 T counts tasks, A fixed solver configurations, H distinct human raters and m ratings per returned file. Count T in independent task families. Ratings collected are files × m, not T × A × H.
 
@@ -90,8 +90,8 @@ The supplied [handwritten page](assets/rating_tensor_source_recovery_11-11-2026.
 [Source index](SOURCE_INDEX.md) · [Methods, arithmetic and corrections](METHODS_AND_ALLOCATION.md) · [File hashes and capture inventory](provenance.json) · [Checkpoint and next steps](ckpt.md) · [Google Q&A companion](https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws/edit).
 
 ```sh
-python3 experiments/15_estimate_required_tasks_solver_configurations_and_human_raters/scripts/costed_allocation.py
-python3 experiments/15_estimate_required_tasks_solver_configurations_and_human_raters/scripts/refresh_provenance_hashes.py
+python3 experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_11Nov2026/scripts/costed_allocation.py
+python3 experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_11Nov2026/scripts/refresh_provenance_hashes.py
 ```
 
 The first command fails if the saved scenarios no longer match their inputs; the second fails if a tracked file in this folder changed without its hash being refreshed. Add `--write` to either to regenerate. Source exports have not been independently authenticated by the chat providers; their limits are stated in each header. Original links may require Brando's signed-in account. The earlier requested light model review returned six findings, all addressed; it predates the costed allocation, which has deterministic checks only.

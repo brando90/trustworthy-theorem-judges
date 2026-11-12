@@ -2,14 +2,14 @@
 test on the 75 human-rated artifacts (25 tasks, 195 expert ratings, never used for fitting or selection). Candidate judges are the four cached configs that exist on
 both sets (H0 and H2 on gpt-6-sol-high and claude-opus-5-5, three repeats each, Vals Valkyrie vb103_judge). Zero new model calls, CPU only.
 Usage: ~/.venvs/judge/bin/python run_exp18.py --v106 <veribench experiment 106 dir> --human dataset.json --out results [--boot 2000]
-Imports shared code from ../../16_compare_validation_selection_and_training_on_75_rated_outputs/scripts."""
+Imports shared code from ../../16_compare_validation_selection_and_training_on_75_rated_outputs_start_11Nov2026_end_11Nov2026/scripts."""
 import argparse, csv, glob, json, os, sys, time, platform, collections
 from pathlib import Path
 from multiprocessing import Pool
 import numpy as np, scipy
 from scipy.stats import rankdata
 from scipy.optimize import minimize
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'16_compare_validation_selection_and_training_on_75_rated_outputs'/'scripts'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'16_compare_validation_selection_and_training_on_75_rated_outputs_start_11Nov2026_end_11Nov2026'/'scripts'))
 from common import *
 from ce_mixture import fit
 
