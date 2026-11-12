@@ -4,7 +4,7 @@
 # Per-item ratings and scores stay in the ignored private/ dir; only aggregate JSON/markdown is committed.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
-REPO="$(cd "$HERE/../.." && pwd)"
+REPO="$(cd "$HERE/../../.." && pwd)"
 PY="${PY:-python3}"
 PRIVATE="${PRIVATE:-$REPO/private/exp07}"
 JUDGE_OBJECTIVES_REPO="${JUDGE_OBJECTIVES_REPO:-$REPO/../judges-dont-need-psychometrics-or-corr}"

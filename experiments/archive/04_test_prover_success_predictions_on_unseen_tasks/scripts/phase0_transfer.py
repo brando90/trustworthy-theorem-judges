@@ -19,7 +19,7 @@ from scipy.special import expit
 from scipy.stats import rankdata
 
 EXP = Path(__file__).resolve().parents[1]
-PROJECT = EXP.parents[1]
+PROJECT = EXP.parents[2]
 E137 = 'experiments/137_public_vbv1_896_harsh_failure_reasons_and_smooth_components_10-30-2026/current_factors.jsonl'
 E140 = 'experiments/140_entailment_check_vs_theorem_coverage_tiny256_10-31-2026/manifest_tiny256.json'
 E145 = 'experiments/145_entailment_vacuity_axiom_check_tiny256_11-01-2026/results/per_run.csv'

@@ -1,10 +1,10 @@
-# Big-data version 1: fit the judge on a large AI-labelled pool, test on the 75 human-rated artifacts
+# Train judges on 591 AI-rated outputs and test on 75 human-rated outputs
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/18_big_ai_label_pool_test_on_75_humans/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/archive/18_train_judges_on_591_ai_rated_outputs_test_on_75_human_rated_outputs/README.md>
 
 **TLDR:** Fit on 591 fresh VeriBench experiment 106 artifacts labelled by AI raters, test on the 75 human-rated artifacts. Loss-fitted ④ beats correlation-fitted ② narrowly on RPS, but neither beats the untrained equal-weight mixture, and fitting on the 75 humans does better; the pool fits lean on the H0 Opus judge, the worst single config against humans. Four cached judge configs, CPU only, no model calls, $0.
 
-Results: [results.md](results.md), [results/results.json](results/results.json). Code: [scripts/run_exp18.py](scripts/run_exp18.py), [scripts/make_report18.py](scripts/make_report18.py); shared code is imported from [experiment 16's scripts](../16_formulation3_val_selection_vs_4/scripts). Plan: [big-training-data inventory](../../docs/big-training-data-inventory-11-10-2026.md) (version 1 only).
+Results: [results.md](results.md), [results/results.json](results/results.json). Code: [scripts/run_exp18.py](scripts/run_exp18.py), [scripts/make_report18.py](scripts/make_report18.py); shared code is imported from [experiment 16's scripts](../16_compare_validation_selection_and_training_on_75_rated_outputs/scripts). Plan: [big-training-data inventory](../../../docs/big-training-data-inventory-11-10-2026.md) (version 1 only).
 
 Data stays private: the pool and the judge cells come from the private `veribench` checkout (experiment 106, `expt_v5/results/targets.csv`, `expt_v5/runs/*/cells.jsonl`), the human ratings from experiment 12's dataset. Reproduce: `python scripts/run_exp18.py --v106 <veribench experiment 106 dir> --human dataset.json --out results --boot 2000 --splits 1000`, then `python scripts/make_report18.py results/results.json results.md`. Python 3.12.3, numpy 2.5.4, scipy 1.18.1. The 2,000-draw bootstrap with refits took about 45 minutes on a shared 4-core machine.
 

@@ -9,7 +9,7 @@ def cpair(mt, x, y):
     if k not in P: return 'not computed'
     v = P[k]; return f"{v['point']:+.3f} [{v['ci95'][0]:+.3f}, {v['ci95'][1]:+.3f}]" + ('' if v['excludes_zero'] else ' (includes 0)')
 o = ['# Experiment 16 results: ③ versus ④ versus ②, 1,000 task-grouped 20/5 splits', '',
-     f"**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/16_formulation3_val_selection_vs_4/results.md>", '',
+     f"**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/archive/16_compare_validation_selection_and_training_on_75_rated_outputs/results.md>", '',
      "**TLDR:** Choosing the judge by validation loss (③) did not beat fitting by loss on all 20 train tasks (④) on held-out tasks. ③ by validation RPS is worse on RPS than ④ (+0.021, interval above 0) and ③ by validation CE collapses to the constant forecast (picked in 996 of 1,000 splits). ② and ④ still tie on RPS. Retrospective, cached judges, 25 tasks, no model calls, $0.", '',
      f"Harness: no LLM in the loop; cached scalar ratings of five judges (VeriBench experiment 100, Vals Valkyrie harness, models gpt-6-sol-high and claude-opus-5-5) re-used, fitted and ranked by a CPU script (Claude Code, Sonnet 5.5 wrote and ran it). {r['splits']} splits, {r['n_artifacts']} artifacts, {r['n_tasks']} tasks, {r['bootstrap_draws']:,}-draw task bootstrap.", '',
      '## Held-out test metrics (mean over artifacts, then splits)', '', '| Method | RPS (main, lower better) | CE | TVD |', '|---|---|---|---|']

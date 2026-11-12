@@ -1,6 +1,6 @@
-# Formulation ③ versus ④ and ②: choose the judge by validation loss or fit it by loss on train tasks
+# Compare validation selection and training on 75 human-rated outputs
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/16_formulation3_val_selection_vs_4/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/archive/16_compare_validation_selection_and_training_on_75_rated_outputs/README.md>
 
 **TLDR:** ③ (rank candidate judges by validation loss, training data helps) did not beat ④ (fit by loss on all train tasks) on held-out tasks, over the same 1,000 task-grouped 20/5 splits as experiment 12: ③ by validation RPS is 0.021 worse on RPS (interval above 0) and ③ by validation CE returns the constant forecast. ② and ④ still tie on RPS. Cached judges, CPU only, $0.
 

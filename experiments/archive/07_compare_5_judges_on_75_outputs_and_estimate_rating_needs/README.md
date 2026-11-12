@@ -1,12 +1,12 @@
 # Compare five judges on 75 outputs and estimate rating needs
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/07_compare_5_judges_on_75_outputs_and_estimate_rating_needs/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/archive/07_compare_5_judges_on_75_outputs_and_estimate_rating_needs/README.md>
 
 **TLDR:** One table of nRMSE (scores/5), sqrt RPS, KL, constant-guess nRMSE, Pearson, Spearman and Kendall for the five cached scalar judges of experiment 06, with 10,000-resample task-level bootstrap intervals, plus a subsampling fit of l = E + A n^-alpha + B k^-beta. Zero new model calls, no paid API, no R^2, no DT, Gemini is not a judge. Results: [results.md](results.md).
 
 Created 11-09-2026 for Brando Miranda's judge paper (his Nov 7 and Nov 8 voice notes and whiteboard photo). Computed by CPU scripts (Python 3, numpy, scipy); the cached judge scores come from the veribench experiment-100 runs at commit `be287d9`.
 
-**Placement, 11-11-2026:** retained as a current reference for experiment 02’s [metric and sample-size discussion](../02_design_a_judge_that_predicts_human_ratings_0_to_5/PRIORITY_2_VS_4_11-09-2026.md). Its cached calculations are complete; fresh confirmation is pending. The historical importer now lives in [the position-paper project’s canonical experiment 06 archive](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/README.md). The runner uses a sibling checkout by default; set `JUDGE_OBJECTIVES_REPO` when that checkout is elsewhere. Existing cached data do not require reimporting.
+**Placement, 11-11-2026:** retained as a current reference for experiment 02’s [metric and sample-size discussion](../../02_design_a_judge_that_predicts_human_ratings_0_to_5/PRIORITY_2_VS_4_11-09-2026.md). Its cached calculations are complete; fresh confirmation is pending. The historical importer now lives in [the position-paper project’s canonical experiment 06 archive](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/README.md). The runner uses a sibling checkout by default; set `JUDGE_OBJECTIVES_REPO` when that checkout is elsewhere. Existing cached data do not require reimporting.
 
 ## Question
 

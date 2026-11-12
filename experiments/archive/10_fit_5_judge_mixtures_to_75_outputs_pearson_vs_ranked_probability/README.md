@@ -1,8 +1,8 @@
 # Fit five-judge mixtures to 75 rated outputs: Pearson versus ranked probability training
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/README.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/README.md>
 
-**Placement, 11-11-2026:** retained while the sole coordinator reconciles the unique publication receipt in the existing detached worktree; the analysis itself is complete. See the [archive placement record](../archive/README.md#reading-and-reproducing-historical-work).
+**Placement, 11-11-2026:** retained while the sole coordinator reconciles the unique publication receipt in the existing detached worktree; the analysis itself is complete. See the [archive placement record](../README.md#reading-and-reproducing-historical-work).
 
 **TLDR:** Fit methods 2 and 4 on the existing historical human ratings using the same five cached judge configurations, probability family and validation criterion. This is an offline retrospective probability-mixture experiment, not new semantic judge inference or validation on the incoming human collection.
 
@@ -17,8 +17,8 @@ The sister repository's [completed CE-versus-Pearson study](https://github.com/b
 Use Python with NumPy and SciPy. For this machine, the verified interpreter is `/Users/brandomiranda/uv_envs/no-gold-ref-judge/bin/python3`.
 
 ```sh
-python3 -m unittest discover -s experiments/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/tests -v
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 experiments/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/scripts/run.py \
+python3 -m unittest discover -s experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/tests -v
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 experiments/archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability/scripts/run.py \
   --data /absolute/authorized/private/dataset.json \
   --out /absolute/new/public_aggregate_results \
   --private-out /absolute/new/private_forecasts

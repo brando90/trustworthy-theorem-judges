@@ -35,7 +35,7 @@ def main():
     L = []
     w = L.append
     w('# Experiment 07: Experiment 1 metric table and scaling fit on cached judge scores\n')
-    w('**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/07_compare_5_judges_on_75_outputs_and_estimate_rating_needs/results.md>\n')
+    w('**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/archive/07_compare_5_judges_on_75_outputs_and_estimate_rating_needs/results.md>\n')
     w('**TLDR:** Five cached scalar judges, 75 artifacts, 25 tasks, 195 expert ratings, zero new model calls, no paid API. All numbers below were computed by CPU scripts in this folder (Python 3, numpy, scipy), not by a model; the cached judge scores themselves come from the historical runs named in the table below.\n')
     w('## 1. Which count is right: 343 or 195?\n')
     w('Both describe the same 75 artifacts (25 tasks x 3 agent samples each), different rater panels. Counted from `inputs/items.jsonl` at veribench commit `be287d9`: **195** ratings come from the three expert columns (p1 75, p2 75, p3 45); the two other columns add p4 75 and p5 75, so **345** ratings over five raters (45 artifacts have 5 ratings, 30 have 4). I did not find 343 in the files I searched (`items.jsonl`, the experiment README and PROTOCOL.md, the phase-0 audit, `results/VERIFICATION.json`); the 345 here and the 44/75 versus 45/75 for the third rater differ from the notes in the prompt text by 2 and 1. The primary target is the expert panel (195), as PROTOCOL.md of experiment 100 specifies ("mean of available ratings from participants 1-3"); the five-rater panel (345) is secondary. The "25x3x5" tensor shape is tasks x agent samples x raters.\n')
