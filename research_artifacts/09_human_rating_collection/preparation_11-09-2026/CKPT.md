@@ -1,6 +1,8 @@
+**Latest handoff, 11-13-2026 10:51 PST:** Brando controls continuation; the outgoing coordinator’s handoff is complete. Follow the public `support/ckpt.md` linked below and the current preparation JSON. The Dot owner has prepared Yegor’s supplemental four-file packet and owner-only Sheet in `native_harness_packet_11-11-2026/builds/first_batch_11-13-2026/T02/`; verify its saved receipts and coordinate ownership. Older missing-packet, form and eight-person-queue statements below are historical. No successor or participant emails were launched by this handoff. Trial ratings, instruction review, final three-person text/access checks and explicit send remain pending.
+
 **User-managed continuation, 11-12-2026 10:50 PST:** Brando asked to save the checkpoints and will handle the next steps himself. No experiment 09 Claude takeover was launched. Do not start a successor or send participant emails without his new explicit instruction. The remaining sequence is his trial ratings, instruction review, Yegor’s main materials and exact three-person email review, then his send decision.
 
-Current public handoff: /Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings/support/ckpt.md
+Current public handoff: /Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/ckpt.md
 
 # Rating preparation checkpoint
 

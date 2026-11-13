@@ -10,6 +10,8 @@
 
 **User-managed continuation, 11-12-2026 10:50 PST:** Brando asked to save the checkpoints and will handle the next steps himself. No experiment 09 Claude takeover was launched. Do not start a successor or send participant emails without his new explicit instruction. The remaining sequence is his trial ratings, instruction review, Yegor’s main materials and exact three-person email review, then his send decision.
 
+**Latest handoff, 11-13-2026 10:51 PST:** This coordinator is done; continue from [ckpt.md](ckpt.md). A separate Dot owner has prepared Yegor's supplemental main materials locally; older “Yegor missing” statements below are historical. Coordinate with that owner and verify the current records. Brando's trial, instruction review and explicit send decision remain outstanding; no new successor was launched by this chat.
+
 ## Current state — prepared, not dispatched
 
 **Latest user sequencing, 11-11-2026:** Brando grades a few files first, then the actual participant instructions are reviewed. The first batch is Sri, Yegor and Brando only; all others remain held. Yegor’s main packet/assignment and revised exact first-batch emails still need preparation. Existing extra-only qualification status and all original responses remain unchanged. The earlier eight-person queue is preserved, not authorized as the new first batch.

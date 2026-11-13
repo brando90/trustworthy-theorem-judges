@@ -4,9 +4,9 @@
 
 **TLDR:** Prepare human grading task is the sole coordinating chat for this collection and the practical human-rating judge using methods 2 and 4. The former Best human-rating judge chat handed its work to that owner; ending its coordination does not mean collection or judge validation is complete.
 
-## Current control — Brando, 11-12-2026 10:50 PST
+## Current control — Brando, 11-13-2026 10:51 PST
 
-Brando asked to save the checkpoints and will handle continuation. The outgoing coordinator stops after this save. Experiment 09 has no launched successor; another launch requires his explicit instruction. Participant emails remain held until his trial, instruction review and explicit send decision. [Saved next steps](ckpt.md).
+Brando asked to save the checkpoints and will handle continuation. The outgoing coordinator stops after this save. This chat has not launched a successor; another launch requires his explicit instruction. A separate Dot owner has locally prepared Yegor’s supplemental packet; coordinate with it before continuing shared preparation. The outgoing chat is marked `(Done)` for the completed handoff, not for completed collection. Participant emails remain held until his trial, instruction review and explicit send decision. [Saved next steps](ckpt.md).
 
 ## Manual takeover requested — 11-11-2026 22:29 PST
 
