@@ -8,7 +8,7 @@ REPO="$(cd "$HERE/../../.." && pwd)"
 PY="${PY:-python3}"
 PRIVATE="${PRIVATE:-$REPO/research_artifacts/exp07}"
 JUDGE_OBJECTIVES_REPO="${JUDGE_OBJECTIVES_REPO:-$REPO/../judges-dont-need-psychometrics-or-corr}"
-IMPORTER="$JUDGE_OBJECTIVES_REPO/experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/import_cached.py"
+IMPORTER="$JUDGE_OBJECTIVES_REPO/experiments/03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/historical_exp06/scripts/import_cached.py"
 : "${VERIBENCH_SRC:?set VERIBENCH_SRC to a veribench checkout at be287d9b}"
 mkdir -p "$HERE/logs" "$HERE/results" "$PRIVATE"
 {
