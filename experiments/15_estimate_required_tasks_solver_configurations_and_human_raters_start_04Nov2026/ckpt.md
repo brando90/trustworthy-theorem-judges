@@ -2,42 +2,50 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/ckpt.md>
 
-**TLDR:** Claude Code took over sizing and cleanup on 11-11-2026 and carried out the inherited continuation: stale summaries are corrected, the root `docs/` folder is gone, and the README now holds a costed allocation with three open choices for Brando. The final collection size is still undecided; experiment 09's separate owner handles the human-rating task.
+**TLDR:** Source recovery, repository cleanup and the initial sizing scenarios are saved. Brando takes over from this chat on 11-13-2026; the remaining corrections, design choices, evidence needs and a copy-ready successor prompt are recorded below. Closing this chat does not mark the future rating study complete.
 
 Created: 11-11-2026 22:27 PST
-Last updated: 11-11-2026 23:08 PST
+Last updated: 11-13-2026 10:51 PST
 
 ## Goal
 
-- Give Brando traceable T/A/H estimates, a practical recommendation, and a simpler repository with one clear home for each effort.
+- Preserve the task-count (T), solver-configuration-count (A) and human-rater-count (H) planning handoff and let Brando continue or dispatch a successor.
+
 ## What ran
 
-- 11-11-2026 22:40 PST: Claude Code 2.1.322 (`claude-fable-5-2`, effort `max`, session `e5556c18-2c10-4562-a2ae-6978ca6b39b3`) verified revision `3932b6d` and this file's SHA-256 `2cc7953f…38eba`, then accepted sole ownership of sizing and cleanup. It does not own the collection.
-- Corrected the 85-file/170-rating summaries (root README, paper README, two paper sections, rebuilt PDF); moved the three root `docs/` notes; renamed the Claude source export; landed experiment 10's receipt text; added the costed allocation with two checks in the project check.
+- Claude Code Fable 5.2/max completed the cleanup and initial allocation calculations on 11-11-2026, published through `21fc368`; the 11-12-2026 status check independently passed project checks.
+- 11-13-2026: re-read the renamed experiment and related checkpoints at baseline `97a7ed7`; saved this closing state and an executable takeover prompt. No successor is launched by this handoff.
 ## Results
 
-- Current packet, rechecked against the frozen manifests: 54 returned files, 25 tasks, three represented solver configurations; 85 planned, 31 missing; target 108 independent ratings; 0 main ratings completed.
-- Planning arithmetic, not a measurement (`p-val=n/a`): 25 tasks give a 95% half-width of ±0.012 for a paired ranked probability score difference in the middle case, ±0.003 to ±0.025 across cases. ±0.01 needs 37 held-out task families (3–155); ±0.005 needs 145 (11–620).
-- Scenarios: 108, 212, 264 or 732 independent ratings. Minutes per main-task rating are unmeasured; the only entries are six warm-up times from one rater, median 4.
+- Source exports, exact-passage links, allocation scripts and historical receipts are saved. The 108-rating target and 212/264/732 alternatives are plans, not completed collections or approved future sizes.
+- The 37-family middle estimate and 3–155 sensitivity range are historical extrapolations, not a validated requirement or a confidence interval for the required sample size. Historical tasks are not all independent families.
 ## Stuck / blocked
 
-- Nothing blocks. A final size needs Brando's three choices and two measurements: main-task rating time, and the spread of the paired difference for the actual judges.
+- Final size remains open: claim, precision and workload cap are not fixed; main-task timing and actual-judge variability still need verified inputs. Read current collection records before carrying forward old counts.
+- An identified wording error remains in `METHODS_AND_ALLOCATION.md`: historical rater AI assistance is unknown, not established absent.
 ## Next steps
 
-- [p 9/10] When trial ratings with `minutes_spent` reach experiment 09, run `python3 experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/scripts/costed_allocation.py --write --tables`, update the quoted hours, then `scripts/refresh_provenance_hashes.py --write`.
-- [p 8/10] After Brando picks claim, precision and workload cap, write the identity-split amendment with experiment 02's owner and freeze counts before any collection.
-- [p 6/10] Remove the experiment 10 worktree once Brando confirms; its recovery package is verified.
+- [p 9/10] A future authorized successor starts with `git -C /Users/brandomiranda/trustworthy-theorem-judges status --short`, reads the checkpoints below, corrects the assistance claim and qualifies optimistic sizing headlines consistently.
+- [p 8/10] Refresh allocation only from eligible evidence, resolve the claim/precision/workload choices, and record the prospective identity-split amendment before freezing new counts.
+- [p 6/10] Recheck the remaining historical links and experiment 10 worktree with current owners; preserve unique work before any removal.
 ## Brando to-do
 
-- Choose the claim, the precision and the workload cap: [three decisions](README.md#three-decisions-that-are-brandos).
-- Say whether the experiment 10 worktree may be removed.
-- Rate a few main-task files and enter `minutes_spent`; this is also the collection owner's first step.
+- Continue directly or use the saved prompt. Choose the intended claim, precision and workload cap; actual trial ratings with participant-entered time are the next useful input. This chat ends as (Done); experiment 15 remains open.
 
 ## Where the answer lives
 
 - Decision table, costed scenarios, three choices and the historical source comparison: [README](README.md). The compact comparison that used to sit here was merged into it, with its line references.
 - Inputs, formulas, limits and missing inputs: [methods note](METHODS_AND_ALLOCATION.md#costed-allocation-from-existing-evidence--11-11-2026).
 - Numbers: [results/costed_allocation.json](results/costed_allocation.json), written by [scripts/costed_allocation.py](scripts/costed_allocation.py). File hashes: [provenance.json](provenance.json), kept current by [scripts/refresh_provenance_hashes.py](scripts/refresh_provenance_hashes.py). `python3 scripts/check_project.py` runs both checks.
+
+## Saved checkpoints and current ownership
+
+- **This task:** this `ckpt.md` is the single current sizing/cleanup handoff; keep the source comparison and scenarios in [README.md](README.md).
+- **Packet preparation and collection:** [experiment 09 support/ckpt.md](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/ckpt.md). Its owner was editing it and the preparation record during this closeout; those changes are not part of this commit. Read its latest state before acting.
+- **Judge methodology:** [experiment 02 checkpoint](../02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/CKPT_HANDOFF_11-09-2026.md), read alongside its current priority plan and project instructions.
+- **Preserved experiment 10 receipt:** [archived checkpoint](../archive/10_fit_5_judge_mixtures_to_75_outputs_pearson_vs_ranked_probability_start_09Nov2026_end_09Nov2026/CKPT_practical_judge.md). The detached worktree was still registered at this check; ownership/removal remains a follow-up, not a new approval request here.
+- **Ownership now:** Brando manages continuation. This Codex chat closes; the completed Claude session is historical execution evidence, not a running sizing job or a verified new successor. No successor is dispatched by this closeout.
+- **Later repository work:** `97a7ed7` added upstream-provenance folder dates after Claude's completion; the separate TMLR audit paper and archived experiment 19 are other owners' work. Do not repeat or fold them into the sizing task.
 
 ## Continuation status: the nine inherited steps
 
@@ -53,7 +61,7 @@ Last updated: 11-11-2026 23:08 PST
 | 8. Use existing learning-curve evidence | Done: archived experiments 17 and 10 supply the variability and the curve. Archived experiment 07's scaling fit measures metric-estimation error for a fixed judge, so it is cited, not used for sizing. No new run. |
 | 9. Verify and land | See the log line for this session. |
 
-## Coordination
+## Historical coordination — 11-11-2026
 
 - **Sizing and cleanup owner:** Claude Code session `e5556c18-2c10-4562-a2ae-6978ca6b39b3`; its Remote Control link is in the private receipts. Former owner: Codex chat [Recover rating-data estimates](codex://threads/01a1cc5b-af60-77d1-8f1e-2207b1f121d1), which stops writing these files once the takeover is verified. Private receipts: `/Users/brandomiranda/.local/share/trustworthy-theorem-judges/claude_takeover_11-11-2026/`.
 - **Collection owner:** unchanged and separate. [Experiment 09's handoff](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/ckpt.md) is authoritative; its successor was still unnamed at this update (`successor_chat` is `null` in the private preparation record). This session read experiment 09's files and changed none of them.
@@ -67,15 +75,20 @@ Last updated: 11-11-2026 23:08 PST
 ## Takeover prompt
 
 ```text
-Continue the rating-size decision support in /Users/brandomiranda/trustworthy-theorem-judges. Read experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/ckpt.md and README.md in full, refresh the repository and shared instructions, and inspect Git state and active owners before editing.
+Continue experiment 15 rating-size decision support in /Users/brandomiranda/trustworthy-theorem-judges. Read experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/ckpt.md and that folder's README.md, METHODS_AND_ALLOCATION.md and SOURCE_INDEX.md. Refresh shared/project instructions, then inspect Git state, current owners and the linked collection/methodology checkpoints. The latest folder names include start/end dates; preserve concurrent work.
 
-The repository cleanup is finished: do not recreate a root docs/ folder or rename paper_latex/ or scripts/ without Brando's decision. The remaining work depends on inputs that did not exist on 11-11-2026. First, when experiment 09 holds participant-entered minutes_spent for main-task files, rerun scripts/costed_allocation.py --write --tables, update the hours quoted in README.md and METHODS_AND_ALLOCATION.md, and refresh provenance.json with scripts/refresh_provenance_hashes.py --write. Second, when Brando chooses the claim, the precision target and the workload cap, turn the matching scenario into a prospective identity-split amendment with experiment 02's owner, and freeze task-family, solver and rater identities and counts before any collection. Third, remove the experiment 10 worktree only after Brando confirms.
+Start by correcting the unsupported claim that historical raters had no AI assistance: their historical AI use is unknown. Audit the current sizing headlines against their documented assumptions. The 37-family middle estimate and 3–155 range are rough extrapolations from historical cached judges, not validated requirements or a confidence interval on required size; the historical 25 tasks comprise 19 families and averaged predictions reduce measured variability. Keep the source proposals, optional unapproved 544-rating pilot, current collection target and new scenarios distinct.
 
-The numbers are planning arithmetic from cached-judge studies, not measurements of a future study: 37 held-out task families for a ±0.01 paired ranked probability score comparison, ranging from 3 to 155. Keep the current 54-file packet evaluation-only and its outcomes out of sizing and selection. Missing outputs are not zero ratings. Experiment 09's collection owner controls packets, assignments, Sheets and sending; no collection, paid inference or collaborator email is authorized here.
+Finish useful decision support using the existing documents: identify the intended claim, precision/effect target and workload cap from current user decisions; if still absent, present concrete options with a labeled recommendation. Refresh review-time estimates only from participant-entered main-task times and prospective variability only from eligible development evidence. Resolve the identity-split amendment before fixing future task-family, solver and rater counts. Keep current evaluation outcomes out of selection and sizing. Respect the separate collection owner's packet, raw-response and send workflow.
 
-Run python3 scripts/check_project.py and git diff --check, inspect the staged diff, commit and push main, and update this checkpoint and the existing Google companion rather than creating new summaries.
+Use repository-root commands:
+python3 experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/scripts/costed_allocation.py
+python3 experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/scripts/refresh_provenance_hashes.py
+Add --write to regenerate only after the intended inputs or documents change; costed_allocation.py also supports --tables. Run python3 scripts/check_project.py and git diff --check; build the relevant paper if its source changes. Preserve frozen records, source exports and other owners' work. Repair remaining current links and resolve the preserved experiment 10 worktree only after checking its ownership and unique content. Use existing files, not more summary documents.
 
-TL;DR: Refresh the costed allocation when real rating times exist, convert Brando's three choices into a frozen split amendment, and leave collection to its owner.
+Update this checkpoint and mutable provenance, synchronize substantive corrections to the existing Google companion, inspect the exact scoped staged diff, and commit/push main. Report completed work and remaining genuine decisions. Scientific inference, collection and participant sends retain their existing authorization and budget gates; a cleanup handoff does not reset them.
+
+TL;DR: Correct and qualify experiment 15's sizing evidence, refresh feasible allocations from eligible inputs, and leave one verified decision record and checkpoint. Use local/connected tools; preserve collection ownership and scientific limits.
 ```
 
 ## Log
@@ -91,6 +104,8 @@ TL;DR: Refresh the costed allocation when real rating times exist, convert Brand
 11-11-2026 23:06 PST — Repository work landed as `fd30d71` on `origin/main`. Updated the existing Google Q&A companion in one revision-guarded batch and read it back: the stale 85-artifact/170-rating sentence is corrected, the costed-allocation paragraph and decision links are in the sizing section, and two links to the renamed Claude export are repointed; exactly four paragraphs changed. Page layout was not rendered.
 
 11-11-2026 23:08 PST — Companion record landed as `610d757`. This session, as the single notifier, emailed the results notice to Brando's own inboxes at 23:07 PST and verified it once; no collaborator was emailed. The private completion marker is written. Session ends with nothing running; next action is Brando's three choices.
+
+11-13-2026 10:50 PST — At Brando's request, closed this Codex chat for user-managed continuation: saved the current state, linked related checkpoints, recorded the unresolved historical-assistance wording and sizing qualifications, and replaced ambiguous relative commands in the takeover prompt with repository-root commands. No new agent, scientific run, data collection or participant message was started; concurrent experiment 09 work remains with its owner.
 
 ## Historical source-recovery record
 
