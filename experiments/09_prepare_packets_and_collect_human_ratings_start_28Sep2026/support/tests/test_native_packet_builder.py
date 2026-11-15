@@ -125,6 +125,53 @@ class NativePacketBuilderTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Frozen display layout changed"):
             self.build("tampered")
 
+    def test_layout_addition_substitution_row_order_and_digest_gate(self):
+        """A full-grid amendment adds a cell and refills a planned one without moving planned files."""
+        original_path = self.root / "planned_complete.json"
+        original_path.write_bytes(self.manifest.read_bytes())
+        planned = copy.deepcopy(self.cohort)
+        layout = BUILDER.display_layout(planned["artifacts"], planned["shuffle_seed"])
+        refilled, kept = planned["artifacts"][0], planned["artifacts"][1]
+        extra_file = self.root / "later_file.lean"
+        extra_file.write_bytes(b"-- later candidate\n")
+        record = {"path": str(extra_file), "sha256": hashlib.sha256(extra_file.read_bytes()).hexdigest(), "status": "nonempty"}
+        added = {**copy.deepcopy(kept), "item_id": "native-round-1__item005", "configuration_id": "private_config_3",
+                 "candidate": record}
+        substitute = {**copy.deepcopy(refilled), "configuration_id": "private_config_2", "candidate": record}
+        folder = layout[kept["item_id"]]["task_folder"]
+        self.cohort["configurations"]["private_config_2"] = {"model": "Grok Later", "harness": "Terminus"}
+        self.cohort["configurations"]["private_config_3"] = {"model": "Kimi Later", "harness": "Terminus"}
+        self.cohort.update(artifacts=[substitute, kept, added], expected_artifacts=3, status="FINAL_RATABLE_SUBSET",
+            planned_cohort={"path": str(original_path), "sha256": hashlib.sha256(original_path.read_bytes()).hexdigest()},
+            display_layout=layout, excluded_item_ids=[a["item_id"] for a in planned["artifacts"][2:]],
+            layout_additions={added["item_id"]: {"task_folder": folder, "candidate_file": f"{folder}/agent_lean/agent_4.lean"}},
+            configuration_substitutions={refilled["item_id"]: {"planned_configuration_id": "private_config_0",
+                "actual_configuration_id": "private_config_2", "reason": "planned attempt returned no file"}})
+        self.save()
+        order = [added["item_id"], kept["item_id"], refilled["item_id"]]
+        receipt = self.build("amended", row_order=order)
+        joins = {j["item_id"]: j for j in receipt["artifact_joins"]}
+        self.assertEqual(joins[kept["item_id"]]["candidate_file"], layout[kept["item_id"]]["candidate_file"])
+        self.assertEqual(joins[refilled["item_id"]]["candidate_file"], layout[refilled["item_id"]]["candidate_file"])
+        self.assertTrue(joins[added["item_id"]]["candidate_file"].endswith("agent_4.lean"))
+        table = list(csv.reader((Path(receipt["packet_directory"]) / "ratings.csv").open()))
+        self.assertEqual([row[2] for row in table[1:]], order)
+        with self.assertRaisesRegex(ValueError, "differs from the packaged CSV"):
+            BUILDER.verify_sheet_digest(self.root / "amended", "0" * 64, len(table), "test")
+        check = BUILDER.verify_sheet_digest(self.root / "amended", BUILDER.table_digest(table), len(table), "test")
+        self.assertTrue(check["sheet_csv_equal"])
+        with self.assertRaisesRegex(ValueError, "each assigned item exactly once"):
+            self.build("bad_order", row_order=order[:2])
+        self.cohort["layout_additions"][added["item_id"]]["candidate_file"] = layout[kept["item_id"]]["candidate_file"]
+        self.save()
+        with self.assertRaisesRegex(ValueError, "new neutral file name"):
+            self.build("collision")
+        del self.cohort["configuration_substitutions"]
+        self.cohort["layout_additions"][added["item_id"]]["candidate_file"] = f"{folder}/agent_lean/agent_4.lean"
+        self.save()
+        with self.assertRaisesRegex(ValueError, "changed a planned identity"):
+            self.build("unrecorded_substitution")
+
     def test_refuses_overwrite_and_preserves_existing_archive(self):
         receipt = self.build()
         before = Path(receipt["archive_path"]).read_bytes()

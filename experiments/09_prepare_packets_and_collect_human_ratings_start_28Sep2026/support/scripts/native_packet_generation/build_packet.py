@@ -87,12 +87,43 @@ def checked_display_layout(cohort: dict, base: Path) -> dict:
     expected = display_layout(planned["artifacts"], planned["shuffle_seed"])
     require(cohort["display_layout"] == expected, "Frozen display layout changed")
     originals = {a["item_id"]: a for a in planned["artifacts"]}
+    # Optional, explicit amendments (absent in earlier cohorts, whose behavior is unchanged):
+    # layout_additions places new cells beside the planned ones without renumbering them;
+    # configuration_substitutions records a planned cell filled from another declared configuration.
+    additions = cohort.get("layout_additions", {})
+    substitutions = cohort.get("configuration_substitutions", {})
+    require(isinstance(additions, dict) and isinstance(substitutions, dict), "Invalid layout amendment")
+    by_item = {a["item_id"]: a for a in cohort["artifacts"]}
+    require(set(additions) <= set(by_item) and not set(additions) & set(originals),
+            "A layout addition must be a new cohort item")
+    require(set(substitutions) <= set(by_item) & set(originals), "A substitution must fill a planned cell")
     for artifact in cohort["artifacts"]:
-        original = originals.get(artifact["item_id"], {})
-        require(all(artifact[k] == original.get(k) for k in
-                    ("task_id", "task_description", "configuration_id", "python", "gold")),
+        item = artifact["item_id"]
+        if item in additions:
+            continue
+        original = originals.get(item, {})
+        keys = ("task_id", "task_description", "python", "gold") + (
+            () if item in substitutions else ("configuration_id",))
+        require(all(artifact[k] == original.get(k) for k in keys),
                 "Filtered cohort changed a planned identity or source")
-    return expected
+        if item in substitutions:
+            record = substitutions[item]
+            require(record.get("planned_configuration_id") == original.get("configuration_id")
+                    and record.get("actual_configuration_id") == artifact["configuration_id"]
+                    and bool(record.get("reason")), "Incomplete configuration substitution record")
+    folder_by_task = {originals[i]["task_id"]: place["task_folder"] for i, place in expected.items()}
+    used = {place["candidate_file"] for place in expected.values()}
+    merged = dict(expected)
+    for item, place in additions.items():
+        folder = folder_by_task.get(by_item[item]["task_id"])
+        require(folder is not None and place.get("task_folder") == folder,
+                "A layout addition must use its task's planned folder")
+        name = place.get("candidate_file", "")
+        require(bool(re.fullmatch(re.escape(folder) + r"/agent_lean/agent_[0-9]+\.lean", name))
+                and name not in used, "A layout addition needs a new neutral file name")
+        used.add(name)
+        merged[item] = {"task_folder": folder, "candidate_file": name}
+    return merged
 
 
 def start_here(name: str, sheet_url: str, tasks: int, items: int, empty: bool, skipped: bool = False) -> bytes:
@@ -108,7 +139,9 @@ def start_here(name: str, sheet_url: str, tasks: int, items: int, empty: bool, s
         "Please estimate `minutes_spent` and `confidence`. A one-sentence `rationale` is "
         "**preferred but optional**; use `problem_note` for issues.\n\n"
         "Your Sheet saves automatically; no copy or email return is needed. "
-        "Use the included `ratings.csv` only if your invitation assigns the CSV route; "
+        "Use the included `ratings.csv` only if your invitation assigns the CSV route "
+        "or your personal Sheet will not open (reply to the rating email with `ratings.csv` "
+        "attached, or send it to brando9@stanford.edu / brandojazz@gmail.com); "
         "it is an alternative form, not a second submission. Leave unfinished scores blank. "
         "If a reference prevents a rating, leave its score blank, add a problem note and "
         "email brandojazz@gmail.com. Notify Brando before changing completed ratings.\n"
@@ -122,7 +155,7 @@ def start_here(name: str, sheet_url: str, tasks: int, items: int, empty: bool, s
 
 def build_packet(cohort_path: Path, output_dir: Path, *, rater_name: str,
                  rater_id: str, sheet_url: str, task_ids: list[str] | None = None,
-                 form_home: Path = EXPERIMENT) -> dict:
+                 form_home: Path = EXPERIMENT, row_order: list[str] | None = None) -> dict:
     """Create output_dir/rating_task_packet, its ZIP, and a private join receipt.
 
     Cohort schema: {schema_version:1, round_id, shuffle_seed, expected_artifacts,
@@ -225,6 +258,12 @@ def build_packet(cohort_path: Path, output_dir: Path, *, rater_name: str,
                           "observation_key": [round_id, rater_id, item],
                           "provenance": artifact.get("provenance", {})})
 
+    if row_order is not None:
+        # Per-rater presentation order for ratings.csv only; files, labels and joins are unchanged.
+        by_row = {row["item_id"]: row for row in response_rows}
+        require(len(row_order) == len(by_row) and set(row_order) == set(by_row),
+                "Row order must list each assigned item exactly once")
+        response_rows = [by_row[item] for item in row_order]
     members["START_HERE.md"] = start_here(rater_name, sheet_url, len(selected), len(joins),
                                            any(j["candidate_status"] == "empty" for j in joins),
                                            bool(cohort.get("excluded_item_ids")))
@@ -282,6 +321,7 @@ def build_packet(cohort_path: Path, output_dir: Path, *, rater_name: str,
         "cohort_path": str(cohort_path), "cohort_sha256": digest(raw), "shuffle_seed": seed,
         "rater_name": rater_name, "rater_id": rater_id, "sheet_url": sheet_url,
         "task_count": len(selected), "artifact_count": len(joins),
+        "row_order": row_order,
         "empty_artifact_count": sum(j["candidate_status"] == "empty" for j in joins),
         "packet_directory": str(packet_dir), "archive_path": str(archive_path),
         "archive_sha256": digest(archive_path.read_bytes()),
@@ -344,6 +384,47 @@ def verify_sheet_readback(build_dir: Path, readback_path: Path) -> dict:
     return check
 
 
+def table_digest(rows: list[list[str]]) -> str:
+    """Digest of an exact table: compact JSON of rows padded to the form width."""
+    padded = [[str(v) for v in row] + [""] * (len(COLUMNS) - len(row)) for row in rows]
+    return digest(json.dumps(padded, separators=(",", ":"), ensure_ascii=False).encode())
+
+
+def verify_sheet_digest(build_dir: Path, observed_digest: str, observed_rows: int, source: str) -> dict:
+    """Gate release on a digest of the live Sheet table computed where it was read.
+
+    Use when the live table cannot be saved locally (for example it was read in the
+    owner's signed-in browser). The digest must equal table_digest of the packaged CSV.
+    """
+    build_dir = build_dir.resolve()
+    receipt_path = build_dir / "ASSEMBLY_RECEIPT.json"
+    receipt = json.loads(receipt_path.read_text())
+    archive_path = Path(receipt["archive_path"])
+    require(digest(archive_path.read_bytes()) == receipt["archive_sha256"], "Built archive changed")
+    csv_bytes = (Path(receipt["packet_directory"]) / "ratings.csv").read_bytes()
+    with ZipFile(archive_path) as archive:
+        require(archive.read("ratings.csv") == csv_bytes, "Local CSV differs from its archive")
+    expected = list(csv.reader(io.StringIO(csv_bytes.decode())))
+    require(expected and expected[0] == COLUMNS, "Built CSV schema mismatch")
+    equal = observed_digest == table_digest(expected) and observed_rows == len(expected)
+    check = {"status": "MATCH" if equal else "MISMATCH", "sheet_csv_equal": equal,
+             "method": "table digest computed at the live read; no local readback file",
+             "source": source, "sheet_url": receipt["sheet_url"],
+             "expected_table_digest": table_digest(expected), "observed_table_digest": observed_digest,
+             "expected_table_rows": len(expected), "observed_table_rows": observed_rows,
+             "archive_sha256": receipt["archive_sha256"], "ratings_csv_sha256": digest(csv_bytes)}
+    encoded = (json.dumps(check, indent=2) + "\n").encode()
+    (build_dir / f"SHEET_DIGEST_MATCH_{observed_digest[:16]}.json").write_bytes(encoded)
+    receipt.update(release_ready=equal,
+                   status="BUILT_SHEET_MATCHED_NOT_SENT" if equal else "HELD_SHEET_MISMATCH",
+                   sheet_verification={"sha256": digest(encoded), "sheet_csv_equal": equal, "method": check["method"]})
+    temporary = receipt_path.with_suffix(".json.tmp")
+    temporary.write_text(json.dumps(receipt, indent=2) + "\n")
+    temporary.replace(receipt_path)
+    require(equal, "Live Sheet digest differs from the packaged CSV; release is held")
+    return check
+
+
 def main() -> None:
     if len(sys.argv) > 1 and sys.argv[1] == "verify-sheet":
         parser = argparse.ArgumentParser(description="Verify exact live-Sheet readback against a built packet CSV")
@@ -359,9 +440,12 @@ def main() -> None:
     parser.add_argument("--rater-id", required=True)
     parser.add_argument("--sheet-url", required=True)
     parser.add_argument("--tasks", nargs="+", help="Assigned task IDs; omit for the full cohort")
+    parser.add_argument("--row-order-json", type=Path, help="Optional JSON list of item_ids specifying ratings.csv row order")
     args = parser.parse_args()
+    row_order = json.loads(args.row_order_json.read_text()) if args.row_order_json else None
     receipt = build_packet(args.cohort, args.output_dir, rater_name=args.rater_name,
-                           rater_id=args.rater_id, sheet_url=args.sheet_url, task_ids=args.tasks)
+                           rater_id=args.rater_id, sheet_url=args.sheet_url, task_ids=args.tasks,
+                           row_order=row_order)
     print(json.dumps({key: receipt[key] for key in
                       ("status", "task_count", "artifact_count", "empty_artifact_count", "archive_path", "archive_sha256")}, indent=2))
 
