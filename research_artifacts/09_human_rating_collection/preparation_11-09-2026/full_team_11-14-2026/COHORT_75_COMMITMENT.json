@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "round_id": "native-heavy-11-11-2026",
+  "frozen_at": "2026-11-15T04:08:00+00:00",
+  "sealed_cohort_path": "research_artifacts/09_human_rating_collection/preparation_11-09-2026/full_team_11-14-2026/sealed/RATABLE_COHORT_75_V2.json",
+  "sealed_cohort_sha256": "3f63a713b664cb2c31eaebd4785f910d373b66243efccc8484f1350bd687cff1",
+  "expected_tasks": 25,
+  "expected_artifacts": 75,
+  "counts_by_configuration": {
+    "historical_codex_astra": 25,
+    "native_claude_fable": 19,
+    "historical_terminus_fable": 6,
+    "historical_terminus_grok": 25
+  },
+  "configurations": {
+    "historical_codex_astra": {
+      "harness": "Codex",
+      "model": "gpt-6-astra",
+      "effort": "xhigh",
+      "cli_version": "0.154.0",
+      "instruction_version": 5,
+      "expected_artifacts": 25,
+      "cohort": "historical",
+      "source_manifest": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/INPUT_MANIFEST.json",
+        "sha256": "e7a46a58a90cc23491f3db033d7dc749616f160da0b868962a3b5d8ec1b61e29"
+      }
+    },
+    "native_claude_fable": {
+      "harness": "Claude Code",
+      "model": "claude-fable-5-1",
+      "effort": "max",
+      "instruction_version": 8,
+      "expected_artifacts": 19,
+      "cohort": "prospective",
+      "output_root": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v2",
+      "planned_condition_snapshot": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V2.json",
+        "sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+        "status_at_planning": "FROZEN"
+      },
+      "finalization_note": "Use only the corrected valid-environment root and exact admitted condition. Original environment-invalid pilot evidence remains excluded and preserved. Resolve every planned cell from its terminal receipt without quality-based reruns or omissions."
+    },
+    "historical_terminus_fable": {
+      "harness": "Terminus 2",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "instruction_version": 7,
+      "expected_artifacts": 6,
+      "cohort": "historical",
+      "source_manifest": "research_artifacts/09_human_rating_collection/preparation_11-09-2026/full_team_11-14-2026/sealed/setN_file_of_record_v3.json"
+    },
+    "historical_terminus_grok": {
+      "harness": "Terminus 2",
+      "model": "grok/grok-4.7-xhigh",
+      "effort": "xhigh",
+      "instruction_version": 7,
+      "expected_artifacts": 25,
+      "cohort": "historical",
+      "source_manifest": {
+        "path": "/Users/brandomiranda/trustworthy-theorem-judges/private/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/baseline_grok/GROK_BASELINE_MANIFEST.json",
+        "sha256": "c7800d83b2b5738dd035c231da8d7a4202d97f051d81a4a1805fd76e831a112a"
+      },
+      "selection_rule": "Sort the 25 task IDs by SHA256 UTF-8(native-heavy-11-11-2026| + task_id), ascending; take the first 10. No outcome-based selection."
+    }
+  },
+  "blinding_note": "Item-to-configuration mappings remain sealed in sealed/RATABLE_COHORT_75_V2.json and local ASSEMBLY_RECEIPT.json while raters score."
+}

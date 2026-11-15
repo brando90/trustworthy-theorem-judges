@@ -13,8 +13,8 @@ Your name (`rater_name`) and file path (`candidate_file`) are prefilled. The int
 
 **Attestation:** “I used AI for localized assistance. I personally compared the specifications and chose the final score; I did not delegate the rating task to AI.”
 
-Use artificial intelligence (AI) for localized help with Lean notation, a concept or a specific point. You must make the comparison and choose the score yourself; do not ask a model to rate the file or write your rationale. Rate independently without consulting other people's ratings. Answer the attestation honestly; `no` or `unsure` prompts clarification.
+Use artificial intelligence (AI) for localized help with Lean notation, a concept or a specific point. You must make the comparison and choose the score yourself; do not ask a model to rate the file or write your rationale. Rate independently without consulting other people's ratings. Answer the attestation honestly (`no` or `unsure` prompts clarification); if you personally compared and scored a short file without needing AI, enter `no` and write `rated personally without AI` in `problem_note`.
 
 If a reference is incorrect and prevents a defensible score, leave the score blank, explain in `problem_note`, and email brandojazz@gmail.com. A blank is not a zero. If you can rate despite an ambiguity, give your score and explain the ambiguity. The checklist and base score are reasoning steps in the rubric, not extra columns to fill.
 
-Use the personal Google Sheet linked in START_HERE.md. Submit the included `ratings.csv` only if your invitation explicitly assigns the CSV route. Missing historical context stays unknown; nobody fills it on a rater's behalf.
+Use the personal Google Sheet linked in START_HERE.md. Submit the included `ratings.csv` (by replying to the rating email or emailing `ratings.csv` to brando9@stanford.edu / brandojazz@gmail.com) only if your invitation assigns the CSV route or your personal Sheet will not open. Missing historical context stays unknown; nobody fills it on a rater's behalf.

@@ -2,72 +2,78 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/README.md>
 
-**TLDR:** Start with [Brando’s six-file warm-up and personal Google Sheet](rating_task_packet/START_HERE.md). Then use [the current main task: 54 files in 25 task folders](rating_task_packet/main_rating_task/START_HERE.md). Collected ratings and completion status are below.
+**TLDR:** Start grading right now in [Brando's (`A1`) 75-file main packet](rating_task_packet/main_rating_task/START_HERE.md) ([Google Sheet](https://docs.google.com/spreadsheets/d/1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM/edit)), or warm up first in [Brando's warm-up packet](rating_task_packet/START_HERE.md). All **32** personal **75-file** Sheets and verified `.zip` packets (`1` author `A1` + `31` team, new co-author invitees, and Vals raters) are built and staged; `0` emails are sent pending Brando's explicit send approval.
 
-## First batch — Brando grades first, 11-11-2026
+## Start grading now (Brando `A1`) — synced 11-14-2026
 
-**Latest decision:** Brando tries a few ratings first. Then review the actual participant instructions against his experience, prepare/reconcile the three recipient-specific packets and exact emails, and send the first batch to **Sri, Yegor and Brando** after his review and explicit go-ahead. Rylan and the other prepared recipients stay on hold. Brando does not need to complete all 54 main ratings before this first batch.
+- **Main task (`75` files across `25` tasks):** [local `START_HERE.md`](rating_task_packet/main_rating_task/START_HERE.md) · [scoring rubric (`human_judgements_prompt.md`)](rating_task_packet/human_judgements_prompt.md) · [11-column form guide (`RATING_FORM_GUIDE.md`)](rating_task_packet/RATING_FORM_GUIDE.md) · [local blank `ratings.csv`](rating_task_packet/main_rating_task/ratings.csv) · [Brando's live Google Sheet (`Anyone with the link = Editor`)](https://docs.google.com/spreadsheets/d/1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM/edit).
+- **Warm-up task (`6` files across `2` tasks):** [warm-up `START_HERE.md`](rating_task_packet/START_HERE.md) · [warm-up Google Sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit).
+- **Email template & checkpoint:** [editable template](rating_task_packet/EMAIL_INSTRUCTIONS_V0.md) · [coordinator checkpoint](support/ckpt.md). Editing local instructions or staged drafts sends nothing.
 
-| First-batch recipient | Current preparation |
-| --- | --- |
-| Brando Miranda | Six-file warm-up and personal Sheet ready; 54-file main packet also ready |
-| Srivatsava Daruru (Sri) | Four-file main packet and matching personal Sheet prepared |
-| Yegor Denisov-Blanch | Existing warm-up Sheet available; main assignment, packet and exact email still need preparation |
+## Full 75-file frontier dataset composition (25 tasks x 3 agents)
 
-**Start now:** [Brando's warm-up instructions](rating_task_packet/START_HERE.md) and [Google Sheet](https://docs.google.com/spreadsheets/d/1VhlSsf8Fd_pD_hQySt4-Y3AHrj5e6Rd3kQFu6A59-8A/edit). Use the trial to identify confusing instructions before sending.
+All **75** files are verified on local disk and SHA-256 matched (`0` new model runs, `0` paid API calls). The `54` valid returned files from `11-11-2026` stay unchanged; `21` existing files from [sealed Set N file of record v3](../../research_artifacts/09_human_rating_collection/preparation_11-09-2026/full_team_11-14-2026/COHORT_75_COMMITMENT.json) complete every task to 3 frontier outputs without quality filtering:
 
-The [eight earlier prepared email previews](../../research_artifacts/09_human_rating_collection/preparation_11-09-2026/REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md) remain preserved and unsent; they are **not the new three-person first-batch queue**. The [current preparation record](../../research_artifacts/09_human_rating_collection/preparation_11-09-2026/CURRENT_PREPARATION.json) records this sequence. Yegor's existing extra-only designation remains unchanged; choosing him for the first batch does not silently change his qualification or count his ratings toward the primary target.
+| Agent family (model, harness) | Files | Prompt version | Provenance notes |
+| --- | ---: | ---: | --- |
+| GPT-6 Astra, Codex `0.154.0` (`xhigh`) | 25 | v5 | Historical Codex outputs (unchanged from 54-file cohort) |
+| Claude Fable 5.1, Claude Code (`max`) | 19 | v8 | Prospective valid-environment runs (`11-11-2026`) |
+| Claude Fable 5.1, Terminus 2 (`xhigh`) | 6 | v7 | Recorded harness substitutions (`item004`, `item019`, `item033`, `item035`, `item047`, `item052`) where Claude Code hit its output cap |
+| Grok 4.7, Terminus 2 (`xhigh`) | 25 | v7 | `10` deterministic-hash tasks from `11-11-2026` + `15` `agent_4.lean` additions (`item086`–`item100`) |
 
-The main pool remains 54 files across 25 tasks: native Codex/GPT-6 Astra (25), native Claude Code/Claude Fable 5.1 (19), and Terminus 2/Grok 4.7 (10). The full allocation is still incomplete: 108 independent main ratings targeted, eight assigned and blank, 100 unassigned. The requested finish remains Friday, 11-13-2026 if possible, with Sunday, 11-15-2026 final.
+**Confounding note:** prompt versions (`5`, `8`, `7`) and the `6` Terminus 2 substitutions mean cross-agent accuracy differences from this round are confounded with prompt version and harness; this collection supports human-rating data collection and held-out judge evaluation. Item-to-model keys stay sealed inside git-ignored `sealed/` and `builds/` while raters score. Preferred return date in staged team emails is **Thursday, 11-19-2026, 6:00 PM PT** (`Sunday, 11-22-2026` final). A matched v8 regeneration sweep can run separately without blocking human ratings.
 
-[Agent takeover checkpoint and ordered next steps](support/ckpt.md).
+## Complete 36-person roster accounting (32 active 75-row packets + 4 excluded)
 
-## Do or edit the task
+**Checked: 11-14-2026.** The saved responses contain **15 numeric warm-up ratings and three `N/A` reference-issue entries; no completed main ratings**. Preparing and syncing all 32 packets added no observations; `0` emails have been sent.
 
-- **Warm-up first:** [instructions and Sheet link](rating_task_packet/START_HERE.md), [blank form](rating_task_packet/ratings.csv), [median task](rating_task_packet/warm_up_01_median/) and [greatest-common-divisor task](rating_task_packet/warm_up_02_greatest_common_divisor/).
-- **Current main task:** [instructions and Brando’s Sheet link](rating_task_packet/main_rating_task/START_HERE.md), [blank form](rating_task_packet/main_rating_task/ratings.csv) and [task files](rating_task_packet/main_rating_task/).
-- **Shared rules:** [scoring rubric](rating_task_packet/human_judgements_prompt.md) and [column guide](rating_task_packet/RATING_FORM_GUIDE.md). The warm-up and main task use the same eleven columns and scoring rubric.
-- **Email:** [one editable email for the warm-up and the main task](rating_task_packet/EMAIL_INSTRUCTIONS_V0.md). Editing the packet or the draft sends nothing.
+| Rater ID | Name | Role / group | Warm-up completion | Main 75-file CSV & Sheet (`Anyone with the link = Editor`) | Dispatch status (11-14-2026) |
+| --- | --- | --- | --- | --- | --- |
+| `A1` | Brando Miranda (`brando9@stanford.edu`) | Author (sensitivity / coordinator) | [CSV](ratings/Brando_Miranda__warmup_A1.csv): 0/6; coordinator practice only | [CSV](ratings/Brando_Miranda__native_main_A1.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM/edit) (`0/75`) | prepared locally; ready now |
+| `T01` | Rylan Schaeffer (`rschaef@cs.stanford.edu`) | VeriBench co-author (qualified) | [CSV](ratings/Rylan_Schaeffer__warmup_T01.csv): 6/6; qualified | [CSV](ratings/Rylan_Schaeffer__native_main_T01.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1fOr2oE2Fmibw9y8qDL7pMMuj6XH9luMJOMLDzIcBqo0/edit) (`0/75`) | prepared, unsent (old 4-row Sheet archived) |
+| `T02` | Yegor Denisov-Blanch (`ydebl@stanford.edu`) | VeriBench co-author (extra_only) | [CSV](ratings/Yegor_Denisov-Blanch__warmup_T02.csv): 3 numeric + 3 `N/A`; extra_only | [CSV](ratings/Yegor_Denisov-Blanch__native_main_T02.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1Hpcb4NP754RDWstDkiaTR59K9AX2vXNL6IR9iXKRo-Y/edit) (`0/75`) | prepared, unsent (extra_only preserved) |
+| `T03` | Dilara Soylu (`soylu@stanford.edu`) | VeriBench co-author | [CSV](ratings/Dilara_Soylu__warmup_T03.csv): 0/6; warm-up pending | [CSV](ratings/Dilara_Soylu__native_main_T03.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1D6Enb6IKRAZOoqhmk7bHwTqsFZ10U5dH3H3gRmJ8XPk/edit) (`0/75`) | prepared, unsent |
+| `T04` | Allen Nie (`aimingnie@gmail.com`) | VeriBench co-author | [CSV](ratings/Allen_Nie__warmup_T04.csv): 0/6; warm-up pending | [CSV](ratings/Allen_Nie__native_main_T04.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1iE_2PfDe1uw4_eGJCa-YV_kj1ZodQajZQ0nxDDv5YNo/edit) (`0/75`) | prepared, unsent |
+| `T05` | Srivatsava Daruru (Sri) (`vatsava@gmail.com`) | VeriBench co-author (qualified) | [CSV](ratings/Srivatsava_Daruru_Sri__warmup_T05.csv): 6/6; qualified | [CSV](ratings/Srivatsava_Daruru_Sri__native_main_T05.csv) · [Sheet](https://docs.google.com/spreadsheets/d/163ZxKeTXqseLrmwY-b5QjqeBulinHsZAiAPo1zsJdJI/edit) (`0/75`) | prepared, unsent |
+| `T06` | Donald Poindexter Jr (`ddpoindexterjr@gmail.com`) | VeriBench co-author (Don) | [CSV](ratings/Donald_Poindexter_Jr__warmup_T06.csv): 0/6; warm-up pending | [CSV](ratings/Donald_Poindexter_Jr__native_main_T06.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1l_zdHObt3_0hd0MJkIJ5btU51hxNsHKwHyBUv0cuSLg/edit) (`0/75`) | prepared, unsent (Gmail for .zip delivery) |
+| `T07` | Simon Obstbaum (`simon@obstbaum.eu`) | VeriBench co-author | [CSV](ratings/Simon_Obstbaum__warmup_T07.csv): 0/6; warm-up pending | [CSV](ratings/Simon_Obstbaum__native_main_T07.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1KMYUiMbL7wEvKn9KGN8KjHSca1DcYT-uZE3psSeqrq4/edit) (`0/75`) | prepared, unsent |
+| `T08` | Amy Lu (`amylucky@stanford.edu`) | New co-author invitee | no warm-up packet | [CSV](ratings/Amy_Lu__native_main_T08.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1YLq64komUf0lD8fdChDYeTZS--zpulbn-XTVhLWVUlE/edit) (`0/75`) | prepared, unsent (co-author invite) |
+| `T09` | Ethan R Lee (`eth127@stanford.edu`) | New co-author invitee | no warm-up packet | [CSV](ratings/Ethan_R_Lee__native_main_T09.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1HraAoO6Cczkm2-8ec2Tj97Cuc75LIUWwRUvKgJl5bCw/edit) (`0/75`) | prepared, unsent (co-author invite) |
+| `T10` | Ethan Hersch (`ehersch@stanford.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Ethan_Hersch__native_main_T10.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1QUKFbM9AQbjj3sQo7x0mQSKiWLCm8Ta_qrkeejxDZ_8/edit) (`0/75`) | prepared, unsent |
+| `T11` | Kirill Acharya (`kacharya@stanford.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Kirill_Acharya__native_main_T11.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1gHkqMYIZyzPJI4rRsNS4_9Dyat2B3x7HDA4YTulkr3U/edit) (`0/75`) | prepared, unsent |
+| `T12` | Rakshit Kaushik (`rakshitk@stanford.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Rakshit_Kaushik__native_main_T12.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1rHhh1sCq_Trzlda3fRu-RXES9QG_M1Wb0CzP6Utj7eQ/edit) (`0/75`) | prepared, unsent (weekend request) |
+| `T13` | Zhanke Zhou (`cszkzhou@comp.hkbu.edu.hk`) | VeriBench co-author (Andrew) | no warm-up packet | [CSV](ratings/Zhanke_Zhou__native_main_T13.csv) · [Sheet](https://docs.google.com/spreadsheets/d/13yAF6JYrXcpSWMoGa_PZp9qqrTDllVCP47ygivEdifg/edit) (`0/75`) | prepared, unsent |
+| `T14` | Daneshvar Amrollahi (`daneshva@stanford.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Daneshvar_Amrollahi__native_main_T14.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1onFAX0J9uMmiMEq2t7g75lxxrfGw7B7NjnqnmzRpT_I/edit) (`0/75`) | prepared, unsent |
+| `T15` | Leni Aniva (`aniva@stanford.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Leni_Aniva__native_main_T15.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1Axk32oyQgk299JNEIi4M9bHcBlYPTwJrDyFXOAGnKY0/edit) (`0/75`) | prepared, unsent |
+| `T16` | Iddah Mlauzi (`iddah@stanford.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Iddah_Mlauzi__native_main_T16.csv) · [Sheet](https://docs.google.com/spreadsheets/d/11CSWZi89IiLeZDfJCjeJ13VbM0AJEYiNKLpwG0JFCGo/edit) (`0/75`) | prepared, unsent |
+| `T17` | Elyas Obbad (`eobbad@gmail.com`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Elyas_Obbad__native_main_T17.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1jIk9KsjMO1A_vgTBN6-R-kB6_hww7AJrggdKiWg8daY/edit) (`0/75`) | prepared, unsent |
+| `T18` | Weston Kirk (`wkirk@stanford.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Weston_Kirk__native_main_T18.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1ygdl8LPRna7e2m7l44iHizCWyknHuM9HPMbKstONVuE/edit) (`0/75`) | prepared, unsent |
+| `T19` | Zixiao Jolene Wang (`zixiaowang@g.harvard.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Zixiao_Jolene_Wang__native_main_T19.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1vgngMlu0V-bQz19ZPks0KIkQvSRQy9ZNR3cW-F54HSE/edit) (`0/75`) | prepared, unsent |
+| `T20` | Kai Fronsdal (`kaif@stanford.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Kai_Fronsdal__native_main_T20.csv) · [Sheet](https://docs.google.com/spreadsheets/d/15mji6A89i4dIaVZnmnx-PqNjaeRgq53ZEOFu9kugyZc/edit) (`0/75`) | prepared, unsent |
+| `T21` | Ying Li (`louisely@stanford.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Ying_Li__native_main_T21.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1S4gFJYeoLoFNWIyAqbVxD0AdiKfAwNx0hIEFENyw31Q/edit) (`0/75`) | prepared, unsent |
+| `T22` | Shurui Liu (`srliu@stanford.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Shurui_Liu__native_main_T22.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1u-iS1GwIeaubBxvfOOq46WVhqUQxlQftAPn_RidZLIU/edit) (`0/75`) | prepared, unsent |
+| `T23` | Steven Dillmann (`stevendi@stanford.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Steven_Dillmann__native_main_T23.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1vsH0CxrabDY_8aPWlKvZUadV6U7fOsFjRVUMzt-e6T0/edit) (`0/75`) | prepared, unsent |
+| `T24` | Santiago Cuellar (`santiago@galois.com`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Santiago_Cuellar__native_main_T24.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1HA8aAPI4aRXSlAZxCiygFO5mbzNydOrcqnOVjS1lftQ/edit) (`0/75`) | prepared, unsent |
+| `T25` | John Sarracino (`sarracino2@llnl.gov`) | VeriBench co-author | no warm-up packet | [CSV](ratings/John_Sarracino__native_main_T25.csv) · [Sheet](https://docs.google.com/spreadsheets/d/10fnyfoqZmsL51cczGSj-k_a6s72YjHMW42NvaC3DL9g/edit) (`0/75`) | prepared, unsent |
+| `T26` | Donghyun Lee (`lukedhlee@berkeley.edu`) | VeriBench co-author | no warm-up packet | [CSV](ratings/Donghyun_Lee__native_main_T26.csv) · [Sheet](https://docs.google.com/spreadsheets/d/11lvfec1IYxHCB1cucfgKb8V1eO4rAa44sAfEzU-NgfU/edit) (`0/75`) | prepared, unsent |
+| `T27` | Anka Reuel (`anka@cs.stanford.edu`) | New co-author invitee | no warm-up packet | [CSV](ratings/Anka_Reuel__native_main_T27.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1M7B9cln6YiazYfncbpYj-oXujpKl6JCz4vS4W7s7X8A/edit) (`0/75`) | prepared, unsent (co-author invite) |
+| `T28` | Max Lamparth (`lamparth@stanford.edu`) | New co-author invitee | no warm-up packet | [CSV](ratings/Max_Lamparth__native_main_T28.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1buaJ9ZcH2tpzM34j7Y-J3jdfpTeC80DXb_4nj_nTfyY/edit) (`0/75`) | prepared, unsent (co-author invite) |
+| `T29` | Varun Raj Madan (`vmadan@stanford.edu`) | New co-author invitee | no warm-up packet | [CSV](ratings/Varun_Raj_Madan__native_main_T29.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1FNdY9J873-8gOLCWM3ps0zhSQ8rcOMrY4LCVL8oZQng/edit) (`0/75`) | prepared, unsent (co-author + ML data note) |
+| `V01` | Slava Naprienko (`slava@vals.ai`) | Vals AI rater | [replacement form](support/SLAVA_CSV_NAME_FIRST_11-11-2026.md): unverified | [CSV](ratings/Slava_Naprienko__native_main_V01.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1ioE_bZBy4g9mQj6-xK2CVtqbzF3FJtiU-UvPYLiCkZo/edit) (`0/75`) | prepared, unsent |
+| `V02` | Nikil Ravi (`nikil@vals.ai`) | Vals AI rater | [CSV](ratings/Nikil_Ravi__warmup_V02.csv): 0/6; warm-up pending | [CSV](ratings/Nikil_Ravi__native_main_V02.csv) · [Sheet](https://docs.google.com/spreadsheets/d/1iuxZBCPDm0LMSZ2iAgiB9twyHoThcQMPPOGx4eTBnGc/edit) (`0/75`) | prepared, unsent |
 
-Final score and the combined artificial intelligence (AI) assistance/human-rating attestation are required for new ratings. Estimate time and confidence; a one-sentence rationale is **preferred but optional**. Use problem notes for issues. Internal record keys are hidden in Sheets but retained in comma-separated value (CSV) files.
+**4 excluded individuals (not sent / no packet):** Sanmi Koyejo (Professor, excluded per Brando), Bo Han (Professor, excluded per Brando), Mo Tiwari (declined per Brando), Jacob (`V03`, `jacob@vals.ai`, declined per Brando). **3 additional prospects with unverified consent/emails in `PROSPECTS.csv`:** Vaibhav Mahajan (`vaibhav@vals.ai` noted elsewhere as prospect; consent unverified), Dani Fein (no email on file), Andrea Mock (no email on file) — kept uninvited unless Brando says otherwise.
 
-**Prepared, 11-11-2026:** the new main packet contains **54 returned candidate files across 25 tasks**: 25 from native Codex, 19 from native Claude Code and ten from Terminus 2 with Grok. All 50 newly attempted Claude Code/Pi tasks are terminal; Pi produced no captured submission at the required output path. The **31 missing outputs** remain in the execution records, outside the human-rating packet. These are preparation counts, not human scores or a judge-validation result. [Allocation, execution and packet evidence](support/COORDINATOR_README.md#native-heavy-replacement--user-decision-11-11-2026).
-
-**Before team dispatch:** finish Brando’s pilot, review the exact revised recipient-specific email text, then explicitly say to send. Rylan’s and Sri’s replacement packets and personal Sheets are prepared; no revised team packet was sent. The warm-up is unchanged. Old main packets and 125-row Sheets remain historical records and are **not the default task**.
-
-The six warm-up candidates are historical Claude 3.7 Sonnet outputs. [Verified provenance](support/COORDINATOR_README.md#warm-up-versus-main-packet-provenance--checked-11-11-2026). Brando has already viewed other raters’ warm-up answers, so his warm-up is coordinator practice, not an independent blinded submission. [Descriptive-path mapping](support/WARMUP_PATHS.json).
-
-## Ratings and completion
-
-**Last checked: 11-11-2026.** The saved responses contain **15 numeric warm-up ratings and three N/A reference-issue entries; no completed main ratings**. Packet preparation added no ratings. Local CSV files are snapshots, not a live background mirror.
-
-| Person | Warm-up data / completion | Current main assignment / next work |
-| --- | --- | --- |
-| Brando Miranda | [CSV](ratings/Brando_Miranda__warmup_A1.csv): 0/6 | [Current main CSV](ratings/Brando_Miranda__native_main_A1.csv): 0/54; author ratings are additional |
-| Rylan Schaeffer | [CSV](ratings/Rylan_Schaeffer__warmup_T01.csv): 6/6; qualified | [Current main CSV](ratings/Rylan_Schaeffer__native_main_T01.csv): 0/4, across his original two tasks; prepared, unsent |
-| Srivatsava Daruru (Sri) | [CSV](ratings/Srivatsava_Daruru_Sri__warmup_T05.csv): 6/6; qualified | [Current main CSV](ratings/Srivatsava_Daruru_Sri__native_main_T05.csv): 0/4, across his original two tasks; prepared, unsent |
-| Yegor Denisov-Blanch | [CSV](ratings/Yegor_Denisov-Blanch__warmup_T02.csv): 3 numeric + 3 N/A | Existing extra-only decision; no primary assignment |
-| Dilara Soylu | [CSV](ratings/Dilara_Soylu__warmup_T03.csv): 0/6 | Warm-up pending |
-| Allen Nie | [CSV](ratings/Allen_Nie__warmup_T04.csv): 0/6 | Warm-up pending |
-| Donald Poindexter Jr | [CSV](ratings/Donald_Poindexter_Jr__warmup_T06.csv): 0/6 | Warm-up pending |
-| Simon Obstbaum | [CSV](ratings/Simon_Obstbaum__warmup_T07.csv): 0/6 | Warm-up pending |
-| Nikil Ravi | [CSV](ratings/Nikil_Ravi__warmup_V02.csv): 0/6 | Warm-up pending |
-| Slava Naprienko | No returned CSV found in earlier scoped mail searches; [replacement form](support/SLAVA_CSV_NAME_FIRST_11-11-2026.md) is prepared, unsent, with six blank rows | Completion unverified; no Google Sheet |
-
-**[Open all 15 Google Sheets and matching raw CSVs](ratings/README.md):** nine warm-up Sheets, three current main Sheets and three historical main Sheets. Rylan’s original notes and Sri’s recorded times/notes are preserved; [Rylan’s notes are also readable here](support/RYLAN_NOTES.md).
-
-**Current collection target:** two independent human ratings per returned candidate file, **108 ratings total**. Eight slots are assigned but blank (four each for Rylan and Sri); **100 slots remain unassigned**. Brando’s 54 author ratings are additional. Warm-ups, N/A entries, blank forms and repeat exports are not completed main ratings. Historical volunteer capacity is not a renewed commitment; unassigned prospects are not missing submissions. Jacob and Mo declined; Bo and Sanmi are excluded from recruitment.
-
-**Historical main round:** the original 125-candidate packet targeted 250 independent ratings, with 20 assigned but blank and 230 unassigned. Its three 125-row Sheets and CSVs are preserved in [the historical table](ratings/README.md#historical-main-sheets--not-the-current-task); these old counts do not add to the current target.
+**Note on aliases resolved 11-14-2026:** `"Andrew Sankey"` in voice dictation = **Zhanke Zhou** (`T13`, `(Andrew) Zhanke Zhou`, `cszkzhou@comp.hkbu.edu.hk`); `"Dawn"` = **Donald Poindexter Jr.** (`T06`, `Don`, `ddpoindexterjr@gmail.com` for `.zip` delivery since Stanford strips `.zip` attachments; `poin@stanford.edu` alternate). All **32** current personal Sheets were built with each rater's own deterministic 25-task row order (`A1` plain task order) and verified byte-equal to their `.zip` `ratings.csv`.
 
 ## Where things belong
 
 | Folder | Purpose |
 | --- | --- |
-| [rating_task_packet/](rating_task_packet/) | One editable home for instructions, rubric, field guide, email draft, forms and task files. |
-| [ratings/](ratings/README.md) | Named raw responses and links to every personal Sheet. |
+| [rating_task_packet/](rating_task_packet/) | One editable home for instructions, rubric, field guide, email draft, forms and the 75-file `main_rating_task/`. |
+| [ratings/](ratings/README.md) | Named raw responses (`9` warm-up, `32` current 75-row main, `3` historical main) and links to every personal Sheet. |
 | [support/](support/README.md) | Coordinator records, provenance, scripts and tests; unnecessary for doing your ratings. |
 
-This README is the single overview and completion table. Delivered archives remain unchanged. Raw responses preserve spelling, capitalization, blanks, N/A entries and row order; only verified names and stable IDs are prefilled metadata. Assistant-filled timing/background annotations were removed. [Normalized analysis files](ratings/analysis/) are separate and are not additional observations.
+Final score and the combined AI assistance/human-rating attestation (`yes`, `no`, or `unsure`; short unassisted files use `no` + `rated personally without AI` in `problem_note`) are required for new ratings. Time (`minutes_spent`) and `confidence` are requested; a one-sentence `rationale` is **preferred but optional**; `problem_note` records issues. Delivered archives remain unchanged; raw CSVs preserve exact Sheet values and missingness. [Normalized analysis files](ratings/analysis/) are separate and are not additional observations.
 
-[Collection summary](ratings/SUMMARY.json) · [Raw hashes and source ranges](ratings/RAW_MANIFEST.json) · [Import workflow](support/IDENTITY_AND_IMPORT.md#collection-evidence--11-11-2026) · [Warm-up form verification and history](support/sheet_exports/11-11-2026_final_form/README.md)
+[Collection summary](ratings/SUMMARY.json) · [Raw hashes and source ranges](ratings/RAW_MANIFEST.json) · [Pre-75-sync backup manifest](support/sheet_exports/11-14-2026_before_75_sync/MANIFEST.json) · [Import workflow](support/IDENTITY_AND_IMPORT.md#collection-evidence--11-11-2026)

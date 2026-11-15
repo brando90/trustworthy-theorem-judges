@@ -1,0 +1,10 @@
+# Keep the round unblinding key, local zips, and assembly join receipts out of
+# public Git while raters are actively scoring; SHA-256 commitments remain tracked.
+sealed/
+builds/
+*.tmp
+__pycache__/
+# Personal Sheet links: the Sheets are editable by anyone with the link, so links stay out of public Git.
+SHEET_REGISTRY.json
+BUILD_SUMMARY_32.json
+sheet_readbacks/

@@ -5,13 +5,13 @@
   "public_files": [
     {
       "path": "METHODS_AND_ALLOCATION.md",
-      "sha256": "f10f15788e577226a7b86a0fb5498c5dcbc5cbad9bb749abd0ad87bb8f677329",
-      "bytes": 29459
+      "sha256": "2d70d45b1ce75ce302e2fa8b02469273dd07a8b2e6ea61f2be106854bec68cba",
+      "bytes": 29535
     },
     {
       "path": "README.md",
-      "sha256": "a6e02f0a15b614a551d03b954c89412480c2e05541c0bcce6822547da6c38918",
-      "bytes": 14725
+      "sha256": "2735957f94a5edb34618912660d2150c665cb7ed42a44834a565f06c719753e9",
+      "bytes": 14795
     },
     {
       "path": "SOURCE_INDEX.md",
@@ -35,8 +35,8 @@
     },
     {
       "path": "results/costed_allocation.json",
-      "sha256": "e4b7fd7c331dffbdf5f53daceb22dc6f21154b92e4a203ee2397fcf62a7da1da",
-      "bytes": 7662
+      "sha256": "50924c2ebaca77dd21e4a581a0bf0ea230bd593b5d3eadf04300c0a32d0902ea",
+      "bytes": 7629
     },
     {
       "path": "scripts/costed_allocation.py",
@@ -448,5 +448,14 @@
     "baseline_revision": "335c7afc4bf78f3f8182f003c8f1a5a3792b268a",
     "status": "Codex chat closed at user request; planning study remains open; no new successor launched",
     "scope": "Checkpoint and takeover prompt refresh; related owners and historical evidence preserved."
+  },
+  "packet_75_refresh": {
+    "date": "11-14-2026",
+    "experiment_09_ratable_cohort_sha256": "3f63a713b664cb2c31eaebd4785f910d373b66243efccc8484f1350bd687cff1",
+    "files": 75,
+    "tasks": 25,
+    "files_per_task": 3.0,
+    "independent_rating_target": 150,
+    "scope": "Regenerated results/costed_allocation.json and updated quoted scenario tables in README.md and METHODS_AND_ALLOCATION.md for Experiment 09's 75-file packet."
   }
 }

@@ -1,75 +1,36 @@
 {
-  "version": "native_main_v1_11-11-2026",
-  "status": "BRANDO_TRIAL_FIRST; then instruction review and first batch to Sri, Yegor and Brando; dispatch held",
-  "review": "REVIEW_TEAM_EMAILS_NATIVE_MAIN_V1.md",
-  "queue": "DISPATCH_QUEUE_NATIVE_MAIN_V1.json",
-  "packets": "native_harness_packet_11-11-2026/builds/native_heavy_terminal_v1",
+  "version": "full_team_75_v2_11-14-2026",
+  "status": "READY_FOR_BRANDO_GRADING_AND_EXPLICIT_SEND_GATE",
+  "round_id": "native-heavy-11-11-2026",
+  "review": "full_team_11-14-2026/REVIEW_ALL_31_EMAILS_11-14-2026.md",
+  "queue": "full_team_11-14-2026/DISPATCH_MANIFEST_31_RATERS.json",
+  "packets": "full_team_11-14-2026/builds",
+  "sheet_registry": "full_team_11-14-2026/SHEET_REGISTRY.json",
+  "build_summary": "full_team_11-14-2026/BUILD_SUMMARY_32.json",
+  "cohort_commitment": "full_team_11-14-2026/COHORT_75_COMMITMENT.json",
   "send_authorized": false,
-  "main_replacement": {
-    "status": "PREPARED_NOT_DISPATCHED",
-    "planned_manifest": "native_harness_packet_11-11-2026/PLANNED_COHORT_VALID_ENV_V2.json",
-    "sheet_manifest": "native_harness_packet_11-11-2026/NEW_MAIN_SHEETS.json",
-    "planned_artifacts": 85,
-    "missing_outputs": 31,
-    "old_main_default_superseded": true,
-    "warmup_form_unchanged": true,
-    "actual_artifacts": 54,
-    "task_count": 25,
-    "terminal_new_attempts": 50,
-    "cohort": "native_harness_packet_11-11-2026/finalization/RATABLE_COHORT.json",
-    "personal_counts": {
-      "A1": 54,
-      "T01": 4,
-      "T05": 4
-    },
-    "primary_rating_target": 108,
-    "assigned_blank_slots": 8,
-    "unassigned_slots": 100
+  "send_script": "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/scripts/send_full_team_75_packets.py",
+  "counts": {
+    "tasks": 25,
+    "files_per_packet": 75,
+    "total_sheets_and_packets": 32,
+    "author_sheets": 1,
+    "outgoing_raters_staged": 31,
+    "excluded_individuals": 4,
+    "sent_emails": 0,
+    "completed_main_ratings": 0,
+    "warmup_numeric_ratings": 15,
+    "warmup_not_applicable_rows": 3
   },
-  "warmup_packets": "packets/FormV6/MANIFEST.json",
-  "warmup_verification": "packets/FormV6/VERIFICATION.json",
-  "warmup_status": "Prepared unsent replacements; documentation-only guide/title alignment; current response tables unchanged",
-  "warmup_drafts": "drafts/FormV6/WARMUP_DRAFTS.json",
-  "recorded_utc": "2026-11-12T05:06:05.983560+00:00",
-  "existing_queue_status": "Preserved eight-person prepared queue; superseded as the first-batch recipient plan; do not dispatch it as a batch.",
-  "first_batch_plan": {
-    "decision_date": "11-11-2026",
-    "recipients": [
-      {
-        "rater_id": "T05",
-        "name": "Srivatsava Daruru (Sri)",
-        "state": "four-file main packet and matching Sheet prepared"
-      },
-      {
-        "rater_id": "T02",
-        "name": "Yegor Denisov-Blanch",
-        "state": "warm-up Sheet exists; main assignment, packet and exact email pending; existing extra-only designation preserved"
-      },
-      {
-        "rater_id": "A1",
-        "name": "Brando Miranda",
-        "state": "six-file warm-up and 54-file main packet/Sheets prepared"
-      }
-    ],
-    "sequence": [
-      "Brando grades a few items first",
-      "Review actual participant instructions and incorporate pilot feedback",
-      "Prepare and verify the three recipient-specific packets, Sheets and exact emails",
-      "Send after Brando reviews the text and explicitly says to send"
-    ],
-    "other_recipients": "held",
-    "send_authorized": false
+  "configuration_counts": {
+    "historical_codex_astra": 25,
+    "native_claude_fable": 19,
+    "historical_terminus_fable": 6,
+    "historical_terminus_grok": 25
   },
-  "handoff": {
-    "requested_date": "11-11-2026",
-    "updated_at": "11-12-2026 10:50 PST",
-    "checkpoint": "/Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/ckpt.md",
-    "status": "SAVED_USER_HANDLING_NEXT_STEPS; no experiment 09 successor launched",
-    "outgoing_chat": "01a1a8f9-dcb7-7381-9368-91d6e51faffd",
-    "successor_chat": null,
-    "active_generation_jobs": 0,
-    "launch_authorized": false,
-    "continuation_owner": "Brando Miranda",
-    "next_agent_action": "Wait for Brando\u2019s explicit instruction; saved checklist is reference only."
-  }
+  "deadlines": {
+    "preferred": "Thursday, 11-19-2026, 6:00 PM PT",
+    "final": "Sunday, 11-22-2026"
+  },
+  "note": "Supersedes 54-file native_main_v1_11-11-2026 and 3-person pilot queue as the active packet inventory while preserving Yegor T02 extra_only status and all prior snapshots/receipts."
 }

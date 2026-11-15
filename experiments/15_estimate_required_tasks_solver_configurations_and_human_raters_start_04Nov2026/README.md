@@ -2,9 +2,9 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/README.md>
 
-**TLDR:** Finish the current 108-rating evaluation packet; do not adopt a larger total yet. How many held-out task families a later study needs depends on one unmeasured quantity, and existing evidence puts it anywhere from 3 to 155 families for a ±0.01 comparison, with 37 as the middle case. None of the recovered Claude, Gemini or ChatGPT totals establishes statistical sufficiency.
+**TLDR:** Finish the current 150-rating evaluation packet; do not adopt a larger total yet. How many held-out task families a later study needs depends on one unmeasured quantity, and existing evidence puts it anywhere from 3 to 155 families for a ±0.01 comparison, with 37 as the middle case. None of the recovered Claude, Gemini or ChatGPT totals establishes statistical sufficiency.
 
-**Status, 11-11-2026:** source recovery and a costed allocation from existing evidence are complete; the final study size is an open decision for Brando (three choices below). No new ratings, judge training, model inference or fitted scaling law are reported here. Experiment 02 (`02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026`) owns the judge methodology; experiment 09 (`09_prepare_packets_and_collect_human_ratings_start_28Sep2026`) owns the current packet and collection.
+**Status, 11-11-2026 (scenarios refreshed 11-14-2026 for Experiment 09's 75-file packet):** source recovery and a costed allocation from existing evidence are complete; the final study size is an open decision for Brando (three choices below). No new ratings, judge training, model inference or fitted scaling law are reported here. Experiment 02 (`02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026`) owns the judge methodology; experiment 09 (`09_prepare_packets_and_collect_human_ratings_start_28Sep2026`) owns the current packet and collection.
 
 T counts tasks, A fixed solver configurations, H distinct human raters and m ratings per returned file. Count T in independent task families. Ratings collected are files × m, not T × A × H.
 
@@ -14,26 +14,26 @@ Every number below is planning arithmetic from saved results, reproduced by [`sc
 
 | Question | What existing evidence supports |
 | --- | --- |
-| What do we collect now? | Experiment 09's current packet: **25 tasks, three represented solver configurations, 54 returned files, m = 2, 108 independent ratings**; Brando's up-to-54 author ratings are additional. No change proposed. |
+| What do we collect now? | Experiment 09's current packet: **25 tasks, three frontier agent families (four solver conditions), 75 files, m = 2, 150 independent ratings**; Brando's up-to-75 author ratings are additional. No change proposed. |
 | What can those 25 tasks resolve? | A paired RPS difference between two judges to about **±0.012** (95% half-width) in the middle case, ±0.003 to ±0.025 across the three variability cases. One judge's RPS level to about ±0.026. |
 | Is that enough to compare training with Pearson correlation (method 2) against training with a proper loss (method 4)? | Only for a large gap. In the archived cached-judge study the gap was 0.024 with 4 training tasks and 0.006 with 20. Middle case, 80% power: 13 task families detect 0.024, 49 detect 0.012 and 234 detect 0.006. |
 | How many held-out task families for a chosen precision? | ±0.02: **10** (range 1–39). ±0.01: **37** (range 3–155). ±0.005: **145** (range 11–620). |
 | How many training tasks? | The cached five-judge mixture was 0.0021 RPS above its 20-task value at 12 training tasks and 0.0006 above at 16. Nothing is measured beyond 20 tasks or for a larger judge family. |
 | How many ratings per file? | Keep m = 2. Training on one rating per file instead of the available 2–3 cost 0.0020 RPS; two instead of 2–3 cost 0.0004. Extra tasks buy more than extra ratings per file. |
 | How many solver configurations? | Treat A as named fixed conditions and report per configuration. Three or four configurations cannot support an interval over unseen solvers. |
-| How many people? | H follows from workload. 108 ratings are 27, 14 or 9 each for 4, 8 or 12 people. |
-| How long does one rating take? | **Unmeasured for the main task.** The only entered times are one rater's six warm-up files: median 4 minutes, range 2–5. Main-task candidate files are 7.7 times longer by median line count (448 versus 58 lines). |
+| How many people? | H follows from workload. 150 ratings are 38, 19 or 13 each for 4, 8 or 12 people. |
+| How long does one rating take? | **Unmeasured for the main task.** The only entered times are one rater's six warm-up files: median 4 minutes, range 2–5. Main-task candidate files are 8.3 times longer by median line count (483 versus 58 lines). |
 
 ### Costed scenarios
 
-Hours use two bracketing cases: 4 minutes per rating (the measured warm-up median) and 31 minutes (an assumption that time scales with file length). Neither measures the main task. New tasks are costed at the packet's measured 2.16 returned files per task.
+Hours use two bracketing cases: 4 minutes per rating (the measured warm-up median) and 33 minutes (an assumption that time scales with file length). Neither measures the main task. New tasks are costed at the packet's measured 3.0 files per task.
 
-| Scenario | Held-out tasks | Independent ratings | Hours, 4 to 31 minutes each | Ratings each, 4 / 8 / 12 people |
+| Scenario | Held-out tasks | Independent ratings | Hours, 4 to 33 minutes each | Ratings each, 4 / 8 / 12 people |
 | --- | ---: | ---: | --- | --- |
-| Finish the current packet | 25 | **108** | 7 to 56 | 27 / 14 / 9 |
-| Add a 24-task development pool (16 training, 8 validation) | 25 | 212 | 14 to 109 | 53 / 27 / 18 |
-| Development pool, plus held-out tasks for ±0.01 | 37 | 264 | 18 to 136 | 66 / 33 / 22 |
-| Development pool, plus held-out tasks for ±0.005 | 145 | 732 | 49 to 377 | 183 / 92 / 61 |
+| Finish the current packet | 25 | **150** | 10 to 83 | 38 / 19 / 13 |
+| Add a 24-task development pool (16 training, 8 validation) | 25 | 294 | 20 to 163 | 74 / 37 / 25 |
+| Development pool, plus held-out tasks for ±0.01 | 37 | 366 | 24 to 203 | 92 / 46 / 31 |
+| Development pool, plus held-out tasks for ±0.005 | 145 | 1,014 | 68 to 563 | 254 / 127 / 85 |
 
 The 24-task development pool is an agent-suggested starting block, not a derived requirement. The held-out counts use the middle variability case; the low and high cases change them by a factor of about 13 down or 4 up.
 
@@ -43,7 +43,7 @@ The 24-task development pool is an agent-suggested starting block, not a derived
 2. **Precision.** ±0.02, ±0.01 or ±0.005 RPS on the paired comparison, or the smallest difference worth detecting.
 3. **Workload cap.** How many people, and how many hours each.
 
-**Recommendation (agent-suggested, not adopted):** choose (a) now and finish the 108 ratings. Decide (b) only after two cheap measurements, and do not attempt (c) with three or four solver configurations.
+**Recommendation (agent-suggested, not adopted):** choose (a) now and finish the 150 ratings. Decide (b) only after two cheap measurements, and do not attempt (c) with three or four solver configurations.
 
 1. **Per-file time on the main task.** Brando's trial ratings and the first batch supply `minutes_spent` entries. Rerun the script; the hours update from participant entries, never from an assistant's guess.
 2. **How much the paired loss difference varies across task families for the actual judges.** This single quantity moves the answer from 3 to 155 families. Measure it on development data only: the 75 historical rated outputs are already exposed and eligible. It needs separately authorized model inference; the current packet stays evaluation-only and sealed.
@@ -96,4 +96,4 @@ python3 experiments/15_estimate_required_tasks_solver_configurations_and_human_r
 
 The first command fails if the saved scenarios no longer match their inputs; the second fails if a tracked file in this folder changed without its hash being refreshed. Add `--write` to either to regenerate. Source exports have not been independently authenticated by the chat providers; their limits are stated in each header. Original links may require Brando's signed-in account. The earlier requested light model review returned six findings, all addressed; it predates the costed allocation, which has deterministic checks only.
 
-Copy-ready collaborator message: “For the judge study we are finishing the current 108 ratings on 25 tasks. I have not fixed a larger collection: comparing the two training objectives to ±0.01 needs roughly 37 held-out task families, but that number ranges from 3 to 155 until we measure how variable the paired difference is.”
+Copy-ready collaborator message: “For the judge study we are finishing the current 150 ratings on 25 tasks. I have not fixed a larger collection: comparing the two training objectives to ±0.01 needs roughly 37 held-out task families, but that number ranges from 3 to 155 until we measure how variable the paired difference is.”
