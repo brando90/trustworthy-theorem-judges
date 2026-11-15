@@ -12,6 +12,10 @@ The first task is the best practical judge of human ratings: pursue method 2 (co
 
 At each non-trivial task, refresh `~/agents-config` with `git pull --ff-only` (preserve concurrent work), read `INDEX_RULES.md`, then its Hard Rule details and matching triggers. If absent, clone <https://github.com/brando90/agents-config>. Follow explicit user decisions and existing funding, privacy, and model pins. Model-reviewer quality assurance is opt-in; deterministic verification always applies. Keep this file and `CLAUDE.md` byte-identical.
 
+## Models: always frontier — user decision, 11-14-2026
+
+In this project always use frontier models: the strongest current ones reachable (Claude Fable 5.1 or Opus 5.5, GPT-6 Astra, Gemini 4 Argon where a free route exists). Never use older Claude generations or small models for rating packets, simulated-rater runs or judge runs. Every result names its harness and model. No paid API without the user's yes. Historical outputs from older models stay as labeled history and are never new work.
+
 ## Research workflow: no branches
 
 This is a research project. Each experiment lives in its own numbered experiment folder (`experiments/NN_<setup_name>/`). Commit and push straight to `main`. Do not create branches or pull requests. If a leftover branch turns up, merge it into `main` (no force-push) and delete it. If two experiments pick the same number, keep the one already on `main` and renumber the new folder to the next free number, updating its internal references.
