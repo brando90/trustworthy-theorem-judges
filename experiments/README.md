@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/README.md>
 
-**TLDR:** The active folder list contains three homes: judge methodology (02), human-rating preparation and collection (09), and rating-data size estimates (15). The original rating study and supporting, completed or paused studies are in the [archive](archive/README.md).
+**TLDR:** The active folder list contains four homes: judge methodology (02), human-rating preparation and collection (09), rating-data size estimates (15), and persona raters from public information (20). The original rating study and supporting, completed or paused studies are in the [archive](archive/README.md).
 
 ## Current work
 
@@ -11,6 +11,7 @@
 | [02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026](02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/README.md) | Develop the judge methodology, including [training correlation versus a proper probability loss](02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/PRIORITY_2_VS_4_11-09-2026.md). The identity-split amendment and fresh evaluation remain pending. |
 | [09_prepare_packets_and_collect_human_ratings_start_28Sep2026](09_prepare_packets_and_collect_human_ratings_start_28Sep2026/README.md) | Prepare the current packet and collect human ratings: 54 returned files on 25 tasks, with a target of 108 independent ratings. Its README owns live preparation status, named data links and completion counts; the editable packet and raw responses stay there. |
 | [15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026](15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/README.md) | Decide how many tasks, solver configurations and human raters a study needs. It holds a costed allocation computed from saved results, three open choices for Brando, and the recovered Claude, Gemini and ChatGPT estimates with their original text. The final allocation is undecided. |
+| [20_predict_a_persons_ratings_from_a_persona_built_from_public_information_start_14Nov2026](20_predict_a_persons_ratings_from_a_persona_built_from_public_information_start_14Nov2026/README.md) | Test whether a persona built from a person's public information predicts that person's ratings, starting with Brando. Problem and design only; no run. |
 
 ## Original evidence and supporting studies
 
