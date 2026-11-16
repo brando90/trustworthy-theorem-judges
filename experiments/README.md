@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/README.md>
 
-**TLDR:** The active folder list contains five homes: judge methodology (02), human-rating preparation and collection (09), rating-data size estimates (15), persona raters from public information (20), and the frontier-judge pool run (21). The original rating study and supporting, completed or paused studies are in the [archive](archive/README.md).
+**TLDR:** The active folder list contains six homes: judge methodology (02), human-rating preparation and collection (09), rating-data size estimates (15), persona raters from public information (20), the frontier-judge pool run (21), and the 5-metric judge evaluation and methodology document (22). The original rating study and supporting, completed or paused studies are in the [archive](archive/README.md).
 
 ## Current work
 
@@ -13,6 +13,7 @@
 | [15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026](15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/README.md) | Decide how many tasks, solver configurations and human raters a study needs. It holds a costed allocation computed from saved results, three open choices for Brando, and the recovered Claude, Gemini and ChatGPT estimates with their original text. The final allocation is undecided. |
 | [20_predict_a_persons_ratings_from_a_persona_built_from_public_information_start_14Nov2026](20_predict_a_persons_ratings_from_a_persona_built_from_public_information_start_14Nov2026/README.md) | Test whether a persona built from a person's public information predicts that person's ratings, starting with Brando. Problem and design only; no run. |
 | [21_add_3_frontier_judges_to_pool_pearson_vs_ce_80_20_start_16Nov2026](21_add_3_frontier_judges_to_pool_pearson_vs_ce_80_20_start_16Nov2026/README.md) | Add three frontier judges (gpt-6-astra, gpt-6.1-sol, gemini-4-argon) to the pool and repeat ② (pick by correlation) versus ④ (pick by cross-entropy), including with a frontier model as the optimizing agent. Done 16 Nov 2026: ② and ④ still tie on RPS; about $20.5 spent. |
+| [22_evaluate_veribench_judges_on_75_outputs_distribution_losses_vs_correlations_start_16Nov2026](22_evaluate_veribench_judges_on_75_outputs_distribution_losses_vs_correlations_start_16Nov2026/README.md) | Re-evaluate the VeriBench `"0.6, 0.8, 0.8"` selected judge and 8 frontier judges/mixtures on the 5-metric panel (`RPS`, `CE`, `TVD`, `Pearson`, `Spearman` plus `MAE` and signed bias) and document why proper distributional metrics beat correlation-only evaluation (`$0`, CPU-only). |
 
 ## Original evidence and supporting studies
 
