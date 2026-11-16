@@ -213,7 +213,7 @@ website: https://brando90.github.io/brandomiranda/
 
 
 BRANDO = {"rater_id": "A1", "rater_name": "Brando Miranda", "greeting": "Brando", "opener": "",
-          "email": "brando9@stanford.edu",
+          "email": "brandojazz@gmail.com",  # his main inbox; a BCC to the sending account lands in Sent only
           "design": {"task_descending": False, "file_descending": False, "start_task_offset": 0}}
 TODAY = "11-16-2026"
 
@@ -436,6 +436,27 @@ def drafts() -> None:
     print(f"{len(saved)} unsent drafts are in Gmail Drafts; nothing was sent")
 
 
+def ensure_in_inbox(password: str, message_id: str) -> str:
+    """Confirm the self-sent packet shows in brandojazz@gmail.com's Inbox; add the Inbox label if Gmail kept it in Sent only."""
+    import imaplib
+    import time
+    with imaplib.IMAP4_SSL("imap.gmail.com") as box:
+        box.login("brandojazz@gmail.com", password)
+        for _ in range(12):
+            box.select("INBOX", readonly=True)
+            if box.uid("SEARCH", None, "HEADER", "Message-ID", message_id)[1][0].split():
+                return "in Inbox"
+            box.select('"[Gmail]/All Mail"')
+            found = box.uid("SEARCH", None, "HEADER", "Message-ID", message_id)[1][0].split()
+            if found:
+                assert box.uid("COPY", found[-1], "INBOX")[0] == "OK"  # Gmail: copying to INBOX adds the Inbox label
+                box.select("INBOX", readonly=True)
+                if box.uid("SEARCH", None, "HEADER", "Message-ID", message_id)[1][0].split():
+                    return "Inbox label added"
+            time.sleep(5)
+    raise AssertionError("Sent, but not found in brandojazz@gmail.com within a minute")
+
+
 def send_a1() -> None:
     """Send Brando's own packet to Brando (requested in chat 11-16-2026). Sends to nobody else."""
     import smtplib
@@ -446,15 +467,18 @@ def send_a1() -> None:
     draft, message = message_for("A1", note)
     recipients = sorted({draft["to"], *draft["bcc"]})
     assert all(r in ("brando9@stanford.edu", "brandojazz@gmail.com", "brando.science@gmail.com") for r in recipients)
+    assert draft["to"] == "brandojazz@gmail.com", "Rebuild A1's draft so it goes to brandojazz@gmail.com"
     password = (Path.home() / "keys/gmail_app_password.txt").read_text().strip()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
         smtp.login("brandojazz@gmail.com", password)
         refused = smtp.send_message(message, to_addrs=recipients)
     assert not refused, refused
+    inbox = ensure_in_inbox(password, message["Message-ID"])
     entry["sent_to_self"] = {"date": TODAY, "to": draft["to"], "bcc": draft["bcc"], "note": note,
-                             "message_id": message["Message-ID"], "zip_sha256": draft["attachment_sha256"]}
+                             "message_id": message["Message-ID"], "zip_sha256": draft["attachment_sha256"],
+                             "brandojazz_inbox": inbox}
     save_index(index)
-    print("sent A1 to", recipients, message["Message-ID"])
+    print("sent A1 to", recipients, message["Message-ID"], "|", inbox)
 
 
 SENT_LOG = SEALED / "SENT_100.json"
