@@ -12,6 +12,6 @@ Localized artificial intelligence (AI) help is required for new ratings; make th
 
 The current packet CSV matches your live sheet. FormV6 matches the current guide and rubric title; scientific files and scoring are unchanged. Earlier archives remain preserved for wording history. Use your personal sheet, not the historical rubric’s template-copy link.
 
-Do this warm-up before your main assignment. The replacement main packet is still being prepared from native agents, Pi and a smaller Terminus 2 comparison. You previously viewed other raters’ warm-up responses, so this is coordinator practice with known prior exposure, not an independent blinded evaluation.
+Do this warm-up before your main assignment (100 files: 25 tasks x 4 agents; see the [experiment README](../README.md)). You previously viewed other raters’ warm-up responses, so this is coordinator practice with known prior exposure, not an independent blinded evaluation.
 
 [Main-packet preparation](COORDINATOR_README.md#native-heavy-replacement--user-decision-11-11-2026) · [Completion status](../README.md#ratings-and-completion) · [Coordinator records](README.md)
