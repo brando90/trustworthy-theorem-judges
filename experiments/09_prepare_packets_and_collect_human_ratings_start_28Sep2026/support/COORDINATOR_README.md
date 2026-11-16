@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/COORDINATOR_README.md>
 
-**TLDR:** The revised main packet is prepared and verified: 54 real candidate files across 25 tasks, with matching personal Sheets and CSVs for Brando, Rylan and Sri. It has not been dispatched; Brando's warm-up, review of the exact recipient messages and explicit send instruction remain before team delivery.
+**TLDR:** Current state (11-16-2026): the main packet is **100 files = 25 tasks x 4 agents** — GPT-6 Astra (Codex, `xhigh`), Claude Fable 5.1 (Claude Code, `max`), Grok 4.7 (Terminus 2, `xhigh`) and Gemini 4 Argon (Terminus 2, `high`) — in 32 personal Sheets; Brando's own packet is emailed and the 31 team emails are unsent Gmail drafts. See [the experiment README](../README.md) for the agent table, why Grok and Gemini are not native, and live per-rater progress. The sections below are dated history (54-file packet of 11-11-2026, 75-file packet of 11-14-2026).
 
 This is supporting coordinator documentation. For the actual rating task, start with [the short README](../README.md).
 
@@ -46,7 +46,7 @@ At that historical audit stage, this targeted search did not establish a complet
 
 **No matched VeriBench comparison establishes Terminus 2 as the best harness.** The existing paper disclosure explicitly calls it a standardized substitute. The separate runs above vary in tasks, model versions or conditions and cannot isolate harness quality. Keep the current packet intact; if native-agent or Pi generalization is a goal, prepare a separately versioned extension with explicit model/harness versions, task/source alignment and comparable budgets. That was the recommendation at the audit stage; the subsequent user decision authorized the completed versioned preparation below.
 
-## Native-heavy replacement — user decision, 11-11-2026
+## Native-heavy replacement — user decision, 11-11-2026 (history; superseded by the 75-file packet on 11-14-2026 and the 100-file packet on 11-16-2026)
 
 **Prepared and verified, not dispatched.** Brando decided to make native agents the primary real packet, include Pi attempts, and retain fewer Terminus 2 artifacts. The final packet contains 54 returned files across the same 25 Python tasks; all 85 planned cells remain in the availability ledger, including 31 missing submissions. This replaces the original all-Terminus-2 main packet as the delivery default. The six-file warm-up, scoring rubric, eleven-column form, raw responses and delivered archives remain unchanged; the original 125-file packet is preserved.
 

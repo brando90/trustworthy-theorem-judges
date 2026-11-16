@@ -1,7 +1,7 @@
 """Plan, build and verify the full-team rating packets (one per rater).
 
 Current round (11-16-2026): 100 files = 25 tasks x 4 agents (GPT-6 Astra, Claude
-Fable 5.1, Grok 4.7 and Google's frontier model); see build_four_agent_cohort.py.
+Fable 5.1, Grok 4.7 and Gemini 4 Argon); see build_four_agent_cohort.py.
 The 75-file round (11-14-2026) used RATABLE_COHORT_75_V2.json and sealed/builds.
 
     plan    write the private roster/design and one Sheet request file per rater
@@ -567,7 +567,7 @@ def export() -> None:
     manifest["not_applicable_rows"] = sum(f.get("not_applicable_rows", 0) for f in manifest["files"])
     manifest["checked_date"], manifest["recorded_utc"] = TODAY, now_utc()
     revision = {"date": TODAY, "artifacts": len(cohort_rows()), "tasks": 25, "agents_per_task": files_per_task(),
-                "added": "25 rows per Sheet for Google's frontier model (planned Google cells), inserted in place",
+                "added": "25 rows per Sheet for Gemini 4 Argon (Terminus 2, high effort; planned Google cells), inserted in place",
                 "sheets_verified": len(index), "main_numeric_observations": sum(scored.values()),
                 "emails_sent": "A1 to self only" if not SENT_LOG.exists() else f"A1 to self + {len(json.loads(SENT_LOG.read_text()))}",
                 "cohort_commitment": "../../../research_artifacts/09_human_rating_collection/preparation_11-09-2026/"

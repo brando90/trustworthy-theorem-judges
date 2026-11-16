@@ -196,7 +196,7 @@ New tasks are costed at 4.0 files per task and two ratings per file. Four minute
 - **Only task-family sampling is covered.** Rater sampling, judge repeat variability and the prior exposure of the historical test outcomes are outside these intervals.
 - **One planned comparison.** Several proper-loss conditions against Pearson need one declared primary contrast or a multiplicity adjustment.
 - **Solver configurations and the rater panel are fixed.** Nothing here supports claim (c).
-- **The return rate is assumed stable.** 4.0 files per task reflects 100 files across four frontier agent families (five solver conditions); the planned Pi/Gemini 3.8 Flash configuration returned none, so its cells hold Google's frontier model's earlier Terminus 2 files.
+- **The return rate is assumed stable.** 4.0 files per task reflects 100 files across four frontier agent families (five solver conditions); the planned Pi/Gemini 3.8 Flash configuration returned none, so its cells hold Gemini 4 Argon's earlier Terminus 2 files (high effort).
 - **The development pool is a starting block.** Sixteen training and eight validation tasks are an agent's suggestion read off a five-weight mixture's curve, not a derived requirement.
 
 ### Inputs still missing, and a bounded way to get each

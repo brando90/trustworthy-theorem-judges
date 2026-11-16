@@ -3,11 +3,12 @@
 Starts from the 75-file cohort of record (25 tasks x GPT-6 Astra, Claude Fable 5.1,
 Grok 4.7) and fills the 25 planned Google cells. The planned Google run (Pi with
 Gemini 3.8 Flash) produced no file for any task, so its planned file names were
-skipped. Google's frontier model has an existing, hash-verified Terminus 2 file for
-every task in the sealed set N file of record (VeriBench experiment 107, system
-t2_gemini_frontier; Vals approved its files for the rating packet on 10-07-2026).
-Its model name stays out of Git, as in VeriBench; the selector is in experiment
-107's private/INTERNAL_MODELS.json.
+skipped. Gemini 4 Argon (google/gemini-4-argon, reasoning effort high) has an existing,
+hash-verified Terminus 2 file for every task in the sealed set N file of record
+(VeriBench experiment 107, system t2_gemini_frontier; Vals approved its files for the
+rating packet on 10-07-2026). The frozen cohort's text below still says the name is kept
+out of Git; Brando decided on 11-16-2026 to name the model, so docs now name it, while
+these strings stay unchanged so a rerun reproduces the committed cohort bytes.
 
 No model is run, no file is edited and no score is read. Item IDs and file names
 come from the frozen planned layout, so the 75 existing items keep their IDs and

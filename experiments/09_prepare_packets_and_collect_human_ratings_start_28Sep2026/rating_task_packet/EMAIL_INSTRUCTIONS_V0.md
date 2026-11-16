@@ -8,9 +8,9 @@ Placeholders and routing per recipient:
 
 - `[FIRST NAME]`: the rater's first name (one person per email).
 - `[TASK]`: `warm-up` or `main rating task`.
-- `[NUMBER OF FILES]` and `[NUMBER OF TASK FOLDERS]`: counts from that rater's personal Sheet (for example `6` files in `2` task folders for the warm-up, or `75` files in `25` task folders for the full-team main packet).
+- `[NUMBER OF FILES]` and `[NUMBER OF TASK FOLDERS]`: counts from that rater's personal Sheet (for example `6` files in `2` task folders for the warm-up, or `100` files in `25` task folders for the full-team main packet).
 - `[PERSONAL SHEET LINK]`: that rater's own Google Sheet URL only (`Anyone with the link = Editor`). If their personal Sheet will not open, they can reply to the rating email with the filled `ratings.csv` attached (or send it to `brando9@stanford.edu` / `brandojazz@gmail.com`).
-- `[PREFERRED DATE]` and `[FINAL DATE]`: written as `Weekday, MM-DD-YYYY` (for the 11-14-2026 75-file batch: `Thursday, 11-19-2026, 6pm PT` preferred and `Sunday, 11-22-2026` final).
+- `[PREFERRED DATE]` and `[FINAL DATE]`: written as `Weekday, MM-DD-YYYY` (for the 100-file full-team batch: `Thursday, 11-19-2026, 6pm PT` preferred and `Sunday, 11-22-2026` final).
 - **Routing:** send as a new email from `brandojazz@gmail.com` with that recipient's packet `.zip` attached; blind-copy (BCC) `brando.science@gmail.com`, `brandojazz@gmail.com` and `brando9@stanford.edu`; use visible CC only on request; include no chat `TLDR` line in the rater email.
 
 ## Email

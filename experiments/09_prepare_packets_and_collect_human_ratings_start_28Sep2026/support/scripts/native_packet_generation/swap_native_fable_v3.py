@@ -139,6 +139,11 @@ def main() -> None:
                       "the cell was re-run once under condition amendment V3 (only change: the response cap). "
                       "Harness, model, effort and prompt version match the other 19 Claude Code files."}
     configurations = {k: v for k, v in cohort["configurations"].items() if k != "historical_terminus_fable"}
+    gemini = {k: v for k, v in configurations["historical_terminus_gemini"].items() if k != "model_note"}
+    configurations["historical_terminus_gemini"] = {
+        **gemini, "model": "google/gemini-4-argon", "model_label": "Gemini 4 Argon",
+        "model_source": "VeriBench experiment 107 private/INTERNAL_MODELS.json and CONDITIONS_t2v2_full.json "
+                        "(read 11-16-2026); named in Git per Brando, 11-16-2026"}
     configurations[NEW] = {**configurations["native_claude_fable"], "expected_artifacts": 6,
                            "condition_snapshot": {"path": str(v3_condition_path), "sha256": sha(v3_condition_path.read_bytes())},
                            "condition_change_from_v2": {k: [v2.get(k), v3.get(k)] for k in changed},
