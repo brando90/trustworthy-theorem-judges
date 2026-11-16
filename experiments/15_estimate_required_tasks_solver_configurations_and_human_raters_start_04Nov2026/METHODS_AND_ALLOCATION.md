@@ -133,7 +133,7 @@ With N fixed, \(E+A N^{-\alpha}\) is one inseparable intercept: E, A and \(\alph
 
 ## Costed allocation from existing evidence — 11-11-2026
 
-This section turns the open sizing question into explicit choices. It is planning arithmetic on saved results: no new rating, fit or model call. [`scripts/costed_allocation.py`](scripts/costed_allocation.py) reproduces every number into [`results/costed_allocation.json`](results/costed_allocation.json) and fails when an input changes. Scenario numbers below reflect Experiment 09's 11-14-2026 75-file packet.
+This section turns the open sizing question into explicit choices. It is planning arithmetic on saved results: no new rating, fit or model call. [`scripts/costed_allocation.py`](scripts/costed_allocation.py) reproduces every number into [`results/costed_allocation.json`](results/costed_allocation.json) and fails when an input changes. Scenario numbers below reflect Experiment 09's 11-16-2026 100-file packet.
 
 ### The claim decides which axis is sampled
 

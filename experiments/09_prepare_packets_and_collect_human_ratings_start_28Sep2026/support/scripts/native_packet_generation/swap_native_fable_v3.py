@@ -4,7 +4,7 @@ On 11-11-2026, 6 planned Claude Code cells hit the declared 16,384-token single-
 cap (V2 condition) and returned no file; the 100-file cohort filled them with the same
 model's earlier Terminus 2 files. Brando asked (11-16-2026) for all 25 Anthropic files to
 come from native Claude Code. Those 6 cells were re-run once under condition amendment V3
-(identical to V2 except max_response_tokens). This script verifies the 6 V3 receipts and
+(identical to V2 in every scientific setting; only max_response_tokens is raised). This script verifies the 6 V3 receipts and
 files and writes a new cohort in which the 6 items keep their item IDs and file names, so
 every rater's Sheet rows are unchanged; only those 6 files' contents change.
 
@@ -84,7 +84,16 @@ def main() -> None:
     cohort = json.loads(parent_bytes)
     v2, v3 = json.loads(V2_CONDITION.read_text()), json.loads(v3_condition_path.read_text())
     changed = sorted(k for k in set(v2) | set(v3) if v2.get(k) != v3.get(k))
-    print("V2 -> V3 condition keys that differ:", changed)
+    # Enforce the amendment: every scientific setting is identical and only the response cap is raised;
+    # all other differing keys are administrative (ids, timestamps, billing route, notes, paths, task order).
+    unchanged = ("model", "effort", "cli_version", "docker_image", "runner_sha256", "input_manifest_sha256",
+                 "max_turns", "max_task_seconds", "max_total_tokens", "max_output_tokens", "max_attempts")
+    drift = [k for k in unchanged if v2.get(k) != v3.get(k)]
+    assert not drift, f"V3 changes scientific settings: {drift}"
+    assert v3["max_response_tokens"] > v2["max_response_tokens"], "V3 must only raise the response cap"
+    administrative = [k for k in changed if k != "max_response_tokens"]
+    print("V2 -> V3: max_response_tokens", v2["max_response_tokens"], "->", v3["max_response_tokens"],
+          "| administrative keys that differ:", administrative)
     layout = {**cohort["display_layout"], **cohort["layout_additions"]}
     items = {i: s for i, s in cohort["configuration_substitutions"].items()
              if s["actual_configuration_id"] == "historical_terminus_fable"}
@@ -105,6 +114,7 @@ def main() -> None:
         assert receipt["candidate_sha256"] == sha(data) and receipt["candidate_bytes"] == len(data) > 0, task
         assert receipt.get("condition_sha256") == sha(v3_condition_path.read_bytes()), f"{task}: receipt not bound to the V3 condition"
         assert receipt.get("model_identity_verified") is True, f"{task}: model identity not verified"
+        assert set(receipt.get("actual_models", [])) - {"<synthetic>"} == {v3["model"]}, (task, receipt.get("actual_models"))
         assert receipt["cli_version"].split()[0] == v2["cli_version"], task
         text = data.decode("utf-8", errors="replace")
         folder = layout[item]["task_folder"]
@@ -146,7 +156,9 @@ def main() -> None:
                         "(read 11-16-2026); named in Git per Brando, 11-16-2026"}
     configurations[NEW] = {**configurations["native_claude_fable"], "expected_artifacts": 6,
                            "condition_snapshot": {"path": str(v3_condition_path), "sha256": sha(v3_condition_path.read_bytes())},
-                           "condition_change_from_v2": {k: [v2.get(k), v3.get(k)] for k in changed},
+                           "condition_change_from_v2": {"max_response_tokens": [v2["max_response_tokens"],
+                                                                                v3["max_response_tokens"]]},
+                           "administrative_condition_differences": administrative,
                            "finalization_note": "V3 recovery of the 6 cap-truncated V2 cells only."}
     full = {**cohort, "configurations": configurations, "artifacts": artifacts,
             "configuration_substitutions": substitutions,

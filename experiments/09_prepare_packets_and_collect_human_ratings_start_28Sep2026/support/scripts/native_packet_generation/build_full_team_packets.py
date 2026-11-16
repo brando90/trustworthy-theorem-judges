@@ -55,9 +55,6 @@ TEMPLATE_TAB_ID = 0
 BRANDO_SHEET_ID = "1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM"
 SUBJECT = "VeriBench human-rating main rating task: closes Thursday, 11-19-2026, 6pm PT"
 BCC = ["brando.science@gmail.com", "brandojazz@gmail.com", "brando9@stanford.edu"]
-PUBLIC_START = ("https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/"
-                "09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/"
-                "main_rating_task/START_HERE.md")
 COAUTHOR = ("Would you be willing to help with a human-rating task for VeriBench? Your ratings would be really "
             "valuable, and if you are interested and have time, I would be happy to add you as a co-author on "
             "the papers this data is used for. No pressure at all.")
@@ -199,7 +196,7 @@ Please choose the score yourself and use AI only for help with Lean notation or 
 
 Please finish by 6pm Pacific on Thursday, 11-19-2026 if you can, so I can run experiments overnight and show results in a meeting the next day. If you can only get part of it done by then, that is still very helpful. Filling it in as you go is even better: your sheet saves automatically, and I will pull the data and start my analysis as it comes in, so we can iterate.
 
-P.S. Feel free to email me with any questions. Email is preferred for questions! Happy to clarify anything! The full instructions are also public at {PUBLIC_START}
+P.S. Feel free to email me with any questions. Email is preferred for questions! Happy to clarify anything! The full instructions are in START_HERE.md inside the zip.
 
 Brando (drafted with Claude)
 -----
@@ -282,12 +279,15 @@ def sheets_session():
     session = AuthorizedSession(creds)
     original = session.request
 
-    def request(method, url, *args, **kwargs):  # back off on the per-minute quota (429) and transient 5xx
+    def request(method, url, *args, **kwargs):
+        # Back off on the per-minute quota (429: the request was not applied). Retry server errors only for
+        # reads: a write that failed with 5xx may have been applied, so `sheets` must be rerun, and it rereads
+        # the live table and inserts only rows still missing (batchUpdate is atomic), never replaying blindly.
         import time
         for wait in (0, 20, 40, 60, 90):
             time.sleep(wait)
             reply = original(method, url, *args, **kwargs)
-            if reply.status_code != 429 and reply.status_code < 500:
+            if not (reply.status_code == 429 or (reply.status_code >= 500 and method.upper() == "GET")):
                 break
         reply.raise_for_status()
         return reply
@@ -403,8 +403,11 @@ def drafts() -> None:
         box.select("[Gmail]/Drafts")
         for path in sorted(DRAFTS_DIR.glob("*.json")):
             rater_id = path.stem
-            if rater_id == "A1" or rater_id in saved:
-                continue
+            spec = json.loads(path.read_text())
+            fingerprint = sha(json.dumps({k: spec[k] for k in ("to", "bcc", "subject", "body", "attachment_sha256")},
+                                         sort_keys=True).encode())
+            if rater_id == "A1" or saved.get(rater_id, {}).get("fingerprint") == fingerprint:
+                continue  # this exact draft is already in Gmail
             assert index[rater_id]["status"] == "BUILT_SHEET_MATCHED_NOT_SENT", rater_id
             draft, message = message_for(rater_id)
             query = ("TO", f'"{draft["to"]}"', "SUBJECT", '"VeriBench human-rating main rating task"')
@@ -428,7 +431,7 @@ def drafts() -> None:
             box.select("[Gmail]/Drafts")
             status, now = box.uid("SEARCH", None, *query)
             assert status == "OK" and now[0].split() == new, (rater_id, now)
-            saved[rater_id] = {"to": draft["to"], "zip_sha256": draft["attachment_sha256"],
+            saved[rater_id] = {"to": draft["to"], "zip_sha256": draft["attachment_sha256"], "fingerprint": fingerprint,
                                "message_id": message["Message-ID"], "draft_uid": new[0].decode(),
                                "append_reply": reply[0].decode(errors="replace") if reply and reply[0] else "",
                                "replaced_draft_uids": [u.decode() for u in old], "sent": False, "saved": TODAY}
@@ -457,9 +460,21 @@ def ensure_in_inbox(password: str, message_id: str) -> str:
     raise AssertionError("Sent, but not found in brandojazz@gmail.com within a minute")
 
 
+def send_lock():
+    """Exclusive, non-blocking lock so two processes can never send at the same time."""
+    import fcntl
+    handle = open(SEALED / "SEND.lock", "w")
+    try:
+        fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        raise SystemExit("Another send is running; refusing to send concurrently")
+    return handle  # keep a reference; the lock is released when the process exits
+
+
 def send_a1() -> None:
     """Send Brando's own packet to Brando (requested in chat 11-16-2026). Sends to nobody else."""
     import smtplib
+    lock = send_lock()  # noqa: F841
     index = json.loads(BUILD_INDEX.read_text())
     entry = index["A1"]
     assert entry["status"] in ("BUILT_SHEET_MATCHED_NOT_SENT", "SHEET_IDENTIFIERS_MATCHED_WITH_RESPONSES"), entry["status"]
@@ -507,6 +522,7 @@ def send() -> None:
     from email.utils import formatdate
     args = sys.argv[2:]
     confirm = "--confirm" in args
+    lock = send_lock()  # noqa: F841
     index = json.loads(BUILD_INDEX.read_text())
     saved = json.loads(DRAFTS_LOG.read_text())
     targets = sorted(saved) if "--all" in args else [a for a in args if not a.startswith("--")]
@@ -520,8 +536,15 @@ def send() -> None:
             for rater_id in targets:
                 entry, record = index[rater_id], saved[rater_id]
                 to = record["to"]
+                prior = sent_log.get(rater_id, {})
                 box.select('"[Gmail]/Sent Mail"', readonly=True)
-                if rater_id in sent_log or box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", SUBJECT_QUERY)[1][0].split():
+                by_id = bool(prior.get("message_id")) and bool(
+                    box.uid("SEARCH", None, "HEADER", "Message-ID", prior["message_id"])[1][0].split())
+                by_subject = bool(box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", SUBJECT_QUERY)[1][0].split())
+                if prior.get("status", "sent") == "sent" and prior or by_id or by_subject:
+                    if prior.get("status") != "sent":
+                        sent_log[rater_id] = {**prior, "status": "sent", "reconciled_utc": now_utc()}
+                        SENT_LOG.write_text(json.dumps(sent_log, indent=1) + "\n")
                     print(f"{rater_id}: already sent, skipped")
                     continue
                 box.select("[Gmail]/Drafts")
@@ -541,17 +564,23 @@ def send() -> None:
                     smtp.login("brandojazz@gmail.com", password)
                 if not message["Date"]:
                     message["Date"] = formatdate(localtime=True)
+                # Record the attempt first: if the process dies mid-send, the next run finds this
+                # Message-ID in Sent Mail (or not) before deciding, instead of sending blindly again.
+                sent_log[rater_id] = {"status": "sending", "started_utc": now_utc(), "to": to,
+                                      "message_id": message["Message-ID"], "zip_sha256": entry["zip_sha256"]}
+                SENT_LOG.write_text(json.dumps(sent_log, indent=1) + "\n")
                 refused = smtp.send_message(message, to_addrs=recipients)  # Bcc header is stripped on send
                 assert not refused, refused
                 box.uid("MOVE", uids[0], "[Gmail]/Trash")
-                sent_log[rater_id] = {"sent_utc": now_utc(), "to": to, "bcc": sorted(set(recipients) - {to}),
-                                      "message_id": message["Message-ID"], "zip_sha256": entry["zip_sha256"]}
+                sent_log[rater_id] = {**sent_log[rater_id], "status": "sent", "sent_utc": now_utc(),
+                                      "bcc": sorted(set(recipients) - {to})}
                 SENT_LOG.write_text(json.dumps(sent_log, indent=1) + "\n")
                 print(f"sent {rater_id} {entry['rater_name']} -> {to}")
         finally:
             if smtp is not None:
                 smtp.quit()
-    print("dry run only; nothing was sent" if not confirm else f"{len(sent_log)} sent in total")
+    print("dry run only; nothing was sent" if not confirm else
+          f"{sum(v.get('status', 'sent') == 'sent' for v in sent_log.values())} sent in total")
 
 
 def main_csv_entry(manifest: dict, rater_id: str) -> dict:
@@ -622,8 +651,10 @@ def status() -> None:
         total += done
         if rater_id == "A1":
             mail = f"emailed to self {entry['sent_to_self']['date']}" if entry.get("sent_to_self") else "not emailed"
-        elif rater_id in sent_log:
+        elif rater_id in sent_log and sent_log[rater_id].get("status", "sent") == "sent":
             mail = f"sent {sent_log[rater_id]['sent_utc'][:10]}"
+        elif rater_id in sent_log:
+            mail = "send started, unconfirmed (rerun send to reconcile)"
         else:
             mail = "draft in Gmail, unsent" if rater_id in saved else "no draft"
         w = warmup.get(rater_id)
