@@ -1,13 +1,26 @@
-"""Plan, build and verify the full-team 75-file rating packets (one per rater).
+"""Plan, build and verify the full-team rating packets (one per rater).
+
+Current round (11-16-2026): 100 files = 25 tasks x 4 agents (GPT-6 Astra, Claude
+Fable 5.1, Grok 4.7 and Google's frontier model); see build_four_agent_cohort.py.
+The 75-file round (11-14-2026) used RATABLE_COHORT_75_V2.json and sealed/builds.
 
     plan    write the private roster/design and one Sheet request file per rater
-    build   build every rater's packet and unsent email text (needs created Sheet IDs)
-    verify  bind each build to the digest of its live Sheet table
-    drafts  save the unsent emails to the Gmail Drafts folder (nothing is sent)
+    build   build every rater's packet and unsent email text
+    sheets  add the new rows to each live Sheet in place (existing rows and any
+            entries move with their rows), then bind the build to the live table
+    verify  bind each build to a digest read in the owner's browser (fallback)
+    drafts  replace each rater's unsent email draft with the current one (nothing is sent)
+    send    THE one send path: dry run by default; `send --confirm --all` (or rater IDs) sends each
+            saved Gmail draft as it stands, skips anyone already sent, then trashes that draft
+    export  write each live Sheet's exact table to ratings/ and refresh RAW_MANIFEST/SUMMARY
+    status  who is grading: live per-rater progress, written into the experiment README
 
-Row order per rater: files stay grouped by task; the starting task rotates and the
-task/file direction alternates across raters, so partial top-down work still covers
-all tasks evenly and no agent is always rated first. Order never uses file content.
+Row order (100-file round): Brando (A1) works in task order. Every other rater keeps
+the exact random order of their live 75-file Sheet (11-14-2026 build receipts) and
+the 25 new rows are inserted one at a time at hash-seeded uniform positions, so each
+order stays a uniformly random permutation. Order never uses file content or scores.
+(The task-grouped design() below was the 11-14 plan; the live Sheets used a per-rater
+hash order instead, which this round preserves.)
 """
 
 from __future__ import annotations
@@ -16,6 +29,7 @@ import csv
 import hashlib
 import io
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -26,7 +40,12 @@ import build_packet as bp  # noqa: E402
 REPO = HERE.parents[4]
 OUT = REPO / "research_artifacts/09_human_rating_collection/preparation_11-09-2026/full_team_11-14-2026"
 SEALED = OUT / "sealed"
-COHORT = SEALED / "RATABLE_COHORT_75_V2.json"
+COHORT = SEALED / "RATABLE_COHORT_100_FOUR_AGENTS.json"
+BUILDS = SEALED / "builds_100"
+BUILD_INDEX = SEALED / "BUILD_INDEX_100.json"
+SHEET_REGISTRY = OUT / "SHEET_REGISTRY.json"
+SHEETS_API = "https://sheets.googleapis.com/v4/spreadsheets/"
+TAB = "Ratings"
 TEMPLATE_SHEET_ID = "1Hpcb4NP754RDWstDkiaTR59K9AX2vXNL6IR9iXKRo-Y"
 TEMPLATE_TAB_ID = 0
 BRANDO_SHEET_ID = "1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM"
@@ -44,7 +63,7 @@ OPENERS = {
              "autoformalization\u2014and if you have seen Andrej Karpathy's and Rylan Schaeffer's advice on "
              "becoming a top machine learning researcher (for example, how much of ImageNet Karpathy inspected "
              "firsthand), looking closely at the actual data yourself is essential.",
-    "weekend": "Your ratings would be extremely valuable. If you can finish over the weekend, that would be even "
+    "weekend": "Your ratings would be extremely valuable. If you can finish early, that would be even "
                "better, as many ratings as you have time for.",
 }
 # rater_id, verified name, greeting, delivery email, group, opener (aligned with RATER_IDENTITIES.json & ROSTER.csv)
@@ -99,16 +118,25 @@ def design(index: int) -> dict:
             "start_task_offset": (7 * index) % 25}
 
 
+def files_per_task() -> int:
+    counts = {}
+    for _, folder, _ in cohort_rows():
+        counts[folder] = counts.get(folder, 0) + 1
+    assert len(set(counts.values())) == 1, "Every task must have the same number of files"
+    return next(iter(counts.values()))
+
+
 def ordered_items(spec: dict) -> list[str]:
     """Same result as the Sheet requests: sort by task then file, then rotate whole tasks."""
     rows = sorted(cohort_rows(), key=lambda r: r[2], reverse=spec["file_descending"])
     rows = sorted(rows, key=lambda r: r[1], reverse=spec["task_descending"])  # stable: keeps file order
-    cut = 3 * spec["start_task_offset"]
+    cut = files_per_task() * spec["start_task_offset"]
     return [r[0] for r in rows[cut:] + rows[:cut]]
 
 
 def sheet_requests(name: str, rater_id: str, spec: dict) -> list[dict]:
-    column = lambda c: {"sheetId": TEMPLATE_TAB_ID, "startRowIndex": 1, "endRowIndex": 76,
+    end = 1 + len(cohort_rows())
+    column = lambda c: {"sheetId": TEMPLATE_TAB_ID, "startRowIndex": 1, "endRowIndex": end,
                         "startColumnIndex": c, "endColumnIndex": c + 1}
     order = lambda descending: "DESCENDING" if descending else "ASCENDING"
     requests = [
@@ -116,15 +144,15 @@ def sheet_requests(name: str, rater_id: str, spec: dict) -> list[dict]:
                          "matchCase": True, "matchEntireCell": True}},
         {"findReplace": {"find": "A1", "replacement": rater_id, "range": column(1),
                          "matchCase": True, "matchEntireCell": True}},
-        {"sortRange": {"range": {"sheetId": TEMPLATE_TAB_ID, "startRowIndex": 1, "endRowIndex": 76,
+        {"sortRange": {"range": {"sheetId": TEMPLATE_TAB_ID, "startRowIndex": 1, "endRowIndex": end,
                                  "startColumnIndex": 0, "endColumnIndex": 11},
                        "sortSpecs": [{"dimensionIndex": 3, "sortOrder": order(spec["task_descending"])},
                                      {"dimensionIndex": 4, "sortOrder": order(spec["file_descending"])}]}},
     ]
     if spec["start_task_offset"]:
-        requests.append({"moveDimension": {"source": {"sheetId": TEMPLATE_TAB_ID, "dimension": "ROWS",
-                                                      "startIndex": 1, "endIndex": 1 + 3 * spec["start_task_offset"]},
-                                           "destinationIndex": 76}})
+        requests.append({"moveDimension": {"source": {"sheetId": TEMPLATE_TAB_ID, "dimension": "ROWS", "startIndex": 1,
+                                                      "endIndex": 1 + files_per_task() * spec["start_task_offset"]},
+                                           "destinationIndex": end}})
     return requests
 
 
@@ -133,7 +161,7 @@ def roster() -> list[dict]:
     for index, (rater_id, name, greeting, email, group, opener) in enumerate(PEOPLE, 1):
         people.append({"rater_id": rater_id, "rater_name": name, "greeting": greeting, "email": email,
                        "group": group, "opener": opener, "design": design(index),
-                       "sheet_title": f"VeriBench main rating sheet — {name} — 75 files"})
+                       "sheet_title": f"VeriBench main rating sheet — {name} — {len(cohort_rows())} files"})
     return people
 
 
@@ -153,7 +181,7 @@ def email_body(person: dict, sheet_url: str) -> str:
     opener = OPENERS[person["opener"]] + "\n\n" if person["opener"] else ""
     return f"""Hi {person['greeting']},
 
-{opener}Your VeriBench rating packet is attached: 75 agent files in 25 task folders. Your sheet lists them in your own order; please work from the top down and do as many as you can, even a few helps.
+{opener}Your VeriBench rating packet is attached: {len(cohort_rows())} agent files in 25 task folders. Your sheet lists them in your own order; please work from the top down and do as many as you can, even a few helps.
 
 Your personal rating sheet:
 {sheet_url}
@@ -169,7 +197,7 @@ Please finish by 6pm Pacific on Thursday, 11-19-2026 if you can, so I can run ex
 
 P.S. Feel free to email me with any questions. Email is preferred for questions! Happy to clarify anything! The full instructions are also public at {PUBLIC_START}
 
-Brando (drafted with Antigravity)
+Brando (drafted with Claude)
 -----
 Brando Miranda
 Ph.D. Student
@@ -180,84 +208,413 @@ website: https://brando90.github.io/brandomiranda/
 """
 
 
+BRANDO = {"rater_id": "A1", "rater_name": "Brando Miranda", "greeting": "Brando", "opener": "",
+          "email": "brando9@stanford.edu",
+          "design": {"task_descending": False, "file_descending": False, "start_task_offset": 0}}
+TODAY = "11-16-2026"
+
+
+OLD_BUILDS = OUT / "builds"  # the 75-file builds of record, matched to the live Sheets on 11-14-2026
+
+
+def row_order(rater_id: str) -> list[str]:
+    if rater_id == "A1":
+        return ordered_items(BRANDO["design"])
+    order = list(json.loads((OLD_BUILDS / rater_id / "ASSEMBLY_RECEIPT.json").read_text())["row_order"])
+    salt = f"four-agent-insert-{TODAY}|{rater_id}|"
+    new = sorted({r[0] for r in cohort_rows()} - set(order), key=lambda item: sha((salt + item).encode()))
+    for item in new:  # sequential uniform insertion keeps the old order and randomizes the rest
+        order.insert(int(sha((salt + item + "|position").encode()), 16) % (len(order) + 1), item)
+    assert sorted(order) == sorted(r[0] for r in cohort_rows())
+    return order
+
+
+def registry() -> dict[str, str]:
+    """rater_id -> live Sheet ID of record (created 11-14-2026)."""
+    return {r: v["spreadsheet_id"] for r, v in json.loads(SHEET_REGISTRY.read_text()).items()}
+
+
+def save_index(index: dict) -> None:
+    BUILD_INDEX.write_text(json.dumps(index, indent=1, ensure_ascii=False) + "\n")
+
+
 def build() -> None:
-    created = json.loads((SEALED / "SHEETS_CREATED.json").read_text())
-    index = {}
-    builds = SEALED / "builds"
-    people = roster()
-    brando = {"rater_id": "A1", "rater_name": "Brando Miranda", "design":
-              {"task_descending": False, "file_descending": False, "start_task_offset": 0}}
-    for person in [brando] + people:
+    sheets_by_rater = registry()
+    index = json.loads(BUILD_INDEX.read_text()) if BUILD_INDEX.exists() else {}
+    n = len(cohort_rows())
+    for person in [BRANDO] + roster():
         rater_id = person["rater_id"]
-        sheet_id = BRANDO_SHEET_ID if rater_id == "A1" else created[rater_id]
+        sheet_id = sheets_by_rater[rater_id]
+        assert rater_id != "A1" or sheet_id == BRANDO_SHEET_ID
         url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/edit"
-        out = builds / rater_id
+        out = BUILDS / rater_id
         if not out.exists():
             bp.build_packet(COHORT, out, rater_name=person["rater_name"], rater_id=rater_id, sheet_url=url,
-                            row_order=ordered_items(person["design"]))
+                            row_order=row_order(rater_id))
         receipt = json.loads((out / "ASSEMBLY_RECEIPT.json").read_text())
-        assert receipt["sheet_url"] == url and receipt["artifact_count"] == 75 and receipt["task_count"] == 25
+        assert receipt["sheet_url"] == url and receipt["artifact_count"] == n and receipt["task_count"] == 25
+        assert receipt["row_order"] == row_order(rater_id), rater_id
         table = list(csv.reader(io.StringIO((out / "rating_task_packet/ratings.csv").read_text())))
-        index[rater_id] = {"rater_name": person["rater_name"], "sheet_id": sheet_id, "sheet_url": url,
-                           "expected_table_digest": bp.table_digest(table), "zip": receipt["archive_path"],
-                           "zip_sha256": receipt["archive_sha256"], "status": receipt["status"]}
-        if rater_id != "A1":
-            (SEALED / "drafts").mkdir(exist_ok=True)
-            draft = {"to": person["email"], "bcc": BCC, "subject": SUBJECT, "body": email_body(person, url),
-                     "attachment": receipt["archive_path"], "attachment_sha256": receipt["archive_sha256"]}
-            (SEALED / "drafts" / f"{rater_id}.json").write_text(json.dumps(draft, indent=1, ensure_ascii=False) + "\n")
-    (SEALED / "BUILD_INDEX.json").write_text(json.dumps(index, indent=1, ensure_ascii=False) + "\n")
-    print(json.dumps({r: [v["sheet_id"], v["expected_table_digest"]] for r, v in index.items()}))
+        entry = index.setdefault(rater_id, {})
+        entry.update({"rater_name": person["rater_name"], "sheet_id": sheet_id, "sheet_url": url,
+                      "expected_table_digest": bp.table_digest(table), "zip": receipt["archive_path"],
+                      "zip_sha256": receipt["archive_sha256"]})
+        entry.setdefault("status", receipt["status"])
+        (SEALED / "drafts_100").mkdir(exist_ok=True)
+        draft = {"to": person["email"], "bcc": BCC, "subject": SUBJECT, "body": email_body(person, url),
+                 "attachment": receipt["archive_path"], "attachment_sha256": receipt["archive_sha256"]}
+        (SEALED / "drafts_100" / f"{rater_id}.json").write_text(json.dumps(draft, indent=1, ensure_ascii=False) + "\n")
+    save_index(index)
+    print(f"built {len(index)} packets of {n} files")
+
+
+def sheets_session():
+    from google.auth.transport.requests import AuthorizedSession, Request
+    from google.oauth2.credentials import Credentials
+    creds = Credentials.from_authorized_user_info(
+        json.loads((Path.home() / "keys/gspread_authorized_user.json").read_text()))
+    if not creds.valid:
+        creds.refresh(Request())
+    session = AuthorizedSession(creds)
+    original = session.request
+
+    def request(method, url, *args, **kwargs):  # back off on the per-minute quota (429) and transient 5xx
+        import time
+        for wait in (0, 20, 40, 60, 90):
+            time.sleep(wait)
+            reply = original(method, url, *args, **kwargs)
+            if reply.status_code != 429 and reply.status_code < 500:
+                break
+        reply.raise_for_status()
+        return reply
+    session.request = request
+    return session
+
+
+def live_table(session, sheet_id: str) -> list[list[str]]:
+    reply = session.get(f"{SHEETS_API}{sheet_id}/values/{TAB}!A1:K", params={"majorDimension": "ROWS"})
+    return [row + [""] * (11 - len(row)) for row in reply.json().get("values", [])]
+
+
+def sheets() -> None:
+    """Insert the new rows where they belong in each live Sheet; existing rows and any entries move with them."""
+    only = set(sys.argv[2:])
+    index = json.loads(BUILD_INDEX.read_text())
+    session = sheets_session()
+    for rater_id, entry in index.items():
+        if only and rater_id not in only:
+            continue
+        out = BUILDS / rater_id
+        expected = list(csv.reader(io.StringIO((out / "rating_task_packet/ratings.csv").read_text())))
+        meta = session.get(f"{SHEETS_API}{entry['sheet_id']}", params={"fields": "properties.title,sheets.properties"})
+        meta.raise_for_status()
+        meta = meta.json()
+        tab = next(s["properties"] for s in meta["sheets"] if s["properties"]["title"] == TAB)
+        now = live_table(session, entry["sheet_id"])
+        assert now[0] == expected[0], f"{rater_id}: header differs"
+        now_ids, new_ids = [row[2] for row in now[1:]], [row[2] for row in expected[1:]]
+        keep = set(now_ids)
+        assert len(keep) == len(now_ids) and keep <= set(new_ids), f"{rater_id}: unexpected live rows"
+        assert [i for i in new_ids if i in keep] == now_ids, f"{rater_id}: live order differs from the build"
+        assert [row[:5] for row in now[1:]] == [row[:5] for row in expected[1:] if row[2] in keep], rater_id
+        requests, inserted = [], 0
+        for position, row in enumerate(expected[1:]):
+            if row[2] in keep:
+                continue
+            at = 1 + position
+            requests.append({"insertDimension": {"range": {"sheetId": tab["sheetId"], "dimension": "ROWS",
+                                                           "startIndex": at, "endIndex": at + 1},
+                                                 "inheritFromBefore": at > 1}})
+            requests.append({"updateCells": {"start": {"sheetId": tab["sheetId"], "rowIndex": at, "columnIndex": 0},
+                                             "rows": [{"values": [{"userEnteredValue": {"stringValue": v}}
+                                                                  for v in row[:5]]}],
+                                             "fields": "userEnteredValue"}})
+            inserted += 1
+        title = meta["properties"]["title"]
+        new_title = re.sub(r"\b\d+ files\b", f"{len(new_ids)} files", title)
+        if new_title != title:
+            requests.append({"updateSpreadsheetProperties": {"properties": {"title": new_title}, "fields": "title"}})
+        if requests:
+            session.post(f"{SHEETS_API}{entry['sheet_id']}:batchUpdate", json={"requests": requests}).raise_for_status()
+        after = live_table(session, entry["sheet_id"])
+        responses = sum(any(cell.strip() for cell in row[5:11]) for row in after[1:])
+        assert [row[:5] for row in after] == [row[:5] for row in expected], f"{rater_id}: identifiers differ after insert"
+        entry.update({"rows_inserted": inserted, "live_title": new_title, "responses_at_check": responses})
+        if responses == 0:
+            bp.verify_sheet_digest(out, bp.table_digest(after), len(after),
+                                   f"Sheets API read of {TAB}!A1:K after inserting rows, {TODAY}")
+            entry["status"] = "BUILT_SHEET_MATCHED_NOT_SENT"
+        else:
+            entry["status"] = "SHEET_IDENTIFIERS_MATCHED_WITH_RESPONSES"
+        save_index(index)
+        print(rater_id, entry["status"], f"inserted={inserted}", f"responses={responses}", new_title)
 
 
 def verify() -> None:
-    """Input: sealed/LIVE_DIGESTS.json {sheet_id: 'digest:rows:rows_with_responses'} read in the owner's browser."""
+    """Fallback input: sealed/LIVE_DIGESTS.json {sheet_id: 'digest:rows:rows_with_responses'} read in the owner's browser."""
     observed = json.loads((SEALED / "LIVE_DIGESTS.json").read_text())
-    index = json.loads((SEALED / "BUILD_INDEX.json").read_text())
+    index = json.loads(BUILD_INDEX.read_text())
     bad = []
     for rater_id, entry in index.items():
         digest, rows, responses = observed.get(entry["sheet_id"], "::").split(":")
         try:
             assert responses == "0", "live Sheet already has responses"
-            bp.verify_sheet_digest(SEALED / "builds" / rater_id, digest, int(rows or 0),
-                                   "gviz CSV read of Ratings!A1:K76 in the owner's signed-in browser, 11-14-2026")
+            bp.verify_sheet_digest(BUILDS / rater_id, digest, int(rows or 0),
+                                   "gviz CSV read of the Ratings tab in the owner's signed-in browser")
             entry["status"] = "BUILT_SHEET_MATCHED_NOT_SENT"
         except (AssertionError, ValueError) as error:
             bad.append((rater_id, str(error)))
             entry["status"] = "HELD"
-    (SEALED / "BUILD_INDEX.json").write_text(json.dumps(index, indent=1, ensure_ascii=False) + "\n")
+    save_index(index)
     print(f"matched {len(index) - len(bad)} of {len(index)}; held: {bad}")
 
 
+def message_for(rater_id: str):
+    from email.message import EmailMessage
+    from email.utils import make_msgid
+    draft = json.loads((SEALED / "drafts_100" / f"{rater_id}.json").read_text())
+    data = Path(draft["attachment"]).read_bytes()
+    assert sha(data) == draft["attachment_sha256"]
+    message = EmailMessage()
+    message["From"] = "Brando Miranda <brandojazz@gmail.com>"
+    message["To"], message["Bcc"], message["Subject"] = draft["to"], ", ".join(draft["bcc"]), draft["subject"]
+    message["Message-ID"] = make_msgid(domain="gmail.com")
+    message.set_content(draft["body"])
+    message.add_attachment(data, maintype="application", subtype="zip", filename=Path(draft["attachment"]).name)
+    return draft, message
+
+
 def drafts() -> None:
+    """Replace each rater's unsent draft (same recipient and subject) with the current one. Nothing is sent."""
     import imaplib
     import time
-    from email.message import EmailMessage
     password = (Path.home() / "keys/gmail_app_password.txt").read_text().strip()
-    index = json.loads((SEALED / "BUILD_INDEX.json").read_text())
-    log_path = SEALED / "DRAFTS_SAVED.json"
+    index = json.loads(BUILD_INDEX.read_text())
+    log_path = SEALED / "DRAFTS_SAVED_100.json"
     saved = json.loads(log_path.read_text()) if log_path.exists() else {}
     with imaplib.IMAP4_SSL("imap.gmail.com") as box:
         box.login("brandojazz@gmail.com", password)
-        for path in sorted((SEALED / "drafts").glob("*.json")):
+        box.select("[Gmail]/Drafts")
+        for path in sorted((SEALED / "drafts_100").glob("*.json")):
             rater_id = path.stem
-            if rater_id in saved:
+            if rater_id == "A1" or rater_id in saved:
                 continue
             assert index[rater_id]["status"] == "BUILT_SHEET_MATCHED_NOT_SENT", rater_id
-            draft = json.loads(path.read_text())
-            data = Path(draft["attachment"]).read_bytes()
-            assert sha(data) == draft["attachment_sha256"]
-            message = EmailMessage()
-            message["From"] = "Brando Miranda <brandojazz@gmail.com>"
-            message["To"], message["Bcc"], message["Subject"] = draft["to"], ", ".join(draft["bcc"]), draft["subject"]
-            message.set_content(draft["body"])
-            message.add_attachment(data, maintype="application", subtype="zip", filename=Path(draft["attachment"]).name)
-            status, reply = box.append("[Gmail]/Drafts", "\\Draft", imaplib.Time2Internaldate(time.time()), message.as_bytes())
-            assert status == "OK", reply
-            saved[rater_id] = {"to": draft["to"], "append_reply": reply[0].decode(errors="replace"), "sent": False}
+            draft, message = message_for(rater_id)
+            query = ("TO", f'"{draft["to"]}"', "SUBJECT", '"VeriBench human-rating main rating task"')
+            mine = ("HEADER", "Message-ID", message["Message-ID"])
+            reply = [b""]
+            for attempt in range(3):
+                # Gmail can answer "System Error (Failure)" yet store the draft, so confirm by Message-ID.
+                status, reply = box.append("[Gmail]/Drafts", "\\Draft", imaplib.Time2Internaldate(time.time()),
+                                           message.as_bytes())
+                box.select("[Gmail]/Drafts")
+                new = box.uid("SEARCH", None, *mine)[1][0].split()
+                if new:
+                    break
+                time.sleep(10 * (attempt + 1))
+            assert len(new) == 1, (rater_id, status, reply)
+            status, found = box.uid("SEARCH", None, *query)
+            assert status == "OK", found
+            old = [uid for uid in found[0].split() if uid not in new]
+            for uid in old:
+                assert box.uid("MOVE", uid, "[Gmail]/Trash")[0] == "OK", uid
+            box.select("[Gmail]/Drafts")
+            status, now = box.uid("SEARCH", None, *query)
+            assert status == "OK" and now[0].split() == new, (rater_id, now)
+            saved[rater_id] = {"to": draft["to"], "zip_sha256": draft["attachment_sha256"],
+                               "message_id": message["Message-ID"], "draft_uid": new[0].decode(),
+                               "append_reply": reply[0].decode(errors="replace") if reply and reply[0] else "",
+                               "replaced_draft_uids": [u.decode() for u in old], "sent": False, "saved": TODAY}
             log_path.write_text(json.dumps(saved, indent=1) + "\n")
     print(f"{len(saved)} unsent drafts are in Gmail Drafts; nothing was sent")
 
 
+def send_a1() -> None:
+    """Send Brando's own packet to Brando (requested in chat 11-16-2026). Sends to nobody else."""
+    import smtplib
+    index = json.loads(BUILD_INDEX.read_text())
+    entry = index["A1"]
+    assert entry["status"] in ("BUILT_SHEET_MATCHED_NOT_SENT", "SHEET_IDENTIFIERS_MATCHED_WITH_RESPONSES"), entry["status"]
+    draft, message = message_for("A1")
+    recipients = sorted({draft["to"], *draft["bcc"]})
+    assert all(r in ("brando9@stanford.edu", "brandojazz@gmail.com", "brando.science@gmail.com") for r in recipients)
+    password = (Path.home() / "keys/gmail_app_password.txt").read_text().strip()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        smtp.login("brandojazz@gmail.com", password)
+        refused = smtp.send_message(message, to_addrs=recipients)
+    assert not refused, refused
+    entry["sent_to_self"] = {"date": TODAY, "to": draft["to"], "bcc": draft["bcc"],
+                             "message_id": message["Message-ID"], "zip_sha256": draft["attachment_sha256"]}
+    save_index(index)
+    print("sent A1 to", recipients, message["Message-ID"])
+
+
+SENT_LOG = SEALED / "SENT_100.json"
+SUBJECT_QUERY = '"VeriBench human-rating main rating task"'
+EXPERIMENT = REPO / "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026"
+STATUS_START, STATUS_END = "<!-- grading-status:start -->", "<!-- grading-status:end -->"
+ROLE = {"author": "VeriBench co-author", "author (extra-only designation preserved)": "VeriBench co-author (extra_only)",
+        "new co-author invite": "New co-author invitee", "Vals colleague": "Vals AI rater"}
+
+
+def now_utc() -> str:
+    from datetime import datetime, timezone
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def send() -> None:
+    """The one send path: send each rater's saved Gmail draft as it stands, then move that draft to Trash.
+
+    Dry run unless --confirm; target --all or listed rater IDs. Anyone who already has this email in
+    Sent Mail is skipped, so a draft sent by hand from Gmail is never sent twice.
+    """
+    import email
+    import imaplib
+    import smtplib
+    from email import policy
+    from email.utils import formatdate
+    args = sys.argv[2:]
+    confirm = "--confirm" in args
+    index = json.loads(BUILD_INDEX.read_text())
+    saved = json.loads((SEALED / "DRAFTS_SAVED_100.json").read_text())
+    targets = sorted(saved) if "--all" in args else [a for a in args if not a.startswith("--")]
+    assert targets and set(targets) <= set(saved), "Name rater IDs or --all"
+    sent_log = json.loads(SENT_LOG.read_text()) if SENT_LOG.exists() else {}
+    password = (Path.home() / "keys/gmail_app_password.txt").read_text().strip()
+    smtp = None
+    with imaplib.IMAP4_SSL("imap.gmail.com") as box:
+        box.login("brandojazz@gmail.com", password)
+        try:
+            for rater_id in targets:
+                entry, record = index[rater_id], saved[rater_id]
+                to = record["to"]
+                box.select('"[Gmail]/Sent Mail"', readonly=True)
+                if rater_id in sent_log or box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", SUBJECT_QUERY)[1][0].split():
+                    print(f"{rater_id}: already sent, skipped")
+                    continue
+                box.select("[Gmail]/Drafts")
+                uids = box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", SUBJECT_QUERY)[1][0].split()
+                assert len(uids) == 1, f"{rater_id}: expected one draft, found {len(uids)}"
+                message = email.message_from_bytes(box.uid("FETCH", uids[0], "(BODY.PEEK[])")[1][0][1], policy=policy.SMTP)
+                attachments = list(message.iter_attachments())
+                assert len(attachments) == 1 and sha(attachments[0].get_content()) == entry["zip_sha256"], rater_id
+                assert message["To"].strip().lower() == to.lower() and entry["status"] == "BUILT_SHEET_MATCHED_NOT_SENT"
+                assert entry["sheet_url"] in message.get_body(("plain",)).get_content(), f"{rater_id}: Sheet link missing"
+                recipients = sorted({to, *(a.strip() for a in str(message["Bcc"] or "").split(",") if a.strip())})
+                if not confirm:
+                    print(f"[dry run] {rater_id} {entry['rater_name']} -> {', '.join(recipients)}")
+                    continue
+                if smtp is None:
+                    smtp = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=120)
+                    smtp.login("brandojazz@gmail.com", password)
+                if not message["Date"]:
+                    message["Date"] = formatdate(localtime=True)
+                refused = smtp.send_message(message, to_addrs=recipients)  # Bcc header is stripped on send
+                assert not refused, refused
+                box.uid("MOVE", uids[0], "[Gmail]/Trash")
+                sent_log[rater_id] = {"sent_utc": now_utc(), "to": to, "bcc": sorted(set(recipients) - {to}),
+                                      "message_id": message["Message-ID"], "zip_sha256": entry["zip_sha256"]}
+                SENT_LOG.write_text(json.dumps(sent_log, indent=1) + "\n")
+                print(f"sent {rater_id} {entry['rater_name']} -> {to}")
+        finally:
+            if smtp is not None:
+                smtp.quit()
+    print("dry run only; nothing was sent" if not confirm else f"{len(sent_log)} sent in total")
+
+
+def main_csv_entry(manifest: dict, rater_id: str) -> dict:
+    found = [f for f in manifest["files"] if f["rater_id"] == rater_id and f["packet"] == "native_main"]
+    assert len(found) == 1, rater_id
+    return found[0]
+
+
+def export() -> None:
+    """Write each live main Sheet's exact table to ratings/ and refresh RAW_MANIFEST.json and SUMMARY.json."""
+    ratings = EXPERIMENT / "ratings"
+    manifest_path, summary_path = ratings / "RAW_MANIFEST.json", ratings / "SUMMARY.json"
+    manifest, summary = json.loads(manifest_path.read_text()), json.loads(summary_path.read_text())
+    index = json.loads(BUILD_INDEX.read_text())
+    session = sheets_session()
+    scored = {}
+    for rater_id, entry in index.items():
+        table = live_table(session, entry["sheet_id"])
+        assert table[0] == bp.COLUMNS and all(row[1] == rater_id for row in table[1:]), rater_id
+        record = main_csv_entry(manifest, rater_id)
+        buffer = io.StringIO()
+        csv.writer(buffer, lineterminator="\n").writerows(table)
+        data = buffer.getvalue().encode()
+        (ratings / record["filename"]).write_bytes(data)
+        numeric = sum(row[5].strip() in {"0", "1", "2", "3", "4", "5"} for row in table[1:])
+        not_applicable = sum(row[5].strip().upper() == "N/A" for row in table[1:])
+        scored[rater_id] = numeric
+        record.update({
+            "url": entry["sheet_url"], "spreadsheet_id": entry["sheet_id"], "range": f"{TAB}!A1:K{len(table)}",
+            "assigned_rows": len(table) - 1, "rows": len(table) - 1, "numeric_ratings": numeric,
+            "not_applicable_rows": not_applicable, "sha256": sha(data),
+            "source_readback_sha256": sha(json.dumps(table, ensure_ascii=False, separators=(",", ":")).encode()),
+            "assembly_receipt_sha256": sha((BUILDS / rater_id / "ASSEMBLY_RECEIPT.json").read_bytes()),
+            "status": "prepared blank form, not a completed observation" if numeric + not_applicable == 0
+                      else "live table; participant responses preserved as entered"})
+    manifest["numeric_observations"] = sum(f.get("numeric_ratings", 0) for f in manifest["files"])
+    manifest["not_applicable_rows"] = sum(f.get("not_applicable_rows", 0) for f in manifest["files"])
+    manifest["checked_date"], manifest["recorded_utc"] = TODAY, now_utc()
+    revision = {"date": TODAY, "artifacts": len(cohort_rows()), "tasks": 25, "agents_per_task": files_per_task(),
+                "added": "25 rows per Sheet for Google's frontier model (planned Google cells), inserted in place",
+                "sheets_verified": len(index), "main_numeric_observations": sum(scored.values()),
+                "emails_sent": "A1 to self only" if not SENT_LOG.exists() else f"A1 to self + {len(json.loads(SENT_LOG.read_text()))}",
+                "cohort_commitment": "../../../research_artifacts/09_human_rating_collection/preparation_11-09-2026/"
+                                     "full_team_11-14-2026/COHORT_100_COMMITMENT.json"}
+    manifest["full_team_100_revision"] = revision
+    summary["checked_date"] = TODAY
+    summary["full_team_100_sync"] = {k: revision[k] for k in ("date", "artifacts", "tasks", "agents_per_task",
+                                                              "sheets_verified", "main_numeric_observations", "emails_sent")}
+    manifest_path.write_text(json.dumps(manifest, indent=1, ensure_ascii=False) + "\n")
+    summary_path.write_text(json.dumps(summary, indent=1, ensure_ascii=False) + "\n")
+    print(f"exported {len(index)} main Sheets; numeric main ratings: {sum(scored.values())}")
+
+
+def status() -> None:
+    """Who is grading: one row per rater with live progress, written into the experiment README."""
+    index = json.loads(BUILD_INDEX.read_text())
+    saved_path = SEALED / "DRAFTS_SAVED_100.json"
+    saved = json.loads(saved_path.read_text()) if saved_path.exists() else {}
+    sent_log = json.loads(SENT_LOG.read_text()) if SENT_LOG.exists() else {}
+    manifest = json.loads((EXPERIMENT / "ratings/RAW_MANIFEST.json").read_text())
+    warmup = {f["rater_id"]: f for f in manifest["files"] if f["packet"] == "warmup"}
+    people = {p["rater_id"]: p for p in [BRANDO] + roster()}
+    session = sheets_session()
+    rows, total = [], 0
+    for rater_id, entry in index.items():
+        table = live_table(session, entry["sheet_id"])
+        done = sum(row[5].strip() != "" for row in table[1:])
+        total += done
+        if rater_id == "A1":
+            mail = f"emailed to self {entry['sent_to_self']['date']}" if entry.get("sent_to_self") else "not emailed"
+        elif rater_id in sent_log:
+            mail = f"sent {sent_log[rater_id]['sent_utc'][:10]}"
+        else:
+            mail = "draft in Gmail, unsent" if rater_id in saved else "no draft"
+        w = warmup.get(rater_id)
+        warm = f"{w['numeric_ratings']}/{w['assigned_rows']}" if w else "none"
+        role = "Author (coordinator)" if rater_id == "A1" else ROLE.get(people[rater_id]["group"], people[rater_id]["group"])
+        csv_name = main_csv_entry(manifest, rater_id)["filename"]
+        rows.append(f"| `{rater_id}` | {entry['rater_name']} | {people[rater_id]['email']} | {role} | {warm} | {mail} | "
+                    f"**{done}/{len(table) - 1}** | [Sheet]({entry['sheet_url']}) · [CSV](ratings/{csv_name}) |")
+    block = "\n".join([STATUS_START, f"Live progress read from the 32 Sheets on {TODAY} ({now_utc()[11:16]} UTC); "
+                       f"refresh with `python3 support/scripts/native_packet_generation/build_full_team_packets.py status`. "
+                       f"Scored = rows with a `final_score_0_5` entry. Total scored: **{total}** of {100 * len(index)}.", "",
+                       "| ID | Rater | Email | Role | Warm-up | Packet email | Scored | Links |",
+                       "| --- | --- | --- | --- | ---: | --- | ---: | --- |", *rows, STATUS_END])
+    readme = EXPERIMENT / "README.md"
+    text = readme.read_text()
+    assert text.count(STATUS_START) == 1 and text.count(STATUS_END) == 1, "README needs one grading-status block"
+    head, rest = text.split(STATUS_START)
+    readme.write_text(head + block + rest.split(STATUS_END, 1)[1])
+    print("\n".join(rows))
+    print(f"total scored: {total}")
+
+
 if __name__ == "__main__":
-    {"plan": plan, "build": build, "verify": verify, "drafts": drafts}[sys.argv[1]]()
+    {"plan": plan, "build": build, "sheets": sheets, "verify": verify, "drafts": drafts,
+     "send-a1": send_a1, "send": send, "export": export, "status": status}[sys.argv[1]]()

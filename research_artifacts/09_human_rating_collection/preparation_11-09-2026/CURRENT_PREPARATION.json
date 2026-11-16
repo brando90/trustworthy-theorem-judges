@@ -1,36 +1,41 @@
 {
-  "version": "full_team_75_v2_11-14-2026",
-  "status": "READY_FOR_BRANDO_GRADING_AND_EXPLICIT_SEND_GATE",
+  "version": "full_team_100_four_agents_11-16-2026",
+  "status": "A1_EMAILED_TO_SELF_TEAM_DRAFTS_SAVED_UNSENT",
   "round_id": "native-heavy-11-11-2026",
-  "review": "full_team_11-14-2026/REVIEW_ALL_31_EMAILS_11-14-2026.md",
-  "queue": "full_team_11-14-2026/DISPATCH_MANIFEST_31_RATERS.json",
-  "packets": "full_team_11-14-2026/builds",
+  "review": "full_team_11-14-2026/REVIEW_ALL_31_EMAILS_11-16-2026.md",
+  "queue": "Gmail Drafts (31, one per rater); log full_team_11-14-2026/sealed/DRAFTS_SAVED_100.json",
+  "packets": "full_team_11-14-2026/sealed/builds_100",
   "sheet_registry": "full_team_11-14-2026/SHEET_REGISTRY.json",
-  "build_summary": "full_team_11-14-2026/BUILD_SUMMARY_32.json",
-  "cohort_commitment": "full_team_11-14-2026/COHORT_75_COMMITMENT.json",
+  "build_index": "full_team_11-14-2026/sealed/BUILD_INDEX_100.json",
+  "cohort_commitment": "full_team_11-14-2026/COHORT_100_COMMITMENT.json",
+  "parent_cohort_commitment": "full_team_11-14-2026/COHORT_75_COMMITMENT.json",
   "send_authorized": false,
-  "send_script": "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/scripts/send_full_team_75_packets.py",
+  "send_command": "python3 experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/scripts/native_packet_generation/build_full_team_packets.py send --confirm --all",
+  "status_command": "python3 experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/scripts/native_packet_generation/build_full_team_packets.py status",
   "counts": {
     "tasks": 25,
-    "files_per_packet": 75,
+    "files_per_packet": 100,
     "total_sheets_and_packets": 32,
     "author_sheets": 1,
     "outgoing_raters_staged": 31,
     "excluded_individuals": 4,
-    "sent_emails": 0,
+    "sent_emails": 1,
     "completed_main_ratings": 0,
     "warmup_numeric_ratings": 15,
-    "warmup_not_applicable_rows": 3
+    "warmup_not_applicable_rows": 3,
+    "agents_per_task": 4,
+    "sent_emails_note": "A1's own packet to Brando only (11-16-2026, requested in chat)"
   },
   "configuration_counts": {
     "historical_codex_astra": 25,
     "native_claude_fable": 19,
     "historical_terminus_fable": 6,
-    "historical_terminus_grok": 25
+    "historical_terminus_grok": 25,
+    "historical_terminus_gemini": 25
   },
   "deadlines": {
     "preferred": "Thursday, 11-19-2026, 6:00 PM PT",
     "final": "Sunday, 11-22-2026"
   },
-  "note": "Supersedes 54-file native_main_v1_11-11-2026 and 3-person pilot queue as the active packet inventory while preserving Yegor T02 extra_only status and all prior snapshots/receipts."
+  "note": "Supersedes full_team_75_v2_11-14-2026: adds Google's frontier model (25 files of record, set N) in the 25 planned Google cells, so every task has agent_1..agent_4. Existing Sheet rows and orders are unchanged; the 75-file send script and its staged manifest are retired (git history keeps them)."
 }

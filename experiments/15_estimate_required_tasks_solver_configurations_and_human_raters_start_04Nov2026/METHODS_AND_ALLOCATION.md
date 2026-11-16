@@ -139,7 +139,7 @@ This section turns the open sizing question into explicit choices. It is plannin
 
 | Claim | Sampled axis | What sets the size |
 | --- | --- | --- |
-| (a) Describe judge–human agreement on the current packet | None among tasks and solver configurations: the packet's 25 tasks and three frontier agent families (four solver conditions) are taken as given | The packet itself: 75 files × 2 ratings = 150 |
+| (a) Describe judge–human agreement on the current packet | None among tasks and solver configurations: the packet's 25 tasks and four frontier agent families (five solver conditions) are taken as given | The packet itself: 100 files × 2 ratings = 200 |
 | (b) Compare training method 2 with method 4 on new tasks, for fixed solver configurations | Task families | The spread of the paired loss difference across task families |
 | (c) Also claim transfer to unseen solver configurations or raters | Solver configurations and raters as well | Many identities on each new axis; three or four configurations give no usable interval |
 
@@ -156,8 +156,8 @@ Intervals are the saved 95% percentile-bootstrap intervals; `p-val=n/a` for all,
 | RPS above the 20-task value at 4 / 8 / 12 / 16 training tasks | +0.0133 / +0.0044 / +0.0021 / +0.0006 | — | — | archived learning-curve study |
 | RPS cost of training on 1 rating per file, or 2, instead of all 2–3 | +0.0020 [+0.0010, +0.0031]; +0.0004 [+0.0001, +0.0007] | 25 tasks | — | archived learning-curve study |
 | Entered minutes per rating | Warm-up: 6 entries from 1 rater, median 4, range 2–5. Main task: 0 entries | — | — | [raw rating files](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/ratings/README.md) |
-| Candidate file length, median lines | Warm-up 58 (6 files); main task 483 (75 files); ratio 8.3 | — | — | [task packet](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/START_HERE.md) |
-| Current packet | 75 files on 25 tasks: all 25 tasks with three files; 3.0 files per task | — | — | [main form](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/main_rating_task/ratings.csv) |
+| Candidate file length, median lines | Warm-up 58 (6 files); main task 521.5 (100 files); ratio 9.0 | — | — | [task packet](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/START_HERE.md) |
+| Current packet | 100 files on 25 tasks: all 25 tasks with four files; 4.0 files per task | — | — | [main form](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/main_rating_task/ratings.csv) |
 
 The two archived studies disagree on the sign of the difference (−0.0056 and +0.0052), and each interval that allows for refitting includes zero. Which objective is better is unresolved; this section sizes the comparison, it does not predict its outcome.
 
@@ -179,14 +179,14 @@ For a mean over \(n\) independent units with a 95% interval \([\mathrm{lo},\math
 
 For one judge's RPS level, standard deviation 0.0675 gives 44 tasks for ±0.02, 176 for ±0.01 and 701 for ±0.005; 25 tasks give ±0.0265. Paired comparisons are far cheaper than absolute levels because task difficulty cancels.
 
-| Scenario | New development tasks | New held-out tasks | Held-out tasks in total | Independent ratings | Hours at 4 minutes | Hours at 33 minutes |
+| Scenario | New development tasks | New held-out tasks | Held-out tasks in total | Independent ratings | Hours at 4 minutes | Hours at 36 minutes |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Finish the current packet | 0 | 0 | 25 | 150 | 10.0 | 83.3 |
-| Add a development pool | 24 | 0 | 25 | 294 | 19.6 | 163.2 |
-| Development pool, plus held-out tasks for ±0.01 | 24 | 12 | 37 | 366 | 24.4 | 203.2 |
-| Development pool, plus held-out tasks for ±0.005 | 24 | 120 | 145 | 1,014 | 67.6 | 562.9 |
+| Finish the current packet | 0 | 0 | 25 | 200 | 13.3 | 119.9 |
+| Add a development pool | 24 | 0 | 25 | 392 | 26.1 | 235.0 |
+| Development pool, plus held-out tasks for ±0.01 | 24 | 12 | 37 | 488 | 32.5 | 292.5 |
+| Development pool, plus held-out tasks for ±0.005 | 24 | 120 | 145 | 1,352 | 90.1 | 810.4 |
 
-New tasks are costed at 3.0 files per task and two ratings per file. Four minutes is the measured warm-up median; 33 minutes is that value multiplied by the 8.3 length ratio, an assumption and not a measurement. Held-out counts use the middle variability case.
+New tasks are costed at 4.0 files per task and two ratings per file. Four minutes is the measured warm-up median; 36 minutes is that value multiplied by the 9.0 length ratio, an assumption and not a measurement. Held-out counts use the middle variability case.
 
 ### Limits of this arithmetic
 
@@ -196,7 +196,7 @@ New tasks are costed at 3.0 files per task and two ratings per file. Four minute
 - **Only task-family sampling is covered.** Rater sampling, judge repeat variability and the prior exposure of the historical test outcomes are outside these intervals.
 - **One planned comparison.** Several proper-loss conditions against Pearson need one declared primary contrast or a multiplicity adjustment.
 - **Solver configurations and the rater panel are fixed.** Nothing here supports claim (c).
-- **The return rate is assumed stable.** 3.0 files per task reflects 75 files across the three frontier agent families (four solver conditions; the fourth planned Pi/Gemini configuration returned none).
+- **The return rate is assumed stable.** 4.0 files per task reflects 100 files across four frontier agent families (five solver conditions); the planned Pi/Gemini 3.8 Flash configuration returned none, so its cells hold Google's frontier model's earlier Terminus 2 files.
 - **The development pool is a starting block.** Sixteen training and eight validation tasks are an agent's suggestion read off a five-weight mixture's curve, not a derived requirement.
 
 ### Inputs still missing, and a bounded way to get each

@@ -135,14 +135,14 @@
   },
   "current_packet": {
     "source": "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/main_rating_task/ratings.csv",
-    "files": 75,
+    "files": 100,
     "tasks": 25,
-    "files_per_task": 3.0,
+    "files_per_task": 4.0,
     "tasks_by_file_count": {
-      "3": 25
+      "4": 25
     },
     "ratings_per_file_target": 2,
-    "independent_rating_target": 150
+    "independent_rating_target": 200
   },
   "review_time": {
     "source": "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/ratings",
@@ -174,10 +174,10 @@
     },
     "warm_up_candidate_files": 6,
     "warm_up_median_lines": 58.0,
-    "main_candidate_files": 75,
-    "main_median_lines": 483,
-    "main_to_warm_up_median_length_ratio": 8.327586,
-    "assumed_minutes_if_time_scaled_with_length": 33.310345
+    "main_candidate_files": 100,
+    "main_median_lines": 521.5,
+    "main_to_warm_up_median_length_ratio": 8.991379,
+    "assumed_minutes_if_time_scaled_with_length": 35.965517
   },
   "scenarios": {
     "finish_current_packet": {
@@ -185,63 +185,63 @@
       "new_evaluation_tasks": 0,
       "evaluation_tasks": 25,
       "new_ratings_at_measured_files_per_task": 0,
-      "total_independent_ratings": 150,
+      "total_independent_ratings": 200,
       "hours": {
-        "measured_warm_up_median": 10.0,
-        "assumed_length_scaled": 83.275862
+        "measured_warm_up_median": 13.333333,
+        "assumed_length_scaled": 119.885057
       },
       "ratings_per_person": {
-        "4": 38,
-        "8": 19,
-        "12": 13
+        "4": 50,
+        "8": 25,
+        "12": 17
       }
     },
     "add_development_pool": {
       "new_development_tasks": 24,
       "new_evaluation_tasks": 0,
       "evaluation_tasks": 25,
-      "new_ratings_at_measured_files_per_task": 144,
-      "total_independent_ratings": 294,
+      "new_ratings_at_measured_files_per_task": 192,
+      "total_independent_ratings": 392,
       "hours": {
-        "measured_warm_up_median": 19.6,
-        "assumed_length_scaled": 163.22069
+        "measured_warm_up_median": 26.133333,
+        "assumed_length_scaled": 234.974713
       },
       "ratings_per_person": {
-        "4": 74,
-        "8": 37,
-        "12": 25
+        "4": 98,
+        "8": 49,
+        "12": 33
       }
     },
     "add_development_pool_and_reach_half_width_0.01": {
       "new_development_tasks": 24,
       "new_evaluation_tasks": 12,
       "evaluation_tasks": 37,
-      "new_ratings_at_measured_files_per_task": 216,
-      "total_independent_ratings": 366,
+      "new_ratings_at_measured_files_per_task": 288,
+      "total_independent_ratings": 488,
       "hours": {
-        "measured_warm_up_median": 24.4,
-        "assumed_length_scaled": 203.193103
+        "measured_warm_up_median": 32.533333,
+        "assumed_length_scaled": 292.51954
       },
       "ratings_per_person": {
-        "4": 92,
-        "8": 46,
-        "12": 31
+        "4": 122,
+        "8": 61,
+        "12": 41
       }
     },
     "add_development_pool_and_reach_half_width_0.005": {
       "new_development_tasks": 24,
       "new_evaluation_tasks": 120,
       "evaluation_tasks": 145,
-      "new_ratings_at_measured_files_per_task": 864,
-      "total_independent_ratings": 1014,
+      "new_ratings_at_measured_files_per_task": 1152,
+      "total_independent_ratings": 1352,
       "hours": {
-        "measured_warm_up_median": 67.6,
-        "assumed_length_scaled": 562.944828
+        "measured_warm_up_median": 90.133333,
+        "assumed_length_scaled": 810.422989
       },
       "ratings_per_person": {
-        "4": 254,
-        "8": 127,
-        "12": 85
+        "4": 338,
+        "8": 169,
+        "12": 113
       }
     }
   }
