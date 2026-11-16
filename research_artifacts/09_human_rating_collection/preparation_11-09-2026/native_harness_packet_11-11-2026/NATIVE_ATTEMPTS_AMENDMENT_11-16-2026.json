@@ -13,6 +13,10 @@
   "grok": {
    "path": "research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/GROK_CLI_CONDITION_V3.json",
    "sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad"
+  },
+  "fable": {
+   "path": "research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/CC_CONDITION_VALID_V3.json",
+   "sha256": "b42e82954164ed1db4a61656256f60d0d0470a7c117e7836a52f0d42c4936959"
   }
  },
  "cells_known_at_recording": [
@@ -29,5 +33,14 @@
    "reason": "Infrastructure interruption: after the 1800 s wall budget the docker exec client did not exit within 60 s (TimeoutExpired), so the runner removed the container before copying the file."
   }
  ],
- "note": "Six Grok V3 cells were still running when this was recorded; any of them without a usable file is added under the same rule."
+ "note": "Six Grok V3 cells were still running when this was recorded; any of them without a usable file is added under the same rule.",
+ "fable_addendum": {
+  "recorded_unix": 1794870154,
+  "decided_before_claude_v3_outputs": true,
+  "rule": "The same rule covers the 6 Claude Code V3 cells: attempt 1 in claude_code_valid_v3/, later attempts in claude_code_valid_v3_attempt2/ and _attempt3/. Each cell starts only after a one-line probe shows the Vals Claude plan answering, and at most 3 cells run at once, so a spend-limit stop can cost at most the cells in flight.",
+  "earlier_billing_interrupted_try": {
+   "folder": "claude_code_valid_v3_attempt1_vals_5hr_cap/",
+   "what": "All 6 cells started together under this same V3 condition on 11-16-2026 and each stopped after 8-10 minutes when the account hit its individual spend limit (about $17 of usage in total); no file. Kept as a record; it is a billing interruption before this amendment and is not counted among the 3 attempts."
+  }
+ }
 }
