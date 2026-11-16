@@ -40,9 +40,10 @@ import build_packet as bp  # noqa: E402
 REPO = HERE.parents[4]
 OUT = REPO / "research_artifacts/09_human_rating_collection/preparation_11-09-2026/full_team_11-14-2026"
 SEALED = OUT / "sealed"
-# Current round: "100" = first 100-file packet (11-16-2026); "100_v2" = same rows, 6 Claude files native Claude Code.
+# Rounds: "100" = first 100-file packet (11-16-2026, Grok and Gemini files from Terminus 2);
+# "100_native" = same rows and file names, every file from its vendor's own harness (build_native_cohort.py).
 ROUND_TAG = "100"
-COHORT = SEALED / {"100": "RATABLE_COHORT_100_FOUR_AGENTS.json", "100_v2": "RATABLE_COHORT_100_FOUR_AGENTS_V2.json"}[ROUND_TAG]
+COHORT = SEALED / {"100": "RATABLE_COHORT_100_FOUR_AGENTS.json", "100_native": "RATABLE_COHORT_100_NATIVE.json"}[ROUND_TAG]
 BUILDS = SEALED / f"builds_{ROUND_TAG}"
 BUILD_INDEX = SEALED / f"BUILD_INDEX_{ROUND_TAG.upper()}.json"
 DRAFTS_DIR = SEALED / f"drafts_{ROUND_TAG}"
@@ -222,7 +223,7 @@ def row_order(rater_id: str) -> list[str]:
     if rater_id == "A1":
         return ordered_items(BRANDO["design"])
     order = list(json.loads((OLD_BUILDS / rater_id / "ASSEMBLY_RECEIPT.json").read_text())["row_order"])
-    salt = f"four-agent-insert-{TODAY}|{rater_id}|"
+    salt = f"four-agent-insert-11-16-2026|{rater_id}|"  # fixed: the live Sheets were ordered with this salt
     new = sorted({r[0] for r in cohort_rows()} - set(order), key=lambda item: sha((salt + item).encode()))
     for item in new:  # sequential uniform insertion keeps the old order and randomizes the rest
         order.insert(int(sha((salt + item + "|position").encode()), 16) % (len(order) + 1), item)
@@ -619,12 +620,16 @@ def export() -> None:
     manifest["numeric_observations"] = sum(f.get("numeric_ratings", 0) for f in manifest["files"])
     manifest["not_applicable_rows"] = sum(f.get("not_applicable_rows", 0) for f in manifest["files"])
     manifest["checked_date"], manifest["recorded_utc"] = TODAY, now_utc()
-    revision = {"date": TODAY, "artifacts": len(cohort_rows()), "tasks": 25, "agents_per_task": files_per_task(),
-                "added": "25 rows per Sheet for Gemini 4 Argon (Terminus 2, high effort; planned Google cells), inserted in place",
+    change = {"100": "25 rows per Sheet for Gemini 4 Argon (Terminus 2, high effort; planned Google cells), inserted in place",
+              "100_native": "Rows unchanged; 56 files' contents replaced by native-harness runs (Grok 4.7 in Grok CLI x25, "
+                            "Gemini 4 Argon in Antigravity CLI x25, Claude Fable 5.1 in Claude Code x6)"}[ROUND_TAG]
+    commitment = {"100": "COHORT_100_COMMITMENT.json", "100_native": "COHORT_100_NATIVE_COMMITMENT.json"}[ROUND_TAG]
+    revision = {"date": TODAY, "round": ROUND_TAG, "artifacts": len(cohort_rows()), "tasks": 25,
+                "agents_per_task": files_per_task(), "added": change,
                 "sheets_verified": len(index), "main_numeric_observations": sum(scored.values()),
                 "emails_sent": "A1 to self only" if not SENT_LOG.exists() else f"A1 to self + {len(json.loads(SENT_LOG.read_text()))}",
                 "cohort_commitment": "../../../research_artifacts/09_human_rating_collection/preparation_11-09-2026/"
-                                     "full_team_11-14-2026/COHORT_100_COMMITMENT.json"}
+                                     f"full_team_11-14-2026/{commitment}"}
     manifest["full_team_100_revision"] = revision
     summary["checked_date"] = TODAY
     summary["full_team_100_sync"] = {k: revision[k] for k in ("date", "artifacts", "tasks", "agents_per_task",

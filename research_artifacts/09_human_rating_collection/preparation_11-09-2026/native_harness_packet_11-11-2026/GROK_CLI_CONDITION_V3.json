@@ -1,0 +1,40 @@
+{
+  "condition_id": "native_grok_cli_grok47_v3",
+  "status": "FROZEN",
+  "frozen_at": "2026-11-16T21:30:31+00:00",
+  "purpose": "Native xAI Grok CLI files for the 25 rating tasks, replacing the Terminus 2 Grok 4.7 files (Brando, 11-16-2026: re-run natively)",
+  "harness": "grok",
+  "cli": "grok",
+  "cli_version": "1.0.77",
+  "cli_sha256": "b30eee14a656124ef3c9da8577b5e783ef2cffabeb2b679c5c49633e77eed574",
+  "model": "grok-4.7",
+  "model_identity_tokens": [
+    "grok-4.7"
+  ],
+  "effort": "xhigh",
+  "effort_note": "grok-4.7 reasoning_efforts list xhigh as 'Maximum reasoning'; set N used xhigh",
+  "max_turns": 1000,
+  "max_task_seconds": 1800,
+  "max_attempts": 1,
+  "docker_image": "sha256:a00f165f17b514b92035abb21c0cf9ac6488ee87b08d8a6d1b3abfab44b8c2d1",
+  "docker_image_tag": "ttj-native-lean422-agy-grok:11-16-2026",
+  "base_image": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+  "network_tag": "grok-v3",
+  "allowed_hosts": [
+    "auth.x.ai",
+    "cli-chat-proxy.grok.com",
+    "grok.com"
+  ],
+  "allowlist_source": "hosts contacted by grok 1.0.77 during device sign-in and `grok models` (11-16-2026); telemetry (api.mixpanel.com) denied",
+  "input_manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/INPUT_MANIFEST.json",
+  "input_manifest_sha256": "e7a46a58a90cc23491f3db033d7dc749616f160da0b868962a3b5d8ec1b61e29",
+  "instruction_version": 8,
+  "runner_path": "/Users/brandomiranda/trustworthy-theorem-judges/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/scripts/native_packet_generation/native_cli_runner.py",
+  "runner_sha256": "6097a4d6ece517ebcd5bb5262f36bd08f6be6cc43d6d612bc9490616c644b3d0",
+  "billing_route": "Brando's grok.com account (Grok CLI device sign-in as brandojazz@gmail.com, 11-16-2026); no API key",
+  "credentials": "~/.ttj_native_creds/grok (owner-only, outside Git); streamed into each cell container",
+  "parent_condition_sha256": "8741654014e21c223e7484338ce8c68ff08bf6093a63cc716430c4f714fb9f26",
+  "change_from_v1": "Runner also copies the CLI's session transcripts (~/.grok/sessions) out of the cell and reads model ids from them, because Grok's streaming JSON names no model. V1 ran one smoke cell only; all 25 cells run under V2.",
+  "max_turns_note": "Grok CLI counts every model request as a turn; V2's 40 stopped cells before they wrote a file (2 of the first 5). V3 lifts the cap so the 1800 s wall clock binds, as for Antigravity and as in VeriBench set N's turn-cap fix.",
+  "change_from_v2": "max_turns 40 -> 1000 (wall clock binds); everything else identical. V2 was stopped after 11 cells and is not used."
+}

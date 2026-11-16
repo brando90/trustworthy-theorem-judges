@@ -1,0 +1,33 @@
+{
+ "recorded": "11-16-2026",
+ "recorded_unix": 1794869640,
+ "title": "Native-harness reruns: second and third attempts for cells without a usable file",
+ "requested_by": "Brando (chat, 11-16-2026): 're-run natively'; 'Let's have all results be consistent/clean'",
+ "rule": "Each frozen condition says max_attempts 1. This amendment overrides that for listed cells only. A cell whose attempt 1 has no usable file (no candidate captured, an infrastructure interruption, or a failed content screen) gets attempt 2 under the identical frozen condition (same condition bytes, same runner bytes, same image, same allowlist) in a separate folder <root>_attempt2/; attempt 3, if needed, goes in <root>_attempt3/. At most 3 attempts per cell. The first attempt with a usable file is used; a cell with a usable attempt-1 file is never rerun. Every attempt's receipt is kept. If all 3 attempts fail, that agent's group is not applied and the reason is reported.",
+ "decided_before_attempt2_outputs": true,
+ "conditions": {
+  "gemini": {
+   "path": "research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/ANTIGRAVITY_CONDITION_V1.json",
+   "sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729"
+  },
+  "grok": {
+   "path": "research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/GROK_CLI_CONDITION_V3.json",
+   "sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad"
+  }
+ },
+ "cells_known_at_recording": [
+  {
+   "group": "gemini",
+   "task_id": "realcode_set__23_base32",
+   "attempt1_root": "antigravity_cli_v1",
+   "reason": "Agent ran to Antigravity's own 1800 s print timeout (exit 3) without writing the output file."
+  },
+  {
+   "group": "grok",
+   "task_id": "realcode_set__20_html_escape",
+   "attempt1_root": "grok_cli_v3",
+   "reason": "Infrastructure interruption: after the 1800 s wall budget the docker exec client did not exit within 60 s (TimeoutExpired), so the runner removed the container before copying the file."
+  }
+ ],
+ "note": "Six Grok V3 cells were still running when this was recorded; any of them without a usable file is added under the same rule."
+}

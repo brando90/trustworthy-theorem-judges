@@ -7,6 +7,8 @@ are unchanged and only these files' contents change):
 - grok:   the 25 Grok 4.7 Terminus 2 files -> xAI Grok CLI (native_cli_runner receipts)
 - gemini: the 25 Gemini 4 Argon Terminus 2 files -> Google Antigravity CLI (native_cli_runner receipts)
 A group is applied only when every one of its cells has a verified file, so no agent mixes harnesses.
+Per NATIVE_ATTEMPTS_AMENDMENT_11-16-2026.json, a cell without a usable attempt-1 file may use attempt 2 or 3
+(identical frozen condition, folders <root>_attempt2/ and <root>_attempt3/); the first usable attempt wins.
 
 Usage: build_native_cohort.py [--fable ROOT CONDITION] [--grok ROOT CONDITION] [--gemini ROOT CONDITION]
 """
@@ -30,6 +32,7 @@ PARENT = grid.SEALED / "RATABLE_COHORT_100_FOUR_AGENTS.json"
 PARENT_SHA256 = "5a997b0168e3c13dc084c09bc8ae29bef8dad42d55ce2f981ff28f07f405587a"
 TARGET = grid.SEALED / "RATABLE_COHORT_100_NATIVE.json"
 COMMITMENT = grid.OUT / "COHORT_100_NATIVE_COMMITMENT.json"
+ATTEMPTS = grid.NATIVE / "NATIVE_ATTEMPTS_AMENDMENT_11-16-2026.json"
 PACKET = grid.REPO / "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/main_rating_task"
 LEAK = re.compile(r"\b(Claude|Anthropic|Fable|GPT|OpenAI|Codex|Grok|xAI|SpaceXAI|Gemini|Google|DeepMind|Antigravity|"
                   r"Argon|Kimi|Terminus)\b", re.I)
@@ -74,14 +77,39 @@ def check_file(task_folder: str, data: bytes) -> dict:
 def cell_receipt(root: Path, task_id: str, condition_path: Path, model: str) -> tuple[bytes, dict, Path]:
     receipt_path = root / task_id / "receipt.json"
     receipt = json.loads(receipt_path.read_text())
+    assert receipt["status"] == "TERMINAL" and receipt.get("candidate_captured") is True, (task_id, receipt.get("status"),
+                                                                                          receipt.get("stop_reason"))
     data = (root / task_id / "candidate.lean").read_bytes()
-    assert receipt["status"] == "TERMINAL" and receipt.get("candidate_captured") is True, (task_id, receipt.get("status"))
     assert receipt["candidate_sha256"] == sha(data) and receipt["candidate_bytes"] == len(data) > 0, task_id
     assert receipt.get("condition_sha256") == sha(condition_path.read_bytes()), f"{task_id}: not bound to this condition"
-    assert receipt.get("model_identity_verified") is True, f"{task_id}: model identity not verified"
-    assert set(receipt.get("actual_models", [])) - {"<synthetic>"}, task_id
-    assert all(model in m for m in set(receipt["actual_models"]) - {"<synthetic>"}), (task_id, receipt["actual_models"])
+    # "<synthetic>" marks messages Claude Code writes itself (API errors, limit notices); every model that
+    # answered must be the frozen one. The runner's own model_identity_verified flag is kept in provenance.
+    real = set(receipt.get("actual_models", [])) - {"<synthetic>"}
+    assert real and all(model in m for m in real), (task_id, receipt.get("actual_models"))
     return data, receipt, receipt_path
+
+
+def attempt_roots(root: Path) -> list[Path]:
+    """NATIVE_ATTEMPTS_AMENDMENT_11-16-2026: attempt k > 1 of a cell lives in <root>_attempt<k>/ (at most 3)."""
+    return [root] + [root.with_name(f"{root.name}_attempt{k}") for k in (2, 3)]
+
+
+def first_usable_attempt(root: Path, task_id: str, task_folder: str, condition_path: Path, model: str):
+    """The first attempt with a usable file wins; a later attempt may exist only if every earlier one failed."""
+    failures = []
+    for number, attempt_root in enumerate(attempt_roots(root), start=1):
+        if not (attempt_root / task_id).exists():
+            break
+        try:
+            data, receipt, receipt_path = cell_receipt(attempt_root, task_id, condition_path, model)
+            checks = check_file(task_folder, data)
+        except (AssertionError, FileNotFoundError, KeyError, ValueError) as exc:
+            failures.append({"attempt": number, "folder": str(attempt_root / task_id), "reason": repr(exc)[:400]})
+            continue
+        later = [r for r in attempt_roots(root)[number:] if (r / task_id).exists()]
+        assert not later, f"{task_id}: attempt {number} is usable, so no later attempt may exist ({later})"
+        return data, receipt, receipt_path, checks, number, failures
+    raise AssertionError(f"{task_id}: no usable attempt: {failures}")
 
 
 def main() -> None:
@@ -109,22 +137,25 @@ def main() -> None:
         staged = {}
         for item in items:
             artifact = artifacts[item]
-            data, receipt, receipt_path = cell_receipt(root, artifact["task_id"], condition_path, condition["model"])
-            staged[item] = (data, receipt, receipt_path, check_file(layout[item]["task_folder"], data))
-        for item, (data, receipt, receipt_path, checks) in staged.items():  # all cells verified: apply the group
+            staged[item] = first_usable_attempt(root, artifact["task_id"], layout[item]["task_folder"], condition_path,
+                                                condition["model"])
+        for item, (data, receipt, receipt_path, checks, attempt, failures) in staged.items():  # all verified: apply
             artifact = artifacts[item]
             destination = grid.SEALED / "candidates" / spec["new"] / artifact["task_id"] / "candidate.lean"
             destination.parent.mkdir(parents=True, exist_ok=True)
             destination.write_bytes(data)
             replaced[item] = {"group": group, "task_folder": layout[item]["task_folder"],
-                              "candidate_file": layout[item]["candidate_file"],
+                              "candidate_file": layout[item]["candidate_file"], "attempt": attempt,
                               "old_sha256": artifact["candidate"]["sha256"], "new_sha256": sha(data), **checks}
             artifact["configuration_id"] = spec["new"]
             artifact["candidate"] = {"path": str(destination), "sha256": sha(data), "status": "nonempty"}
             artifact["provenance"] = {"source": spec["label"], "receipt_path": str(receipt_path),
                                       "receipt_sha256": sha(receipt_path.read_bytes()),
+                                      "attempt": attempt, "earlier_attempts": failures,
+                                      "runner_model_identity_verified": receipt.get("model_identity_verified"),
                                       "stop_reason": receipt.get("stop_reason"), "actual_models": receipt.get("actual_models"),
                                       "egress_hosts": receipt.get("egress_hosts"),
+                                      "egress_denied": receipt.get("egress_denied"),
                                       "condition_path": str(condition_path),
                                       "condition_sha256": sha(condition_path.read_bytes()),
                                       "replaced_terminus2_sha256": replaced[item]["old_sha256"], "content_checks": checks}
@@ -150,6 +181,9 @@ def main() -> None:
                                                for c in configurations},
             "native_amendment": {"recorded": "11-16-2026", "requested_by": "Brando (chat, 11-16-2026: re-run natively)",
                                  "parent_cohort": {"path": str(PARENT), "sha256": sha(parent_bytes)},
+                                 "attempts_amendment": {"path": str(ATTEMPTS), "sha256": sha(ATTEMPTS.read_bytes()),
+                                                        "cells_using_a_later_attempt": sorted(
+                                                            i for i, r in replaced.items() if r["attempt"] > 1)},
                                  "groups_applied": applied, "replaced_items": replaced}}
     assert len(full["artifacts"]) == 100
     TARGET.write_text(json.dumps(full, indent=1) + "\n")
