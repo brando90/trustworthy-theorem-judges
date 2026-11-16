@@ -40,9 +40,13 @@ import build_packet as bp  # noqa: E402
 REPO = HERE.parents[4]
 OUT = REPO / "research_artifacts/09_human_rating_collection/preparation_11-09-2026/full_team_11-14-2026"
 SEALED = OUT / "sealed"
-COHORT = SEALED / "RATABLE_COHORT_100_FOUR_AGENTS.json"
-BUILDS = SEALED / "builds_100"
-BUILD_INDEX = SEALED / "BUILD_INDEX_100.json"
+# Current round: "100" = first 100-file packet (11-16-2026); "100_v2" = same rows, 6 Claude files native Claude Code.
+ROUND_TAG = "100"
+COHORT = SEALED / {"100": "RATABLE_COHORT_100_FOUR_AGENTS.json", "100_v2": "RATABLE_COHORT_100_FOUR_AGENTS_V2.json"}[ROUND_TAG]
+BUILDS = SEALED / f"builds_{ROUND_TAG}"
+BUILD_INDEX = SEALED / f"BUILD_INDEX_{ROUND_TAG.upper()}.json"
+DRAFTS_DIR = SEALED / f"drafts_{ROUND_TAG}"
+DRAFTS_LOG = SEALED / f"DRAFTS_SAVED_{ROUND_TAG.upper()}.json"
 SHEET_REGISTRY = OUT / "SHEET_REGISTRY.json"
 SHEETS_API = "https://sheets.googleapis.com/v4/spreadsheets/"
 TAB = "Ratings"
@@ -260,10 +264,10 @@ def build() -> None:
                       "expected_table_digest": bp.table_digest(table), "zip": receipt["archive_path"],
                       "zip_sha256": receipt["archive_sha256"]})
         entry.setdefault("status", receipt["status"])
-        (SEALED / "drafts_100").mkdir(exist_ok=True)
+        DRAFTS_DIR.mkdir(exist_ok=True)
         draft = {"to": person["email"], "bcc": BCC, "subject": SUBJECT, "body": email_body(person, url),
                  "attachment": receipt["archive_path"], "attachment_sha256": receipt["archive_sha256"]}
-        (SEALED / "drafts_100" / f"{rater_id}.json").write_text(json.dumps(draft, indent=1, ensure_ascii=False) + "\n")
+        (DRAFTS_DIR / f"{rater_id}.json").write_text(json.dumps(draft, indent=1, ensure_ascii=False) + "\n")
     save_index(index)
     print(f"built {len(index)} packets of {n} files")
 
@@ -369,10 +373,12 @@ def verify() -> None:
     print(f"matched {len(index) - len(bad)} of {len(index)}; held: {bad}")
 
 
-def message_for(rater_id: str):
+def message_for(rater_id: str, note: str = ""):
     from email.message import EmailMessage
     from email.utils import make_msgid
-    draft = json.loads((SEALED / "drafts_100" / f"{rater_id}.json").read_text())
+    draft = json.loads((DRAFTS_DIR / f"{rater_id}.json").read_text())
+    if note:
+        draft["body"] = note.strip() + "\n\n" + draft["body"]
     data = Path(draft["attachment"]).read_bytes()
     assert sha(data) == draft["attachment_sha256"]
     message = EmailMessage()
@@ -390,12 +396,12 @@ def drafts() -> None:
     import time
     password = (Path.home() / "keys/gmail_app_password.txt").read_text().strip()
     index = json.loads(BUILD_INDEX.read_text())
-    log_path = SEALED / "DRAFTS_SAVED_100.json"
+    log_path = DRAFTS_LOG
     saved = json.loads(log_path.read_text()) if log_path.exists() else {}
     with imaplib.IMAP4_SSL("imap.gmail.com") as box:
         box.login("brandojazz@gmail.com", password)
         box.select("[Gmail]/Drafts")
-        for path in sorted((SEALED / "drafts_100").glob("*.json")):
+        for path in sorted(DRAFTS_DIR.glob("*.json")):
             rater_id = path.stem
             if rater_id == "A1" or rater_id in saved:
                 continue
@@ -436,7 +442,8 @@ def send_a1() -> None:
     index = json.loads(BUILD_INDEX.read_text())
     entry = index["A1"]
     assert entry["status"] in ("BUILT_SHEET_MATCHED_NOT_SENT", "SHEET_IDENTIFIERS_MATCHED_WITH_RESPONSES"), entry["status"]
-    draft, message = message_for("A1")
+    note = " ".join(sys.argv[2:]).strip()  # optional first paragraph, e.g. what changed in a re-sent packet
+    draft, message = message_for("A1", note)
     recipients = sorted({draft["to"], *draft["bcc"]})
     assert all(r in ("brando9@stanford.edu", "brandojazz@gmail.com", "brando.science@gmail.com") for r in recipients)
     password = (Path.home() / "keys/gmail_app_password.txt").read_text().strip()
@@ -444,7 +451,7 @@ def send_a1() -> None:
         smtp.login("brandojazz@gmail.com", password)
         refused = smtp.send_message(message, to_addrs=recipients)
     assert not refused, refused
-    entry["sent_to_self"] = {"date": TODAY, "to": draft["to"], "bcc": draft["bcc"],
+    entry["sent_to_self"] = {"date": TODAY, "to": draft["to"], "bcc": draft["bcc"], "note": note,
                              "message_id": message["Message-ID"], "zip_sha256": draft["attachment_sha256"]}
     save_index(index)
     print("sent A1 to", recipients, message["Message-ID"])
@@ -477,7 +484,7 @@ def send() -> None:
     args = sys.argv[2:]
     confirm = "--confirm" in args
     index = json.loads(BUILD_INDEX.read_text())
-    saved = json.loads((SEALED / "DRAFTS_SAVED_100.json").read_text())
+    saved = json.loads(DRAFTS_LOG.read_text())
     targets = sorted(saved) if "--all" in args else [a for a in args if not a.startswith("--")]
     assert targets and set(targets) <= set(saved), "Name rater IDs or --all"
     sent_log = json.loads(SENT_LOG.read_text()) if SENT_LOG.exists() else {}
@@ -577,7 +584,7 @@ def export() -> None:
 def status() -> None:
     """Who is grading: one row per rater with live progress, written into the experiment README."""
     index = json.loads(BUILD_INDEX.read_text())
-    saved_path = SEALED / "DRAFTS_SAVED_100.json"
+    saved_path = DRAFTS_LOG
     saved = json.loads(saved_path.read_text()) if saved_path.exists() else {}
     sent_log = json.loads(SENT_LOG.read_text()) if SENT_LOG.exists() else {}
     manifest = json.loads((EXPERIMENT / "ratings/RAW_MANIFEST.json").read_text())
