@@ -1,0 +1,14 @@
+{
+  "weights": {
+    "H0_sol": 0.30899963143227216,
+    "H0_opus": 0.0,
+    "H1_sol": 0.0,
+    "H2_sol": 0.0,
+    "H2_opus": 0.0,
+    "H2_astra": 0.0,
+    "H2_sol61": 0.0,
+    "H2_argon": 0.6910003685677278,
+    "train_marginal": 0.0
+  },
+  "how_chosen": "Computed the specified smoothed distributions and solved nonnegative least squares on centered judge and human expected ratings; the cone projection gives the globally correlation-optimal nonnegative direction, which was normalized to sum to one. The training Pearson correlation is 0.830941054755640, confirmed by 102 simplex-constrained SLSQP runs. No SLSQP run improved on the projection; train_marginal was assigned zero because adding a constant prediction cannot improve Pearson correlation."
+}

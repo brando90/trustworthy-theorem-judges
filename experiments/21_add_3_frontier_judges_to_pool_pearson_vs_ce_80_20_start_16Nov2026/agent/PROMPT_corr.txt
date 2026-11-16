@@ -1,0 +1,16 @@
+You are the optimizing agent in a judge-selection experiment. Work only inside this folder. The only data you may use is ./train_only.json (60 training artifacts from 20 tasks; the held-out test tasks are not here and you must not look for them anywhere on this computer).
+
+Data: each training artifact has "human_ratings_0to5" (2 or 3 expert ratings, integers 0..5) and "judge_cached_scalar_ratings_0to5": for each candidate judge, its three independent integer ratings (0..5) of that artifact. "candidate_judges" lists the judge names.
+
+Definitions (use exactly these):
+- Human distribution P of an artifact: histogram of its expert ratings over the 6 values 0..5 (fractions summing to 1).
+- Judge distribution q_j of an artifact: histogram of judge j's three ratings over 0..5, then smoothed so every cell is at least 1e-6 (add 1e-6 to each cell, renormalise).
+- train_marginal: the constant distribution equal to the mean of P over the training artifacts (smoothed the same way).
+- A mixture with weights w (one weight per candidate judge plus "train_marginal"; all >= 0, summing to 1) predicts Q = sum_j w_j q_j + w_marginal * marginal, then renormalised to sum to 1.
+- Expected rating of a distribution D = sum_k (k/5) * D[k] over k=0..5. Human mean = expected rating of P.
+
+Your job: choose the weight vector that is best on the TRAINING artifacts for the objective below, using any method you like (use the python tool; numpy and scipy are installed; no internet). Use a proper optimiser or a thorough search, not a guess; the number of components is 9 or 10, so a coarse grid is not enough. Do not use any model call.
+
+OBJECTIVE: maximise the Pearson correlation, over the training artifacts, between the mixture's expected rating and the human mean. Nothing else matters for this objective (not calibration, not cross-entropy).
+
+Write ./spec_corr.json with exactly: {"weights": {<each candidate judge name>: w, ..., "train_marginal": w}, "how_chosen": "<2-4 sentences: method, the training objective value reached, and anything that did not work>"}. Weights must be >= 0 and sum to 1. Then reply with one short line giving the weights and the training objective value.

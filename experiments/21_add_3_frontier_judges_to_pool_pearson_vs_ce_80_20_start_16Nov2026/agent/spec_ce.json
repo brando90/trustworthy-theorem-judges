@@ -1,0 +1,14 @@
+{
+  "weights": {
+    "H0_sol": 0.17309012522321607,
+    "H0_opus": 0.0,
+    "H1_sol": 0.0,
+    "H2_sol": 0.0,
+    "H2_opus": 0.0995133194774598,
+    "H2_astra": 0.039225640452568065,
+    "H2_sol61": 0.0,
+    "H2_argon": 0.11652373629837905,
+    "train_marginal": 0.571647178548377
+  },
+  "how_chosen": "Constructed the specified smoothed histograms and minimized mean training cross-entropy using analytic-gradient SLSQP from 50 initializations (uniform, all vertices, and random simplex points), then refined the active weights by solving the KKT equations. The final mean training cross-entropy is 1.517844472226377 nats; active stationarity and inactive inequalities verify global optimality for this convex simplex objective to numerical precision. Uniform weighting (CE 1.993950944313) and the best single component (train_marginal, CE 1.752161682296) did not improve the optimized mixture."
+}

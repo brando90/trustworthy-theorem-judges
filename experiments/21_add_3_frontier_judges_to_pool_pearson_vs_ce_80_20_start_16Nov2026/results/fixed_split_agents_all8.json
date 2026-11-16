@@ -1,0 +1,107 @@
+{
+ "test_tasks": [
+  "18_MyFibonacci",
+  "1_MyAdd",
+  "3_heappop",
+  "bubble_sort",
+  "humaneval_13__gcd"
+ ],
+ "agents": {
+  "corr": {
+   "weights": {
+    "H0_sol": 0.30899963143227216,
+    "H0_opus": 0.0,
+    "H1_sol": 0.0,
+    "H2_sol": 0.0,
+    "H2_opus": 0.0,
+    "H2_astra": 0.0,
+    "H2_sol61": 0.0,
+    "H2_argon": 0.6910003685677278,
+    "train_marginal": 0.0
+   },
+   "how_chosen": "Computed the specified smoothed distributions and solved nonnegative least squares on centered judge and human expected ratings; the cone projection gives the globally correlation-optimal nonnegative direction, which was normalized to sum to one. The training Pearson correlation is 0.830941054755640, confirmed by 102 simplex-constrained SLSQP runs. No SLSQP run improved on the projection; train_marginal was assigned zero because adding a constant prediction cannot improve Pearson correlation.",
+   "test": {
+    "ce": 4.915034804255141,
+    "rps": 0.11549754981874345,
+    "tvd": 0.4747776313676953,
+    "pearson": 0.914163143613655,
+    "spearman": 0.8917971646675781
+   },
+   "per_task": {
+    "18_MyFibonacci": {
+     "ce": 4.98665194316277,
+     "rps": 0.0961681314239435,
+     "tvd": 0.43133279290677234
+    },
+    "1_MyAdd": {
+     "ce": 7.0078078696709944,
+     "rps": 0.1183889551268389,
+     "tvd": 0.499999000004897
+    },
+    "3_heappop": {
+     "ce": 5.239567102274307,
+     "rps": 0.14596985813457472,
+     "tvd": 0.5293325858117751
+    },
+    "bubble_sort": {
+     "ce": 3.715284562803815,
+     "rps": 0.11097615747465318,
+     "tvd": 0.4606668150440612
+    },
+    "humaneval_13__gcd": {
+     "ce": 3.6258625433638163,
+     "rps": 0.10598464693370695,
+     "tvd": 0.4525569630709711
+    }
+   }
+  },
+  "ce": {
+   "weights": {
+    "H0_sol": 0.17309012522321607,
+    "H0_opus": 0.0,
+    "H1_sol": 0.0,
+    "H2_sol": 0.0,
+    "H2_opus": 0.0995133194774598,
+    "H2_astra": 0.039225640452568065,
+    "H2_sol61": 0.0,
+    "H2_argon": 0.11652373629837905,
+    "train_marginal": 0.571647178548377
+   },
+   "how_chosen": "Constructed the specified smoothed histograms and minimized mean training cross-entropy using analytic-gradient SLSQP from 50 initializations (uniform, all vertices, and random simplex points), then refined the active weights by solving the KKT equations. The final mean training cross-entropy is 1.517844472226377 nats; active stationarity and inactive inequalities verify global optimality for this convex simplex objective to numerical precision. Uniform weighting (CE 1.993950944313) and the best single component (train_marginal, CE 1.752161682296) did not improve the optimized mixture.",
+   "test": {
+    "ce": 1.4941668762993068,
+    "rps": 0.11970002215401292,
+    "tvd": 0.4973738307257482,
+    "pearson": 0.8711877600653156,
+    "spearman": 0.8671384851238428
+   },
+   "per_task": {
+    "18_MyFibonacci": {
+     "ce": 1.3808381016603644,
+     "rps": 0.10401469206105372,
+     "tvd": 0.4824154794642443
+    },
+    "1_MyAdd": {
+     "ce": 1.768098339373907,
+     "rps": 0.18602004492701243,
+     "tvd": 0.5296614467495337
+    },
+    "3_heappop": {
+     "ce": 1.5973698356160668,
+     "rps": 0.12495669483891945,
+     "tvd": 0.4219086945568875
+    },
+    "bubble_sort": {
+     "ce": 1.379678992198448,
+     "rps": 0.09243777123905157,
+     "tvd": 0.5036816684838847
+    },
+    "humaneval_13__gcd": {
+     "ce": 1.3448491126477489,
+     "rps": 0.09107090770402737,
+     "tvd": 0.54920186437419
+    }
+   }
+  }
+ }
+}
