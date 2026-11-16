@@ -41,6 +41,11 @@
   "earlier_billing_interrupted_try": {
    "folder": "claude_code_valid_v3_attempt1_vals_5hr_cap/",
    "what": "All 6 cells started together under this same V3 condition on 11-16-2026 and each stopped after 8-10 minutes when the account hit its individual spend limit (about $17 of usage in total); no file. Kept as a record; it is a billing interruption before this amendment and is not counted among the 3 attempts."
+  },
+  "billing_routes_update": {
+   "recorded_unix": 1794871809,
+   "decided_before_claude_v3_outputs": true,
+   "rule": "A cell may start on whichever of Brando's existing Claude plans answers the probe first: the Vals Claude plan (at most 3 cells at once), else Brando's personal Claude plan (all remaining cells at once). The plan only pays for the run; condition, Claude Code version, model, effort, image, prompt and caps are identical. Each cell folder gets BILLING_ROUTE.json naming the plan used. Credentials checked and blocked at recording: Vals plan (spend limit until 12:50 AM UTC), personal plan (out of usage credits), Stanford plan (usage credits required), Vals AWS keys (no Bedrock permission), three logged-out CLI profiles."
   }
  }
 }
