@@ -2,9 +2,9 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/PREPARATION_11-09-2026.md>
 
-**TLDR:** The existing rating packet is available in this repository's private store. The preferred deadline is Friday, 11-13-2026; the final deadline is Sunday, 11-15-2026. Personal rating can start; collaborator dispatch remains a separate, explicitly approved action.
+**TLDR:** Dated history (11-09 to 11-11-2026), superseded by the 100-file packet of 11-16-2026; the current packet, deadlines and status are in the [experiment README](../README.md). At the time, the existing rating packet was in this repository's private store, the preferred deadline was Friday, 11-13-2026 and the final deadline Sunday, 11-15-2026; collaborator dispatch remained a separate, explicitly approved action.
 
-## Current prepared version — 11-11-2026
+## Prepared version as of 11-11-2026 (history)
 
 The current form has eleven columns, including estimated minutes, confidence, rationale (preferred but optional), and problem notes. **The ten FormV6 warm-up packets are prepared, unsent replacements.** Their guide and rubric title match the editable packet; scientific files, scoring, item IDs and assignments are unchanged. All nine live warm-up Sheets were re-read on 11-11-2026: their 54 item rows match current raw CSV values, and their identifiers match these new blank forms. Slava uses the separate CSV return route.
 
