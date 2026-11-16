@@ -1,0 +1,31 @@
+{
+  "status": "FROZEN",
+  "model": "claude-fable-5-1",
+  "effort": "max",
+  "docker_image": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+  "cli_version": "2.1.322",
+  "max_attempts": 1,
+  "max_task_seconds": 1800,
+  "max_turns": 40,
+  "max_total_tokens": 1000000,
+  "max_output_tokens": 131072,
+  "max_response_tokens": 64000,
+  "input_manifest_sha256": "e7a46a58a90cc23491f3db033d7dc749616f160da0b868962a3b5d8ec1b61e29",
+  "runner_sha256": "7bff1a4ecbcd049c06ea7591edfd8cb22c058f663a555139fe0ef94723575cce",
+  "frozen_at": "2026-11-16T20:05:00+00:00",
+  "billing_route": "Vals AI Claude Code subscription setup-token (clauded-vals); authorized by Brando 11-16-2026",
+  "task_order": [
+    "humaneval_set__humaneval_39_prime_fib",
+    "cs_set__topological_sort",
+    "cs_set__heapsort_algorithm",
+    "cs_set__edit_distance",
+    "cs_set__heap_sort",
+    "realcode_set__23_base32"
+  ],
+  "purpose": "One artifact per task for prospective human rating; replace the 6 Terminus 2 fallbacks with pure native Claude Code (claude-fable-5-1, max, v8) outputs",
+  "budget_semantics": "1800 seconds and 40 native turns hard bounds; total/output token thresholds observed at response boundaries, possible one-response overshoot; max_response_tokens raised to 64000",
+  "condition_id": "native_claude_fable51_valid_v3",
+  "output_root": "/Users/brandomiranda/trustworthy-theorem-judges/research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/claude_code_valid_v3",
+  "parent_condition_sha256": "d51c4322693cf133f3dfe4d10b8e831d258945680d1ef1357970dc014c06c66c",
+  "recovery_reason": "Prospective amendment raising max_response_tokens from 16384 to 64000 strictly on the 6 tasks that terminated with DECLARED_RESPONSE_TOKEN_CAP_NO_FILE in V2, making all 25/25 Anthropic artifacts native Claude Code (claude-fable-5-1, max, prompt v8)."
+}

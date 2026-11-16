@@ -32,7 +32,8 @@ def main() -> None:
     condition_path = Path(args.condition).resolve()
     condition = json.loads(condition_path.read_text())
     assert condition["status"] == "FROZEN", "Freeze the condition first"
-    assert condition["runner_sha256"] == hashlib.sha256(RUNNER.read_bytes()).hexdigest(), "Runner changed since freeze"
+    runner = Path(condition.get("runner_path") or RUNNER)  # each condition binds an exact runner file
+    assert condition["runner_sha256"] == hashlib.sha256(runner.read_bytes()).hexdigest(), "Runner changed since freeze"
     manifest_path = Path(condition["input_manifest_path"])
     manifest = json.loads(manifest_path.read_text())
     tasks = [t["task_id"] for t in manifest["tasks"]]
@@ -45,7 +46,7 @@ def main() -> None:
 
     def one(task_id: str) -> dict:
         started = time.time()
-        proc = subprocess.run([sys.executable, str(RUNNER), "run", "--manifest", str(manifest_path),
+        proc = subprocess.run([sys.executable, str(runner), "run", "--manifest", str(manifest_path),
                                "--condition", str(condition_path), "--condition-sha256", condition_sha,
                                "--task-id", task_id, "--output-dir", str(out), "--credentials", args.credentials],
                               capture_output=True, text=True)

@@ -1,0 +1,41 @@
+{
+  "condition_id": "native_antigravity_gemini4argon_v1",
+  "status": "FROZEN",
+  "frozen_at": "2026-11-16T21:24:38+00:00",
+  "purpose": "Native Google Antigravity CLI files for the 25 rating tasks, replacing the Terminus 2 Gemini 4 Argon files (Brando, 11-16-2026: re-run natively)",
+  "harness": "antigravity",
+  "harness_label": "Antigravity CLI",
+  "cli": "agy",
+  "cli_version": "1.5.9",
+  "cli_sha256": "684136e4246393499343c9ba07ac4a69fa97729178f702d0132b50520d7ed699",
+  "model": "gemini-4-argon-high",
+  "model_label": "Gemini 4 Argon (High)",
+  "model_identity_tokens": [
+    "gemini-4-argon"
+  ],
+  "effort": "high",
+  "effort_note": "Argon's variants are low/medium/high; set N used high (Gemini's highest thinking level)",
+  "max_turns": null,
+  "max_turns_note": "agy has no turn-cap flag; the 1800 s print timeout bounds the run",
+  "max_task_seconds": 1800,
+  "max_attempts": 1,
+  "docker_image": "sha256:a00f165f17b514b92035abb21c0cf9ac6488ee87b08d8a6d1b3abfab44b8c2d1",
+  "docker_image_tag": "ttj-native-lean422-agy-grok:11-16-2026",
+  "base_image": "sha256:2104a4b8fe86379143a49331d79c9eecae67ab58ef73d4db05183510061bc89e",
+  "network_tag": "agy-v1",
+  "allowed_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "oauth2.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "allowlist_source": "hosts agy 1.5.9 contacted during sign-in and a one-line probe call (11-16-2026); telemetry (play.googleapis.com, api.mixpanel.com) and avatar/static hosts denied",
+  "input_manifest_path": "/Users/brandomiranda/trustworthy-theorem-judges/research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/inputs_and_existing/INPUT_MANIFEST.json",
+  "input_manifest_sha256": "e7a46a58a90cc23491f3db033d7dc749616f160da0b868962a3b5d8ec1b61e29",
+  "instruction_version": 8,
+  "runner_path": "/Users/brandomiranda/trustworthy-theorem-judges/research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/runner_snapshots/native_cli_runner_v3.py",
+  "runner_sha256": "f4cf9be33595eeec38b24209dc847c16762699dd8ede1475e7c2a4a3264aa37e",
+  "runner_note": "Snapshot of native_cli_runner.py plus agy prompt-as-flag and Antigravity transcript capture; a separate file so the running Grok batch keeps its frozen runner",
+  "billing_route": "Brando's Google AI Ultra account (Antigravity CLI sign-in as brandojazz@gmail.com, 11-16-2026); no API key",
+  "credentials": "~/.ttj_native_creds/antigravity (owner-only, outside Git); streamed into each cell container"
+}
