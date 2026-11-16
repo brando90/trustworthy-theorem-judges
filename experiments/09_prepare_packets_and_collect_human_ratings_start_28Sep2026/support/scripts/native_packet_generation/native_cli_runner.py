@@ -40,6 +40,10 @@ DOCKER = os.environ.get("DOCKER", "docker")
 PROJECT = "/home/user/lean_project"
 HOME = "/home/user"
 CRED_DIRS = {"antigravity": ".gemini", "grok": ".grok"}  # inside $HOME; confirmed by the auth-shell export
+# Session transcripts the CLI writes (no credentials: Grok's login is ~/.grok/auth.json, outside sessions/).
+# Grok's streaming JSON carries no model field, so model identity is read from these session files.
+SESSION_DIRS = {"grok": f"{HOME}/.grok/sessions", "antigravity": None}
+MODEL_FIELD = re.compile(r'"(?:model|model_id|modelId|model_name)"\s*:\s*"([^"]+)"')
 
 
 def sha_bytes(data: bytes) -> str:
@@ -313,6 +317,14 @@ def run_cell(args):
         captured = command([DOCKER, "cp", f"{container}:{task['expected_solver_output_path']}",
                             str(out / "candidate.lean")], check=False)
         candidate = out / "candidate.lean"
+        session_dir = SESSION_DIRS[condition["harness"]]
+        if session_dir:
+            copied = command([DOCKER, "cp", f"{container}:{session_dir}", str(out / "native_session")], check=False)
+            for path in (out / "native_session").rglob("*") if copied.returncode == 0 else []:
+                if path.is_file() and path.suffix == ".sqlite":
+                    path.unlink()  # search index only; transcripts stay
+                elif path.is_file():
+                    models.update(MODEL_FIELD.findall(path.read_text(errors="replace")))
         egress = [json.loads(l) for l in command([DOCKER, "logs", "--since", str(int(started_wall)), proxy],
                                                   check=False).stdout.splitlines() if l.startswith("{")]
         expected = condition["model_identity_tokens"]
