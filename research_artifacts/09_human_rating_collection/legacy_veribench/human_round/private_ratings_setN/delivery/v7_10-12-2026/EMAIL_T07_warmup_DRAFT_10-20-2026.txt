@@ -1,0 +1,35 @@
+# TLDR: Private, NOT SENT. T07's warm-up email text (written 10-20-2026 12:07 PDT by Claude Opus 5.5), to become a Gmail draft replying in thread 1a117959882fa859 (brandojazz) or an SMTP send from brandojazz@gmail.com on Brando's "send". Sheet link filled 10-20-2026 (sheet 1nzlm6kmnj..., not yet shared).
+#
+# Mode:        reply in Gmail thread 1a117959882fa859 (Re: <thread subject>); if no thread reply is possible, subject below
+# From:        brandojazz@gmail.com (account holding the thread)
+# To:          simon@obstbaum.eu
+# CC:          (none; no visible CC per Trigger Rule 26)
+# BCC:         brando.science@gmail.com, brando9@stanford.edu, brandojazz@gmail.com, brando@vals.ai
+# Subject:     VeriBench rating: your warm-up set (about 30-45 minutes; due Tue 10-27)   [only if not a thread reply]
+# Attachment:  VeriBench_warmup_T07.zip (this folder; built 10-20-2026 by make_rater_zip.py --packet warmup --rater T07 --share-email simon@obstbaum.eu; 14 files; sha256 d5ce0f145e4d5896524ca0c2fd7c5d48ec8b4f7dea51ad34792f641e480c22ad)
+# Gate before send: the sheet exists with rater_id T07 in A2:A7. NOTE: at 2026-10-20T19:16Z its permissions already listed simon@obstbaum.eu as writer (not shared by this lane), so the share step may already be done; re-check with get_file_permissions before sending.
+# ----- body -----
+Hi Simon,
+
+Thanks, great to have you on board.
+
+Attached is the warm-up set (VeriBench_warmup_T07.zip): six short files from our May rating round, two tasks with three agent files each. It should take about 30-45 minutes. Start with START_HERE.md. You rate each agent Lean file against the gold reference Lean file in the same folder, i.e. how much of the reference's theorem statements it covers.
+
+Your personal rating sheet: https://docs.google.com/spreadsheets/d/1nzlm6kmnjNWGKAOpSMbsN1UGNOB3XIGCxip7r8al5Eg/edit
+It's shared with this address (simon@obstbaum.eu) as an editor and already has your rater code filled in. If you'd rather use a different Google account, just reply with it and I'll share the sheet there.
+
+Two notes:
+- Asking an AI tool a localized Lean question (syntax, notation, a library function) with a small snippet is fine. The comparison, the score and the rationale should be your own.
+- Some references pick a convention for an ambiguous case (e.g. the median of an empty list). Rate those with your own judgment and note your reasoning in the rationale column.
+
+Could you have it done by Tue 10-27-2026? Once the warm-up is in, I'll send your set-N task folders. I'm also happy to look over your first few ratings if that helps.
+
+Thanks again,
+Brando (drafted with Claude Opus 5.5)
+-----
+Brando Miranda
+Ph.D. Student
+Computer Science, Stanford University
+EDGE Scholar, Stanford University
+brando9@stanford.edu
+website: https://brando90.github.io/brandomiranda/

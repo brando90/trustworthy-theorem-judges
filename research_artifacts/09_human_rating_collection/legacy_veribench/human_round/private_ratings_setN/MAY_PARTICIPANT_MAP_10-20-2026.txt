@@ -1,0 +1,9 @@
+# TLDR: Private, never in Git. May 2026 rater index -> name, derived 10-20-2026 by the coordinator from Git history (exact score agreement of each named May label file with veribench_dataset/human_labels/participant*_data*.tsv on origin/main).
+# Evidence (fraction of identical scores, n items): ethans_data_correct_prompt.tsv = p1 1.00 (75); jolene_data_pass_1.tsv = p2 1.00 (75); steven_data_pass_1.tsv = p3 1.00 (30 of p3's 45); yegor_data_pass_1.tsv = p4 1.00 (75); p5 = Simon per the manager's 10-20 match of the scores quoted in Brando's 10-13 email.
+# Expert target (C17) = mean of p1-p3.
+p1 Ethan  (expert)
+p2 Jolene (expert)
+p3 Steven (expert)
+p4 Yegor  = T02 (not in the expert target -> default target correct; verdict stands)
+p5 Simon  = T07 (not in the expert target -> default target, no leave-one-out)
+# Roster check 10-20-2026: no other rater_id (A1, T01, T03-T06, V01-V03) matches p1-p3 by name; T01 and T05 verdicts stand.

@@ -1,0 +1,43 @@
+To: rschaef@cs.stanford.edu
+BCC: brando.science@gmail.com, brando9@stanford.edu, brandojazz@gmail.com, brando@vals.ai
+Subject: VeriBench set N: all 25 folders (optional extras after your two)
+
+Hi Rylan,
+
+Thanks for doing the warm-up! Here is the full set-N packet: all 25 task folders, each with a Python program, its reference Lean file and five blinded agent Lean files.
+
+Packet: <DRIVE_LINK_T01>
+Shared with RylanSchaeffer@gmail.com and rschaef@cs.stanford.edu. Unzip it and open START_HERE.md. If Drive asks you to request access, switch to RylanSchaeffer@gmail.com in Google or just reply to this email.
+
+Your sheet (the same one as before; its link is also in YOUR_RATING_SHEET.txt):
+https://docs.google.com/spreadsheets/d/1GO7o1gVQuY7GWOb294U5So207MMtgk4QoUS9I2eY7TU/edit
+
+What to rate, in this order (stop whenever you need to):
+1. N17, N21: required, due Tue 10-27 (the same files you already have).
+2. N01, N23.
+3. N06, N07, N08, N09, N12, N13, N20, N25.
+4. N18, N16, N19, N10, N11, N05, N24, N02, N04, N22, N14, N03, N15.
+Steps 2-4 are optional extras, due Fri 11-06, when the round closes. Every extra folder gives us more human ratings of AI agents.
+
+Changes to START_HERE (everything else stays the same):
+- Ignore "Rate every folder in this packet" and "within two weeks": use the order and dates above.
+- There is nothing to mark complete or send. Your sheet saves as you go, and we copy it on each due date. Once a folder is done, email me instead of changing it.
+- Two reference files contain a note addressed to our automated judge. Ignore that note and rate by START_HERE and the rules file (human_judgements_prompt.md) only.
+
+In your sheet, give one 0-5 score per agent file, as the rules file explains. Leave the rows of folders you don't reach blank; please don't guess. In each folder's last row, add "folder minutes: NN; finished MM-DD" to problem_note.
+
+Suggested setup:
+- Big screen: VS Code or Cursor with one folder open (File > Open Folder > N17). Put the reference (gold_lean) on the left and one agent file (agent_lean) on the right; Cmd+\ splits the editor (Ctrl+\ on Windows/Linux). In Cursor, turn off Tab autocomplete and codebase indexing.
+- Second screen: your sheet. Optional third screen: the rules file and this email.
+With one screen, give the editor and the sheet a desktop each.
+
+Thanks!
+
+Brando (drafted with Claude)
+-----
+Brando Miranda
+Ph.D. Student
+Computer Science, Stanford University
+EDGE Scholar, Stanford University
+brando9@stanford.edu
+website: https://brando90.github.io/brandomiranda/

@@ -1,0 +1,1 @@
+# VOID 10-20-2026: built and reviewed from the stale shared checkout ~/veribench (HEAD 1469907383, 943 commits behind origin/main), i.e. the 10-08 v4 packet, not the 10-12 v7 release. Never send these. Rebuilt from origin/main 3f6549358f.

@@ -1,0 +1,15 @@
+# TLDR: Private note (git-ignored, mode 600) on which packet link works for which rater, written by the rating-round manager, run 2, 10-20-2026 ~17:20 PDT; rater IDs paired with GitHub logins stay here only.
+Packet-email rule (10-20): every rater email goes through scripts/send_rater_email.py, which refuses a body without a GitHub tree/blob link that resolves on main or a drive.google.com link.
+
+GitHub links (private repo brando90/veribench) work only for collaborators. `gh api repos/brando90/veribench/collaborators` (10-20-2026 ~17:15 PDT), matched to roster names (unconfirmed by the raters):
+  T02 -> ydenisov8 (likely)       T03 -> dilarasoylu      T04 -> allenanie
+  T05 -> Srivatsava               T07 -> sobstbaum
+  No match: T01, T06, V01, V02, V03 (a GitHub link alone does not work for them).
+
+Drive links: unattended upload is not workable from the manager session.
+  - Drive connector create_file with base64Content: one try with VeriBench_warmup_V02.zip (19,298 B -> 25,732 base64 chars) was cut off mid tool call; nothing was uploaded. Set-N zips are 85-130 KB, so worse.
+  - Verifying an upload by download_file_content would need the base64 copied back by hand (same problem); get_file_metadata gives fileSize but no checksum.
+  - No rclone/gdrive/gcloud CLI. ~/Library/CloudStorage/GoogleDrive-brandojazz@gmail.com is a stale 09-22-2024 mount (no Drive process; ls on My Drive times out).
+  - Empty private Drive folder created for packets: "VeriBench 102 rater packets (private)", id 1srXBxVHBHkDg9By7tA0o6sZFw5j9bZo4 (not shared).
+  - Working routes: Google Drive for desktop signed in on this Mac (copy the zip into the mount, check fileSize with the connector), or the Claude in Chrome Add-to-Drive + browser share route (A1 precedent; needs Brando present).
+  - V02/V03 warm-up zips are attached to brandojazz's sent 10-13 emails (Gmail 1a1371cf4abc2edd = V02, 1a1371cfd0f01f83 = V03) for the Add-to-Drive route.
