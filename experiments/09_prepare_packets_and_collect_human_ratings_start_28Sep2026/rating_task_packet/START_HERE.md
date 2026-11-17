@@ -7,4 +7,4 @@
 
 Your Sheet saves automatically; no copy or email return is needed. Leave unfinished scores blank. If a reference prevents a rating, add a problem note and email brandojazz@gmail.com. Notify Brando before changing completed ratings.
 
-After the warm-up, [open your main rating task: 100 files in 25 folders](main_rating_task/START_HERE.md). It uses the same rubric and columns.
+After the warm-up, [open your main rating task: 100 files in 25 folders](main_rating_task/). It uses the same rubric and columns.

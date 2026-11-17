@@ -41,7 +41,7 @@ You have 3 files per problem:
 
 ## Output format (required)
 
-Use your personal sheet linked in START_HERE.md. Enter final_score_0_5 and ai_assisted_rating_attestation. Please estimate minutes_spent and confidence. A one-sentence rationale is welcome but optional; use problem_note for issues. START_HERE.md explains these answers. Identifiers are prefilled. The checklist and base score remain scoring steps, not separate form entries.
+Use your personal sheet linked in your email. Enter final_score_0_5 and ai_assisted_rating_attestation. Please estimate minutes_spent and confidence. A one-sentence rationale is welcome but optional; use problem_note for issues. Identifiers are prefilled. The checklist and base score remain scoring steps, not separate form entries.
 
 ## Tie-break rule
 

@@ -128,32 +128,6 @@ def checked_display_layout(cohort: dict, base: Path) -> dict:
 
 RUBRIC_URL = ("https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/"
               "09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/human_judgements_prompt.md")
-ATTESTATION = ("I used AI for localized assistance. I personally compared the specifications and chose the final score; "
-               "I did not delegate the rating task to AI.")
-
-
-def start_here(name: str, sheet_url: str, tasks: int, items: int, empty: bool, skipped: bool = False) -> bytes:
-    # Brando, 11-17-2026: the packet is START_HERE.md plus the task folders only. The rubric is linked (one copy, on
-    # GitHub); there is no column guide, no ratings.csv and no FILES.sha256 in the zip.
-    text = (
-        f"# Main rating task: {items} files in {tasks} task folders\n\n"
-        f"1. [Open your personal rating sheet]({sheet_url}) for {name}.\n"
-        f"2. Read [the scoring rubric]({RUBRIC_URL}). Compare theorem statements, not proofs.\n"
-        "3. Follow the numbered task folders. In each, read `python_source/source.py`, "
-        "the reference statements in `gold_lean/reference.lean`, and each file in `agent_lean/`.\n"
-        "4. In your sheet, for each file enter `final_score_0_5` (0 to 5) and answer `ai_assisted_rating_attestation` "
-        f"with yes, no or unsure to: \"{ATTESTATION}\" If you rated a file without any AI, answer no and write "
-        "\"rated personally without AI\" in `problem_note`. Please also estimate `minutes_spent` and `confidence` "
-        "(low, medium or high). `rationale (optional)`, the last column, is welcome but optional.\n\n"
-        "Your sheet saves automatically; there is nothing to send back. Leave unfinished scores blank. "
-        "If a reference looks wrong, leave its score blank, describe it in `problem_note` and email brandojazz@gmail.com.\n"
-    )
-    if empty:
-        text += "\nAn empty candidate file records an empty solver output. Apply the same rubric; no score is prefilled.\n"
-    if skipped:
-        text += "\nFile numbers can skip; rate only the files listed in your Sheet.\n"
-    return text.encode()
-
 
 def build_packet(cohort_path: Path, output_dir: Path, *, rater_name: str,
                  rater_id: str, sheet_url: str, task_ids: list[str] | None = None,
@@ -264,9 +238,7 @@ def build_packet(cohort_path: Path, output_dir: Path, *, rater_name: str,
         require(len(row_order) == len(by_row) and set(row_order) == set(by_row),
                 "Row order must list each assigned item exactly once")
         response_rows = [by_row[item] for item in row_order]
-    members["START_HERE.md"] = start_here(rater_name, sheet_url, len(selected), len(joins),
-                                           any(j["candidate_status"] == "empty" for j in joins),
-                                           bool(cohort.get("excluded_item_ids")))
+    # Brando, 11-17-2026: the zip is the task folders only; the instructions are in his email.
     sheet = io.StringIO(newline="")
     writer = csv.DictWriter(sheet, fieldnames=COLUMNS, lineterminator="\n")
     writer.writeheader()

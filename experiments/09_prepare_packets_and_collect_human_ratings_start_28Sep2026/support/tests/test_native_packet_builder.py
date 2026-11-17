@@ -66,12 +66,8 @@ class NativePacketBuilderTests(unittest.TestCase):
         self.assertEqual(receipt["artifact_count"], 4)
         self.assertEqual(receipt["empty_artifact_count"], 1)
         with ZipFile(receipt["archive_path"]) as archive:
-            # Brando, 11-17-2026: the zip holds only START_HERE.md and the task folders.
-            self.assertEqual({n for n in archive.namelist() if "/" not in n}, {"START_HERE.md"})
-            start = archive.read("START_HERE.md").decode()
-            self.assertIn(BUILDER.RUBRIC_URL, start)
-            self.assertIn(BUILDER.ATTESTATION, start)
-            self.assertIn("https://docs.google.com/spreadsheets/d/synthetic/edit", start)
+            # Brando, 11-17-2026: the zip holds only the task folders; the instructions are his email.
+            self.assertEqual({n for n in archive.namelist() if "/" not in n}, set())
             rows = list(csv.DictReader(io.StringIO(Path(receipt["sheet_table_path"]).read_text())))
             self.assertEqual(list(rows[0]), BUILDER.COLUMNS)
             for row in rows:
@@ -86,7 +82,6 @@ class NativePacketBuilderTests(unittest.TestCase):
                              hashlib.sha256((EXP / "rating_task_packet/human_judgements_prompt.md").read_bytes()).hexdigest())
             self.assertNotIn("ASSEMBLY_RECEIPT.json", archive.namelist())
             self.assertNotIn("YOUR_RATING_SHEET.txt", archive.namelist())
-            self.assertIn(b"empty solver output", archive.read("START_HERE.md"))
             labels = "\n".join(archive.namelist()) + Path(receipt["sheet_table_path"]).read_text()
             for token in ("secret_solver", "private_config", "Claude", "Astra", "Codex"):
                 self.assertNotIn(token, labels)
@@ -121,7 +116,7 @@ class NativePacketBuilderTests(unittest.TestCase):
         self.save()
         subset = self.build("filtered")
         with ZipFile(subset["archive_path"]) as archive:
-            self.assertIn(b"File numbers can skip", archive.read("START_HERE.md"))
+            self.assertNotIn("START_HERE.md", archive.namelist())
         expected = next(j for j in full["artifact_joins"] if j["item_id"] == kept["item_id"])
         self.assertEqual(subset["artifact_joins"], [expected])
         self.cohort["display_layout"][kept["item_id"]]["candidate_file"] = "task_01_fake/agent_lean/agent_1.lean"

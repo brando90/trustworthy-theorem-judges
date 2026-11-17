@@ -33,9 +33,8 @@ class FormRevisionTests(unittest.TestCase):
             if valid:
                 self.assertEqual(rows[0]["minutes_spent"], answer)
 
-    def test_descriptive_questions_match_start_here_and_validate_like_legacy(self):
+    def test_schema_fields_and_validate_like_legacy(self):
         schema = json.loads((EXP / "support/RATING_FORM_SCHEMA.json").read_text())
-        guide = (EXP / "rating_task_packet/main_rating_task/START_HERE.md").read_text()  # no separate guide since 11-17-2026
         aliases = schema["legacy_checklist_headers"]
         self.assertEqual(schema["columns"][5:7], schema["required_new_responses"])
         self.assertEqual(schema["optional"], ["problem_note", "rationale (optional)"])
@@ -43,8 +42,6 @@ class FormRevisionTests(unittest.TestCase):
         self.assertEqual(schema["columns"][-2:], ["problem_note", "rationale (optional)"])
         self.assertEqual(schema["historical_header_aliases"], {"rationale": "rationale (optional)"})
         self.assertEqual(set(schema["field_guidance"]), set(schema["columns"][7:]))
-        for field in schema["required_new_responses"]:
-            self.assertIn(field, guide)
         fields = ["rater_id", "item_id", "final_score_0_5", *aliases.values()]
         for answer, invalid in [("yes", False), ("invalid", True)]:
             buf = io.StringIO()

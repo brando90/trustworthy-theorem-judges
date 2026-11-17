@@ -605,6 +605,12 @@ SENT_LOG = SEALED / "SENT_100.json"
 # Brando (chat, 11-16-2026): "don't send anything to the team until I do my ratings". `send --confirm` refuses while
 # this is set. Clear it only after Brando has done his own ratings and explicitly says to send.
 TEAM_SEND_HOLD = "Brando, 11-16-2026: \"don't send anything to the team until I do my ratings\""
+# People Brando cleared by name while the hold stands; `send --confirm` may send only these until the hold is lifted.
+HOLD_EXCEPTIONS = {
+    "T05": "Brando, 11-17-2026: \"can you send this now to nikil and sri too. Please.\"",
+    "V02": "Brando, 11-17-2026: \"can you send this now to nikil and sri too. Please.\"",
+    "T02": "Brando, 11-17-2026: \"Can we send the packet to Yegor too please?\"",
+}
 SUBJECT_QUERY = '"VeriBench human-rating main rating task"'
 EXPERIMENT = REPO / "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026"
 STATUS_START, STATUS_END = "<!-- grading-status:start -->", "<!-- grading-status:end -->"
@@ -630,8 +636,10 @@ def send() -> None:
     from email.utils import formatdate
     args = sys.argv[2:]
     confirm = "--confirm" in args
-    if confirm and TEAM_SEND_HOLD:
-        raise SystemExit(f"Team emails are on hold ({TEAM_SEND_HOLD}); nothing was sent")
+    named = [a for a in args if not a.startswith("--")]
+    if confirm and TEAM_SEND_HOLD and ("--all" in args or not named or not set(named) <= set(HOLD_EXCEPTIONS)):
+        raise SystemExit(f"Team emails are on hold ({TEAM_SEND_HOLD}); only {sorted(HOLD_EXCEPTIONS)} may be sent by name. "
+                         "Nothing was sent")
     lock = send_lock()  # noqa: F841
     index = json.loads(BUILD_INDEX.read_text())
     saved = json.loads(DRAFTS_LOG.read_text())
