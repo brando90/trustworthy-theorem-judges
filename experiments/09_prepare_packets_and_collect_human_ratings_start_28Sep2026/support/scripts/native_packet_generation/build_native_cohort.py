@@ -89,15 +89,30 @@ def cell_receipt(root: Path, task_id: str, condition_path: Path, model: str) -> 
     return data, receipt, receipt_path
 
 
-def attempt_roots(root: Path) -> list[Path]:
-    """NATIVE_ATTEMPTS_AMENDMENT_11-16-2026: attempt k > 1 of a cell lives in <root>_attempt<k>/ (at most 3)."""
-    return [root] + [root.with_name(f"{root.name}_attempt{k}") for k in (2, 3)]
+def attempt_roots(root: Path, last: int = 3) -> list[Path]:
+    """NATIVE_ATTEMPTS_AMENDMENT_11-16-2026: attempt k > 1 of a cell lives in <root>_attempt<k>/."""
+    return [root] + [root.with_name(f"{root.name}_attempt{k}") for k in range(2, last + 1)]
 
 
-def first_usable_attempt(root: Path, task_id: str, task_folder: str, condition_path: Path, model: str):
-    """The first attempt with a usable file wins; a later attempt may exist only if every earlier one failed."""
+def amendment_decisions() -> tuple[set, set]:
+    """Cells Brando approved for attempts 4-6, and cells he chose to keep on their Terminus 2 file."""
+    amendment = json.loads(ATTEMPTS.read_text())
+    extended = {(e["cell"]["group"], e["cell"]["task_id"]) for e in [amendment.get("grok_html_escape_extension")]
+                if e and e.get("approved_by_brando")}
+    keep = {(c["group"], c["task_id"]) for c in amendment.get("keep_terminus2_cells", []) if c.get("approved_by_brando")}
+    return extended, keep
+
+
+def first_usable_attempt(root: Path, task_id: str, task_folder: str, condition_path: Path, model: str,
+                         extended: bool = False):
+    """Attempts 1-3 ran one after another: the first usable one wins and a later one may exist only if every earlier
+    one failed. For an approved extended cell, attempts 4-6 ran concurrently after 1-3 failed: the lowest-numbered
+    usable one wins and the other concurrent attempts are recorded as unused."""
+    roots = attempt_roots(root, 6 if extended else 3)
+    stray = [r for r in attempt_roots(root, 6)[len(roots):] if (r / task_id).exists()]
+    assert not stray, f"{task_id}: attempts beyond 3 exist without Brando's approval ({stray})"
     failures = []
-    for number, attempt_root in enumerate(attempt_roots(root), start=1):
+    for number, attempt_root in enumerate(roots, start=1):
         if not (attempt_root / task_id).exists():
             break
         try:
@@ -106,9 +121,12 @@ def first_usable_attempt(root: Path, task_id: str, task_folder: str, condition_p
         except (AssertionError, FileNotFoundError, KeyError, ValueError) as exc:
             failures.append({"attempt": number, "folder": str(attempt_root / task_id), "reason": repr(exc)[:400]})
             continue
-        later = [r for r in attempt_roots(root)[number:] if (r / task_id).exists()]
-        assert not later, f"{task_id}: attempt {number} is usable, so no later attempt may exist ({later})"
-        return data, receipt, receipt_path, checks, number, failures
+        later = [r for r in roots[number:] if (r / task_id).exists()]
+        if number <= 3:
+            assert not later, f"{task_id}: attempt {number} is usable, so no later attempt may exist ({later})"
+        unused = [{"attempt": roots.index(r) + 1, "folder": str(r / task_id), "reason": "concurrent attempt, not used"}
+                  for r in later]
+        return data, receipt, receipt_path, checks, number, failures + unused
     raise AssertionError(f"{task_id}: no usable attempt: {failures}")
 
 
@@ -126,6 +144,8 @@ def main() -> None:
     artifacts = {a["item_id"]: json.loads(json.dumps(a)) for a in cohort["artifacts"]}
     replaced: dict[str, dict] = {}
     applied = []
+    extended, keep_terminus2 = amendment_decisions()
+    kept = []
     for group, spec in GROUPS.items():
         given = getattr(args, group)
         if not given:
@@ -137,8 +157,12 @@ def main() -> None:
         staged = {}
         for item in items:
             artifact = artifacts[item]
+            if (group, artifact["task_id"]) in keep_terminus2:  # Brando's explicit per-cell exception
+                kept.append({"group": group, "task_id": artifact["task_id"], "item_id": item,
+                             "configuration_id": spec["old"]})
+                continue
             staged[item] = first_usable_attempt(root, artifact["task_id"], layout[item]["task_folder"], condition_path,
-                                                condition["model"])
+                                                condition["model"], (group, artifact["task_id"]) in extended)
         for item, (data, receipt, receipt_path, checks, attempt, failures) in staged.items():  # all verified: apply
             artifact = artifacts[item]
             destination = grid.SEALED / "candidates" / spec["new"] / artifact["task_id"] / "candidate.lean"
@@ -166,7 +190,8 @@ def main() -> None:
             elif item in cohort["display_layout"]:  # planned with this configuration originally (10 Grok cells)
                 substitutions[item] = {"planned_configuration_id": spec["old"], "actual_configuration_id": spec["new"],
                                        "reason": f"Native-harness rerun (Brando, 11-16-2026): {spec['label']}."}
-        configurations.pop(spec["old"], None)
+        if not any(k["group"] == group for k in kept):  # a kept Terminus 2 cell still needs its configuration
+            configurations.pop(spec["old"], None)
         configurations[spec["new"]] = {
             "harness": condition.get("harness_label") or {"grok": "Grok CLI", "antigravity": "Antigravity CLI"}.get(
                 condition.get("harness"), "Claude Code"),
@@ -183,7 +208,8 @@ def main() -> None:
                                  "parent_cohort": {"path": str(PARENT), "sha256": sha(parent_bytes)},
                                  "attempts_amendment": {"path": str(ATTEMPTS), "sha256": sha(ATTEMPTS.read_bytes()),
                                                         "cells_using_a_later_attempt": sorted(
-                                                            i for i, r in replaced.items() if r["attempt"] > 1)},
+                                                            i for i, r in replaced.items() if r["attempt"] > 1),
+                                                        "cells_kept_on_terminus2": kept},
                                  "groups_applied": applied, "replaced_items": replaced}}
     assert len(full["artifacts"]) == 100
     TARGET.write_text(json.dumps(full, indent=1) + "\n")

@@ -47,5 +47,21 @@
    "decided_before_claude_v3_outputs": true,
    "rule": "A cell may start on whichever of Brando's existing Claude plans answers the probe first: the Vals Claude plan (at most 3 cells at once), else Brando's personal Claude plan (all remaining cells at once). The plan only pays for the run; condition, Claude Code version, model, effort, image, prompt and caps are identical. Each cell folder gets BILLING_ROUTE.json naming the plan used. Credentials checked and blocked at recording: Vals plan (spend limit until 12:50 AM UTC), personal plan (out of usage credits), Stanford plan (usage credits required), Vals AWS keys (no Bedrock permission), three logged-out CLI profiles."
   }
+ },
+ "grok_html_escape_extension": {
+  "recorded_unix": 1794873621,
+  "decided_before_attempt4_outputs": true,
+  "cell": {
+   "group": "grok",
+   "task_id": "realcode_set__20_html_escape"
+  },
+  "history": [
+   "attempt 1 (grok_cli_v3): infrastructure interruption after the 1800 s wall budget (runner removed the container before copying)",
+   "attempt 2 (grok_cli_v3_attempt2): wall budget, no file",
+   "attempt 3 (grok_cli_v3_attempt3): wall budget, no file"
+  ],
+  "problem": "The 3-attempt cap is reached. Under the rule as first written, the whole native Grok group (24 usable files) would not be applied, which contradicts Brando's stated goal of an all-native, consistent packet.",
+  "extension": "Attempts 4, 5 and 6 run concurrently under the identical frozen condition in grok_cli_v3_attempt4/, _attempt5/ and _attempt6/. The lowest-numbered attempt with a usable file is used (content-blind; the same distribution as retrying one at a time); the others are kept and recorded as unused.",
+  "requires": "Brando's yes in chat before any attempt above 3 enters the packet. If he declines, or all three fail, he chooses between this cell's Terminus 2 file (the one non-native file) and dropping the native Grok group."
  }
 }
