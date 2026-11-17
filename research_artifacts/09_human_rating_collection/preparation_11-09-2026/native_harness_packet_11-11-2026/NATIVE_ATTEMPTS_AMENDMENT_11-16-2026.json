@@ -46,6 +46,20 @@
    "recorded_unix": 1794871809,
    "decided_before_claude_v3_outputs": true,
    "rule": "A cell may start on whichever of Brando's existing Claude plans answers the probe first: the Vals Claude plan (at most 3 cells at once), else Brando's personal Claude plan (all remaining cells at once). The plan only pays for the run; condition, Claude Code version, model, effort, image, prompt and caps are identical. Each cell folder gets BILLING_ROUTE.json naming the plan used. Credentials checked and blocked at recording: Vals plan (spend limit until 12:50 AM UTC), personal plan (out of usage credits), Stanford plan (usage credits required), Vals AWS keys (no Bedrock permission), three logged-out CLI profiles."
+  },
+  "billing_stop_rule": {
+   "recorded_unix": 1794879132,
+   "rule": "A Claude Code run that ends because the account's billing stopped it (spend limit, out of usage credits) is a billing interruption: any file it left is a snapshot cut off at an arbitrary point, is never used, and the run does not count toward the 3 attempts. Recorded after the 4:50 PM PT Vals window: 3 cells started 16:51-16:52 PT and all 3 were stopped by the spend limit by 17:04 PT (about $11.70 of usage); 2 of them had left partial files, which are excluded by this rule."
+  },
+  "scheduler_update": {
+   "recorded_unix": 1794884384,
+   "recorded_local": "11-16-2026 18:59 PST",
+   "decided_before_outputs_it_governs": true,
+   "requested_by": "Brando (chat, 11-16-2026): 'set up a scheduler so we get what I need?' and 'I only want the CC native ones.'",
+   "rule": "From this recording, one scheduler (support/scripts/native_packet_generation/schedule_claude_code_cells_then_send_native_packet.py in experiment 09) runs the Claude Code V3 cells that still lack a usable file. Every minute it probes each of Brando's Claude plans with a one-line Claude Fable 5.1 request and starts a waiting cell on the first plan that answers. The Vals Claude plan runs one cell at a time: its per-user spend limit allowed about $17 (12:06 PM PT window) and $12 (4:51 PM PT window) of usage on 11-16-2026, and cells started together were all cut off. Brando's personal plan (two tokens) and his Stanford plan run all waiting cells at once. The plan only pays for the run; condition, Claude Code version, model, effort, image, prompt and caps are identical, and BILLING_ROUTE.json names the plan.",
+   "folders": "A billing-stopped run keeps its folder, and the cell's next attempt takes the next folder (claude_code_valid_v3_attempt2/ through _attempt6/). Billing stops never count toward the 3 attempts. A cell stopped by billing although it was the first cell of a fresh Vals window does not fit one window, so it is not started on the Vals plan again and waits for another plan.",
+   "after_the_cells": "When all 6 cells have usable files, the same scheduler builds the all-native cohort, rebuilds the 32 packets, checks every live Sheet, refreshes the 31 unsent team drafts and the review page, and emails Brando's own packet to Brando only. It sends team emails only after Brando's recorded yes.",
+   "plans_at_recording": "Vals plan: individual spend limit, next 5-hour reset 5:50 AM UTC (9:50 PM PT, 11-16-2026); personal plan, both tokens: out of usage credits; Stanford plan: usage credits required for this model."
   }
  },
  "grok_html_escape_extension": {
@@ -62,6 +76,16 @@
   ],
   "problem": "The 3-attempt cap is reached. Under the rule as first written, the whole native Grok group (24 usable files) would not be applied, which contradicts Brando's stated goal of an all-native, consistent packet.",
   "extension": "Attempts 4, 5 and 6 run concurrently under the identical frozen condition in grok_cli_v3_attempt4/, _attempt5/ and _attempt6/. The lowest-numbered attempt with a usable file is used (content-blind; the same distribution as retrying one at a time); the others are kept and recorded as unused.",
-  "requires": "Brando's yes in chat before any attempt above 3 enters the packet. If he declines, or all three fail, he chooses between this cell's Terminus 2 file (the one non-native file) and dropping the native Grok group."
+  "requires": "Brando's yes in chat before any attempt above 3 enters the packet. If he declines, or all three fail, he chooses between this cell's Terminus 2 file (the one non-native file) and dropping the native Grok group.",
+  "approved_by_brando": {
+   "quote": "Yes, use it",
+   "recorded_unix": 1794879006,
+   "context": "Brando's chat answer (11-16-2026, about 4:33 PM PT) to 'Use html_escape's attempt-4 Grok file in the packet?'. The question was first put to him before attempts 4-6 finished; he answered after attempt 4 was known to be usable. The file used is fixed by the recorded rule (lowest-numbered usable attempt), not chosen by content.",
+   "outcome": {
+    "attempt_4": "usable (exit 0)",
+    "attempt_5": "wall budget, no file",
+    "attempt_6": "usable, not used (concurrent)"
+   }
+  }
  }
 }

@@ -33,6 +33,7 @@ PARENT_SHA256 = "5a997b0168e3c13dc084c09bc8ae29bef8dad42d55ce2f981ff28f07f405587
 TARGET = grid.SEALED / "RATABLE_COHORT_100_NATIVE.json"
 COMMITMENT = grid.OUT / "COHORT_100_NATIVE_COMMITMENT.json"
 ATTEMPTS = grid.NATIVE / "NATIVE_ATTEMPTS_AMENDMENT_11-16-2026.json"
+BILLING_STOPS = ("spend limit", "out of usage credits", "usage credits are required", "hit your limit", "usage limit")
 PACKET = grid.REPO / "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/main_rating_task"
 LEAK = re.compile(r"\b(Claude|Anthropic|Fable|GPT|OpenAI|Codex|Grok|xAI|SpaceXAI|Gemini|Google|DeepMind|Antigravity|"
                   r"Argon|Kimi|Terminus)\b", re.I)
@@ -77,6 +78,11 @@ def check_file(task_folder: str, data: bytes) -> dict:
 def cell_receipt(root: Path, task_id: str, condition_path: Path, model: str) -> tuple[bytes, dict, Path]:
     receipt_path = root / task_id / "receipt.json"
     receipt = json.loads(receipt_path.read_text())
+    # A run stopped by the account's billing (spend limit, out of credits) is not an outcome of the frozen condition:
+    # any file it left is a snapshot cut off at an arbitrary point, so it is never used (attempts amendment, billing
+    # rule). Checked first, so a billing stop is recorded as one whether or not it left a file.
+    final = json.dumps(receipt.get("native_result") or {}).lower()
+    assert not any(s in final for s in BILLING_STOPS), f"{task_id}: stopped by account billing, not by the condition"
     assert receipt["status"] == "TERMINAL" and receipt.get("candidate_captured") is True, (task_id, receipt.get("status"),
                                                                                           receipt.get("stop_reason"))
     data = (root / task_id / "candidate.lean").read_bytes()
@@ -108,22 +114,23 @@ def first_usable_attempt(root: Path, task_id: str, task_folder: str, condition_p
     """Attempts 1-3 ran one after another: the first usable one wins and a later one may exist only if every earlier
     one failed. For an approved extended cell, attempts 4-6 ran concurrently after 1-3 failed: the lowest-numbered
     usable one wins and the other concurrent attempts are recorded as unused."""
-    roots = attempt_roots(root, 6 if extended else 3)
-    stray = [r for r in attempt_roots(root, 6)[len(roots):] if (r / task_id).exists()]
-    assert not stray, f"{task_id}: attempts beyond 3 exist without Brando's approval ({stray})"
+    roots = attempt_roots(root, 6)
+    cap = 6 if extended else 3  # billing interruptions are recorded but do not count toward the cap
     failures = []
     for number, attempt_root in enumerate(roots, start=1):
         if not (attempt_root / task_id).exists():
             break
+        assert sum(not f["billing"] for f in failures) < cap, f"{task_id}: attempt {number} exceeds {cap} counted attempts"
         try:
             data, receipt, receipt_path = cell_receipt(attempt_root, task_id, condition_path, model)
             checks = check_file(task_folder, data)
         except (AssertionError, FileNotFoundError, KeyError, ValueError) as exc:
-            failures.append({"attempt": number, "folder": str(attempt_root / task_id), "reason": repr(exc)[:400]})
+            failures.append({"attempt": number, "folder": str(attempt_root / task_id), "reason": repr(exc)[:400],
+                             "billing": "stopped by account billing" in repr(exc)})
             continue
         later = [r for r in roots[number:] if (r / task_id).exists()]
-        if number <= 3:
-            assert not later, f"{task_id}: attempt {number} is usable, so no later attempt may exist ({later})"
+        concurrent = extended and number > 3  # only the approved concurrent batch (attempts 4-6) leaves later folders
+        assert concurrent or not later, f"{task_id}: attempt {number} is usable, so no later attempt may exist ({later})"
         unused = [{"attempt": roots.index(r) + 1, "folder": str(r / task_id), "reason": "concurrent attempt, not used"}
                   for r in later]
         return data, receipt, receipt_path, checks, number, failures + unused

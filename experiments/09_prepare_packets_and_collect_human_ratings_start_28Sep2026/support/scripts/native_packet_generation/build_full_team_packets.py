@@ -43,7 +43,7 @@ OUT = REPO / "research_artifacts/09_human_rating_collection/preparation_11-09-20
 SEALED = OUT / "sealed"
 # Rounds: "100" = first 100-file packet (11-16-2026, Grok and Gemini files from Terminus 2);
 # "100_native" = same rows and file names, every file from its vendor's own harness (build_native_cohort.py).
-ROUND_TAG = "100"
+ROUND_TAG = "100_native"
 COHORT = SEALED / {"100": "RATABLE_COHORT_100_FOUR_AGENTS.json", "100_native": "RATABLE_COHORT_100_NATIVE.json"}[ROUND_TAG]
 BUILDS = SEALED / f"builds_{ROUND_TAG}"
 BUILD_INDEX = SEALED / f"BUILD_INDEX_{ROUND_TAG.upper()}.json"
@@ -214,7 +214,7 @@ website: https://brando90.github.io/brandomiranda/
 BRANDO = {"rater_id": "A1", "rater_name": "Brando Miranda", "greeting": "Brando", "opener": "",
           "email": "brandojazz@gmail.com",  # his main inbox; a BCC to the sending account lands in Sent only
           "design": {"task_descending": False, "file_descending": False, "start_task_offset": 0}}
-TODAY = "11-16-2026"
+TODAY = __import__("time").strftime("%m-%d-%Y")  # date of each action; the scheduler may finish on a later day
 
 
 OLD_BUILDS = OUT / "builds"  # the 75-file builds of record, matched to the live Sheets on 11-14-2026
