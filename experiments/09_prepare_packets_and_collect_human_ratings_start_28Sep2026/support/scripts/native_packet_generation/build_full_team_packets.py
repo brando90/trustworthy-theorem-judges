@@ -39,6 +39,7 @@ sys.path.insert(0, str(HERE))
 import build_packet as bp  # noqa: E402
 
 REPO = HERE.parents[4]
+EXPERIMENT_DIR = HERE.parents[2]
 OUT = REPO / "research_artifacts/09_human_rating_collection/preparation_11-09-2026/full_team_11-14-2026"
 SEALED = OUT / "sealed"
 # Rounds: "100" = first 100-file packet (11-16-2026, Grok and Gemini files from Terminus 2);
@@ -58,8 +59,7 @@ BRANDO_SHEET_ID = "1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM"
 DEADLINE = "Thursday, 11-19-2026"  # set before the team-email hold; revisit when Brando says send
 SUBJECT = f"VeriBench human-rating main rating task: closes {DEADLINE}, 6pm PT"
 # Brando, 11-13-2026 (agents-config personal/email-signature.md): BCC only brando.science unless he asks.
-# Brando, 11-17-2026, on the rater email: "it should be something we are not embarrassed to send my team", so no
-# TLDR-end line and no separate Assistant line; the "drafted with Claude Code" sign-off names the assistant.
+# Brando, 11-17-2026: rater emails are his own draft text only (see brando_draft): "STOP PUTTING GARBAGE LIKE THIS".
 BCC = ["brando.science@gmail.com"]
 COAUTHOR = ("Would you be willing to help with a human-rating task for VeriBench? Your ratings would be really "
             "valuable, and if you are interested and have time, I would be happy to add you as a co-author on "
@@ -184,35 +184,26 @@ def plan() -> None:
     print(f"planned {len(people)} raters; request files in {SEALED / 'sheet_requests'}")
 
 
+BRANDO_DRAFT = EXPERIMENT_DIR / "rating_task_packet/EMAIL_INSTRUCTIONS_V0.md"
+DRAFT_SHEET_URL = f"https://docs.google.com/spreadsheets/d/{BRANDO_SHEET_ID}/edit"
+
+
+def brando_draft() -> str:
+    """Brando's own rater email. Brando, 11-17-2026: "STOP PUTTING GARBAGE LIKE THIS": rater emails, his A1 copies
+    included, contain only his draft text plus per-recipient fills; no notes, TLDR-end, assistant or drafted-with lines.
+
+    Since commit c0c12e6 the text lives only in his Google Doc (EMAIL_INSTRUCTIONS_V0.md is a pointer), and it must go
+    out as HTML so his nested lists keep their indentation. The session that owns the rater email supplies it here.
+    """
+    raise SystemExit("Rater email text lives only in Brando's Google Doc (see rating_task_packet/EMAIL_INSTRUCTIONS_V0.md); "
+                     "supply it (HTML with nested lists plus a plain-text part) before build, drafts, review or send-a1.")
+
+
 def email_body(person: dict, sheet_url: str) -> str:
-    opener = OPENERS[person["opener"]] + "\n\n" if person["opener"] else ""
-    return f"""Hi {person['greeting']},
-
-{opener}Your VeriBench rating packet is attached: {len(cohort_rows())} agent files in 25 task folders. Everyone's sheet lists the files in a different order, so partial work from different people spreads across all the files. Please work from the top down and do as many as you can; even a few help.
-
-Your personal rating sheet:
-{sheet_url}
-
-What to do:
-1. Unzip the attachment and read START_HERE.md.
-2. In each task folder, compare the agent's theorem statements in agent_lean/ with the reference statements in gold_lean/, and rate how well the agent's statements cover the reference (not the proofs).
-3. In your sheet, for each file enter a score from 0 to 5 and a one-sentence rationale in your own words, and answer yes, no or unsure to the AI question (column ai_assisted_rating_attestation). This is a first round, so I would love your feedback on the form: if the rationale is too much work, or you would prefer not to have that column, please tell me. If anything in a task looks wrong, just email me.
-
-Please choose the score yourself and use AI only for help with Lean notation or a specific point.
-
-Please finish by 6pm Pacific on {DEADLINE} if you can, so I can run experiments overnight and show results in a meeting the next day. If you can only get part of it done by then, that is still very helpful. Filling it in as you go is even better: your sheet saves automatically (nothing to send back), and I will pull the data and start my analysis as it comes in so we can iterate.
-
-P.S. Feel free to email me with any questions. Email is preferred for questions! Happy to clarify anything! The full instructions are in START_HERE.md inside the zip.
-
-Brando (drafted with Claude Code)
------
-Brando Miranda
-Ph.D. Student
-Computer Science, Stanford University
-EDGE Scholar, Stanford University
-brando9@stanford.edu
-website: https://brando90.github.io/brandomiranda/
-"""
+    body = brando_draft().replace(DRAFT_SHEET_URL, sheet_url)
+    greeting = f"Hi {person['greeting']},"
+    opener = "\n\n" + OPENERS[person["opener"]] if person["opener"] else ""  # his per-recipient opener, after the greeting
+    return body.replace("Hi <Person Name>,", greeting + opener)
 
 
 BRANDO = {"rater_id": "A1", "rater_name": "Brando Miranda", "greeting": "Brando", "opener": "",
@@ -360,6 +351,69 @@ def sheets() -> None:
         print(rater_id, entry["status"], f"inserted={inserted}", f"responses={responses}", new_title)
 
 
+FORM_V5_COLUMNS = bp.COLUMNS[:9] + ["rationale", "problem_note"]  # main Sheets before 11-17-2026
+FORM_VERSION = json.loads((HERE.parents[1] / "RATING_FORM_SCHEMA.json").read_text())["version"]
+
+
+def sheet_layout(session, sheet_id: str) -> dict:
+    """Tab ID, A:K widths and hidden flags, and the row-2 data validation of each column."""
+    reply = session.get(f"{SHEETS_API}{sheet_id}", params={
+        "ranges": f"{TAB}!A1:K2",
+        "fields": "sheets(properties(sheetId,title),data(columnMetadata(pixelSize,hiddenByUser),rowData(values(dataValidation))))"})
+    sheet = reply.json()["sheets"][0]
+    data = sheet["data"][0]
+    columns = data.get("columnMetadata", [])
+    second = (data.get("rowData", [{}, {}]) + [{}, {}])[1].get("values", [])
+    return {"tab_id": sheet["properties"]["sheetId"],
+            "widths": [c.get("pixelSize") for c in columns], "hidden": [bool(c.get("hiddenByUser")) for c in columns],
+            "validation": [json.dumps((second[i] if i < len(second) else {}).get("dataValidation"), sort_keys=True)
+                           for i in range(11)]}
+
+
+def rationale_last() -> None:
+    """Brando, 11-17-2026: "Let's just put the rationale at the end and a (optional) column name. Go!"
+
+    Moves column J (`rationale`) after K (`problem_note`) in each live main Sheet with moveDimension, so its width,
+    format and validation travel with it, and renames the header to `rationale (optional)`. Refuses any Sheet with a
+    response in F:K; skips Sheets already moved. Checks identifiers, widths, hidden columns and validation afterwards.
+    """
+    only = set(sys.argv[2:])
+    index = json.loads(BUILD_INDEX.read_text())
+    session = sheets_session()
+    swap = lambda values: values[:9] + [values[10], values[9]] + values[11:]  # noqa: E731
+    for rater_id, entry in index.items():
+        if only and rater_id not in only:
+            continue
+        sheet_id = entry["sheet_id"]
+        table = live_table(session, sheet_id)
+        if table[0] == bp.COLUMNS:
+            print(rater_id, "already in form version 6")
+            continue
+        assert table[0] == FORM_V5_COLUMNS, f"{rater_id}: unexpected header {table[0]}"
+        responses = sum(any(cell.strip() for cell in row[5:11]) for row in table[1:])
+        assert responses == 0, f"{rater_id}: {responses} rows have responses; not moving any column"
+        before = sheet_layout(session, sheet_id)
+        tab = before["tab_id"]
+        session.post(f"{SHEETS_API}{sheet_id}:batchUpdate", json={"requests": [
+            {"moveDimension": {"source": {"sheetId": tab, "dimension": "COLUMNS", "startIndex": 9, "endIndex": 10},
+                               "destinationIndex": 11}},
+            {"updateCells": {"start": {"sheetId": tab, "rowIndex": 0, "columnIndex": 10},
+                             "rows": [{"values": [{"userEnteredValue": {"stringValue": bp.COLUMNS[10]}}]}],
+                             "fields": "userEnteredValue"}}]}).raise_for_status()
+        after_table, after = live_table(session, sheet_id), sheet_layout(session, sheet_id)
+        assert after_table[0] == bp.COLUMNS, f"{rater_id}: header after move {after_table[0]}"
+        assert [row[:5] for row in after_table] == [row[:5] for row in table], f"{rater_id}: identifiers changed"
+        assert not any(cell.strip() for row in after_table[1:] for cell in row[5:11]), rater_id
+        assert after["widths"] == swap(before["widths"]) and after["hidden"] == swap(before["hidden"]), rater_id
+        assert after["hidden"][1:4] == [True, True, True], f"{rater_id}: B:D not hidden"
+        assert after["validation"] == swap(before["validation"]), f"{rater_id}: validation changed"
+        entry["form_v6_move"] = {"date": TODAY, "utc": now_utc(), "tab_id": tab, "old_header": table[0],
+                                 "new_header": after_table[0], "rows": len(after_table) - 1,
+                                 "widths_before": before["widths"], "widths_after": after["widths"]}
+        save_index(index)
+        print(rater_id, "moved; widths", after["widths"][5:11], "hidden B:D kept; validation kept")
+
+
 def verify() -> None:
     """Fallback input: sealed/LIVE_DIGESTS.json {sheet_id: 'digest:rows:rows_with_responses'} read in the owner's browser."""
     observed = json.loads((SEALED / "LIVE_DIGESTS.json").read_text())
@@ -379,13 +433,10 @@ def verify() -> None:
     print(f"matched {len(index) - len(bad)} of {len(index)}; held: {bad}")
 
 
-def message_for(rater_id: str, note: str = ""):
+def message_for(rater_id: str):
     from email.message import EmailMessage
     from email.utils import make_msgid
     draft = json.loads((DRAFTS_DIR / f"{rater_id}.json").read_text())
-    if note:  # Brando, 11-17-2026: never put a note above the greeting; it goes after "Hi <name>,"
-        greeting, rest = draft["body"].split("\n\n", 1)
-        draft["body"] = f"{greeting}\n\n{note.strip()}\n\n{rest}"
     data = Path(draft["attachment"]).read_bytes()
     assert sha(data) == draft["attachment_sha256"]
     message = EmailMessage()
@@ -485,8 +536,9 @@ def send_a1() -> None:
     index = json.loads(BUILD_INDEX.read_text())
     entry = index["A1"]
     assert entry["status"] in ("BUILT_SHEET_MATCHED_NOT_SENT", "SHEET_IDENTIFIERS_MATCHED_WITH_RESPONSES"), entry["status"]
-    note = " ".join(sys.argv[2:]).strip()  # optional first paragraph, e.g. what changed in a re-sent packet
-    draft, message = message_for("A1", note)
+    # Brando, 11-17-2026: no notes in rater emails ("STOP PUTTING GARBAGE LIKE THIS"); the body is his draft only.
+    assert len(sys.argv) == 2, "send-a1 takes no note: the email is Brando's draft text only"
+    draft, message = message_for("A1")
     recipients = sorted({draft["to"], *draft["bcc"]})
     assert all(r in ("brando9@stanford.edu", "brandojazz@gmail.com", "brando.science@gmail.com") for r in recipients)
     assert draft["to"] == "brandojazz@gmail.com", "Rebuild A1's draft so it goes to brandojazz@gmail.com"
@@ -498,7 +550,7 @@ def send_a1() -> None:
     inbox = ensure_in_inbox(password, message["Message-ID"])
     if entry.get("sent_to_self"):  # sealed/ is not in Git, so keep each earlier self-send receipt here
         entry.setdefault("sent_to_self_earlier", []).append(entry["sent_to_self"])
-    entry["sent_to_self"] = {"date": TODAY, "to": draft["to"], "bcc": draft["bcc"], "note": note,
+    entry["sent_to_self"] = {"date": TODAY, "to": draft["to"], "bcc": draft["bcc"],
                              "message_id": message["Message-ID"], "zip_sha256": draft["attachment_sha256"],
                              "brandojazz_inbox": inbox}
     save_index(index)
@@ -623,6 +675,7 @@ def export() -> None:
         not_applicable = sum(row[5].strip().upper() == "N/A" for row in table[1:])
         scored[rater_id] = numeric
         record.update({
+            "columns": table[0], "form_version": FORM_VERSION,
             "url": entry["sheet_url"], "spreadsheet_id": entry["sheet_id"], "range": f"{TAB}!A1:K{len(table)}",
             "assigned_rows": len(table) - 1, "rows": len(table) - 1, "numeric_ratings": numeric,
             "not_applicable_rows": not_applicable, "sha256": sha(data),
@@ -740,4 +793,5 @@ def status() -> None:
 
 if __name__ == "__main__":
     {"plan": plan, "build": build, "sheets": sheets, "verify": verify, "drafts": drafts,
-     "send-a1": send_a1, "send": send, "export": export, "review": review, "status": status}[sys.argv[1]]()
+     "send-a1": send_a1, "send": send, "export": export, "review": review, "status": status,
+     "rationale-last": rationale_last}[sys.argv[1]]()

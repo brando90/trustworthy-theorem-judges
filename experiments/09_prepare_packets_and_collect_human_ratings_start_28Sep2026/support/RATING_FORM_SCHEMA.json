@@ -1,5 +1,5 @@
 {
-  "version": "rating_context_v5_11-11-2026",
+  "version": "rating_context_v6_11-17-2026",
   "columns": [
     "rater_name",
     "rater_id",
@@ -10,8 +10,8 @@
     "ai_assisted_rating_attestation",
     "minutes_spent",
     "confidence",
-    "rationale",
-    "problem_note"
+    "problem_note",
+    "rationale (optional)"
   ],
   "required_new_responses": [
     "final_score_0_5",
@@ -20,11 +20,11 @@
   "recommended": [
     "minutes_spent",
     "confidence",
-    "rationale"
+    "rationale (optional)"
   ],
   "optional": [
-    "rationale",
-    "problem_note"
+    "problem_note",
+    "rationale (optional)"
   ],
   "attestation_values": [
     "yes",
@@ -33,7 +33,7 @@
   ],
   "attestation": "I used AI for localized assistance. I personally compared the specifications and chose the final score; I did not delegate the rating task to AI.",
   "missing_legacy_metadata": "unknown; never infer no assistance or an affirmative attestation",
-  "rollout": "Warm-up and main forms use the same 11 columns. Historical participant-provided context is restored verbatim from pre-removal snapshots; absent answers stay blank. Current instructions apply prospectively.",
+  "rollout": "Main rating forms (Sheets, CSVs, packets) use version 6 from 11-17-2026: the rationale column is last and named `rationale (optional)`. Warm-up forms already delivered keep version 5 (`rationale` before `problem_note`); import by header name using historical_header_aliases. Historical participant-provided context is restored verbatim from pre-removal snapshots; absent answers stay blank. Current instructions apply prospectively.",
   "identity_columns": {
     "prefilled": [
       "rater_name",
@@ -58,8 +58,51 @@
   "field_guidance": {
     "minutes_spent": "Requested: your approximate minutes for this file (e.g. 10 or 5-10). Include shared folder reading once, with its first file. Do not report a whole-session total on every row.",
     "confidence": "Requested: low, medium or high confidence in your chosen rating. Low = substantial uncertainty; medium = some uncertainty; high = confident in the comparison. Historical values retain their exact spelling.",
-    "rationale": "Preferred but optional: one sentence naming the main coverage or missing guarantee behind your score. Your own words; no need for a long explanation.",
-    "problem_note": "Fill if something prevented or complicated the rating, especially an incorrect reference: describe the issue and, if possible, a small counterexample. Otherwise leave blank."
+    "problem_note": "Fill if something prevented or complicated the rating, especially an incorrect reference: describe the issue and, if possible, a small counterexample. Otherwise leave blank.",
+    "rationale (optional)": "Preferred but optional: one sentence naming the main coverage or missing guarantee behind your score. Your own words; no need for a long explanation."
   },
-  "field_status_note": "recommended and optional are not disjoint: rationale is preferred but optional. Only required_new_responses are required for new completed ratings."
+  "field_status_note": "recommended and optional are not disjoint: `rationale (optional)` is preferred but optional. Only required_new_responses are required for new completed ratings.",
+  "historical_header_aliases": {
+    "rationale": "rationale (optional)"
+  },
+  "revisions": [
+    {
+      "date": "11-17-2026",
+      "from_version": "rating_context_v5_11-11-2026",
+      "to_version": "rating_context_v6_11-17-2026",
+      "requested_by": "Brando, 11-17-2026: \"Let's just put the rationale at the end and a (optional) column name. Go!\"",
+      "change": "Moved the rationale column from J to the last column (K), after problem_note, and renamed its header from `rationale` to `rationale (optional)`. No other field, meaning, answer option or required status changed.",
+      "header_map": {
+        "rationale": "rationale (optional)"
+      },
+      "old_columns": [
+        "rater_name",
+        "rater_id",
+        "item_id",
+        "task_folder",
+        "candidate_file",
+        "final_score_0_5",
+        "ai_assisted_rating_attestation",
+        "minutes_spent",
+        "confidence",
+        "rationale",
+        "problem_note"
+      ],
+      "new_columns": [
+        "rater_name",
+        "rater_id",
+        "item_id",
+        "task_folder",
+        "candidate_file",
+        "final_score_0_5",
+        "ai_assisted_rating_attestation",
+        "minutes_spent",
+        "confidence",
+        "problem_note",
+        "rationale (optional)"
+      ],
+      "applies_to": "The 32 main rating Sheets (A1, T01-T29, V01, V02), their packet CSVs and zips, the blank main_rating_task/ratings.csv and the ratings/*native_main* snapshots. All 32 Sheets had 0 responses when moved.",
+      "unchanged": "Warm-up Sheets, delivered archives (including A1's packet emailed 11-17-2026 with the version 5 form) and all historical files."
+    }
+  ]
 }

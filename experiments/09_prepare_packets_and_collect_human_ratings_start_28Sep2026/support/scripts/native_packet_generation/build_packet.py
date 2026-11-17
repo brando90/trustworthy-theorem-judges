@@ -22,8 +22,8 @@ EXPERIMENT = Path(__file__).resolve().parents[3]
 COLUMNS = [
     "rater_name", "rater_id", "item_id", "task_folder", "candidate_file",
     "final_score_0_5", "ai_assisted_rating_attestation", "minutes_spent",
-    "confidence", "rationale", "problem_note",
-]
+    "confidence", "problem_note", "rationale (optional)",
+]  # form version 6 (11-17-2026): rationale last, header `rationale (optional)`
 
 
 def digest(data: bytes) -> str:
@@ -136,8 +136,8 @@ def start_here(name: str, sheet_url: str, tasks: int, items: int, empty: bool, s
         "3. Follow the numbered task folders. In each, read `python_source/source.py`, "
         "the reference statements in `gold_lean/reference.lean`, and each file in `agent_lean/`.\n"
         "4. Enter `final_score_0_5` and `ai_assisted_rating_attestation` for each file. "
-        "Please estimate `minutes_spent` and `confidence`. A one-sentence `rationale` is "
-        "**preferred but optional**; use `problem_note` for issues.\n\n"
+        "Please estimate `minutes_spent` and `confidence`; use `problem_note` for issues. "
+        "A one-sentence rationale in the last column, `rationale (optional)`, is **preferred but optional**.\n\n"
         "Your Sheet saves automatically; no copy or email return is needed. "
         "Use the included `ratings.csv` only if your invitation assigns the CSV route "
         "or your personal Sheet will not open (reply to the rating email with `ratings.csv` "

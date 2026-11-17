@@ -38,8 +38,11 @@ class FormRevisionTests(unittest.TestCase):
         guide = (EXP / "rating_task_packet/RATING_FORM_GUIDE.md").read_text()
         aliases = schema["legacy_checklist_headers"]
         self.assertEqual(schema["columns"][5:7], schema["required_new_responses"])
-        self.assertEqual(schema["optional"], ["rationale", "problem_note"])
-        self.assertEqual(schema["recommended"], ["minutes_spent", "confidence", "rationale"])
+        self.assertEqual(schema["optional"], ["problem_note", "rationale (optional)"])
+        self.assertEqual(schema["recommended"], ["minutes_spent", "confidence", "rationale (optional)"])
+        self.assertEqual(schema["columns"][-2:], ["problem_note", "rationale (optional)"])
+        self.assertEqual(schema["historical_header_aliases"], {"rationale": "rationale (optional)"})
+        self.assertEqual(set(schema["field_guidance"]), set(schema["columns"][7:]))
         for field in schema["required_new_responses"]:
             self.assertIn(field, guide)
         fields = ["rater_id", "item_id", "final_score_0_5", *aliases.values()]
