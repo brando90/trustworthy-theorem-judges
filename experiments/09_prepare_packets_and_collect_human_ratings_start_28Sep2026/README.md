@@ -31,11 +31,13 @@ VeriBench experiment 107 produced the Grok 4.7 and Gemini 4 Argon files through 
 ## Who is grading
 
 <!-- grading-status:start -->
-Live progress read from the 32 Sheets on 11-16-2026 (20:08 UTC); refresh with `python3 support/scripts/native_packet_generation/build_full_team_packets.py status`. Scored = rows with a `final_score_0_5` entry. Total scored: **0** of 3200.
+Live progress read from the 32 Sheets on 11-16-2026 at 19:08 PST; refresh with `python3 support/scripts/native_packet_generation/build_full_team_packets.py status`. Scored = rows with a `final_score_0_5` entry. Total scored: **0** of 3200.
+
+Team emails are on hold: Brando, 11-16-2026: "don't send anything to the team until I do my ratings".
 
 | ID | Rater | Email | Role | Warm-up | Packet email | Scored | Links |
 | --- | --- | --- | --- | ---: | --- | ---: | --- |
-| `A1` | Brando Miranda | brando9@stanford.edu | Author (coordinator) | 0/6 | emailed to self 11-16-2026 | **0/100** | [Sheet](https://docs.google.com/spreadsheets/d/1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM/edit) · [CSV](ratings/Brando_Miranda__native_main_A1.csv) |
+| `A1` | Brando Miranda | brandojazz@gmail.com | Author (coordinator) | 0/6 | current packet not emailed yet; earlier 100-file packet emailed 11-16-2026 | **0/100** | [Sheet](https://docs.google.com/spreadsheets/d/1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM/edit) · [CSV](ratings/Brando_Miranda__native_main_A1.csv) |
 | `T01` | Rylan Schaeffer | rschaef@cs.stanford.edu | VeriBench co-author | 6/6 | draft in Gmail, unsent | **0/100** | [Sheet](https://docs.google.com/spreadsheets/d/1fOr2oE2Fmibw9y8qDL7pMMuj6XH9luMJOMLDzIcBqo0/edit) · [CSV](ratings/Rylan_Schaeffer__native_main_T01.csv) |
 | `T02` | Yegor Denisov-Blanch | ydebl@stanford.edu | VeriBench co-author (extra_only) | 3/6 | draft in Gmail, unsent | **0/100** | [Sheet](https://docs.google.com/spreadsheets/d/1Hpcb4NP754RDWstDkiaTR59K9AX2vXNL6IR9iXKRo-Y/edit) · [CSV](ratings/Yegor_Denisov-Blanch__native_main_T02.csv) |
 | `T03` | Dilara Soylu | soylu@stanford.edu | VeriBench co-author | 0/6 | draft in Gmail, unsent | **0/100** | [Sheet](https://docs.google.com/spreadsheets/d/1D6Enb6IKRAZOoqhmk7bHwTqsFZ10U5dH3H3gRmJ8XPk/edit) · [CSV](ratings/Dilara_Soylu__native_main_T03.csv) |
