@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/EMAIL_INSTRUCTIONS_V0.md>
 
-**TLDR:** One email template for both the warm-up and the main rating task. Fill the bracketed placeholders per recipient; send nothing until Brando approves the exact text and says to send.
+**TLDR:** Brando's current best rater email (11-17-2026) is first, verbatim; the earlier placeholder template for the warm-up and main task is kept below it. Fill the bracketed placeholders per recipient; send nothing until Brando approves the exact text and says to send.
 
 Placeholders and routing per recipient:
 
@@ -13,7 +13,40 @@ Placeholders and routing per recipient:
 - `[PREFERRED DATE]` and `[FINAL DATE]`: written as `Weekday, MM-DD-YYYY` (for the 100-file full-team batch: `Thursday, 11-19-2026, 6pm PT` preferred and `Sunday, 11-22-2026` final).
 - **Routing:** send as a new email from `brandojazz@gmail.com` with that recipient's packet `.zip` attached; blind-copy (BCC) `brando.science@gmail.com`, `brandojazz@gmail.com` and `brando9@stanford.edu`; use visible CC only on request; include no chat `TLDR` line in the rater email.
 
-## Email
+## Current draft: Brando's best so far (11-17-2026)
+
+Brando's own text, recorded verbatim on 11-17-2026 ("best so far"). Editable source: [Google Doc, tab "Draft v2 (rubric link)"](https://docs.google.com/document/d/1KJQHxA-pSMxr31ZPMq8dI5bWPjnObQ2CHlQZ6g5r3f8/edit?tab=t.bmtmw71ddlms). The sheet link shown is Brando's own (`A1`); each recipient gets their own personal Sheet link. Not yet applied to the 31 team Gmail drafts, and nothing is sent: the team-email hold is unchanged.
+
+```text
+Hi <Person Name>,
+
+Attached is your theorem correctness & coverage rating packet. Your sheet lists the files in your own order; please work from the top down and do as many as you can, even a few help.
+
+Your personal rating sheet:
+https://docs.google.com/spreadsheets/d/1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM/edit
+
+What to do:
+
+1. Unzip the attachment and read START_HERE.md.
+2. In each task folder, compare the agent's theorem statements (agent_lean/) with the reference statements (gold_lean/) and score how well they cover the reference: theorem statements only, not proofs (if present).
+   1. Use the rubric in human_judgements_prompt.md
+      1. [https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/human_judgements_prompt.md]
+3. For each file enter a score from 0 to 5.
+   1. A one-sentence rationale in your own words is welcome but optional, and RATING_FORM_GUIDE.md explains every column.
+   2. Please choose the score yourself. You are allowed to use AI –ideally mostly for Lean or localized questions. Don’t feed the whole task to an agent and ask it to do it for you please.
+   3. If models/agents give you options and you choose one, that is the type of thing we want to measure!
+
+
+Please your first round by finish by 6pm Pacific on Thursday, 19-Nov--2026 if you can. Filling it in as you go works too!
+
+Feel free to email me or DM with any questions.
+
+Regards, Brando
+```
+
+## Earlier template (11-12-2026; superseded by the draft above)
+
+### Email
 
 Subject: VeriBench human-rating [TASK]: closes [PREFERRED DATE]
 
