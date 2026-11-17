@@ -56,8 +56,11 @@ TAB = "Ratings"
 TEMPLATE_SHEET_ID = "1Hpcb4NP754RDWstDkiaTR59K9AX2vXNL6IR9iXKRo-Y"
 TEMPLATE_TAB_ID = 0
 BRANDO_SHEET_ID = "1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM"
-DEADLINE = "Thursday, 11-19-2026"  # set before the team-email hold; revisit when Brando says send
-SUBJECT = f"VeriBench human-rating main rating task: closes {DEADLINE}, 6pm PT"
+# Brando, 11-17-2026: "I changed the deadline for Monday 6pm" / "isn't the subject too long? Can it be shorter?"
+DEADLINE = "Monday, 11-23-2026"
+SUBJECT = "VeriBench rating task: due Mon 11-23, 6pm PT"
+# Every subject this email has used, so drafts and sends are matched across the rename (T05/V02 went out under the first).
+SUBJECTS = ("VeriBench human-rating main rating task", "VeriBench rating task: due")
 # Brando, 11-13-2026 (agents-config personal/email-signature.md): BCC only brando.science unless he asks.
 # Brando, 11-17-2026: rater emails are his own draft text only (see brando_draft): "STOP PUTTING GARBAGE LIKE THIS".
 BCC = ["brando.science@gmail.com"]
@@ -203,7 +206,7 @@ def brando_draft() -> dict:
     snap = json.loads(EMAIL_FROM_DOC.read_text())
     for part in ("text", "html"):
         assert snap[part].count(DRAFT_SHEET_URL) >= 1, f"{part}: Brando's draft changed shape; review"
-    assert snap["text"].count("Hi <Person Name>,") == 1 and snap["html"].count("<p>Hi &lt;Person Name&gt;,</p>") == 1
+    assert snap["text"].count("Hi <Person Name>,") == 1 and snap["html"].count("<div>Hi &lt;Person Name&gt;,</div>") == 1
     return snap
 
 
@@ -217,10 +220,10 @@ def email_body(person: dict, sheet_url: str) -> str:
 def email_html(person: dict, sheet_url: str) -> str:
     from html import escape
     body = brando_draft()["html"].replace(DRAFT_SHEET_URL, sheet_url)
-    block = f"<p>Hi {escape(person['greeting'])},</p>"
-    if person["opener"]:
-        block += f"\n<p>{escape(OPENERS[person['opener']])}</p>"
-    return body.replace("<p>Hi &lt;Person Name&gt;,</p>", block)
+    block = f"<div>Hi {escape(person['greeting'])},</div>"
+    if person["opener"]:  # his per-recipient opener as its own paragraph, like the plain-text part
+        block += f"\n<div><br></div>\n<div>{escape(OPENERS[person['opener']])}</div>"
+    return body.replace("<div>Hi &lt;Person Name&gt;,</div>", block)
 
 
 BRANDO = {"rater_id": "A1", "rater_name": "Brando Miranda", "greeting": "Brando", "opener": "",
@@ -491,7 +494,7 @@ def drafts() -> None:
         sent = already_sent()
         for rater_id in sorted(sent - {"A1"}):  # a sent rater's leftover draft could go out twice; move it to Trash
             to = index[rater_id].get("to") or json.loads((DRAFTS_DIR / f"{rater_id}.json").read_text())["to"]
-            leftover = box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", '"VeriBench human-rating main rating task"')[1][0].split()
+            leftover = [u for s in SUBJECTS for u in box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", f'"{s}"')[1][0].split()]
             for uid in leftover:
                 assert box.uid("MOVE", uid, "[Gmail]/Trash")[0] == "OK", (rater_id, uid)
             if leftover:
@@ -510,7 +513,7 @@ def drafts() -> None:
                 continue  # this exact draft is already in Gmail
             assert index[rater_id]["status"] == "BUILT_SHEET_MATCHED_NOT_SENT", rater_id
             draft, message = message_for(rater_id)
-            query = ("TO", f'"{draft["to"]}"', "SUBJECT", '"VeriBench human-rating main rating task"')
+            queries = [("TO", f'"{draft["to"]}"', "SUBJECT", f'"{s}"') for s in SUBJECTS]
             mine = ("HEADER", "Message-ID", message["Message-ID"])
             reply = [b""]
             for attempt in range(3):
@@ -523,14 +526,13 @@ def drafts() -> None:
                     break
                 time.sleep(10 * (attempt + 1))
             assert len(new) == 1, (rater_id, status, reply)
-            status, found = box.uid("SEARCH", None, *query)
-            assert status == "OK", found
-            old = [uid for uid in found[0].split() if uid not in new]
+            found = [u for q in queries for u in box.uid("SEARCH", None, *q)[1][0].split()]
+            old = [uid for uid in found if uid not in new]
             for uid in old:
                 assert box.uid("MOVE", uid, "[Gmail]/Trash")[0] == "OK", uid
             box.select("[Gmail]/Drafts")
-            status, now = box.uid("SEARCH", None, *query)
-            assert status == "OK" and now[0].split() == new, (rater_id, now)
+            now = [u for q in queries for u in box.uid("SEARCH", None, *q)[1][0].split()]
+            assert now == new, (rater_id, now)
             saved[rater_id] = {"to": draft["to"], "zip_sha256": draft["attachment_sha256"], "fingerprint": fingerprint,
                                "message_id": message["Message-ID"], "draft_uid": new[0].decode(),
                                "append_reply": reply[0].decode(errors="replace") if reply and reply[0] else "",
@@ -648,7 +650,7 @@ def send() -> None:
                 box.select('"[Gmail]/Sent Mail"', readonly=True)
                 by_id = bool(prior.get("message_id")) and bool(
                     box.uid("SEARCH", None, "HEADER", "Message-ID", prior["message_id"])[1][0].split())
-                by_subject = bool(box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", SUBJECT_QUERY)[1][0].split())
+                by_subject = any(box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", f'"{s}"')[1][0].split() for s in SUBJECTS)
                 if prior.get("status", "sent") == "sent" and prior or by_id or by_subject:
                     if prior.get("status") != "sent":
                         sent_log[rater_id] = {**prior, "status": "sent", "reconciled_utc": now_utc()}
@@ -656,7 +658,7 @@ def send() -> None:
                     print(f"{rater_id}: already sent, skipped")
                     continue
                 box.select("[Gmail]/Drafts")
-                uids = box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", SUBJECT_QUERY)[1][0].split()
+                uids = [u for s in SUBJECTS for u in box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", f'"{s}"')[1][0].split()]
                 assert len(uids) == 1, f"{rater_id}: expected one draft, found {len(uids)}"
                 message = email.message_from_bytes(box.uid("FETCH", uids[0], "(BODY.PEEK[])")[1][0][1], policy=policy.SMTP)
                 attachments = list(message.iter_attachments())
