@@ -10,7 +10,7 @@ This is supporting coordinator documentation. For the actual rating task, start 
 
 [Brando's six-file warm-up packet, personal Google Sheet and instructions](BRANDO_WARMUP.md). Complete this practice set before the new main packet.
 
-**Current form revision, 11-11-2026:** [one shared warm-up/main form](../rating_task_packet/RATING_FORM_GUIDE.md), with [combined AI-use and personal-rating attestation](FORM_AMENDMENT_11-11-2026.md), plus time, confidence, rationale and problem notes. The twelve earlier Sheets and three replacement main Sheets use the eleven-column form; the team queue remains held for his pilot and revised-text review. Dispatch agents must read the amendment before using older prepared emails or packets.
+**Current form revision, 11-11-2026:** one shared warm-up/main form ([schema](RATING_FORM_SCHEMA.json); the separate column guide was removed 11-17-2026), with [combined AI-use and personal-rating attestation](FORM_AMENDMENT_11-11-2026.md), plus time, confidence, rationale and problem notes. The twelve earlier Sheets and three replacement main Sheets use the eleven-column form; the team queue remains held for his pilot and revised-text review. Dispatch agents must read the amendment before using older prepared emails or packets.
 
 **Names first for everyone, 11-11-2026:** all personal Google Sheets, including the three replacement main forms, start with `rater_name,rater_id`. [Open every live sheet and its current raw CSV](../ratings/README.md). The earlier name-first rollout is preserved below as history. Current Sheets and CSVs use eleven columns; historical responses and removed columns remain in the source snapshots. The same name-first rule applies to future participants and CSV-only submissions.
 

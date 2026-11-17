@@ -16,7 +16,7 @@ def current_form_rubric(text):
     output = ("## Output format (required)\n\n"
               "Use your personal sheet linked in START_HERE.md, or the assigned ratings.csv return route. "
               "Enter final_score_0_5 and ai_assisted_rating_attestation. Please estimate minutes_spent and confidence. A one-sentence rationale is preferred but optional; use problem_note for issues. "
-              "RATING_FORM_GUIDE.md explains these answers. Identifiers are prefilled. "
+              "START_HERE.md explains these answers. Identifiers are prefilled. "
               "The checklist and base score remain scoring steps, not separate form entries.\n\n")
     text = re.sub(r"## Current form headers[\s\S]*$", "", text)
     if "## Output format (required)" in text:
@@ -29,9 +29,8 @@ def current_form_rubric(text):
 
 def revise(source, output, rater, sheet_url):
     schema = json.loads((HOME / "support/RATING_FORM_SCHEMA.json").read_text())
-    guide = (HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_text()
-    if any(field not in guide for field in schema["required_new_responses"]):
-        raise ValueError("Form guide does not match required response fields")
+    if schema["columns"][5:7] != schema["required_new_responses"]:
+        raise ValueError("Schema required fields changed; review this packet text")
     identities = json.loads((HOME / "support/RATER_IDENTITIES.json").read_text())
     if rater not in identities or not identities[rater]["rater_name"].strip():
         raise ValueError(f"No verified name for {rater}; update RATER_IDENTITIES.json first")
@@ -60,14 +59,14 @@ def revise(source, output, rater, sheet_url):
     files[rubric] = rubric_text.encode()
     # Delivered scientific payload is copied byte-for-byte, never regenerated.
     protected = {n: b for n, b in files.items() if n.endswith((".lean", ".py"))}
-    files["RATING_FORM_GUIDE.md"] = (HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_bytes()
     return_route = (f"1. [Open your personal Google Sheet]({sheet_url}) for {rater_name}. Use that existing sheet; no copy is needed.\n" if sheet_url else f"1. Open ratings.csv for {rater_name}. Return the completed CSV to brandojazz@gmail.com.\n")
     files["START_HERE.md"] = (
         "# Start your human ratings\n\n"
         f"This packet has {len(candidates)} candidate files. Form revision: 11-11-2026.\n\n"
         + return_route +
-        "2. Read RATING_FORM_GUIDE.md for the shared warm-up/main fields and assistance policy. "
-        "It supersedes older submission links and assistance wording.\n"
+        "2. The fields: final_score_0_5 and ai_assisted_rating_attestation (yes, no or unsure) are required; "
+        "minutes_spent, confidence, problem_note and the rationale are welcome. This page supersedes older "
+        "submission links and assistance wording.\n"
         f"3. Read {rubric} for the unchanged 0–5 scoring rubric. "
         "Read Python source, gold theorem statements and candidate theorem statements in each task folder. "
         "Rate statements, not proofs.\n"

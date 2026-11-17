@@ -48,9 +48,8 @@ def main():
                          "item_id": path.stem, "task_folder": path.parts[0], "candidate_file": path.name})
 
     schema = json.loads((FORM_HOME / "support/RATING_FORM_SCHEMA.json").read_text())
-    guide = (FORM_HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_text()
-    if any(field not in guide for field in schema["required_new_responses"]):
-        raise ValueError("Form guide does not match required response fields")
+    if schema["columns"][5:7] != schema["required_new_responses"]:
+        raise ValueError("Schema required fields changed; review this packet text")
     if len(rows) != 5 * len(folders):
         parser.error("Unexpected candidate count.")
     rubric = re.sub(r"^Open \[your personal rating sheet\].+$",
@@ -58,7 +57,7 @@ def main():
     members["Rating_Instructions.md"] = current_form_rubric(rubric).encode()
     members["START_HERE.md"] = (
         "# Rate theorem coverage\n\n"
-        "Read RATING_FORM_GUIDE.md first for the current fields and assistance policy; "
+        "This page has the current fields and assistance policy (Brando, 11-17-2026: no separate column guide); "
         "it supersedes older submission/assistance instructions below.\n\n"
         "Read Rating_Instructions.md. In each assigned folder, read the Python source and the "
         "gold Lean theorem statements, then rate each candidate under agent_lean. The files in "
@@ -68,7 +67,6 @@ def main():
         "Keep the prefilled identifiers intact. Email reference problems to Brando. "
         "Return your completed CSV privately to Brando.\n"
     ).encode()
-    members["RATING_FORM_GUIDE.md"] = (FORM_HOME / "rating_task_packet/RATING_FORM_GUIDE.md").read_bytes()
     sheet = io.StringIO(newline="")
     writer = csv.DictWriter(sheet, fieldnames=COLUMNS)
     writer.writeheader()

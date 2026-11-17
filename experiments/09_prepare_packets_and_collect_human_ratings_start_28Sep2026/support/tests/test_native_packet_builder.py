@@ -66,7 +66,13 @@ class NativePacketBuilderTests(unittest.TestCase):
         self.assertEqual(receipt["artifact_count"], 4)
         self.assertEqual(receipt["empty_artifact_count"], 1)
         with ZipFile(receipt["archive_path"]) as archive:
-            rows = list(csv.DictReader(io.StringIO(archive.read("ratings.csv").decode())))
+            # Brando, 11-17-2026: the zip holds only START_HERE.md and the task folders.
+            self.assertEqual({n for n in archive.namelist() if "/" not in n}, {"START_HERE.md"})
+            start = archive.read("START_HERE.md").decode()
+            self.assertIn(BUILDER.RUBRIC_URL, start)
+            self.assertIn(BUILDER.ATTESTATION, start)
+            self.assertIn("https://docs.google.com/spreadsheets/d/synthetic/edit", start)
+            rows = list(csv.DictReader(io.StringIO(Path(receipt["sheet_table_path"]).read_text())))
             self.assertEqual(list(rows[0]), BUILDER.COLUMNS)
             for row in rows:
                 self.assertEqual(row["rater_name"], "Test Rater")
@@ -76,18 +82,16 @@ class NativePacketBuilderTests(unittest.TestCase):
                 self.assertEqual(archive.read(join["candidate_file"]), Path(join["source_paths"]["candidate"]).read_bytes())
                 self.assertEqual(archive.read(f"{join['task_folder']}/python_source/source.py"), Path(join["source_paths"]["python"]).read_bytes())
                 self.assertEqual(archive.read(f"{join['task_folder']}/gold_lean/reference.lean"), Path(join["source_paths"]["gold"]).read_bytes())
-            self.assertEqual(archive.read("human_judgements_prompt.md"),
-                             (EXP / "rating_task_packet/human_judgements_prompt.md").read_bytes())
-            self.assertEqual(archive.read("RATING_FORM_GUIDE.md"),
-                             (EXP / "rating_task_packet/RATING_FORM_GUIDE.md").read_bytes())
+            self.assertEqual(receipt["linked_rubric_sha256"],
+                             hashlib.sha256((EXP / "rating_task_packet/human_judgements_prompt.md").read_bytes()).hexdigest())
             self.assertNotIn("ASSEMBLY_RECEIPT.json", archive.namelist())
             self.assertNotIn("YOUR_RATING_SHEET.txt", archive.namelist())
             self.assertIn(b"empty solver output", archive.read("START_HERE.md"))
-            labels = "\n".join(archive.namelist()) + archive.read("ratings.csv").decode()
+            labels = "\n".join(archive.namelist()) + Path(receipt["sheet_table_path"]).read_text()
             for token in ("secret_solver", "private_config", "Claude", "Astra", "Codex"):
                 self.assertNotIn(token, labels)
-            for line in archive.read("FILES.sha256").decode().splitlines():
-                expected, name = line.split("  ", 1)
+            self.assertEqual(set(receipt["member_sha256"]), set(archive.namelist()))
+            for name, expected in receipt["member_sha256"].items():
                 self.assertEqual(expected, hashlib.sha256(archive.read(name)).hexdigest())
 
     def test_repeat_build_is_deterministic_and_subset_keeps_ids_and_paths(self):
@@ -154,9 +158,9 @@ class NativePacketBuilderTests(unittest.TestCase):
         self.assertEqual(joins[kept["item_id"]]["candidate_file"], layout[kept["item_id"]]["candidate_file"])
         self.assertEqual(joins[refilled["item_id"]]["candidate_file"], layout[refilled["item_id"]]["candidate_file"])
         self.assertTrue(joins[added["item_id"]]["candidate_file"].endswith("agent_4.lean"))
-        table = list(csv.reader((Path(receipt["packet_directory"]) / "ratings.csv").open()))
+        table = list(csv.reader(Path(receipt["sheet_table_path"]).open()))
         self.assertEqual([row[2] for row in table[1:]], order)
-        with self.assertRaisesRegex(ValueError, "differs from the packaged CSV"):
+        with self.assertRaisesRegex(ValueError, "differs from the build's Sheet table"):
             BUILDER.verify_sheet_digest(self.root / "amended", "0" * 64, len(table), "test")
         check = BUILDER.verify_sheet_digest(self.root / "amended", BUILDER.table_digest(table), len(table), "test")
         self.assertTrue(check["sheet_csv_equal"])
@@ -253,7 +257,7 @@ class NativePacketBuilderTests(unittest.TestCase):
         receipt = self.build()
         build_dir = Path(receipt["archive_path"]).parent
         archive_before = Path(receipt["archive_path"]).read_bytes()
-        values = list(csv.reader(io.StringIO((build_dir / "rating_task_packet/ratings.csv").read_text())))
+        values = list(csv.reader(io.StringIO((build_dir / "SHEET_TABLE.csv").read_text())))
         readback = self.root / "sheet_readback.json"
         data = {"sheet_url": receipt["sheet_url"], "range": "Sheet1!A1:K5", "values": values}
         readback.write_text(json.dumps(data))

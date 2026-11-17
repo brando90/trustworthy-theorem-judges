@@ -156,7 +156,9 @@ def compute():
         "two_ratings_per_file_instead_of_all": curve["drop_4_to_20"]["ce_mixture, ratings 2 to all"]["point"],
     }
 
-    with (MAIN_TASK / "ratings.csv").open(newline="") as handle:
+    # The blank packet ratings.csv was removed 11-17-2026; Brando's main Sheet snapshot has the same 100 rows.
+    main_rows = COLLECTION / "ratings/Brando_Miranda__native_main_A1.csv"
+    with main_rows.open(newline="") as handle:
         form_rows = list(csv.DictReader(handle))
     per_task = {}
     for row in form_rows:
@@ -164,7 +166,7 @@ def compute():
     files, packet_tasks = len(form_rows), len(per_task)
     files_per_task = files / packet_tasks
     packet = {
-        "source": relative(MAIN_TASK / "ratings.csv"),
+        "source": relative(main_rows),
         "files": files, "tasks": packet_tasks, "files_per_task": files_per_task,
         "tasks_by_file_count": {str(k): sum(1 for v in per_task.values() if v == k) for k in sorted(set(per_task.values()))},
         "ratings_per_file_target": RATINGS_PER_FILE, "independent_rating_target": files * RATINGS_PER_FILE,

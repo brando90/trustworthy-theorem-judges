@@ -188,22 +188,39 @@ BRANDO_DRAFT = EXPERIMENT_DIR / "rating_task_packet/EMAIL_INSTRUCTIONS_V0.md"
 DRAFT_SHEET_URL = f"https://docs.google.com/spreadsheets/d/{BRANDO_SHEET_ID}/edit"
 
 
-def brando_draft() -> str:
-    """Brando's own rater email. Brando, 11-17-2026: "STOP PUTTING GARBAGE LIKE THIS": rater emails, his A1 copies
-    included, contain only his draft text plus per-recipient fills; no notes, TLDR-end, assistant or drafted-with lines.
+EMAIL_FROM_DOC = SEALED / "EMAIL_FROM_DOC.json"
 
-    Since commit c0c12e6 the text lives only in his Google Doc (EMAIL_INSTRUCTIONS_V0.md is a pointer), and it must go
-    out as HTML so his nested lists keep their indentation. The session that owns the rater email supplies it here.
+
+def brando_draft() -> dict:
+    """Brando's own rater email: {"text": plain-text part, "html": HTML part with real nested lists}.
+
+    The only editable copy is his Google Doc (EMAIL_INSTRUCTIONS_V0.md points to it). EMAIL_FROM_DOC.json in sealed/
+    is a frozen render of one Doc revision, recorded with its revision ID; re-capture it after he edits the Doc.
+    Brando, 11-17-2026: "STOP PUTTING GARBAGE LIKE THIS": only his text plus per-recipient fills (first name, personal
+    Sheet link, his per-recipient opener); no notes, TLDR-end, assistant or drafted-with lines. HTML because Gmail
+    collapses the leading spaces of a plain-text body, which removed his nested-list indentation ("tabs").
     """
-    raise SystemExit("Rater email text lives only in Brando's Google Doc (see rating_task_packet/EMAIL_INSTRUCTIONS_V0.md); "
-                     "supply it (HTML with nested lists plus a plain-text part) before build, drafts, review or send-a1.")
+    snap = json.loads(EMAIL_FROM_DOC.read_text())
+    for part in ("text", "html"):
+        assert snap[part].count(DRAFT_SHEET_URL) >= 1, f"{part}: Brando's draft changed shape; review"
+    assert snap["text"].count("Hi <Person Name>,") == 1 and snap["html"].count("<p>Hi &lt;Person Name&gt;,</p>") == 1
+    return snap
 
 
 def email_body(person: dict, sheet_url: str) -> str:
-    body = brando_draft().replace(DRAFT_SHEET_URL, sheet_url)
+    body = brando_draft()["text"].replace(DRAFT_SHEET_URL, sheet_url)
     greeting = f"Hi {person['greeting']},"
     opener = "\n\n" + OPENERS[person["opener"]] if person["opener"] else ""  # his per-recipient opener, after the greeting
     return body.replace("Hi <Person Name>,", greeting + opener)
+
+
+def email_html(person: dict, sheet_url: str) -> str:
+    from html import escape
+    body = brando_draft()["html"].replace(DRAFT_SHEET_URL, sheet_url)
+    block = f"<p>Hi {escape(person['greeting'])},</p>"
+    if person["opener"]:
+        block += f"\n<p>{escape(OPENERS[person['opener']])}</p>"
+    return body.replace("<p>Hi &lt;Person Name&gt;,</p>", block)
 
 
 BRANDO = {"rater_id": "A1", "rater_name": "Brando Miranda", "greeting": "Brando", "opener": "",
@@ -236,12 +253,21 @@ def save_index(index: dict) -> None:
     BUILD_INDEX.write_text(json.dumps(index, indent=1, ensure_ascii=False) + "\n")
 
 
+def already_sent() -> set[str]:
+    """Raters whose packet email went out (send log); their delivered zip and index entry are never rebuilt."""
+    log = SEALED / "SENT_100.json"
+    return {r for r, v in (json.loads(log.read_text()) if log.exists() else {}).items() if v.get("status") == "sent"}
+
+
 def build() -> None:
     sheets_by_rater = registry()
     index = json.loads(BUILD_INDEX.read_text()) if BUILD_INDEX.exists() else {}
     n = len(cohort_rows())
+    sent = already_sent()
     for person in [BRANDO] + roster():
         rater_id = person["rater_id"]
+        if rater_id in sent:
+            continue  # delivered; keep its zip and index entry exactly as sent
         sheet_id = sheets_by_rater[rater_id]
         assert rater_id != "A1" or sheet_id == BRANDO_SHEET_ID
         url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/edit"
@@ -252,14 +278,16 @@ def build() -> None:
         receipt = json.loads((out / "ASSEMBLY_RECEIPT.json").read_text())
         assert receipt["sheet_url"] == url and receipt["artifact_count"] == n and receipt["task_count"] == 25
         assert receipt["row_order"] == row_order(rater_id), rater_id
-        table = list(csv.reader(io.StringIO((out / "rating_task_packet/ratings.csv").read_text())))
+        table = list(csv.reader(io.StringIO((out / "SHEET_TABLE.csv").read_text())))
         entry = index.setdefault(rater_id, {})
+        if entry.get("expected_table_digest") not in (None, bp.table_digest(table)):
+            entry["status"] = "HELD"  # the Sheet was matched against a different table; verify it again
         entry.update({"rater_name": person["rater_name"], "sheet_id": sheet_id, "sheet_url": url,
                       "expected_table_digest": bp.table_digest(table), "zip": receipt["archive_path"],
                       "zip_sha256": receipt["archive_sha256"]})
         entry.setdefault("status", receipt["status"])
         DRAFTS_DIR.mkdir(exist_ok=True)
-        draft = {"to": person["email"], "bcc": BCC, "subject": SUBJECT, "body": email_body(person, url),
+        draft = {"to": person["email"], "bcc": BCC, "subject": SUBJECT, "body": email_body(person, url), "html": email_html(person, url),
                  "attachment": receipt["archive_path"], "attachment_sha256": receipt["archive_sha256"]}
         (DRAFTS_DIR / f"{rater_id}.json").write_text(json.dumps(draft, indent=1, ensure_ascii=False) + "\n")
     save_index(index)
@@ -306,7 +334,7 @@ def sheets() -> None:
         if only and rater_id not in only:
             continue
         out = BUILDS / rater_id
-        expected = list(csv.reader(io.StringIO((out / "rating_task_packet/ratings.csv").read_text())))
+        expected = list(csv.reader(io.StringIO((out / "SHEET_TABLE.csv").read_text())))
         meta = session.get(f"{SHEETS_API}{entry['sheet_id']}", params={"fields": "properties.title,sheets.properties"})
         meta.raise_for_status()
         meta = meta.json()
@@ -444,6 +472,7 @@ def message_for(rater_id: str):
     message["To"], message["Bcc"], message["Subject"] = draft["to"], ", ".join(draft["bcc"]), draft["subject"]
     message["Message-ID"] = make_msgid(domain="gmail.com")
     message.set_content(draft["body"])
+    message.add_alternative(draft["html"], subtype="html")
     message.add_attachment(data, maintype="application", subtype="zip", filename=Path(draft["attachment"]).name)
     return draft, message
 
@@ -459,10 +488,23 @@ def drafts() -> None:
     with imaplib.IMAP4_SSL("imap.gmail.com") as box:
         box.login("brandojazz@gmail.com", password)
         box.select("[Gmail]/Drafts")
+        sent = already_sent()
+        for rater_id in sorted(sent - {"A1"}):  # a sent rater's leftover draft could go out twice; move it to Trash
+            to = index[rater_id].get("to") or json.loads((DRAFTS_DIR / f"{rater_id}.json").read_text())["to"]
+            leftover = box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", '"VeriBench human-rating main rating task"')[1][0].split()
+            for uid in leftover:
+                assert box.uid("MOVE", uid, "[Gmail]/Trash")[0] == "OK", (rater_id, uid)
+            if leftover:
+                saved[rater_id] = {**saved.get(rater_id, {}), "sent": True, "retired_draft_uids": [u.decode() for u in leftover],
+                                   "retired": TODAY}
+                log_path.write_text(json.dumps(saved, indent=1) + "\n")
+            box.select("[Gmail]/Drafts")
         for path in sorted(DRAFTS_DIR.glob("*.json")):
             rater_id = path.stem
+            if rater_id in sent:
+                continue
             spec = json.loads(path.read_text())
-            fingerprint = sha(json.dumps({k: spec[k] for k in ("to", "bcc", "subject", "body", "attachment_sha256")},
+            fingerprint = sha(json.dumps({k: spec[k] for k in ("to", "bcc", "subject", "body", "html", "attachment_sha256")},
                                          sort_keys=True).encode())
             if rater_id == "A1" or saved.get(rater_id, {}).get("fingerprint") == fingerprint:
                 continue  # this exact draft is already in Gmail
@@ -710,10 +752,14 @@ def review() -> None:
     index = json.loads(BUILD_INDEX.read_text())
     saved = json.loads(DRAFTS_LOG.read_text()) if DRAFTS_LOG.exists() else {}
     sent_log = json.loads(SENT_LOG.read_text()) if SENT_LOG.exists() else {}
-    template = email_body({"greeting": "{first name}", "opener": ""}, "{personal Sheet link}")
     rows = []
     for person in roster():
         rater_id = person["rater_id"]
+        if sent_log.get(rater_id, {}).get("status") == "sent":
+            rows.append(f"| `{rater_id}` | {person['rater_name']} | {person['email']} | {person['greeting']} | "
+                        f"{person['opener'] or '—'} | [Sheet]({index[rater_id]['sheet_url']}) | "
+                        f"sent {sent_log[rater_id].get('sent_utc', '')} |")
+            continue
         draft = json.loads((DRAFTS_DIR / f"{rater_id}.json").read_text())
         assert draft["body"] == email_body(person, index[rater_id]["sheet_url"]), f"{rater_id}: draft differs from the template"
         assert draft["attachment_sha256"] == index[rater_id]["zip_sha256"] == saved.get(rater_id, {}).get("zip_sha256"), \
@@ -728,15 +774,19 @@ def review() -> None:
         "one-paragraph opener. Send only with `python3 experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/"
         "support/scripts/native_packet_generation/build_full_team_packets.py send --confirm --all` after Brando's yes; it sends "
         "each draft as it stands in Gmail (so edits there are kept), skips anyone already sent and moves the sent draft to Trash. "
+        "The email text itself lives only in Brando's Google Doc: "
+        "<https://docs.google.com/document/d/1KJQHxA-pSMxr31ZPMq8dI5bWPjnObQ2CHlQZ6g5r3f8/edit?tab=t.bmtmw71ddlms>. "
         f"Generated by `build_full_team_packets.py review` from round `{ROUND_TAG}`.", "",
         *([f"**On hold:** {TEAM_SEND_HOLD}. `send --confirm` refuses until the hold is cleared.", ""]
           if TEAM_SEND_HOLD else []),
         f"- **Subject:** {SUBJECT}", "- **From:** Brando Miranda <brandojazz@gmail.com>",
-        f"- **BCC (every email):** {', '.join(BCC)}", "", "## Common text", "", "```text", template.rstrip("\n"), "```", "",
+        f"- **BCC (every email):** {', '.join(BCC)}", "",
+        f"**Email text:** only in Brando's Google Doc (sent as HTML with nested lists, from the frozen render "
+        f"`sealed/EMAIL_FROM_DOC.json`, Doc revision `{brando_draft()['doc_revision_id'][:16]}…`).", "",
         "## Openers (inserted after the greeting)", "",
         *[f"- **{name}:** {text}" for name, text in OPENERS.items()], "",
         "## Per-rater differences", "",
-        "| ID | Rater | To | Greeting | Opener | Personal Sheet | Zip SHA-256 (first 12) |",
+        "| ID | Rater | To | Greeting | Opener | Personal Sheet | Zip SHA-256 (first 12), or sent |",
         "| --- | --- | --- | --- | --- | --- | --- |", *rows, "",
         "Varun's opener leaves out the dictated clause about Anthropic (\"not interested\" vs \"now interested\" was "
         "ambiguous); add it in his Gmail draft if wanted.", ""])

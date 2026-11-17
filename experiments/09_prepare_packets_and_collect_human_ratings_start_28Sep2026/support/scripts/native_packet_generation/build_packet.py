@@ -126,25 +126,27 @@ def checked_display_layout(cohort: dict, base: Path) -> dict:
     return merged
 
 
+RUBRIC_URL = ("https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/"
+              "09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/human_judgements_prompt.md")
+ATTESTATION = ("I used AI for localized assistance. I personally compared the specifications and chose the final score; "
+               "I did not delegate the rating task to AI.")
+
+
 def start_here(name: str, sheet_url: str, tasks: int, items: int, empty: bool, skipped: bool = False) -> bytes:
+    # Brando, 11-17-2026: the packet is START_HERE.md plus the task folders only. The rubric is linked (one copy, on
+    # GitHub); there is no column guide, no ratings.csv and no FILES.sha256 in the zip.
     text = (
         f"# Main rating task: {items} files in {tasks} task folders\n\n"
         f"1. [Open your personal rating sheet]({sheet_url}) for {name}.\n"
-        "2. Read [the scoring rubric](human_judgements_prompt.md) and "
-        "[the short column guide](RATING_FORM_GUIDE.md). Compare formal specification "
-        "statements (unproved theorem statements), not proofs.\n"
+        f"2. Read [the scoring rubric]({RUBRIC_URL}). Compare theorem statements, not proofs.\n"
         "3. Follow the numbered task folders. In each, read `python_source/source.py`, "
         "the reference statements in `gold_lean/reference.lean`, and each file in `agent_lean/`.\n"
-        "4. Enter `final_score_0_5` and `ai_assisted_rating_attestation` for each file. "
-        "Please estimate `minutes_spent` and `confidence`; use `problem_note` for issues. "
-        "A one-sentence rationale in the last column, `rationale (optional)`, is **preferred but optional**.\n\n"
-        "Your Sheet saves automatically; no copy or email return is needed. "
-        "Use the included `ratings.csv` only if your invitation assigns the CSV route "
-        "or your personal Sheet will not open (reply to the rating email with `ratings.csv` "
-        "attached, or send it to brando9@stanford.edu / brandojazz@gmail.com); "
-        "it is an alternative form, not a second submission. Leave unfinished scores blank. "
-        "If a reference prevents a rating, leave its score blank, add a problem note and "
-        "email brandojazz@gmail.com. Notify Brando before changing completed ratings.\n"
+        "4. In your sheet, for each file enter `final_score_0_5` (0 to 5) and answer `ai_assisted_rating_attestation` "
+        f"with yes, no or unsure to: \"{ATTESTATION}\" If you rated a file without any AI, answer no and write "
+        "\"rated personally without AI\" in `problem_note`. Please also estimate `minutes_spent` and `confidence` "
+        "(low, medium or high). `rationale (optional)`, the last column, is welcome but optional.\n\n"
+        "Your sheet saves automatically; there is nothing to send back. Leave unfinished scores blank. "
+        "If a reference looks wrong, leave its score blank, describe it in `problem_note` and email brandojazz@gmail.com.\n"
     )
     if empty:
         text += "\nAn empty candidate file records an empty solver output. Apply the same rubric; no score is prefilled.\n"
@@ -195,8 +197,6 @@ def build_packet(cohort_path: Path, output_dir: Path, *, rater_name: str,
     require(schema["columns"] == COLUMNS, "Current form schema changed; review the builder")
     require(schema["required_new_responses"] == COLUMNS[5:7], "Required fields changed")
     rubric = (form_home / "rating_task_packet/human_judgements_prompt.md").read_bytes()
-    guide = (form_home / "rating_task_packet/RATING_FORM_GUIDE.md").read_bytes()
-    require(all(field.encode() in guide for field in COLUMNS[5:]), "Guide lacks a response field")
 
     tasks, seen, pairs, loaded = {}, set(), set(), {}
     for artifact in artifacts:
@@ -259,7 +259,7 @@ def build_packet(cohort_path: Path, output_dir: Path, *, rater_name: str,
                           "provenance": artifact.get("provenance", {})})
 
     if row_order is not None:
-        # Per-rater presentation order for ratings.csv only; files, labels and joins are unchanged.
+        # Per-rater Sheet row order only; files, labels and joins are unchanged.
         by_row = {row["item_id"]: row for row in response_rows}
         require(len(row_order) == len(by_row) and set(row_order) == set(by_row),
                 "Row order must list each assigned item exactly once")
@@ -267,13 +267,11 @@ def build_packet(cohort_path: Path, output_dir: Path, *, rater_name: str,
     members["START_HERE.md"] = start_here(rater_name, sheet_url, len(selected), len(joins),
                                            any(j["candidate_status"] == "empty" for j in joins),
                                            bool(cohort.get("excluded_item_ids")))
-    members["human_judgements_prompt.md"] = rubric
-    members["RATING_FORM_GUIDE.md"] = guide
     sheet = io.StringIO(newline="")
     writer = csv.DictWriter(sheet, fieldnames=COLUMNS, lineterminator="\n")
     writer.writeheader()
     writer.writerows(response_rows)
-    members["ratings.csv"] = sheet.getvalue().encode()
+    sheet_table = sheet.getvalue().encode()  # coordinator-only: the exact table each live Sheet must match
     # Refuse known identity leaks; never redact or rewrite scientific input bytes.
     labels = "\n".join(members) + "\n" + sheet.getvalue()
     attribution = re.compile(r"\b(?:Claude|Gemini|GPT|OpenAI|Anthropic|Grok|Kimi|Codex|Terminus)\b", re.I)
@@ -293,9 +291,7 @@ def build_packet(cohort_path: Path, output_dir: Path, *, rater_name: str,
         require(not any(len(token) >= 4 and token.lower().encode() in data.lower()
                         for token in tokens for data in members.values()),
                 "Participant payload contains a known configuration identity; resolve without rewriting candidate bytes")
-    members["FILES.sha256"] = "".join(
-        f"{digest(data)}  {name}\n" for name, data in sorted(members.items())
-    ).encode()
+    member_sha256 = {name: digest(data) for name, data in sorted(members.items())}  # kept outside the zip
     archive_name = f"rating_packet_{round_id}_{rater_id}.zip"
     output_dir.mkdir(parents=True, exist_ok=False)
     packet_dir = output_dir / "rating_task_packet"
@@ -304,6 +300,8 @@ def build_packet(cohort_path: Path, output_dir: Path, *, rater_name: str,
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_bytes(data)
     archive_path = output_dir / archive_name
+    sheet_table_path = output_dir / "SHEET_TABLE.csv"
+    sheet_table_path.write_bytes(sheet_table)
     with ZipFile(archive_path, "x", compression=ZIP_DEFLATED, compresslevel=9) as archive:
         for name, data in sorted(members.items()):
             info = ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
@@ -325,9 +323,10 @@ def build_packet(cohort_path: Path, output_dir: Path, *, rater_name: str,
         "empty_artifact_count": sum(j["candidate_status"] == "empty" for j in joins),
         "packet_directory": str(packet_dir), "archive_path": str(archive_path),
         "archive_sha256": digest(archive_path.read_bytes()),
-        "files_manifest_sha256": digest(members["FILES.sha256"]),
+        "member_sha256": member_sha256,
+        "sheet_table_path": str(sheet_table_path), "sheet_table_sha256": digest(sheet_table),
         "form_schema_version": schema["version"], "form_schema_sha256": digest(schema_bytes),
-        "rubric_sha256": digest(rubric), "guide_sha256": digest(guide),
+        "linked_rubric_url": RUBRIC_URL, "linked_rubric_sha256": digest(rubric),
         "configurations": configurations, "artifact_joins": joins,
         "deduplication": "Use observation_key for repeated exports/subset copies; preserve provenance for historical joins. Packet copies are not new ratings.",
         "identity_scope": "Coordinator-only receipt. Labels are neutral and known model/harness/identity tokens are checked. Scientific bytes are unchanged; literal-token checks do not establish absence of every indirect authorship cue.",
@@ -350,10 +349,8 @@ def verify_sheet_readback(build_dir: Path, readback_path: Path) -> dict:
     readback = json.loads(data)
     archive_path = Path(receipt["archive_path"])
     require(digest(archive_path.read_bytes()) == receipt["archive_sha256"], "Built archive changed")
-    csv_path = Path(receipt["packet_directory"]) / "ratings.csv"
-    csv_bytes = csv_path.read_bytes()
-    with ZipFile(archive_path) as archive:
-        require(archive.read("ratings.csv") == csv_bytes, "Local CSV differs from its archive")
+    csv_bytes = Path(receipt["sheet_table_path"]).read_bytes()
+    require(digest(csv_bytes) == receipt["sheet_table_sha256"], "Sheet table changed since the build")
     expected = list(csv.reader(io.StringIO(csv_bytes.decode())))
     require(expected and expected[0] == COLUMNS, "Built CSV schema mismatch")
     values = readback.get("values")
@@ -365,7 +362,7 @@ def verify_sheet_readback(build_dir: Path, readback_path: Path) -> dict:
     check = {"status": "MATCH" if equal else "MISMATCH", "sheet_csv_equal": equal,
              "sheet_url": receipt["sheet_url"], "range": readback.get("range"),
              "source_readback": {"path": str(readback_path), "sha256": digest(data)},
-             "archive_sha256": receipt["archive_sha256"], "ratings_csv_sha256": digest(csv_bytes),
+             "archive_sha256": receipt["archive_sha256"], "sheet_table_sha256": digest(csv_bytes),
              "expected_table_rows": len(expected), "observed_table_rows": len(observed),
              "normalization": "Only absent trailing cells within each returned row are padded as empty strings. No row dropping, trimming, case changes or reordered columns."}
     check_path = build_dir / f"SHEET_MATCH_{digest(data)[:16]}.json"
@@ -380,7 +377,7 @@ def verify_sheet_readback(build_dir: Path, readback_path: Path) -> dict:
     temporary = receipt_path.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(receipt, indent=2) + "\n")
     temporary.replace(receipt_path)
-    require(equal, "Live Sheet readback differs from the packaged CSV; release is held")
+    require(equal, "Live Sheet readback differs from the build's Sheet table; release is held")
     return check
 
 
@@ -394,16 +391,15 @@ def verify_sheet_digest(build_dir: Path, observed_digest: str, observed_rows: in
     """Gate release on a digest of the live Sheet table computed where it was read.
 
     Use when the live table cannot be saved locally (for example it was read in the
-    owner's signed-in browser). The digest must equal table_digest of the packaged CSV.
+    owner's signed-in browser). The digest must equal table_digest of the build's Sheet table.
     """
     build_dir = build_dir.resolve()
     receipt_path = build_dir / "ASSEMBLY_RECEIPT.json"
     receipt = json.loads(receipt_path.read_text())
     archive_path = Path(receipt["archive_path"])
     require(digest(archive_path.read_bytes()) == receipt["archive_sha256"], "Built archive changed")
-    csv_bytes = (Path(receipt["packet_directory"]) / "ratings.csv").read_bytes()
-    with ZipFile(archive_path) as archive:
-        require(archive.read("ratings.csv") == csv_bytes, "Local CSV differs from its archive")
+    csv_bytes = Path(receipt["sheet_table_path"]).read_bytes()
+    require(digest(csv_bytes) == receipt["sheet_table_sha256"], "Sheet table changed since the build")
     expected = list(csv.reader(io.StringIO(csv_bytes.decode())))
     require(expected and expected[0] == COLUMNS, "Built CSV schema mismatch")
     equal = observed_digest == table_digest(expected) and observed_rows == len(expected)
@@ -412,7 +408,7 @@ def verify_sheet_digest(build_dir: Path, observed_digest: str, observed_rows: in
              "source": source, "sheet_url": receipt["sheet_url"],
              "expected_table_digest": table_digest(expected), "observed_table_digest": observed_digest,
              "expected_table_rows": len(expected), "observed_table_rows": observed_rows,
-             "archive_sha256": receipt["archive_sha256"], "ratings_csv_sha256": digest(csv_bytes)}
+             "archive_sha256": receipt["archive_sha256"], "sheet_table_sha256": digest(csv_bytes)}
     encoded = (json.dumps(check, indent=2) + "\n").encode()
     (build_dir / f"SHEET_DIGEST_MATCH_{observed_digest[:16]}.json").write_bytes(encoded)
     receipt.update(release_ready=equal,
@@ -421,7 +417,7 @@ def verify_sheet_digest(build_dir: Path, observed_digest: str, observed_rows: in
     temporary = receipt_path.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(receipt, indent=2) + "\n")
     temporary.replace(receipt_path)
-    require(equal, "Live Sheet digest differs from the packaged CSV; release is held")
+    require(equal, "Live Sheet digest differs from the build's Sheet table; release is held")
     return check
 
 
@@ -440,7 +436,7 @@ def main() -> None:
     parser.add_argument("--rater-id", required=True)
     parser.add_argument("--sheet-url", required=True)
     parser.add_argument("--tasks", nargs="+", help="Assigned task IDs; omit for the full cohort")
-    parser.add_argument("--row-order-json", type=Path, help="Optional JSON list of item_ids specifying ratings.csv row order")
+    parser.add_argument("--row-order-json", type=Path, help="Optional JSON list of item_ids specifying the Sheet row order")
     args = parser.parse_args()
     row_order = json.loads(args.row_order_json.read_text()) if args.row_order_json else None
     receipt = build_packet(args.cohort, args.output_dir, rater_name=args.rater_name,
