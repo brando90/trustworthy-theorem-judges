@@ -13,7 +13,7 @@
 ```text
 Hi {first name},
 
-Your VeriBench rating packet is attached: 100 agent files in 25 task folders. Your sheet lists them in your own order; please work from the top down and do as many as you can, even a few helps.
+Your VeriBench rating packet is attached: 100 agent files in 25 task folders. Everyone's sheet lists the files in a different order, so partial work from different people spreads across all the files. Please work from the top down and do as many as you can; even a few help.
 
 Your personal rating sheet:
 {personal Sheet link}
@@ -23,16 +23,13 @@ What to do:
 2. In each task folder, compare the agent's theorem statements in agent_lean/ with the reference statements in gold_lean/, and rate how well the agent's statements cover the reference (not the proofs).
 3. In your sheet, for each file enter a score from 0 to 5 and a one-sentence rationale in your own words, and answer yes, no or unsure to the AI question (column ai_assisted_rating_attestation). This is a first round, so I would love your feedback on the form: if the rationale is too much work, or you would prefer not to have that column, please tell me. If anything in a task looks wrong, just email me.
 
-Please choose the score yourself and use AI only for help with Lean notation or a specific point. Your sheet saves automatically, so there is nothing to send back.
+Please choose the score yourself and use AI only for help with Lean notation or a specific point.
 
-Please finish by 6pm Pacific on Thursday, 11-19-2026 if you can, so I can run experiments overnight and show results in a meeting the next day. If you can only get part of it done by then, that is still very helpful. Filling it in as you go is even better: your sheet saves automatically, and I will pull the data and start my analysis as it comes in, so we can iterate.
+Please finish by 6pm Pacific on Thursday, 11-19-2026 if you can, so I can run experiments overnight and show results in a meeting the next day. If you can only get part of it done by then, that is still very helpful. Filling it in as you go is even better: your sheet saves automatically (nothing to send back), and I will pull the data and start my analysis as it comes in so we can iterate.
 
 P.S. Feel free to email me with any questions. Email is preferred for questions! Happy to clarify anything! The full instructions are in START_HERE.md inside the zip.
 
-TLDR-end: [VeriBench human ratings: main rating task] Please score as many of your 100 files as you can in your personal sheet by 6pm Pacific on Thursday, 11-19-2026; even a few help.
-
 Brando (drafted with Claude Code)
-Assistant: Claude Code (Claude Opus 5.5)
 -----
 Brando Miranda
 Ph.D. Student

@@ -57,10 +57,10 @@ TEMPLATE_TAB_ID = 0
 BRANDO_SHEET_ID = "1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM"
 DEADLINE = "Thursday, 11-19-2026"  # set before the team-email hold; revisit when Brando says send
 SUBJECT = f"VeriBench human-rating main rating task: closes {DEADLINE}, 6pm PT"
-# Brando, 11-13-2026 (agents-config personal/email-signature.md): BCC only brando.science unless he asks, and every
-# assistant-drafted email names its assistant and ends its body with a TLDR-end line before the sign-off.
+# Brando, 11-13-2026 (agents-config personal/email-signature.md): BCC only brando.science unless he asks.
+# Brando, 11-17-2026, on the rater email: "it should be something we are not embarrassed to send my team", so no
+# TLDR-end line and no separate Assistant line; the "drafted with Claude Code" sign-off names the assistant.
 BCC = ["brando.science@gmail.com"]
-ASSISTANT = "Claude Code (Claude Opus 5.5)"
 COAUTHOR = ("Would you be willing to help with a human-rating task for VeriBench? Your ratings would be really "
             "valuable, and if you are interested and have time, I would be happy to add you as a co-author on "
             "the papers this data is used for. No pressure at all.")
@@ -188,7 +188,7 @@ def email_body(person: dict, sheet_url: str) -> str:
     opener = OPENERS[person["opener"]] + "\n\n" if person["opener"] else ""
     return f"""Hi {person['greeting']},
 
-{opener}Your VeriBench rating packet is attached: {len(cohort_rows())} agent files in 25 task folders. Your sheet lists them in your own order; please work from the top down and do as many as you can, even a few helps.
+{opener}Your VeriBench rating packet is attached: {len(cohort_rows())} agent files in 25 task folders. Everyone's sheet lists the files in a different order, so partial work from different people spreads across all the files. Please work from the top down and do as many as you can; even a few help.
 
 Your personal rating sheet:
 {sheet_url}
@@ -198,16 +198,13 @@ What to do:
 2. In each task folder, compare the agent's theorem statements in agent_lean/ with the reference statements in gold_lean/, and rate how well the agent's statements cover the reference (not the proofs).
 3. In your sheet, for each file enter a score from 0 to 5 and a one-sentence rationale in your own words, and answer yes, no or unsure to the AI question (column ai_assisted_rating_attestation). This is a first round, so I would love your feedback on the form: if the rationale is too much work, or you would prefer not to have that column, please tell me. If anything in a task looks wrong, just email me.
 
-Please choose the score yourself and use AI only for help with Lean notation or a specific point. Your sheet saves automatically, so there is nothing to send back.
+Please choose the score yourself and use AI only for help with Lean notation or a specific point.
 
-Please finish by 6pm Pacific on {DEADLINE} if you can, so I can run experiments overnight and show results in a meeting the next day. If you can only get part of it done by then, that is still very helpful. Filling it in as you go is even better: your sheet saves automatically, and I will pull the data and start my analysis as it comes in, so we can iterate.
+Please finish by 6pm Pacific on {DEADLINE} if you can, so I can run experiments overnight and show results in a meeting the next day. If you can only get part of it done by then, that is still very helpful. Filling it in as you go is even better: your sheet saves automatically (nothing to send back), and I will pull the data and start my analysis as it comes in so we can iterate.
 
 P.S. Feel free to email me with any questions. Email is preferred for questions! Happy to clarify anything! The full instructions are in START_HERE.md inside the zip.
 
-TLDR-end: [VeriBench human ratings: main rating task] Please score as many of your {len(cohort_rows())} files as you can in your personal sheet by 6pm Pacific on {DEADLINE}; even a few help.
-
 Brando (drafted with Claude Code)
-Assistant: {ASSISTANT}
 -----
 Brando Miranda
 Ph.D. Student
@@ -386,8 +383,9 @@ def message_for(rater_id: str, note: str = ""):
     from email.message import EmailMessage
     from email.utils import make_msgid
     draft = json.loads((DRAFTS_DIR / f"{rater_id}.json").read_text())
-    if note:
-        draft["body"] = note.strip() + "\n\n" + draft["body"]
+    if note:  # Brando, 11-17-2026: never put a note above the greeting; it goes after "Hi <name>,"
+        greeting, rest = draft["body"].split("\n\n", 1)
+        draft["body"] = f"{greeting}\n\n{note.strip()}\n\n{rest}"
     data = Path(draft["attachment"]).read_bytes()
     assert sha(data) == draft["attachment_sha256"]
     message = EmailMessage()
@@ -498,6 +496,8 @@ def send_a1() -> None:
         refused = smtp.send_message(message, to_addrs=recipients)
     assert not refused, refused
     inbox = ensure_in_inbox(password, message["Message-ID"])
+    if entry.get("sent_to_self"):  # sealed/ is not in Git, so keep each earlier self-send receipt here
+        entry.setdefault("sent_to_self_earlier", []).append(entry["sent_to_self"])
     entry["sent_to_self"] = {"date": TODAY, "to": draft["to"], "bcc": draft["bcc"], "note": note,
                              "message_id": message["Message-ID"], "zip_sha256": draft["attachment_sha256"],
                              "brandojazz_inbox": inbox}
