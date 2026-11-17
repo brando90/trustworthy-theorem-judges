@@ -1,0 +1,73 @@
+{
+  "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "93_unsafeAppEntitlements.py": "4f8c41339fb8633e962a7c12538c5d16fa6d923c3a7887768bae500c87988619",
+    "instruction.md": "673b75fc3bca5f1a00ffb054edf3e86d5462ea39a1967168ea289c7efe6cd715"
+  },
+  "output": "/home/user/lean_project/Veribench/93_unsafeAppEntitlements.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-4e85fa866ab3",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794864290.0400121,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794864594.530569,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "1a19ebaa-6cde-4f81-a8fb-e101c8203a9e",
+      "status": "SUCCESS",
+      "response": "The Python program has been translated into a Lean 4 formalization at [93_unsafeAppEntitlements.lean](file:///home/user/lean_project/Veribench/93_unsafeAppEntitlements.lean) and verified with `lake env lean Veribench/93_unsafeAppEntitlements.lean`.\n\n### Summary of Formalization\n\n- **Functional & Reference Safe Implementations** ([lines 18\u201338](file:///home/user/lean_project/Veribench/93_unsafeAppEntitlements.lean#L18-L38)):\n  - `unsafeAppEntitlements` (and alias `unsafe_app_entitlements`): unconditionally returns `true` for any `(appId : Int)`, `(resource : String)`, and `(grantedEntitlements : List String)`.\n  - `safeAppEntitlements` (and alias `safe_app_entitlements`): checks `grantedEntitlements.contains resource` to model the safe entitlement policy for comparison.\n- **Unit Tests** ([lines 44\u201368](file:///home/user/lean_project/Veribench/93_unsafeAppEntitlements.lean#L44-L68)):\n  - Covers all test assertions from the Python `check()` function using `example : ... := by native_decide` and `#eval`.\n- **Pre-condition (`Pre`)** ([lines 74\u201377](file:///home/user/lean_project/Veribench/93_unsafeAppEntitlements.lean#L74-L77)):\n  - Admits all integer app IDs, resource strings, and entitlement lists.\n- **Properties & Proven Theorems** ([lines 83\u2013206](file:///home/user/lean_project/Veribench/93_unsafeAppEntitlements.lean#L83-L206)):\n  - `always_granted_prop` / `always_granted_thm`: every request is granted (`true`).\n  - `empty_entitlements_granted_prop` / `empty_entitlements_granted_thm`: an empty entitlement list `[]` still grants access.\n  - `unentitled_access_prop` / `unentitled_access_thm`: access is granted even when `resource \u2209 grantedEntitlements`.\n  - `entitled_access_prop` / `entitled_access_thm`: access is granted when `resource \u2208 grantedEntitlements`.\n  - `entitlements_irrelevant_prop` / `entitlements_irrelevant_thm`: any entitlement list produces the same result as `[]`.\n  - `entitlements_invariance_prop` / `entitlements_invariance_thm`: any two entitlement lists `granted1` and `granted2` yield identical results.\n  - `inputs_invariance_prop` / `inputs_invariance_thm`: any two input triples `(appId, resource, grantedEntitlements)` yield identical results.\n  - `differs_from_safe_prop` / `differs_from_safe_thm`: whenever `resource \u2209 grantedEntitlements`, `unsafeAppEntitlements` disagrees with `safeAppEntitlements`.\n  - `agrees_with_safe_iff_entitled_prop` / `agrees_with_safe_iff_entitled_thm`: `unsafeAppEntitlements` agrees with `safeAppEntitlements` if and only if `resource \u2208 grantedEntitlements`.\n- **Post-condition (`Post_prop`) & Property-Based Tests** ([lines 212\u2013385](file:///home/user/lean_project/Veribench/93_unsafeAppEntitlements.lean#L212-L385)):\n  - Combines the specification properties into `Post_prop` and checks each property and `Post_prop` using both randomized Plausible checks (`#eval Plausible.Testable.check ...`) and bounded exhaustive checks (`by native_decide`).\n- **Correctness, Imperative Implementation, Imperative Tests, and Equivalence** ([lines 391\u2013480](file:///home/user/lean_project/Veribench/93_unsafeAppEntitlements.lean#L391-L480)):\n  - Proves `correctness_thm` (`Pre \u2192 Post_prop`), defines `unsafeAppEntitlementsImp` using `Id.run do` with mutable state, tests it on all unit test cases, and proves `equivalence_thm` (`unsafeAppEntitlements = unsafeAppEntitlementsImp`).\n",
+      "duration_seconds": 298.913248957,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 56165,
+        "output_tokens": 19061,
+        "thinking_tokens": 8459,
+        "cache_read_tokens": 269267,
+        "total_tokens": 75226
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "loogle.lean-lang.org",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "loogle.lean-lang.org",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "df89a3b66792987b0baccb199203b67d3568583d83ceac9f9d2e1c606dce8e86",
+  "candidate_bytes": 23186
+}

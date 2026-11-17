@@ -1,0 +1,25 @@
+{
+ "condition": "/Users/brandomiranda/trustworthy-theorem-judges/research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/ANTIGRAVITY_CONDITION_V1.json",
+ "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+ "finished_utc": 1794871132.76369,
+ "launched": 1,
+ "captured": 1,
+ "cells": [
+  {
+   "task_id": "realcode_set__23_base32",
+   "rc": 0,
+   "wall_s": 1488.3,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 49812,
+   "models": [
+    "gemini-4-argon-high"
+   ],
+   "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+   ],
+   "stderr_tail": ""
+  }
+ ]
+}

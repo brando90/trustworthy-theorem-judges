@@ -1,0 +1,15 @@
+Created At: 2026-11-16T21:55:23Z
+Completed At: 2026-11-16T21:55:27Z
+Command exited with code 0.
+
+Command output:
+String.length : String → ℕ
+String.take (s : String) (n : ℕ) : String
+String.isPrefixOf (p s : String) : Bool
+def String.take : String → ℕ → String :=
+fun s n => (s.toSubstring.take n).toString
+def String.length : String → ℕ :=
+fun x =>
+  match x with
+  | { data := s } => s.length
+Unable to find a counter-example

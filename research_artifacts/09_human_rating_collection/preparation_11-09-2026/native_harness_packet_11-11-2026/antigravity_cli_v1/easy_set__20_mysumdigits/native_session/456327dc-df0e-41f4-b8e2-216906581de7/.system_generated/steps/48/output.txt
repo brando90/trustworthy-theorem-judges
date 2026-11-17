@@ -1,0 +1,49 @@
+Created At: 2026-11-16T22:07:19Z
+Completed At: 2026-11-16T22:07:30Z
+Command exited with code 1.
+
+Command output:
+6
+0
+7
+27
+some 6
+some 0
+none
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+6
+0
+27
+some 6
+none
+Veribench/20_MySumDigits.lean:658:6: error: type mismatch, term
+  congrArg some (Eq.symm hinv)
+after simplification has type
+  sumDigits n =
+    (forIn (List.range n.toNat) ⟨n, 0⟩ fun x r =>
+        if 0 < r.fst then pure (ForInStep.yield ⟨r.fst / 10, r.snd + r.fst % 10⟩)
+        else pure (ForInStep.yield ⟨r.fst, r.snd⟩)).snd : Prop
+but is expected to have type
+  some (sumDigits n) =
+    (fun a => some a.snd) <$>
+      forIn (List.range n.toNat) ⟨n, 0⟩ fun x r =>
+        if 0 < r.fst then pure (ForInStep.yield ⟨r.fst / 10, r.snd + r.fst % 10⟩)
+        else pure (ForInStep.yield ⟨r.fst, r.snd⟩) : Prop
+Unable to find a counter-example

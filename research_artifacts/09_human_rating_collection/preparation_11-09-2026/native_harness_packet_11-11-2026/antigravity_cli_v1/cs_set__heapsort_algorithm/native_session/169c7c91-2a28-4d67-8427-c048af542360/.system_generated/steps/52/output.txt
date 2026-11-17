@@ -1,0 +1,16 @@
+Created At: 2026-11-16T22:24:05Z
+Completed At: 2026-11-16T22:24:09Z
+Command exited with code 0.
+
+Command output:
+List.forIn_cons.{u_1, u_2, u_3} {m : Type u_1 → Type u_2} {α : Type u_3} {β : Type u_1} [Monad m]
+  (f : α → β → m (ForInStep β)) (a : α) (as : List α) (b : β) :
+  forIn (a :: as) b f = do
+    let x ← f a b
+    match x with
+      | ForInStep.done b => pure b
+      | ForInStep.yield b => forIn as b f
+List.forIn_nil.{u_1, u_2, u_3} {m : Type u_1 → Type u_2} {α : Type u_3} {β : Type u_1} [Monad m]
+  {f : α → β → m (ForInStep β)} {b : β} : forIn [] b f = pure b
+List.range_succ {n : ℕ} : List.range n.succ = List.range n ++ [n]
+List.replicate_succ.{u} {α : Type u} {a : α} {n : ℕ} : List.replicate (n + 1) a = a :: List.replicate n a

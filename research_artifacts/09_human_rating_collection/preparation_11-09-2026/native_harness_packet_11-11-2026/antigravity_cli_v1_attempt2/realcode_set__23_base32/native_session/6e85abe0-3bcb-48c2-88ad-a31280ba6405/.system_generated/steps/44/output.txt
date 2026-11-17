@@ -1,0 +1,20 @@
+Created At: 2026-11-16T23:08:07Z
+Completed At: 2026-11-16T23:08:11Z
+Command exited with code 0.
+
+Command output:
+<stdin>:13:22: warning: This simp argument is unused:
+  UInt8.toNat_ofNat
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵U̵I̵n̵t̵8̵.̵t̵o̵N̵a̵t̵_̵o̵f̵N̵a̵t̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+<stdin>:13:41: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+<stdin>:19:41: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'toUpperByte_toLowerByte' depends on axioms: [propext, Classical.choice, Quot.sound]
+'toUpperByte_idempotent' depends on axioms: [propext, Quot.sound]

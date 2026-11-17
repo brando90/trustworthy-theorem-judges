@@ -1,0 +1,31 @@
+{
+  "task_id": "cs_set__heap_sort",
+  "condition_sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "1000",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "heap_sort.py": "9194b262a2b0d0ed6195687c4fdfef67b287f28605d2b3c8ac3cd63a6bfc2fbd",
+    "instruction.md": "f7f290893fba57a91795fa73020836a0465609e64a55e24b55fe4c668afb2bea"
+  },
+  "output": "/home/user/lean_project/Veribench/heap_sort.lean",
+  "model_call_performed": false
+}

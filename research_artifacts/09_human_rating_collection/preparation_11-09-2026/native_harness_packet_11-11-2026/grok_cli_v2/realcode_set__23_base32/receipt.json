@@ -1,0 +1,61 @@
+{
+  "task_id": "realcode_set__23_base32",
+  "condition_sha256": "8741654014e21c223e7484338ce8c68ff08bf6093a63cc716430c4f714fb9f26",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "23_base32.py": "dc4bc7238f984eccdcbc4824be46e876896849db5f1e64e49d5283199368549b",
+    "instruction.md": "dc3733926a27eb6b9837e41f2da68c582bd573bcd34b7c066b9b7e4c9a4bab7e"
+  },
+  "output": "/home/user/lean_project/Veribench/23_base32.lean",
+  "model_call_performed": true,
+  "container": "ttj-grok-7361bab847e9",
+  "status": "TERMINAL",
+  "cli_version": "grok 1.0.77 (50ca579fa996)",
+  "actual_mounts": [],
+  "network": "ttj-native2-grok-v2",
+  "proxy": "ttj-native2-egress-grok-v2",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794864456.255723,
+  "exit_code": 137,
+  "stop_reason": "process_exit_137",
+  "finished_at": 1794864616.888823,
+  "actual_models": [],
+  "model_identity_verified": false,
+  "last_event": {
+    "type": "thought",
+    "data": " extractions."
+  },
+  "egress_hosts": [
+    "api.mixpanel.com",
+    "api.x.ai",
+    "cli-chat-proxy.grok.com",
+    "grok.com"
+  ],
+  "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+  ],
+  "candidate_captured": false,
+  "candidate_sha256": null,
+  "candidate_bytes": null
+}

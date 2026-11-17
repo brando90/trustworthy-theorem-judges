@@ -1,0 +1,9 @@
+Created At: 2026-11-16T21:35:55Z
+Completed At: 2026-11-16T21:35:59Z
+Command exited with code 0.
+
+Command output:
+Nat.prime_def_le_sqrt {p : ℕ} : Nat.Prime p ↔ 2 ≤ p ∧ ∀ (m : ℕ), 2 ≤ m → m ≤ p.sqrt → ¬m ∣ p
+Nat.sqrt_lt_self {n : ℕ} (h : 1 < n) : n.sqrt < n
+Nat.le_sqrt {m n : ℕ} : m ≤ n.sqrt ↔ m * m ≤ n
+Nat.lt_succ_sqrt (n : ℕ) : n < n.sqrt.succ * n.sqrt.succ

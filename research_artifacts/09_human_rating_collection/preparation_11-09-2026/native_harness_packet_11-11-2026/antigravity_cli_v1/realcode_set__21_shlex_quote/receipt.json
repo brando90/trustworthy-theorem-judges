@@ -1,0 +1,72 @@
+{
+  "task_id": "realcode_set__21_shlex_quote",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "21_shlex_quote.py": "6fead365b7a99a38c6e82cd49a2438d541f90afdc22e08656e4b6a31b580d338",
+    "instruction.md": "8af20178fb73c57ae6a0100014b39219663810ff1b1405432aa0f4185c98e3b0"
+  },
+  "output": "/home/user/lean_project/Veribench/21_shlex_quote.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-8fb1fdaef94b",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794867260.067416,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794868276.017195,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "9e15fc12-65ab-43d5-95cb-f8c05c3fb78a",
+      "status": "SUCCESS",
+      "response": "The Python `shlex.quote` program has been formalized and verified in Lean 4 at [21_shlex_quote.lean](file:///home/user/lean_project/Veribench/21_shlex_quote.lean).\n\n### Summary of Formalization\n\n- **Functional Implementation** ([21_shlex_quote.lean](file:///home/user/lean_project/Veribench/21_shlex_quote.lean#L18-L68)):\n  - `safeChars` and `isSafeChar`: defines the POSIX safe character set (`a`\u2013`z`, `A`\u2013`Z`, `0`\u2013`9`, `_@%+=:,./-`).\n  - `escapeChar` and `replaceSingleQuotes`: replaces every `'` with `\"'\\\"'\\\"'\"`.\n  - `quote` and `benchmark_quote`: implements `shlex.quote` returning `\"''\"` on empty strings, `s` when all characters are safe, and `\"'\" ++ replaceSingleQuotes s ++ \"'\"` otherwise.\n  - `unquote`: inverse function recovering the original string from a shell-escaped string.\n- **Unit Tests & Property-Based Tests** ([21_shlex_quote.lean](file:///home/user/lean_project/Veribench/21_shlex_quote.lean#L70-L90), [21_shlex_quote.lean](file:///home/user/lean_project/Veribench/21_shlex_quote.lean#L439-L477)):\n  - Includes ground unit tests (`example ... := by native_decide` and `#eval`) plus randomized Plausible PBTs and bounded PBTs across all 12 property propositions and `Post_prop`.\n- **Properties, Post-condition, and Correctness Theorem** ([21_shlex_quote.lean](file:///home/user/lean_project/Veribench/21_shlex_quote.lean#L197-L494)):\n  - Proves all 12 property theorems (`empty_string_thm`, `safe_nonempty_thm`, `unsafe_string_thm`, `unsafe_no_single_quote_thm`, `single_quote_escaped_thm`, `nonempty_output_thm`, `length_ge_input_thm`, `unsafe_or_empty_enclosing_quotes_thm`, `unsafe_length_exact_thm`, `safe_idempotent_thm`, `unchanged_iff_safe_nonempty_thm`, `unquote_quote_thm`), injectivity (`quote_injective`), and the main correctness theorem `quote_correct : Pre s \u2192 Post_prop s` with zero `sorry`s.\n- **Imperative Implementation & Equivalence Proof** ([21_shlex_quote.lean](file:///home/user/lean_project/Veribench/21_shlex_quote.lean#L496-L550)):\n  - Implements `quote_imp` using `Id.run do` and mutable loops, tests it, and proves `quote_equiv : quote s = quote_imp s`.\n",
+      "duration_seconds": 1011.155029204,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 175729,
+        "output_tokens": 35455,
+        "thinking_tokens": 16251,
+        "cache_read_tokens": 1339240,
+        "total_tokens": 211184
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "oauth2.googleapis.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "3621083f8702ed507e75bbe789ead689e40f077e960a7c1b01dea9c4eddc2534",
+  "candidate_bytes": 21539
+}

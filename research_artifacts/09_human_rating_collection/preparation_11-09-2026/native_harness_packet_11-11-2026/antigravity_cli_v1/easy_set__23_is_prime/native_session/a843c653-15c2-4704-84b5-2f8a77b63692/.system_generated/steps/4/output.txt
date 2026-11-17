@@ -1,0 +1,11 @@
+Created At: 2026-11-16T21:26:04Z
+Completed At: 2026-11-16T21:26:08Z
+Command exited with code 1.
+
+Command output:
+Nat.sqrt (n : ℕ) : ℕ
+Nat.le_sqrt {m n : ℕ} : m ≤ n.sqrt ↔ m * m ≤ n
+Nat.Prime (p : ℕ) : Prop
+<stdin>:5:7: error: unknown constant 'Nat.prime_def_lt'''
+Nat.Prime.not_dvd_one {p : ℕ} (pp : Nat.Prime p) : ¬p ∣ 1
+Nat.minFac (n : ℕ) : ℕ

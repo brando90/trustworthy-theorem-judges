@@ -1,0 +1,50 @@
+Created At: 2026-11-16T22:00:05Z
+Completed At: 2026-11-16T22:00:09Z
+Command exited with code 1.
+
+Command output:
+<stdin>:11:11: error: failed to synthesize instance 'Decidable' for 'length_prop'
+<stdin>:15:11: error: failed to synthesize instance 'Decidable' for 'empty_prop'
+<stdin>:20:11: error: failed to synthesize instance 'Decidable' for 'getElem_prop'
+<stdin>:25:11: error: failed to synthesize instance 'Decidable' for 'elem_length_prop'
+<stdin>:30:11: error: failed to synthesize instance 'Decidable' for 'all_are_prefixes_prop'
+<stdin>:36:11: error: failed to synthesize instance 'Decidable' for 'shortest_to_longest_prop'
+<stdin>:42:11: error: failed to synthesize instance 'Decidable' for 'prefix_chain_prop'
+<stdin>:46:11: error: failed to synthesize instance 'Decidable' for 'first_last_prop'
+<stdin>:50:11: error: failed to synthesize instance 'Decidable' for 'nodup_prop'
+<stdin>:52:6: error: failed to synthesize
+  Plausible.Testable (Plausible.NamedBinder "s" (∀ (s : String), length_prop s))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+<stdin>:53:6: error: failed to synthesize
+  Plausible.Testable (Plausible.NamedBinder "s" (∀ (s : String), empty_prop s))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+<stdin>:54:6: error: failed to synthesize
+  Plausible.Testable (Plausible.NamedBinder "s" (∀ (s : String), getElem_prop s))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+<stdin>:55:6: error: failed to synthesize
+  Plausible.Testable (Plausible.NamedBinder "s" (∀ (s : String), elem_length_prop s))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+<stdin>:56:6: error: failed to synthesize
+  Plausible.Testable (Plausible.NamedBinder "s" (∀ (s : String), all_are_prefixes_prop s))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+<stdin>:57:6: error: failed to synthesize
+  Plausible.Testable (Plausible.NamedBinder "s" (∀ (s : String), shortest_to_longest_prop s))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+<stdin>:58:6: error: failed to synthesize
+  Plausible.Testable (Plausible.NamedBinder "s" (∀ (s : String), prefix_chain_prop s))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+<stdin>:59:6: error: failed to synthesize
+  Plausible.Testable (Plausible.NamedBinder "s" (∀ (s : String), first_last_prop s))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+<stdin>:60:6: error: failed to synthesize
+  Plausible.Testable (Plausible.NamedBinder "s" (∀ (s : String), nodup_prop s))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

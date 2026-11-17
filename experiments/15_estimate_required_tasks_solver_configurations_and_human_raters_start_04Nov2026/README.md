@@ -26,14 +26,14 @@ Every number below is planning arithmetic from saved results, reproduced by [`sc
 
 ### Costed scenarios
 
-Hours use two bracketing cases: 4 minutes per rating (the measured warm-up median) and 36 minutes (an assumption that time scales with file length). Neither measures the main task. New tasks are costed at the packet's measured 4.0 files per task.
+Hours use two bracketing cases: 4 minutes per rating (the measured warm-up median) and 37 minutes (an assumption that time scales with file length). Neither measures the main task. New tasks are costed at the packet's measured 4.0 files per task.
 
-| Scenario | Held-out tasks | Independent ratings | Hours, 4 to 36 minutes each | Ratings each, 4 / 8 / 12 people |
+| Scenario | Held-out tasks | Independent ratings | Hours, 4 to 37 minutes each | Ratings each, 4 / 8 / 12 people |
 | --- | ---: | ---: | --- | --- |
-| Finish the current packet | 25 | **200** | 13 to 120 | 50 / 25 / 17 |
-| Add a 24-task development pool (16 training, 8 validation) | 25 | 392 | 26 to 235 | 98 / 49 / 33 |
-| Development pool, plus held-out tasks for ±0.01 | 37 | 488 | 33 to 293 | 122 / 61 / 41 |
-| Development pool, plus held-out tasks for ±0.005 | 145 | 1,352 | 90 to 810 | 338 / 169 / 113 |
+| Finish the current packet | 25 | **200** | 13 to 124 | 50 / 25 / 17 |
+| Add a 24-task development pool (16 training, 8 validation) | 25 | 392 | 26 to 244 | 98 / 49 / 33 |
+| Development pool, plus held-out tasks for ±0.01 | 37 | 488 | 33 to 304 | 122 / 61 / 41 |
+| Development pool, plus held-out tasks for ±0.005 | 145 | 1,352 | 90 to 842 | 338 / 169 / 113 |
 
 The 24-task development pool is an agent-suggested starting block, not a derived requirement. The held-out counts use the middle variability case; the low and high cases change them by a factor of about 13 down or 4 up.
 

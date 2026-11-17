@@ -1,0 +1,38 @@
+Created At: 2026-11-16T22:18:28Z
+Completed At: 2026-11-16T22:18:33Z
+Command exited with code 0.
+
+Command output:
+def «21_shlex_quote».quote_imp : String → String :=
+fun s =>
+  (if s.isEmpty = true then "''"
+    else
+      have allSafe := true;
+      do
+      let r ←
+        forIn s.toList allSafe fun c r =>
+            have allSafe := r;
+            have allSafe := allSafe && isSafeChar c;
+            do
+            pure PUnit.unit
+            pure (ForInStep.yield allSafe)
+      have allSafe : Bool := r
+      if allSafe = true then s
+        else
+          have escaped := [];
+          do
+          let r ←
+            forIn s.toList escaped fun c r =>
+                have escaped := r;
+                if (c == '\'') = true then
+                  have escaped := escaped ++ "'\"'\"'".toList;
+                  do
+                  pure PUnit.unit
+                  pure (ForInStep.yield escaped)
+                else
+                  have escaped := escaped ++ [c];
+                  do
+                  pure PUnit.unit
+                  pure (ForInStep.yield escaped)
+          have escaped : List Char := r
+          "'" ++ { data := escaped } ++ "'").run

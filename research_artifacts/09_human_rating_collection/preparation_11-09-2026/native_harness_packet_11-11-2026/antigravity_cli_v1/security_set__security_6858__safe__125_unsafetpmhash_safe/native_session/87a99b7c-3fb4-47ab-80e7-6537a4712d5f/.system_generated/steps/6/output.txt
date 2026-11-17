@@ -1,0 +1,34 @@
+Created At: 2026-11-16T22:11:41Z
+Completed At: 2026-11-16T22:11:46Z
+Command exited with code 1.
+
+Command output:
+true
+false
+false
+true
+Veribench/125_unsafeTPMHash_safe.lean:49:40: error: tactic 'native_decide' evaluated that the proposition
+  expected_0 = 2852969860
+is false
+Veribench/125_unsafeTPMHash_safe.lean:50:43: error: tactic 'native_decide' evaluated that the proposition
+  expected_zero = 1861098831
+is false
+Veribench/125_unsafeTPMHash_safe.lean:128:53: error: unsolved goals
+old_pcr new_data claimed_pcr : ℕ
+⊢ (have simulated_hash := 0 * 6364136223846793005 + 1442695040888963407 &&& 4294967295;
+    claimed_pcr == simulated_hash) =
+    have simulated_hash := (0 ^^^ 0) * 6364136223846793005 + 1442695040888963407 &&& 4294967295;
+    claimed_pcr == simulated_hash
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/125_unsafeTPMHash_safe.lean:187:73: error: unexpected token '#eval'; expected 'lemma'
+Unable to find a counter-example
+true
+false
+false
+true

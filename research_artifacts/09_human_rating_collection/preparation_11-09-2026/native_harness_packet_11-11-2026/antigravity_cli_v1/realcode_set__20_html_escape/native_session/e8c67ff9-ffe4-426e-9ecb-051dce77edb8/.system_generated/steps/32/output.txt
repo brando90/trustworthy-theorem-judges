@@ -1,0 +1,70 @@
+Created At: 2026-11-16T21:29:19Z
+Completed At: 2026-11-16T21:29:26Z
+Command exited with code 1.
+
+Command output:
+<stdin>:13:25: error: unsolved goals
+case neg
+quote : Bool
+c₁ c₂ : Char
+l₁ l₂ : List Char
+h✝⁵ : c₁ = '&'
+h✝⁴ : ¬c₂ = '&'
+h✝³ : ¬c₂ = '<'
+h✝² : ¬c₂ = '>'
+h✝¹ : quote = true → ¬c₂ = '\"'
+h✝ : quote = true → ¬c₂ = '\''
+h : '&' = c₂ ∧ 'a' :: 'm' :: 'p' :: ';' :: l₁ = l₂
+⊢ '&' = c₂ ∧ l₁ = l₂
+
+case neg
+quote : Bool
+c₁ c₂ : Char
+l₁ l₂ : List Char
+h✝⁵ : c₁ = '<'
+h✝⁴ : ¬c₂ = '&'
+h✝³ : ¬c₂ = '<'
+h✝² : ¬c₂ = '>'
+h✝¹ : quote = true → ¬c₂ = '\"'
+h✝ : quote = true → ¬c₂ = '\''
+h : '&' = c₂ ∧ 'l' :: 't' :: ';' :: l₁ = l₂
+⊢ '<' = c₂ ∧ l₁ = l₂
+
+case neg
+quote : Bool
+c₁ c₂ : Char
+l₁ l₂ : List Char
+h✝⁵ : c₁ = '>'
+h✝⁴ : ¬c₂ = '&'
+h✝³ : ¬c₂ = '<'
+h✝² : ¬c₂ = '>'
+h✝¹ : quote = true → ¬c₂ = '\"'
+h✝ : quote = true → ¬c₂ = '\''
+h : '&' = c₂ ∧ 'g' :: 't' :: ';' :: l₁ = l₂
+⊢ '>' = c₂ ∧ l₁ = l₂
+
+case neg
+quote : Bool
+c₁ c₂ : Char
+l₁ l₂ : List Char
+h✝⁵ : quote = true ∧ c₁ = '\"'
+h✝⁴ : ¬c₂ = '&'
+h✝³ : ¬c₂ = '<'
+h✝² : ¬c₂ = '>'
+h✝¹ : ¬c₂ = '\"'
+h✝ : ¬c₂ = '\''
+h : '&' = c₂ ∧ 'q' :: 'u' :: 'o' :: 't' :: ';' :: l₁ = l₂
+⊢ '\"' = c₂ ∧ l₁ = l₂
+
+case neg
+quote : Bool
+c₁ c₂ : Char
+l₁ l₂ : List Char
+h✝⁵ : quote = true ∧ c₁ = '\''
+h✝⁴ : ¬c₂ = '&'
+h✝³ : ¬c₂ = '<'
+h✝² : ¬c₂ = '>'
+h✝¹ : ¬c₂ = '\"'
+h✝ : ¬c₂ = '\''
+h : '&' = c₂ ∧ '#' :: 'x' :: '2' :: '7' :: ';' :: l₁ = l₂
+⊢ '\'' = c₂ ∧ l₁ = l₂

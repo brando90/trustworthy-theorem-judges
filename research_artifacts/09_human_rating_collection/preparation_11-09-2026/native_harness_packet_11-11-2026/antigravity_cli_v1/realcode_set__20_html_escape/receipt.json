@@ -1,0 +1,73 @@
+{
+  "task_id": "realcode_set__20_html_escape",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "20_html_escape.py": "6f39b1bd6ebfb76f6d189a05ae0700a231d1b9101eb6a96388a335736485a04c",
+    "instruction.md": "95cbb6dcc34813e5804d2fba2cb1a0850b79dc132fac7768bf593e64a4d3e772"
+  },
+  "output": "/home/user/lean_project/Veribench/20_html_escape.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-16a41d8e5d56",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794864289.927862,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794866084.322149,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "e8c67ff9-ffe4-426e-9ecb-051dce77edb8",
+      "status": "SUCCESS",
+      "response": "The Python `html.escape` program has been formalized in Lean 4 at [20_html_escape.lean](file:///home/user/lean_project/Veribench/20_html_escape.lean).\n\n### Summary of Formalization (`\u00ab20_html_escape\u00bb`)\n\n1. **Functional Implementation** ([20_html_escape.lean](file:///home/user/lean_project/Veribench/20_html_escape.lean#L21-L70)):\n   - `pre_escape`, `replaceChar`, `escape`, `benchmark_escape`, `escapeChar`, `isSpecialChar`, and `check`.\n   - `escape` mirrors Python's sequential replacement order (`&` $\\to$ `<` $\\to$ `>`, and when `quote = true`, `\"` $\\to$ `'`).\n\n2. **Unit Tests & Pre-condition** ([20_html_escape.lean](file:///home/user/lean_project/Veribench/20_html_escape.lean#L72-L103)):\n   - Ground tests via `example : ... := by native_decide` and `#eval` covering `quote = true`, `quote = false`, order sensitivity (`\"&<\"` and `\"&lt;\"`), and `check`.\n   - `Pre (s : String) (quote : Bool := true) : Prop`.\n\n3. **Properties, Theorems & Post-Condition** ([20_html_escape.lean](file:///home/user/lean_project/Veribench/20_html_escape.lean#L105-L645)):\n   - `single_pass_prop` / `single_pass_thm`: Sequential replacement of `&`, `<`, `>`, `\"`, `'` equals single-pass character-wise escaping `escapeChar` (no double-escaping).\n   - `empty_prop` / `empty_thm`: `escape \"\" quote = \"\"`.\n   - `append_prop` / `append_thm`: `escape (s\u2081 ++ s\u2082) quote = escape s\u2081 quote ++ escape s\u2082 quote`.\n   - `special_chars_prop` / `special_chars_thm`: Exact entity translation of `&`, `<`, `>`, `\"`, `'` under both `quote = true` and `quote = false`.\n   - `no_angle_brackets_prop` / `no_angle_brackets_thm`: `'<'` and `'>'` never appear in `escape s quote`.\n   - `no_quotes_when_quote_true_prop` / `no_quotes_when_quote_true_thm`: `'\"'` and `'\\''` never appear in `escape s true`.\n   - `quotes_preserved_when_quote_false_prop` / `quotes_preserved_when_quote_false_thm`: Counts of `'\"'` and `'\\''` are preserved when `quote = false`.\n   - `exact_length_prop` / `exact_length_thm`: Exact output length formula in terms of input length and counts of special characters.\n   - `length_bounds_prop` / `length_bounds_thm`: `s.length \u2264 (escape s quote).length \u2264 (if quote then 6 else 5) * s.length`.\n   - `unchanged_iff_no_special_prop` / `unchanged_iff_no_special_thm`: `escape s quote = s \u2194 \u2200 c \u2208 s.data, isSpecialChar c quote = false`.\n   - `ampersand_count_prop` / `ampersand_count_thm` & `semicolon_count_prop` / `semicolon_count_thm`: Exact counts of `'&'` and `';'` in the output.\n   - `quote_flag_relation_prop` / `quote_flag_relation_thm`: Relationship between `escape s true` and `escape s false`.\n   - `injective_prop` / `injective_thm`: `escape s\u2081 quote = escape s\u2082 quote \u2194 s\u2081 = s\u2082`.\n   - `benchmark_escape_eq_prop` / `benchmark_escape_eq_thm`: `benchmark_escape s quote = escape s quote`.\n   - `Post_prop` & `escape_correct` ([20_html_escape.lean](file:///home/user/lean_project/Veribench/20_html_escape.lean#L618-L686)): Conjunction of all properties, randomized Plausible PBTs and bounded `native_decide` PBTs for every `_prop` and `Post_prop`, and full correctness proof `Pre s quote \u2192 Post_prop s quote`.\n\n4. **Imperative Implementations & Equivalence Proofs** ([20_html_escape.lean](file:///home/user/lean_project/Veribench/20_html_escape.lean#L688-L804)):\n   - `replaceCharImp`, `escapeImp` (multi-pass mutable state), and `escapeSinglePassImp` (single-pass mutable buffer) using `Id.run do`.\n   - Full equivalence theorems `replaceChar_eq_replaceCharImp`, `escape_eq_escapeImp`, `escape_eq_escapeSinglePassImp`, and `escapeImp_eq_escapeSinglePassImp`.\n",
+      "duration_seconds": 1788.407329911,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 252433,
+        "output_tokens": 76621,
+        "thinking_tokens": 21961,
+        "cache_read_tokens": 5712471,
+        "total_tokens": 329054
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "loogle.lean-lang.org",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "loogle.lean-lang.org",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "232f238550952a8b602632ad053747ed3ef81d98fb8ebfe1f964ff9922f4b129",
+  "candidate_bytes": 34024
+}

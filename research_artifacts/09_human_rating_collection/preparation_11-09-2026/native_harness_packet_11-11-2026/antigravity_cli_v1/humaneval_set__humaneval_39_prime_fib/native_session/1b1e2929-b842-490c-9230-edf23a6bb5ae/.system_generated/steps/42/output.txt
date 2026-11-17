@@ -1,0 +1,42 @@
+Created At: 2026-11-16T21:39:42Z
+Completed At: 2026-11-16T21:39:47Z
+Command exited with code 0.
+
+Command output:
+def prime_fib_imp : ℕ → ℕ :=
+fun n =>
+  (have a := 0;
+    have b := 1;
+    have rem := n;
+    do
+    let r ←
+      forIn (List.range default_fuel) ⟨none, a, b, rem⟩ fun x r =>
+          have r := r.snd;
+          have a := r.fst;
+          have x := r.snd;
+          have b := x.fst;
+          have rem := x.snd;
+          have next := b + a;
+          have a := b;
+          have b := next;
+          have __do_jp := fun rem y =>
+            if (rem == 0) = true then pure (ForInStep.done ⟨some b, a, b, rem⟩)
+            else do
+              pure PUnit.unit
+              pure (ForInStep.yield ⟨none, a, b, rem⟩);
+          if is_prime b = true then
+            have rem := rem - 1;
+            do
+            let y ← pure PUnit.unit
+            __do_jp rem y
+          else do
+            let y ← pure PUnit.unit
+            __do_jp rem y
+    match r.snd with
+      | ⟨a, b, rem⟩ =>
+        have __do_jp := fun y => pure 2;
+        match r.fst with
+        | none => do
+          let y ← pure PUnit.unit
+          __do_jp y
+        | some a => pure a).run

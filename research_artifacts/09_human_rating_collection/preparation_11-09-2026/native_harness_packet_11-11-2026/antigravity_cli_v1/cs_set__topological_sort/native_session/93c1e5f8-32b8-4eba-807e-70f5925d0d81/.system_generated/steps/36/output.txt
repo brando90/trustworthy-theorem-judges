@@ -1,0 +1,8 @@
+Created At: 2026-11-16T21:36:52Z
+Completed At: 2026-11-16T21:36:57Z
+Command exited with code 0.
+
+Command output:
+@List.mem_zipIdx_iff_getElem? : ∀ {α : Type u_1} {x : α × ℕ} {l : List α}, x ∈ l.zipIdx ↔ l[x.2]? = some x.1
+@List.zipIdx : {α : Type u_1} → List α → optParam ℕ 0 → List (α × ℕ)
+@List.getElem!_eq_getElem?_getD : ∀ {α : Type u_1} [inst : Inhabited α] {l : List α} {i : ℕ}, l[i]! = l[i]?.getD default

@@ -1,0 +1,31 @@
+{
+  "task_id": "easy_set__16_myfactorial",
+  "condition_sha256": "bfb5581806739c6984ab621ff01ac36dec27292a32214ab21a9b0f559cc976bc",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "16_MyFactorial.py": "e4c85d4c44a69827a816d7b67e22b1fb7e22e0cab18c99427daaba80a22780d7",
+    "instruction.md": "382a77a7dcb88a8ab0d432b117b24dd49385d36858df74ab05ef79308a801507"
+  },
+  "output": "/home/user/lean_project/Veribench/16_MyFactorial.lean",
+  "model_call_performed": false
+}

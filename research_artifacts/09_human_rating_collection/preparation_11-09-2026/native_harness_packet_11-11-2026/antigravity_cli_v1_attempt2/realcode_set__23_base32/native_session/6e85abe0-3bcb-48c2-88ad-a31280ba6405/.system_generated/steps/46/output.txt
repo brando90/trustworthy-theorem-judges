@@ -1,0 +1,1037 @@
+Created At: 2026-11-16T23:08:53Z
+Completed At: 2026-11-16T23:08:58Z
+Command exited with code 1.
+
+Command output:
+<stdin>:126:2: error: 'change' tactic failed, pattern
+  (let encoded := List.foldl (fun encoded chunk => encoded ++ encodeChunkPadded chunk) [] (chunksOf5 s);
+    let rem := List.length s % 5;
+    if (rem == 1) = true then List.take (List.length encoded - 6) encoded ++ List.replicate 6 61
+    else
+      if (rem == 2) = true then List.take (List.length encoded - 4) encoded ++ List.replicate 4 61
+      else
+        if (rem == 3) = true then List.take (List.length encoded - 3) encoded ++ List.replicate 3 61
+        else
+          if (rem == 4) = true then List.take (List.length encoded - 1) encoded ++ List.replicate 1 61 else encoded) =
+    ?m.79319
+is not definitionally equal to target
+  (if (List.length s % 5 == 1) = true then
+      List.take
+          (List.length
+              (ForInStep.value <$>
+                List.foldlM
+                  (fun b a =>
+                    match b with
+                    | ForInStep.yield b =>
+                      ForInStep.yield
+                        (b ++
+                          [b32Char
+                              (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                                0 0).toNat *
+                                            2 ^ 32 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                1 0).toNat *
+                                            2 ^ 24 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              2 0).toNat *
+                                          2 ^ 16 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            3 0).toNat *
+                                        2 ^ 8 +
+                                    (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                        0).toNat) /
+                                  2 ^ 35 %
+                                32),
+                            b32Char
+                              (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                                0 0).toNat *
+                                            2 ^ 32 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                1 0).toNat *
+                                            2 ^ 24 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              2 0).toNat *
+                                          2 ^ 16 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            3 0).toNat *
+                                        2 ^ 8 +
+                                    (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                        0).toNat) /
+                                  2 ^ 30 %
+                                32),
+                            b32Char
+                              (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                                0 0).toNat *
+                                            2 ^ 32 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                1 0).toNat *
+                                            2 ^ 24 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              2 0).toNat *
+                                          2 ^ 16 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            3 0).toNat *
+                                        2 ^ 8 +
+                                    (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                        0).toNat) /
+                                  2 ^ 25 %
+                                32),
+                            b32Char
+                              (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                                0 0).toNat *
+                                            2 ^ 32 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                1 0).toNat *
+                                            2 ^ 24 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              2 0).toNat *
+                                          2 ^ 16 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            3 0).toNat *
+                                        2 ^ 8 +
+                                    (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                        0).toNat) /
+                                  2 ^ 20 %
+                                32),
+                            b32Char
+                              (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                                0 0).toNat *
+                                            2 ^ 32 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                1 0).toNat *
+                                            2 ^ 24 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              2 0).toNat *
+                                          2 ^ 16 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            3 0).toNat *
+                                        2 ^ 8 +
+                                    (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                        0).toNat) /
+                                  2 ^ 15 %
+                                32),
+                            b32Char
+                              (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                                0 0).toNat *
+                                            2 ^ 32 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                1 0).toNat *
+                                            2 ^ 24 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              2 0).toNat *
+                                          2 ^ 16 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            3 0).toNat *
+                                        2 ^ 8 +
+                                    (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                        0).toNat) /
+                                  2 ^ 10 %
+                                32),
+                            b32Char
+                              (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                                0 0).toNat *
+                                            2 ^ 32 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                1 0).toNat *
+                                            2 ^ 24 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              2 0).toNat *
+                                          2 ^ 16 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            3 0).toNat *
+                                        2 ^ 8 +
+                                    (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                        0).toNat) /
+                                  2 ^ 5 %
+                                32),
+                            b32Char
+                              (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                              0 0).toNat *
+                                          2 ^ 32 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              1 0).toNat *
+                                          2 ^ 24 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            2 0).toNat *
+                                        2 ^ 16 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                          0).toNat *
+                                      2 ^ 8 +
+                                  (List.getD
+                                      (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                      0).toNat) %
+                                32)])
+                    | ForInStep.done b => ForInStep.done b)
+                  (ForInStep.yield []) (chunksOf5 s)) -
+            6)
+          (ForInStep.value <$>
+            List.foldlM
+              (fun b a =>
+                match b with
+                | ForInStep.yield b =>
+                  ForInStep.yield
+                    (b ++
+                      [b32Char
+                          (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                            0).toNat *
+                                        2 ^ 32 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            1 0).toNat *
+                                        2 ^ 24 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 2
+                                          0).toNat *
+                                      2 ^ 16 +
+                                  (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                        0).toNat *
+                                    2 ^ 8 +
+                                (List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                    4 0).toNat) /
+                              2 ^ 35 %
+                            32),
+                        b32Char
+                          (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                            0).toNat *
+                                        2 ^ 32 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            1 0).toNat *
+                                        2 ^ 24 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 2
+                                          0).toNat *
+                                      2 ^ 16 +
+                                  (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                        0).toNat *
+                                    2 ^ 8 +
+                                (List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                    4 0).toNat) /
+                              2 ^ 30 %
+                            32),
+                        b32Char
+                          (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                            0).toNat *
+                                        2 ^ 32 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            1 0).toNat *
+                                        2 ^ 24 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 2
+                                          0).toNat *
+                                      2 ^ 16 +
+                                  (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                        0).toNat *
+                                    2 ^ 8 +
+                                (List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                    4 0).toNat) /
+                              2 ^ 25 %
+                            32),
+                        b32Char
+                          (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                            0).toNat *
+                                        2 ^ 32 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            1 0).toNat *
+                                        2 ^ 24 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 2
+                                          0).toNat *
+                                      2 ^ 16 +
+                                  (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                        0).toNat *
+                                    2 ^ 8 +
+                                (List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                    4 0).toNat) /
+                              2 ^ 20 %
+                            32),
+                        b32Char
+                          (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                            0).toNat *
+                                        2 ^ 32 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            1 0).toNat *
+                                        2 ^ 24 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 2
+                                          0).toNat *
+                                      2 ^ 16 +
+                                  (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                        0).toNat *
+                                    2 ^ 8 +
+                                (List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                    4 0).toNat) /
+                              2 ^ 15 %
+                            32),
+                        b32Char
+                          (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                            0).toNat *
+                                        2 ^ 32 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            1 0).toNat *
+                                        2 ^ 24 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 2
+                                          0).toNat *
+                                      2 ^ 16 +
+                                  (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                        0).toNat *
+                                    2 ^ 8 +
+                                (List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                    4 0).toNat) /
+                              2 ^ 10 %
+                            32),
+                        b32Char
+                          (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                            0).toNat *
+                                        2 ^ 32 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            1 0).toNat *
+                                        2 ^ 24 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 2
+                                          0).toNat *
+                                      2 ^ 16 +
+                                  (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                        0).toNat *
+                                    2 ^ 8 +
+                                (List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                    4 0).toNat) /
+                              2 ^ 5 %
+                            32),
+                        b32Char
+                          (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                          0).toNat *
+                                      2 ^ 32 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 1
+                                          0).toNat *
+                                      2 ^ 24 +
+                                  (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 2
+                                        0).toNat *
+                                    2 ^ 16 +
+                                (List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                      3 0).toNat *
+                                  2 ^ 8 +
+                              (List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                  0).toNat) %
+                            32)])
+                | ForInStep.done b => ForInStep.done b)
+              (ForInStep.yield []) (chunksOf5 s)) ++
+        List.replicate 6 61
+    else
+      if (List.length s % 5 == 2) = true then
+        List.take
+            (List.length
+                (ForInStep.value <$>
+                  List.foldlM
+                    (fun b a =>
+                      match b with
+                      | ForInStep.yield b =>
+                        ForInStep.yield
+                          (b ++
+                            [b32Char
+                                (((List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  0 0).toNat *
+                                              2 ^ 32 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  1 0).toNat *
+                                              2 ^ 24 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                2 0).toNat *
+                                            2 ^ 16 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              3 0).toNat *
+                                          2 ^ 8 +
+                                      (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                          0).toNat) /
+                                    2 ^ 35 %
+                                  32),
+                              b32Char
+                                (((List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  0 0).toNat *
+                                              2 ^ 32 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  1 0).toNat *
+                                              2 ^ 24 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                2 0).toNat *
+                                            2 ^ 16 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              3 0).toNat *
+                                          2 ^ 8 +
+                                      (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                          0).toNat) /
+                                    2 ^ 30 %
+                                  32),
+                              b32Char
+                                (((List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  0 0).toNat *
+                                              2 ^ 32 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  1 0).toNat *
+                                              2 ^ 24 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                2 0).toNat *
+                                            2 ^ 16 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              3 0).toNat *
+                                          2 ^ 8 +
+                                      (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                          0).toNat) /
+                                    2 ^ 25 %
+                                  32),
+                              b32Char
+                                (((List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  0 0).toNat *
+                                              2 ^ 32 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  1 0).toNat *
+                                              2 ^ 24 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                2 0).toNat *
+                                            2 ^ 16 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              3 0).toNat *
+                                          2 ^ 8 +
+                                      (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                          0).toNat) /
+                                    2 ^ 20 %
+                                  32),
+                              b32Char
+                                (((List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  0 0).toNat *
+                                              2 ^ 32 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  1 0).toNat *
+                                              2 ^ 24 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                2 0).toNat *
+                                            2 ^ 16 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              3 0).toNat *
+                                          2 ^ 8 +
+                                      (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                          0).toNat) /
+                                    2 ^ 15 %
+                                  32),
+                              b32Char
+                                (((List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  0 0).toNat *
+                                              2 ^ 32 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  1 0).toNat *
+                                              2 ^ 24 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                2 0).toNat *
+                                            2 ^ 16 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              3 0).toNat *
+                                          2 ^ 8 +
+                                      (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                          0).toNat) /
+                                    2 ^ 10 %
+                                  32),
+                              b32Char
+                                (((List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  0 0).toNat *
+                                              2 ^ 32 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  1 0).toNat *
+                                              2 ^ 24 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                2 0).toNat *
+                                            2 ^ 16 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              3 0).toNat *
+                                          2 ^ 8 +
+                                      (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                          0).toNat) /
+                                    2 ^ 5 %
+                                  32),
+                              b32Char
+                                (((List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                0 0).toNat *
+                                            2 ^ 32 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                1 0).toNat *
+                                            2 ^ 24 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              2 0).toNat *
+                                          2 ^ 16 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            3 0).toNat *
+                                        2 ^ 8 +
+                                    (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                        0).toNat) %
+                                  32)])
+                      | ForInStep.done b => ForInStep.done b)
+                    (ForInStep.yield []) (chunksOf5 s)) -
+              4)
+            (ForInStep.value <$>
+              List.foldlM
+                (fun b a =>
+                  match b with
+                  | ForInStep.yield b =>
+                    ForInStep.yield
+                      (b ++
+                        [b32Char
+                            (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                              0).toNat *
+                                          2 ^ 32 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              1 0).toNat *
+                                          2 ^ 24 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            2 0).toNat *
+                                        2 ^ 16 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                          0).toNat *
+                                      2 ^ 8 +
+                                  (List.getD
+                                      (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                      0).toNat) /
+                                2 ^ 35 %
+                              32),
+                          b32Char
+                            (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                              0).toNat *
+                                          2 ^ 32 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              1 0).toNat *
+                                          2 ^ 24 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            2 0).toNat *
+                                        2 ^ 16 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                          0).toNat *
+                                      2 ^ 8 +
+                                  (List.getD
+                                      (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                      0).toNat) /
+                                2 ^ 30 %
+                              32),
+                          b32Char
+                            (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                              0).toNat *
+                                          2 ^ 32 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              1 0).toNat *
+                                          2 ^ 24 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            2 0).toNat *
+                                        2 ^ 16 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                          0).toNat *
+                                      2 ^ 8 +
+                                  (List.getD
+                                      (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                      0).toNat) /
+                                2 ^ 25 %
+                              32),
+                          b32Char
+                            (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                              0).toNat *
+                                          2 ^ 32 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              1 0).toNat *
+                                          2 ^ 24 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            2 0).toNat *
+                                        2 ^ 16 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                          0).toNat *
+                                      2 ^ 8 +
+                                  (List.getD
+                                      (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                      0).toNat) /
+                                2 ^ 20 %
+                              32),
+                          b32Char
+                            (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                              0).toNat *
+                                          2 ^ 32 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              1 0).toNat *
+                                          2 ^ 24 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            2 0).toNat *
+                                        2 ^ 16 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                          0).toNat *
+                                      2 ^ 8 +
+                                  (List.getD
+                                      (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                      0).toNat) /
+                                2 ^ 15 %
+                              32),
+                          b32Char
+                            (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                              0).toNat *
+                                          2 ^ 32 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              1 0).toNat *
+                                          2 ^ 24 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            2 0).toNat *
+                                        2 ^ 16 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                          0).toNat *
+                                      2 ^ 8 +
+                                  (List.getD
+                                      (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                      0).toNat) /
+                                2 ^ 10 %
+                              32),
+                          b32Char
+                            (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                              0).toNat *
+                                          2 ^ 32 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              1 0).toNat *
+                                          2 ^ 24 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            2 0).toNat *
+                                        2 ^ 16 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                          0).toNat *
+                                      2 ^ 8 +
+                                  (List.getD
+                                      (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                      0).toNat) /
+                                2 ^ 5 %
+                              32),
+                          b32Char
+                            (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 0
+                                            0).toNat *
+                                        2 ^ 32 +
+                                      (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            1 0).toNat *
+                                        2 ^ 24 +
+                                    (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 2
+                                          0).toNat *
+                                      2 ^ 16 +
+                                  (List.getD
+                                        (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 3
+                                        0).toNat *
+                                    2 ^ 8 +
+                                (List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                    4 0).toNat) %
+                              32)])
+                  | ForInStep.done b => ForInStep.done b)
+                (ForInStep.yield []) (chunksOf5 s)) ++
+          List.replicate 4 61
+      else
+        if (List.length s % 5 == 3) = true then
+          List.take
+              (List.length
+                  (ForInStep.value <$>
+                    List.foldlM
+                      (fun b a =>
+                        match b with
+                        | ForInStep.yield b =>
+                          ForInStep.yield
+                            (b ++
+                              [b32Char
+                                  (((List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    0 0).toNat *
+                                                2 ^ 32 +
+                                              (List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    1 0).toNat *
+                                                2 ^ 24 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  2 0).toNat *
+                                              2 ^ 16 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                3 0).toNat *
+                                            2 ^ 8 +
+                                        (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            4 0).toNat) /
+                                      2 ^ 35 %
+                                    32),
+                                b32Char
+                                  (((List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    0 0).toNat *
+                                                2 ^ 32 +
+                                              (List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    1 0).toNat *
+                                                2 ^ 24 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  2 0).toNat *
+                                              2 ^ 16 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                3 0).toNat *
+                                            2 ^ 8 +
+                                        (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            4 0).toNat) /
+                                      2 ^ 30 %
+                                    32),
+                                b32Char
+                                  (((List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    0 0).toNat *
+                                                2 ^ 32 +
+                                              (List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    1 0).toNat *
+                                                2 ^ 24 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  2 0).toNat *
+                                              2 ^ 16 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                3 0).toNat *
+                                            2 ^ 8 +
+                                        (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            4 0).toNat) /
+                                      2 ^ 25 %
+                                    32),
+                                b32Char
+                                  (((List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    0 0).toNat *
+                                                2 ^ 32 +
+                                              (List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    1 0).toNat *
+                                                2 ^ 24 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  2 0).toNat *
+                                              2 ^ 16 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                3 0).toNat *
+                                            2 ^ 8 +
+                                        (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            4 0).toNat) /
+                                      2 ^ 20 %
+                                    32),
+                                b32Char
+                                  (((List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    0 0).toNat *
+                                                2 ^ 32 +
+                                              (List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    1 0).toNat *
+                                                2 ^ 24 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  2 0).toNat *
+                                              2 ^ 16 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                3 0).toNat *
+                                            2 ^ 8 +
+                                        (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            4 0).toNat) /
+                                      2 ^ 15 %
+                                    32),
+                                b32Char
+                                  (((List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    0 0).toNat *
+                                                2 ^ 32 +
+                                              (List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    1 0).toNat *
+                                                2 ^ 24 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  2 0).toNat *
+                                              2 ^ 16 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                3 0).toNat *
+                                            2 ^ 8 +
+                                        (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            4 0).toNat) /
+                                      2 ^ 10 %
+                                    32),
+                                b32Char
+                                  (((List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    0 0).toNat *
+                                                2 ^ 32 +
+                                              (List.getD
+                                                    (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                    else a)
+                                                    1 0).toNat *
+                                                2 ^ 24 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  2 0).toNat *
+                                              2 ^ 16 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                3 0).toNat *
+                                            2 ^ 8 +
+                                        (List.getD
+                                            (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                            4 0).toNat) /
+                                      2 ^ 5 %
+                                    32),
+                                b32Char
+                                  (((List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  0 0).toNat *
+                                              2 ^ 32 +
+                                            (List.getD
+                                                  (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                  else a)
+                                                  1 0).toNat *
+                                              2 ^ 24 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                2 0).toNat *
+                                            2 ^ 16 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              3 0).toNat *
+                                          2 ^ 8 +
+                                      (List.getD
+                                          (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a) 4
+                                          0).toNat) %
+                                    32)])
+                        | ForInStep.done b => ForInStep.done b)
+                      (ForInStep.yield []) (chunksOf5 s)) -
+                3)
+              (ForInStep.value <$>
+                List.foldlM
+                  (fun b a =>
+                    match b with
+                    | ⋯ =>
+                      ForInStep.yield
+                        (b ++
+                          [b32Char
+                              (((List.getD (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0 else a)
+                                                0 0).toNat *
+                                            2 ^ 32 +
+                                          (List.getD
+                                                (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                                else a)
+                                                1 0).toNat *
+                                            2 ^ 24 +
+                                        (List.getD
+                                              (if List.length a < 5 then a ++ List.replicate (5 - List.length a) 0
+                                              else a)
+                                              2 0).toNat *
+                                          2 ^ 16 +
+                                      (List.getD (if List.length a < 5 then a ++ List.replicate ⋯ ⋯ else ⋯) ⋯ ⋯).toNat *
+                                        ⋯ +
+                                    ⋯) /
+                                  ⋯ %
+                                ⋯),
+                            ⋯])
+                    | ⋯ => ⋯)
+                  ⋯ ⋯) ++
+            ⋯
+        else ⋯) =
+    ⋯
+'b32encode_equiv' depends on axioms: [propext, sorryAx, Quot.sound]

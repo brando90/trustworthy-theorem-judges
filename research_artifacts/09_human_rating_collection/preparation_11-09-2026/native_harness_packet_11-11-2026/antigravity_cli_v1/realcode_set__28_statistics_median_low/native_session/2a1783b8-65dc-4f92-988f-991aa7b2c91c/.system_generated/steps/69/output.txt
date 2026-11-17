@@ -1,0 +1,76 @@
+Created At: 2026-11-16T22:36:50Z
+Completed At: 2026-11-16T22:36:59Z
+Command exited with code 1.
+
+Command output:
+some 3
+some 4
+some 3
+some 3
+some 42
+some 10
+some 4
+some 0
+some (-5)
+none
+Veribench/28_statistics_median_low.lean:455:68: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  f - g ≥ 1
+  d - e ≥ 0
+where
+ d := b
+ e := a
+ f := (fun x => x + c) a
+ g := (fun x => x + c) b
+Veribench/28_statistics_median_low.lean:460:10: error: Function expected at
+  List.getElem?_map
+but this term has type
+  (List.map ?m.40470 ?m.40471)[?m.40472]? = Option.map ?m.40470 ?m.40471[?m.40472]?
+
+Note: Expected a function because this term is being applied to the argument
+  (· + c)
+Veribench/28_statistics_median_low.lean:461:10: error: Function expected at
+  List.getElem?_map
+but this term has type
+  (List.map ?m.40514 ?m.40515)[?m.40516]? = Option.map ?m.40514 ?m.40515[?m.40516]?
+
+Note: Expected a function because this term is being applied to the argument
+  (· + c)
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/28_statistics_median_low.lean:516:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "x" (∀ (x : ℤ), Plausible.NamedBinder "xs" (∀ (xs : List ℤ), even_length_prop (x :: xs))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/28_statistics_median_low.lean:517:40: error: failed to synthesize
+  Decidable (even_length_prop data)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/28_statistics_median_low.lean:560:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "x" (∀ (x : ℤ), Plausible.NamedBinder "xs" (∀ (xs : List ℤ), Post_prop (x :: xs))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/28_statistics_median_low.lean:561:40: error: failed to synthesize
+  Decidable (Post_prop data)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+some 3
+some 3
+some 4
+some (-5)
+none
+Unable to find a counter-example

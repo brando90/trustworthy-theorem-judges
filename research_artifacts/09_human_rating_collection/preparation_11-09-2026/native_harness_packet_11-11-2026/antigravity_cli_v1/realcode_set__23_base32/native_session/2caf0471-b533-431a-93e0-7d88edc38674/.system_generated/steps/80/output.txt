@@ -1,0 +1,31 @@
+Created At: 2026-11-16T21:57:53Z
+Completed At: 2026-11-16T21:57:57Z
+Command exited with code 1.
+
+Command output:
+<stdin>:52:6: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  (decodeLoop cur 0 0).toList
+cur : Bytes
+⊢ decodeLoop cur 0 0 = do
+    let r ←
+      forIn cur ⟨0, [], true, 0⟩ fun char r =>
+          if r.snd.snd.fst = true then
+            match revAlphabet char with
+            | none => do
+              pure PUnit.unit
+              pure (ForInStep.yield ⟨r.fst, r.snd.fst, false, r.snd.snd.snd⟩)
+            | some d =>
+              if r.fst + 5 ≥ 8 then do
+                pure PUnit.unit
+                pure
+                    (ForInStep.yield
+                      ⟨r.fst + 5 - 8,
+                        r.snd.fst ++ [UInt8.ofNat ((r.snd.snd.snd <<< 5 ||| d) >>> (r.fst + 5 - 8) &&& 255)],
+                        r.snd.snd.fst, r.snd.snd.snd <<< 5 ||| d⟩)
+              else do
+                pure PUnit.unit
+                pure (ForInStep.yield ⟨r.fst + 5, r.snd.fst, r.snd.snd.fst, r.snd.snd.snd <<< 5 ||| d⟩)
+          else do
+            pure PUnit.unit
+            pure (ForInStep.yield ⟨r.fst, r.snd.fst, r.snd.snd.fst, r.snd.snd.snd⟩)
+    if r.2.2.fst = true then pure (some r.2.fst) else pure none

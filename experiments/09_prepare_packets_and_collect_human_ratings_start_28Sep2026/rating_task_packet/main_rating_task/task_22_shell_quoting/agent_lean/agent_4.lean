@@ -1,704 +1,550 @@
 import Mathlib
 
 /-!
-# Translation of Python `shlex.quote` to Lean 4
+# Shell-Escaping a String (`shlex.quote`)
 
-This module formalizes Python's `shlex.quote` function, which returns a shell-escaped
-version of a string `s` suitable for POSIX shells:
-- If `s` is empty, it returns `"''"`.
-- If every character of `s` is in the POSIX safe character set
-  (ASCII letters, digits, and the punctuation characters `_@%+=:,./` and `-`),
-  it returns `s` unchanged.
-- Otherwise, it wraps `s` in single quotes `'...'` and replaces each single quote `'`
-  in `s` with `"'\"'\"'"`.
+Formalization of Python's `shlex.quote` function from the standard `shlex` library.
+Given an input string `s`, `quote` returns a shell-escaped version suitable for POSIX shells:
+1. If `s` is empty (`""`), it returns `"''"`.
+2. If `s` is non-empty and every character in `s` belongs to the POSIX safe character set
+   (`a`..`z`, `A`..`Z`, `0`..`9`, and `_`, `@`, `%`, `+`, `=`, `:`, `,`, `.`, `/`, `-`),
+   it returns `s` unchanged.
+3. Otherwise, it encloses `s` in single quotes `'...'` and replaces each single quote `'`
+   inside `s` with the 5-character sequence `"'\"'\"'"`.
 -/
 
 namespace «21_shlex_quote»
 
--- ============================================================================
--- 4. Implementation (functional definition)
--- ============================================================================
+/-! ## 4. Implementation (Functional Definition) -/
 
-/-- The set of safe characters for POSIX shells that do not require escaping. -/
-def safe_chars : List Char :=
-  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@%+=:,./-".data
+/-- The list of safe characters for POSIX shells that do not require escaping. -/
+def safeChars : List Char :=
+  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@%+=:,./-".toList
 
-/-- Boolean predicate checking whether a character is in `safe_chars`. -/
-def is_safe_char (c : Char) : Bool :=
-  safe_chars.contains c
+/-- Returns `true` iff `c` is a safe character for POSIX shells. -/
+def isSafeChar (c : Char) : Bool :=
+  decide (c ∈ safeChars)
 
-/-- Boolean predicate checking whether all characters in string `s` are safe. -/
-def all_safe (s : String) : Bool :=
-  s.data.all is_safe_char
+/-- Escapes a single character for use inside a single-quoted POSIX shell string:
+    `'` becomes `"'\"'\"'"`, and every other character remains `[c]`. -/
+def escapeChar (c : Char) : List Char :=
+  if c == '\'' then "'\"'\"'".toList else [c]
 
-/-- Escape sequence `"'\"'\"'"` used to replace a single quote inside single-quoted strings. -/
-def single_quote_escape : String :=
-  "'\"'\"'"
+/-- Replaces every single quote `'` in `s` with `"'\"'\"'"`. -/
+def replaceSingleQuotes (s : String) : String :=
+  String.mk (s.toList.flatMap escapeChar)
 
-/-- Replace every occurrence of `'` in `s` with `"'\"'\"'"`. -/
-def replace_single_quotes (s : String) : String :=
-  String.mk (s.data.flatMap (fun c => if c == '\'' then single_quote_escape.data else [c]))
+/-- Inverse of `escapeChar` over character lists: converts each `"'\"'\"'"` sequence back to `'\''`. -/
+def unescapeChars : List Char → List Char
+  | [] => []
+  | c :: rest =>
+    if c == '\'' then
+      match rest with
+      | _ :: _ :: _ :: _ :: tail => '\'' :: unescapeChars tail
+      | _ => ['\'']
+    else
+      c :: unescapeChars rest
 
-/-- Return a shell-escaped version of the string `s`. -/
+/-- Inverse of `quote` on character lists. -/
+def unquoteChars : List Char → List Char
+  | [] => []
+  | c :: cs => if c == '\'' then unescapeChars cs.dropLast else c :: cs
+
+/-- Unquotes a shell-escaped string produced by `quote`. -/
+def unquote (q : String) : String :=
+  String.mk (unquoteChars q.toList)
+
+/-- Functional implementation of Python's `shlex.quote`. -/
 def quote (s : String) : String :=
   if s = "" then
     "''"
-  else if all_safe s then
+  else if s.toList.all isSafeChar then
     s
   else
-    "'" ++ replace_single_quotes s ++ "'"
+    "'" ++ replaceSingleQuotes s ++ "'"
 
-/-- Executable pre-condition check (`isinstance(s, str)` holds statically for `s : String`). -/
-def pre_quote (_s : String) : Bool :=
-  true
-
-/-- Main benchmark function to be verified. -/
+/-- Main function to be verified, corresponding to Python's `benchmark_quote`. -/
 def benchmark_quote (s : String) : String :=
-  if !pre_quote s then
-    ""
-  else
-    quote s
+  quote s
 
-/-- Test harness translating Python's `check(quote_cand)`. -/
-def check (quote_cand : String → String) : Bool :=
-  (quote_cand "" == "''") &&
-  (quote_cand "abc" == "abc") &&
-  (quote_cand "a b c" == "'a b c'") &&
-  (quote_cand "a'b" == "'a'\"'\"'b'")
-
--- ============================================================================
--- 5. Unit tests
--- ============================================================================
+/-! ## 5. Unit Tests -/
 
 -- 1. Test empty string
 example : quote "" = "''" := by native_decide
-example : benchmark_quote "" = "''" := by native_decide
-
 -- 2. Test safe string
 example : quote "abc" = "abc" := by native_decide
-example : benchmark_quote "abc" = "abc" := by native_decide
-example : quote "AZ_09@%+=:,./-" = "AZ_09@%+=:,./-" := by native_decide
-
 -- 3. Test string with spaces
 example : quote "a b c" = "'a b c'" := by native_decide
-example : benchmark_quote "a b c" = "'a b c'" := by native_decide
-
 -- 4. Test string with quotes
 example : quote "a'b" = "'a'\"'\"'b'" := by native_decide
-example : benchmark_quote "a'b" = "'a'\"'\"'b'" := by native_decide
+-- 5. Additional tests on punctuation and benchmark_quote
+example : quote "path/to/file_1.txt" = "path/to/file_1.txt" := by native_decide
 example : quote "'" = "''\"'\"''" := by native_decide
-
--- 5. Test `check` harness
-example : check quote = true := by native_decide
-example : check benchmark_quote = true := by native_decide
+example : benchmark_quote "a'b" = "'a'\"'\"'b'" := by native_decide
 
 #eval quote ""
 #eval quote "abc"
 #eval quote "a b c"
 #eval quote "a'b"
-#eval check benchmark_quote
+#eval benchmark_quote "a'b"
 
--- ============================================================================
--- 6. Pre-condition predicate
--- ============================================================================
+/-! ## 6. Pre-condition Predicate -/
 
-/-- Pre-condition for `quote`: in Lean, `s : String` is guaranteed by the type system. -/
-@[reducible]
+/-- Pre-condition for `quote`: in Lean 4, the input `s : String` is statically guaranteed
+    to be a string (`isinstance(s, str)`). -/
 def Pre (_s : String) : Prop :=
   True
 
-theorem pre_quote_iff_Pre (s : String) : pre_quote s = true ↔ Pre s := by
-  simp [pre_quote, Pre]
+/-- Alias matching the Python `pre_quote` name. -/
+abbrev pre_quote (s : String) : Prop :=
+  Pre s
 
--- ============================================================================
--- 7. Property propositions and theorems
--- ============================================================================
+instance (s : String) : Decidable (Pre s) :=
+  isTrue trivial
 
-theorem single_quote_escape_data :
-    single_quote_escape.data = ['\'', '"', '\'', '"', '\''] := rfl
+/-! ## Helper Lemmas for Properties -/
 
-theorem single_quote_escape_length :
-    single_quote_escape.length = 5 := rfl
+theorem toList_mk (cs : List Char) : (String.mk cs).toList = cs := rfl
 
-theorem replace_single_quotes_data (s : String) :
-    (replace_single_quotes s).data =
-      s.data.flatMap (fun c => if c == '\'' then single_quote_escape.data else [c]) := rfl
+theorem length_mk (cs : List Char) : (String.mk cs).length = cs.length := rfl
 
-theorem string_length_append (a b : String) :
-    (a ++ b).length = a.length + b.length := by
-  rw [← String.length_data, String.data_append, List.length_append, String.length_data, String.length_data]
+theorem toList_append (s₁ s₂ : String) : (s₁ ++ s₂).toList = s₁.toList ++ s₂.toList := rfl
 
-theorem flatMap_escape_length (cs : List Char) :
-    (cs.flatMap (fun c => if c == '\'' then single_quote_escape.data else [c])).length =
-      cs.length + 4 * cs.count '\'' := by
-  induction cs with
-  | nil => simp
-  | cons c cs ih =>
-    simp only [List.flatMap_cons, List.length_append, List.length_cons, List.count_cons, ih]
-    by_cases h : c = '\''
-    · subst h
-      simp [single_quote_escape_data]
-      omega
-    · have hbeq : (c == '\'') = false := beq_false_of_ne h
-      simp [hbeq]
-      omega
+theorem length_append (s₁ s₂ : String) : (s₁ ++ s₂).length = s₁.length + s₂.length :=
+  String.length_append s₁ s₂
 
-theorem replace_single_quotes_length (s : String) :
-    (replace_single_quotes s).length = s.length + 4 * s.data.count '\'' := by
-  rw [← String.length_data, replace_single_quotes_data, flatMap_escape_length, String.length_data]
+theorem escapeChar_length (c : Char) :
+    (escapeChar c).length = 1 + (if c == '\'' then 4 else 0) := by
+  unfold escapeChar
+  split <;> rfl
 
-theorem length_le_replace_single_quotes_length (s : String) :
-    s.length ≤ (replace_single_quotes s).length := by
-  rw [replace_single_quotes_length]
-  omega
-
-theorem flatMap_escape_eq_self {cs : List Char} (h : '\'' ∉ cs) :
-    cs.flatMap (fun c => if c == '\'' then single_quote_escape.data else [c]) = cs := by
+theorem flatMap_escapeChar_length (cs : List Char) :
+    (cs.flatMap escapeChar).length = cs.length + 4 * cs.count '\'' := by
   induction cs with
   | nil => rfl
   | cons c cs ih =>
-    simp only [List.mem_cons, not_or] at h
-    have hne : c ≠ '\'' := Ne.symm h.1
-    have hbeq : (c == '\'') = false := beq_false_of_ne hne
-    simp only [List.flatMap_cons, hbeq, Bool.false_eq_true, ↓reduceIte, List.cons_append,
-      List.nil_append, ih h.2]
+    simp only [List.flatMap_cons, List.length_append, ih, List.length_cons, List.count_cons,
+      escapeChar_length, beq_iff_eq]
+    split <;> omega
 
-theorem replace_single_quotes_eq_self {s : String} (h : '\'' ∉ s.data) :
-    replace_single_quotes s = s := by
-  apply String.ext
-  rw [replace_single_quotes_data]
-  exact flatMap_escape_eq_self h
+theorem replaceSingleQuotes_length (s : String) :
+    (replaceSingleQuotes s).length = s.length + 4 * s.toList.count '\'' :=
+  flatMap_escapeChar_length s.toList
 
-theorem mem_replace_single_quotes_of_mem {s : String} {c : Char} (h : c ∈ s.data) :
-    c ∈ (replace_single_quotes s).data := by
-  rw [replace_single_quotes_data, List.mem_flatMap]
-  refine ⟨c, h, ?_⟩
-  by_cases hc : c = '\''
-  · subst hc
-    simp [single_quote_escape_data]
-  · have hbeq : (c == '\'') = false := beq_false_of_ne hc
-    simp [hbeq]
+theorem flatMap_escapeChar_eq_self {cs : List Char} (h : '\'' ∉ cs) :
+    cs.flatMap escapeChar = cs := by
+  induction cs with
+  | nil => rfl
+  | cons c cs ih =>
+    have hc : c ≠ '\'' := fun heq => h (heq ▸ List.mem_cons_self)
+    have hcs : '\'' ∉ cs := fun hm => h (List.mem_cons_of_mem c hm)
+    simp [List.flatMap_cons, escapeChar, hc, ih hcs]
 
-theorem mem_replace_single_quotes_char {s : String} {c : Char}
-    (h : c ∈ (replace_single_quotes s).data) :
-    c ∈ s.data ∨ c = '\'' ∨ c = '"' := by
-  rw [replace_single_quotes_data, List.mem_flatMap] at h
-  rcases h with ⟨x, hx, hcx⟩
-  by_cases hxq : x = '\''
-  · subst hxq
-    simp only [beq_self_eq_true, ↓reduceIte, single_quote_escape_data, List.mem_cons,
-      List.not_mem_nil, or_false] at hcx
-    rcases hcx with rfl | rfl | rfl | rfl | rfl <;> tauto
-  · have hbeq : (x == '\'') = false := beq_false_of_ne hxq
-    simp only [hbeq, Bool.false_eq_true, ↓reduceIte, List.mem_singleton] at hcx
-    subst hcx
-    exact Or.inl hx
+theorem replaceSingleQuotes_eq_self {s : String} (h : '\'' ∉ s.toList) :
+    replaceSingleQuotes s = s := by
+  cases s with
+  | mk cs =>
+    simp only [replaceSingleQuotes, toList_mk]
+    congr 1
+    exact flatMap_escapeChar_eq_self h
 
-theorem single_quote_not_safe : is_safe_char '\'' = false := rfl
+theorem isSafeChar_single_quote : isSafeChar '\'' = false := by
+  decide
 
-theorem all_safe_false_of_mem_single_quote {s : String} (h : '\'' ∈ s.data) :
-    all_safe s = false := by
-  cases hall : all_safe s
-  · rfl
-  · exfalso
-    rw [all_safe, List.all_eq_true] at hall
-    have hsafe := hall '\'' h
-    rw [single_quote_not_safe] at hsafe
-    contradiction
+theorem all_isSafeChar_false_of_single_quote_mem {s : String} (h : '\'' ∈ s.toList) :
+    s.toList.all isSafeChar = false := by
+  rw [List.all_eq_false]
+  exact ⟨'\'', h, by simp [isSafeChar_single_quote]⟩
 
--- Property 1: Empty string produces `"''"`
-@[reducible]
-def quote_empty_prop (s : String) : Prop :=
-  s = "" → quote s = "''"
-
-theorem quote_empty_thm (s : String) : quote_empty_prop s := by
-  intro h
-  simp [quote, h]
-
--- Property 2: Non-empty safe string is returned unchanged
-@[reducible]
-def quote_safe_prop (s : String) : Prop :=
-  s ≠ "" → all_safe s = true → quote s = s
-
-theorem quote_safe_thm (s : String) : quote_safe_prop s := by
-  intro hne hsafe
-  simp [quote, hne, hsafe]
-
--- Property 3: Non-empty unsafe string is wrapped in single quotes with single quotes escaped
-@[reducible]
-def quote_unsafe_prop (s : String) : Prop :=
-  s ≠ "" → all_safe s = false → quote s = "'" ++ replace_single_quotes s ++ "'"
-
-theorem quote_unsafe_thm (s : String) : quote_unsafe_prop s := by
-  intro hne hunsafe
-  simp [quote, hne, hunsafe]
-
--- Property 4: Non-empty unsafe string without single quotes is simply wrapped in `'...'`
-@[reducible]
-def quote_unsafe_no_single_quote_prop (s : String) : Prop :=
-  s ≠ "" → all_safe s = false → '\'' ∉ s.data → quote s = "'" ++ s ++ "'"
-
-theorem quote_unsafe_no_single_quote_thm (s : String) :
-    quote_unsafe_no_single_quote_prop s := by
-  intro hne hunsafe hnoq
-  rw [quote_unsafe_thm s hne hunsafe, replace_single_quotes_eq_self hnoq]
-
--- Property 5: Exact length specification across all three branches
-@[reducible]
-def quote_length_prop (s : String) : Prop :=
-  (s = "" → (quote s).length = 2) ∧
-  (s ≠ "" → all_safe s = true → (quote s).length = s.length) ∧
-  (s ≠ "" → all_safe s = false → (quote s).length = s.length + 2 + 4 * s.data.count '\'')
-
-theorem quote_length_thm (s : String) : quote_length_prop s := by
-  refine ⟨?_, ?_, ?_⟩
-  · intro h
-    rw [quote_empty_thm s h]
-    rfl
-  · intro hne hsafe
-    rw [quote_safe_thm s hne hsafe]
-  · intro hne hunsafe
-    rw [quote_unsafe_thm s hne hunsafe]
-    rw [string_length_append, string_length_append, replace_single_quotes_length]
-    have h1 : ("'" : String).length = 1 := rfl
-    omega
-
--- Property 6: Quoting never decreases the length of the string
-@[reducible]
-def quote_length_ge_prop (s : String) : Prop :=
-  (quote s).length ≥ s.length
-
-theorem quote_length_ge_thm (s : String) : quote_length_ge_prop s := by
-  unfold quote_length_ge_prop
-  obtain ⟨h1, h2, h3⟩ := quote_length_thm s
-  by_cases hs : s = ""
-  · rw [h1 hs, hs]
-    decide
-  · cases hsafe : all_safe s
-    · rw [h3 hs hsafe]
-      omega
-    · rw [h2 hs hsafe]
-
--- Property 7: The quoted output is never the empty string
-@[reducible]
-def quote_nonempty_prop (s : String) : Prop :=
-  quote s ≠ ""
-
-theorem quote_nonempty_thm (s : String) : quote_nonempty_prop s := by
-  intro h
-  have hlen : (quote s).length = 0 := by rw [h]; rfl
-  obtain ⟨h1, h2, h3⟩ := quote_length_thm s
-  by_cases hs : s = ""
-  · have := h1 hs
-    omega
-  · cases hsafe : all_safe s
-    · have := h3 hs hsafe
-      omega
-    · have hq : quote s = s := quote_safe_thm s hs hsafe
-      rw [hq] at h
-      exact hs h
-
--- Property 8: Fixed-point characterization (`quote s = s` iff `s` is non-empty and safe)
-@[reducible]
-def quote_fixed_point_prop (s : String) : Prop :=
-  quote s = s ↔ (s ≠ "" ∧ all_safe s = true)
-
-theorem quote_fixed_point_thm (s : String) : quote_fixed_point_prop s := by
-  constructor
-  · intro h
-    by_cases hs : s = ""
-    · subst hs
-      revert h
-      decide
-    · refine ⟨hs, ?_⟩
-      cases hsafe : all_safe s
-      · exfalso
-        have hlen := (quote_length_thm s).2.2 hs hsafe
-        rw [h] at hlen
-        omega
-      · rfl
-  · rintro ⟨hne, hsafe⟩
-    exact quote_safe_thm s hne hsafe
-
--- Property 9: Non-safe or empty strings are enclosed in single-quote delimiters
-@[reducible]
-def quote_delimiters_prop (s : String) : Prop :=
-  (s = "" ∨ all_safe s = false) → ∃ mid : String, quote s = "'" ++ mid ++ "'"
-
-theorem quote_delimiters_thm (s : String) : quote_delimiters_prop s := by
-  intro h
-  by_cases hs : s = ""
-  · refine ⟨"", ?_⟩
-    rw [quote_empty_thm s hs]
-    rfl
-  · rcases h with rfl | hunsafe
-    · contradiction
-    · exact ⟨replace_single_quotes s, quote_unsafe_thm s hs hunsafe⟩
-
-theorem single_quote_mem_quote_of_not_safe {s : String} (h : s = "" ∨ all_safe s = false) :
-    '\'' ∈ (quote s).data := by
-  obtain ⟨mid, hmid⟩ := quote_delimiters_thm s h
-  rw [hmid, String.data_append, String.data_append]
-  simp
-
-theorem all_safe_quote_iff_thm (s : String) :
-    all_safe (quote s) = true ↔ (s ≠ "" ∧ all_safe s = true) := by
-  constructor
-  · intro h
-    by_cases hs : s = ""
-    · have hmem : '\'' ∈ (quote s).data := single_quote_mem_quote_of_not_safe (Or.inl hs)
-      have hfalse := all_safe_false_of_mem_single_quote hmem
-      rw [h] at hfalse
-      contradiction
-    · refine ⟨hs, ?_⟩
-      cases hsafe : all_safe s
-      · have hmem : '\'' ∈ (quote s).data := single_quote_mem_quote_of_not_safe (Or.inr hsafe)
-        have hfalse := all_safe_false_of_mem_single_quote hmem
-        rw [h] at hfalse
-        contradiction
-      · rfl
-  · rintro ⟨hne, hsafe⟩
-    rw [quote_safe_thm s hne hsafe]
-    exact hsafe
-
--- Property 10: Idempotence characterization (`quote (quote s) = quote s` iff `s` is non-empty and safe)
-@[reducible]
-def quote_idempotent_prop (s : String) : Prop :=
-  quote (quote s) = quote s ↔ (s ≠ "" ∧ all_safe s = true)
-
-theorem quote_idempotent_thm (s : String) : quote_idempotent_prop s := by
-  unfold quote_idempotent_prop
-  have hfp : quote (quote s) = quote s ↔ (quote s ≠ "" ∧ all_safe (quote s) = true) := quote_fixed_point_thm (quote s)
-  have hne : quote s ≠ "" := quote_nonempty_thm s
-  have hsafe : all_safe (quote s) = true ↔ (s ≠ "" ∧ all_safe s = true) := all_safe_quote_iff_thm s
-  tauto
-
--- Property 11: Every character of `s` is preserved in `quote s`
-@[reducible]
-def quote_char_preserves_prop (s : String) : Prop :=
-  ∀ c ∈ s.data, c ∈ (quote s).data
-
-theorem quote_char_preserves_thm (s : String) : quote_char_preserves_prop s := by
-  intro c hc
-  by_cases hs : s = ""
-  · subst hs
-    simp at hc
-  · cases hsafe : all_safe s
-    · rw [quote_unsafe_thm s hs hsafe, String.data_append, String.data_append]
-      simp only [List.mem_append]
-      exact Or.inl (Or.inr (mem_replace_single_quotes_of_mem hc))
-    · rw [quote_safe_thm s hs hsafe]
-      exact hc
-
--- Property 12: Every character in `quote s` comes from `s` or is a quote character (`'` or `"`)
-@[reducible]
-def quote_char_origin_prop (s : String) : Prop :=
-  ∀ c ∈ (quote s).data, c ∈ s.data ∨ c = '\'' ∨ c = '"'
-
-theorem quote_char_origin_thm (s : String) : quote_char_origin_prop s := by
-  intro c hc
-  by_cases hs : s = ""
-  · rw [quote_empty_thm s hs] at hc
-    simp only [List.mem_cons, List.not_mem_nil, or_false] at hc
-    rcases hc with rfl | rfl <;> exact Or.inr (Or.inl rfl)
-  · cases hsafe : all_safe s
-    · rw [quote_unsafe_thm s hs hsafe, String.data_append, String.data_append] at hc
-      simp only [List.mem_append] at hc
-      rcases hc with (hc1 | hc2) | hc3
-      · simp only [List.mem_singleton] at hc1
-        exact Or.inr (Or.inl hc1)
-      · exact mem_replace_single_quotes_char hc2
-      · simp only [List.mem_singleton] at hc3
-        exact Or.inr (Or.inl hc3)
-    · rw [quote_safe_thm s hs hsafe] at hc
-      exact Or.inl hc
-
--- Property 13: `benchmark_quote` agrees with `quote`
-@[reducible]
-def benchmark_quote_eq_quote_prop (s : String) : Prop :=
-  benchmark_quote s = quote s
-
-theorem benchmark_quote_eq_quote_thm (s : String) : benchmark_quote_eq_quote_prop s := by
+theorem empty_all_isSafeChar : ("" : String).toList.all isSafeChar = true :=
   rfl
 
--- ============================================================================
--- 8. Post-condition as conjunction of properties
--- ============================================================================
+theorem unsafe_nonempty {s : String} (h : s.toList.all isSafeChar = false) : s ≠ "" := by
+  intro hs
+  subst hs
+  revert h
+  decide
 
-/-- Full post-condition combining all specification properties of `quote` and `benchmark_quote`. -/
-@[reducible]
+theorem quoted_length (s : String) :
+    ("'" ++ replaceSingleQuotes s ++ "'").length = s.length + 2 + 4 * s.toList.count '\'' := by
+  have h1 : ("'" : String).length = 1 := rfl
+  rw [length_append, length_append, h1, replaceSingleQuotes_length]
+  omega
+
+theorem getLast?_append_singleton (xs : List Char) (c : Char) :
+    (xs ++ [c]).getLast? = some c := by
+  simp
+
+theorem unescapeChars_flatMap_escapeChar (cs : List Char) :
+    unescapeChars (cs.flatMap escapeChar) = cs := by
+  induction cs with
+  | nil => rfl
+  | cons c cs ih =>
+    by_cases hc : c = '\''
+    · subst hc
+      change '\'' :: unescapeChars (cs.flatMap escapeChar) = '\'' :: cs
+      rw [ih]
+    · have hbeq : (c == '\'') = false := beq_false_of_ne hc
+      simp only [List.flatMap_cons, escapeChar, hbeq, Bool.false_eq_true, ↓reduceIte,
+        List.singleton_append]
+      unfold unescapeChars
+      simp [hbeq, ih]
+
+theorem dropLast_append_singleton (xs : List Char) (c : Char) :
+    (xs ++ [c]).dropLast = xs := by
+  simp
+
+/-! ## 7. Property Propositions and Theorems -/
+
+/-- Property 1: An empty input string is escaped as `"''"`. -/
+def empty_string_prop (s : String) : Prop :=
+  s = "" → quote s = "''"
+
+instance (s : String) : Decidable (empty_string_prop s) := by
+  unfold empty_string_prop; infer_instance
+
+theorem empty_string_thm (s : String) : empty_string_prop s := by
+  intro hs
+  simp [quote, hs]
+
+/-- Property 2: Any non-empty string consisting exclusively of safe characters is returned unchanged. -/
+def safe_nonempty_prop (s : String) : Prop :=
+  s ≠ "" → s.toList.all isSafeChar = true → quote s = s
+
+instance (s : String) : Decidable (safe_nonempty_prop s) := by
+  unfold safe_nonempty_prop; infer_instance
+
+theorem safe_nonempty_thm (s : String) : safe_nonempty_prop s := by
+  intro hne hsafe
+  simp only [quote, hne, hsafe, ↓reduceIte]
+
+/-- Property 3: Any string containing at least one unsafe character is enclosed in single quotes
+    with internal single quotes replaced by `"'\"'\"'"`. -/
+def unsafe_string_prop (s : String) : Prop :=
+  s.toList.all isSafeChar = false → quote s = "'" ++ replaceSingleQuotes s ++ "'"
+
+instance (s : String) : Decidable (unsafe_string_prop s) := by
+  unfold unsafe_string_prop; infer_instance
+
+theorem unsafe_string_thm (s : String) : unsafe_string_prop s := by
+  intro hunsafe
+  have hne : s ≠ "" := unsafe_nonempty hunsafe
+  simp only [quote, hne, hunsafe, Bool.false_eq_true, ↓reduceIte]
+
+/-- Property 4: Any string with at least one unsafe character and no single quotes is simply
+    wrapped in single quotes `"'" ++ s ++ "'"`. -/
+def unsafe_no_single_quote_prop (s : String) : Prop :=
+  s.toList.all isSafeChar = false → '\'' ∉ s.toList → quote s = "'" ++ s ++ "'"
+
+instance (s : String) : Decidable (unsafe_no_single_quote_prop s) := by
+  unfold unsafe_no_single_quote_prop; infer_instance
+
+theorem unsafe_no_single_quote_thm (s : String) : unsafe_no_single_quote_prop s := by
+  intro hunsafe hnoq
+  rw [unsafe_string_thm s hunsafe, replaceSingleQuotes_eq_self hnoq]
+
+/-- Property 5: Any string containing a single quote `'` is treated as unsafe and escaped. -/
+def single_quote_escaped_prop (s : String) : Prop :=
+  '\'' ∈ s.toList → quote s = "'" ++ replaceSingleQuotes s ++ "'"
+
+instance (s : String) : Decidable (single_quote_escaped_prop s) := by
+  unfold single_quote_escaped_prop; infer_instance
+
+theorem single_quote_escaped_thm (s : String) : single_quote_escaped_prop s := by
+  intro hmem
+  exact unsafe_string_thm s (all_isSafeChar_false_of_single_quote_mem hmem)
+
+/-- Property 6: The output of `quote` is never empty. -/
+def nonempty_output_prop (s : String) : Prop :=
+  quote s ≠ "" ∧ 0 < (quote s).length
+
+instance (s : String) : Decidable (nonempty_output_prop s) := by
+  unfold nonempty_output_prop; infer_instance
+
+theorem nonempty_output_thm (s : String) : nonempty_output_prop s := by
+  unfold nonempty_output_prop quote
+  split
+  · decide
+  · next hne =>
+    split
+    · refine ⟨hne, ?_⟩
+      cases s with
+      | mk cs =>
+        cases cs with
+        | nil => contradiction
+        | cons c cs =>
+          change 0 < (c :: cs).length
+          simp
+    · have hlen := quoted_length s
+      refine ⟨?_, by omega⟩
+      intro heq
+      have h0 : ("'" ++ replaceSingleQuotes s ++ "'").length = 0 := by
+        rw [heq]; rfl
+      omega
+
+/-- Property 7: Shell-escaping never decreases the length of the string. -/
+def length_ge_input_prop (s : String) : Prop :=
+  s.length ≤ (quote s).length
+
+instance (s : String) : Decidable (length_ge_input_prop s) := by
+  unfold length_ge_input_prop; infer_instance
+
+theorem length_ge_input_thm (s : String) : length_ge_input_prop s := by
+  unfold length_ge_input_prop quote
+  split
+  · next hs =>
+    subst hs
+    decide
+  · split
+    · exact Nat.le_refl _
+    · have hlen := quoted_length s
+      omega
+
+/-- Property 8: Whenever `s` is empty or contains an unsafe character, `quote s` has length at least 2
+    and starts and ends with `'\''`. -/
+def unsafe_or_empty_enclosing_quotes_prop (s : String) : Prop :=
+  (s = "" ∨ s.toList.all isSafeChar = false) →
+    2 ≤ (quote s).length ∧
+    (quote s).toList.head? = some '\'' ∧
+    (quote s).toList.getLast? = some '\''
+
+instance (s : String) : Decidable (unsafe_or_empty_enclosing_quotes_prop s) := by
+  unfold unsafe_or_empty_enclosing_quotes_prop; infer_instance
+
+theorem unsafe_or_empty_enclosing_quotes_thm (s : String) :
+    unsafe_or_empty_enclosing_quotes_prop s := by
+  intro h
+  rcases h with rfl | hunsafe
+  · decide
+  · rw [unsafe_string_thm s hunsafe]
+    have hlen := quoted_length s
+    refine ⟨by omega, ?_, ?_⟩
+    · rfl
+    · change (('\'' :: (replaceSingleQuotes s).toList) ++ ['\'']).getLast? = some '\''
+      exact getLast?_append_singleton _ '\''
+
+/-- Property 9: Exact length formula for strings containing at least one unsafe character. -/
+def unsafe_length_exact_prop (s : String) : Prop :=
+  s.toList.all isSafeChar = false →
+    (quote s).length = s.length + 2 + 4 * s.toList.count '\''
+
+instance (s : String) : Decidable (unsafe_length_exact_prop s) := by
+  unfold unsafe_length_exact_prop; infer_instance
+
+theorem unsafe_length_exact_thm (s : String) : unsafe_length_exact_prop s := by
+  intro hunsafe
+  rw [unsafe_string_thm s hunsafe, quoted_length]
+
+/-- Property 10: `quote` is idempotent on non-empty safe strings. -/
+def safe_idempotent_prop (s : String) : Prop :=
+  s ≠ "" → s.toList.all isSafeChar = true → quote (quote s) = quote s
+
+instance (s : String) : Decidable (safe_idempotent_prop s) := by
+  unfold safe_idempotent_prop; infer_instance
+
+theorem safe_idempotent_thm (s : String) : safe_idempotent_prop s := by
+  intro hne hsafe
+  rw [safe_nonempty_thm s hne hsafe, safe_nonempty_thm s hne hsafe]
+
+/-- Property 11: Exact characterization of fixed points: `quote s = s` iff `s` is non-empty and all-safe. -/
+def unchanged_iff_safe_nonempty_prop (s : String) : Prop :=
+  quote s = s ↔ (s ≠ "" ∧ s.toList.all isSafeChar = true)
+
+instance (s : String) : Decidable (unchanged_iff_safe_nonempty_prop s) := by
+  unfold unchanged_iff_safe_nonempty_prop; infer_instance
+
+theorem unchanged_iff_safe_nonempty_thm (s : String) : unchanged_iff_safe_nonempty_prop s := by
+  unfold unchanged_iff_safe_nonempty_prop
+  constructor
+  · intro heq
+    by_cases hs : s = ""
+    · subst hs
+      revert heq
+      decide
+    · by_cases hsafe : s.toList.all isSafeChar = true
+      · exact ⟨hs, hsafe⟩
+      · have hfalse : s.toList.all isSafeChar = false :=
+          Bool.eq_false_iff.mpr hsafe
+        have hlen : (quote s).length = s.length + 2 + 4 * s.toList.count '\'' :=
+          unsafe_length_exact_thm s hfalse
+        rw [heq] at hlen
+        omega
+  · rintro ⟨hs, hsafe⟩
+    exact safe_nonempty_thm s hs hsafe
+
+/-- Property 12: Round-trip (lossless escaping) property: `unquote (quote s) = s` for every string `s`. -/
+def unquote_quote_prop (s : String) : Prop :=
+  unquote (quote s) = s
+
+instance (s : String) : Decidable (unquote_quote_prop s) := by
+  unfold unquote_quote_prop; infer_instance
+
+theorem unquote_quote_thm (s : String) : unquote_quote_prop s := by
+  unfold unquote_quote_prop
+  by_cases hs : s = ""
+  · subst hs
+    rfl
+  · by_cases hsafe : s.toList.all isSafeChar = true
+    · rw [safe_nonempty_thm s hs hsafe]
+      cases s with
+      | mk cs =>
+        cases cs with
+        | nil => contradiction
+        | cons c cs =>
+          have hcsafe : isSafeChar c = true := by
+            simp only [toList_mk, List.all_cons, Bool.and_eq_true] at hsafe
+            exact hsafe.1
+          have hcne : c ≠ '\'' := by
+            intro heq
+            subst heq
+            revert hcsafe
+            decide
+          have hbeq : (c == '\'') = false := beq_false_of_ne hcne
+          simp [unquote, unquoteChars, hbeq]
+    · have hfalse : s.toList.all isSafeChar = false := Bool.eq_false_iff.mpr hsafe
+      rw [unsafe_string_thm s hfalse]
+      cases s with
+      | mk cs =>
+        unfold unquote replaceSingleQuotes
+        change String.mk (unescapeChars (cs.flatMap escapeChar ++ ['\'']).dropLast) = String.mk cs
+        rw [dropLast_append_singleton, unescapeChars_flatMap_escapeChar]
+
+/-- Injectivity of `quote`: distinct input strings always produce distinct shell-escaped strings. -/
+theorem quote_injective {s₁ s₂ : String} (h : quote s₁ = quote s₂) : s₁ = s₂ := by
+  have h1 := unquote_quote_thm s₁
+  have h2 := unquote_quote_thm s₂
+  unfold unquote_quote_prop at h1 h2
+  rw [← h1, ← h2, h]
+
+/-! ## 8. Post-condition as Conjunction of Properties -/
+
+/-- Post-condition combining all semantic properties of `quote`. -/
 def Post_prop (s : String) : Prop :=
-  quote_empty_prop s ∧
-  quote_safe_prop s ∧
-  quote_unsafe_prop s ∧
-  quote_unsafe_no_single_quote_prop s ∧
-  quote_length_prop s ∧
-  quote_length_ge_prop s ∧
-  quote_nonempty_prop s ∧
-  quote_fixed_point_prop s ∧
-  quote_delimiters_prop s ∧
-  quote_idempotent_prop s ∧
-  quote_char_preserves_prop s ∧
-  quote_char_origin_prop s ∧
-  benchmark_quote_eq_quote_prop s
+  empty_string_prop s ∧
+  safe_nonempty_prop s ∧
+  unsafe_string_prop s ∧
+  unsafe_no_single_quote_prop s ∧
+  single_quote_escaped_prop s ∧
+  nonempty_output_prop s ∧
+  length_ge_input_prop s ∧
+  unsafe_or_empty_enclosing_quotes_prop s ∧
+  unsafe_length_exact_prop s ∧
+  safe_idempotent_prop s ∧
+  unchanged_iff_safe_nonempty_prop s ∧
+  unquote_quote_prop s
 
--- ============================================================================
--- 9. Property-based tests
--- ============================================================================
+instance (s : String) : Decidable (Post_prop s) := by
+  unfold Post_prop; infer_instance
 
-/-- Helper to construct safe strings from arbitrary indices for randomized testing. -/
-def mk_safe_string (idxs : List Nat) : String :=
-  String.mk (idxs.map (fun i => safe_chars.getD (i % safe_chars.length) 'a'))
+/-! ## 9. Property-Based Tests -/
 
-/-- Executable Boolean check for `quote_empty_prop`. -/
-def quote_empty_check (s : String) : Bool :=
-  !(s == "") || (quote s == "''")
+/-- Representative sample corpus covering empty, safe, space-containing, single-quoted,
+    double-quoted, mixed, and multi-quote strings for bounded PBTs. -/
+def pbtSampleStrings : List String :=
+  [ "", "a", "abc", "ABC_0123456789", "_@%+=:,./-",
+    "a b c", " ", "hello world!", "a'b", "'", "''", "'''",
+    "'hello'", "a'b'c", "\"quoted\"", "foo$bar", "line1\nline2",
+    "tab\there", "semi;colon", "pipe|cmd", "back`tick", "a'\"'\"'b" ]
 
-/-- Executable Boolean check for `quote_safe_prop`. -/
-def quote_safe_check (s : String) : Bool :=
-  (s == "") || !all_safe s || (quote s == s)
+-- Randomized PBTs (via Plausible) for each property and the post-condition
+#eval Plausible.Testable.check (∀ s : String, decide (empty_string_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (safe_nonempty_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (unsafe_string_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (unsafe_no_single_quote_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (single_quote_escaped_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (nonempty_output_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (length_ge_input_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (unsafe_or_empty_enclosing_quotes_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (unsafe_length_exact_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (safe_idempotent_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (unchanged_iff_safe_nonempty_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (unquote_quote_prop s) = true)
+#eval Plausible.Testable.check (∀ s : String, decide (Post_prop s) = true)
 
-/-- Executable Boolean check for `quote_unsafe_prop`. -/
-def quote_unsafe_check (s : String) : Bool :=
-  (s == "") || all_safe s || (quote s == "'" ++ replace_single_quotes s ++ "'")
+-- Bounded PBTs across `pbtSampleStrings` for each property and the post-condition
+example : pbtSampleStrings.all (fun s => decide (empty_string_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (safe_nonempty_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (unsafe_string_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (unsafe_no_single_quote_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (single_quote_escaped_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (nonempty_output_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (length_ge_input_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (unsafe_or_empty_enclosing_quotes_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (unsafe_length_exact_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (safe_idempotent_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (unchanged_iff_safe_nonempty_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (unquote_quote_prop s)) = true := by native_decide
+example : pbtSampleStrings.all (fun s => decide (Post_prop s)) = true := by native_decide
 
-/-- Executable Boolean check for `quote_unsafe_no_single_quote_prop`. -/
-def quote_unsafe_no_single_quote_check (s : String) : Bool :=
-  (s == "") || all_safe s || s.data.contains '\'' || (quote s == "'" ++ s ++ "'")
+/-! ## 10. Correctness Theorem (`Pre -> Post`) -/
 
-/-- Executable Boolean check for `quote_length_prop`. -/
-def quote_length_check (s : String) : Bool :=
-  ((!(s == "") || (quote s).length == 2)) &&
-  ((s == "") || !all_safe s || ((quote s).length == s.length)) &&
-  ((s == "") || all_safe s || ((quote s).length == s.length + 2 + 4 * s.data.count '\''))
+/-- Main correctness theorem: for every string `s`, `Pre s` implies `Post_prop s`. -/
+theorem quote_correct (s : String) (_hPre : Pre s) : Post_prop s :=
+  ⟨empty_string_thm s,
+   safe_nonempty_thm s,
+   unsafe_string_thm s,
+   unsafe_no_single_quote_thm s,
+   single_quote_escaped_thm s,
+   nonempty_output_thm s,
+   length_ge_input_thm s,
+   unsafe_or_empty_enclosing_quotes_thm s,
+   unsafe_length_exact_thm s,
+   safe_idempotent_thm s,
+   unchanged_iff_safe_nonempty_thm s,
+   unquote_quote_thm s⟩
 
-/-- Executable Boolean check for `quote_length_ge_prop`. -/
-def quote_length_ge_check (s : String) : Bool :=
-  decide ((quote s).length ≥ s.length)
+/-! ## 11. Imperative Implementation -/
 
-/-- Executable Boolean check for `quote_nonempty_prop`. -/
-def quote_nonempty_check (s : String) : Bool :=
-  quote s != ""
-
-/-- Executable Boolean check for `quote_fixed_point_prop`. -/
-def quote_fixed_point_check (s : String) : Bool :=
-  (quote s == s) == ((s != "") && all_safe s)
-
-/-- Executable Boolean check for `quote_delimiters_prop`. -/
-def quote_delimiters_check (s : String) : Bool :=
-  (!((s == "") || !all_safe s)) ||
-  ((quote s).startsWith "'" && (quote s).endsWith "'" && decide ((quote s).length ≥ 2))
-
-/-- Executable Boolean check for `quote_idempotent_prop`. -/
-def quote_idempotent_check (s : String) : Bool :=
-  (quote (quote s) == quote s) == ((s != "") && all_safe s)
-
-/-- Executable Boolean check for `quote_char_preserves_prop`. -/
-def quote_char_preserves_check (s : String) : Bool :=
-  s.data.all (fun c => (quote s).data.contains c)
-
-/-- Executable Boolean check for `quote_char_origin_prop`. -/
-def quote_char_origin_check (s : String) : Bool :=
-  (quote s).data.all (fun c => s.data.contains c || c == '\'' || c == '"')
-
-/-- Executable Boolean check for `benchmark_quote_eq_quote_prop`. -/
-def benchmark_quote_eq_quote_check (s : String) : Bool :=
-  benchmark_quote s == quote s
-
-/-- Executable Boolean check for `Post_prop`. -/
-def Post_check (s : String) : Bool :=
-  quote_empty_check s &&
-  quote_safe_check s &&
-  quote_unsafe_check s &&
-  quote_unsafe_no_single_quote_check s &&
-  quote_length_check s &&
-  quote_length_ge_check s &&
-  quote_nonempty_check s &&
-  quote_fixed_point_check s &&
-  quote_delimiters_check s &&
-  quote_idempotent_check s &&
-  quote_char_preserves_check s &&
-  quote_char_origin_check s &&
-  benchmark_quote_eq_quote_check s
-
--- Randomized Property-Based Tests (Plausible)
-#eval Plausible.Testable.check (∀ s : String, quote_empty_check s = true)
-#eval Plausible.Testable.check (∀ s : String, quote_safe_check s = true)
-#eval Plausible.Testable.check (∀ idxs : List Nat, quote_safe_check (mk_safe_string idxs) = true)
-#eval Plausible.Testable.check (∀ s : String, quote_unsafe_check s = true)
-#eval Plausible.Testable.check (∀ s : String, quote_unsafe_no_single_quote_check s = true)
-#eval Plausible.Testable.check (∀ s : String, quote_length_check s = true)
-#eval Plausible.Testable.check (∀ s : String, quote_length_ge_check s = true)
-#eval Plausible.Testable.check (∀ s : String, quote_nonempty_check s = true)
-#eval Plausible.Testable.check (∀ s : String, quote_fixed_point_check s = true)
-#eval Plausible.Testable.check (∀ idxs : List Nat, quote_fixed_point_check (mk_safe_string idxs) = true)
-#eval Plausible.Testable.check (∀ s : String, quote_delimiters_check s = true)
-#eval Plausible.Testable.check (∀ s : String, quote_idempotent_check s = true)
-#eval Plausible.Testable.check (∀ idxs : List Nat, quote_idempotent_check (mk_safe_string idxs) = true)
-#eval Plausible.Testable.check (∀ s : String, quote_char_preserves_check s = true)
-#eval Plausible.Testable.check (∀ s : String, quote_char_origin_check s = true)
-#eval Plausible.Testable.check (∀ s : String, benchmark_quote_eq_quote_check s = true)
-#eval Plausible.Testable.check (∀ s : String, Post_check s = true)
-#eval Plausible.Testable.check (∀ idxs : List Nat, Post_check (mk_safe_string idxs) = true)
-
--- Bounded Property-Based Tests across representative corpus
-def pbt_corpus : List String := [
-  "",
-  "a",
-  "abc",
-  "0123456789",
-  "_@%+=:,.-/",
-  "/usr/local/bin/env",
-  "file_name-1.2.3:4@host",
-  " ",
-  "a b c",
-  "'",
-  "''",
-  "a'b",
-  "'a'b'",
-  "\"hello\"",
-  "it's a \"test\"!",
-  "$HOME/path; rm -rf *",
-  "line1\nline2\ttab",
-  "a|b&c<d>e(f)"
-]
-
-example : pbt_corpus.all quote_empty_check = true := by native_decide
-example : pbt_corpus.all quote_safe_check = true := by native_decide
-example : pbt_corpus.all quote_unsafe_check = true := by native_decide
-example : pbt_corpus.all quote_unsafe_no_single_quote_check = true := by native_decide
-example : pbt_corpus.all quote_length_check = true := by native_decide
-example : pbt_corpus.all quote_length_ge_check = true := by native_decide
-example : pbt_corpus.all quote_nonempty_check = true := by native_decide
-example : pbt_corpus.all quote_fixed_point_check = true := by native_decide
-example : pbt_corpus.all quote_delimiters_check = true := by native_decide
-example : pbt_corpus.all quote_idempotent_check = true := by native_decide
-example : pbt_corpus.all quote_char_preserves_check = true := by native_decide
-example : pbt_corpus.all quote_char_origin_check = true := by native_decide
-example : pbt_corpus.all benchmark_quote_eq_quote_check = true := by native_decide
-example : pbt_corpus.all Post_check = true := by native_decide
-
--- ============================================================================
--- 10. Correctness theorem: Pre -> Post
--- ============================================================================
-
-theorem quote_correctness_thm (s : String) (_hpre : Pre s) : Post_prop s :=
-  ⟨quote_empty_thm s,
-   quote_safe_thm s,
-   quote_unsafe_thm s,
-   quote_unsafe_no_single_quote_thm s,
-   quote_length_thm s,
-   quote_length_ge_thm s,
-   quote_nonempty_thm s,
-   quote_fixed_point_thm s,
-   quote_delimiters_thm s,
-   quote_idempotent_thm s,
-   quote_char_preserves_thm s,
-   quote_char_origin_thm s,
-   benchmark_quote_eq_quote_thm s⟩
-
--- ============================================================================
--- 11. Imperative implementation using `Id.run do` with mutable state
--- ============================================================================
-
-/-- Imperative implementation of `replace_single_quotes` using mutable state. -/
-def replace_single_quotes_imp (s : String) : String := Id.run do
-  let mut escaped : List Char := []
-  for c in s.data do
-    if c == '\'' then
-      escaped := escaped ++ single_quote_escape.data
-    else
-      escaped := escaped ++ [c]
-  return String.mk escaped
-
-/-- Imperative implementation of `quote` using `Id.run do` and mutable variables. -/
+/-- Imperative implementation of `shlex.quote` using `Id.run do` and mutable state. -/
 def quote_imp (s : String) : String := Id.run do
   if s = "" then
-    return "''"
-  let mut safe : Bool := true
-  for c in s.data do
-    safe := safe && is_safe_char c
-  if safe then
-    return s
-  let mut escaped : List Char := []
-  for c in s.data do
-    if c == '\'' then
-      escaped := escaped ++ single_quote_escape.data
+    "''"
+  else
+    let mut allSafe : Bool := true
+    for c in s.toList do
+      allSafe := allSafe && isSafeChar c
+    if allSafe then
+      s
     else
-      escaped := escaped ++ [c]
-  return "'" ++ String.mk escaped ++ "'"
+      let mut escaped : List Char := []
+      for c in s.toList do
+        escaped := escaped ++ (if c == '\'' then "'\"'\"'".toList else [c])
+      "'" ++ String.mk escaped ++ "'"
 
-/-- Imperative implementation of `benchmark_quote`. -/
-def benchmark_quote_imp (s : String) : String := Id.run do
-  if !pre_quote s then
-    return ""
-  return quote_imp s
-
--- ============================================================================
--- 12. Imperative tests
--- ============================================================================
+/-! ## 12. Imperative Tests -/
 
 example : quote_imp "" = "''" := by native_decide
 example : quote_imp "abc" = "abc" := by native_decide
 example : quote_imp "a b c" = "'a b c'" := by native_decide
 example : quote_imp "a'b" = "'a'\"'\"'b'" := by native_decide
-example : check quote_imp = true := by native_decide
-example : check benchmark_quote_imp = true := by native_decide
-example : pbt_corpus.all (fun s => quote s == quote_imp s) = true := by native_decide
+example : quote_imp "path/to/file_1.txt" = "path/to/file_1.txt" := by native_decide
+example : quote_imp "'" = "''\"'\"''" := by native_decide
+example : pbtSampleStrings.all (fun s => quote s == quote_imp s) = true := by native_decide
 
 #eval quote_imp ""
 #eval quote_imp "abc"
 #eval quote_imp "a b c"
 #eval quote_imp "a'b"
-#eval check benchmark_quote_imp
 #eval Plausible.Testable.check (∀ s : String, quote s = quote_imp s)
 
--- ============================================================================
--- 13. Equivalence theorem: functional = imperative
--- ============================================================================
+/-! ## 13. Equivalence Theorem (Functional = Imperative) -/
 
-@[simp]
-theorem ite_pure_yield {α : Type} (p : Prop) [Decidable p] (a b : α) :
-    (if p then (pure (ForInStep.yield a) : Id (ForInStep α)) else pure (ForInStep.yield b)) =
-      pure (ForInStep.yield (if p then a else b)) := by
-  split_ifs <;> rfl
-
-@[simp]
-theorem id_run_ite {α : Type} (p : Prop) [Decidable p] (a b : Id α) :
-    (if p then a else b).run = if p then a.run else b.run := by
-  split_ifs <;> rfl
-
-theorem foldl_safe_eq_all (cs : List Char) (init : Bool) :
-    List.foldl (fun b c => b && is_safe_char c) init cs = (init && cs.all is_safe_char) := by
+theorem foldl_allSafe (cs : List Char) (init : Bool) :
+    cs.foldl (fun acc c => acc && isSafeChar c) init = (init && cs.all isSafeChar) := by
   induction cs generalizing init with
   | nil => simp
   | cons c cs ih =>
-    simp [List.foldl_cons, List.all_cons, ih, Bool.and_assoc]
+    simp only [List.foldl_cons, List.all_cons, ih, Bool.and_assoc]
 
-theorem foldl_escape_eq_flatMap (cs : List Char) (acc : List Char) :
-    List.foldl (fun escaped c =>
-      if c = '\'' then escaped ++ single_quote_escape.data else escaped ++ [c]) acc cs =
-      acc ++ cs.flatMap (fun c => if c = '\'' then single_quote_escape.data else [c]) := by
-  induction cs generalizing acc with
-  | nil => simp
-  | cons c cs ih =>
-    simp only [List.foldl_cons, List.flatMap_cons, ih]
-    by_cases h : c = '\''
-    · simp [h]
-    · simp [h]
+/-- Equivalence theorem proving that the functional `quote` and imperative `quote_imp`
+    produce identical results on all inputs. -/
+theorem quote_equiv (s : String) : quote s = quote_imp s := by
+  unfold quote quote_imp replaceSingleQuotes escapeChar
+  split
+  · rfl
+  · simp [foldl_allSafe, List.flatMap_def, Id.run]
 
-theorem replace_single_quotes_equiv_thm (s : String) :
-    replace_single_quotes s = replace_single_quotes_imp s := by
-  simp [replace_single_quotes, replace_single_quotes_imp, foldl_escape_eq_flatMap]
-
-theorem quote_equiv_thm (s : String) : quote s = quote_imp s := by
-  simp only [quote, quote_imp, all_safe, replace_single_quotes]
-  by_cases hs : s = ""
-  · simp [hs]
-  · simp [hs, foldl_safe_eq_all, foldl_escape_eq_flatMap]
-
-theorem benchmark_quote_equiv_thm (s : String) :
-    benchmark_quote s = benchmark_quote_imp s := by
-  simp [benchmark_quote, benchmark_quote_imp, pre_quote, quote_equiv_thm]
+theorem benchmark_quote_equiv (s : String) : benchmark_quote s = quote_imp s :=
+  quote_equiv s
 
 end «21_shlex_quote»

@@ -1,0 +1,42 @@
+Created At: 2026-11-16T21:30:14Z
+Completed At: 2026-11-16T21:30:22Z
+Command exited with code 1.
+
+Command output:
+Veribench/75_unsafeCertHostname.lean:24:26: warning: unused variable `requested_host`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Veribench/75_unsafeCertHostname.lean:24:52: warning: unused variable `cert_san`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+true
+true
+true
+false
+false
+true
+true
+false
+true
+Veribench/75_unsafeCertHostname.lean:117:95: error: unsolved goals
+requested_host cert_san : String
+cert_valid cert_not_expired : Bool
+⊢ cert_valid = true → cert_not_expired = false ↔ cert_valid = false ∨ cert_not_expired = false
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/75_unsafeCertHostname.lean:251:0: warning: Gave up after failing to generate values that fulfill the preconditions 97 times.
+Veribench/75_unsafeCertHostname.lean:254:0: warning: Gave up after failing to generate values that fulfill the preconditions 3 times.
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+true
+true
+false
+false
+true

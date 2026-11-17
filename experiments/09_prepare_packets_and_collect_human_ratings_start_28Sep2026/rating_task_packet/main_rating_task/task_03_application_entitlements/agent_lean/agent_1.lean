@@ -1,535 +1,687 @@
 import Mathlib
 
 /-!
-# Unsafe iOS App Entitlements Model (MIT 6.858 Lecture 9)
+# Unsafe iOS App Entitlements Model
 
-Translation of a deliberately unsafe entitlement check. The Python function
-`unsafe_app_entitlements` returns `True` for every app, resource, and granted
-entitlement list: the list is never consulted. That is the vulnerability —
-any app gains access to any resource, including when the entitlement list is
-empty or names unrelated resources.
+MIT 6.858 Lecture 9. Vulnerability: there is no entitlement check, so any
+application is granted access to any resource. The granted-entitlement list
+is never consulted.
 
-A safe counterpart is formalized only as a specification contrast (the Python
-comments state that the safe version returns `False` when the resource is not
-entitled). The safe check grants access if and only if `resource` occurs in
-`granted_entitlements`.
+`unsafeAppEntitlements` is the direct translation of the Python function
+`unsafe_app_entitlements`, whose body is `return True`.
 
-Numeric / data model:
-- Python `int` app identifiers are modeled as `Int` (unbounded, possibly negative).
-- Resource names and entitlement strings are `String`.
-- The granted-entitlement collection is `List String`, matching Python `List[str]`.
-- The Boolean decision is Lean `Bool`.
+`safeAppEntitlements` is the membership check the lecture contrasts with the
+bug. The Python test records that this safe version returns `False` on the
+rogue camera request that the unsafe version accepts. It is not a second
+Python function; it is the specification of that contrast.
 -/
 
 namespace «93_unsafeAppEntitlements»
 
 /-! ## Implementation -/
 
-/-- Unsafe entitlement check.
+/-- Application identifier. Python `int`, so negative ids are included. -/
+abbrev AppId := Int
 
-No check is performed: every resource request is granted unconditionally.
-The vulnerability is that `granted_entitlements` (and likewise `app_id` and
-`resource`) is never consulted. -/
-def unsafe_app_entitlements (_app_id : Int) (_resource : String)
-    (_granted_entitlements : List String) : Bool :=
+/-- Resource or entitlement name. Python `str`. -/
+abbrev Resource := String
+
+/-- Entitlements granted to an app. Python `List[str]`. -/
+abbrev EntitlementList := List Resource
+
+/--
+Unsafe entitlement check: every resource request is granted.
+
+The application id, the resource name, and the granted-entitlement list are
+ignored. This is the vulnerability: the entitlement list is never consulted.
+-/
+def unsafeAppEntitlements
+    (_appId : AppId)
+    (_resource : Resource)
+    (_grantedEntitlements : EntitlementList) : Bool :=
   true
 
-/-- Safe entitlement check used as the behavioural contrast in the Python
-comments (`Safe version → False` when the resource is not entitled).
+/--
+Safe entitlement check used for the lecture's negative contrast.
 
-Access is granted if and only if `resource` is a member of
-`granted_entitlements`. The numeric app id is not part of the membership
-test, matching a profile-style entitlement list attached to the caller. -/
-def safe_app_entitlements (_app_id : Int) (resource : String)
-    (granted_entitlements : List String) : Bool :=
-  granted_entitlements.contains resource
+Access is granted if and only if `resource` occurs in `grantedEntitlements`.
+The application id is not consulted: the granted list is passed in explicitly,
+as in the Python signature.
+-/
+def safeAppEntitlements
+    (_appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) : Bool :=
+  grantedEntitlements.contains resource
 
-/-- Bundle of the concrete assertions from the Python `check` function. -/
+/--
+Translation of Python `check`: the five lecture assertions, plus the recorded
+safe-version outcome on the rogue camera request.
+-/
 def check : Bool :=
-  unsafe_app_entitlements 42 "camera" [] == true &&
-  unsafe_app_entitlements 1 "contacts" ["location"] == true &&
-  unsafe_app_entitlements 99 "microphone" [] == true &&
-  (unsafe_app_entitlements 7 "location" [] ==
-    unsafe_app_entitlements 7 "location" ["camera", "microphone"]) &&
-  unsafe_app_entitlements 5 "camera" [] == true &&
-  safe_app_entitlements 5 "camera" [] == false
+  (unsafeAppEntitlements 42 "camera" [] == true) &&
+    (unsafeAppEntitlements 1 "contacts" ["location"] == true) &&
+    (unsafeAppEntitlements 99 "microphone" [] == true) &&
+    (unsafeAppEntitlements 7 "location" [] ==
+      unsafeAppEntitlements 7 "location" ["camera", "microphone"]) &&
+    (unsafeAppEntitlements 5 "camera" [] == true) &&
+    (safeAppEntitlements 5 "camera" [] == false)
 
 /-! ## Unit tests -/
 
-/-- Rogue app gains camera access without an entitlement. -/
-example : unsafe_app_entitlements 42 "camera" [] = true := by native_decide
+-- Rogue app gains camera access without an entitlement.
+example : unsafeAppEntitlements 42 "camera" [] = true := by native_decide
 
-#eval unsafe_app_entitlements 42 "camera" []
+-- App without the contacts entitlement still gets access.
+example : unsafeAppEntitlements 1 "contacts" ["location"] = true := by native_decide
 
-/-- App without a contacts entitlement still gets access. -/
-example : unsafe_app_entitlements 1 "contacts" ["location"] = true := by native_decide
+-- Empty entitlement list: access is still granted.
+example : unsafeAppEntitlements 99 "microphone" [] = true := by native_decide
 
-#eval unsafe_app_entitlements 1 "contacts" ["location"]
+-- Entitlement-list contents are irrelevant.
+example : unsafeAppEntitlements 7 "location" [] =
+    unsafeAppEntitlements 7 "location" ["camera", "microphone"] := by native_decide
 
-/-- Empty entitlement list: access is still granted. -/
-example : unsafe_app_entitlements 99 "microphone" [] = true := by native_decide
+-- Negative contrast: the unsafe checker grants the request the safe checker denies.
+example : unsafeAppEntitlements 5 "camera" [] = true := by native_decide
+example : safeAppEntitlements 5 "camera" [] = false := by native_decide
 
-#eval unsafe_app_entitlements 99 "microphone" []
+-- When the resource is entitled, the safe checker agrees with the unsafe one.
+example : safeAppEntitlements 1 "location" ["location"] = true := by native_decide
+example : unsafeAppEntitlements 1 "location" ["location"] =
+    safeAppEntitlements 1 "location" ["location"] := by native_decide
 
-/-- Entitlement-list contents are irrelevant. -/
-example : unsafe_app_entitlements 7 "location" [] =
-    unsafe_app_entitlements 7 "location" ["camera", "microphone"] := by native_decide
-
-#eval unsafe_app_entitlements 7 "location" [] ==
-  unsafe_app_entitlements 7 "location" ["camera", "microphone"]
-
-/-- Negative: the unsafe model grants camera access with an empty list,
-whereas the safe version returns false. -/
-example : unsafe_app_entitlements 5 "camera" [] = true := by native_decide
-
-example : safe_app_entitlements 5 "camera" [] = false := by native_decide
-
-example : unsafe_app_entitlements 5 "camera" [] ≠
-    safe_app_entitlements 5 "camera" [] := by native_decide
-
-#eval unsafe_app_entitlements 5 "camera" []
-
-#eval safe_app_entitlements 5 "camera" []
+-- The Python domain is `int`, so a negative application id is accepted.
+example : unsafeAppEntitlements (-1) "photos" ["camera"] = true := by native_decide
 
 example : check = true := by native_decide
 
+#eval unsafeAppEntitlements 42 "camera" []
+#eval unsafeAppEntitlements 1 "contacts" ["location"]
+#eval unsafeAppEntitlements 99 "microphone" []
+#eval unsafeAppEntitlements 7 "location" [] ==
+  unsafeAppEntitlements 7 "location" ["camera", "microphone"]
+#eval unsafeAppEntitlements 5 "camera" []
+#eval safeAppEntitlements 5 "camera" []
 #eval check
-
 #eval if check then "All tests passed." else "Tests failed."
 
 /-! ## Pre-condition -/
 
-/-- The unsafe model imposes no restriction on its inputs: any integer app id,
-any resource name, and any entitlement list (including the empty list) are
-admissible. -/
-def Pre (_app_id : Int) (_resource : String) (_granted_entitlements : List String) : Prop :=
+/--
+The Python function accepts every `int`, every `str`, and every `List[str]`.
+No input is rejected, so the precondition is universally true.
+-/
+def Pre
+    (_appId : AppId)
+    (_resource : Resource)
+    (_grantedEntitlements : EntitlementList) : Prop :=
   True
 
-/-! ## Property propositions and theorems -/
+/-! ## Properties -/
 
-/-- **Unconditional grant.** Every request is approved. -/
-def unconditional_grant_prop (app_id : Int) (resource : String)
-    (granted_entitlements : List String) : Prop :=
-  unsafe_app_entitlements app_id resource granted_entitlements = true
+/-- Every call returns `true`: the check never denies access. -/
+def unconditional_grant_prop
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) : Prop :=
+  unsafeAppEntitlements appId resource grantedEntitlements = true
 
-theorem unconditional_grant_thm (app_id : Int) (resource : String)
-    (granted_entitlements : List String) :
-    unconditional_grant_prop app_id resource granted_entitlements := by
-  unfold unconditional_grant_prop unsafe_app_entitlements
-  rfl
+theorem unconditional_grant_thm
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) :
+    unconditional_grant_prop appId resource grantedEntitlements := by
+  simp only [unconditional_grant_prop, unsafeAppEntitlements]
 
-/-- **Entitlement irrelevance.** The granted-entitlement list is never
-consulted: replacing it cannot change the decision. -/
-def entitlement_irrelevance_prop (app_id : Int) (resource : String)
-    (e1 e2 : List String) : Prop :=
-  unsafe_app_entitlements app_id resource e1 =
-    unsafe_app_entitlements app_id resource e2
+/-- The granted-entitlement list is never consulted. -/
+def entitlement_irrelevant_prop
+    (appId : AppId)
+    (resource : Resource)
+    (ents₁ ents₂ : EntitlementList) : Prop :=
+  unsafeAppEntitlements appId resource ents₁ =
+    unsafeAppEntitlements appId resource ents₂
 
-theorem entitlement_irrelevance_thm (app_id : Int) (resource : String)
-    (e1 e2 : List String) :
-    entitlement_irrelevance_prop app_id resource e1 e2 := by
-  unfold entitlement_irrelevance_prop unsafe_app_entitlements
-  rfl
+theorem entitlement_irrelevant_thm
+    (appId : AppId)
+    (resource : Resource)
+    (ents₁ ents₂ : EntitlementList) :
+    entitlement_irrelevant_prop appId resource ents₁ ents₂ := by
+  simp only [entitlement_irrelevant_prop, unsafeAppEntitlements]
 
-/-- **App-id irrelevance.** The numeric app identifier does not affect the
-decision. -/
-def app_id_irrelevance_prop (a1 a2 : Int) (resource : String)
-    (granted_entitlements : List String) : Prop :=
-  unsafe_app_entitlements a1 resource granted_entitlements =
-    unsafe_app_entitlements a2 resource granted_entitlements
+/-- The resource name is never consulted. -/
+def resource_irrelevant_prop
+    (appId : AppId)
+    (resource₁ resource₂ : Resource)
+    (grantedEntitlements : EntitlementList) : Prop :=
+  unsafeAppEntitlements appId resource₁ grantedEntitlements =
+    unsafeAppEntitlements appId resource₂ grantedEntitlements
 
-theorem app_id_irrelevance_thm (a1 a2 : Int) (resource : String)
-    (granted_entitlements : List String) :
-    app_id_irrelevance_prop a1 a2 resource granted_entitlements := by
-  unfold app_id_irrelevance_prop unsafe_app_entitlements
-  rfl
+theorem resource_irrelevant_thm
+    (appId : AppId)
+    (resource₁ resource₂ : Resource)
+    (grantedEntitlements : EntitlementList) :
+    resource_irrelevant_prop appId resource₁ resource₂ grantedEntitlements := by
+  simp only [resource_irrelevant_prop, unsafeAppEntitlements]
 
-/-- **Resource irrelevance.** The requested resource name does not affect the
-decision. -/
-def resource_irrelevance_prop (app_id : Int) (r1 r2 : String)
-    (granted_entitlements : List String) : Prop :=
-  unsafe_app_entitlements app_id r1 granted_entitlements =
-    unsafe_app_entitlements app_id r2 granted_entitlements
+/-- The application identifier is never consulted. -/
+def app_irrelevant_prop
+    (appId₁ appId₂ : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) : Prop :=
+  unsafeAppEntitlements appId₁ resource grantedEntitlements =
+    unsafeAppEntitlements appId₂ resource grantedEntitlements
 
-theorem resource_irrelevance_thm (app_id : Int) (r1 r2 : String)
-    (granted_entitlements : List String) :
-    resource_irrelevance_prop app_id r1 r2 granted_entitlements := by
-  unfold resource_irrelevance_prop unsafe_app_entitlements
-  rfl
+theorem app_irrelevant_thm
+    (appId₁ appId₂ : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) :
+    app_irrelevant_prop appId₁ appId₂ resource grantedEntitlements := by
+  simp only [app_irrelevant_prop, unsafeAppEntitlements]
 
-/-- **Constant decision.** Any two requests receive the same answer. -/
-def constant_decision_prop (a1 a2 : Int) (r1 r2 : String) (e1 e2 : List String) : Prop :=
-  unsafe_app_entitlements a1 r1 e1 = unsafe_app_entitlements a2 r2 e2
+/--
+Any application is granted any resource. Two calls agree even when the
+application id, the resource, and the entitlement list all differ.
+-/
+def input_irrelevant_prop
+    (appId₁ appId₂ : AppId)
+    (resource₁ resource₂ : Resource)
+    (ents₁ ents₂ : EntitlementList) : Prop :=
+  unsafeAppEntitlements appId₁ resource₁ ents₁ =
+    unsafeAppEntitlements appId₂ resource₂ ents₂
 
-theorem constant_decision_thm (a1 a2 : Int) (r1 r2 : String) (e1 e2 : List String) :
-    constant_decision_prop a1 a2 r1 r2 e1 e2 := by
-  unfold constant_decision_prop unsafe_app_entitlements
-  rfl
+theorem input_irrelevant_thm
+    (appId₁ appId₂ : AppId)
+    (resource₁ resource₂ : Resource)
+    (ents₁ ents₂ : EntitlementList) :
+    input_irrelevant_prop appId₁ appId₂ resource₁ resource₂ ents₁ ents₂ := by
+  simp only [input_irrelevant_prop, unsafeAppEntitlements]
 
-/-- The implementation is the constant-true function. -/
-def constant_true_fn_prop : Prop :=
-  unsafe_app_entitlements = (fun _ _ _ => true)
+/--
+Access is granted even when the requested resource is absent from the
+entitlement list. This is the missing-check vulnerability.
+-/
+def missing_entitlement_still_granted_prop
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) : Prop :=
+  ¬ resource ∈ grantedEntitlements →
+    unsafeAppEntitlements appId resource grantedEntitlements = true
 
-theorem constant_true_fn_thm : constant_true_fn_prop := by
-  unfold constant_true_fn_prop
-  funext app_id resource granted_entitlements
-  rfl
+theorem missing_entitlement_still_granted_thm
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) :
+    missing_entitlement_still_granted_prop
+      appId resource grantedEntitlements := by
+  intro _
+  simp only [unsafeAppEntitlements]
 
-/-- **Empty list still grants.** Access is approved even with no entitlements. -/
-def empty_list_grants_prop (app_id : Int) (resource : String) : Prop :=
-  unsafe_app_entitlements app_id resource [] = true
+/-- An empty entitlement list still grants access. -/
+def empty_entitlements_granted_prop
+    (appId : AppId)
+    (resource : Resource) : Prop :=
+  unsafeAppEntitlements appId resource [] = true
 
-theorem empty_list_grants_thm (app_id : Int) (resource : String) :
-    empty_list_grants_prop app_id resource := by
-  unfold empty_list_grants_prop
-  exact unconditional_grant_thm app_id resource []
+theorem empty_entitlements_granted_thm
+    (appId : AppId)
+    (resource : Resource) :
+    empty_entitlements_granted_prop appId resource := by
+  simp only [empty_entitlements_granted_prop, unsafeAppEntitlements]
 
-/-- **Grant without entitlement.** If the resource is absent, the unsafe model
-still returns true. This is the vulnerability. -/
-def grants_without_entitlement_prop (app_id : Int) (resource : String)
-    (granted_entitlements : List String) : Prop :=
-  resource ∉ granted_entitlements →
-    unsafe_app_entitlements app_id resource granted_entitlements = true
+/--
+When the resource is missing, the unsafe checker returns `true` and the safe
+membership checker returns `false`.
+-/
+def diverges_from_safe_prop
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) : Prop :=
+  ¬ resource ∈ grantedEntitlements →
+    unsafeAppEntitlements appId resource grantedEntitlements = true ∧
+      safeAppEntitlements appId resource grantedEntitlements = false
 
-theorem grants_without_entitlement_thm (app_id : Int) (resource : String)
-    (granted_entitlements : List String) :
-    grants_without_entitlement_prop app_id resource granted_entitlements := by
-  intro _hmiss
-  exact unconditional_grant_thm app_id resource granted_entitlements
-
-/-- The safe check returns true exactly when the resource is entitled. -/
-def safe_grants_iff_mem_prop (app_id : Int) (resource : String)
-    (granted_entitlements : List String) : Prop :=
-  safe_app_entitlements app_id resource granted_entitlements = true ↔
-    resource ∈ granted_entitlements
-
-theorem safe_grants_iff_mem_thm (app_id : Int) (resource : String)
-    (granted_entitlements : List String) :
-    safe_grants_iff_mem_prop app_id resource granted_entitlements := by
-  unfold safe_grants_iff_mem_prop safe_app_entitlements
-  simp [List.contains_eq_mem]
-
-/-- **Differs from the safe version when the entitlement is missing.**
-The Python negative test records that the safe version returns false for
-`(5, "camera", [])` while the unsafe version returns true. In general, absence
-of the resource yields unsafe `true` and safe `false`. -/
-def differs_from_safe_when_missing_prop (app_id : Int) (resource : String)
-    (granted_entitlements : List String) : Prop :=
-  resource ∉ granted_entitlements →
-    unsafe_app_entitlements app_id resource granted_entitlements = true ∧
-    safe_app_entitlements app_id resource granted_entitlements = false
-
-theorem differs_from_safe_when_missing_thm (app_id : Int) (resource : String)
-    (granted_entitlements : List String) :
-    differs_from_safe_when_missing_prop app_id resource granted_entitlements := by
+theorem diverges_from_safe_thm
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) :
+    diverges_from_safe_prop appId resource grantedEntitlements := by
   intro hmiss
-  refine ⟨unconditional_grant_thm app_id resource granted_entitlements, ?_⟩
-  have hnot : safe_app_entitlements app_id resource granted_entitlements ≠ true := by
-    intro htrue
-    exact hmiss ((safe_grants_iff_mem_thm app_id resource granted_entitlements).mp htrue)
-  cases hbool : safe_app_entitlements app_id resource granted_entitlements
+  refine ⟨?_, ?_⟩
+  · exact unconditional_grant_thm appId resource grantedEntitlements
+  · simpa only [safeAppEntitlements, List.contains_eq_mem, decide_eq_false_iff_not]
+      using hmiss
+
+/--
+The unsafe checker and the safe checker agree if and only if the resource
+is in the granted list. They disagree exactly on the vulnerable requests.
+-/
+def agrees_with_safe_iff_entitled_prop
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) : Prop :=
+  (unsafeAppEntitlements appId resource grantedEntitlements =
+      safeAppEntitlements appId resource grantedEntitlements) ↔
+    resource ∈ grantedEntitlements
+
+theorem agrees_with_safe_iff_entitled_thm
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) :
+    agrees_with_safe_iff_entitled_prop appId resource grantedEntitlements := by
+  unfold agrees_with_safe_iff_entitled_prop
+  simp only [unsafeAppEntitlements, safeAppEntitlements, List.contains_eq_mem]
+  apply Iff.intro
+  · intro hEq
+    exact of_decide_eq_true (Eq.symm hEq)
+  · intro hMem
+    exact Eq.symm (decide_eq_true hMem)
+
+/-- The safe checker grants access exactly when the resource is entitled. -/
+def safe_grants_iff_member_prop
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) : Prop :=
+  safeAppEntitlements appId resource grantedEntitlements = true ↔
+    resource ∈ grantedEntitlements
+
+theorem safe_grants_iff_member_thm
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) :
+    safe_grants_iff_member_prop appId resource grantedEntitlements := by
+  simp only [safe_grants_iff_member_prop, safeAppEntitlements,
+    List.contains_eq_mem, decide_eq_true_iff]
+
+/--
+There exists a rogue request: some application is granted a resource that is
+not in its entitlement list. The witness is the lecture's camera example.
+-/
+def admits_rogue_access_prop : Prop :=
+  ∃ appId : AppId, ∃ resource : Resource, ∃ grantedEntitlements : EntitlementList,
+    resource ∉ grantedEntitlements ∧
+      unsafeAppEntitlements appId resource grantedEntitlements = true
+
+theorem admits_rogue_access_thm : admits_rogue_access_prop := by
+  refine ⟨42, "camera", [], ?_, ?_⟩
+  · exact List.not_mem_nil
   · rfl
-  · exact absurd hbool hnot
 
-/-- **No false deny relative to the safe check.** Whenever the safe model
-grants access, the unsafe model grants it as well. The bug is over-granting,
-not under-granting. -/
-def unsafe_supersets_safe_prop (app_id : Int) (resource : String)
-    (granted_entitlements : List String) : Prop :=
-  safe_app_entitlements app_id resource granted_entitlements = true →
-    unsafe_app_entitlements app_id resource granted_entitlements = true
-
-theorem unsafe_supersets_safe_thm (app_id : Int) (resource : String)
-    (granted_entitlements : List String) :
-    unsafe_supersets_safe_prop app_id resource granted_entitlements := by
-  intro _hsafe
-  exact unconditional_grant_thm app_id resource granted_entitlements
-
-/-- **Disagreement characterizes the missing entitlement.** The unsafe and safe
-models return different Booleans if and only if the resource is not in the
-granted list. -/
-def disagreement_iff_missing_prop (app_id : Int) (resource : String)
-    (granted_entitlements : List String) : Prop :=
-  (unsafe_app_entitlements app_id resource granted_entitlements ≠
-      safe_app_entitlements app_id resource granted_entitlements) ↔
-    resource ∉ granted_entitlements
-
-theorem disagreement_iff_missing_thm (app_id : Int) (resource : String)
-    (granted_entitlements : List String) :
-    disagreement_iff_missing_prop app_id resource granted_entitlements := by
-  unfold disagreement_iff_missing_prop
-  constructor
-  · intro hne hmem
-    have hsafe : safe_app_entitlements app_id resource granted_entitlements = true :=
-      (safe_grants_iff_mem_thm app_id resource granted_entitlements).mpr hmem
-    have hunsafe :
-        unsafe_app_entitlements app_id resource granted_entitlements = true :=
-      unconditional_grant_thm app_id resource granted_entitlements
-    exact hne (hunsafe.trans hsafe.symm)
-  · intro hmiss heq
-    have hdiff :=
-      differs_from_safe_when_missing_thm app_id resource granted_entitlements hmiss
-    have : true = false := by
-      calc
-        true = unsafe_app_entitlements app_id resource granted_entitlements :=
-          (hdiff.1).symm
-        _ = safe_app_entitlements app_id resource granted_entitlements := heq
-        _ = false := hdiff.2
-    exact Bool.noConfusion this
-
-/-- When the resource is entitled, both models grant access. -/
-def agrees_when_entitled_prop (app_id : Int) (resource : String)
-    (granted_entitlements : List String) : Prop :=
-  resource ∈ granted_entitlements →
-    unsafe_app_entitlements app_id resource granted_entitlements = true ∧
-    safe_app_entitlements app_id resource granted_entitlements = true
-
-theorem agrees_when_entitled_thm (app_id : Int) (resource : String)
-    (granted_entitlements : List String) :
-    agrees_when_entitled_prop app_id resource granted_entitlements := by
-  intro hmem
-  refine ⟨unconditional_grant_thm app_id resource granted_entitlements, ?_⟩
-  exact (safe_grants_iff_mem_thm app_id resource granted_entitlements).mpr hmem
+/--
+The unsafe checker is not an entitlement-membership test: it is not the case
+that access is granted if and only if the resource was entitled.
+-/
+theorem not_membership_check_thm :
+    ¬ ∀ (appId : AppId) (resource : Resource) (grantedEntitlements : EntitlementList),
+        (unsafeAppEntitlements appId resource grantedEntitlements = true ↔
+          resource ∈ grantedEntitlements) := by
+  intro h
+  exact List.not_mem_nil
+    ((h 5 "camera" []).1 (unconditional_grant_thm 5 "camera" []))
 
 /-! ## Post-condition -/
 
-/-- Post-condition of one unsafe call: the request is granted, the decision
-does not depend on the app id, the resource, or the entitlement list, access
-is still granted when the list is empty or does not contain the resource, and
-the result differs from the safe membership check exactly in that missing case. -/
-def Post_prop (app_id : Int) (resource : String)
-    (granted_entitlements : List String) : Prop :=
-  unconditional_grant_prop app_id resource granted_entitlements ∧
-  (∀ e2 : List String,
-    entitlement_irrelevance_prop app_id resource granted_entitlements e2) ∧
-  (∀ a2 : Int,
-    app_id_irrelevance_prop app_id a2 resource granted_entitlements) ∧
-  (∀ r2 : String,
-    resource_irrelevance_prop app_id resource r2 granted_entitlements) ∧
-  (∀ a2 : Int, ∀ r2 : String, ∀ e2 : List String,
-    constant_decision_prop app_id a2 resource r2 granted_entitlements e2) ∧
-  empty_list_grants_prop app_id resource ∧
-  grants_without_entitlement_prop app_id resource granted_entitlements ∧
-  differs_from_safe_when_missing_prop app_id resource granted_entitlements ∧
-  unsafe_supersets_safe_prop app_id resource granted_entitlements ∧
-  disagreement_iff_missing_prop app_id resource granted_entitlements ∧
-  agrees_when_entitled_prop app_id resource granted_entitlements ∧
-  safe_grants_iff_mem_prop app_id resource granted_entitlements
+/--
+Post-condition of one unsafe check.
 
-/-! ## Property-based tests
+The call grants access. That decision does not depend on the entitlement list,
+the resource name, or the application id. A missing entitlement, including the
+empty list, still yields a grant. The result agrees with the safe membership
+check exactly when the resource is entitled, and disagrees when it is not.
+-/
+def Post_prop
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) : Prop :=
+  unconditional_grant_prop appId resource grantedEntitlements ∧
+    (∀ ents₂ : EntitlementList,
+      entitlement_irrelevant_prop appId resource grantedEntitlements ents₂) ∧
+    (∀ resource₂ : Resource,
+      resource_irrelevant_prop appId resource resource₂ grantedEntitlements) ∧
+    (∀ appId₂ : AppId,
+      app_irrelevant_prop appId appId₂ resource grantedEntitlements) ∧
+    missing_entitlement_still_granted_prop appId resource grantedEntitlements ∧
+    empty_entitlements_granted_prop appId resource ∧
+    diverges_from_safe_prop appId resource grantedEntitlements ∧
+    agrees_with_safe_iff_entitled_prop appId resource grantedEntitlements
 
-Executable Boolean forms of each `_prop` and of `Post_prop`. Randomized checks
-use Plausible; bounded checks exhaust small app ids and the power set of a
-fixed resource universe so properties with rare membership guards are still
-exercised. -/
+/-! ## Property-based tests -/
 
+/-- Application ids used by the bounded tests, including the lecture values. -/
+def benchAppIds : List Int := [0, 1, 5, 7, 42, 99, -1]
+
+/-- Resource names used by the bounded tests, including the lecture names. -/
+def benchResources : List String :=
+  ["camera", "contacts", "microphone", "location", "photos", ""]
+
+/-- Entitlement lists used by the bounded tests, including the lecture lists. -/
+def benchEntLists : List (List String) :=
+  [[], ["location"], ["camera", "microphone"], ["camera"],
+   ["contacts", "location"], ["camera", "camera"],
+   ["photos", "microphone", "location"]]
+
+/-- Executable form of `Post_prop` on one bench triple.
+
+The nested universals of `Post_prop` are checked on the finite bench, not on
+every `String` and `List String`. The theorem statement itself stays universal.
+-/
+def postHoldsOnBench
+    (appId : AppId)
+    (resource : Resource)
+    (ents : EntitlementList) : Bool :=
+  (unsafeAppEntitlements appId resource ents == true) &&
+    (benchEntLists.all fun ents₂ =>
+      unsafeAppEntitlements appId resource ents ==
+        unsafeAppEntitlements appId resource ents₂) &&
+    (benchResources.all fun resource₂ =>
+      unsafeAppEntitlements appId resource ents ==
+        unsafeAppEntitlements appId resource₂ ents) &&
+    (benchAppIds.all fun appId₂ =>
+      unsafeAppEntitlements appId resource ents ==
+        unsafeAppEntitlements appId₂ resource ents) &&
+    (ents.contains resource || unsafeAppEntitlements appId resource ents) &&
+    (unsafeAppEntitlements appId resource [] == true) &&
+    (ents.contains resource ||
+      (unsafeAppEntitlements appId resource ents &&
+        (safeAppEntitlements appId resource ents == false))) &&
+    ((unsafeAppEntitlements appId resource ents ==
+        safeAppEntitlements appId resource ents) ==
+      ents.contains resource)
+
+-- PBT: unconditional_grant_prop
+-- Executable form: the `_prop` wrapper is not itself a Plausible instance.
 #eval Plausible.Testable.check
-  (∀ (app_id : Int) (resource : String) (granted_entitlements : List String),
-    unsafe_app_entitlements app_id resource granted_entitlements = true)
+  (∀ (appId : Int) (resource : String) (grantedEntitlements : List String),
+    unsafeAppEntitlements appId resource grantedEntitlements = true)
 
-#eval Plausible.Testable.check
-  (∀ (app_id : Int) (resource : String) (e1 e2 : List String),
-    unsafe_app_entitlements app_id resource e1 =
-      unsafe_app_entitlements app_id resource e2)
-
-#eval Plausible.Testable.check
-  (∀ (a1 a2 : Int) (resource : String) (granted_entitlements : List String),
-    unsafe_app_entitlements a1 resource granted_entitlements =
-      unsafe_app_entitlements a2 resource granted_entitlements)
-
-#eval Plausible.Testable.check
-  (∀ (app_id : Int) (r1 r2 : String) (granted_entitlements : List String),
-    unsafe_app_entitlements app_id r1 granted_entitlements =
-      unsafe_app_entitlements app_id r2 granted_entitlements)
-
-#eval Plausible.Testable.check
-  (∀ (a1 a2 : Int) (r1 r2 : String) (e1 e2 : List String),
-    unsafe_app_entitlements a1 r1 e1 = unsafe_app_entitlements a2 r2 e2)
-
-#eval Plausible.Testable.check
-  (∀ (app_id : Int) (resource : String),
-    unsafe_app_entitlements app_id resource [] = true)
-
-#eval Plausible.Testable.check
-  (∀ (app_id : Int) (resource : String) (granted_entitlements : List String),
-    granted_entitlements.contains resource = false →
-      unsafe_app_entitlements app_id resource granted_entitlements = true)
-
-#eval Plausible.Testable.check
-  (∀ (app_id : Int) (resource : String) (granted_entitlements : List String),
-    (safe_app_entitlements app_id resource granted_entitlements = true) =
-      granted_entitlements.contains resource)
-
-#eval Plausible.Testable.check
-  (∀ (app_id : Int) (resource : String) (granted_entitlements : List String),
-    granted_entitlements.contains resource = false →
-      unsafe_app_entitlements app_id resource granted_entitlements = true ∧
-        safe_app_entitlements app_id resource granted_entitlements = false)
-
--- Executable form of unsafe_supersets_safe_prop without a rare membership guard:
--- unsafe always returns true, so it grants whenever the safe check does.
-#eval Plausible.Testable.check
-  (∀ (app_id : Int) (resource : String) (granted_entitlements : List String),
-    unsafe_app_entitlements app_id resource granted_entitlements = true ∨
-      safe_app_entitlements app_id resource granted_entitlements = false)
-
-#eval Plausible.Testable.check
-  (∀ (app_id : Int) (resource : String) (granted_entitlements : List String),
-    (unsafe_app_entitlements app_id resource granted_entitlements !=
-        safe_app_entitlements app_id resource granted_entitlements) =
-      !granted_entitlements.contains resource)
-
--- Executable form of agrees_when_entitled_prop: both models match the
--- membership bit, and the unsafe bit is constantly true.
-#eval Plausible.Testable.check
-  (∀ (app_id : Int) (resource : String) (granted_entitlements : List String),
-    unsafe_app_entitlements app_id resource granted_entitlements = true ∧
-      safe_app_entitlements app_id resource granted_entitlements =
-        granted_entitlements.contains resource)
-
--- Executable form of Post_prop. Boolean equalities replace implication
--- guards so Plausible does not discard samples. constant_true_fn_prop is the
--- pointwise constant-true function; its executable check is the unconditional
--- grant / constant-decision tests above.
-#eval Plausible.Testable.check
-  (∀ (app_id : Int) (resource : String) (granted_entitlements : List String),
-    unsafe_app_entitlements app_id resource granted_entitlements = true ∧
-    (∀ e2 : List String,
-      unsafe_app_entitlements app_id resource granted_entitlements =
-        unsafe_app_entitlements app_id resource e2) ∧
-    (∀ a2 : Int,
-      unsafe_app_entitlements app_id resource granted_entitlements =
-        unsafe_app_entitlements a2 resource granted_entitlements) ∧
-    (∀ r2 : String,
-      unsafe_app_entitlements app_id resource granted_entitlements =
-        unsafe_app_entitlements app_id r2 granted_entitlements) ∧
-    (∀ a2 : Int, ∀ r2 : String, ∀ e2 : List String,
-      unsafe_app_entitlements app_id resource granted_entitlements =
-        unsafe_app_entitlements a2 r2 e2) ∧
-    unsafe_app_entitlements app_id resource [] = true ∧
-    safe_app_entitlements app_id resource granted_entitlements =
-      granted_entitlements.contains resource ∧
-    ((unsafe_app_entitlements app_id resource granted_entitlements !=
-        safe_app_entitlements app_id resource granted_entitlements) =
-      !granted_entitlements.contains resource))
-
-def pbtResources : List String :=
-  ["camera", "contacts", "microphone", "location"]
-
-def subsetsOf : List String → List (List String)
-  | [] => [[]]
-  | x :: xs =>
-    let rest := subsetsOf xs
-    rest ++ rest.map (fun s => x :: s)
-
-example : (List.range 8).all (fun n =>
-    let app := Int.ofNat n
-    pbtResources.all (fun r =>
-      (subsetsOf pbtResources).all (fun es =>
-        unsafe_app_entitlements app r es == true &&
-        unsafe_app_entitlements app r [] == true &&
-        unsafe_app_entitlements app r es == unsafe_app_entitlements (app + 1) r es &&
-        unsafe_app_entitlements app r es == unsafe_app_entitlements app "other" es &&
-        unsafe_app_entitlements app r es == unsafe_app_entitlements app r (r :: es) &&
-        (safe_app_entitlements app r es == es.contains r) &&
-        ((unsafe_app_entitlements app r es != safe_app_entitlements app r es) ==
-          !es.contains r)))) = true := by
+example :
+    (benchAppIds.all fun appId =>
+      benchResources.all fun resource =>
+        benchEntLists.all fun ents =>
+          unsafeAppEntitlements appId resource ents = true) = true := by
   native_decide
 
-example : (List.range 30).all (fun n =>
-    unsafe_app_entitlements (Int.ofNat n) "camera" [] = true &&
-    unsafe_app_entitlements (-(Int.ofNat n)) "microphone" ["location"] = true) = true := by
+-- PBT: entitlement_irrelevant_prop
+#eval Plausible.Testable.check
+  (∀ (appId : Int) (resource : String) (ents₁ ents₂ : List String),
+    unsafeAppEntitlements appId resource ents₁ =
+      unsafeAppEntitlements appId resource ents₂)
+
+example :
+    (benchAppIds.all fun appId =>
+      benchResources.all fun resource =>
+        benchEntLists.all fun ents₁ =>
+          benchEntLists.all fun ents₂ =>
+            unsafeAppEntitlements appId resource ents₁ ==
+              unsafeAppEntitlements appId resource ents₂) = true := by
   native_decide
 
-/-! ## Correctness theorem -/
+-- PBT: resource_irrelevant_prop
+#eval Plausible.Testable.check
+  (∀ (appId : Int) (resource₁ resource₂ : String) (ents : List String),
+    unsafeAppEntitlements appId resource₁ ents =
+      unsafeAppEntitlements appId resource₂ ents)
 
-theorem correctness_thm (app_id : Int) (resource : String)
-    (granted_entitlements : List String) :
-    Pre app_id resource granted_entitlements →
-      Post_prop app_id resource granted_entitlements := by
-  intro _hPre
+example :
+    (benchAppIds.all fun appId =>
+      benchResources.all fun resource₁ =>
+        benchResources.all fun resource₂ =>
+          benchEntLists.all fun ents =>
+            unsafeAppEntitlements appId resource₁ ents ==
+              unsafeAppEntitlements appId resource₂ ents) = true := by
+  native_decide
+
+-- PBT: app_irrelevant_prop
+#eval Plausible.Testable.check
+  (∀ (appId₁ appId₂ : Int) (resource : String) (ents : List String),
+    unsafeAppEntitlements appId₁ resource ents =
+      unsafeAppEntitlements appId₂ resource ents)
+
+example :
+    (benchAppIds.all fun appId₁ =>
+      benchAppIds.all fun appId₂ =>
+        benchResources.all fun resource =>
+          benchEntLists.all fun ents =>
+            unsafeAppEntitlements appId₁ resource ents ==
+              unsafeAppEntitlements appId₂ resource ents) = true := by
+  native_decide
+
+-- PBT: input_irrelevant_prop
+#eval Plausible.Testable.check
+  (∀ (appId₁ appId₂ : Int) (resource₁ resource₂ : String)
+      (ents₁ ents₂ : List String),
+    unsafeAppEntitlements appId₁ resource₁ ents₁ =
+      unsafeAppEntitlements appId₂ resource₂ ents₂)
+
+example :
+    (benchAppIds.all fun appId₁ =>
+      benchAppIds.all fun appId₂ =>
+        benchResources.all fun resource₁ =>
+          benchResources.all fun resource₂ =>
+            benchEntLists.all fun ents₁ =>
+              benchEntLists.all fun ents₂ =>
+                unsafeAppEntitlements appId₁ resource₁ ents₁ ==
+                  unsafeAppEntitlements appId₂ resource₂ ents₂) = true := by
+  native_decide
+
+-- PBT: missing_entitlement_still_granted_prop
+-- The implication is the property. The bounded check below evaluates both
+-- the missing-entitlement branch and the entitled branch.
+#eval Plausible.Testable.check
+  (∀ (appId : Int) (resource : String) (grantedEntitlements : List String),
+    ¬ resource ∈ grantedEntitlements →
+      unsafeAppEntitlements appId resource grantedEntitlements = true)
+
+example :
+    (benchAppIds.all fun appId =>
+      benchResources.all fun resource =>
+        benchEntLists.all fun ents =>
+          ents.contains resource || unsafeAppEntitlements appId resource ents) = true := by
+  native_decide
+
+-- PBT: empty_entitlements_granted_prop
+#eval Plausible.Testable.check
+  (∀ (appId : Int) (resource : String),
+    unsafeAppEntitlements appId resource [] = true)
+
+example :
+    (benchAppIds.all fun appId =>
+      benchResources.all fun resource =>
+        unsafeAppEntitlements appId resource [] = true) = true := by
+  native_decide
+
+-- PBT: diverges_from_safe_prop
+#eval Plausible.Testable.check
+  (∀ (appId : Int) (resource : String) (grantedEntitlements : List String),
+    ¬ resource ∈ grantedEntitlements →
+      unsafeAppEntitlements appId resource grantedEntitlements = true ∧
+        safeAppEntitlements appId resource grantedEntitlements = false)
+
+example :
+    (benchAppIds.all fun appId =>
+      benchResources.all fun resource =>
+        benchEntLists.all fun ents =>
+          ents.contains resource ||
+            (unsafeAppEntitlements appId resource ents &&
+              (safeAppEntitlements appId resource ents == false))) = true := by
+  native_decide
+
+-- PBT: agrees_with_safe_iff_entitled_prop
+#eval Plausible.Testable.check
+  (∀ (appId : Int) (resource : String) (grantedEntitlements : List String),
+    (unsafeAppEntitlements appId resource grantedEntitlements =
+        safeAppEntitlements appId resource grantedEntitlements) ↔
+      resource ∈ grantedEntitlements)
+
+example :
+    (benchAppIds.all fun appId =>
+      benchResources.all fun resource =>
+        benchEntLists.all fun ents =>
+          ((unsafeAppEntitlements appId resource ents ==
+              safeAppEntitlements appId resource ents) ==
+            ents.contains resource)) = true := by
+  native_decide
+
+-- PBT: safe_grants_iff_member_prop
+#eval Plausible.Testable.check
+  (∀ (appId : Int) (resource : String) (grantedEntitlements : List String),
+    safeAppEntitlements appId resource grantedEntitlements = true ↔
+      resource ∈ grantedEntitlements)
+
+example :
+    (benchAppIds.all fun appId =>
+      benchResources.all fun resource =>
+        benchEntLists.all fun ents =>
+          ((safeAppEntitlements appId resource ents == true) ==
+            ents.contains resource)) = true := by
+  native_decide
+
+-- PBT: admits_rogue_access_prop
+-- Closed existential: Plausible has no sampler for `∃`. The executable check
+-- is the lecture witness together with a bounded search for rogue grants.
+example :
+    (!(([] : List String).contains "camera") &&
+      unsafeAppEntitlements 42 "camera" []) = true := by
+  native_decide
+
+example :
+    (benchAppIds.any fun appId =>
+      benchResources.any fun resource =>
+        benchEntLists.any fun ents =>
+          (!ents.contains resource) &&
+            unsafeAppEntitlements appId resource ents) = true := by
+  native_decide
+
+#eval (!(([] : List String).contains "camera") && unsafeAppEntitlements 42 "camera" [])
+
+-- PBT: Post_prop
+-- Flat executable form of the post-condition. Nested `∀` inside a long
+-- conjunction does not synthesize a Plausible instance, so the quantified
+-- comparisons are extra sampled inputs and the membership facts are Bool tests.
+-- `postHoldsOnBench` below is the exhaustive check on the lecture alphabet.
+#eval Plausible.Testable.check
+  (∀ (appId appId₂ : Int) (resource resource₂ : String)
+      (grantedEntitlements ents₂ : List String),
+    ((unsafeAppEntitlements appId resource grantedEntitlements &&
+        (grantedEntitlements.contains resource ||
+          unsafeAppEntitlements appId resource grantedEntitlements) &&
+        (unsafeAppEntitlements appId resource [] == true) &&
+        (grantedEntitlements.contains resource ||
+          (unsafeAppEntitlements appId resource grantedEntitlements &&
+            (safeAppEntitlements appId resource grantedEntitlements == false))) &&
+        ((unsafeAppEntitlements appId resource grantedEntitlements ==
+            safeAppEntitlements appId resource grantedEntitlements) ==
+          grantedEntitlements.contains resource)) = true) ∧
+      unsafeAppEntitlements appId resource grantedEntitlements =
+        unsafeAppEntitlements appId resource ents₂ ∧
+      unsafeAppEntitlements appId resource grantedEntitlements =
+        unsafeAppEntitlements appId resource₂ grantedEntitlements ∧
+      unsafeAppEntitlements appId resource grantedEntitlements =
+        unsafeAppEntitlements appId₂ resource grantedEntitlements)
+
+example :
+    (benchAppIds.all fun appId =>
+      benchResources.all fun resource =>
+        benchEntLists.all fun ents =>
+          postHoldsOnBench appId resource ents) = true := by
+  native_decide
+
+/-! ## Correctness -/
+
+/-- Every input admitted by `Pre` satisfies `Post_prop`. -/
+theorem correctness_thm
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList)
+    (_hPre : Pre appId resource grantedEntitlements) :
+    Post_prop appId resource grantedEntitlements := by
   unfold Post_prop
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · exact unconditional_grant_thm app_id resource granted_entitlements
-  · intro e2
-    exact entitlement_irrelevance_thm app_id resource granted_entitlements e2
-  · intro a2
-    exact app_id_irrelevance_thm app_id a2 resource granted_entitlements
-  · intro r2
-    exact resource_irrelevance_thm app_id resource r2 granted_entitlements
-  · intro a2 r2 e2
-    exact constant_decision_thm app_id a2 resource r2 granted_entitlements e2
-  · exact empty_list_grants_thm app_id resource
-  · exact grants_without_entitlement_thm app_id resource granted_entitlements
-  · exact differs_from_safe_when_missing_thm app_id resource granted_entitlements
-  · exact unsafe_supersets_safe_thm app_id resource granted_entitlements
-  · exact disagreement_iff_missing_thm app_id resource granted_entitlements
-  · exact agrees_when_entitled_thm app_id resource granted_entitlements
-  · exact safe_grants_iff_mem_thm app_id resource granted_entitlements
+  refine ⟨unconditional_grant_thm appId resource grantedEntitlements, ?_⟩
+  refine ⟨?_, ?_⟩
+  · intro ents₂
+    exact entitlement_irrelevant_thm appId resource grantedEntitlements ents₂
+  refine ⟨?_, ?_⟩
+  · intro resource₂
+    exact resource_irrelevant_thm appId resource resource₂ grantedEntitlements
+  refine ⟨?_, ?_⟩
+  · intro appId₂
+    exact app_irrelevant_thm appId appId₂ resource grantedEntitlements
+  refine ⟨missing_entitlement_still_granted_thm appId resource grantedEntitlements, ?_⟩
+  refine ⟨empty_entitlements_granted_thm appId resource, ?_⟩
+  refine ⟨diverges_from_safe_thm appId resource grantedEntitlements, ?_⟩
+  exact agrees_with_safe_iff_entitled_thm appId resource grantedEntitlements
 
 /-! ## Imperative implementation -/
 
-/-- Imperative rendering of the same vulnerability.
+/--
+Imperative counterpart of `unsafeAppEntitlements`.
 
-A mutable decision flag is forced to `true`. The entitlement list, app id, and
-resource are bound only so the signature matches the functional version; none
-of them is allowed to flip the flag to `false`. -/
-def unsafe_app_entitlements_imp (app_id : Int) (resource : String)
-    (granted_entitlements : List String) : Bool :=
+A mutable flag starts denied. The entitlement list is traversed and the
+traversal count is discarded: no membership test updates the flag. The flag
+is then forced to `true`. This is `return True` written with `Id.run` and
+local mutable state, and it is the same missing check.
+-/
+def unsafeAppEntitlementsImp
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) : Bool :=
   Id.run do
-    let mut decision : Bool := true
-    let mut ignored : Nat := 0
-    -- Observe the list length and then discard it: contents are never tested.
-    ignored := granted_entitlements.length - granted_entitlements.length
-    let _ := app_id
-    let _ := resource
-    -- `ignored = 0` is always true; both branches grant access.
-    if ignored == 0 then
-      decision := true
-    else
-      decision := true
-    return decision
+    let mut granted : Bool := false
+    let mut ignoredCount : Nat := 0
+    for _ent in grantedEntitlements do
+      ignoredCount := ignoredCount + 1
+    let _ := (appId, resource, ignoredCount)
+    granted := true
+    return granted
+
+/-- Imperative translation of Python `check`. -/
+def checkImp : Bool :=
+  (unsafeAppEntitlementsImp 42 "camera" [] == true) &&
+    (unsafeAppEntitlementsImp 1 "contacts" ["location"] == true) &&
+    (unsafeAppEntitlementsImp 99 "microphone" [] == true) &&
+    (unsafeAppEntitlementsImp 7 "location" [] ==
+      unsafeAppEntitlementsImp 7 "location" ["camera", "microphone"]) &&
+    (unsafeAppEntitlementsImp 5 "camera" [] == true) &&
+    (safeAppEntitlements 5 "camera" [] == false)
 
 /-! ## Imperative tests -/
 
-example : unsafe_app_entitlements_imp 42 "camera" [] = true := by native_decide
+example : unsafeAppEntitlementsImp 42 "camera" [] = true := by native_decide
+example : unsafeAppEntitlementsImp 1 "contacts" ["location"] = true := by native_decide
+example : unsafeAppEntitlementsImp 99 "microphone" [] = true := by native_decide
+example : unsafeAppEntitlementsImp 7 "location" [] =
+    unsafeAppEntitlementsImp 7 "location" ["camera", "microphone"] := by native_decide
+example : unsafeAppEntitlementsImp 5 "camera" [] = true := by native_decide
+example : unsafeAppEntitlementsImp (-1) "photos" ["camera"] = true := by native_decide
+example : checkImp = true := by native_decide
 
-#eval unsafe_app_entitlements_imp 42 "camera" []
+example : unsafeAppEntitlements 42 "camera" [] =
+    unsafeAppEntitlementsImp 42 "camera" [] := by native_decide
+example : unsafeAppEntitlements 1 "contacts" ["location"] =
+    unsafeAppEntitlementsImp 1 "contacts" ["location"] := by native_decide
+example : unsafeAppEntitlements 7 "location" ["camera", "microphone"] =
+    unsafeAppEntitlementsImp 7 "location" ["camera", "microphone"] := by native_decide
 
-example : unsafe_app_entitlements_imp 1 "contacts" ["location"] = true := by native_decide
+#eval unsafeAppEntitlementsImp 42 "camera" []
+#eval unsafeAppEntitlementsImp 1 "contacts" ["location"]
+#eval unsafeAppEntitlementsImp 99 "microphone" []
+#eval unsafeAppEntitlementsImp 7 "location" [] ==
+  unsafeAppEntitlementsImp 7 "location" ["camera", "microphone"]
+#eval unsafeAppEntitlementsImp 5 "camera" []
+#eval checkImp
+#eval if checkImp then "All tests passed." else "Tests failed."
 
-#eval unsafe_app_entitlements_imp 1 "contacts" ["location"]
+/-! ## Equivalence -/
 
-example : unsafe_app_entitlements_imp 99 "microphone" [] = true := by native_decide
-
-#eval unsafe_app_entitlements_imp 99 "microphone" []
-
-example : unsafe_app_entitlements_imp 7 "location" [] =
-    unsafe_app_entitlements_imp 7 "location" ["camera", "microphone"] := by native_decide
-
-#eval unsafe_app_entitlements_imp 7 "location" [] ==
-  unsafe_app_entitlements_imp 7 "location" ["camera", "microphone"]
-
-example : unsafe_app_entitlements_imp 5 "camera" [] = true := by native_decide
-
-#eval unsafe_app_entitlements_imp 5 "camera" []
-
-example : unsafe_app_entitlements_imp 5 "camera" [] ≠
-    safe_app_entitlements 5 "camera" [] := by native_decide
-
-/-! ## Equivalence theorem -/
-
-/-- The functional and imperative implementations agree on every input. -/
-theorem equivalence_thm (app_id : Int) (resource : String)
-    (granted_entitlements : List String) :
-    unsafe_app_entitlements app_id resource granted_entitlements =
-      unsafe_app_entitlements_imp app_id resource granted_entitlements := by
-  simp [unsafe_app_entitlements, unsafe_app_entitlements_imp]
-
-/-- The imperative implementation also grants every request. -/
-theorem unsafe_app_entitlements_imp_grants_thm (app_id : Int) (resource : String)
-    (granted_entitlements : List String) :
-    unsafe_app_entitlements_imp app_id resource granted_entitlements = true := by
-  simp [unsafe_app_entitlements_imp]
+/-- The functional checker and the imperative checker agree on every input. -/
+theorem equivalence_thm
+    (appId : AppId)
+    (resource : Resource)
+    (grantedEntitlements : EntitlementList) :
+    unsafeAppEntitlements appId resource grantedEntitlements =
+      unsafeAppEntitlementsImp appId resource grantedEntitlements := by
+  simp only [unsafeAppEntitlements, unsafeAppEntitlementsImp, bind_pure_comp, map_pure,
+    List.forIn_pure_yield_eq_foldl, List.foldl_add_const, Nat.one_mul, Nat.zero_add,
+    Id.run_pure]
 
 end «93_unsafeAppEntitlements»

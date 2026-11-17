@@ -1,0 +1,27 @@
+Created At: 2026-11-16T22:24:40Z
+Completed At: 2026-11-16T22:24:45Z
+Command exited with code 0.
+
+Command output:
+def max_heapify_imp : List ℕ → ℕ → ℕ → List ℕ :=
+fun arr i heap_size =>
+  (have result := arr;
+    have curr := i;
+    do
+    let r ←
+      forIn (List.replicate (heap_size - i) ()) ⟨curr, result⟩ fun x r =>
+          have curr := r.fst;
+          have result := r.snd;
+          have largest := choose_largest result curr heap_size;
+          have __do_jp := fun curr result y =>
+            have result := swap result curr largest;
+            have curr := largest;
+            do
+            pure PUnit.unit
+            pure (ForInStep.yield ⟨curr, result⟩);
+          if largest = curr then pure (ForInStep.done ⟨curr, result⟩)
+          else do
+            let y ← pure PUnit.unit
+            __do_jp curr result y
+    match r with
+      | ⟨curr, result⟩ => pure result).run

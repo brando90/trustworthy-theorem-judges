@@ -1,0 +1,7 @@
+Created At: 2026-11-16T22:21:48Z
+Completed At: 2026-11-16T22:21:51Z
+Command exited with code 0.
+
+Command output:
+monotone_nat_of_le_succ.{u} {α : Type u} [Preorder α] {f : ℕ → α} (hf : ∀ (n : ℕ), f n ≤ f (n + 1)) : Monotone f
+Nat.div_add_mod (m n : ℕ) : n * (m / n) + m % n = m

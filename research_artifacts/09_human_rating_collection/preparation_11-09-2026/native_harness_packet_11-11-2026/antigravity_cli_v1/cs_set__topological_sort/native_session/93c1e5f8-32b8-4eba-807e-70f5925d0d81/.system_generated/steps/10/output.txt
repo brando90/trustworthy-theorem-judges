@@ -1,0 +1,12 @@
+Created At: 2026-11-16T21:34:01Z
+Completed At: 2026-11-16T21:34:03Z
+Command exited with code 1.
+
+Command output:
+<stdin>:3:8: error: unknown constant 'List.mem_permutations'
+<stdin>:4:8: error: unknown constant 'List.permutations_nil'
+@List.find?_eq_some_iff_append : ∀ {α : Type u_1} {b : α} {p : α → Bool} {xs : List α},
+  List.find? p xs = some b ↔ p b = true ∧ ∃ as bs, xs = as ++ b :: bs ∧ ∀ (a : α), a ∈ as → (!p a) = true
+@List.find?_some : ∀ {α : Type u_1} {p : α → Bool} {a : α} {l : List α}, List.find? p l = some a → p a = true
+@List.find?_eq_none : ∀ {α : Type u_1} {p : α → Bool} {l : List α},
+  List.find? p l = none ↔ ∀ (x : α), x ∈ l → ¬p x = true

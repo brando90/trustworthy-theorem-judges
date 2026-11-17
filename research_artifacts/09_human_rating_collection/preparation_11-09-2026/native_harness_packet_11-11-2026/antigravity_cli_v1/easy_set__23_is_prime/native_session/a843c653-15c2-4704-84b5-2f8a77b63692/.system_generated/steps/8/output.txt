@@ -1,0 +1,17 @@
+Created At: 2026-11-16T21:26:36Z
+Completed At: 2026-11-16T21:26:40Z
+Command exited with code 1.
+
+Command output:
+<stdin>:7:2: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  c ≥ 0
+  a ≥ 2
+  a - 3*c ≥ 4
+  2 ≤ a - 3*c ≤ 4
+  a ≥ 2
+  0 ≤ 2*a - 3*b ≤ 1
+where
+ a := ↑p / 2
+ b := ↑p / 3
+ c := ↑(p - 5) / 6

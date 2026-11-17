@@ -1,0 +1,31 @@
+{
+  "task_id": "easy_set__20_mysumdigits",
+  "condition_sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "1000",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "20_MySumDigits.py": "12df2a4a18060824b7e8ca7785afc9b1470831c3a55e76ac470ba9b93acd531d",
+    "instruction.md": "8ddb9567b9fed472dc934d5f5ca72dfd7806536f9310e6059d7f70e4a8e5f2cf"
+  },
+  "output": "/home/user/lean_project/Veribench/20_MySumDigits.lean",
+  "model_call_performed": false
+}

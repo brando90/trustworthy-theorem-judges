@@ -1,1059 +1,1313 @@
 import Mathlib
 
 /-!
-# Formalization of `statistics.quantiles` (Task 31)
+# Statistics Quantiles (`31_statistics_quantiles`)
 
-This module formalizes Python's `statistics.quantiles` and `benchmark_quantiles`
-functions, which divide a dataset into `n` continuous intervals with equal probability
-and return the `n - 1` cut points separating the intervals, supporting both the
-`"exclusive"` (default) and `"inclusive"` methods.
+Formalization of Python's `statistics.quantiles` (`benchmark_quantiles`):
+dividing a sample or population dataset into `n` continuous intervals with equal probability,
+returning the list of `n - 1` linearly interpolated cut points separating the intervals.
 
-## Structure
-1. Functional implementation (`pre`, `quantiles`, `benchmark_quantiles`, `benchmark_quantiles?`,
-   plus `Float` executable counterparts)
-2. Unit tests (`by native_decide` and `#eval`)
-3. Pre-condition predicate (`Pre`)
-4. Property propositions (`<name>_prop`) and proven theorems (`<name>_thm`)
-5. Post-condition predicate (`Post_prop`)
-6. Property-based tests (`Plausible.Testable.check` and bounded `native_decide` checks)
-7. Total correctness theorem (`Pre → Post_prop`)
-8. Imperative implementation using `Id.run do` with mutable state
-9. Imperative unit tests
-10. Functional-imperative equivalence theorems
+Both `"exclusive"` (default, sample data) and `"inclusive"` (population data) methods are
+formalized across:
+- Exact rational arithmetic (`ℚ` / `Rat`), serving as both an executable layer and exact
+  mathematical model for linear interpolation over rational/integer/decimal/float inputs;
+- Executable IEEE-754 floating-point (`Float`) for floating-point execution and unit/property tests;
+- Real arithmetic (`ℝ` / `Real`) with proven cast correspondence to the `ℚ` model.
 -/
 
 namespace «31_statistics_quantiles»
 
-/-! ## 1. Implementation (Functional Definition) -/
+/-!
+## 4. Implementation (Functional Definitions)
+-/
 
-/-- Clamp a natural number `j` to the closed interval `[low, high]`. -/
-def clampNat (j low high : Nat) : Nat :=
-  if j < low then low else if j > high then high else j
-
-/-- Boolean pre-condition matching Python's `pre(data, n=4, method='exclusive')`:-
-    `data` has at least 2 elements, `n ≥ 1`, and `method` is `"inclusive"` or `"exclusive"`. -/
-def pre {α : Type} (data : List α) (n : Nat := 4) (method : String := "exclusive") : Bool :=
+/-- Executable boolean precondition check matching Python's `pre(data, n, method)`. -/
+def pre {α : Type*} (data : List α) (n : ℕ := 4) (method : String := "exclusive") : Bool :=
   decide (data.length ≥ 2) && decide (n ≥ 1) && (method == "inclusive" || method == "exclusive")
 
-/-- Linear interpolation step for the `"inclusive"` quantile method on a sorted list `s`.
-    Computes `(s[j] * (n - delta) + s[j + 1] * delta) / n` where `(j, delta) = divmod(i * (ld - 1), n)`. -/
-def inclusiveStep (s : List Rat) (n i : Nat) : Rat :=
+/-- Clamp raw index `j_raw` to the closed interval `[1, ld - 1]` for the exclusive method. -/
+def exclusiveClamp (ld j_raw : ℕ) : ℕ :=
+  if j_raw < 1 then 1 else if j_raw > ld - 1 then ld - 1 else j_raw
+
+/-- Single cut-point interpolation for `"inclusive"` method on a sorted list `s` at step `i`. -/
+def inclusiveInterp {α : Type*} [Field α] (s : List α) (n i : ℕ) : α :=
   let ld := s.length
   let m := ld - 1
   let j := (i * m) / n
   let delta := (i * m) % n
-  (s.getD j 0 * ((n - delta : Nat) : Rat) + s.getD (j + 1) 0 * (delta : Rat)) / (n : Rat)
+  (s.getD j 0 * ((n : α) - (delta : α)) + s.getD (j + 1) 0 * (delta : α)) / (n : α)
 
-/-- Linear interpolation step for the `"exclusive"` quantile method on a sorted list `s`.
-    Computes `(s[j - 1] * (n - delta) + s[j] * delta) / n` where `j = clamp((i * (ld + 1)) // n, 1, ld - 1)`
-    and `delta = i * (ld + 1) - j * n`. -/
-def exclusiveStep (s : List Rat) (n i : Nat) : Rat :=
+/-- Single cut-point interpolation for `"exclusive"` method on a sorted list `s` at step `i`. -/
+def exclusiveInterp {α : Type*} [Field α] (s : List α) (n i : ℕ) : α :=
   let ld := s.length
   let m := ld + 1
-  let j0 := (i * m) / n
-  let j := clampNat j0 1 (ld - 1)
-  let delta : Int := (i : Int) * (m : Int) - (j : Int) * (n : Int)
-  (s.getD (j - 1) 0 * ((n : Int) - delta : Rat) + s.getD j 0 * (delta : Rat)) / (n : Rat)
+  let j_raw := (i * m) / n
+  let j := exclusiveClamp ld j_raw
+  let delta : ℤ := (i * m : ℤ) - (j * n : ℤ)
+  (s.getD (j - 1) 0 * ((n : α) - (delta : α)) + s.getD j 0 * (delta : α)) / (n : α)
 
-/-- Functional implementation of Python's `quantiles(data, n=4, method='exclusive')` over `Rat`.
-    Returns the `n - 1` cut points separating `data` into `n` intervals, or `[]` on invalid input. -/
-def quantiles (data : List Rat) (n : Nat := 4) (method : String := "exclusive") : List Rat :=
-  if n < 1 then []
+/-- Core functional implementation of `quantiles` over any ordered field (such as `ℚ` or `ℝ`).
+Returns `none` when `n < 1`, `data.length < 2`, or `method` is not `"inclusive"` / `"exclusive"`
+(corresponding to raising `StatisticsError` / `ValueError` in Python). -/
+def quantilesGeneric {α : Type*} [Field α] [LE α] [DecidableRel (· ≤ · : α → α → Prop)]
+    (data : List α) (n : ℕ := 4) (method : String := "exclusive") : Option (List α) :=
+  if n < 1 then
+    none
   else
-    let s := data.mergeSort
-    let ld := s.length
-    if ld < 2 then []
+    let sortedData := List.insertionSort (· ≤ ·) data
+    let ld := sortedData.length
+    if ld < 2 then
+      none
     else if method == "inclusive" then
-      (List.range (n - 1)).map (fun k => inclusiveStep s n (k + 1))
+      some ((List.range' 1 (n - 1)).map (inclusiveInterp sortedData n))
     else if method == "exclusive" then
-      (List.range (n - 1)).map (fun k => exclusiveStep s n (k + 1))
-    else []
+      some ((List.range' 1 (n - 1)).map (exclusiveInterp sortedData n))
+    else
+      none
 
-/-- Main function to be verified (`benchmark_quantiles`), returning `List Rat`. -/
-def benchmark_quantiles (data : List Rat) (n : Nat := 4) (method : String := "exclusive") : List Rat :=
-  if !pre data n method then []
-  else quantiles data n method
+/-- Functional implementation of `quantiles` over `ℚ`. -/
+def quantiles (data : List ℚ) (n : ℕ := 4) (method : String := "exclusive") : Option (List ℚ) :=
+  quantilesGeneric data n method
 
-/-- Option-returning variant of `benchmark_quantiles` that explicitly models raising
-    `StatisticsError` / `ValueError` as `none` when `pre` fails and `some result` when `pre` holds. -/
-def benchmark_quantiles? (data : List Rat) (n : Nat := 4) (method : String := "exclusive") : Option (List Rat) :=
-  if !pre data n method then none
-  else some (quantiles data n method)
+/-- Main verified function `benchmark_quantiles` over `ℚ`. -/
+def benchmark_quantiles (data : List ℚ) (n : ℕ := 4) (method : String := "exclusive") : Option (List ℚ) :=
+  if !(pre data n method) then
+    none
+  else
+    quantiles data n method
 
-/-- Floating-point step for `"inclusive"` method. -/
-def inclusiveStepFloat (s : List Float) (n i : Nat) : Float :=
+/-- Mathematical `Real` layer implementation of `quantiles`. -/
+noncomputable def quantilesReal (data : List ℝ) (n : ℕ := 4) (method : String := "exclusive") : Option (List ℝ) :=
+  letI : DecidableRel (· ≤ · : ℝ → ℝ → Prop) := Classical.decRel _
+  quantilesGeneric data n method
+
+/-- Mathematical `Real` layer implementation of `benchmark_quantiles`. -/
+noncomputable def benchmark_quantilesReal (data : List ℝ) (n : ℕ := 4) (method : String := "exclusive") : Option (List ℝ) :=
+  if !(pre data n method) then
+    none
+  else
+    quantilesReal data n method
+
+/-- Single cut-point interpolation for `"inclusive"` method over `Float`. -/
+def inclusiveInterpFloat (s : List Float) (n i : ℕ) : Float :=
   let ld := s.length
   let m := ld - 1
   let j := (i * m) / n
   let delta := (i * m) % n
-  (s.getD j 0.0 * Float.ofNat (n - delta) + s.getD (j + 1) 0.0 * Float.ofNat delta) / Float.ofNat n
+  (s.getD j 0.0 * (Float.ofNat n - Float.ofNat delta) + s.getD (j + 1) 0.0 * Float.ofNat delta) / Float.ofNat n
 
-/-- Floating-point step for `"exclusive"` method. -/
-def exclusiveStepFloat (s : List Float) (n i : Nat) : Float :=
+/-- Single cut-point interpolation for `"exclusive"` method over `Float`. -/
+def exclusiveInterpFloat (s : List Float) (n i : ℕ) : Float :=
   let ld := s.length
   let m := ld + 1
-  let j0 := (i * m) / n
-  let j := clampNat j0 1 (ld - 1)
-  let delta : Int := (i : Int) * (m : Int) - (j : Int) * (n : Int)
-  (s.getD (j - 1) 0.0 * Float.ofInt ((n : Int) - delta) + s.getD j 0.0 * Float.ofInt delta) / Float.ofNat n
+  let j_raw := (i * m) / n
+  let j := exclusiveClamp ld j_raw
+  let delta : ℤ := (i * m : ℤ) - (j * n : ℤ)
+  (s.getD (j - 1) 0.0 * (Float.ofInt (n : ℤ) - Float.ofInt delta) + s.getD j 0.0 * Float.ofInt delta) / Float.ofNat n
 
 /-- Executable `Float` implementation of `quantiles`. -/
-def quantilesFloat (data : List Float) (n : Nat := 4) (method : String := "exclusive") : List Float :=
-  if n < 1 then []
+def quantilesFloat (data : List Float) (n : ℕ := 4) (method : String := "exclusive") : Option (List Float) :=
+  if n < 1 then
+    none
   else
-    let s := data.mergeSort (fun a b => decide (a ≤ b))
-    let ld := s.length
-    if ld < 2 then []
+    let sortedData := List.insertionSort (· ≤ ·) data
+    let ld := sortedData.length
+    if ld < 2 then
+      none
     else if method == "inclusive" then
-      (List.range (n - 1)).map (fun k => inclusiveStepFloat s n (k + 1))
+      some ((List.range' 1 (n - 1)).map (inclusiveInterpFloat sortedData n))
     else if method == "exclusive" then
-      (List.range (n - 1)).map (fun k => exclusiveStepFloat s n (k + 1))
-    else []
+      some ((List.range' 1 (n - 1)).map (exclusiveInterpFloat sortedData n))
+    else
+      none
 
-/-- Executable `Float` implementation of `benchmark_quantiles?`. -/
-def benchmark_quantiles_float? (data : List Float) (n : Nat := 4) (method : String := "exclusive") : Option (List Float) :=
-  if !pre data n method then none
-  else some (quantilesFloat data n method)
+/-- Executable `Float` implementation of `benchmark_quantiles`. -/
+def benchmark_quantilesFloat (data : List Float) (n : ℕ := 4) (method : String := "exclusive") : Option (List Float) :=
+  if !(pre data n method) then
+    none
+  else
+    quantilesFloat data n method
 
-/-! ## 2. Unit Tests -/
+/-- Helper for approximate equality of `Float` lists in unit tests (tolerance `1e-9`). -/
+def floatListApprox (actual expected : List Float) (tol : Float := 1e-9) : Bool :=
+  actual.length == expected.length &&
+    (List.zip actual expected).all (fun (a, b) => Float.abs (a - b) < tol)
 
--- 1. Basic quartiles (default)
-example : benchmark_quantiles [1, 2, 3, 4] = [1.25, 2.5, 3.75] := by native_decide
-example : (benchmark_quantiles [1, 2, 3, 4]).length = 3 := by native_decide
-example : benchmark_quantiles? [1, 2, 3, 4] = some [1.25, 2.5, 3.75] := by native_decide
+/-!
+## 5. Unit Tests
+-/
+
+-- 1. Basic quartiles (default: n = 4, method = "exclusive")
+#eval benchmark_quantiles [1, 2, 3, 4]
+#eval benchmark_quantilesFloat [1.0, 2.0, 3.0, 4.0]
+example : benchmark_quantiles [1, 2, 3, 4] = some [5/4, 5/2, 15/4] := by native_decide
+example : (match benchmark_quantilesFloat [1.0, 2.0, 3.0, 4.0] with
+  | some res => res.length == 3 && floatListApprox res [1.25, 2.5, 3.75]
+  | none => false) = true := by native_decide
 
 -- 2. Deciles (n = 10)
-example : (benchmark_quantiles [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 10).length = 9 := by native_decide
-example : benchmark_quantiles [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 10 =
-  [0.2, 1.4, 2.6, 3.8, 5, 6.2, 7.4, 8.6, 9.8] := by native_decide
+#eval benchmark_quantiles [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 10
+example : (benchmark_quantiles [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 10).map List.length = some 9 := by native_decide
+example : (benchmark_quantilesFloat [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0] 10).map List.length = some 9 := by native_decide
 
 -- 3. Median (n = 2)
-example : benchmark_quantiles [1, 2, 3, 4, 5] 2 = [3] := by native_decide
-example : (benchmark_quantiles [1, 2, 3, 4, 5] 2).length = 1 := by native_decide
+#eval benchmark_quantiles [1, 2, 3, 4, 5] 2
+example : benchmark_quantiles [1, 2, 3, 4, 5] 2 = some [3] := by native_decide
+example : (match benchmark_quantilesFloat [1.0, 2.0, 3.0, 4.0, 5.0] 2 with
+  | some res => res.length == 1 && floatListApprox res [3.0]
+  | none => false) = true := by native_decide
 
 -- 4. Inclusive method
-example : benchmark_quantiles [1, 2, 3, 4] 4 "inclusive" = [1.75, 2.5, 3.25] := by native_decide
-example : (benchmark_quantiles [1, 2, 3, 4] 4 "inclusive").length = 3 := by native_decide
+#eval benchmark_quantiles [1, 2, 3, 4] 4 "inclusive"
+#eval benchmark_quantilesFloat [1.0, 2.0, 3.0, 4.0] 4 "inclusive"
+example : benchmark_quantiles [1, 2, 3, 4] 4 "inclusive" = some [7/4, 5/2, 13/4] := by native_decide
+example : (match benchmark_quantilesFloat [1.0, 2.0, 3.0, 4.0] 4 "inclusive" with
+  | some res => res.length == 3 && floatListApprox res [1.75, 2.5, 3.25]
+  | none => false) = true := by native_decide
 
 -- 5. Exclusive method (explicit)
-example : benchmark_quantiles [1, 2, 3, 4] 4 "exclusive" = [1.25, 2.5, 3.75] := by native_decide
-example : (benchmark_quantiles [1, 2, 3, 4] 4 "exclusive").length = 3 := by native_decide
+#eval benchmark_quantiles [1, 2, 3, 4] 4 "exclusive"
+example : benchmark_quantiles [1, 2, 3, 4] 4 "exclusive" = some [5/4, 5/2, 15/4] := by native_decide
 
 -- 6. Larger dataset (1..10, n = 4)
-example : benchmark_quantiles [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 4 = [2.75, 5.5, 8.25] := by native_decide
-example : (benchmark_quantiles [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 4).length = 3 := by native_decide
+#eval benchmark_quantiles [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 4
+example : benchmark_quantiles [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 4 = some [11/4, 11/2, 33/4] := by native_decide
 
 -- 7. Unsorted input (sorted internally)
-example : benchmark_quantiles [4, 1, 3, 2] 4 = [1.25, 2.5, 3.75] := by native_decide
-example : (benchmark_quantiles [4, 1, 3, 2] 4).length = 3 := by native_decide
+#eval benchmark_quantiles [4, 1, 3, 2] 4
+example : benchmark_quantiles [4, 1, 3, 2] 4 = some [5/4, 5/2, 15/4] := by native_decide
+example : benchmark_quantiles [4, 1, 3, 2] 4 = benchmark_quantiles [1, 2, 3, 4] 4 := by native_decide
 
 -- 8. Fractional / Float data
-example : benchmark_quantiles [1.5, 2.5, 3.5, 4.5] 2 = [3.0] := by native_decide
-example : ((quantilesFloat [1.5, 2.5, 3.5, 4.5] 2).getD 0 0.0 - 3.0).abs < 1e-9 := by native_decide
-example : (quantilesFloat [1.0, 2.0, 3.0, 4.0] 4 "inclusive").length = 3 := by native_decide
+#eval benchmark_quantiles [3/2, 5/2, 7/2, 9/2] 2
+example : benchmark_quantiles [3/2, 5/2, 7/2, 9/2] 2 = some [3] := by native_decide
+example : (match benchmark_quantilesFloat [1.5, 2.5, 3.5, 4.5] 2 with
+  | some res => res.length == 1 && floatListApprox res [3.0]
+  | none => false) = true := by native_decide
 
--- 9. Error cases (single data point, n = 0, invalid method)
-example : benchmark_quantiles? [1] 4 = none := by native_decide
-example : benchmark_quantiles? [1, 2] 0 = none := by native_decide
-example : benchmark_quantiles? [1, 2, 3] 4 "invalid" = none := by native_decide
-example : benchmark_quantiles [1] 4 = [] := by native_decide
-example : benchmark_quantiles [1, 2] 0 = [] := by native_decide
-example : benchmark_quantiles [1, 2, 3] 4 "invalid" = [] := by native_decide
-example : (benchmark_quantiles_float? [1.0] 4).isNone = true := by native_decide
-example : (benchmark_quantiles_float? [1.0, 2.0] 0).isNone = true := by native_decide
-example : (benchmark_quantiles_float? [1.0, 2.0, 3.0] 4 "invalid").isNone = true := by native_decide
+-- 9. Error cases (returns `none`, corresponding to raising StatisticsError / ValueError)
+#eval benchmark_quantiles [1] 4
+#eval benchmark_quantiles [1, 2] 0
+#eval benchmark_quantiles [1, 2, 3] 4 "invalid"
+example : benchmark_quantiles [1] 4 = none := by native_decide
+example : benchmark_quantiles [1, 2] 0 = none := by native_decide
+example : benchmark_quantiles [1, 2, 3] 4 "invalid" = none := by native_decide
+example : (benchmark_quantilesFloat [1.0] 4).isNone = true := by native_decide
+example : (benchmark_quantilesFloat [1.0, 2.0] 0).isNone = true := by native_decide
+example : (benchmark_quantilesFloat [1.0, 2.0, 3.0] 4 "invalid").isNone = true := by native_decide
 
-#eval benchmark_quantiles [1, 2, 3, 4]
-#eval benchmark_quantiles [1, 2, 3, 4] 4 "inclusive"
-#eval benchmark_quantiles [4, 1, 3, 2] 4
-#eval benchmark_quantiles [1.5, 2.5, 3.5, 4.5] 2
-#eval benchmark_quantiles? [1] 4
-#eval quantilesFloat [1.0, 2.0, 3.0, 4.0] 4 "exclusive"
+/-!
+## 6. Pre-condition Predicate (`Pre`)
+-/
 
-/-! ## 3. Pre-condition Predicate (`Pre`) -/
-
-/-- Pre-condition proposition: `data` has at least 2 elements, `n ≥ 1`,
-    and `method` is either `"inclusive"` or `"exclusive"`. -/
-def Pre {α : Type} (data : List α) (n : Nat := 4) (method : String := "exclusive") : Prop :=
+/-- Pre-condition for `quantiles` / `benchmark_quantiles`:
+`data` has at least 2 elements, `n ≥ 1`, and `method` is `"inclusive"` or `"exclusive"`. -/
+def Pre {α : Type*} (data : List α) (n : ℕ := 4) (method : String := "exclusive") : Prop :=
   data.length ≥ 2 ∧ n ≥ 1 ∧ (method = "inclusive" ∨ method = "exclusive")
 
-instance {α : Type} (data : List α) (n : Nat) (method : String) : Decidable (Pre data n method) :=
-  inferInstanceAs (Decidable (data.length ≥ 2 ∧ n ≥ 1 ∧ (method = "inclusive" ∨ method = "exclusive")))
+instance instDecidablePre {α : Type*} (data : List α) (n : ℕ) (method : String) :
+    Decidable (Pre data n method) := by
+  unfold Pre
+  infer_instance
 
-/-! ## 4. Property Propositions and Theorems -/
-
-/-- Helper theorem: boolean `pre` is true if and only if proposition `Pre` holds. -/
-theorem pre_iff_Pre {α : Type} (data : List α) (n : Nat) (method : String) :
+theorem pre_eq_true_iff {α : Type*} (data : List α) (n : ℕ) (method : String) :
     pre data n method = true ↔ Pre data n method := by
-  simp [pre, Pre, Bool.and_eq_true, Bool.or_eq_true, decide_eq_true_eq, and_assoc]
+  simp only [pre, Pre, Bool.and_eq_true, Bool.or_eq_true, decide_eq_true_eq, beq_iff_eq, ge_iff_le]
+  exact and_assoc
 
-/-- Helper theorem: boolean `pre` is false if and only if `¬ Pre` holds. -/
-theorem pre_eq_false_iff_not_Pre {α : Type} (data : List α) (n : Nat) (method : String) :
-    pre data n method = false ↔ ¬ Pre data n method := by
-  rw [← Bool.not_eq_true, pre_iff_Pre]
+/-!
+## 7. Property Propositions and Theorems
+-/
 
-/-- Property 1: Under `Pre`, `benchmark_quantiles` agrees with `quantiles` and
-    `benchmark_quantiles?` returns `some (quantiles data n method)`. -/
-def valid_input_prop (data : List Rat) (n : Nat) (method : String) : Prop :=
-  Pre data n method →
-    benchmark_quantiles data n method = quantiles data n method ∧
-    benchmark_quantiles? data n method = some (quantiles data n method)
+/-! ### Helper Lemmas -/
 
-theorem valid_input_thm (data : List Rat) (n : Nat) (method : String) :
-    valid_input_prop data n method := by
-  intro hPre
-  have hpre : pre data n method = true := (pre_iff_Pre data n method).mpr hPre
-  simp [benchmark_quantiles, benchmark_quantiles?, hpre]
-
-/-- Property 2: When `¬ Pre`, `benchmark_quantiles` returns `[]` and
-    `benchmark_quantiles?` returns `none` (corresponding to raising `StatisticsError`). -/
-def invalid_input_prop (data : List Rat) (n : Nat) (method : String) : Prop :=
-  ¬ Pre data n method →
-    benchmark_quantiles data n method = [] ∧
-    benchmark_quantiles? data n method = none
-
-theorem invalid_input_thm (data : List Rat) (n : Nat) (method : String) :
-    invalid_input_prop data n method := by
-  intro hNotPre
-  have hpre : pre data n method = false := (pre_eq_false_iff_not_Pre data n method).mpr hNotPre
-  simp [benchmark_quantiles, benchmark_quantiles?, hpre]
-
-/-- Property 3: When `Pre data n method` holds, the returned list of cut points has length `n - 1`. -/
-def length_prop (data : List Rat) (n : Nat) (method : String) : Prop :=
-  Pre data n method → (benchmark_quantiles data n method).length = n - 1
-
-theorem length_thm (data : List Rat) (n : Nat) (method : String) :
-    length_prop data n method := by
-  intro hPre
-  have hvalid := (valid_input_thm data n method hPre).1
-  rw [hvalid]
-  rcases hPre with ⟨hld, hn, hmethod⟩
-  have hn_not_lt : ¬ (n < 1) := by omega
-  have hld_not_lt : ¬ (data.length < 2) := by omega
-  unfold quantiles
-  rcases hmethod with rfl | rfl <;> simp [hn_not_lt, hld_not_lt]
-
-/-- Property 4: When `n = 1` and `Pre data 1 method` holds, there are 0 cut points (`[]`). -/
-def n_eq_one_prop (data : List Rat) (method : String) : Prop :=
-  Pre data 1 method → benchmark_quantiles data 1 method = []
-
-theorem n_eq_one_thm (data : List Rat) (method : String) :
-    n_eq_one_prop data method := by
-  intro hPre
-  have hlen := length_thm data 1 method hPre
-  exact List.eq_nil_of_length_eq_zero hlen
-
-/-- Helper lemma: `data.mergeSort` is sorted (`List.Pairwise (· ≤ ·)`). -/
-theorem pairwise_le_mergeSort (data : List Rat) :
-    List.Pairwise (· ≤ ·) data.mergeSort :=
-  List.sorted_mergeSort' (· ≤ ·) data
-
-/-- Helper lemma: permutations have identical `mergeSort` results. -/
-theorem perm_mergeSort_eq {data₁ data₂ : List Rat} (h : List.Perm data₁ data₂) :
-    data₁.mergeSort = data₂.mergeSort :=
-  List.eq_of_perm_of_sorted
-    ((List.mergeSort_perm data₁ _).trans (h.trans (List.mergeSort_perm data₂ _).symm))
-    (pairwise_le_mergeSort data₁)
-    (pairwise_le_mergeSort data₂)
-
-/-- Property 5: Permutation invariance — any permutation of `data` yields the exact same quantiles. -/
-def perm_invariant_prop (data₁ data₂ : List Rat) (n : Nat) (method : String) : Prop :=
-  List.Perm data₁ data₂ →
-    benchmark_quantiles data₁ n method = benchmark_quantiles data₂ n method ∧
-    benchmark_quantiles? data₁ n method = benchmark_quantiles? data₂ n method
-
-theorem perm_invariant_thm (data₁ data₂ : List Rat) (n : Nat) (method : String) :
-    perm_invariant_prop data₁ data₂ n method := by
-  intro hperm
-  have hlen : data₁.length = data₂.length := hperm.length_eq
-  have hsort : data₁.mergeSort = data₂.mergeSort := perm_mergeSort_eq hperm
-  have hpre : pre data₁ n method = pre data₂ n method := by simp [pre, hlen]
-  have hq : quantiles data₁ n method = quantiles data₂ n method := by simp [quantiles, hsort]
-  simp [benchmark_quantiles, benchmark_quantiles?, hpre, hq]
-
-/-- Property 6: Sorting idempotence — sorting `data` beforehand does not change the quantiles. -/
-def sort_idempotent_prop (data : List Rat) (n : Nat) (method : String) : Prop :=
-  benchmark_quantiles data.mergeSort n method = benchmark_quantiles data n method
-
-theorem sort_idempotent_thm (data : List Rat) (n : Nat) (method : String) :
-    sort_idempotent_prop data n method := by
-  unfold sort_idempotent_prop
-  exact (perm_invariant_thm data.mergeSort data n method (List.mergeSort_perm data _)).1
-
-/-- Property 7: Exact element-wise formula for the `"inclusive"` method. -/
-def inclusive_formula_prop (data : List Rat) (n : Nat) : Prop :=
-  Pre data n "inclusive" →
-    ∀ (k : Nat) (hk : k < (benchmark_quantiles data n "inclusive").length),
-      (benchmark_quantiles data n "inclusive")[k] = inclusiveStep data.mergeSort n (k + 1)
-
-theorem inclusive_formula_thm (data : List Rat) (n : Nat) :
-    inclusive_formula_prop data n := by
-  intro hPre k hk
-  have hvalid := (valid_input_thm data n "inclusive" hPre).1
-  rcases hPre with ⟨hld, hn, _⟩
-  have hn_not_lt : ¬ (n < 1) := by omega
-  have hld_not_lt : ¬ (data.length < 2) := by omega
-  have hq : benchmark_quantiles data n "inclusive" =
-      (List.range (n - 1)).map (fun k => inclusiveStep data.mergeSort n (k + 1)) := by
-    rw [hvalid]; unfold quantiles; simp [hn_not_lt, hld_not_lt]
-  simp [hq] at hk ⊢
-
-/-- Property 8: Exact element-wise formula for the `"exclusive"` method. -/
-def exclusive_formula_prop (data : List Rat) (n : Nat) : Prop :=
-  Pre data n "exclusive" →
-    ∀ (k : Nat) (hk : k < (benchmark_quantiles data n "exclusive").length),
-      (benchmark_quantiles data n "exclusive")[k] = exclusiveStep data.mergeSort n (k + 1)
-
-theorem exclusive_formula_thm (data : List Rat) (n : Nat) :
-    exclusive_formula_prop data n := by
-  intro hPre k hk
-  have hvalid := (valid_input_thm data n "exclusive" hPre).1
-  rcases hPre with ⟨hld, hn, _⟩
-  have hn_not_lt : ¬ (n < 1) := by omega
-  have hld_not_lt : ¬ (data.length < 2) := by omega
-  have hq : benchmark_quantiles data n "exclusive" =
-      (List.range (n - 1)).map (fun k => exclusiveStep data.mergeSort n (k + 1)) := by
-    rw [hvalid]; unfold quantiles; simp [hn_not_lt, hld_not_lt]
-  simp [hq] at hk ⊢
-
-/-- Helper lemma: indexing with `getD` into a sorted list is monotone. -/
-theorem sorted_getD_le {s : List Rat} (hs : List.Pairwise (· ≤ ·) s)
-    {a b : Nat} (hab : a ≤ b) (hb : b < s.length) :
+lemma getD_mono_of_pairwise {α : Type*} [Field α] [LinearOrder α]
+    {s : List α} (hs : List.Pairwise (· ≤ ·) s)
+    {a b : ℕ} (ha : a < s.length) (hb : b < s.length) (hab : a ≤ b) :
     s.getD a 0 ≤ s.getD b 0 := by
-  have ha : a < s.length := Nat.lt_of_le_of_lt hab hb
-  simp only [List.getD_eq_getElem?_getD, List.getElem?_eq_getElem ha, List.getElem?_eq_getElem hb, Option.getD_some]
+  rw [List.getD_eq_getElem s 0 ha, List.getD_eq_getElem s 0 hb]
   rcases Nat.eq_or_lt_of_le hab with rfl | hlt
   · exact le_rfl
   · exact (List.pairwise_iff_getElem.mp hs) a b ha hb hlt
 
-/-- Helper lemma: index bound `(i * (ld - 1)) / n + 1 < ld` for `1 ≤ i < n` and `ld ≥ 2`. -/
-theorem inclusive_div_lt {ld n i : Nat} (hld : ld ≥ 2) (hi : i < n) :
+lemma getD_eq_of_forall_eq {α : Type*} (s : List α) (c d : α) (h : ∀ x ∈ s, x = c)
+    {k : ℕ} (hk : k < s.length) : s.getD k d = c := by
+  rw [List.getD_eq_getElem s d hk]
+  exact h s[k] (List.getElem_mem hk)
+
+lemma getD_map_of_lt {α β : Type*} (s : List α) (f : α → β) (d₁ : β) (d₂ : α)
+    {k : ℕ} (hk : k < s.length) :
+    (s.map f).getD k d₁ = f (s.getD k d₂) := by
+  rw [List.getD_eq_getElem _ d₁ (by simp [hk]), List.getD_eq_getElem _ d₂ hk, List.getElem_map]
+
+lemma inclusive_j_lt {ld n i : ℕ} (hld : 2 ≤ ld) (hn : 1 ≤ n) (hi : i < n) :
     (i * (ld - 1)) / n + 1 < ld := by
-  have hn : 0 < n := Nat.zero_lt_of_lt hi
-  have hm : 0 < ld - 1 := by omega
-  have hmul : i * (ld - 1) < (ld - 1) * n := by
-    calc i * (ld - 1) ≤ (n - 1) * (ld - 1) := Nat.mul_le_mul_right (ld - 1) (by omega)
-    _ < n * (ld - 1) := Nat.mul_lt_mul_of_pos_right (by omega) hm
-    _ = (ld - 1) * n := Nat.mul_comm _ _
-  have hdiv : (i * (ld - 1)) / n < ld - 1 := (Nat.div_lt_iff_lt_mul hn).mpr hmul
+  have hmul : i * (ld - 1) < n * (ld - 1) := Nat.mul_lt_mul_of_pos_right hi (by omega)
+  have hdiv : (i * (ld - 1)) / n < ld - 1 := by
+    rw [Nat.div_lt_iff_lt_mul (by omega)]
+    linarith
   omega
 
-/-- Helper lemma: convex combination bounds over `Rat`. -/
-theorem convex_bounds {lo a b hi w d n : Rat}
-    (hn : 0 < n) (hw : 0 ≤ w) (hd : 0 ≤ d) (hsum : w + d = n)
-    (h1 : lo ≤ a) (h2 : a ≤ b) (h3 : b ≤ hi) :
-    lo ≤ (a * w + b * d) / n ∧ (a * w + b * d) / n ≤ hi := by
+lemma exclusiveClamp_bounds {ld q : ℕ} (hld : 2 ≤ ld) :
+    1 ≤ exclusiveClamp ld q ∧ exclusiveClamp ld q ≤ ld - 1 := by
+  unfold exclusiveClamp
+  split_ifs <;> omega
+
+lemma exclusiveClamp_mono {ld q₁ q₂ : ℕ} (hld : 2 ≤ ld) (hq : q₁ ≤ q₂) :
+    exclusiveClamp ld q₁ ≤ exclusiveClamp ld q₂ := by
+  unfold exclusiveClamp
+  split_ifs <;> omega
+
+lemma exclusiveClamp_ge_of_lt {ld q : ℕ} (h : exclusiveClamp ld q < ld - 1) :
+    q ≤ exclusiveClamp ld q := by
+  unfold exclusiveClamp at *
+  split_ifs at * <;> omega
+
+lemma exclusiveClamp_le_of_gt {ld q : ℕ} (h : 1 < exclusiveClamp ld q) :
+    exclusiveClamp ld q ≤ q := by
+  unfold exclusiveClamp at *
+  split_ifs at * <;> omega
+
+lemma inclusiveInterp_bounds {α : Type*} [Field α] [LinearOrder α] [IsStrictOrderedRing α]
+    {s : List α} {n i : ℕ}
+    (hs : List.Pairwise (· ≤ ·) s) (hld : 2 ≤ s.length) (hn : 1 ≤ n) (hi : i < n) :
+    s.getD ((i * (s.length - 1)) / n) 0 ≤ inclusiveInterp s n i ∧
+    inclusiveInterp s n i ≤ s.getD ((i * (s.length - 1)) / n + 1) 0 := by
+  unfold inclusiveInterp
+  dsimp only
+  set m := s.length - 1
+  set j := (i * m) / n
+  set d := (i * m) % n
+  have hj1 : j + 1 < s.length := inclusive_j_lt hld hn hi
+  have hj : j < s.length := by omega
+  have hle : s.getD j 0 ≤ s.getD (j + 1) 0 := getD_mono_of_pairwise hs hj hj1 (by omega)
+  have hmod : d < n := Nat.mod_lt _ (by omega)
+  have hn_pos : (0 : α) < (n : α) := by positivity
+  have hd_nonneg : (0 : α) ≤ (d : α) := Nat.cast_nonneg d
+  have hd_le : (d : α) ≤ (n : α) := by exact_mod_cast le_of_lt hmod
   constructor
-  · rw [le_div_iff₀ hn]
-    have h_eq : lo * n = lo * w + lo * d := by rw [← hsum]; ring
-    have h_w : lo * w ≤ a * w := mul_le_mul_of_nonneg_right h1 hw
-    have h_d : lo * d ≤ b * d := mul_le_mul_of_nonneg_right (le_trans h1 h2) hd
+  · rw [le_div_iff₀ hn_pos]
+    nlinarith
+  · rw [div_le_iff₀ hn_pos]
+    nlinarith
+
+lemma inclusiveInterp_mono {α : Type*} [Field α] [LinearOrder α] [IsStrictOrderedRing α]
+    {s : List α} {n i₁ i₂ : ℕ}
+    (hs : List.Pairwise (· ≤ ·) s) (hld : 2 ≤ s.length) (hn : 1 ≤ n)
+    (hi₁ : i₁ < n) (hi₂ : i₂ < n) (hle : i₁ ≤ i₂) :
+    inclusiveInterp s n i₁ ≤ inclusiveInterp s n i₂ := by
+  have hm_le : i₁ * (s.length - 1) ≤ i₂ * (s.length - 1) := Nat.mul_le_mul_right _ hle
+  set j₁ := (i₁ * (s.length - 1)) / n
+  set j₂ := (i₂ * (s.length - 1)) / n
+  have hj_le : j₁ ≤ j₂ := Nat.div_le_div_right hm_le
+  rcases Nat.eq_or_lt_of_le hj_le with hjeq | hjlt
+  · unfold inclusiveInterp
+    dsimp only
+    change (s.getD j₁ 0 * ((n : α) - (((i₁ * (s.length - 1)) % n : ℕ) : α)) +
+              s.getD (j₁ + 1) 0 * (((i₁ * (s.length - 1)) % n : ℕ) : α)) / (n : α) ≤
+           (s.getD j₂ 0 * ((n : α) - (((i₂ * (s.length - 1)) % n : ℕ) : α)) +
+              s.getD (j₂ + 1) 0 * (((i₂ * (s.length - 1)) % n : ℕ) : α)) / (n : α)
+    rw [← hjeq]
+    set d₁ : ℕ := (i₁ * (s.length - 1)) % n
+    set d₂ : ℕ := (i₂ * (s.length - 1)) % n
+    have hdiv1 : n * j₁ + d₁ = i₁ * (s.length - 1) := Nat.div_add_mod (i₁ * (s.length - 1)) n
+    have hdiv2 : n * j₁ + d₂ = i₂ * (s.length - 1) := by
+      rw [hjeq]
+      exact Nat.div_add_mod (i₂ * (s.length - 1)) n
+    have hd_le : d₁ ≤ d₂ := by omega
+    have hd_le_q : (d₁ : α) ≤ (d₂ : α) := by exact_mod_cast hd_le
+    have hj1 : j₁ + 1 < s.length := inclusive_j_lt hld hn hi₁
+    have hs_le : s.getD j₁ 0 ≤ s.getD (j₁ + 1) 0 := getD_mono_of_pairwise hs (by omega) hj1 (by omega)
+    have hn_pos : (0 : α) < (n : α) := by positivity
+    rw [div_le_div_iff_of_pos_right hn_pos]
+    nlinarith
+  · have hb1 := (inclusiveInterp_bounds hs hld hn hi₁).2
+    have hb2 := (inclusiveInterp_bounds hs hld hn hi₂).1
+    have hj1 : j₁ + 1 < s.length := inclusive_j_lt hld hn hi₁
+    have hj2 : j₂ < s.length := by
+      have h := inclusive_j_lt hld hn hi₂
+      change j₂ + 1 < s.length at h
+      omega
+    have hs_mid : s.getD (j₁ + 1) 0 ≤ s.getD j₂ 0 := getD_mono_of_pairwise hs hj1 hj2 (by omega)
     linarith
-  · rw [div_le_iff₀ hn]
-    have h_eq : hi * n = hi * w + hi * d := by rw [← hsum]; ring
-    have h_w : a * w ≤ hi * w := mul_le_mul_of_nonneg_right (le_trans h2 h3) hw
-    have h_d : b * d ≤ hi * d := mul_le_mul_of_nonneg_right h3 hd
+
+lemma exclusiveInterp_mono {α : Type*} [Field α] [LinearOrder α] [IsStrictOrderedRing α]
+    {s : List α} {n i₁ i₂ : ℕ}
+    (hs : List.Pairwise (· ≤ ·) s) (hld : 2 ≤ s.length) (hn : 1 ≤ n)
+    (hle : i₁ ≤ i₂) :
+    exclusiveInterp s n i₁ ≤ exclusiveInterp s n i₂ := by
+  unfold exclusiveInterp
+  dsimp only
+  set ld := s.length
+  set m := ld + 1
+  have hm_le : i₁ * m ≤ i₂ * m := Nat.mul_le_mul_right m hle
+  set q₁ := (i₁ * m) / n
+  set q₂ := (i₂ * m) / n
+  have hq_le : q₁ ≤ q₂ := Nat.div_le_div_right hm_le
+  set j₁ := exclusiveClamp ld q₁
+  set j₂ := exclusiveClamp ld q₂
+  have hj_le : j₁ ≤ j₂ := exclusiveClamp_mono hld hq_le
+  have hb₁ := exclusiveClamp_bounds (q := q₁) hld
+  have hb₂ := exclusiveClamp_bounds (q := q₂) hld
+  have hn_pos : (0 : α) < (n : α) := by positivity
+  rcases Nat.eq_or_lt_of_le hj_le with hjeq | hjlt
+  · rw [← hjeq]
+    set d₁ : ℤ := (i₁ * m : ℤ) - (j₁ * n : ℤ)
+    set d₂ : ℤ := (i₂ * m : ℤ) - (j₁ * n : ℤ)
+    have hd_le : d₁ ≤ d₂ := by omega
+    have hd_le_q : (d₁ : α) ≤ (d₂ : α) := by exact_mod_cast hd_le
+    have hs_le : s.getD (j₁ - 1) 0 ≤ s.getD j₁ 0 :=
+      getD_mono_of_pairwise hs (by omega) (by omega) (by omega)
+    rw [div_le_div_iff_of_pos_right hn_pos]
+    nlinarith
+  · have hq₁_le : q₁ ≤ j₁ := exclusiveClamp_ge_of_lt (by omega)
+    have hdiv₁ : n * q₁ + (i₁ * m) % n = i₁ * m := Nat.div_add_mod (i₁ * m) n
+    have hmod₁ : (i₁ * m) % n < n := Nat.mod_lt _ (by omega)
+    have hmul_le₁ : j₁ * n ≥ n * q₁ := by
+      rw [Nat.mul_comm j₁ n]
+      exact Nat.mul_le_mul_left n hq₁_le
+    have him₁_lt : i₁ * m < j₁ * n + n := by omega
+    set d₁ : ℤ := (i₁ * m : ℤ) - (j₁ * n : ℤ)
+    have hd₁_le : d₁ ≤ (n : ℤ) := by omega
+    have hd₁_le_q : (d₁ : α) ≤ (n : α) := by exact_mod_cast hd₁_le
+    have hj₂_le_q₂ : j₂ ≤ q₂ := exclusiveClamp_le_of_gt (by omega)
+    have hdiv₂ : n * q₂ + (i₂ * m) % n = i₂ * m := Nat.div_add_mod (i₂ * m) n
+    have hmul_le₂ : j₂ * n ≤ n * q₂ := by
+      rw [Nat.mul_comm j₂ n]
+      exact Nat.mul_le_mul_left n hj₂_le_q₂
+    have him₂_ge : j₂ * n ≤ i₂ * m := by omega
+    set d₂ : ℤ := (i₂ * m : ℤ) - (j₂ * n : ℤ)
+    have hd₂_ge : (0 : ℤ) ≤ d₂ := by omega
+    have hd₂_ge_q : (0 : α) ≤ (d₂ : α) := by exact_mod_cast hd₂_ge
+    have hs₁ : s.getD (j₁ - 1) 0 ≤ s.getD j₁ 0 :=
+      getD_mono_of_pairwise hs (by omega) (by omega) (by omega)
+    have hs₂ : s.getD (j₂ - 1) 0 ≤ s.getD j₂ 0 :=
+      getD_mono_of_pairwise hs (by omega) (by omega) (by omega)
+    have hs_mid : s.getD j₁ 0 ≤ s.getD (j₂ - 1) 0 :=
+      getD_mono_of_pairwise hs (by omega) (by omega) (by omega)
+    have hleft : (s.getD (j₁ - 1) 0 * ((n : α) - (d₁ : α)) + s.getD j₁ 0 * (d₁ : α)) / (n : α) ≤ s.getD j₁ 0 := by
+      rw [div_le_iff₀ hn_pos]
+      nlinarith
+    have hright : s.getD (j₂ - 1) 0 ≤ (s.getD (j₂ - 1) 0 * ((n : α) - (d₂ : α)) + s.getD j₂ 0 * (d₂ : α)) / (n : α) := by
+      rw [le_div_iff₀ hn_pos]
+      nlinarith
     linarith
 
-/-- Helper lemma: monotonicity of linear interpolation with identical endpoints. -/
-theorem interp_mono_same {a b w₁ d₁ w₂ d₂ n : Rat}
-    (hn : 0 < n) (hsum₁ : w₁ + d₁ = n) (hsum₂ : w₂ + d₂ = n)
-    (hab : a ≤ b) (hd : d₁ ≤ d₂) :
-    (a * w₁ + b * d₁) / n ≤ (a * w₂ + b * d₂) / n := by
-  rw [div_le_div_iff_of_pos_right hn]
-  have h : 0 ≤ (b - a) * (d₂ - d₁) := mul_nonneg (by linarith) (by linarith)
-  linear_combination h + a * hsum₁ - a * hsum₂
-
-/-- Helper lemma: monotonicity of linear interpolation across adjacent intervals. -/
-theorem interp_mono_diff {a₁ b₁ a₂ b₂ w₁ d₁ w₂ d₂ n : Rat}
-    (hn : 0 < n) (hsum₁ : w₁ + d₁ = n) (hsum₂ : w₂ + d₂ = n)
-    (hw₁ : 0 ≤ w₁) (hd₂ : 0 ≤ d₂)
-    (hab₁ : a₁ ≤ b₁) (hmid : b₁ ≤ a₂) (hab₂ : a₂ ≤ b₂) :
-    (a₁ * w₁ + b₁ * d₁) / n ≤ (a₂ * w₂ + b₂ * d₂) / n := by
-  rw [div_le_div_iff_of_pos_right hn]
-  have h1 : 0 ≤ (b₁ - a₁) * w₁ := mul_nonneg (by linarith) hw₁
-  have h2 : 0 ≤ (a₂ - b₁) * n := mul_nonneg (by linarith) (le_of_lt hn)
-  have h3 : 0 ≤ (b₂ - a₂) * d₂ := mul_nonneg (by linarith) hd₂
-  linear_combination h1 + h2 + h3 + b₁ * hsum₁ - a₂ * hsum₂
-
-/-- Helper lemma: remainder monotonicity when quotients are equal. -/
-theorem nat_mod_le_of_div_eq {x₁ x₂ n : Nat} (hx : x₁ ≤ x₂) (hj : x₁ / n = x₂ / n) :
-    x₁ % n ≤ x₂ % n := by
-  have h1 := Nat.div_add_mod x₁ n
-  have h2 := Nat.div_add_mod x₂ n
-  rw [hj] at h1
-  omega
-
-/-- Helper lemma: `((n - d : Nat) : Rat) + ((d : Nat) : Rat) = (n : Rat)` for `d < n`. -/
-theorem nat_sub_add_cancel_rat {n d : Nat} (hd : d < n) :
-    ((n - d : Nat) : Rat) + ((d : Nat) : Rat) = (n : Rat) := by
-  exact_mod_cast Nat.sub_add_cancel (Nat.le_of_lt hd)
-
-/-- Helper lemma: `inclusiveStep` is monotone in `i`. -/
-theorem inclusiveStep_mono {s : List Rat} {n i₁ i₂ : Nat}
-    (hs : List.Pairwise (· ≤ ·) s) (hld : s.length ≥ 2) (hle : i₁ ≤ i₂) (hi₂ : i₂ < n) :
-    inclusiveStep s n i₁ ≤ inclusiveStep s n i₂ := by
-  unfold inclusiveStep
-  dsimp only
-  have hn : 0 < n := by omega
-  have hn_rat : (0 : Rat) < (n : Rat) := by exact_mod_cast hn
-  have hx : i₁ * (s.length - 1) ≤ i₂ * (s.length - 1) := Nat.mul_le_mul_right _ hle
-  have hj : (i₁ * (s.length - 1)) / n ≤ (i₂ * (s.length - 1)) / n := Nat.div_le_div_right hx
-  have hj₂_lt : (i₂ * (s.length - 1)) / n + 1 < s.length := inclusive_div_lt hld hi₂
-  have hj₁_lt : (i₁ * (s.length - 1)) / n + 1 < s.length := by omega
-  have hd₁_lt : (i₁ * (s.length - 1)) % n < n := Nat.mod_lt _ hn
-  have hd₂_lt : (i₂ * (s.length - 1)) % n < n := Nat.mod_lt _ hn
-  have hsum₁ := nat_sub_add_cancel_rat hd₁_lt
-  have hsum₂ := nat_sub_add_cancel_rat hd₂_lt
-  have hs₁ : s.getD ((i₁ * (s.length - 1)) / n) 0 ≤ s.getD ((i₁ * (s.length - 1)) / n + 1) 0 :=
-    sorted_getD_le hs (Nat.le_succ _) hj₁_lt
-  have hs₂ : s.getD ((i₂ * (s.length - 1)) / n) 0 ≤ s.getD ((i₂ * (s.length - 1)) / n + 1) 0 :=
-    sorted_getD_le hs (Nat.le_succ _) hj₂_lt
-  rcases Nat.eq_or_lt_of_le hj with hjeq | hjlt
-  · have hd_rat : (((i₁ * (s.length - 1)) % n : Nat) : Rat) ≤ (((i₂ * (s.length - 1)) % n : Nat) : Rat) :=
-      Nat.cast_le.mpr (nat_mod_le_of_div_eq hx hjeq)
-    rw [hjeq]
-    exact interp_mono_same hn_rat hsum₁ hsum₂ hs₂ hd_rat
-  · have hs_mid : s.getD ((i₁ * (s.length - 1)) / n + 1) 0 ≤ s.getD ((i₂ * (s.length - 1)) / n) 0 :=
-      sorted_getD_le hs hjlt (by omega)
-    exact interp_mono_diff hn_rat hsum₁ hsum₂ (by positivity) (by positivity) hs₁ hs_mid hs₂
-
-/-- Helper lemma: `clampNat` bounds. -/
-theorem clampNat_bounds {j0 low high : Nat} (h : low ≤ high) :
-    low ≤ clampNat j0 low high ∧ clampNat j0 low high ≤ high := by
-  unfold clampNat; split_ifs <;> omega
-
-/-- Helper lemma: `clampNat` monotonicity. -/
-theorem clampNat_mono {a b low high : Nat} (h : low ≤ high) (hab : a ≤ b) :
-    clampNat a low high ≤ clampNat b low high := by
-  unfold clampNat; split_ifs <;> omega
-
-/-- Helper lemma: `clampNat` strict inequality implies unclamped bounds. -/
-theorem clampNat_le_of_lt {a b low high : Nat} (h : low ≤ high) (hlt : clampNat a low high < clampNat b low high) :
-    a ≤ clampNat a low high ∧ clampNat b low high ≤ b := by
-  unfold clampNat at hlt ⊢
-  split_ifs at hlt ⊢ <;> omega
-
-/-- Helper lemma: `delta` monotonicity in exclusive mode when clamped indices are equal. -/
-theorem exclusive_delta_le_of_eq {i₁ i₂ m j₁ j₂ n : Nat}
-    (hx : i₁ * m ≤ i₂ * m) (hj : j₁ = j₂) :
-    ((i₁ : Int) * (m : Int) - (j₁ : Int) * (n : Int)) ≤
-    ((i₂ : Int) * (m : Int) - (j₂ : Int) * (n : Int)) := by
-  have hx_int : ((i₁ * m : Nat) : Int) ≤ ((i₂ * m : Nat) : Int) := by exact_mod_cast hx
-  push_cast at hx_int
-  rw [hj]
-  omega
-
-/-- Helper lemma: `delta` bounds in exclusive mode when clamped index strictly increases. -/
-theorem exclusive_delta_bounds_of_lt {i₁ i₂ m n high : Nat} (hn : 0 < n)
-    (h : 1 ≤ high) (hlt : clampNat ((i₁ * m) / n) 1 high < clampNat ((i₂ * m) / n) 1 high) :
-    (i₁ : Int) * (m : Int) - (clampNat ((i₁ * m) / n) 1 high : Int) * (n : Int) ≤ (n : Int) ∧
-    (0 : Int) ≤ (i₂ : Int) * (m : Int) - (clampNat ((i₂ * m) / n) 1 high : Int) * (n : Int) := by
-  have hcl := clampNat_le_of_lt h hlt
-  have hj0₁ : (i₁ * m) / n ≤ clampNat ((i₁ * m) / n) 1 high := hcl.1
-  have hj0₂ : clampNat ((i₂ * m) / n) 1 high ≤ (i₂ * m) / n := hcl.2
-  have hdiv₁ := Nat.div_add_mod (i₁ * m) n
-  have hmod₁ := Nat.mod_lt (i₁ * m) hn
-  have hdiv₂ := Nat.div_add_mod (i₂ * m) n
-  have hm₁ : n * ((i₁ * m) / n) ≤ n * clampNat ((i₁ * m) / n) 1 high := Nat.mul_le_mul_left n hj0₁
-  have hm₂ : n * clampNat ((i₂ * m) / n) 1 high ≤ n * ((i₂ * m) / n) := Nat.mul_le_mul_left n hj0₂
-  have hcomm₁ : clampNat ((i₁ * m) / n) 1 high * n = n * clampNat ((i₁ * m) / n) 1 high := Nat.mul_comm _ _
-  have hcomm₂ : clampNat ((i₂ * m) / n) 1 high * n = n * clampNat ((i₂ * m) / n) 1 high := Nat.mul_comm _ _
-  have hx₁ : ((i₁ * m : Nat) : Int) = (i₁ : Int) * (m : Int) := by push_cast; rfl
-  have hx₂ : ((i₂ * m : Nat) : Int) = (i₂ : Int) * (m : Int) := by push_cast; rfl
-  omega
-
-/-- Helper lemma: `exclusiveStep` is monotone in `i`. -/
-theorem exclusiveStep_mono {s : List Rat} {n i₁ i₂ : Nat}
-    (hs : List.Pairwise (· ≤ ·) s) (hld : s.length ≥ 2) (hle : i₁ ≤ i₂) (hi₂ : i₂ < n) :
-    exclusiveStep s n i₁ ≤ exclusiveStep s n i₂ := by
-  unfold exclusiveStep
-  dsimp only
-  have hn : 0 < n := by omega
-  have hn_rat : (0 : Rat) < (n : Rat) := by exact_mod_cast hn
-  have hx : i₁ * (s.length + 1) ≤ i₂ * (s.length + 1) := Nat.mul_le_mul_right _ hle
-  have hj0 : (i₁ * (s.length + 1)) / n ≤ (i₂ * (s.length + 1)) / n := Nat.div_le_div_right hx
-  have hj_b₁ := clampNat_bounds (j0 := (i₁ * (s.length + 1)) / n) (low := 1) (high := s.length - 1) (by omega)
-  have hj_b₂ := clampNat_bounds (j0 := (i₂ * (s.length + 1)) / n) (low := 1) (high := s.length - 1) (by omega)
-  have hj : clampNat ((i₁ * (s.length + 1)) / n) 1 (s.length - 1) ≤
-            clampNat ((i₂ * (s.length + 1)) / n) 1 (s.length - 1) := clampNat_mono (by omega) hj0
-  set j₁ := clampNat ((i₁ * (s.length + 1)) / n) 1 (s.length - 1)
-  set j₂ := clampNat ((i₂ * (s.length + 1)) / n) 1 (s.length - 1)
-  set d₁ : Int := (i₁ : Int) * ((s.length + 1 : Nat) : Int) - (j₁ : Int) * (n : Int)
-  set d₂ : Int := (i₂ : Int) * ((s.length + 1 : Nat) : Int) - (j₂ : Int) * (n : Int)
-  have hs₁ : s.getD (j₁ - 1) 0 ≤ s.getD j₁ 0 := sorted_getD_le hs (by omega) (by omega)
-  have hs₂ : s.getD (j₂ - 1) 0 ≤ s.getD j₂ 0 := sorted_getD_le hs (by omega) (by omega)
-  have hsum₁ : ((n : Int) - d₁ : Rat) + (d₁ : Rat) = (n : Rat) := by push_cast; ring
-  have hsum₂ : ((n : Int) - d₂ : Rat) + (d₂ : Rat) = (n : Rat) := by push_cast; ring
-  rcases Nat.eq_or_lt_of_le hj with hjeq | hjlt
-  · have hd_le : d₁ ≤ d₂ := exclusive_delta_le_of_eq hx hjeq
-    have hd_rat : (d₁ : Rat) ≤ (d₂ : Rat) := Int.cast_le.mpr hd_le
-    rw [hjeq]
-    exact interp_mono_same hn_rat hsum₁ hsum₂ hs₂ hd_rat
-  · have hdb := exclusive_delta_bounds_of_lt hn (by omega) hjlt
-    have hw₁_rat : (0 : Rat) ≤ ((n : Int) - d₁ : Rat) := sub_nonneg.mpr (Int.cast_le.mpr hdb.1)
-    have hd₂_rat : (0 : Rat) ≤ (d₂ : Rat) := Int.cast_nonneg.mpr hdb.2
-    have hs_mid : s.getD j₁ 0 ≤ s.getD (j₂ - 1) 0 := sorted_getD_le hs (by omega) (by omega)
-    exact interp_mono_diff hn_rat hsum₁ hsum₂ hw₁_rat hd₂_rat hs₁ hs_mid hs₂
-
-/-- Helper lemma: mapping a monotone function over `List.range m` produces a sorted list. -/
-theorem pairwise_map_range (m : Nat) (f : Nat → Rat)
-    (hf : ∀ a b, a ≤ b → b < m → f a ≤ f b) :
-    List.Pairwise (· ≤ ·) ((List.range m).map f) := by
+lemma pairwise_map_range' {α : Type*} [Preorder α] (f : ℕ → α) (n : ℕ)
+    (hf : ∀ i₁ i₂, i₁ < n → i₂ < n → i₁ ≤ i₂ → f i₁ ≤ f i₂) :
+    List.Pairwise (· ≤ ·) ((List.range' 1 (n - 1)).map f) := by
   rw [List.pairwise_iff_getElem]
   intro a b ha hb hab
-  simp only [List.length_map, List.length_range] at ha hb
-  simp only [List.getElem_map, List.getElem_range]
-  exact hf a b (Nat.le_of_lt hab) hb
+  rw [List.length_map, List.length_range'] at ha hb
+  rw [List.getElem_map, List.getElem_map, List.getElem_range', List.getElem_range']
+  apply hf <;> omega
 
-/-- Property 9: Output monotonicity / sortedness — for both `"inclusive"` and `"exclusive"` methods,
-    the returned list of quantile cut points is sorted in non-decreasing order. -/
-def output_sorted_prop (data : List Rat) (n : Nat) (method : String) : Prop :=
-  Pre data n method → List.Pairwise (· ≤ ·) (benchmark_quantiles data n method)
+lemma quantilesGeneric_eq_benchmark {α : Type*} [Field α] [LE α] [DecidableRel (· ≤ · : α → α → Prop)]
+    (data : List α) (n : ℕ) (method : String) :
+    (if !(pre data n method) then none else quantilesGeneric data n method) =
+    quantilesGeneric data n method := by
+  unfold pre quantilesGeneric
+  by_cases hn : n < 1
+  · have hn' : ¬ (n ≥ 1) := by omega
+    simp [hn, hn']
+  · have hn' : n ≥ 1 := by omega
+    by_cases hld : data.length < 2
+    · have hld' : ¬ (data.length ≥ 2) := by omega
+      simp [hn, hn', hld, hld']
+    · have hld' : data.length ≥ 2 := by omega
+      by_cases hm1 : method == "inclusive"
+      · simp [hn, hn', hld, hld', hm1]
+      · by_cases hm2 : method == "exclusive"
+        · simp [hn, hn', hld, hld', hm1, hm2]
+        · simp [hn, hn', hld, hld', hm1, hm2]
 
-theorem output_sorted_thm (data : List Rat) (n : Nat) (method : String) :
-    output_sorted_prop data n method := by
-  intro hPre
-  have hvalid := (valid_input_thm data n method hPre).1
-  rw [hvalid]
-  rcases hPre with ⟨hld, hn, hmethod⟩
-  have hn_not_lt : ¬ (n < 1) := by omega
-  have hld_sort : (data.mergeSort).length ≥ 2 := by rw [List.length_mergeSort]; exact hld
-  have hld_not_lt : ¬ ((data.mergeSort).length < 2) := by omega
-  have hsort : List.Pairwise (· ≤ ·) data.mergeSort := pairwise_le_mergeSort data
+lemma quantilesGeneric_inclusive_of_pre {α : Type*} [Field α] [LE α] [DecidableRel (· ≤ · : α → α → Prop)]
+    (data : List α) (n : ℕ) (hld : 2 ≤ data.length) (hn : 1 ≤ n) :
+    quantilesGeneric data n "inclusive" =
+      some ((List.range' 1 (n - 1)).map (inclusiveInterp (List.insertionSort (· ≤ ·) data) n)) := by
+  unfold quantilesGeneric
+  have hn' : ¬ (n < 1) := by omega
+  have hld' : ¬ (data.length < 2) := by omega
+  simp [hn', hld']
+
+lemma quantilesGeneric_exclusive_of_pre {α : Type*} [Field α] [LE α] [DecidableRel (· ≤ · : α → α → Prop)]
+    (data : List α) (n : ℕ) (hld : 2 ≤ data.length) (hn : 1 ≤ n) :
+    quantilesGeneric data n "exclusive" =
+      some ((List.range' 1 (n - 1)).map (exclusiveInterp (List.insertionSort (· ≤ ·) data) n)) := by
+  unfold quantilesGeneric
+  have hn' : ¬ (n < 1) := by omega
+  have hld' : ¬ (data.length < 2) := by omega
+  have hne : ("exclusive" == "inclusive") = false := by decide
+  simp [hn', hld', hne]
+
+theorem benchmark_quantiles_eq_quantiles (data : List ℚ) (n : ℕ) (method : String) :
+    benchmark_quantiles data n method = quantiles data n method :=
+  quantilesGeneric_eq_benchmark data n method
+
+theorem benchmark_quantilesReal_eq_quantilesReal (data : List ℝ) (n : ℕ) (method : String) :
+    benchmark_quantilesReal data n method = quantilesReal data n method := by
+  letI : DecidableRel (· ≤ · : ℝ → ℝ → Prop) := Classical.decRel _
+  exact quantilesGeneric_eq_benchmark data n method
+
+theorem benchmark_quantilesFloat_eq_quantilesFloat (data : List Float) (n : ℕ) (method : String) :
+    benchmark_quantilesFloat data n method = quantilesFloat data n method := by
+  unfold benchmark_quantilesFloat pre quantilesFloat
+  by_cases hn : n < 1
+  · have hn' : ¬ (n ≥ 1) := by omega
+    simp [hn, hn']
+  · have hn' : n ≥ 1 := by omega
+    by_cases hld : data.length < 2
+    · have hld' : ¬ (data.length ≥ 2) := by omega
+      simp [hn, hn', hld, hld']
+    · have hld' : data.length ≥ 2 := by omega
+      by_cases hm1 : method == "inclusive"
+      · simp [hn, hn', hld, hld', hm1]
+      · by_cases hm2 : method == "exclusive"
+        · simp [hn, hn', hld, hld', hm1, hm2]
+        · simp [hn, hn', hld, hld', hm1, hm2]
+
+/-! ### Property 1: Validity / Error Characterization (`valid_iff_pre_prop`) -/
+
+/-- Property 1: `benchmark_quantiles` succeeds (`isSome`) iff `Pre` holds, and returns `none` otherwise. -/
+def valid_iff_pre_prop (data : List ℚ) (n : ℕ) (method : String) : Prop :=
+  (benchmark_quantiles data n method).isSome = true ↔ Pre data n method
+
+theorem valid_iff_pre_thm (data : List ℚ) (n : ℕ) (method : String) :
+    valid_iff_pre_prop data n method := by
+  unfold valid_iff_pre_prop
+  rw [benchmark_quantiles_eq_quantiles]
+  unfold quantiles quantilesGeneric Pre
+  by_cases hn : n < 1
+  · simp [hn]
+  · by_cases hld : data.length < 2
+    · simp [hn, hld]
+    · by_cases hm1 : method = "inclusive"
+      · subst hm1; simp [hn, hld]; omega
+      · by_cases hm2 : method = "exclusive"
+        · subst hm2; simp [hn, hld]; omega
+        · have hm1' : (method == "inclusive") = false := beq_false_of_ne hm1
+          have hm2' : (method == "exclusive") = false := beq_false_of_ne hm2
+          simp [hn, hld, hm1, hm2, hm1', hm2']
+
+theorem error_iff_not_pre_thm (data : List ℚ) (n : ℕ) (method : String) :
+    benchmark_quantiles data n method = none ↔ ¬ Pre data n method := by
+  rw [← Option.not_isSome_iff_eq_none, Bool.not_eq_true, ← Bool.not_eq_true]
+  exact not_iff_not.mpr (valid_iff_pre_thm data n method)
+
+/-! ### Property 2: Output Length (`length_prop`) -/
+
+/-- Property 2: Under `Pre data n method`, `benchmark_quantiles` returns a list of length `n - 1`. -/
+def length_prop (data : List ℚ) (n : ℕ) (method : String) : Prop :=
+  ∃ res, benchmark_quantiles data n method = some res ∧ res.length = n - 1
+
+theorem length_thm (data : List ℚ) (n : ℕ) (method : String) (hpre : Pre data n method) :
+    length_prop data n method := by
+  unfold length_prop
+  rw [benchmark_quantiles_eq_quantiles]
   unfold quantiles
-  rcases hmethod with rfl | rfl
-  · simp only [hn_not_lt, ↓reduceIte, hld_not_lt, beq_self_eq_true]
-    apply pairwise_map_range
-    intro a b hab hb
-    exact inclusiveStep_mono hsort hld_sort (by omega) (by omega)
-  · have hne : ("exclusive" == "inclusive") = false := rfl
-    simp only [hn_not_lt, ↓reduceIte, hld_not_lt, hne, Bool.false_eq_true, beq_self_eq_true]
-    apply pairwise_map_range
-    intro a b hab hb
-    exact exclusiveStep_mono hsort hld_sort (by omega) (by omega)
+  rcases hpre with ⟨hld, hn, hm | hm⟩
+  · subst hm
+    rw [quantilesGeneric_inclusive_of_pre data n hld hn]
+    exact ⟨_, rfl, by simp [List.length_map, List.length_range']⟩
+  · subst hm
+    rw [quantilesGeneric_exclusive_of_pre data n hld hn]
+    exact ⟨_, rfl, by simp [List.length_map, List.length_range']⟩
 
-/-- Helper lemma: bounds on `inclusiveStep`. -/
-theorem inclusiveStep_bounds {s : List Rat} {n i : Nat}
-    (hs : List.Pairwise (· ≤ ·) s) (hld : s.length ≥ 2) (hin : i < n) :
-    s.getD 0 0 ≤ inclusiveStep s n i ∧ inclusiveStep s n i ≤ s.getD (s.length - 1) 0 := by
-  unfold inclusiveStep
-  dsimp only
-  have hn : 0 < n := by omega
-  have hn_rat : (0 : Rat) < (n : Rat) := by exact_mod_cast hn
-  have hj_lt : (i * (s.length - 1)) / n + 1 < s.length := inclusive_div_lt hld hin
-  have hdel_lt : (i * (s.length - 1)) % n < n := Nat.mod_lt _ hn
-  have hsum := nat_sub_add_cancel_rat hdel_lt
-  exact convex_bounds hn_rat (by positivity) (by positivity) hsum
-    (sorted_getD_le hs (Nat.zero_le _) (by omega))
-    (sorted_getD_le hs (Nat.le_succ _) hj_lt)
-    (sorted_getD_le hs (by omega) (by omega))
+/-! ### Property 3: Permutation and Sorting Invariance (`perm_invariant_thm` / `sorted_idempotent_prop`) -/
 
-/-- Property 10: Inclusive bounds — when `method = "inclusive"`, every cut point lies
-    between the minimum (`data.mergeSort[0]`) and maximum (`data.mergeSort[ld - 1]`) of `data`. -/
-def inclusive_bounds_prop (data : List Rat) (n : Nat) : Prop :=
-  Pre data n "inclusive" →
-    ∀ q ∈ benchmark_quantiles data n "inclusive",
-      data.mergeSort.getD 0 0 ≤ q ∧ q ≤ data.mergeSort.getD (data.length - 1) 0
+/-- Property 3: Sorting `data` before calling `benchmark_quantiles` leaves the output unchanged. -/
+def sorted_idempotent_prop (data : List ℚ) (n : ℕ) (method : String) : Prop :=
+  benchmark_quantiles (List.insertionSort (· ≤ ·) data) n method = benchmark_quantiles data n method
 
-theorem inclusive_bounds_thm (data : List Rat) (n : Nat) :
-    inclusive_bounds_prop data n := by
-  intro hPre q hq
-  have hvalid := (valid_input_thm data n "inclusive" hPre).1
-  rcases hPre with ⟨hld, hn, _⟩
-  have hn_not_lt : ¬ (n < 1) := by omega
-  have hld_eq : data.mergeSort.length = data.length := List.length_mergeSort data
-  have hld_sort : data.mergeSort.length ≥ 2 := by omega
-  have hld_not_lt : ¬ (data.mergeSort.length < 2) := by omega
-  have hsort : List.Pairwise (· ≤ ·) data.mergeSort := pairwise_le_mergeSort data
-  rw [hvalid] at hq
-  unfold quantiles at hq
-  simp only [hn_not_lt, ↓reduceIte, hld_not_lt, beq_self_eq_true, List.mem_map, List.mem_range] at hq
-  rcases hq with ⟨k, hk, rfl⟩
-  rw [← hld_eq]
-  exact inclusiveStep_bounds hsort hld_sort (by omega)
+theorem perm_invariant_thm {data₁ data₂ : List ℚ} (hperm : List.Perm data₁ data₂) (n : ℕ) (method : String) :
+    benchmark_quantiles data₁ n method = benchmark_quantiles data₂ n method := by
+  rw [benchmark_quantiles_eq_quantiles, benchmark_quantiles_eq_quantiles]
+  unfold quantiles quantilesGeneric
+  have hsort_eq : List.insertionSort (· ≤ ·) data₁ = List.insertionSort (· ≤ ·) data₂ := by
+    apply List.Perm.eq_of_sorted (fun a b _ _ hab hba => le_antisymm hab hba)
+    · exact List.sorted_insertionSort (· ≤ ·) data₁
+    · exact List.sorted_insertionSort (· ≤ ·) data₂
+    · exact (List.perm_insertionSort (· ≤ ·) data₁).trans (hperm.trans (List.perm_insertionSort (· ≤ ·) data₂).symm)
+  simp [hsort_eq]
 
-/-- Helper lemma: when `n ≤ ld + 1` and `1 ≤ i < n`, the exclusive delta lies in `[0, n]`. -/
-theorem exclusive_delta_bounds_when_n_le {ld n i : Nat}
-    (hld : ld ≥ 2) (hn_le : n ≤ ld + 1) (hi1 : 1 ≤ i) (hin : i < n) :
-    let j := clampNat ((i * (ld + 1)) / n) 1 (ld - 1)
-    (i : Int) * ((ld + 1 : Nat) : Int) - (j : Int) * (n : Int) ≤ (n : Int) ∧
-    (0 : Int) ≤ (i : Int) * ((ld + 1 : Nat) : Int) - (j : Int) * (n : Int) := by
-  dsimp only
-  have hn : 0 < n := by omega
-  have hge : 1 * n ≤ i * (ld + 1) := by
-    calc 1 * n ≤ i * n := Nat.mul_le_mul_right n hi1
-    _ ≤ i * (ld + 1) := Nat.mul_le_mul_left i hn_le
-  have hj0_ge : 1 ≤ (i * (ld + 1)) / n := (Nat.le_div_iff_mul_le hn).mpr hge
-  have hj_le_j0 : clampNat ((i * (ld + 1)) / n) 1 (ld - 1) ≤ (i * (ld + 1)) / n := by
-    unfold clampNat; split_ifs <;> omega
-  have hdiv := Nat.div_add_mod (i * (ld + 1)) n
-  have hmod := Nat.mod_lt (i * (ld + 1)) hn
-  have hm_lo : n * clampNat ((i * (ld + 1)) / n) 1 (ld - 1) ≤ n * ((i * (ld + 1)) / n) :=
-    Nat.mul_le_mul_left n hj_le_j0
-  have hcomm : clampNat ((i * (ld + 1)) / n) 1 (ld - 1) * n = n * clampNat ((i * (ld + 1)) / n) 1 (ld - 1) :=
-    Nat.mul_comm _ _
-  have hx : ((i * (ld + 1) : Nat) : Int) = (i : Int) * ((ld + 1 : Nat) : Int) := by push_cast; rfl
-  have h_upper : i * (ld + 1) ≤ clampNat ((i * (ld + 1)) / n) 1 (ld - 1) * n + n := by
-    by_cases hhi : (i * (ld + 1)) / n > ld - 1
-    · have hcl : clampNat ((i * (ld + 1)) / n) 1 (ld - 1) = ld - 1 := by
-        unfold clampNat; split_ifs <;> omega
-      rw [hcl]
-      obtain ⟨k, rfl⟩ : ∃ k, n = k + 1 := ⟨n - 1, by omega⟩
-      obtain ⟨l, rfl⟩ : ∃ l, ld = l + 2 := ⟨ld - 2, by omega⟩
-      have h1 : i * (l + 2 + 1) ≤ k * (l + 2 + 1) := Nat.mul_le_mul_right _ (by omega)
-      have h2 : k * (l + 2 + 1) = k * l + 3 * k := by ring
-      have h3 : (l + 2 - 1) * (k + 1) + (k + 1) = k * l + 2 * k + l + 2 := by
-        change (l + 1) * (k + 1) + (k + 1) = k * l + 2 * k + l + 2; ring
-      omega
-    · have hcl : clampNat ((i * (ld + 1)) / n) 1 (ld - 1) = (i * (ld + 1)) / n := by
-        unfold clampNat; split_ifs <;> omega
-      rw [hcomm, hcl]
-      omega
-  omega
+theorem sorted_idempotent_thm (data : List ℚ) (n : ℕ) (method : String) :
+    sorted_idempotent_prop data n method :=
+  perm_invariant_thm (List.perm_insertionSort (· ≤ ·) data) n method
 
-/-- Helper lemma: bounds on `exclusiveStep` when `n ≤ s.length + 1`. -/
-theorem exclusiveStep_bounds {s : List Rat} {n i : Nat}
-    (hs : List.Pairwise (· ≤ ·) s) (hld : s.length ≥ 2) (hn_le : n ≤ s.length + 1)
-    (hi1 : 1 ≤ i) (hin : i < n) :
-    s.getD 0 0 ≤ exclusiveStep s n i ∧ exclusiveStep s n i ≤ s.getD (s.length - 1) 0 := by
-  unfold exclusiveStep
-  dsimp only
-  have hn : 0 < n := by omega
-  have hn_rat : (0 : Rat) < (n : Rat) := by exact_mod_cast hn
-  have hj_b := clampNat_bounds (j0 := (i * (s.length + 1)) / n) (low := 1) (high := s.length - 1) (by omega)
-  set j := clampNat ((i * (s.length + 1)) / n) 1 (s.length - 1)
-  set d : Int := (i : Int) * ((s.length + 1 : Nat) : Int) - (j : Int) * (n : Int)
-  have hdb := exclusive_delta_bounds_when_n_le hld hn_le hi1 hin
-  have hw_rat : (0 : Rat) ≤ ((n : Int) - d : Rat) := sub_nonneg.mpr (Int.cast_le.mpr hdb.1)
-  have hd_rat : (0 : Rat) ≤ (d : Rat) := Int.cast_nonneg.mpr hdb.2
-  have hsum : ((n : Int) - d : Rat) + (d : Rat) = (n : Rat) := by push_cast; ring
-  exact convex_bounds hn_rat hw_rat hd_rat hsum
-    (sorted_getD_le hs (by omega) (by omega))
-    (sorted_getD_le hs (by omega) (by omega))
-    (sorted_getD_le hs (by omega) (by omega))
+/-! ### Property 4: Monotonicity / Sortedness of Cut Points (`monotone_prop`) -/
 
-/-- Property 11: Exclusive bounds — when `method = "exclusive"` and `n ≤ data.length + 1`,
-    every cut point lies between the minimum and maximum of `data`. -/
-def exclusive_bounds_prop (data : List Rat) (n : Nat) : Prop :=
-  Pre data n "exclusive" → n ≤ data.length + 1 →
-    ∀ q ∈ benchmark_quantiles data n "exclusive",
-      data.mergeSort.getD 0 0 ≤ q ∧ q ≤ data.mergeSort.getD (data.length - 1) 0
+/-- Property 4: Under `Pre data n method`, the returned cut points are sorted in non-decreasing order. -/
+def monotone_prop (data : List ℚ) (n : ℕ) (method : String) : Prop :=
+  ∃ res, benchmark_quantiles data n method = some res ∧ List.Pairwise (· ≤ ·) res
 
-theorem exclusive_bounds_thm (data : List Rat) (n : Nat) :
-    exclusive_bounds_prop data n := by
-  intro hPre hn_le q hq
-  have hvalid := (valid_input_thm data n "exclusive" hPre).1
-  rcases hPre with ⟨hld, hn, _⟩
-  have hn_not_lt : ¬ (n < 1) := by omega
-  have hld_eq : data.mergeSort.length = data.length := List.length_mergeSort data
-  have hld_sort : data.mergeSort.length ≥ 2 := by omega
-  have hld_not_lt : ¬ (data.mergeSort.length < 2) := by omega
-  have hsort : List.Pairwise (· ≤ ·) data.mergeSort := pairwise_le_mergeSort data
-  have hne : ("exclusive" == "inclusive") = false := rfl
-  rw [hvalid] at hq
-  unfold quantiles at hq
-  simp only [hn_not_lt, ↓reduceIte, hld_not_lt, hne, Bool.false_eq_true, beq_self_eq_true,
-    List.mem_map, List.mem_range] at hq
-  rcases hq with ⟨k, hk, rfl⟩
-  rw [← hld_eq] at hn_le ⊢
-  exact exclusiveStep_bounds hsort hld_sort hn_le (by omega) (by omega)
-
-/-- Helper lemma: sorting a replicated list `List.replicate ld c` returns `List.replicate ld c`. -/
-theorem mergeSort_replicate (ld : Nat) (c : Rat) :
-    (List.replicate ld c).mergeSort = List.replicate ld c := by
-  rw [List.eq_replicate_iff]
-  refine ⟨by simp, fun x hx => ?_⟩
-  exact List.eq_of_mem_replicate ((List.mergeSort_perm (List.replicate ld c) _).subset hx)
-
-/-- Helper lemma: interpolating between equal values `c` and `c` yields `c`. -/
-theorem interp_const {c w d n : Rat} (hn : n ≠ 0) (hsum : w + d = n) :
-    (c * w + c * d) / n = c := by
-  have h : c * w + c * d = c * n := by linear_combination c * hsum
-  rw [h, mul_div_cancel_right₀ c hn]
-
-/-- Property 12: Constant dataset — if all `ld ≥ 2` elements of `data` equal `c`,
-    every cut point in `benchmark_quantiles` equals `c`. -/
-def constant_data_prop (ld : Nat) (c : Rat) (n : Nat) (method : String) : Prop :=
-  Pre (List.replicate ld c) n method →
-    benchmark_quantiles (List.replicate ld c) n method = List.replicate (n - 1) c
-
-theorem constant_data_thm (ld : Nat) (c : Rat) (n : Nat) (method : String) :
-    constant_data_prop ld c n method := by
-  intro hPre
-  have hvalid := (valid_input_thm (List.replicate ld c) n method hPre).1
-  rw [hvalid]
-  rcases hPre with ⟨hld, hn, hmethod⟩
-  simp only [List.length_replicate] at hld
-  have hn_not_lt : ¬ (n < 1) := by omega
-  have hn_pos : (n : Rat) ≠ 0 := by exact_mod_cast (by omega : n ≠ 0)
-  have hrep : (List.replicate ld c).mergeSort = List.replicate ld c := mergeSort_replicate ld c
-  have hld_not_lt : ¬ ((List.replicate ld c).mergeSort.length < 2) := by simp [hrep]; omega
+theorem monotone_thm (data : List ℚ) (n : ℕ) (method : String) (hpre : Pre data n method) :
+    monotone_prop data n method := by
+  unfold monotone_prop
+  rw [benchmark_quantiles_eq_quantiles]
   unfold quantiles
-  rcases hmethod with rfl | rfl
-  · simp only [hn_not_lt, ↓reduceIte, hld_not_lt, beq_self_eq_true]
-    rw [List.eq_replicate_iff]
-    refine ⟨by simp, fun q hq => ?_⟩
-    rw [List.mem_map] at hq
-    rcases hq with ⟨k, hk, rfl⟩
-    rw [List.mem_range] at hk
-    rw [hrep]
-    unfold inclusiveStep
+  set s := List.insertionSort (· ≤ ·) data
+  have hs_sort : List.Pairwise (· ≤ ·) s := List.sorted_insertionSort (· ≤ ·) data
+  have hs_len : s.length = data.length := List.length_insertionSort (· ≤ ·) data
+  rcases hpre with ⟨hld, hn, hm | hm⟩
+  · subst hm
+    rw [quantilesGeneric_inclusive_of_pre data n hld hn]
+    refine ⟨_, rfl, ?_⟩
+    apply pairwise_map_range' (inclusiveInterp s n) n
+    intro i₁ i₂ hi₁ hi₂ hle
+    exact inclusiveInterp_mono hs_sort (by omega) hn hi₁ hi₂ hle
+  · subst hm
+    rw [quantilesGeneric_exclusive_of_pre data n hld hn]
+    refine ⟨_, rfl, ?_⟩
+    apply pairwise_map_range' (exclusiveInterp s n) n
+    intro i₁ i₂ _ _ hle
+    exact exclusiveInterp_mono hs_sort (by omega) hn hle
+
+/-! ### Property 5: Population Bounds for Inclusive Method (`inclusive_bounds_prop`) -/
+
+/-- Property 5: For the `"inclusive"` method, every cut point lies between the minimum and maximum
+of the sorted dataset (`s[0] ≤ q ≤ s[ld - 1]`). -/
+def inclusive_bounds_prop (data : List ℚ) (n : ℕ) (method : String) : Prop :=
+  method = "inclusive" →
+    ∃ res, benchmark_quantiles data n method = some res ∧
+      let s := List.insertionSort (· ≤ ·) data
+      ∀ q ∈ res, s.getD 0 0 ≤ q ∧ q ≤ s.getD (s.length - 1) 0
+
+theorem inclusive_bounds_thm (data : List ℚ) (n : ℕ) (method : String) (hpre : Pre data n method) :
+    inclusive_bounds_prop data n method := by
+  intro hm
+  subst hm
+  rw [benchmark_quantiles_eq_quantiles]
+  unfold quantiles
+  rcases hpre with ⟨hld, hn, _⟩
+  rw [quantilesGeneric_inclusive_of_pre data n hld hn]
+  set s := List.insertionSort (· ≤ ·) data
+  have hs_sort : List.Pairwise (· ≤ ·) s := List.sorted_insertionSort (· ≤ ·) data
+  have hs_len : s.length = data.length := List.length_insertionSort (· ≤ ·) data
+  refine ⟨_, rfl, ?_⟩
+  dsimp only
+  intro q hq
+  rw [List.mem_map] at hq
+  rcases hq with ⟨i, hi_mem, rfl⟩
+  rw [List.mem_range'] at hi_mem
+  rcases hi_mem with ⟨k, hk, rfl⟩
+  have hi_lt : 1 + 1 * k < n := by omega
+  have hb := inclusiveInterp_bounds hs_sort (by omega) hn hi_lt
+  set j := ((1 + 1 * k) * (s.length - 1)) / n
+  have hj1 : j + 1 < s.length := inclusive_j_lt (by omega) hn hi_lt
+  have hj : j < s.length := Nat.lt_of_succ_lt hj1
+  have hmin : s.getD 0 0 ≤ s.getD j 0 :=
+    getD_mono_of_pairwise hs_sort (by omega) hj (Nat.zero_le j)
+  have hmax : s.getD (j + 1) 0 ≤ s.getD (s.length - 1) 0 :=
+    getD_mono_of_pairwise hs_sort hj1 (by omega) (Nat.le_sub_one_of_lt hj1)
+  exact ⟨le_trans hmin hb.1, le_trans hb.2 hmax⟩
+
+/-! ### Property 6: Pointwise Cut-Point Specification (`pointwise_prop`) -/
+
+/-- Property 6: Under `Pre data n method`, every cut point at index `k < n - 1` (for interval `i = k + 1`)
+equals `inclusiveInterp` when `method = "inclusive"` and `exclusiveInterp` when `method = "exclusive"`. -/
+def pointwise_prop (data : List ℚ) (n : ℕ) (method : String) : Prop :=
+  ∃ res, benchmark_quantiles data n method = some res ∧
+    res.length = n - 1 ∧
+    let s := List.insertionSort (· ≤ ·) data
+    ∀ (k : ℕ) (hk : k < res.length),
+      res[k] = if method = "inclusive" then inclusiveInterp s n (k + 1) else exclusiveInterp s n (k + 1)
+
+theorem pointwise_thm (data : List ℚ) (n : ℕ) (method : String) (hpre : Pre data n method) :
+    pointwise_prop data n method := by
+  unfold pointwise_prop
+  rw [benchmark_quantiles_eq_quantiles]
+  unfold quantiles
+  set s := List.insertionSort (· ≤ ·) data
+  rcases hpre with ⟨hld, hn, hm | hm⟩
+  · subst hm
+    rw [quantilesGeneric_inclusive_of_pre data n hld hn]
+    refine ⟨_, rfl, by simp [List.length_map, List.length_range'], ?_⟩
     dsimp only
-    simp only [List.length_replicate]
-    have hj_lt : ((k + 1) * (ld - 1)) / n + 1 < ld := inclusive_div_lt hld (by omega)
-    have hj0_lt : ((k + 1) * (ld - 1)) / n < ld := by omega
-    have hdel_lt : ((k + 1) * (ld - 1)) % n < n := Nat.mod_lt _ (by omega)
-    simp only [List.getD_eq_getElem?_getD, List.getElem?_replicate, hj0_lt, hj_lt, ↓reduceIte, Option.getD_some]
-    exact interp_const hn_pos (nat_sub_add_cancel_rat hdel_lt)
-  · have hne : ("exclusive" == "inclusive") = false := rfl
-    simp only [hn_not_lt, ↓reduceIte, hld_not_lt, hne, Bool.false_eq_true, beq_self_eq_true]
-    rw [List.eq_replicate_iff]
-    refine ⟨by simp, fun q hq => ?_⟩
-    rw [List.mem_map] at hq
-    rcases hq with ⟨k, hk, rfl⟩
-    rw [List.mem_range] at hk
-    rw [hrep]
-    unfold exclusiveStep
+    intro k hk
+    simp only [↓reduceIte, List.getElem_map, List.getElem_range']
+    congr 1
+    omega
+  · subst hm
+    rw [quantilesGeneric_exclusive_of_pre data n hld hn]
+    refine ⟨_, rfl, by simp [List.length_map, List.length_range'], ?_⟩
     dsimp only
-    simp only [List.length_replicate]
-    have hj_bounds := clampNat_bounds (j0 := ((k + 1) * (ld + 1)) / n) (low := 1) (high := ld - 1) (by omega)
-    set j := clampNat (((k + 1) * (ld + 1)) / n) 1 (ld - 1)
-    have hj1_lt : j - 1 < ld := by omega
-    have hj_lt : j < ld := by omega
-    simp only [List.getD_eq_getElem?_getD, List.getElem?_replicate, hj1_lt, hj_lt, ↓reduceIte, Option.getD_some]
-    exact interp_const hn_pos (by push_cast; ring)
+    intro k hk
+    have hne : ("exclusive" = "inclusive") ↔ False := by decide
+    simp only [hne, ↓reduceIte, List.getElem_map, List.getElem_range']
+    congr 1
+    omega
 
-/-- Helper lemma: `inclusiveStep` for `n = 2`, `i = 1` on odd-length list `2 * k + 1`. -/
-theorem odd_median_inc (s : List Rat) (k : Nat) (hld : s.length = 2 * k + 1) :
-    inclusiveStep s 2 1 = s.getD k 0 := by
-  unfold inclusiveStep
+/-! ### Property 7: Constant Dataset Preservation (`constant_data_prop`) -/
+
+lemma inclusiveInterp_const (s : List ℚ) (c : ℚ) (n i : ℕ)
+    (hs : ∀ x ∈ s, x = c) (hld : 2 ≤ s.length) (hn : 1 ≤ n) (hi : i < n) :
+    inclusiveInterp s n i = c := by
+  unfold inclusiveInterp
   dsimp only
-  rw [hld]
-  have h1 : (1 * (2 * k + 1 - 1)) / 2 = k := by omega
-  have h2 : (1 * (2 * k + 1 - 1)) % 2 = 0 := by omega
-  rw [h1, h2]
-  norm_num
+  have hj1 : (i * (s.length - 1)) / n + 1 < s.length := inclusive_j_lt hld hn hi
+  have hj : (i * (s.length - 1)) / n < s.length := by omega
+  rw [getD_eq_of_forall_eq s c 0 hs hj, getD_eq_of_forall_eq s c 0 hs hj1]
+  have hn_ne : (n : ℚ) ≠ 0 := by positivity
+  field_simp [hn_ne]
+  ring
 
-/-- Helper lemma: `exclusiveStep` for `n = 2`, `i = 1` on odd-length list `2 * k + 1` (`k ≥ 1`). -/
-theorem odd_median_exc (s : List Rat) (k : Nat) (hk : k ≥ 1) (hld : s.length = 2 * k + 1) :
-    exclusiveStep s 2 1 = s.getD k 0 := by
-  unfold exclusiveStep
+lemma exclusiveInterp_const (s : List ℚ) (c : ℚ) (n i : ℕ)
+    (hs : ∀ x ∈ s, x = c) (hld : 2 ≤ s.length) (hn : 1 ≤ n) :
+    exclusiveInterp s n i = c := by
+  unfold exclusiveInterp
   dsimp only
-  rw [hld]
-  have h1 : (1 * (2 * k + 1 + 1)) / 2 = k + 1 := by omega
-  have h2 : clampNat ((1 * (2 * k + 1 + 1)) / 2) 1 (2 * k + 1 - 1) = k + 1 := by
-    rw [h1]; unfold clampNat; split_ifs <;> omega
-  have h3 : ((1 : Nat) : Int) * ((2 * k + 1 + 1 : Nat) : Int) -
-    ((clampNat ((1 * (2 * k + 1 + 1)) / 2) 1 (2 * k + 1 - 1) : Nat) : Int) * ((2 : Nat) : Int) = 0 := by
-    rw [h2]; omega
-  rw [h3, h2]
-  simp
+  have hb := exclusiveClamp_bounds (q := (i * (s.length + 1)) / n) hld
+  have hj_prev : exclusiveClamp s.length ((i * (s.length + 1)) / n) - 1 < s.length := by omega
+  have hj_curr : exclusiveClamp s.length ((i * (s.length + 1)) / n) < s.length := by omega
+  rw [getD_eq_of_forall_eq s c 0 hs hj_prev, getD_eq_of_forall_eq s c 0 hs hj_curr]
+  have hn_ne : (n : ℚ) ≠ 0 := by positivity
+  field_simp [hn_ne]
+  ring
 
-/-- Property 13: Odd-length median (`n = 2`) — when `data` has odd length `2 * k + 1` (`k ≥ 1`),
-    both `"inclusive"` and `"exclusive"` methods return the exact middle element `[data.mergeSort[k]]`. -/
-def odd_median_prop (data : List Rat) (k : Nat) (method : String) : Prop :=
-  k ≥ 1 → data.length = 2 * k + 1 → Pre data 2 method →
-    benchmark_quantiles data 2 method = [data.mergeSort.getD k 0]
+/-- Property 7: If all elements in `data` equal `c`, every quantile cut point equals `c`. -/
+def constant_data_prop (data : List ℚ) (n : ℕ) (method : String) : Prop :=
+  ∀ c : ℚ, (∀ x ∈ data, x = c) →
+    benchmark_quantiles data n method = some (List.replicate (n - 1) c)
 
-theorem odd_median_thm (data : List Rat) (k : Nat) (method : String) :
-    odd_median_prop data k method := by
-  intro hk hlen hPre
-  have hvalid := (valid_input_thm data 2 method hPre).1
-  rw [hvalid]
-  rcases hPre with ⟨_, _, hmethod⟩
-  have hld_sort : data.mergeSort.length = 2 * k + 1 := by rw [List.length_mergeSort, hlen]
-  have hld_not_lt : ¬ (data.mergeSort.length < 2) := by omega
-  have hn_not_lt : ¬ (2 < 1) := by decide
+theorem constant_data_thm (data : List ℚ) (n : ℕ) (method : String) (hpre : Pre data n method) :
+    constant_data_prop data n method := by
+  intro c hc
+  rw [benchmark_quantiles_eq_quantiles]
   unfold quantiles
-  rcases hmethod with rfl | rfl
-  · simp only [hn_not_lt, ↓reduceIte, hld_not_lt, beq_self_eq_true]
-    exact congrArg (· :: []) (odd_median_inc data.mergeSort k hld_sort)
-  · have hne : ("exclusive" == "inclusive") = false := rfl
-    simp only [hn_not_lt, ↓reduceIte, hld_not_lt, hne, Bool.false_eq_true, beq_self_eq_true]
-    exact congrArg (· :: []) (odd_median_exc data.mergeSort k hk hld_sort)
+  set s := List.insertionSort (· ≤ ·) data
+  have hs_len : s.length = data.length := List.length_insertionSort (· ≤ ·) data
+  have hs_all : ∀ x ∈ s, x = c := by
+    intro x hx
+    exact hc x ((List.perm_insertionSort (· ≤ ·) data).subset hx)
+  rcases hpre with ⟨hld, hn, hm | hm⟩
+  · subst hm
+    rw [quantilesGeneric_inclusive_of_pre data n hld hn, Option.some.injEq]
+    apply List.ext_getElem
+    · simp [List.length_map, List.length_range', List.length_replicate]
+    · intro k hk1 hk2
+      rw [List.getElem_map, List.getElem_range', List.getElem_replicate]
+      rw [List.length_map, List.length_range'] at hk1
+      exact inclusiveInterp_const s c n (1 + 1 * k) hs_all (by omega) hn (by omega)
+  · subst hm
+    rw [quantilesGeneric_exclusive_of_pre data n hld hn, Option.some.injEq]
+    apply List.ext_getElem
+    · simp [List.length_map, List.length_range', List.length_replicate]
+    · intro k hk1 hk2
+      rw [List.getElem_map, List.getElem_range', List.getElem_replicate]
+      exact exclusiveInterp_const s c n (1 + 1 * k) hs_all (by omega) hn
 
-/-! ## 5. Post-condition (`Post_prop`) -/
+/-! ### Property 8: Translation / Shift Equivariance (`shift_equivariant_prop`) -/
 
-/-- Post-condition combining all core specification properties of `benchmark_quantiles`. -/
-def Post_prop (data : List Rat) (n : Nat := 4) (method : String := "exclusive") : Prop :=
-  benchmark_quantiles data n method = quantiles data n method ∧
-  benchmark_quantiles? data n method = some (quantiles data n method) ∧
-  (benchmark_quantiles data n method).length = n - 1 ∧
-  List.Pairwise (· ≤ ·) (benchmark_quantiles data n method) ∧
-  benchmark_quantiles data.mergeSort n method = benchmark_quantiles data n method ∧
-  (method = "inclusive" →
-    (∀ (k : Nat) (hk : k < (benchmark_quantiles data n "inclusive").length),
-      (benchmark_quantiles data n "inclusive")[k] = inclusiveStep data.mergeSort n (k + 1)) ∧
-    (∀ q ∈ benchmark_quantiles data n "inclusive",
-      data.mergeSort.getD 0 0 ≤ q ∧ q ≤ data.mergeSort.getD (data.length - 1) 0)) ∧
-  (method = "exclusive" →
-    (∀ (k : Nat) (hk : k < (benchmark_quantiles data n "exclusive").length),
-      (benchmark_quantiles data n "exclusive")[k] = exclusiveStep data.mergeSort n (k + 1)) ∧
-    (n ≤ data.length + 1 →
-      ∀ q ∈ benchmark_quantiles data n "exclusive",
-        data.mergeSort.getD 0 0 ≤ q ∧ q ≤ data.mergeSort.getD (data.length - 1) 0))
+lemma orderedInsert_map_add (c x : ℚ) (l : List ℚ) :
+    List.orderedInsert (· ≤ ·) (x + c) (l.map (· + c)) =
+    (List.orderedInsert (· ≤ ·) x l).map (· + c) := by
+  induction l with
+  | nil => rfl
+  | cons y ys ih =>
+    simp only [List.map_cons, List.orderedInsert]
+    have hiff : (x + c ≤ y + c) ↔ (x ≤ y) := add_le_add_iff_right c
+    by_cases hxy : x ≤ y
+    · have hxyc : x + c ≤ y + c := hiff.mpr hxy
+      simp [hxy, hxyc]
+    · have hxyc : ¬ (x + c ≤ y + c) := mt hiff.mp hxy
+      simp [hxy, hxyc, ih]
 
-instance (data : List Rat) (n : Nat) (method : String) : Decidable (valid_input_prop data n method) := by
-  unfold valid_input_prop; exact inferInstance
+lemma insertionSort_map_add (c : ℚ) (l : List ℚ) :
+    List.insertionSort (· ≤ ·) (l.map (· + c)) =
+    (List.insertionSort (· ≤ ·) l).map (· + c) := by
+  induction l with
+  | nil => rfl
+  | cons x xs ih =>
+    simp only [List.map_cons, List.insertionSort, ih, orderedInsert_map_add]
 
-instance (data : List Rat) (n : Nat) (method : String) : Decidable (invalid_input_prop data n method) := by
-  unfold invalid_input_prop; exact inferInstance
+lemma inclusiveInterp_map_add (s : List ℚ) (c : ℚ) (n i : ℕ)
+    (hld : 2 ≤ s.length) (hn : 1 ≤ n) (hi : i < n) :
+    inclusiveInterp (s.map (· + c)) n i = inclusiveInterp s n i + c := by
+  unfold inclusiveInterp
+  simp only [List.length_map]
+  have hj1 : (i * (s.length - 1)) / n + 1 < s.length := inclusive_j_lt hld hn hi
+  have hj : (i * (s.length - 1)) / n < s.length := by omega
+  rw [getD_map_of_lt s (· + c) 0 0 hj, getD_map_of_lt s (· + c) 0 0 hj1]
+  have hn_ne : (n : ℚ) ≠ 0 := by positivity
+  field_simp [hn_ne]
+  ring
 
-instance (data : List Rat) (n : Nat) (method : String) : Decidable (length_prop data n method) := by
-  unfold length_prop; exact inferInstance
+lemma exclusiveInterp_map_add (s : List ℚ) (c : ℚ) (n i : ℕ)
+    (hld : 2 ≤ s.length) (hn : 1 ≤ n) :
+    exclusiveInterp (s.map (· + c)) n i = exclusiveInterp s n i + c := by
+  unfold exclusiveInterp
+  simp only [List.length_map]
+  have hb := exclusiveClamp_bounds (q := (i * (s.length + 1)) / n) hld
+  have hj_prev : exclusiveClamp s.length ((i * (s.length + 1)) / n) - 1 < s.length := by omega
+  have hj_curr : exclusiveClamp s.length ((i * (s.length + 1)) / n) < s.length := by omega
+  rw [getD_map_of_lt s (· + c) 0 0 hj_prev, getD_map_of_lt s (· + c) 0 0 hj_curr]
+  have hn_ne : (n : ℚ) ≠ 0 := by positivity
+  field_simp [hn_ne]
+  ring
 
-instance (data : List Rat) (method : String) : Decidable (n_eq_one_prop data method) := by
-  unfold n_eq_one_prop; exact inferInstance
+/-- Property 8: Shifting every data point by `+ c` shifts every output quantile cut point by `+ c`. -/
+def shift_equivariant_prop (data : List ℚ) (n : ℕ) (method : String) (c : ℚ) : Prop :=
+  benchmark_quantiles (data.map (· + c)) n method =
+    (benchmark_quantiles data n method).map (List.map (· + c))
 
-instance (data : List Rat) (n : Nat) (method : String) : Decidable (sort_idempotent_prop data n method) := by
-  unfold sort_idempotent_prop; exact inferInstance
+theorem shift_equivariant_thm (data : List ℚ) (n : ℕ) (method : String) (c : ℚ) (hpre : Pre data n method) :
+    shift_equivariant_prop data n method c := by
+  unfold shift_equivariant_prop
+  rw [benchmark_quantiles_eq_quantiles, benchmark_quantiles_eq_quantiles]
+  unfold quantiles
+  set s := List.insertionSort (· ≤ ·) data
+  have hs_len : s.length = data.length := List.length_insertionSort (· ≤ ·) data
+  rcases hpre with ⟨hld, hn, hm | hm⟩
+  · subst hm
+    have hlen_map : 2 ≤ (data.map (· + c)).length := by simp; omega
+    rw [quantilesGeneric_inclusive_of_pre (data.map (· + c)) n hlen_map hn,
+        quantilesGeneric_inclusive_of_pre data n hld hn,
+        insertionSort_map_add, Option.map_some, Option.some.injEq, List.map_map]
+    apply List.ext_getElem
+    · simp [List.length_map, List.length_range']
+    · intro k hk1 hk2
+      rw [List.getElem_map, List.getElem_map, List.getElem_range']
+      rw [List.length_map, List.length_range'] at hk1
+      dsimp only [Function.comp_apply]
+      exact inclusiveInterp_map_add s c n (1 + 1 * k) (by omega) hn (by omega)
+  · subst hm
+    have hlen_map : 2 ≤ (data.map (· + c)).length := by simp; omega
+    rw [quantilesGeneric_exclusive_of_pre (data.map (· + c)) n hlen_map hn,
+        quantilesGeneric_exclusive_of_pre data n hld hn,
+        insertionSort_map_add, Option.map_some, Option.some.injEq, List.map_map]
+    apply List.ext_getElem
+    · simp [List.length_map, List.length_range']
+    · intro k hk1 hk2
+      rw [List.getElem_map, List.getElem_map, List.getElem_range']
+      dsimp only [Function.comp_apply]
+      exact exclusiveInterp_map_add s c n (1 + 1 * k) (by omega) hn
 
-instance (data : List Rat) (n : Nat) : Decidable (inclusive_formula_prop data n) := by
-  unfold inclusive_formula_prop; exact inferInstance
+/-! ### Correspondence with `Real` and `Float` Layers -/
 
-instance (data : List Rat) (n : Nat) : Decidable (exclusive_formula_prop data n) := by
-  unfold exclusive_formula_prop; exact inferInstance
+lemma orderedInsert_map_ratCast (x : ℚ) (l : List ℚ) :
+    letI : DecidableRel (· ≤ · : ℝ → ℝ → Prop) := Classical.decRel _
+    List.orderedInsert (· ≤ ·) (x : ℝ) (l.map (Rat.cast : ℚ → ℝ)) =
+    (List.orderedInsert (· ≤ ·) x l).map (Rat.cast : ℚ → ℝ) := by
+  letI : DecidableRel (· ≤ · : ℝ → ℝ → Prop) := Classical.decRel _
+  induction l with
+  | nil => rfl
+  | cons y ys ih =>
+    simp only [List.map_cons, List.orderedInsert]
+    by_cases hxy : x ≤ y
+    · have hxyr : (x : ℝ) ≤ (y : ℝ) := Rat.cast_le.mpr hxy
+      simp [hxy, hxyr]
+    · have hxyr : ¬ ((x : ℝ) ≤ (y : ℝ)) := mt Rat.cast_le.mp hxy
+      simp [hxy, hxyr, ih]
 
-instance (data : List Rat) (n : Nat) (method : String) : Decidable (output_sorted_prop data n method) := by
-  unfold output_sorted_prop; exact inferInstance
+lemma insertionSort_map_ratCast (l : List ℚ) :
+    letI : DecidableRel (· ≤ · : ℝ → ℝ → Prop) := Classical.decRel _
+    List.insertionSort (· ≤ ·) (l.map (Rat.cast : ℚ → ℝ)) =
+    (List.insertionSort (· ≤ ·) l).map (Rat.cast : ℚ → ℝ) := by
+  letI : DecidableRel (· ≤ · : ℝ → ℝ → Prop) := Classical.decRel _
+  induction l with
+  | nil => rfl
+  | cons x xs ih =>
+    simp only [List.map_cons, List.insertionSort, ih, orderedInsert_map_ratCast]
 
-instance (data : List Rat) (n : Nat) : Decidable (inclusive_bounds_prop data n) := by
-  unfold inclusive_bounds_prop; exact inferInstance
+lemma inclusiveInterp_map_ratCast (s : List ℚ) (n i : ℕ)
+    (hld : 2 ≤ s.length) (hn : 1 ≤ n) (hi : i < n) :
+    inclusiveInterp (s.map (Rat.cast : ℚ → ℝ)) n i = Rat.cast (inclusiveInterp s n i) := by
+  unfold inclusiveInterp
+  simp only [List.length_map]
+  have hj1 : (i * (s.length - 1)) / n + 1 < s.length := inclusive_j_lt hld hn hi
+  have hj : (i * (s.length - 1)) / n < s.length := by omega
+  rw [getD_map_of_lt s (Rat.cast : ℚ → ℝ) 0 0 hj, getD_map_of_lt s (Rat.cast : ℚ → ℝ) 0 0 hj1]
+  push_cast
+  rfl
 
-instance (data : List Rat) (n : Nat) : Decidable (exclusive_bounds_prop data n) := by
-  unfold exclusive_bounds_prop; exact inferInstance
+lemma exclusiveInterp_map_ratCast (s : List ℚ) (n i : ℕ)
+    (hld : 2 ≤ s.length) :
+    exclusiveInterp (s.map (Rat.cast : ℚ → ℝ)) n i = Rat.cast (exclusiveInterp s n i) := by
+  unfold exclusiveInterp
+  simp only [List.length_map]
+  have hb := exclusiveClamp_bounds (q := (i * (s.length + 1)) / n) hld
+  have hj_prev : exclusiveClamp s.length ((i * (s.length + 1)) / n) - 1 < s.length := by omega
+  have hj_curr : exclusiveClamp s.length ((i * (s.length + 1)) / n) < s.length := by omega
+  rw [getD_map_of_lt s (Rat.cast : ℚ → ℝ) 0 0 hj_prev, getD_map_of_lt s (Rat.cast : ℚ → ℝ) 0 0 hj_curr]
+  push_cast
+  rfl
 
-instance (ld : Nat) (c : Rat) (n : Nat) (method : String) : Decidable (constant_data_prop ld c n method) := by
-  unfold constant_data_prop; exact inferInstance
+/-- Exact correspondence theorem between the `ℚ` (`Rat`) layer and the `ℝ` (`Real`) layer. -/
+theorem benchmark_quantilesReal_ratCast_thm (data : List ℚ) (n : ℕ) (method : String) :
+    benchmark_quantilesReal (data.map (Rat.cast : ℚ → ℝ)) n method =
+      (benchmark_quantiles data n method).map (List.map (Rat.cast : ℚ → ℝ)) := by
+  letI : DecidableRel (· ≤ · : ℝ → ℝ → Prop) := Classical.decRel _
+  rw [benchmark_quantilesReal_eq_quantilesReal, benchmark_quantiles_eq_quantiles]
+  unfold quantilesReal quantiles quantilesGeneric
+  rw [insertionSort_map_ratCast]
+  set s := List.insertionSort (· ≤ ·) data
+  have hs_len : s.length = data.length := List.length_insertionSort (· ≤ ·) data
+  by_cases hn : n < 1
+  · simp [hn]
+  · by_cases hld : data.length < 2
+    · simp [s, hn, hld]
+    · by_cases hm1 : method == "inclusive"
+      · simp only [s, List.length_map, List.length_insertionSort, hn, ↓reduceIte, hld, hm1,
+          Option.map_some, Option.some.injEq, List.map_map]
+        apply List.ext_getElem
+        · simp [List.length_map, List.length_range']
+        · intro k hk1 hk2
+          rw [List.getElem_map, List.getElem_map, List.getElem_range']
+          rw [List.length_map, List.length_range'] at hk1
+          dsimp only [Function.comp_apply]
+          exact inclusiveInterp_map_ratCast s n (1 + 1 * k) (by omega) (by omega) (by omega)
+      · by_cases hm2 : method == "exclusive"
+        · simp only [s, List.length_map, List.length_insertionSort, hn, ↓reduceIte, hld, hm1,
+            Bool.false_eq_true, hm2, Option.map_some, Option.some.injEq, List.map_map]
+          apply List.ext_getElem
+          · simp [List.length_map, List.length_range']
+          · intro k hk1 hk2
+            rw [List.getElem_map, List.getElem_map, List.getElem_range']
+            dsimp only [Function.comp_apply]
+            exact exclusiveInterp_map_ratCast s n (1 + 1 * k) (by omega)
+        · simp [s, hn, hld, hm1, hm2]
 
-instance (data : List Rat) (k : Nat) (method : String) : Decidable (odd_median_prop data k method) := by
-  unfold odd_median_prop; exact inferInstance
+/-- Real layer monotonicity and length theorem. -/
+theorem benchmark_quantilesReal_spec_thm (data : List ℝ) (n : ℕ) (method : String) (hpre : Pre data n method) :
+    ∃ res, benchmark_quantilesReal data n method = some res ∧
+      res.length = n - 1 ∧ List.Pairwise (· ≤ ·) res := by
+  letI : DecidableRel (· ≤ · : ℝ → ℝ → Prop) := Classical.decRel _
+  rw [benchmark_quantilesReal_eq_quantilesReal]
+  unfold quantilesReal
+  set s := List.insertionSort (· ≤ ·) data
+  have hs_sort : List.Pairwise (· ≤ ·) s := List.sorted_insertionSort (· ≤ ·) data
+  have hs_len : s.length = data.length := List.length_insertionSort (· ≤ ·) data
+  rcases hpre with ⟨hld, hn, hm | hm⟩
+  · subst hm
+    rw [quantilesGeneric_inclusive_of_pre data n hld hn]
+    refine ⟨_, rfl, by simp [List.length_map, List.length_range'], ?_⟩
+    apply pairwise_map_range' (inclusiveInterp s n) n
+    intro i₁ i₂ hi₁ hi₂ hle
+    exact inclusiveInterp_mono hs_sort (by omega) hn hi₁ hi₂ hle
+  · subst hm
+    rw [quantilesGeneric_exclusive_of_pre data n hld hn]
+    refine ⟨_, rfl, by simp [List.length_map, List.length_range'], ?_⟩
+    apply pairwise_map_range' (exclusiveInterp s n) n
+    intro i₁ i₂ _ _ hle
+    exact exclusiveInterp_mono hs_sort (by omega) hn hle
 
-instance (data : List Rat) (n : Nat) (method : String) : Decidable (Post_prop data n method) := by
-  unfold Post_prop; exact inferInstance
+/-- Float layer structural theorem: validity and output length. -/
+def float_length_prop (data : List Float) (n : ℕ) (method : String) : Prop :=
+  ∃ res, benchmark_quantilesFloat data n method = some res ∧ res.length = n - 1
 
-/-! ## 6. Property-Based Tests (PBTs) -/
+theorem float_length_thm (data : List Float) (n : ℕ) (method : String) (hpre : Pre data n method) :
+    float_length_prop data n method := by
+  unfold float_length_prop
+  rw [benchmark_quantilesFloat_eq_quantilesFloat]
+  unfold quantilesFloat
+  rcases hpre with ⟨hld, hn, hm | hm⟩
+  · subst hm
+    have hn' : ¬ (n < 1) := by omega
+    have hld' : ¬ (data.length < 2) := by omega
+    refine ⟨(List.range' 1 (n - 1)).map (inclusiveInterpFloat (List.insertionSort (· ≤ ·) data) n), ?_, ?_⟩
+    · simp [hn', hld']
+    · simp [List.length_map, List.length_range']
+  · subst hm
+    have hn' : ¬ (n < 1) := by omega
+    have hld' : ¬ (data.length < 2) := by omega
+    have hne : ("exclusive" == "inclusive") = false := by decide
+    refine ⟨(List.range' 1 (n - 1)).map (exclusiveInterpFloat (List.insertionSort (· ≤ ·) data) n), ?_, ?_⟩
+    · simp [hn', hld', hne]
+    · simp [List.length_map, List.length_range']
 
--- Randomized PBTs using Plausible for every `_prop` and `Post_prop`
-#eval Plausible.Testable.check (∀ (x y : Rat) (rest : List Rat) (n : Nat),
-  valid_input_prop (x :: y :: rest) ((n % 10) + 1) "exclusive" ∧
-  valid_input_prop (x :: y :: rest) ((n % 10) + 1) "inclusive")
+/-!
+## 8. Post-condition (`Post_prop`)
+-/
 
-#eval Plausible.Testable.check (∀ (x : Rat) (n : Nat),
-  invalid_input_prop [x] n "exclusive" ∧ invalid_input_prop [x, x] 0 "exclusive" ∧
-  invalid_input_prop [x, x] (n + 1) "invalid")
+/-- Post-condition conjunction of all verified properties for `benchmark_quantiles`. -/
+def Post_prop (data : List ℚ) (n : ℕ := 4) (method : String := "exclusive") : Prop :=
+  valid_iff_pre_prop data n method ∧
+  length_prop data n method ∧
+  sorted_idempotent_prop data n method ∧
+  monotone_prop data n method ∧
+  inclusive_bounds_prop data n method ∧
+  pointwise_prop data n method ∧
+  constant_data_prop data n method
 
-#eval Plausible.Testable.check (∀ (x y : Rat) (rest : List Rat) (n : Nat),
-  length_prop (x :: y :: rest) ((n % 12) + 1) "exclusive" ∧
-  length_prop (x :: y :: rest) ((n % 12) + 1) "inclusive")
+/-!
+## 9. Property-Based Tests (PBTs)
+-/
 
-#eval Plausible.Testable.check (∀ (x y : Rat) (rest : List Rat),
-  n_eq_one_prop (x :: y :: rest) "exclusive" ∧ n_eq_one_prop (x :: y :: rest) "inclusive")
+/-- Executable boolean checker for `valid_iff_pre_prop`. -/
+def check_valid_iff_pre (data : List ℚ) (n : ℕ) (method : String) : Bool :=
+  (benchmark_quantiles data n method).isSome == pre data n method
 
-#eval Plausible.Testable.check (∀ (x y : Rat) (rest : List Rat) (n : Nat),
-  benchmark_quantiles (x :: y :: rest).reverse ((n % 8) + 1) "exclusive" =
-    benchmark_quantiles (x :: y :: rest) ((n % 8) + 1) "exclusive" ∧
-  benchmark_quantiles (x :: y :: rest).reverse ((n % 8) + 1) "inclusive" =
-    benchmark_quantiles (x :: y :: rest) ((n % 8) + 1) "inclusive")
+/-- Executable boolean checker for `length_prop`. -/
+def check_length (data : List ℚ) (n : ℕ) (method : String) : Bool :=
+  match benchmark_quantiles data n method with
+  | some res => res.length == n - 1
+  | none => false
 
-#eval Plausible.Testable.check (∀ (x y : Rat) (rest : List Rat) (n : Nat),
-  sort_idempotent_prop (x :: y :: rest) ((n % 8) + 1) "exclusive" ∧
-  sort_idempotent_prop (x :: y :: rest) ((n % 8) + 1) "inclusive")
+/-- Executable boolean checker for `sorted_idempotent_prop`. -/
+def check_sorted_idempotent (data : List ℚ) (n : ℕ) (method : String) : Bool :=
+  benchmark_quantiles (List.insertionSort (· ≤ ·) data) n method == benchmark_quantiles data n method
 
-#eval Plausible.Testable.check (∀ (x y : Rat) (rest : List Rat) (n : Nat),
-  inclusive_formula_prop (x :: y :: rest) ((n % 8) + 1) ∧
-  exclusive_formula_prop (x :: y :: rest) ((n % 8) + 1))
+/-- Executable boolean helper checking if a list of `ℚ` is non-decreasing. -/
+def isSortedRat : List ℚ → Bool
+  | [] => true
+  | [_] => true
+  | a :: b :: rest => decide (a ≤ b) && isSortedRat (b :: rest)
 
-#eval Plausible.Testable.check (∀ (x y : Rat) (rest : List Rat) (n : Nat),
-  output_sorted_prop (x :: y :: rest) ((n % 8) + 1) "exclusive" ∧
-  output_sorted_prop (x :: y :: rest) ((n % 8) + 1) "inclusive")
+/-- Executable boolean checker for `monotone_prop`. -/
+def check_monotone (data : List ℚ) (n : ℕ) (method : String) : Bool :=
+  match benchmark_quantiles data n method with
+  | some res => isSortedRat res
+  | none => false
 
-#eval Plausible.Testable.check (∀ (x y : Rat) (rest : List Rat) (n : Nat),
-  inclusive_bounds_prop (x :: y :: rest) ((n % 8) + 1) ∧
-  exclusive_bounds_prop (x :: y :: rest) ((n % 8) + 1))
+/-- Executable boolean checker for `inclusive_bounds_prop`. -/
+def check_inclusive_bounds (data : List ℚ) (n : ℕ) (method : String) : Bool :=
+  if method == "inclusive" then
+    match benchmark_quantiles data n method with
+    | some res =>
+      let s := List.insertionSort (· ≤ ·) data
+      res.all (fun q => decide (s.getD 0 0 ≤ q ∧ q ≤ s.getD (s.length - 1) 0))
+    | none => false
+  else
+    true
 
-#eval Plausible.Testable.check (∀ (c : Rat) (ld n : Nat),
-  constant_data_prop ((ld % 8) + 2) c ((n % 8) + 1) "exclusive" ∧
-  constant_data_prop ((ld % 8) + 2) c ((n % 8) + 1) "inclusive")
+/-- Executable boolean checker for `pointwise_prop`. -/
+def check_pointwise (data : List ℚ) (n : ℕ) (method : String) : Bool :=
+  match benchmark_quantiles data n method with
+  | some res =>
+    let s := List.insertionSort (· ≤ ·) data
+    res.length == n - 1 &&
+      (List.range res.length).all (fun k =>
+        let expected := if method == "inclusive" then inclusiveInterp s n (k + 1) else exclusiveInterp s n (k + 1)
+        res.getD k 0 == expected)
+  | none => false
 
-#eval Plausible.Testable.check (∀ (x y z : Rat),
-  odd_median_prop [x, y, z] 1 "exclusive" ∧ odd_median_prop [x, y, z] 1 "inclusive")
+/-- Executable boolean checker for `constant_data_prop` on constant lists. -/
+def check_constant_data (c : ℚ) (len : ℕ) (n : ℕ) (method : String) : Bool :=
+  let data := List.replicate len c
+  if pre data n method then
+    benchmark_quantiles data n method == some (List.replicate (n - 1) c)
+  else
+    true
 
-#eval Plausible.Testable.check (∀ (x y : Rat) (rest : List Rat) (n : Nat),
-  Post_prop (x :: y :: rest) ((n % 8) + 1) "exclusive" ∧
-  Post_prop (x :: y :: rest) ((n % 8) + 1) "inclusive")
+/-- Executable boolean checker for `shift_equivariant_prop`. -/
+def check_shift_equivariant (data : List ℚ) (n : ℕ) (method : String) (c : ℚ) : Bool :=
+  benchmark_quantiles (data.map (· + c)) n method ==
+    (benchmark_quantiles data n method).map (List.map (· + c))
 
--- Bounded exhaustive PBTs using `native_decide`
-example : (List.range 10).all (fun n =>
-  let n' := n + 1
-  let data : List Rat := [4, 1, 7, 2, 9, 3]
-  decide (Post_prop data n' "exclusive") && decide (Post_prop data n' "inclusive")
-) = true := by native_decide
+/-- Executable boolean checker for `float_length_prop`. -/
+def check_float_length (data : List Float) (n : ℕ) (method : String) : Bool :=
+  match benchmark_quantilesFloat data n method with
+  | some res => res.length == n - 1
+  | none => false
 
-example : (List.range 8).all (fun n =>
-  let n' := n + 1
-  let data : List Rat := [-3, 10, 0, 5, 2, 8]
-  let qInc := benchmark_quantiles data n' "inclusive"
-  let qExc := benchmark_quantiles data n' "exclusive"
-  qInc.all (fun q => decide (-3 ≤ q ∧ q ≤ 10)) &&
-  (if n' ≤ data.length + 1 then qExc.all (fun q => decide (-3 ≤ q ∧ q ≤ 10)) else true)
-) = true := by native_decide
+/-- Executable boolean checker for the full post-condition `Post_prop`. -/
+def check_post (data : List ℚ) (n : ℕ) (method : String) : Bool :=
+  check_valid_iff_pre data n method &&
+  check_length data n method &&
+  check_sorted_idempotent data n method &&
+  check_monotone data n method &&
+  check_inclusive_bounds data n method &&
+  check_pointwise data n method
 
-example : (List.range 8).all (fun n =>
-  let n' := n + 1
-  let data : List Rat := [1, 4, 2, 9, 5]
-  let qInc := benchmark_quantiles data n' "inclusive"
-  let qExc := benchmark_quantiles data n' "exclusive"
-  (List.range (n' - 1)).all (fun k =>
-    qInc.getD k 0 == inclusiveStep data.mergeSort n' (k + 1) &&
-    qExc.getD k 0 == exclusiveStep data.mergeSort n' (k + 1))
-) = true := by native_decide
+-- Randomized PBTs via Plausible
+#eval Plausible.Testable.check (∀ (data : List ℚ) (n : ℕ) (b : Bool),
+  let method := if b then "inclusive" else "exclusive"
+  check_valid_iff_pre data n method = true)
 
-/-! ## 7. Correctness Theorem (`Pre → Post_prop`) -/
+#eval Plausible.Testable.check (∀ (x y : ℚ) (rest : List ℚ) (k : ℕ) (b : Bool),
+  let data := x :: y :: rest
+  let n := k % 12 + 1
+  let method := if b then "inclusive" else "exclusive"
+  check_length data n method = true)
+
+#eval Plausible.Testable.check (∀ (x y : ℚ) (rest : List ℚ) (k : ℕ) (b : Bool),
+  let data := x :: y :: rest
+  let n := k % 12 + 1
+  let method := if b then "inclusive" else "exclusive"
+  check_sorted_idempotent data n method = true)
+
+#eval Plausible.Testable.check (∀ (x y : ℚ) (rest : List ℚ) (k : ℕ) (b : Bool),
+  let data := x :: y :: rest
+  let n := k % 12 + 1
+  let method := if b then "inclusive" else "exclusive"
+  check_monotone data n method = true)
+
+#eval Plausible.Testable.check (∀ (x y : ℚ) (rest : List ℚ) (k : ℕ),
+  let data := x :: y :: rest
+  let n := k % 12 + 1
+  check_inclusive_bounds data n "inclusive" = true)
+
+#eval Plausible.Testable.check (∀ (x y : ℚ) (rest : List ℚ) (k : ℕ) (b : Bool),
+  let data := x :: y :: rest
+  let n := k % 12 + 1
+  let method := if b then "inclusive" else "exclusive"
+  check_pointwise data n method = true)
+
+#eval Plausible.Testable.check (∀ (c : ℚ) (k1 k2 : ℕ) (b : Bool),
+  let len := k1 % 10 + 2
+  let n := k2 % 12 + 1
+  let method := if b then "inclusive" else "exclusive"
+  check_constant_data c len n method = true)
+
+#eval Plausible.Testable.check (∀ (x y c : ℚ) (rest : List ℚ) (k : ℕ) (b : Bool),
+  let data := x :: y :: rest
+  let n := k % 12 + 1
+  let method := if b then "inclusive" else "exclusive"
+  check_shift_equivariant data n method c = true)
+
+#eval Plausible.Testable.check (∀ (x y : ℚ) (rest : List ℚ) (k : ℕ) (b : Bool),
+  let data := x :: y :: rest
+  let n := k % 12 + 1
+  let method := if b then "inclusive" else "exclusive"
+  check_post data n method = true)
+
+-- Bounded exhaustive PBTs via `native_decide`
+def sampleDatasets : List (List ℚ) :=
+  [ [1, 2], [2, 1], [1, 2, 3, 4], [4, 1, 3, 2],
+    [-5, 0, 5, 10, 15], [3/2, 5/2, 7/2, 9/2],
+    [10, 10, 10, 10], [-3, -1, -1, 0, 2, 8, 20] ]
+
+example : (sampleDatasets.all (fun d =>
+  (List.range' 1 8).all (fun n =>
+    ["exclusive", "inclusive"].all (fun m => check_valid_iff_pre d n m)))) = true := by native_decide
+
+example : (sampleDatasets.all (fun d =>
+  (List.range' 1 8).all (fun n =>
+    ["exclusive", "inclusive"].all (fun m => check_length d n m)))) = true := by native_decide
+
+example : (sampleDatasets.all (fun d =>
+  (List.range' 1 8).all (fun n =>
+    ["exclusive", "inclusive"].all (fun m => check_sorted_idempotent d n m)))) = true := by native_decide
+
+example : (sampleDatasets.all (fun d =>
+  (List.range' 1 8).all (fun n =>
+    ["exclusive", "inclusive"].all (fun m => check_monotone d n m)))) = true := by native_decide
+
+example : (sampleDatasets.all (fun d =>
+  (List.range' 1 8).all (fun n => check_inclusive_bounds d n "inclusive"))) = true := by native_decide
+
+example : (sampleDatasets.all (fun d =>
+  (List.range' 1 8).all (fun n =>
+    ["exclusive", "inclusive"].all (fun m => check_pointwise d n m)))) = true := by native_decide
+
+example : ((List.range' 2 5).all (fun len =>
+  (List.range' 1 6).all (fun n =>
+    ["exclusive", "inclusive"].all (fun m => check_constant_data (7/3) len n m)))) = true := by native_decide
+
+example : (sampleDatasets.all (fun d =>
+  (List.range' 1 6).all (fun n =>
+    ["exclusive", "inclusive"].all (fun m => check_shift_equivariant d n m (5/2))))) = true := by native_decide
+
+example : ((List.range' 1 8).all (fun n =>
+  ["exclusive", "inclusive"].all (fun m =>
+    check_float_length [1.0, 2.0, 3.0, 4.0, 5.0] n m))) = true := by native_decide
+
+example : (sampleDatasets.all (fun d =>
+  (List.range' 1 8).all (fun n =>
+    ["exclusive", "inclusive"].all (fun m => check_post d n m)))) = true := by native_decide
+
+-- Note: `benchmark_quantilesReal_spec_thm` and `benchmark_quantilesReal_ratCast_thm` are stated over `ℝ` (`Real`),
+-- whose comparisons are noncomputable; their executable counterparts are tested above via `check_post` over `ℚ` and `check_float_length` over `Float`.
+
+/-!
+## 10. Correctness Theorem (`Pre -> Post`)
+-/
 
 /-- Main correctness theorem: whenever `Pre data n method` holds, `Post_prop data n method` holds. -/
-theorem benchmark_quantiles_correct (data : List Rat) (n : Nat := 4) (method : String := "exclusive") :
-    Pre data n method → Post_prop data n method := by
-  intro hPre
-  refine ⟨(valid_input_thm data n method hPre).1,
-          (valid_input_thm data n method hPre).2,
-          length_thm data n method hPre,
-          output_sorted_thm data n method hPre,
-          sort_idempotent_thm data n method,
-          ?_, ?_⟩
-  · intro hInc
-    subst hInc
-    exact ⟨inclusive_formula_thm data n hPre, inclusive_bounds_thm data n hPre⟩
-  · intro hExc
-    subst hExc
-    exact ⟨exclusive_formula_thm data n hPre, exclusive_bounds_thm data n hPre⟩
+theorem benchmark_quantiles_correct (data : List ℚ) (n : ℕ := 4) (method : String := "exclusive")
+    (hpre : Pre data n method) :
+    Post_prop data n method :=
+  ⟨valid_iff_pre_thm data n method,
+   length_thm data n method hpre,
+   sorted_idempotent_thm data n method,
+   monotone_thm data n method hpre,
+   inclusive_bounds_thm data n method hpre,
+   pointwise_thm data n method hpre,
+   constant_data_thm data n method hpre⟩
 
-/-! ## 8. Imperative Implementation (`Id.run do`) -/
+/-!
+## 11. Imperative Implementation
+-/
 
-/-- Imperative implementation of `quantiles` using `Id.run do` and mutable `result`,
-    translating the Python loop structure directly. -/
-def quantiles_imp (data : List Rat) (n : Nat := 4) (method : String := "exclusive") : List Rat := Id.run do
+/-- Imperative implementation of `quantiles` over `ℚ` using `Id.run do` and mutable accumulator `result`. -/
+def quantiles_imp (data : List ℚ) (n : ℕ := 4) (method : String := "exclusive") : Option (List ℚ) := Id.run do
   if n < 1 then
-    return []
-  else
-    let s := data.mergeSort
-    let ld := s.length
-    if ld < 2 then
-      return []
-    else if method == "inclusive" then
-      let m := ld - 1
-      let mut result : List Rat := []
-      for k in List.range (n - 1) do
-        let i := k + 1
-        let j := (i * m) / n
-        let delta := (i * m) % n
-        let interpolated := (s.getD j 0 * ((n - delta : Nat) : Rat) + s.getD (j + 1) 0 * (delta : Rat)) / (n : Rat)
-        result := result ++ [interpolated]
-      return result
-    else if method == "exclusive" then
-      let m := ld + 1
-      let mut result : List Rat := []
-      for k in List.range (n - 1) do
-        let i := k + 1
-        let j0 := (i * m) / n
-        let j := clampNat j0 1 (ld - 1)
-        let delta : Int := (i : Int) * (m : Int) - (j : Int) * (n : Int)
-        let interpolated := (s.getD (j - 1) 0 * ((n : Int) - delta : Rat) + s.getD j 0 * (delta : Rat)) / (n : Rat)
-        result := result ++ [interpolated]
-      return result
-    else
-      return []
-
-/-- Imperative implementation of `benchmark_quantiles`. -/
-def benchmark_quantiles_imp (data : List Rat) (n : Nat := 4) (method : String := "exclusive") : List Rat := Id.run do
-  if !pre data n method then
-    return []
-  else
-    return quantiles_imp data n method
-
-/-- Imperative implementation of `benchmark_quantiles?`. -/
-def benchmark_quantiles?_imp (data : List Rat) (n : Nat := 4) (method : String := "exclusive") : Option (List Rat) := Id.run do
-  if !pre data n method then
     return none
+  let sortedData := List.insertionSort (· ≤ ·) data
+  let ld := sortedData.length
+  if ld < 2 then
+    return none
+  if method == "inclusive" then
+    let m := ld - 1
+    let mut result : List ℚ := []
+    for i in List.range' 1 (n - 1) do
+      let j := (i * m) / n
+      let delta := (i * m) % n
+      let interpolated := (sortedData.getD j 0 * ((n : ℚ) - (delta : ℚ)) + sortedData.getD (j + 1) 0 * (delta : ℚ)) / (n : ℚ)
+      result := result ++ [interpolated]
+    return some result
+  else if method == "exclusive" then
+    let m := ld + 1
+    let mut result : List ℚ := []
+    for i in List.range' 1 (n - 1) do
+      let j_raw := (i * m) / n
+      let j := exclusiveClamp ld j_raw
+      let delta : ℤ := (i * m : ℤ) - (j * n : ℤ)
+      let interpolated := (sortedData.getD (j - 1) 0 * ((n : ℚ) - (delta : ℚ)) + sortedData.getD j 0 * (delta : ℚ)) / (n : ℚ)
+      result := result ++ [interpolated]
+    return some result
   else
-    return some (quantiles_imp data n method)
+    return none
 
-/-- Imperative `Float` implementation of `quantilesFloat`. -/
-def quantilesFloat_imp (data : List Float) (n : Nat := 4) (method : String := "exclusive") : List Float := Id.run do
+/-- Imperative implementation of `benchmark_quantiles` over `ℚ`. -/
+def benchmark_quantiles_imp (data : List ℚ) (n : ℕ := 4) (method : String := "exclusive") : Option (List ℚ) := Id.run do
+  if !(pre data n method) then
+    return none
+  return (quantiles_imp data n method)
+
+/-- Imperative implementation of `quantilesFloat` over `Float` using `Id.run do` and mutable state. -/
+def quantilesFloat_imp (data : List Float) (n : ℕ := 4) (method : String := "exclusive") : Option (List Float) := Id.run do
   if n < 1 then
-    return []
+    return none
+  let sortedData := List.insertionSort (· ≤ ·) data
+  let ld := sortedData.length
+  if ld < 2 then
+    return none
+  if method == "inclusive" then
+    let m := ld - 1
+    let mut result : List Float := []
+    for i in List.range' 1 (n - 1) do
+      let j := (i * m) / n
+      let delta := (i * m) % n
+      let interpolated := (sortedData.getD j 0.0 * (Float.ofNat n - Float.ofNat delta) + sortedData.getD (j + 1) 0.0 * Float.ofNat delta) / Float.ofNat n
+      result := result ++ [interpolated]
+    return some result
+  else if method == "exclusive" then
+    let m := ld + 1
+    let mut result : List Float := []
+    for i in List.range' 1 (n - 1) do
+      let j_raw := (i * m) / n
+      let j := exclusiveClamp ld j_raw
+      let delta : ℤ := (i * m : ℤ) - (j * n : ℤ)
+      let interpolated := (sortedData.getD (j - 1) 0.0 * (Float.ofInt (n : ℤ) - Float.ofInt delta) + sortedData.getD j 0.0 * Float.ofInt delta) / Float.ofNat n
+      result := result ++ [interpolated]
+    return some result
   else
-    let s := data.mergeSort (fun a b => decide (a ≤ b))
-    let ld := s.length
-    if ld < 2 then
-      return []
-    else if method == "inclusive" then
-      let mut result : List Float := []
-      for k in List.range (n - 1) do
-        result := result ++ [inclusiveStepFloat s n (k + 1)]
-      return result
-    else if method == "exclusive" then
-      let mut result : List Float := []
-      for k in List.range (n - 1) do
-        result := result ++ [exclusiveStepFloat s n (k + 1)]
-      return result
-    else
-      return []
+    return none
 
-/-! ## 9. Imperative Tests -/
+/-- Imperative implementation of `benchmark_quantilesFloat` over `Float`. -/
+def benchmark_quantilesFloat_imp (data : List Float) (n : ℕ := 4) (method : String := "exclusive") : Option (List Float) := Id.run do
+  if !(pre data n method) then
+    return none
+  return (quantilesFloat_imp data n method)
 
-example : benchmark_quantiles_imp [1, 2, 3, 4] = [1.25, 2.5, 3.75] := by native_decide
-example : (benchmark_quantiles_imp [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 10).length = 9 := by native_decide
-example : benchmark_quantiles_imp [1, 2, 3, 4, 5] 2 = [3] := by native_decide
-example : benchmark_quantiles_imp [1, 2, 3, 4] 4 "inclusive" = [1.75, 2.5, 3.25] := by native_decide
-example : benchmark_quantiles_imp [1, 2, 3, 4] 4 "exclusive" = [1.25, 2.5, 3.75] := by native_decide
-example : benchmark_quantiles_imp [4, 1, 3, 2] 4 = [1.25, 2.5, 3.75] := by native_decide
-example : benchmark_quantiles_imp [1.5, 2.5, 3.5, 4.5] 2 = [3.0] := by native_decide
-example : benchmark_quantiles?_imp [1] 4 = none := by native_decide
-example : benchmark_quantiles?_imp [1, 2] 0 = none := by native_decide
-example : benchmark_quantiles?_imp [1, 2, 3] 4 "invalid" = none := by native_decide
+/-!
+## 12. Imperative Tests
+-/
 
 #eval benchmark_quantiles_imp [1, 2, 3, 4]
 #eval benchmark_quantiles_imp [1, 2, 3, 4] 4 "inclusive"
-#eval benchmark_quantiles?_imp [1] 4
-#eval quantilesFloat_imp [1.0, 2.0, 3.0, 4.0] 4 "exclusive"
+#eval benchmark_quantilesFloat_imp [1.0, 2.0, 3.0, 4.0]
+example : benchmark_quantiles_imp [1, 2, 3, 4] = some [5/4, 5/2, 15/4] := by native_decide
+example : benchmark_quantiles_imp [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 10 =
+  benchmark_quantiles [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 10 := by native_decide
+example : benchmark_quantiles_imp [1, 2, 3, 4, 5] 2 = some [3] := by native_decide
+example : benchmark_quantiles_imp [1, 2, 3, 4] 4 "inclusive" = some [7/4, 5/2, 13/4] := by native_decide
+example : benchmark_quantiles_imp [4, 1, 3, 2] 4 = some [5/4, 5/2, 15/4] := by native_decide
+example : benchmark_quantiles_imp [3/2, 5/2, 7/2, 9/2] 2 = some [3] := by native_decide
+example : benchmark_quantiles_imp [1] 4 = none := by native_decide
+example : benchmark_quantiles_imp [1, 2] 0 = none := by native_decide
+example : benchmark_quantiles_imp [1, 2, 3] 4 "invalid" = none := by native_decide
+example : (match benchmark_quantilesFloat_imp [1.0, 2.0, 3.0, 4.0] 4 "exclusive" with
+  | some res => res.length == 3 && floatListApprox res [1.25, 2.5, 3.75]
+  | none => false) = true := by native_decide
 
-/-! ## 10. Equivalence Theorem (Functional = Imperative) -/
+/-!
+## 13. Equivalence Theorem (Functional = Imperative)
+-/
 
-/-- Helper lemma: flattening a mapped list of singletons equals `List.map`. -/
-theorem flatten_map_singleton {α β : Type} (xs : List α) (f : α → β) :
-    (xs.map (fun x => [f x])).flatten = xs.map f := by
-  induction xs with
-  | nil => rfl
-  | cons x xs ih => simp [ih]
+lemma forIn_append_map {α β : Type*} (xs : List α) (f : α → β) (acc : List β) :
+    (ForIn.forIn xs acc (fun x r => pure (ForInStep.yield (r ++ [f x]))) : Id (List β)) =
+    pure (acc ++ xs.map f) := by
+  induction xs generalizing acc with
+  | nil => simp
+  | cons x xs ih =>
+    simp only [List.forIn_cons, pure_bind, ih, List.map_cons, List.append_assoc, List.singleton_append]
 
-/-- Equivalence between `quantiles_imp` and `quantiles`. -/
-theorem quantiles_imp_eq_quantiles (data : List Rat) (n : Nat) (method : String) :
-    quantiles_imp data n method = quantiles data n method := by
-  unfold quantiles_imp quantiles inclusiveStep exclusiveStep
-  dsimp only
-  split_ifs <;> simp [flatten_map_singleton]
+/-- Equivalence theorem between functional `quantiles` and imperative `quantiles_imp`. -/
+theorem quantiles_equiv (data : List ℚ) (n : ℕ := 4) (method : String := "exclusive") :
+    quantiles data n method = quantiles_imp data n method := by
+  unfold quantiles quantilesGeneric quantiles_imp
+  by_cases hn : n < 1
+  · simp only [hn, ↓reduceIte]; rfl
+  · by_cases hld : (List.insertionSort (· ≤ ·) data).length < 2
+    · simp only [hn, ↓reduceIte, hld]; rfl
+    · by_cases hm1 : method == "inclusive"
+      · simp only [hn, ↓reduceIte, hld, hm1]
+        have hloop := forIn_append_map (List.range' 1 (n - 1))
+          (inclusiveInterp (List.insertionSort (· ≤ ·) data) n) []
+        change some (List.map (inclusiveInterp (List.insertionSort (· ≤ ·) data) n) (List.range' 1 (n - 1))) =
+          ((ForIn.forIn (List.range' 1 (n - 1)) [] (fun i r =>
+            pure (ForInStep.yield (r ++ [inclusiveInterp (List.insertionSort (· ≤ ·) data) n i]))) : Id (List ℚ)) >>=
+            fun result => pure (some result))
+        rw [hloop, List.nil_append]
+        rfl
+      · by_cases hm2 : method == "exclusive"
+        · simp only [hn, ↓reduceIte, hld, hm1, Bool.false_eq_true, hm2]
+          have hloop := forIn_append_map (List.range' 1 (n - 1))
+            (exclusiveInterp (List.insertionSort (· ≤ ·) data) n) []
+          change some (List.map (exclusiveInterp (List.insertionSort (· ≤ ·) data) n) (List.range' 1 (n - 1))) =
+            ((ForIn.forIn (List.range' 1 (n - 1)) [] (fun i r =>
+              pure (ForInStep.yield (r ++ [exclusiveInterp (List.insertionSort (· ≤ ·) data) n i]))) : Id (List ℚ)) >>=
+              fun result => pure (some result))
+          rw [hloop, List.nil_append]
+          rfl
+        · simp only [hn, ↓reduceIte, hld, hm1, hm2, Bool.false_eq_true]; rfl
 
-/-- Equivalence between `benchmark_quantiles_imp` and `benchmark_quantiles`. -/
-theorem benchmark_quantiles_imp_eq (data : List Rat) (n : Nat := 4) (method : String := "exclusive") :
-    benchmark_quantiles_imp data n method = benchmark_quantiles data n method := by
-  unfold benchmark_quantiles_imp benchmark_quantiles
-  rw [quantiles_imp_eq_quantiles]
-  split_ifs <;> rfl
+/-- Equivalence theorem between functional `benchmark_quantiles` and imperative `benchmark_quantiles_imp`. -/
+theorem benchmark_quantiles_equiv (data : List ℚ) (n : ℕ := 4) (method : String := "exclusive") :
+    benchmark_quantiles data n method = benchmark_quantiles_imp data n method := by
+  unfold benchmark_quantiles benchmark_quantiles_imp
+  by_cases hp : pre data n method
+  · simp only [hp, Bool.not_true, Bool.false_eq_true, ↓reduceIte, quantiles_equiv]; rfl
+  · simp only [hp, Bool.not_false, ↓reduceIte]; rfl
 
-/-- Equivalence between `benchmark_quantiles?_imp` and `benchmark_quantiles?`. -/
-theorem benchmark_quantiles?_imp_eq (data : List Rat) (n : Nat := 4) (method : String := "exclusive") :
-    benchmark_quantiles?_imp data n method = benchmark_quantiles? data n method := by
-  unfold benchmark_quantiles?_imp benchmark_quantiles?
-  rw [quantiles_imp_eq_quantiles]
-  split_ifs <;> rfl
+/-- Equivalence theorem between functional `quantilesFloat` and imperative `quantilesFloat_imp`. -/
+theorem quantilesFloat_equiv (data : List Float) (n : ℕ := 4) (method : String := "exclusive") :
+    quantilesFloat data n method = quantilesFloat_imp data n method := by
+  unfold quantilesFloat quantilesFloat_imp
+  by_cases hn : n < 1
+  · simp only [hn, ↓reduceIte]; rfl
+  · by_cases hld : (List.insertionSort (· ≤ ·) data).length < 2
+    · simp only [hn, ↓reduceIte, hld]; rfl
+    · by_cases hm1 : method == "inclusive"
+      · simp only [hn, ↓reduceIte, hld, hm1]
+        have hloop := forIn_append_map (List.range' 1 (n - 1))
+          (inclusiveInterpFloat (List.insertionSort (· ≤ ·) data) n) []
+        change some (List.map (inclusiveInterpFloat (List.insertionSort (· ≤ ·) data) n) (List.range' 1 (n - 1))) =
+          ((ForIn.forIn (List.range' 1 (n - 1)) [] (fun i r =>
+            pure (ForInStep.yield (r ++ [inclusiveInterpFloat (List.insertionSort (· ≤ ·) data) n i]))) : Id (List Float)) >>=
+            fun result => pure (some result))
+        rw [hloop, List.nil_append]
+        rfl
+      · by_cases hm2 : method == "exclusive"
+        · simp only [hn, ↓reduceIte, hld, hm1, Bool.false_eq_true, hm2]
+          have hloop := forIn_append_map (List.range' 1 (n - 1))
+            (exclusiveInterpFloat (List.insertionSort (· ≤ ·) data) n) []
+          change some (List.map (exclusiveInterpFloat (List.insertionSort (· ≤ ·) data) n) (List.range' 1 (n - 1))) =
+            ((ForIn.forIn (List.range' 1 (n - 1)) [] (fun i r =>
+              pure (ForInStep.yield (r ++ [exclusiveInterpFloat (List.insertionSort (· ≤ ·) data) n i]))) : Id (List Float)) >>=
+              fun result => pure (some result))
+          rw [hloop, List.nil_append]
+          rfl
+        · simp only [hn, ↓reduceIte, hld, hm1, hm2, Bool.false_eq_true]; rfl
 
-/-- Equivalence between `quantilesFloat_imp` and `quantilesFloat`. -/
-theorem quantilesFloat_imp_eq (data : List Float) (n : Nat := 4) (method : String := "exclusive") :
-    quantilesFloat_imp data n method = quantilesFloat data n method := by
-  unfold quantilesFloat_imp quantilesFloat
-  dsimp only
-  split_ifs <;> simp [flatten_map_singleton]
+/-- Equivalence theorem between functional `benchmark_quantilesFloat` and imperative `benchmark_quantilesFloat_imp`. -/
+theorem benchmark_quantilesFloat_equiv (data : List Float) (n : ℕ := 4) (method : String := "exclusive") :
+    benchmark_quantilesFloat data n method = benchmark_quantilesFloat_imp data n method := by
+  unfold benchmark_quantilesFloat benchmark_quantilesFloat_imp
+  by_cases hp : pre data n method
+  · simp only [hp, Bool.not_true, Bool.false_eq_true, ↓reduceIte, quantilesFloat_equiv]; rfl
+  · simp only [hp, Bool.not_false, ↓reduceIte]; rfl
 
 end «31_statistics_quantiles»

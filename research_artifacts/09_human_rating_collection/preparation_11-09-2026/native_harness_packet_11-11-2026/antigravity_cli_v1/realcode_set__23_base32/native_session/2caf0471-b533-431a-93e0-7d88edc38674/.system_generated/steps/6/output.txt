@@ -1,0 +1,20 @@
+Created At: 2026-11-16T21:37:54Z
+Completed At: 2026-11-16T21:37:59Z
+Command exited with code 1.
+
+Command output:
+<stdin>:10:2: error: The prover found a potentially spurious counterexample:
+- It abstracted the following unsupported expressions as opaque variables: [((((b0.toUInt64 <<< 32 |||
+                 b1.toUInt64 <<< 24) >>>
+               35 &&&
+             31) <<<
+           5 |||
+         (b0.toUInt64 <<< 32 ||| b1.toUInt64 <<< 24) >>> 30 &&& 31) >>>
+       2 &&&
+     255).toUInt8]
+Consider the following assignment:
+((((b0.toUInt64 <<< 32 ||| b1.toUInt64 <<< 24) >>> 35 &&& 31) <<< 5 |||
+        (b0.toUInt64 <<< 32 ||| b1.toUInt64 <<< 24) >>> 30 &&& 31) >>>
+      2 &&&
+    255).toUInt8 = 255
+b0 = 127

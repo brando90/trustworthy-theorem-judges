@@ -1,0 +1,71 @@
+{
+  "task_id": "easy_set__19_mypower",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "19_MyPower.py": "ecd27b4fb26b5ec4879b94f40c33474aa9bb42c745681c5247a4f0b6f7d08fd6",
+    "instruction.md": "7894926dec26258f4f9a683b98816275a8967c13d390bf1d07e3bf0f2fb28bf1"
+  },
+  "output": "/home/user/lean_project/Veribench/19_MyPower.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-1dcbf83c4245",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794866748.661105,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794867256.432176,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "9846a758-4a68-4a6a-ac36-7f9d174c804a",
+      "status": "SUCCESS",
+      "response": "The Python power program has been formalized in Lean 4 at [19_MyPower.lean](file:///home/user/lean_project/Veribench/19_MyPower.lean).\n\n### Summary of Formalization\n- **Functional & Integer Precondition-Checked Implementations** ([19_MyPower.lean](file:///home/user/lean_project/Veribench/19_MyPower.lean#L16-L31)):\n  - `myPower (base exponent : Nat) : Nat` computes $base^{exponent}$ recursively over natural numbers.\n  - `pre (base exponent : Int) : Bool` and `myPowerInt (base exponent : Int) : Option Int` model Python's non-negative integer precondition (`base >= 0 and exponent >= 0`), returning `none` when violated (`ValueError`) and `some (base ^ exponent)` otherwise.\n- **Unit & Property-Based Tests** ([19_MyPower.lean](file:///home/user/lean_project/Veribench/19_MyPower.lean#L35-L58), [19_MyPower.lean](file:///home/user/lean_project/Veribench/19_MyPower.lean#L369-L415)):\n  - Ground `#eval` and `example ... := by native_decide` tests covering standard cases, edge cases (`(0, 0)`, `(0, 5)`, `(5, 0)`), and negative inputs (`(-1, 2)`, `(2, -1)`).\n  - Randomized `Plausible.Testable.check` and bounded `List.range` PBTs for every property proposition and post-condition.\n- **Pre/Post-Conditions, Properties, and Proofs** ([19_MyPower.lean](file:///home/user/lean_project/Veribench/19_MyPower.lean#L63-L447)):\n  - Complete proofs (with zero `sorry` or `native_decide` in theorem proofs) for standard power equivalence (`eq_pow_thm`), edge cases (`exp_zero_thm`, `zero_base_thm`, `zero_zero_thm`, `exp_one_thm`, `one_base_thm`), algebraic exponent laws (`succ_exp_thm`, `add_exp_thm`, `mul_base_thm`, `mul_exp_thm`), order/divisibility properties (`nonneg_thm`, `pos_thm`, `zero_iff_thm`, `one_iff_thm`, `ge_base_thm`, `gt_one_thm`, `dvd_thm`, `mono_base_thm`, `mono_exp_thm`, `strict_mono_exp_thm`), integer validity/error specifications (`int_valid_thm`, `int_invalid_thm`), and overall correctness (`myPower_correct`, `myPowerInt_correct`).\n- **Imperative Implementation & Equivalence Proofs** ([19_MyPower.lean](file:///home/user/lean_project/Veribench/19_MyPower.lean#L452-L538)):\n  - Imperative implementations `myPowerImp` and `myPowerIntImp` using `Id.run do` with mutable state `result`, along with full equivalence proofs `myPower_equiv` and `myPowerInt_equiv`.\n",
+      "duration_seconds": 503.310103288,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 76640,
+        "output_tokens": 36382,
+        "thinking_tokens": 15912,
+        "cache_read_tokens": 454563,
+        "total_tokens": 113022
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "e9e52294d682751054f192f9625e6fcc84f5050961b8174428d3cf435c31b401",
+  "candidate_bytes": 22237
+}

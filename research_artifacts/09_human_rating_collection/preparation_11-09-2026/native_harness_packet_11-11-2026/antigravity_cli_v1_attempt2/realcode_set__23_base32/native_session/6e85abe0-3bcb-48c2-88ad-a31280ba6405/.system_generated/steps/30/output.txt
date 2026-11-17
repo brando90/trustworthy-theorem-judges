@@ -1,0 +1,12 @@
+Created At: 2026-11-16T23:05:03Z
+Completed At: 2026-11-16T23:05:11Z
+Command exited with code 1.
+
+Command output:
+<stdin>:83:30: error: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+'decodeChars_encodeChunk1' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'decodeChars_encodeChunk2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'decodeChars_encodeChunk3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'decodeChars_encodeChunk4' depends on axioms: [propext, Classical.choice, Quot.sound]

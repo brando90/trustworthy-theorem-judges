@@ -1,0 +1,15 @@
+Created At: 2026-11-16T21:31:36Z
+Completed At: 2026-11-16T21:31:41Z
+Command exited with code 0.
+
+Command output:
+s : String
+target : Char
+replacement : String
+⊢ {
+      data :=
+        (forIn s.data [] fun c r =>
+            if c = target then pure (ForInStep.yield (r ++ replacement.data))
+            else pure (ForInStep.yield (r ++ [c]))).run } =
+    s
+<stdin>:12:0: warning: declaration uses 'sorry'

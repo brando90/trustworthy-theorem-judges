@@ -1,0 +1,38 @@
+Command exited with code 0.
+
+Command output:
+2
+3
+5
+13
+89
+233
+1597
+28657
+514229
+433494437
+Unable to find a counter-example
+/home/user/.gemini/antigravity-cli/brain/1b1e2929-b842-490c-9230-edf23a6bb5ae/scratch/test_mathlib.lean:321:0: warning: Gave up after failing to generate values that fulfill the preconditions 13 times.
+/home/user/.gemini/antigravity-cli/brain/1b1e2929-b842-490c-9230-edf23a6bb5ae/scratch/test_mathlib.lean:322:0: warning: Gave up after failing to generate values that fulfill the preconditions 16 times.
+/home/user/.gemini/antigravity-cli/brain/1b1e2929-b842-490c-9230-edf23a6bb5ae/scratch/test_mathlib.lean:323:0: warning: Gave up after failing to generate values that fulfill the preconditions 16 times.
+/home/user/.gemini/antigravity-cli/brain/1b1e2929-b842-490c-9230-edf23a6bb5ae/scratch/test_mathlib.lean:324:0: warning: Gave up after failing to generate values that fulfill the preconditions 14 times.
+/home/user/.gemini/antigravity-cli/brain/1b1e2929-b842-490c-9230-edf23a6bb5ae/scratch/test_mathlib.lean:325:0: warning: Gave up after failing to generate values that fulfill the preconditions 71 times.
+/home/user/.gemini/antigravity-cli/brain/1b1e2929-b842-490c-9230-edf23a6bb5ae/scratch/test_mathlib.lean:326:0: warning: Gave up after failing to generate values that fulfill the preconditions 14 times.
+2
+3
+5
+13
+89
+233
+1597
+28657
+514229
+433494437
+'humaneval_39_prime_fib.is_prime_correct_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_39_prime_fib.prime_fib_is_prime_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_39_prime_fib.prime_fib_is_fib_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_39_prime_fib.prime_fib_ge_two_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_39_prime_fib.prime_fib_nth_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_39_prime_fib.prime_fib_strict_mono_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_39_prime_fib.prime_fib_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_39_prime_fib.prime_fib_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]

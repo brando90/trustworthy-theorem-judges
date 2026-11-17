@@ -156,7 +156,7 @@ Intervals are the saved 95% percentile-bootstrap intervals; `p-val=n/a` for all,
 | RPS above the 20-task value at 4 / 8 / 12 / 16 training tasks | +0.0133 / +0.0044 / +0.0021 / +0.0006 | — | — | archived learning-curve study |
 | RPS cost of training on 1 rating per file, or 2, instead of all 2–3 | +0.0020 [+0.0010, +0.0031]; +0.0004 [+0.0001, +0.0007] | 25 tasks | — | archived learning-curve study |
 | Entered minutes per rating | Warm-up: 6 entries from 1 rater, median 4, range 2–5. Main task: 0 entries | — | — | [raw rating files](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/ratings/README.md) |
-| Candidate file length, median lines | Warm-up 58 (6 files); main task 521.5 (100 files); ratio 9.0 | — | — | [task packet](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/START_HERE.md) |
+| Candidate file length, median lines | Warm-up 58 (6 files); main task 541.5 (100 files); ratio 9.3 | — | — | [task packet](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/START_HERE.md) |
 | Current packet | 100 files on 25 tasks: all 25 tasks with four files; 4.0 files per task | — | — | [main form](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/main_rating_task/ratings.csv) |
 
 The two archived studies disagree on the sign of the difference (−0.0056 and +0.0052), and each interval that allows for refitting includes zero. Which objective is better is unresolved; this section sizes the comparison, it does not predict its outcome.
@@ -179,14 +179,14 @@ For a mean over \(n\) independent units with a 95% interval \([\mathrm{lo},\math
 
 For one judge's RPS level, standard deviation 0.0675 gives 44 tasks for ±0.02, 176 for ±0.01 and 701 for ±0.005; 25 tasks give ±0.0265. Paired comparisons are far cheaper than absolute levels because task difficulty cancels.
 
-| Scenario | New development tasks | New held-out tasks | Held-out tasks in total | Independent ratings | Hours at 4 minutes | Hours at 36 minutes |
+| Scenario | New development tasks | New held-out tasks | Held-out tasks in total | Independent ratings | Hours at 4 minutes | Hours at 37 minutes |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Finish the current packet | 0 | 0 | 25 | 200 | 13.3 | 119.9 |
-| Add a development pool | 24 | 0 | 25 | 392 | 26.1 | 235.0 |
-| Development pool, plus held-out tasks for ±0.01 | 24 | 12 | 37 | 488 | 32.5 | 292.5 |
-| Development pool, plus held-out tasks for ±0.005 | 24 | 120 | 145 | 1,352 | 90.1 | 810.4 |
+| Finish the current packet | 0 | 0 | 25 | 200 | 13.3 | 124.5 |
+| Add a development pool | 24 | 0 | 25 | 392 | 26.1 | 244.0 |
+| Development pool, plus held-out tasks for ±0.01 | 24 | 12 | 37 | 488 | 32.5 | 303.7 |
+| Development pool, plus held-out tasks for ±0.005 | 24 | 120 | 145 | 1,352 | 90.1 | 841.5 |
 
-New tasks are costed at 4.0 files per task and two ratings per file. Four minutes is the measured warm-up median; 36 minutes is that value multiplied by the 9.0 length ratio, an assumption and not a measurement. Held-out counts use the middle variability case.
+New tasks are costed at 4.0 files per task and two ratings per file. Four minutes is the measured warm-up median; 37 minutes is that value multiplied by the 9.3 length ratio, an assumption and not a measurement. Held-out counts use the middle variability case.
 
 ### Limits of this arithmetic
 
@@ -196,7 +196,7 @@ New tasks are costed at 4.0 files per task and two ratings per file. Four minute
 - **Only task-family sampling is covered.** Rater sampling, judge repeat variability and the prior exposure of the historical test outcomes are outside these intervals.
 - **One planned comparison.** Several proper-loss conditions against Pearson need one declared primary contrast or a multiplicity adjustment.
 - **Solver configurations and the rater panel are fixed.** Nothing here supports claim (c).
-- **The return rate is assumed stable.** 4.0 files per task reflects 100 files across four frontier agent families (five solver conditions); the planned Pi/Gemini 3.8 Flash configuration returned none, so its cells hold Gemini 4 Argon's earlier Terminus 2 files (high effort).
+- **The return rate is assumed stable.** 4.0 files per task reflects 100 files from four frontier agents, each run in its vendor's own harness (five solver conditions), after retries: 1 Gemini and 3 Grok tasks needed a second or later attempt, and 6 Claude Code tasks needed a rerun with a larger single-response cap; the planned Pi/Gemini 3.8 Flash configuration returned none.
 - **The development pool is a starting block.** Sixteen training and eight validation tasks are an agent's suggestion read off a five-weight mixture's curve, not a derived requirement.
 
 ### Inputs still missing, and a bounded way to get each

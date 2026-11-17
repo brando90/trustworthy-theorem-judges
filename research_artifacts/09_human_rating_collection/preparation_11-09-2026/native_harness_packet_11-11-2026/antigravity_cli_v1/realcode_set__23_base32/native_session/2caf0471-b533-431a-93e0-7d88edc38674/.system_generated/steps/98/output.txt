@@ -1,0 +1,29 @@
+Created At: 2026-11-16T22:05:09Z
+Completed At: 2026-11-16T22:05:15Z
+Command exited with code 1.
+
+Command output:
+<stdin>:63:2: error: expected type must not contain free variables
+  isB32EncodedChar c = true →
+    (c == 48) = false ∧ (c == 49) = false ∧ toUpperByte c = c ∧ toUpperByte (toLowerByte c) = c
+Use the '+revert' option to automatically cleanup and revert free variables.
+<stdin>:73:4: error: type mismatch
+  ih fun c hc => h c (List.mem_cons_of_mem x hc)
+has type
+  List.map (fun c => if (c == old) = true then new_ else c) xs = xs : Prop
+but is expected to have type
+  (if false = true then new_ else x) = x ∧ List.map (fun c => if (c == old) = true then new_ else c) xs = xs : Prop
+<stdin>:72:59: warning: This simp argument is unused:
+  ↓reduceIte
+
+Hint: Omit it from the simp argument list.
+  simp only [List.map_cons, h x (List.mem_cons_self ..), ↓̵r̵e̵d̵u̵c̵e̵I̵t̵e̵,̵ ̵List.cons.injEq, true_and]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+<stdin>:72:88: warning: This simp argument is unused:
+  true_and
+
+Hint: Omit it from the simp argument list.
+  simp only [List.map_cons, h x (List.mem_cons_self ..), ↓reduceIte, List.cons.injEq,̵ ̵t̵r̵u̵e̵_̵a̵n̵d̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

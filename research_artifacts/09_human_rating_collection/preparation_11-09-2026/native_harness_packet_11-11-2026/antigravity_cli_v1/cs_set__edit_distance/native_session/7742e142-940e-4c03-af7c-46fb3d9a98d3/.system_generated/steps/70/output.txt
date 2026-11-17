@@ -1,0 +1,66 @@
+Created At: 2026-11-16T22:31:38Z
+Completed At: 2026-11-16T22:31:43Z
+Command exited with code 1.
+
+Command output:
+Veribench/edit_distance.lean:129:2: error: type mismatch
+  Eq.symm h_out
+has type
+  edit_distance s1 s2 =
+    (List.foldl
+          (fun st a =>
+            have res :=
+              List.foldl
+                (fun st x =>
+                  have curr := if a = x.1 then st.1 else 1 + min x.2 (min st.2.1 st.1);
+                  (x.2, curr, curr :: st.2.2))
+                (st.1, st.1 + 1, []) (s2.reverse.zip st.2.1);
+            (st.1 + 1, res.2.2.reverse, res.2.1))
+          (0, List.range' 1 s2.length, s2.length) s1.reverse).2.2 : Prop
+but is expected to have type
+  edit_distance s1 s2 =
+    (List.foldl
+          (fun r a =>
+            ⟨r.fst + 1,
+              (List.foldl
+                      (fun r a_1 =>
+                        ⟨a_1.2, if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst),
+                          (if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst)) :: r.snd.snd⟩)
+                      ⟨r.fst, r.fst + 1, []⟩ (s2.reverse.zip r.snd.fst)).2.snd.reverse,
+              (List.foldl
+                    (fun r a_1 =>
+                      ⟨a_1.2, if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst),
+                        (if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst)) :: r.snd.snd⟩)
+                    ⟨r.fst, r.fst + 1, []⟩ (s2.reverse.zip r.snd.fst)).2.fst⟩)
+          ⟨0, List.range' 1 s2.length, s2.length⟩ s1.reverse).2.snd : Prop
+α : Type
+inst✝ : DecidableEq α
+s1 s2 : List α
+h1 : List.range' 1 s2.length = specTail [] [] s2.reverse
+h_out :
+  (List.foldl
+          (fun st a =>
+            have res :=
+              List.foldl
+                (fun st x =>
+                  have curr := if a = x.1 then st.1 else 1 + min x.2 (min st.2.1 st.1);
+                  (x.2, curr, curr :: st.2.2))
+                (st.1, st.1 + 1, []) (s2.reverse.zip st.2.1);
+            (st.1 + 1, res.2.2.reverse, res.2.1))
+          (0, List.range' 1 s2.length, s2.length) s1.reverse).2.2 =
+    edit_distance s1 s2
+⊢ edit_distance s1 s2 =
+    (List.foldl
+          (fun r a =>
+            ⟨r.fst + 1,
+              (List.foldl
+                      (fun r a_1 =>
+                        ⟨a_1.2, if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst),
+                          (if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst)) :: r.snd.snd⟩)
+                      ⟨r.fst, r.fst + 1, []⟩ (s2.reverse.zip r.snd.fst)).2.snd.reverse,
+              (List.foldl
+                    (fun r a_1 =>
+                      ⟨a_1.2, if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst),
+                        (if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst)) :: r.snd.snd⟩)
+                    ⟨r.fst, r.fst + 1, []⟩ (s2.reverse.zip r.snd.fst)).2.fst⟩)
+          ⟨0, List.range' 1 s2.length, s2.length⟩ s1.reverse).2.snd

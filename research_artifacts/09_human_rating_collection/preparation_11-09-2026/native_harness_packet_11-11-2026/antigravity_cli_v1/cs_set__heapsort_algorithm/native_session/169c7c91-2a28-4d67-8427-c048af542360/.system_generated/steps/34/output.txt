@@ -1,0 +1,13 @@
+Created At: 2026-11-16T22:17:07Z
+Completed At: 2026-11-16T22:17:13Z
+Command exited with code 1.
+
+Command output:
+<stdin>:334:44: error: Application type mismatch: In the application
+  ih (max_heapify arr i arr.length) hstep
+the argument
+  hstep
+has type
+  IsMaxHeapFrom (max_heapify arr i (max_heapify arr i arr.length).length) i (max_heapify arr i arr.length).length : Prop
+but is expected to have type
+  IsMaxHeapFrom (max_heapify arr i arr.length) i (max_heapify arr i arr.length).length : Prop

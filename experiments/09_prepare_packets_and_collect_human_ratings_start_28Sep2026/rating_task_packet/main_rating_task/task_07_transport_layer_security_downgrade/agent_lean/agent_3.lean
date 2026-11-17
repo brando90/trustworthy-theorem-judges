@@ -1,16 +1,14 @@
 import Mathlib
 
 /-!
-# Unsafe TLS Version Downgrade
+# Unsafe TLS Version Downgrade (MIT 6.858 Lecture 14)
 
-Formalization of the unsafe TLS version negotiation function from MIT 6.858
-Lecture 14 (TLS / Downgrade).
-
-A TLS server picks `min(client_offered_max, server_max)` — the highest common
-protocol version. Without a cryptographic sentinel binding the client's true
-capability into the negotiation, an on-path attacker can strip strong versions
-from `ClientHello` before it reaches the server, causing the server to negotiate
-the highest common version of the tampered offer.
+Formalization of `unsafe_tls_downgrade`:
+A TLS server picks `min(client_offered_max, server_max)` — the highest common protocol
+version between the client's offered maximum and the server's maximum supported version.
+Without a sentinel binding the client's true capability into the negotiation, an on-path
+attacker who strips strong versions from the `ClientHello` causes the server to pick the
+highest common version of the tampered offer, downgrading the connection.
 
 Protocol version encoding (higher = newer):
 - `0` = SSL 3.0
@@ -24,377 +22,611 @@ namespace «95_unsafeTlsDowngrade»
 
 /-! ## 1. Functional Implementation -/
 
-/-- Return `min clientOfferedMax serverMax` — the highest common TLS version
-between the (possibly attacker-modified) client offer and the server's maximum
-supported version. -/
-def unsafeTlsDowngrade (clientOfferedMax serverMax : Int) : Int :=
-  min clientOfferedMax serverMax
+/-- Return `min(client_offered_max, server_max)` — the highest common version.
+The vulnerability is the lack of a check that `client_offered_max` matches the
+client's true capability. -/
+def unsafe_tls_downgrade (client_offered_max server_max : Int) : Int :=
+  min client_offered_max server_max
 
-/-- Snake-case alias matching the Python function name `unsafe_tls_downgrade`. -/
-abbrev unsafe_tls_downgrade : Int → Int → Int := unsafeTlsDowngrade
+/-- CamelCase alias for `unsafe_tls_downgrade`. -/
+abbrev unsafeTlsDowngrade (client_offered_max server_max : Int) : Int :=
+  unsafe_tls_downgrade client_offered_max server_max
 
-/-- Executable test harness mirroring the Python `check(candidate)` function. -/
+/-- Executable check bundle translating the Python `check(candidate)` test suite. -/
 def check (candidate : Int → Int → Int) : Bool :=
+  -- 1) No attack: TLS 1.3 negotiated.
   (candidate 4 4 == 4) &&
+  -- 2) VULNERABILITY: attacker stripped offer to TLS 1.0; server picks 1.
   (candidate 1 4 == 1) &&
+  -- 3) Server caps the result.
   (candidate 4 2 == 2) &&
+  -- 4) Match: full version negotiated.
   (candidate 3 3 == 3) &&
+  -- 5) Edge: legacy-only server.
   (candidate 4 0 == 0) &&
-  (candidate 2 4 >= candidate 1 4)
+  -- 6) Monotone in offer: more visible offer ≥ less visible offer.
+  (candidate 2 4 ≥ candidate 1 4)
 
 /-! ## 2. Unit Tests -/
 
+#eval unsafe_tls_downgrade 4 4
+#eval unsafe_tls_downgrade 1 4
+#eval unsafe_tls_downgrade 4 2
+#eval unsafe_tls_downgrade 3 3
+#eval unsafe_tls_downgrade 4 0
+#eval check unsafe_tls_downgrade
+
 -- 1) No attack: TLS 1.3 negotiated.
-#eval unsafeTlsDowngrade 4 4
-example : unsafeTlsDowngrade 4 4 = 4 := by native_decide
+example : unsafe_tls_downgrade 4 4 = 4 := by native_decide
 
 -- 2) VULNERABILITY: attacker stripped offer to TLS 1.0; server picks 1.
-#eval unsafeTlsDowngrade 1 4
-example : unsafeTlsDowngrade 1 4 = 1 := by native_decide
+example : unsafe_tls_downgrade 1 4 = 1 := by native_decide
 
 -- 3) Server caps the result.
-#eval unsafeTlsDowngrade 4 2
-example : unsafeTlsDowngrade 4 2 = 2 := by native_decide
+example : unsafe_tls_downgrade 4 2 = 2 := by native_decide
 
 -- 4) Match: full version negotiated.
-#eval unsafeTlsDowngrade 3 3
-example : unsafeTlsDowngrade 3 3 = 3 := by native_decide
+example : unsafe_tls_downgrade 3 3 = 3 := by native_decide
 
 -- 5) Edge: legacy-only server.
-#eval unsafeTlsDowngrade 4 0
-example : unsafeTlsDowngrade 4 0 = 0 := by native_decide
+example : unsafe_tls_downgrade 4 0 = 0 := by native_decide
 
 -- 6) Monotone in offer: more visible offer ≥ less visible offer.
-#eval decide (unsafeTlsDowngrade 2 4 ≥ unsafeTlsDowngrade 1 4)
-example : unsafeTlsDowngrade 2 4 ≥ unsafeTlsDowngrade 1 4 := by native_decide
+example : unsafe_tls_downgrade 2 4 ≥ unsafe_tls_downgrade 1 4 := by native_decide
 
--- Full Python check suite.
-#eval check unsafeTlsDowngrade
-example : check unsafeTlsDowngrade = true := by native_decide
+-- Full Python `check` suite passes.
+example : check unsafe_tls_downgrade = true := by native_decide
 
 /-! ## 3. Pre-condition -/
 
-/-- Pre-condition for `unsafeTlsDowngrade`. The Python function accepts any
-integer inputs `(client_offered_max, server_max)`. -/
-def Pre (_clientOfferedMax _serverMax : Int) : Prop := True
+/-- Pre-condition for `unsafe_tls_downgrade`: any pair of integer versions is admissible. -/
+def Pre (_client_offered_max _server_max : Int) : Prop := True
+
+instance (c s : Int) : Decidable (Pre c s) := by
+  unfold Pre
+  infer_instance
+
+/-- Predicate characterizing the standard TLS protocol version numbers `0..4`
+(0 = SSL 3.0, 1 = TLS 1.0, 2 = TLS 1.1, 3 = TLS 1.2, 4 = TLS 1.3). -/
+def ValidTlsVersion (v : Int) : Prop := 0 ≤ v ∧ v ≤ 4
+
+instance (v : Int) : Decidable (ValidTlsVersion v) := by
+  unfold ValidTlsVersion
+  infer_instance
 
 /-! ## 4. Properties and Theorems -/
 
-/-- Property 1: Exact specification as the minimum of `clientOfferedMax` and `serverMax`. -/
-def exact_min_prop (clientOfferedMax serverMax : Int) : Prop :=
-  unsafeTlsDowngrade clientOfferedMax serverMax = min clientOfferedMax serverMax
+/-- Exact specification property: result equals `min client_offered_max server_max`. -/
+def exact_min_prop (client_offered_max server_max : Int) : Prop :=
+  unsafe_tls_downgrade client_offered_max server_max = min client_offered_max server_max
 
-theorem exact_min_thm (clientOfferedMax serverMax : Int) :
-    exact_min_prop clientOfferedMax serverMax := by
+instance (c s : Int) : Decidable (exact_min_prop c s) := by
+  unfold exact_min_prop; infer_instance
+
+theorem exact_min_thm (client_offered_max server_max : Int) :
+    exact_min_prop client_offered_max server_max := by
   rfl
 
-/-- Property 2: Conditional branching specification of version negotiation. -/
-def ite_spec_prop (clientOfferedMax serverMax : Int) : Prop :=
-  unsafeTlsDowngrade clientOfferedMax serverMax =
-    if clientOfferedMax ≤ serverMax then clientOfferedMax else serverMax
+/-- Upper-bound by client offer: negotiated version never exceeds `client_offered_max`. -/
+def le_client_offer_prop (client_offered_max server_max : Int) : Prop :=
+  unsafe_tls_downgrade client_offered_max server_max ≤ client_offered_max
 
-theorem ite_spec_thm (clientOfferedMax serverMax : Int) :
-    ite_spec_prop clientOfferedMax serverMax := by
-  unfold ite_spec_prop unsafeTlsDowngrade
-  exact min_def clientOfferedMax serverMax
+instance (c s : Int) : Decidable (le_client_offer_prop c s) := by
+  unfold le_client_offer_prop; infer_instance
 
-/-- Property 3: The negotiated version never exceeds the client's offered maximum. -/
-def le_client_prop (clientOfferedMax serverMax : Int) : Prop :=
-  unsafeTlsDowngrade clientOfferedMax serverMax ≤ clientOfferedMax
+theorem le_client_offer_thm (client_offered_max server_max : Int) :
+    le_client_offer_prop client_offered_max server_max := by
+  unfold le_client_offer_prop unsafe_tls_downgrade
+  exact Int.min_le_left client_offered_max server_max
 
-theorem le_client_thm (clientOfferedMax serverMax : Int) :
-    le_client_prop clientOfferedMax serverMax := by
-  unfold le_client_prop unsafeTlsDowngrade
-  exact min_le_left clientOfferedMax serverMax
+/-- Server-cap property: negotiated version never exceeds `server_max`. -/
+def le_server_max_prop (client_offered_max server_max : Int) : Prop :=
+  unsafe_tls_downgrade client_offered_max server_max ≤ server_max
 
-/-- Property 4: The negotiated version never exceeds the server's maximum version
-(the server caps the result). -/
-def le_server_prop (clientOfferedMax serverMax : Int) : Prop :=
-  unsafeTlsDowngrade clientOfferedMax serverMax ≤ serverMax
+instance (c s : Int) : Decidable (le_server_max_prop c s) := by
+  unfold le_server_max_prop; infer_instance
 
-theorem le_server_thm (clientOfferedMax serverMax : Int) :
-    le_server_prop clientOfferedMax serverMax := by
-  unfold le_server_prop unsafeTlsDowngrade
-  exact min_le_right clientOfferedMax serverMax
+theorem le_server_max_thm (client_offered_max server_max : Int) :
+    le_server_max_prop client_offered_max server_max := by
+  unfold le_server_max_prop unsafe_tls_downgrade
+  exact Int.min_le_right client_offered_max server_max
 
-/-- Property 5: The negotiated version is always equal to either the client's
-offered maximum or the server's maximum. -/
-def is_input_prop (clientOfferedMax serverMax : Int) : Prop :=
-  unsafeTlsDowngrade clientOfferedMax serverMax = clientOfferedMax ∨
-  unsafeTlsDowngrade clientOfferedMax serverMax = serverMax
+/-- Choice property: the negotiated version is either `client_offered_max` or `server_max`. -/
+def choice_prop (client_offered_max server_max : Int) : Prop :=
+  unsafe_tls_downgrade client_offered_max server_max = client_offered_max ∨
+  unsafe_tls_downgrade client_offered_max server_max = server_max
 
-theorem is_input_thm (clientOfferedMax serverMax : Int) :
-    is_input_prop clientOfferedMax serverMax := by
-  unfold is_input_prop unsafeTlsDowngrade
-  exact min_choice clientOfferedMax serverMax
+instance (c s : Int) : Decidable (choice_prop c s) := by
+  unfold choice_prop; infer_instance
 
-/-- Property 6: Greatest lower bound (highest common version) characterization:
-a version `v` is supported by both the offered maximum and the server maximum
-if and only if `v` is at most the negotiated version. -/
-def highest_common_prop (clientOfferedMax serverMax v : Int) : Prop :=
-  (v ≤ unsafeTlsDowngrade clientOfferedMax serverMax) ↔
-  (v ≤ clientOfferedMax ∧ v ≤ serverMax)
+theorem choice_thm (client_offered_max server_max : Int) :
+    choice_prop client_offered_max server_max := by
+  unfold choice_prop unsafe_tls_downgrade
+  exact min_choice client_offered_max server_max
 
-theorem highest_common_thm (clientOfferedMax serverMax v : Int) :
-    highest_common_prop clientOfferedMax serverMax v := by
-  unfold highest_common_prop unsafeTlsDowngrade
-  exact le_min_iff
+/-- Highest common version (greatest lower bound) property: any version `v` supported by
+both the offer and the server is at most the negotiated version. -/
+def highest_common_prop (client_offered_max server_max v : Int) : Prop :=
+  v ≤ client_offered_max → v ≤ server_max →
+    v ≤ unsafe_tls_downgrade client_offered_max server_max
 
-/-- Property 7: When the client's offered maximum is at most the server's maximum
-(including when an attacker strips higher versions), the server picks `clientOfferedMax`. -/
-def client_capped_prop (clientOfferedMax serverMax : Int) : Prop :=
-  clientOfferedMax ≤ serverMax →
-    unsafeTlsDowngrade clientOfferedMax serverMax = clientOfferedMax
+instance (c s v : Int) : Decidable (highest_common_prop c s v) := by
+  unfold highest_common_prop; infer_instance
 
-theorem client_capped_thm (clientOfferedMax serverMax : Int) :
-    client_capped_prop clientOfferedMax serverMax := by
+theorem highest_common_thm (client_offered_max server_max v : Int) :
+    highest_common_prop client_offered_max server_max v := by
+  unfold highest_common_prop unsafe_tls_downgrade
+  intro hc hs
+  exact le_min hc hs
+
+/-- Offer-determines-result when `client_offered_max ≤ server_max` (including when an
+attacker strips strong versions below `server_max`). -/
+def offer_caps_when_le_prop (client_offered_max server_max : Int) : Prop :=
+  client_offered_max ≤ server_max →
+    unsafe_tls_downgrade client_offered_max server_max = client_offered_max
+
+instance (c s : Int) : Decidable (offer_caps_when_le_prop c s) := by
+  unfold offer_caps_when_le_prop; infer_instance
+
+theorem offer_caps_when_le_thm (client_offered_max server_max : Int) :
+    offer_caps_when_le_prop client_offered_max server_max := by
+  unfold offer_caps_when_le_prop unsafe_tls_downgrade
   intro h
-  unfold unsafeTlsDowngrade
   exact min_eq_left h
 
-/-- Property 8: When the server's maximum is at most the client's offered maximum,
-the server caps the negotiated version at `serverMax`. -/
-def server_capped_prop (clientOfferedMax serverMax : Int) : Prop :=
-  serverMax ≤ clientOfferedMax →
-    unsafeTlsDowngrade clientOfferedMax serverMax = serverMax
+/-- Server-caps-result when `server_max ≤ client_offered_max`. -/
+def server_caps_when_le_prop (client_offered_max server_max : Int) : Prop :=
+  server_max ≤ client_offered_max →
+    unsafe_tls_downgrade client_offered_max server_max = server_max
 
-theorem server_capped_thm (clientOfferedMax serverMax : Int) :
-    server_capped_prop clientOfferedMax serverMax := by
+instance (c s : Int) : Decidable (server_caps_when_le_prop c s) := by
+  unfold server_caps_when_le_prop; infer_instance
+
+theorem server_caps_when_le_thm (client_offered_max server_max : Int) :
+    server_caps_when_le_prop client_offered_max server_max := by
+  unfold server_caps_when_le_prop unsafe_tls_downgrade
   intro h
-  unfold unsafeTlsDowngrade
   exact min_eq_right h
 
-/-- Property 9: When the client offer equals the server maximum, that full common
-version is negotiated. -/
-def idempotent_prop (clientOfferedMax serverMax : Int) : Prop :=
-  clientOfferedMax = serverMax →
-    unsafeTlsDowngrade clientOfferedMax serverMax = serverMax
+/-- Idempotence / matching version property: when client offer and server max match,
+that exact version is negotiated. -/
+def matching_version_prop (v : Int) : Prop :=
+  unsafe_tls_downgrade v v = v
 
-theorem idempotent_thm (clientOfferedMax serverMax : Int) :
-    idempotent_prop clientOfferedMax serverMax := by
+instance (v : Int) : Decidable (matching_version_prop v) := by
+  unfold matching_version_prop; infer_instance
+
+theorem matching_version_thm (v : Int) :
+    matching_version_prop v := by
+  unfold matching_version_prop unsafe_tls_downgrade
+  exact min_self v
+
+/-- Symmetry / commutativity of `unsafe_tls_downgrade`. -/
+def comm_prop (client_offered_max server_max : Int) : Prop :=
+  unsafe_tls_downgrade client_offered_max server_max =
+    unsafe_tls_downgrade server_max client_offered_max
+
+instance (c s : Int) : Decidable (comm_prop c s) := by
+  unfold comm_prop; infer_instance
+
+theorem comm_thm (client_offered_max server_max : Int) :
+    comm_prop client_offered_max server_max := by
+  unfold comm_prop unsafe_tls_downgrade
+  exact min_comm client_offered_max server_max
+
+/-- Monotonicity in the client offer: a higher or equal visible offer yields a higher
+or equal negotiated version for a fixed `server_max`. -/
+def monotone_offer_prop (offer₁ offer₂ server_max : Int) : Prop :=
+  offer₁ ≤ offer₂ →
+    unsafe_tls_downgrade offer₁ server_max ≤ unsafe_tls_downgrade offer₂ server_max
+
+instance (o₁ o₂ s : Int) : Decidable (monotone_offer_prop o₁ o₂ s) := by
+  unfold monotone_offer_prop; infer_instance
+
+theorem monotone_offer_thm (offer₁ offer₂ server_max : Int) :
+    monotone_offer_prop offer₁ offer₂ server_max := by
+  unfold monotone_offer_prop unsafe_tls_downgrade
   intro h
-  unfold unsafeTlsDowngrade
-  rw [h, min_self]
-
-/-- Property 10: Symmetry (commutativity) of version selection. -/
-def comm_prop (clientOfferedMax serverMax : Int) : Prop :=
-  unsafeTlsDowngrade clientOfferedMax serverMax =
-  unsafeTlsDowngrade serverMax clientOfferedMax
-
-theorem comm_thm (clientOfferedMax serverMax : Int) :
-    comm_prop clientOfferedMax serverMax := by
-  unfold comm_prop unsafeTlsDowngrade
-  exact min_comm clientOfferedMax serverMax
-
-/-- Property 11: Monotonicity in the client offer: a higher visible offer yields
-at least as high a negotiated version. -/
-def monotone_offer_prop (c1 c2 serverMax : Int) : Prop :=
-  c1 ≤ c2 → unsafeTlsDowngrade c1 serverMax ≤ unsafeTlsDowngrade c2 serverMax
-
-theorem monotone_offer_thm (c1 c2 serverMax : Int) :
-    monotone_offer_prop c1 c2 serverMax := by
-  intro h
-  unfold unsafeTlsDowngrade
   omega
 
-/-- Property 12: Monotonicity in the server capability: a higher server maximum
-yields at least as high a negotiated version. -/
-def monotone_server_prop (clientOfferedMax s1 s2 : Int) : Prop :=
-  s1 ≤ s2 → unsafeTlsDowngrade clientOfferedMax s1 ≤ unsafeTlsDowngrade clientOfferedMax s2
+/-- Monotonicity in the server maximum: a higher or equal `server_max` yields a higher
+or equal negotiated version for a fixed `client_offered_max`. -/
+def monotone_server_prop (client_offered_max server₁ server₂ : Int) : Prop :=
+  server₁ ≤ server₂ →
+    unsafe_tls_downgrade client_offered_max server₁ ≤
+      unsafe_tls_downgrade client_offered_max server₂
 
-theorem monotone_server_thm (clientOfferedMax s1 s2 : Int) :
-    monotone_server_prop clientOfferedMax s1 s2 := by
+instance (c s₁ s₂ : Int) : Decidable (monotone_server_prop c s₁ s₂) := by
+  unfold monotone_server_prop; infer_instance
+
+theorem monotone_server_thm (client_offered_max server₁ server₂ : Int) :
+    monotone_server_prop client_offered_max server₁ server₂ := by
+  unfold monotone_server_prop unsafe_tls_downgrade
   intro h
-  unfold unsafeTlsDowngrade
   omega
 
-/-- Property 13 (Core Security Vulnerability): If an on-path attacker strips
-strong versions from the client offer so that `clientOfferedMax < clientTrueMax`
-and `clientOfferedMax < serverMax`, the server negotiates `clientOfferedMax`,
-which is strictly weaker than the true highest common version
-`unsafeTlsDowngrade clientTrueMax serverMax`. -/
-def downgrade_vulnerability_prop (clientOfferedMax clientTrueMax serverMax : Int) : Prop :=
-  clientOfferedMax < clientTrueMax ∧ clientOfferedMax < serverMax →
-    unsafeTlsDowngrade clientOfferedMax serverMax = clientOfferedMax ∧
-    unsafeTlsDowngrade clientOfferedMax serverMax < unsafeTlsDowngrade clientTrueMax serverMax
+/-- Joint monotonicity in both arguments. -/
+def monotone_both_prop (offer₁ offer₂ server₁ server₂ : Int) : Prop :=
+  offer₁ ≤ offer₂ →
+  server₁ ≤ server₂ →
+    unsafe_tls_downgrade offer₁ server₁ ≤ unsafe_tls_downgrade offer₂ server₂
 
-theorem downgrade_vulnerability_thm (clientOfferedMax clientTrueMax serverMax : Int) :
-    downgrade_vulnerability_prop clientOfferedMax clientTrueMax serverMax := by
-  intro h
-  unfold unsafeTlsDowngrade
+instance (o₁ o₂ s₁ s₂ : Int) : Decidable (monotone_both_prop o₁ o₂ s₁ s₂) := by
+  unfold monotone_both_prop; infer_instance
+
+theorem monotone_both_thm (offer₁ offer₂ server₁ server₂ : Int) :
+    monotone_both_prop offer₁ offer₂ server₁ server₂ := by
+  unfold monotone_both_prop unsafe_tls_downgrade
+  intro ho hs
   omega
 
-/-- Property 14: Non-negativity preservation for non-negative version numbers. -/
-def nonneg_prop (clientOfferedMax serverMax : Int) : Prop :=
-  0 ≤ clientOfferedMax ∧ 0 ≤ serverMax →
-    0 ≤ unsafeTlsDowngrade clientOfferedMax serverMax
+/-- Attacker stripping weak-downgrade property: if an attacker strips strong versions so
+`tampered_offer ≤ client_true_max`, the negotiated version is at most the honest
+negotiated version. -/
+def attacker_strip_weakens_prop (tampered_offer client_true_max server_max : Int) : Prop :=
+  tampered_offer ≤ client_true_max →
+    unsafe_tls_downgrade tampered_offer server_max ≤
+      unsafe_tls_downgrade client_true_max server_max
 
-theorem nonneg_thm (clientOfferedMax serverMax : Int) :
-    nonneg_prop clientOfferedMax serverMax := by
-  intro h
-  unfold unsafeTlsDowngrade
+instance (t c s : Int) : Decidable (attacker_strip_weakens_prop t c s) := by
+  unfold attacker_strip_weakens_prop; infer_instance
+
+theorem attacker_strip_weakens_thm (tampered_offer client_true_max server_max : Int) :
+    attacker_strip_weakens_prop tampered_offer client_true_max server_max := by
+  exact monotone_offer_thm tampered_offer client_true_max server_max
+
+/-- Strict downgrade vulnerability property: when an on-path attacker strips strong versions
+from `client_true_max` down to `tampered_offer` with `tampered_offer < client_true_max`
+and `tampered_offer < server_max`, the server negotiates `tampered_offer`, which is
+strictly weaker than the honest negotiated version `unsafe_tls_downgrade client_true_max server_max`. -/
+def downgrade_vulnerability_prop (tampered_offer client_true_max server_max : Int) : Prop :=
+  tampered_offer < client_true_max →
+  tampered_offer < server_max →
+    unsafe_tls_downgrade tampered_offer server_max = tampered_offer ∧
+    unsafe_tls_downgrade tampered_offer server_max <
+      unsafe_tls_downgrade client_true_max server_max
+
+instance (t c s : Int) : Decidable (downgrade_vulnerability_prop t c s) := by
+  unfold downgrade_vulnerability_prop; infer_instance
+
+theorem downgrade_vulnerability_thm (tampered_offer client_true_max server_max : Int) :
+    downgrade_vulnerability_prop tampered_offer client_true_max server_max := by
+  unfold downgrade_vulnerability_prop unsafe_tls_downgrade
+  intro h_client h_server
   omega
 
-/-- Property 15: Valid TLS version range `[0, 4]` preservation
-(0 = SSL 3.0, 1 = TLS 1.0, 2 = TLS 1.1, 3 = TLS 1.2, 4 = TLS 1.3). -/
-def tls_range_prop (clientOfferedMax serverMax : Int) : Prop :=
-  (0 ≤ clientOfferedMax ∧ clientOfferedMax ≤ 4 ∧ 0 ≤ serverMax ∧ serverMax ≤ 4) →
-    (0 ≤ unsafeTlsDowngrade clientOfferedMax serverMax ∧
-     unsafeTlsDowngrade clientOfferedMax serverMax ≤ 4)
+/-- Non-negativity preservation: non-negative version inputs yield a non-negative
+negotiated version. -/
+def nonneg_preserved_prop (client_offered_max server_max : Int) : Prop :=
+  0 ≤ client_offered_max →
+  0 ≤ server_max →
+    0 ≤ unsafe_tls_downgrade client_offered_max server_max
 
-theorem tls_range_thm (clientOfferedMax serverMax : Int) :
-    tls_range_prop clientOfferedMax serverMax := by
-  intro h
-  unfold unsafeTlsDowngrade
+instance (c s : Int) : Decidable (nonneg_preserved_prop c s) := by
+  unfold nonneg_preserved_prop; infer_instance
+
+theorem nonneg_preserved_thm (client_offered_max server_max : Int) :
+    nonneg_preserved_prop client_offered_max server_max := by
+  unfold nonneg_preserved_prop unsafe_tls_downgrade
+  intro hc hs
   omega
+
+/-- Legacy-server edge property: if `0 ≤ client_offered_max` and `server_max = 0`
+(SSL 3.0 only), the server always negotiates `0`. -/
+def legacy_server_zero_prop (client_offered_max : Int) : Prop :=
+  0 ≤ client_offered_max → unsafe_tls_downgrade client_offered_max 0 = 0
+
+instance (c : Int) : Decidable (legacy_server_zero_prop c) := by
+  unfold legacy_server_zero_prop; infer_instance
+
+theorem legacy_server_zero_thm (client_offered_max : Int) :
+    legacy_server_zero_prop client_offered_max := by
+  unfold legacy_server_zero_prop unsafe_tls_downgrade
+  intro h
+  omega
+
+/-- Version range preservation: if both `client_offered_max` and `server_max` are valid
+TLS versions in `[0, 4]`, the negotiated version is also a valid TLS version in `[0, 4]`. -/
+def valid_version_preserved_prop (client_offered_max server_max : Int) : Prop :=
+  ValidTlsVersion client_offered_max →
+  ValidTlsVersion server_max →
+    ValidTlsVersion (unsafe_tls_downgrade client_offered_max server_max)
+
+instance (c s : Int) : Decidable (valid_version_preserved_prop c s) := by
+  unfold valid_version_preserved_prop; infer_instance
+
+theorem valid_version_preserved_thm (client_offered_max server_max : Int) :
+    valid_version_preserved_prop client_offered_max server_max := by
+  unfold valid_version_preserved_prop ValidTlsVersion unsafe_tls_downgrade
+  intro hc hs
+  omega
+
+/-- Complete greatest-lower-bound characterization: a version `r` equals
+`unsafe_tls_downgrade client_offered_max server_max` if and only if `r` is supported by
+both offer and server and is at least as new as every common version `v`. -/
+theorem greatest_common_iff_thm (client_offered_max server_max r : Int) :
+    r = unsafe_tls_downgrade client_offered_max server_max ↔
+      (r ≤ client_offered_max ∧ r ≤ server_max ∧
+        ∀ v : Int, v ≤ client_offered_max → v ≤ server_max → v ≤ r) := by
+  unfold unsafe_tls_downgrade
+  constructor
+  · intro hr
+    refine ⟨by omega, by omega, ?_⟩
+    intro v hvc hvs
+    omega
+  · rintro ⟨hrc, hrs, hmax⟩
+    have hmin : min client_offered_max server_max ≤ r :=
+      hmax (min client_offered_max server_max)
+        (Int.min_le_left client_offered_max server_max)
+        (Int.min_le_right client_offered_max server_max)
+    omega
+
+/-- The Python test suite `check` is satisfied by `unsafe_tls_downgrade`. -/
+theorem check_unsafe_tls_downgrade_thm : check unsafe_tls_downgrade = true := by
+  rfl
 
 /-! ## 5. Post-condition -/
 
-/-- Post-condition conjunction combining the specification properties
-of `unsafeTlsDowngrade`. -/
-def Post_prop (clientOfferedMax serverMax : Int) : Prop :=
-  exact_min_prop clientOfferedMax serverMax ∧
-  ite_spec_prop clientOfferedMax serverMax ∧
-  le_client_prop clientOfferedMax serverMax ∧
-  le_server_prop clientOfferedMax serverMax ∧
-  is_input_prop clientOfferedMax serverMax ∧
-  client_capped_prop clientOfferedMax serverMax ∧
-  server_capped_prop clientOfferedMax serverMax ∧
-  idempotent_prop clientOfferedMax serverMax ∧
-  comm_prop clientOfferedMax serverMax ∧
-  nonneg_prop clientOfferedMax serverMax ∧
-  tls_range_prop clientOfferedMax serverMax
+/-- Post-condition combining the core functional and security properties of `unsafe_tls_downgrade`. -/
+def Post_prop (client_offered_max server_max : Int) : Prop :=
+  exact_min_prop client_offered_max server_max ∧
+  le_client_offer_prop client_offered_max server_max ∧
+  le_server_max_prop client_offered_max server_max ∧
+  choice_prop client_offered_max server_max ∧
+  offer_caps_when_le_prop client_offered_max server_max ∧
+  server_caps_when_le_prop client_offered_max server_max ∧
+  comm_prop client_offered_max server_max ∧
+  nonneg_preserved_prop client_offered_max server_max ∧
+  valid_version_preserved_prop client_offered_max server_max
 
-/-! ## 6. Property-Based Tests (PBTs) -/
+instance (c s : Int) : Decidable (Post_prop c s) := by
+  unfold Post_prop; infer_instance
 
-instance (a b : Int) : Decidable (exact_min_prop a b) := by unfold exact_min_prop; infer_instance
-instance (a b : Int) : Decidable (ite_spec_prop a b) := by unfold ite_spec_prop; infer_instance
-instance (a b : Int) : Decidable (le_client_prop a b) := by unfold le_client_prop; infer_instance
-instance (a b : Int) : Decidable (le_server_prop a b) := by unfold le_server_prop; infer_instance
-instance (a b : Int) : Decidable (is_input_prop a b) := by unfold is_input_prop; infer_instance
-instance (a b v : Int) : Decidable (highest_common_prop a b v) := by unfold highest_common_prop; infer_instance
-instance (a b : Int) : Decidable (client_capped_prop a b) := by unfold client_capped_prop; infer_instance
-instance (a b : Int) : Decidable (server_capped_prop a b) := by unfold server_capped_prop; infer_instance
-instance (a b : Int) : Decidable (idempotent_prop a b) := by unfold idempotent_prop; infer_instance
-instance (a b : Int) : Decidable (comm_prop a b) := by unfold comm_prop; infer_instance
-instance (c1 c2 s : Int) : Decidable (monotone_offer_prop c1 c2 s) := by unfold monotone_offer_prop; infer_instance
-instance (c s1 s2 : Int) : Decidable (monotone_server_prop c s1 s2) := by unfold monotone_server_prop; infer_instance
-instance (co ct s : Int) : Decidable (downgrade_vulnerability_prop co ct s) := by unfold downgrade_vulnerability_prop; infer_instance
-instance (a b : Int) : Decidable (nonneg_prop a b) := by unfold nonneg_prop; infer_instance
-instance (a b : Int) : Decidable (tls_range_prop a b) := by unfold tls_range_prop; infer_instance
-instance (a b : Int) : Decidable (Post_prop a b) := by unfold Post_prop; infer_instance
+/-! ## 6. Property-Based Tests -/
 
--- Randomized PBTs via Plausible
-#eval Plausible.Testable.check (∀ a b : Int, exact_min_prop a b)
-#eval Plausible.Testable.check (∀ a b : Int, ite_spec_prop a b)
-#eval Plausible.Testable.check (∀ a b : Int, le_client_prop a b)
-#eval Plausible.Testable.check (∀ a b : Int, le_server_prop a b)
-#eval Plausible.Testable.check (∀ a b : Int, is_input_prop a b)
-#eval Plausible.Testable.check (∀ a b v : Int, highest_common_prop a b v)
-#eval Plausible.Testable.check (∀ a b : Int, client_capped_prop a b)
-#eval Plausible.Testable.check (∀ a b : Int, server_capped_prop a b)
-#eval Plausible.Testable.check (∀ a b : Int, idempotent_prop a b)
-#eval Plausible.Testable.check (∀ a : Int, idempotent_prop a a)
-#eval Plausible.Testable.check (∀ a b : Int, comm_prop a b)
-#eval Plausible.Testable.check (∀ c1 c2 s : Int, monotone_offer_prop c1 c2 s)
-#eval Plausible.Testable.check (∀ c s1 s2 : Int, monotone_server_prop c s1 s2)
-#eval Plausible.Testable.check (∀ co ct s : Int, downgrade_vulnerability_prop co ct s)
-#eval Plausible.Testable.check (∀ a b : Int, nonneg_prop a b)
-#eval Plausible.Testable.check (∀ a b : Int, tls_range_prop a b)
-#eval Plausible.Testable.check (∀ a b : Int, Post_prop a b)
+-- PBT for `exact_min_prop`
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max : Int,
+    exact_min_prop client_offered_max server_max)
 
--- Bounded exhaustive PBTs over [-5, 5] (including all TLS versions 0..4)
-def testDomain : List Int := [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
+-- PBT for `le_client_offer_prop`
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max : Int,
+    le_client_offer_prop client_offered_max server_max)
 
-example : testDomain.all (fun a => testDomain.all (fun b => decide (exact_min_prop a b))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => decide (ite_spec_prop a b))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => decide (le_client_prop a b))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => decide (le_server_prop a b))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => decide (is_input_prop a b))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => testDomain.all (fun v => decide (highest_common_prop a b v)))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => decide (client_capped_prop a b))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => decide (server_capped_prop a b))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => decide (idempotent_prop a b))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => decide (comm_prop a b))) = true := by native_decide
-example : testDomain.all (fun c1 => testDomain.all (fun c2 => testDomain.all (fun s => decide (monotone_offer_prop c1 c2 s)))) = true := by native_decide
-example : testDomain.all (fun c => testDomain.all (fun s1 => testDomain.all (fun s2 => decide (monotone_server_prop c s1 s2)))) = true := by native_decide
-example : testDomain.all (fun co => testDomain.all (fun ct => testDomain.all (fun s => decide (downgrade_vulnerability_prop co ct s)))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => decide (nonneg_prop a b))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => decide (tls_range_prop a b))) = true := by native_decide
-example : testDomain.all (fun a => testDomain.all (fun b => decide (Post_prop a b))) = true := by native_decide
+-- PBT for `le_server_max_prop`
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max : Int,
+    le_server_max_prop client_offered_max server_max)
 
-/-! ## 7. Correctness Theorem (Pre → Post) -/
+-- PBT for `choice_prop`
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max : Int,
+    choice_prop client_offered_max server_max)
 
-/-- Total correctness theorem: under `Pre`, `unsafeTlsDowngrade` satisfies `Post_prop`. -/
-theorem unsafeTlsDowngrade_correct (clientOfferedMax serverMax : Int)
-    (_hPre : Pre clientOfferedMax serverMax) :
-    Post_prop clientOfferedMax serverMax := by
+-- PBT for `highest_common_prop` (general and constructive non-vacuous)
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max v : Int,
+    decide (highest_common_prop client_offered_max server_max v) = true)
+
+#eval Plausible.Testable.check
+  (∀ v : Int, ∀ dc ds : Nat,
+    let client_offered_max := v + Int.ofNat dc
+    let server_max := v + Int.ofNat ds
+    v ≤ unsafe_tls_downgrade client_offered_max server_max)
+
+-- Bounded exhaustive PBT for `highest_common_prop` across version range [-2..6]
+example :
+    (List.range 9).all (fun i =>
+      (List.range 9).all (fun j =>
+        (List.range 9).all (fun k =>
+          let c : Int := Int.ofNat i - 2
+          let s : Int := Int.ofNat j - 2
+          let v : Int := Int.ofNat k - 2
+          decide (highest_common_prop c s v)))) = true := by
+  native_decide
+
+-- PBT for `offer_caps_when_le_prop` (general and constructive non-vacuous)
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max : Int,
+    decide (offer_caps_when_le_prop client_offered_max server_max) = true)
+
+#eval Plausible.Testable.check
+  (∀ client_offered_max : Int, ∀ d : Nat,
+    unsafe_tls_downgrade client_offered_max (client_offered_max + Int.ofNat d) =
+      client_offered_max)
+
+-- PBT for `server_caps_when_le_prop` (general and constructive non-vacuous)
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max : Int,
+    decide (server_caps_when_le_prop client_offered_max server_max) = true)
+
+#eval Plausible.Testable.check
+  (∀ server_max : Int, ∀ d : Nat,
+    unsafe_tls_downgrade (server_max + Int.ofNat d) server_max = server_max)
+
+-- PBT for `matching_version_prop`
+#eval Plausible.Testable.check
+  (∀ v : Int, matching_version_prop v)
+
+-- PBT for `comm_prop`
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max : Int,
+    comm_prop client_offered_max server_max)
+
+-- PBT for `monotone_offer_prop` (general, constructive non-vacuous, and bounded exhaustive)
+#eval Plausible.Testable.check
+  (∀ offer₁ offer₂ server_max : Int,
+    decide (monotone_offer_prop offer₁ offer₂ server_max) = true)
+
+#eval Plausible.Testable.check
+  (∀ offer₁ server_max : Int, ∀ d : Nat,
+    unsafe_tls_downgrade offer₁ server_max ≤
+      unsafe_tls_downgrade (offer₁ + Int.ofNat d) server_max)
+
+example :
+    (List.range 5).all (fun o₁ =>
+      (List.range 5).all (fun o₂ =>
+        (List.range 5).all (fun s =>
+          decide (monotone_offer_prop (Int.ofNat o₁) (Int.ofNat o₂) (Int.ofNat s))))) = true := by
+  native_decide
+
+-- PBT for `monotone_server_prop`
+#eval Plausible.Testable.check
+  (∀ client_offered_max server₁ server₂ : Int,
+    decide (monotone_server_prop client_offered_max server₁ server₂) = true)
+
+#eval Plausible.Testable.check
+  (∀ client_offered_max server₁ : Int, ∀ d : Nat,
+    unsafe_tls_downgrade client_offered_max server₁ ≤
+      unsafe_tls_downgrade client_offered_max (server₁ + Int.ofNat d))
+
+-- PBT for `monotone_both_prop`
+#eval Plausible.Testable.check
+  (∀ offer₁ offer₂ server₁ server₂ : Int,
+    decide (monotone_both_prop offer₁ offer₂ server₁ server₂) = true)
+
+#eval Plausible.Testable.check
+  (∀ offer₁ server₁ : Int, ∀ doff dser : Nat,
+    unsafe_tls_downgrade offer₁ server₁ ≤
+      unsafe_tls_downgrade (offer₁ + Int.ofNat doff) (server₁ + Int.ofNat dser))
+
+-- PBT for `attacker_strip_weakens_prop`
+#eval Plausible.Testable.check
+  (∀ tampered_offer client_true_max server_max : Int,
+    decide (attacker_strip_weakens_prop tampered_offer client_true_max server_max) = true)
+
+-- PBT for `downgrade_vulnerability_prop` (general, constructive non-vacuous, and bounded exhaustive)
+#eval Plausible.Testable.check
+  (∀ tampered_offer client_true_max server_max : Int,
+    decide (downgrade_vulnerability_prop tampered_offer client_true_max server_max) = true)
+
+#eval Plausible.Testable.check
+  (∀ tampered_offer : Int, ∀ dc ds : Nat,
+    let client_true_max := tampered_offer + Int.ofNat dc + 1
+    let server_max := tampered_offer + Int.ofNat ds + 1
+    unsafe_tls_downgrade tampered_offer server_max = tampered_offer ∧
+    unsafe_tls_downgrade tampered_offer server_max <
+      unsafe_tls_downgrade client_true_max server_max)
+
+example :
+    (List.range 5).all (fun t =>
+      (List.range 5).all (fun c =>
+        (List.range 5).all (fun s =>
+          decide (downgrade_vulnerability_prop (Int.ofNat t) (Int.ofNat c) (Int.ofNat s))))) = true := by
+  native_decide
+
+-- PBT for `nonneg_preserved_prop`
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max : Int,
+    decide (nonneg_preserved_prop client_offered_max server_max) = true)
+
+#eval Plausible.Testable.check
+  (∀ c s : Nat, 0 ≤ unsafe_tls_downgrade (Int.ofNat c) (Int.ofNat s))
+
+-- PBT for `legacy_server_zero_prop`
+#eval Plausible.Testable.check
+  (∀ client_offered_max : Int,
+    decide (legacy_server_zero_prop client_offered_max) = true)
+
+#eval Plausible.Testable.check
+  (∀ n : Nat, unsafe_tls_downgrade (Int.ofNat n) 0 = 0)
+
+-- PBT for `valid_version_preserved_prop`
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max : Int,
+    decide (valid_version_preserved_prop client_offered_max server_max) = true)
+
+example :
+    (List.range 5).all (fun c =>
+      (List.range 5).all (fun s =>
+        decide (valid_version_preserved_prop (Int.ofNat c) (Int.ofNat s)))) = true := by
+  native_decide
+
+-- PBT for `Post_prop`
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max : Int,
+    decide (Post_prop client_offered_max server_max) = true)
+
+example :
+    (List.range 9).all (fun i =>
+      (List.range 9).all (fun j =>
+        let c : Int := Int.ofNat i - 2
+        let s : Int := Int.ofNat j - 2
+        decide (Post_prop c s))) = true := by
+  native_decide
+
+/-! ## 7. Correctness Theorem (`Pre → Post`) -/
+
+/-- Main correctness theorem: for all inputs satisfying `Pre`, `Post_prop` holds. -/
+theorem unsafe_tls_downgrade_correct (client_offered_max server_max : Int)
+    (_hPre : Pre client_offered_max server_max) :
+    Post_prop client_offered_max server_max := by
   unfold Post_prop
-  refine ⟨exact_min_thm clientOfferedMax serverMax,
-          ite_spec_thm clientOfferedMax serverMax,
-          le_client_thm clientOfferedMax serverMax,
-          le_server_thm clientOfferedMax serverMax,
-          is_input_thm clientOfferedMax serverMax,
-          client_capped_thm clientOfferedMax serverMax,
-          server_capped_thm clientOfferedMax serverMax,
-          idempotent_thm clientOfferedMax serverMax,
-          comm_thm clientOfferedMax serverMax,
-          nonneg_thm clientOfferedMax serverMax,
-          tls_range_thm clientOfferedMax serverMax⟩
+  refine ⟨exact_min_thm client_offered_max server_max,
+          le_client_offer_thm client_offered_max server_max,
+          le_server_max_thm client_offered_max server_max,
+          choice_thm client_offered_max server_max,
+          offer_caps_when_le_thm client_offered_max server_max,
+          server_caps_when_le_thm client_offered_max server_max,
+          comm_thm client_offered_max server_max,
+          nonneg_preserved_thm client_offered_max server_max,
+          valid_version_preserved_thm client_offered_max server_max⟩
 
 /-! ## 8. Imperative Implementation -/
 
-/-- Imperative implementation of `unsafeTlsDowngrade` using `Id.run do` and mutable state. -/
-def unsafeTlsDowngradeImp (clientOfferedMax serverMax : Int) : Int := Id.run do
-  let mut negotiated : Int := serverMax
-  if clientOfferedMax ≤ serverMax then
-    negotiated := clientOfferedMax
+/-- Imperative implementation of `unsafe_tls_downgrade` using `Id.run do` and mutable state. -/
+def unsafe_tls_downgrade_imp (client_offered_max server_max : Int) : Int := Id.run do
+  let mut negotiated : Int := client_offered_max
+  if server_max < negotiated then
+    negotiated := server_max
   return negotiated
 
-/-- Snake-case alias for the imperative implementation. -/
-abbrev unsafe_tls_downgrade_imp : Int → Int → Int := unsafeTlsDowngradeImp
+/-- CamelCase alias for `unsafe_tls_downgrade_imp`. -/
+abbrev unsafeTlsDowngradeImp (client_offered_max server_max : Int) : Int :=
+  unsafe_tls_downgrade_imp client_offered_max server_max
 
 /-! ## 9. Imperative Tests -/
 
-#eval unsafeTlsDowngradeImp 4 4
-example : unsafeTlsDowngradeImp 4 4 = 4 := by native_decide
+#eval unsafe_tls_downgrade_imp 4 4
+#eval unsafe_tls_downgrade_imp 1 4
+#eval unsafe_tls_downgrade_imp 4 2
+#eval unsafe_tls_downgrade_imp 3 3
+#eval unsafe_tls_downgrade_imp 4 0
+#eval check unsafe_tls_downgrade_imp
 
-#eval unsafeTlsDowngradeImp 1 4
-example : unsafeTlsDowngradeImp 1 4 = 1 := by native_decide
+example : unsafe_tls_downgrade_imp 4 4 = 4 := by native_decide
+example : unsafe_tls_downgrade_imp 1 4 = 1 := by native_decide
+example : unsafe_tls_downgrade_imp 4 2 = 2 := by native_decide
+example : unsafe_tls_downgrade_imp 3 3 = 3 := by native_decide
+example : unsafe_tls_downgrade_imp 4 0 = 0 := by native_decide
+example : unsafe_tls_downgrade_imp 2 4 ≥ unsafe_tls_downgrade_imp 1 4 := by native_decide
+example : check unsafe_tls_downgrade_imp = true := by native_decide
 
-#eval unsafeTlsDowngradeImp 4 2
-example : unsafeTlsDowngradeImp 4 2 = 2 := by native_decide
+#eval Plausible.Testable.check
+  (∀ client_offered_max server_max : Int,
+    unsafe_tls_downgrade client_offered_max server_max =
+      unsafe_tls_downgrade_imp client_offered_max server_max)
 
-#eval unsafeTlsDowngradeImp 3 3
-example : unsafeTlsDowngradeImp 3 3 = 3 := by native_decide
+/-! ## 10. Equivalence Theorem -/
 
-#eval unsafeTlsDowngradeImp 4 0
-example : unsafeTlsDowngradeImp 4 0 = 0 := by native_decide
+/-- Equivalence theorem: the functional and imperative implementations produce identical results
+for all integer inputs. -/
+theorem unsafe_tls_downgrade_equiv (client_offered_max server_max : Int) :
+    unsafe_tls_downgrade client_offered_max server_max =
+      unsafe_tls_downgrade_imp client_offered_max server_max := by
+  simp only [unsafe_tls_downgrade, unsafe_tls_downgrade_imp, Id.run, Bind.bind, Pure.pure]
+  split_ifs <;> omega
 
-#eval decide (unsafeTlsDowngradeImp 2 4 ≥ unsafeTlsDowngradeImp 1 4)
-example : unsafeTlsDowngradeImp 2 4 ≥ unsafeTlsDowngradeImp 1 4 := by native_decide
+/-- The imperative implementation also satisfies the full `Post_prop` specification. -/
+theorem unsafe_tls_downgrade_imp_correct (client_offered_max server_max : Int) :
+    unsafe_tls_downgrade_imp client_offered_max server_max =
+      min client_offered_max server_max := by
+  rw [← unsafe_tls_downgrade_equiv]
+  rfl
 
-#eval check unsafeTlsDowngradeImp
-example : check unsafeTlsDowngradeImp = true := by native_decide
-
-#eval Plausible.Testable.check (∀ a b : Int, unsafeTlsDowngrade a b = unsafeTlsDowngradeImp a b)
-
-/-! ## 10. Equivalence Theorem (Functional = Imperative) -/
-
-/-- The functional and imperative implementations are pointwise equal on all inputs. -/
-theorem unsafeTlsDowngrade_equiv (clientOfferedMax serverMax : Int) :
-    unsafeTlsDowngrade clientOfferedMax serverMax =
-    unsafeTlsDowngradeImp clientOfferedMax serverMax := by
-  unfold unsafeTlsDowngrade unsafeTlsDowngradeImp
-  simp only [Id.run]
-  split_ifs with h
-  · exact min_eq_left h
-  · exact min_eq_right (le_of_not_ge h)
-
-/-- Function-extensionality form of functional-imperative equivalence. -/
-theorem unsafeTlsDowngrade_eq_imp :
-    unsafeTlsDowngrade = unsafeTlsDowngradeImp := by
-  funext clientOfferedMax serverMax
-  exact unsafeTlsDowngrade_equiv clientOfferedMax serverMax
+/-- The imperative implementation satisfies the Python `check` suite. -/
+theorem check_unsafe_tls_downgrade_imp_thm : check unsafe_tls_downgrade_imp = true := by
+  rfl
 
 end «95_unsafeTlsDowngrade»

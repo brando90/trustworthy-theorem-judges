@@ -1,0 +1,71 @@
+{
+  "task_id": "humaneval_set__humaneval_39_prime_fib",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "humaneval_39_prime_fib.py": "391562d77b03c0491e2b36756c874726f6aa23497b317928f1f3439e10ec039c",
+    "instruction.md": "bed24b87028f02c7a82885bc437ae51b5ce62972a51b300f4478f1a32f583af3"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_39_prime_fib.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-676076388887",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794864757.571367,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794866093.894505,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "1b1e2929-b842-490c-9230-edf23a6bb5ae",
+      "status": "SUCCESS",
+      "response": "I have launched the Lean verification check for the functional-imperative equivalence proof and am waiting for it to finish.\nI have launched the updated Lean check for the array-based imperative equivalence proof and am waiting for it to finish.\nI have started compiling `Veribench/humaneval_39_prime_fib.lean` and am waiting for the compiler check to finish.\nI have updated `ten_le_count_prime_fib_below_default` and launched `lake env lean Veribench/humaneval_39_prime_fib.lean`; waiting for it to finish.\nI have launched the axiom verification check for all stated theorems and am waiting for it to finish.\nI have launched the final compiler verification on `Veribench/humaneval_39_prime_fib.lean` and am waiting for it to finish.\nI have translated the Python `prime_fib` program (`HumanEval/39`) into Lean 4 and verified all proofs and tests in [humaneval_39_prime_fib.lean](file:///home/user/lean_project/Veribench/humaneval_39_prime_fib.lean).\n\n### Summary of Formalization\n\n1. **Functional Implementation** ([humaneval_39_prime_fib.lean](file:///home/user/lean_project/Veribench/humaneval_39_prime_fib.lean#L24-L47)):\n   - `is_prime` implements trial division up to `min (Nat.sqrt p + 1) (p - 1)`.\n   - `prime_fib_loop` and `prime_fib` search consecutive Fibonacci numbers for the `n`-th prime Fibonacci number.\n2. **Unit Tests** ([humaneval_39_prime_fib.lean](file:///home/user/lean_project/Veribench/humaneval_39_prime_fib.lean#L49-L71)):\n   - `#eval` and `example : ... := by native_decide` tests for `n = 1` through `10` (`2, 3, 5, 13, 89, 233, 1597, 28657, 514229, 433494437`).\n3. **Precondition, Properties, and Kernel-Checked Proofs** ([humaneval_39_prime_fib.lean](file:///home/user/lean_project/Veribench/humaneval_39_prime_fib.lean#L73-L294)):\n   - `Pre (n : Nat) : Prop := n \u2265 1`\n   - `is_prime_correct_thm`: proves `is_prime p = true \u2194 Nat.Prime p` for all `p : Nat`.\n   - `prime_fib_is_prime_thm`: proves `Nat.Prime (prime_fib n) \u2227 is_prime (prime_fib n) = true` for all `n \u2265 1`.\n   - `prime_fib_is_fib_thm`: proves `\u2203 k \u2265 3, Nat.fib k = prime_fib n` for all `n \u2265 1`.\n   - `prime_fib_ge_two_thm`: proves `prime_fib n \u2265 2` for all `n \u2265 1`.\n   - `prime_fib_nth_thm`: proves that `prime_fib n` is the exact `n`-th prime Fibonacci number (`count_prime_fib_below m + 1 = n` where `prime_fib n = Nat.fib m`).\n   - `prime_fib_strict_mono_thm`: proves strict monotonicity (`n < m \u2192 m \u2264 10 \u2192 prime_fib n < prime_fib m`).\n4. **Postcondition, Property-Based Tests, and Total Correctness** ([humaneval_39_prime_fib.lean](file:///home/user/lean_project/Veribench/humaneval_39_prime_fib.lean#L296-L347)):\n   - `Post_prop` conjoins all specification properties.\n   - Randomized Plausible checks (`#eval Plausible.Testable.check ...`) and exhaustive bounded PBTs (`example : ... := by native_decide`) cover every property and `Post_prop`.\n   - `prime_fib_correct` proves `Pre n \u2192 Post_prop n`.\n5. **Imperative Implementation, Tests, and Equivalence** ([humaneval_39_prime_fib.lean](file:///home/user/lean_project/Veribench/humaneval_39_prime_fib.lean#L349-L433)):\n   - `prime_fib_imp` uses `Id.run do` with mutable state `f : Array Nat := #[0, 1]` and `rem : Nat := n`.\n   - `prime_fib_equiv` proves `\u2200 n : Nat, prime_fib n = prime_fib_imp n`.\n",
+      "duration_seconds": 1331.088902255,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 188127,
+        "output_tokens": 55819,
+        "thinking_tokens": 27549,
+        "cache_read_tokens": 2802878,
+        "total_tokens": 243946
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "2763eed8fc9b903af8b8613ab12a2afd7e6f88ff376e61d2bba101caea687d4d",
+  "candidate_bytes": 19166
+}

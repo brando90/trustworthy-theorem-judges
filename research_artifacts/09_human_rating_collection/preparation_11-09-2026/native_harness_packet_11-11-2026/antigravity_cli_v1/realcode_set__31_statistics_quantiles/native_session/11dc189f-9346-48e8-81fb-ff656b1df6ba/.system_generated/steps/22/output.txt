@@ -1,0 +1,57 @@
+Created At: 2026-11-16T22:23:23Z
+Completed At: 2026-11-16T22:23:28Z
+Command exited with code 1.
+
+Command output:
+<stdin>:78:31: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  h ≥ 0
+  g ≥ 0
+  g + h ≥ 0
+  f ≥ 0
+  f - h ≥ 1
+  e ≥ 0
+  e + f ≥ 0
+  e + f - g - h ≤ 0
+  d ≥ 0
+  c ≥ 0
+  c - d ≤ 0
+  b ≥ 1
+  b - c ≥ 1
+  b - d ≥ 1
+  a ≥ 2
+where
+ a := ↑s.length
+ b := ↑n
+ c := ↑i₁
+ d := ↑i₂
+ e := ↑n * ↑j₁
+ f := ↑(i₁ * m) % ↑n
+ g := ↑n * ↑j₂
+ h := ↑(i₂ * m) % ↑n
+<stdin>:88:70: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  g - h ≥ 1
+  f ≥ 0
+  e ≥ 0
+  e - f ≥ 0
+  d ≥ 0
+  c ≥ 0
+  c - d ≤ 0
+  b ≥ 1
+  b - c ≥ 1
+  b - d ≥ 1
+  a ≥ 2
+  a - g ≤ 0
+  a - h ≥ 2
+  a - i ≥ 2
+where
+ a := ↑s.length
+ b := ↑n
+ c := ↑i₁
+ d := ↑i₂
+ e := ↑i₂ * ↑m
+ f := ↑i₁ * ↑m
+ g := ↑(i₂ * m) / ↑n
+ h := ↑(i₁ * m) / ↑n
+ i := ↑(i₂ * (s.length - 1)) / ↑n

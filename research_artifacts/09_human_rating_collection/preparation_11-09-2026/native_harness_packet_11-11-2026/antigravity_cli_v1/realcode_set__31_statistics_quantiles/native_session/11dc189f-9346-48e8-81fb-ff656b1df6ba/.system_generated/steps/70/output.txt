@@ -1,0 +1,90 @@
+Command exited with code 1.
+
+Command output:
+some [(5 : Rat)/4, (5 : Rat)/2, (15 : Rat)/4]
+some [1.250000, 2.500000, 3.750000]
+some [(1 : Rat)/5, (7 : Rat)/5, (13 : Rat)/5, (19 : Rat)/5, 5, (31 : Rat)/5, (37 : Rat)/5, (43 : Rat)/5, (49 : Rat)/5]
+some [3]
+some [(7 : Rat)/4, (5 : Rat)/2, (13 : Rat)/4]
+some [1.750000, 2.500000, 3.250000]
+some [(5 : Rat)/4, (5 : Rat)/2, (15 : Rat)/4]
+some [(11 : Rat)/4, (11 : Rat)/2, (33 : Rat)/4]
+some [(5 : Rat)/4, (5 : Rat)/2, (15 : Rat)/4]
+some [3]
+none
+none
+none
+Veribench/31_statistics_quantiles.lean:482:15: error: no goals to be solved
+Veribench/31_statistics_quantiles.lean:484:22: error: no goals to be solved
+Veribench/31_statistics_quantiles.lean:486:6: error: unsolved goals
+case pos
+data : List ℚ
+n : ℕ
+hn : ¬n < 1
+hld : ¬data.length < 2
+⊢ 2 ≤ data.length ∧ 1 ≤ n
+Veribench/31_statistics_quantiles.lean:488:8: error: unsolved goals
+case pos
+data : List ℚ
+n : ℕ
+hn : ¬n < 1
+hld : ¬data.length < 2
+hm1 : ¬"exclusive" = "inclusive"
+⊢ 2 ≤ data.length ∧ 1 ≤ n
+Veribench/31_statistics_quantiles.lean:589:6: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  ?m.64294 ∈ List.map ?m.64295 ?m.64296
+case intro.intro
+data : List ℚ
+n : ℕ
+hld : data.length ≥ 2
+hn : n ≥ 1
+right✝ : "inclusive" = "inclusive" ∨ "inclusive" = "exclusive"
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_sort : List.Pairwise (fun x1 x2 => x1 ≤ x2) s
+hs_len : s.length = data.length
+q : List ℚ := s
+hq : ℚ
+⊢ hq ∈ List.map (inclusiveInterp s n) (List.range' 1 (n - 1)) → q.getD 0 0 ≤ hq ∧ hq ≤ q.getD (q.length - 1) 0
+Veribench/31_statistics_quantiles.lean:627:4: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  c ≥ 0
+  c - d ≥ 1
+  b ≥ 1
+  a ≥ 2
+where
+ a := ↑data.length
+ b := ↑n
+ c := ↑(List.map (inclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1))).length
+ d := ↑hk✝
+Veribench/31_statistics_quantiles.lean:635:4: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  c ≥ 0
+  c - d ≥ 1
+  b ≥ 1
+  a ≥ 2
+where
+ a := ↑data.length
+ b := ↑n
+ c := ↑(List.map (exclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1))).length
+ d := ↑hk✝
+Veribench/31_statistics_quantiles.lean:757:60: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  0 ≤ a ≤ 1
+where
+ a := ↑data.length
+Veribench/31_statistics_quantiles.lean:903:22: error: simp made no progress
+Veribench/31_statistics_quantiles.lean:909:22: error: simp made no progress
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+some [(5 : Rat)/4, (5 : Rat)/2, (15 : Rat)/4]
+some [(7 : Rat)/4, (5 : Rat)/2, (13 : Rat)/4]
+some [1.250000, 2.500000, 3.750000]

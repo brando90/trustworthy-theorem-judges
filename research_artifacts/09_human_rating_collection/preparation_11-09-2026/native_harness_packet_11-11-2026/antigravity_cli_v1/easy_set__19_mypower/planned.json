@@ -1,0 +1,25 @@
+{
+  "task_id": "easy_set__19_mypower",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "19_MyPower.py": "ecd27b4fb26b5ec4879b94f40c33474aa9bb42c745681c5247a4f0b6f7d08fd6",
+    "instruction.md": "7894926dec26258f4f9a683b98816275a8967c13d390bf1d07e3bf0f2fb28bf1"
+  },
+  "output": "/home/user/lean_project/Veribench/19_MyPower.lean",
+  "model_call_performed": false
+}

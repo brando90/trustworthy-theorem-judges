@@ -1,0 +1,25 @@
+{
+  "task_id": "humaneval_set__humaneval_39_prime_fib",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "humaneval_39_prime_fib.py": "391562d77b03c0491e2b36756c874726f6aa23497b317928f1f3439e10ec039c",
+    "instruction.md": "bed24b87028f02c7a82885bc437ae51b5ce62972a51b300f4478f1a32f583af3"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_39_prime_fib.lean",
+  "model_call_performed": false
+}

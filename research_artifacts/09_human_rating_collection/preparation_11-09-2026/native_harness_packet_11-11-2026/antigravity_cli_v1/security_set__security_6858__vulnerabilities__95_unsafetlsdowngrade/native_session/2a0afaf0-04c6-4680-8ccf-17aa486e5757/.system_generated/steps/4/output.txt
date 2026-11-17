@@ -1,0 +1,52 @@
+Created At: 2026-11-16T22:08:02Z
+Completed At: 2026-11-16T22:08:08Z
+Command exited with code 1.
+
+Command output:
+4
+1
+2
+3
+0
+true
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/95_unsafeTlsDowngrade.lean:289:0: warning: Gave up after failing to generate values that fulfill the preconditions 3 times.
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/95_unsafeTlsDowngrade.lean:334:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Veribench/95_unsafeTlsDowngrade.lean:341:0: warning: Gave up after failing to generate values that fulfill the preconditions 6 times.
+Unable to find a counter-example
+Veribench/95_unsafeTlsDowngrade.lean:376:0: warning: Gave up after failing to generate values that fulfill the preconditions 82 times.
+4
+1
+2
+3
+0
+true
+Unable to find a counter-example
+Veribench/95_unsafeTlsDowngrade.lean:447:16: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b - c ≥ 1
+  a - c ≥ 1
+where
+ a := client_offered_max
+ b := do
+  pure PUnit.unit
+  pure server_max
+ c := if client_offered_max ≤ server_max then client_offered_max else server_max
+Veribench/95_unsafeTlsDowngrade.lean:447:16: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b - c ≥ 1
+  a - c ≥ 0
+where
+ a := server_max
+ b := do
+  pure PUnit.unit
+  pure client_offered_max
+ c := if client_offered_max ≤ server_max then client_offered_max else server_max

@@ -1,0 +1,57 @@
+Created At: 2026-11-16T22:37:02Z
+Completed At: 2026-11-16T22:37:06Z
+Command exited with code 1.
+
+Command output:
+[1, 2, 3]
+[]
+[1]
+[11, 12, 22, 25, 34, 42, 50, 64, 76, 88, 90]
+Veribench/heap_sort.lean:250:4: error: tactic 'split_ifs' failed, no if-then-else conditions to split
+case succ
+n fuel' : ℕ
+ih : ∀ (arr : List ℤ) (i : ℕ), (heapifyAux fuel' arr n i).length = arr.length
+arr : List ℤ
+i : ℕ
+⊢ (have largest := chooseLargest arr n i;
+      if (largest != i) = true then heapifyAux fuel' (swap arr i largest) n largest else arr).length =
+    arr.length
+Veribench/heap_sort.lean:264:4: error: tactic 'split_ifs' failed, no if-then-else conditions to split
+case succ
+n fuel' : ℕ
+ih : ∀ (arr : List ℤ) (i : ℕ), n ≤ arr.length → (heapifyAux fuel' arr n i).Perm arr
+arr : List ℤ
+i : ℕ
+hn : n ≤ arr.length
+⊢ (have largest := chooseLargest arr n i;
+      if (largest != i) = true then heapifyAux fuel' (swap arr i largest) n largest else arr).Perm
+    arr
+Veribench/heap_sort.lean:293:4: error: tactic 'split_ifs' failed, no if-then-else conditions to split
+case succ
+n k : ℕ
+hk : n ≤ k
+fuel' : ℕ
+ih : ∀ (arr : List ℤ) (i : ℕ), n ≤ arr.length → getElemD (heapifyAux fuel' arr n i) k = getElemD arr k
+arr : List ℤ
+i : ℕ
+hn : n ≤ arr.length
+⊢ getElemD
+      (have largest := chooseLargest arr n i;
+      if (largest != i) = true then heapifyAux fuel' (swap arr i largest) n largest else arr)
+      k =
+    getElemD arr k
+Veribench/heap_sort.lean:323:4: error: tactic 'split_ifs' failed, no if-then-else conditions to split
+case succ
+n fuel' : ℕ
+ih :
+  ∀ (arr : List ℤ) (i k : ℕ), n ≤ arr.length → k < n → ∃ k' < n, getElemD (heapifyAux fuel' arr n i) k = getElemD arr k'
+arr : List ℤ
+i k : ℕ
+hn : n ≤ arr.length
+hk : k < n
+⊢ ∃ k' < n,
+    getElemD
+        (have largest := chooseLargest arr n i;
+        if (largest != i) = true then heapifyAux fuel' (swap arr i largest) n largest else arr)
+        k =
+      getElemD arr k'

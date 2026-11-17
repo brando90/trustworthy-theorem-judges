@@ -1,0 +1,8 @@
+Created At: 2026-11-16T21:35:12Z
+Completed At: 2026-11-16T21:35:16Z
+Command exited with code 1.
+
+Command output:
+<stdin>:2:8: error: unknown constant 'List.Perm.eq_of_pairwise'
+@List.Pairwise.perm : ∀ {α : Type u_1} {R : α → α → Prop} {l l' : List α},
+  List.Pairwise R l → l.Perm l' → (∀ {x y : α}, R x y → R y x) → List.Pairwise R l'

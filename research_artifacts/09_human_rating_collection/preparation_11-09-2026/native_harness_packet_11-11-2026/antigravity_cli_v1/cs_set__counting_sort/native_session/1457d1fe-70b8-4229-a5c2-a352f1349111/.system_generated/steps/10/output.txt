@@ -1,0 +1,7 @@
+Created At: 2026-11-16T21:52:02Z
+Completed At: 2026-11-16T21:52:06Z
+Command exited with code 0.
+
+Command output:
+getD_set_eq (c : List ℕ) (idx val i : ℕ) (hi : i < c.length) :
+  (c.set idx val).getD i 0 = if idx = i then val else c.getD i 0

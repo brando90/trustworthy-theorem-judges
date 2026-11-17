@@ -1,0 +1,95 @@
+Created At: 2026-11-16T21:51:00Z
+Completed At: 2026-11-16T21:51:06Z
+Command exited with code 1.
+
+Command output:
+<stdin>:69:87: error: unsolved goals
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (if 0 + 5 ≥ 8 then
+      match decodeLoop cs (val * 32 + i % 32) (0 + 5 - 8) with
+      | none => none
+      | some rest => some (UInt8.ofNat ((val * 32 + i % 32) >>> (0 + 5 - 8) &&& 255) :: rest)
+    else decodeLoop cs (val * 32 + i % 32) (0 + 5)) =
+    decodeLoop cs (val * 32 + i % 32) 5
+<stdin>:77:85: error: unsolved goals
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (if 5 + 5 ≥ 8 then
+      match decodeLoop cs (val * 32 + i % 32) (5 + 5 - 8) with
+      | none => none
+      | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 2 ^ (5 + 5 - 8) % 256) :: rest)
+    else decodeLoop cs (val * 32 + i % 32) (5 + 5)) =
+    match decodeLoop cs (val * 32 + i % 32) 2 with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 4 % 256) :: rest)
+<stdin>:82:87: error: unsolved goals
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (if 2 + 5 ≥ 8 then
+      match decodeLoop cs (val * 32 + i % 32) (2 + 5 - 8) with
+      | none => none
+      | some rest => some (UInt8.ofNat ((val * 32 + i % 32) >>> (2 + 5 - 8) &&& 255) :: rest)
+    else decodeLoop cs (val * 32 + i % 32) (2 + 5)) =
+    decodeLoop cs (val * 32 + i % 32) 7
+<stdin>:90:86: error: unsolved goals
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (if 7 + 5 ≥ 8 then
+      match decodeLoop cs (val * 32 + i % 32) (7 + 5 - 8) with
+      | none => none
+      | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 2 ^ (7 + 5 - 8) % 256) :: rest)
+    else decodeLoop cs (val * 32 + i % 32) (7 + 5)) =
+    match decodeLoop cs (val * 32 + i % 32) 4 with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 16 % 256) :: rest)
+<stdin>:98:85: error: unsolved goals
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (if 4 + 5 ≥ 8 then
+      match decodeLoop cs (val * 32 + i % 32) (4 + 5 - 8) with
+      | none => none
+      | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 2 ^ (4 + 5 - 8) % 256) :: rest)
+    else decodeLoop cs (val * 32 + i % 32) (4 + 5)) =
+    match decodeLoop cs (val * 32 + i % 32) 1 with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 2 % 256) :: rest)
+<stdin>:103:87: error: unsolved goals
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (if 1 + 5 ≥ 8 then
+      match decodeLoop cs (val * 32 + i % 32) (1 + 5 - 8) with
+      | none => none
+      | some rest => some (UInt8.ofNat ((val * 32 + i % 32) >>> (1 + 5 - 8) &&& 255) :: rest)
+    else decodeLoop cs (val * 32 + i % 32) (1 + 5)) =
+    decodeLoop cs (val * 32 + i % 32) 6
+<stdin>:111:85: error: unsolved goals
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (if 6 + 5 ≥ 8 then
+      match decodeLoop cs (val * 32 + i % 32) (6 + 5 - 8) with
+      | none => none
+      | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 2 ^ (6 + 5 - 8) % 256) :: rest)
+    else decodeLoop cs (val * 32 + i % 32) (6 + 5)) =
+    match decodeLoop cs (val * 32 + i % 32) 3 with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 8 % 256) :: rest)
+<stdin>:119:79: error: unsolved goals
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (if 3 + 5 ≥ 8 then
+      match decodeLoop cs (val * 32 + i % 32) (3 + 5 - 8) with
+      | none => none
+      | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 2 ^ (3 + 5 - 8) % 256) :: rest)
+    else decodeLoop cs (val * 32 + i % 32) (3 + 5)) =
+    match decodeLoop cs (val * 32 + i % 32) 0 with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) % 256) :: rest)

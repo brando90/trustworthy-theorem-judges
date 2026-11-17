@@ -1,0 +1,242 @@
+Command exited with code 1.
+
+Command output:
+Veribench/edit_distance.lean:399:10: error: unsolved goals
+case nil.nil
+α : Type
+inst✝ : DecidableEq α
+a b : α
+⊢ edit_distance [a] [b] = if a = b then 0 else 1
+Veribench/edit_distance.lean:409:90: error: unsolved goals
+α : Type
+inst✝ : DecidableEq α
+a b y : α
+s2 : List α
+ih2 :
+  edit_distance ([] ++ [a]) (s2 ++ [b]) =
+    if a = b then edit_distance [] s2
+    else 1 + min (edit_distance [] (s2 ++ [b])) (min (edit_distance ([] ++ [a]) s2) (edit_distance [] s2))
+⊢ edit_distance [a] (y :: (s2 ++ [b])) =
+    if a = y then (s2 ++ [b]).length
+    else 1 + min (edit_distance [] (y :: (s2 ++ [b]))) (min (edit_distance [a] (s2 ++ [b])) (s2 ++ [b]).length)
+Veribench/edit_distance.lean:414:72: error: unsolved goals
+α : Type
+inst✝ : DecidableEq α
+a b y : α
+s2 : List α
+ih2 :
+  edit_distance ([] ++ [a]) (s2 ++ [b]) =
+    if a = b then edit_distance [] s2
+    else 1 + min (edit_distance [] (s2 ++ [b])) (min (edit_distance ([] ++ [a]) s2) (edit_distance [] s2))
+hd1 :
+  edit_distance [a] (y :: (s2 ++ [b])) =
+    if a = y then edit_distance [] (s2 ++ [b])
+    else
+      1 + min (edit_distance [] (y :: (s2 ++ [b]))) (min (edit_distance [a] (s2 ++ [b])) (edit_distance [] (s2 ++ [b])))
+⊢ edit_distance [a] (y :: s2) =
+    if a = y then s2.length else 1 + min (edit_distance [] (y :: s2)) (min (edit_distance [a] s2) s2.length)
+Veribench/edit_distance.lean:420:62: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  f ≥ 0
+  e ≥ 0
+  -1 ≤ e - f ≤ 1
+  d ≥ 1
+  d + e ≥ -1
+  c ≥ 0
+where
+ c := ↑(edit_distance [] s2)
+ d := ↑[].length
+ e := ↑(edit_distance [a] (y :: s2))
+ f := ↑(edit_distance [a] s2)
+Veribench/edit_distance.lean:421:62: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  h ≥ 0
+  g ≥ 0
+  g - h ≥ 0
+  f ≥ 0
+  f - h ≤ 0
+  e ≥ 0
+  d ≥ 0
+  -1 ≤ d - e ≤ 1
+  c ≥ 0
+  c ≥ 1
+  c + e ≥ -1
+where
+ c := ↑[].length
+ d := ↑(edit_distance [a] s2)
+ e := if ↑(edit_distance [a] (y :: s2)) ≤ ↑(s2.length + 1) then ↑(edit_distance [a] (y :: s2)) else ↑(s2.length + 1)
+ f := ↑(edit_distance [] (s2 ++ [b]))
+ g := ↑(edit_distance [] s2)
+ h := ↑(edit_distance ([] ++ [a]) s2)
+Veribench/edit_distance.lean:422:62: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  g ≥ 0
+  f ≥ 0
+  e ≥ 0
+  d ≥ 0
+  0 ≤ d - e ≤ 1
+  d - g ≥ 1
+  d + f - g ≥ -1
+  c ≥ 0
+where
+ c := ↑(edit_distance [] s2)
+ d := ↑s2.length
+ e := if ↑(edit_distance [a] s2) ≤ ↑s2.length then ↑(edit_distance [a] s2) else ↑s2.length
+ f := ↑[].length
+ g := ↑(edit_distance [a] (s2 ++ [b]))
+Veribench/edit_distance.lean:423:62: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  i ≥ 0
+  h ≥ 0
+  h - i ≥ 0
+  g ≥ 0
+  g - i ≤ 0
+  f ≥ 0
+  e ≥ 0
+  e - f ≥ 0
+  d ≥ 0
+  c ≥ 0
+  0 ≤ c - e ≤ 1
+  c + d - e ≥ 0
+  c + d - f ≥ -1
+where
+ c := ↑s2.length
+ d := ↑[].length
+ e := if ↑(edit_distance [a] s2) ≤ ↑s2.length then ↑(edit_distance [a] s2) else ↑s2.length
+ f := ↑(edit_distance [a] (s2 ++ [b]))
+ g := ↑(edit_distance [] (s2 ++ [b]))
+ h := ↑(edit_distance [] s2)
+ i := ↑(edit_distance ([] ++ [a]) s2)
+Veribench/edit_distance.lean:432:96: error: unsolved goals
+α : Type
+inst✝ : DecidableEq α
+a b x : α
+s1 : List α
+ih1 :
+  ∀ (s2 : List α),
+    edit_distance (s1 ++ [a]) (s2 ++ [b]) =
+      if a = b then edit_distance s1 s2
+      else 1 + min (edit_distance s1 (s2 ++ [b])) (min (edit_distance (s1 ++ [a]) s2) (edit_distance s1 s2))
+⊢ edit_distance (x :: (s1 ++ [a])) [b] =
+    if x = b then (s1 ++ [a]).length
+    else 1 + min (edit_distance (s1 ++ [a]) [b]) (min (edit_distance (x :: (s1 ++ [a])) []) (s1 ++ [a]).length)
+
+case x_2
+α : Type
+inst✝ : DecidableEq α
+a b x : α
+s1 : List α
+ih1 :
+  ∀ (s2 : List α),
+    edit_distance (s1 ++ [a]) (s2 ++ [b]) =
+      if a = b then edit_distance s1 s2
+      else 1 + min (edit_distance s1 (s2 ++ [b])) (min (edit_distance (s1 ++ [a]) s2) (edit_distance s1 s2))
+⊢ s1 ++ [a] = [] → False
+Veribench/edit_distance.lean:437:78: error: unsolved goals
+α : Type
+inst✝ : DecidableEq α
+a b x : α
+s1 : List α
+ih1 :
+  ∀ (s2 : List α),
+    edit_distance (s1 ++ [a]) (s2 ++ [b]) =
+      if a = b then edit_distance s1 s2
+      else 1 + min (edit_distance s1 (s2 ++ [b])) (min (edit_distance (s1 ++ [a]) s2) (edit_distance s1 s2))
+hd1 :
+  edit_distance (x :: (s1 ++ [a])) [b] =
+    if x = b then edit_distance (s1 ++ [a]) []
+    else
+      1 + min (edit_distance (s1 ++ [a]) [b]) (min (edit_distance (x :: (s1 ++ [a])) []) (edit_distance (s1 ++ [a]) []))
+⊢ edit_distance (x :: s1) [b] =
+    if x = b then s1.length else 1 + min (edit_distance s1 [b]) (min (edit_distance (x :: s1) []) s1.length)
+
+case x_2
+α : Type
+inst✝ : DecidableEq α
+a b x : α
+s1 : List α
+ih1 :
+  ∀ (s2 : List α),
+    edit_distance (s1 ++ [a]) (s2 ++ [b]) =
+      if a = b then edit_distance s1 s2
+      else 1 + min (edit_distance s1 (s2 ++ [b])) (min (edit_distance (s1 ++ [a]) s2) (edit_distance s1 s2))
+hd1 :
+  edit_distance (x :: (s1 ++ [a])) [b] =
+    if x = b then edit_distance (s1 ++ [a]) []
+    else
+      1 + min (edit_distance (s1 ++ [a]) [b]) (min (edit_distance (x :: (s1 ++ [a])) []) (edit_distance (s1 ++ [a]) []))
+⊢ s1 = [] → False
+Veribench/edit_distance.lean:447:61: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  d ≥ 0
+  -1 ≤ d - e ≤ 1
+  c ≥ 1
+  c + d ≥ -1
+where
+ c := ↑[].length
+ d := ↑(edit_distance (s1 ++ [a]) [b])
+ e := ↑(edit_distance s1 [b])
+Veribench/edit_distance.lean:448:61: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  d ≥ 0
+  -1 ≤ d - e ≤ 0
+  c ≥ 0
+  c ≥ 1
+  c + e ≥ -1
+where
+ c := ↑[].length
+ d := ↑(edit_distance s1 [b])
+ e := if ↑(s1.length + 1) ≤ ↑s1.length then ↑(s1.length + 1) else ↑s1.length
+Veribench/edit_distance.lean:493:8: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/edit_distance.lean:405:26: warning: This simp argument is unused:
+  List.length_singleton
+
+Hint: Omit it from the simp argument list.
+  simp only [List.nil_append, List.cons_append, edit_distance_nil_left, List.length_append,
+          List.length_cons,̵ ̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵s̵i̵n̵g̵l̵e̵t̵o̵n̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/edit_distance.lean:417:8: warning: This simp argument is unused:
+  List.length_singleton
+
+Hint: Omit it from the simp argument list.
+  simp only [edit_distance_nil_left, List.length_cons, List.length_append,̵
+  ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵s̵i̵n̵g̵l̵e̵t̵o̵n̵] at hd1 hd2
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/edit_distance.lean:428:26: warning: This simp argument is unused:
+  List.length_singleton
+
+Hint: Omit it from the simp argument list.
+  simp only [List.cons_append, List.nil_append, edit_distance_nil_right, List.length_append,
+          List.length_cons,̵ ̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵s̵i̵n̵g̵l̵e̵t̵o̵n̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/edit_distance.lean:440:8: warning: This simp argument is unused:
+  List.length_singleton
+
+Hint: Omit it from the simp argument list.
+  simp only [edit_distance_nil_right, List.length_cons, List.length_append,̵
+  ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵s̵i̵n̵g̵l̵e̵t̵o̵n̵] at hd1 hd2
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/edit_distance.lean:499:34: warning: This simp argument is unused:
+  edit_distance_nil_right
+
+Hint: Omit it from the simp argument list.
+  simp [edit_distance_nil_left,̵ ̵e̵d̵i̵t̵_̵d̵i̵s̵t̵a̵n̵c̵e̵_̵n̵i̵l̵_̵r̵i̵g̵h̵t̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/edit_distance.lean:503:12: warning: This simp argument is unused:
+  edit_distance_nil_left
+
+Hint: Omit it from the simp argument list.
+  simp [edit_distance_nil_l̵e̵f̵t̵,̵ ̵e̵d̵i̵t̵_̵d̵i̵s̵t̵a̵n̵c̵e̵_̵n̵i̵l̵_̵right]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

@@ -1,0 +1,9 @@
+Created At: 2026-11-16T21:47:10Z
+Completed At: 2026-11-16T21:47:14Z
+Command exited with code 0.
+
+Command output:
+@List.getElem_idxOf : ∀ {α : Type u_1} [inst : DecidableEq α] {a : α} {l : List α} (h : List.idxOf a l < l.length),
+  l[List.idxOf a l] = a
+@List.idxOf_getElem : ∀ {α : Type u_1} [inst : DecidableEq α] {l : List α},
+  l.Nodup → ∀ (i : ℕ) (h : i < l.length), List.idxOf l[i] l = i

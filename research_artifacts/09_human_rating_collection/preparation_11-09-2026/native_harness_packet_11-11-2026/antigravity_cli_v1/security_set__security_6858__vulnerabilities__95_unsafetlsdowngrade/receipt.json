@@ -1,0 +1,71 @@
+{
+  "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "95_unsafeTlsDowngrade.py": "3362ddd9ccf29cab0fca41509bda5ce0657eca8bb8aaca4ef1e9311f32babee7",
+    "instruction.md": "cf745665279318d9cfab0880de82945d8c3c940b4cfe5df4004d68b84acb66d8"
+  },
+  "output": "/home/user/lean_project/Veribench/95_unsafeTlsDowngrade.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-de7ff8549f11",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794866773.732981,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794867219.095972,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "2a0afaf0-04c6-4680-8ccf-17aa486e5757",
+      "status": "SUCCESS",
+      "response": "The Python program `unsafe_tls_downgrade` has been formalized in Lean 4 at [95_unsafeTlsDowngrade.lean](file:///home/user/lean_project/Veribench/95_unsafeTlsDowngrade.lean).\n\n### Summary of Formalization\n- **Functional & Imperative Implementations**:\n  - `unsafe_tls_downgrade` (and alias `unsafeTlsDowngrade`) computing `min client_offered_max server_max` over `Int`, plus `check` translating the Python assertion suite.\n  - `unsafe_tls_downgrade_imp` (and alias `unsafeTlsDowngradeImp`) using `Id.run do` with mutable state `negotiated`.\n- **Unit & Property-Based Tests**:\n  - Ground unit tests (`#eval` and `example : ... := by native_decide`) covering all 6 cases in the Python `check` suite for both functional and imperative definitions.\n  - Plausible randomized property-based tests (`#eval Plausible.Testable.check ...`) and bounded exhaustive checks for every stated property (`_prop`), `Post_prop`, and functional-imperative equivalence.\n- **Specification & Proven Theorems** (all kernel-checked without `sorry`, `admit`, `native_decide`, or non-standard axioms):\n  - `exact_min_thm`, `le_client_offer_thm`, `le_server_max_thm`, `choice_thm`, `highest_common_thm`, `greatest_common_iff_thm`\n  - `offer_caps_when_le_thm`, `server_caps_when_le_thm`, `matching_version_thm`, `comm_thm`\n  - `monotone_offer_thm`, `monotone_server_thm`, `monotone_both_thm`\n  - `attacker_strip_weakens_thm`, `downgrade_vulnerability_thm`\n  - `nonneg_preserved_thm`, `legacy_server_zero_thm`, `valid_version_preserved_thm`, `check_unsafe_tls_downgrade_thm`\n  - `unsafe_tls_downgrade_correct` (`Pre \u2192 Post_prop`) and `unsafe_tls_downgrade_equiv` (`unsafe_tls_downgrade = unsafe_tls_downgrade_imp`).\n",
+      "duration_seconds": 440.498107746,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 68964,
+        "output_tokens": 32308,
+        "thinking_tokens": 9536,
+        "cache_read_tokens": 275983,
+        "total_tokens": 101272
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "45a81d6e859162ce3c6dbe06f1c4b9364fe5360e6fab068b746d1c58d2c51d38",
+  "candidate_bytes": 26106
+}

@@ -1,0 +1,16 @@
+Created At: 2026-11-16T21:57:02Z
+Completed At: 2026-11-16T21:57:06Z
+Command exited with code 1.
+
+Command output:
+List.Perm.length_eq.{u_1} {α : Type u_1} {l₁ l₂ : List α} (p : l₁.Perm l₂) : l₁.length = l₂.length
+List.Perm.mem_iff.{u_1} {α : Type u_1} {a : α} {l₁ l₂ : List α} (p : l₁.Perm l₂) : a ∈ l₁ ↔ a ∈ l₂
+List.Pairwise.imp.{u_1} {α : Type u_1} {R S : α → α → Prop} (H : ∀ {a b : α}, R a b → S a b) {l : List α} :
+  List.Pairwise R l → List.Pairwise S l
+List.Pairwise.map.{u_1, u_2} {β : Type u_1} {α : Type u_2} {R : α → α → Prop} {l : List α} {S : β → β → Prop}
+  (f : α → β) (H : ∀ (a b : α), R a b → S (f a) (f b)) (p : List.Pairwise R l) : List.Pairwise S (List.map f l)
+<stdin>:7:7: error: unknown constant 'List.IsChain'
+<stdin>:8:7: error: unknown constant 'List.Pairwise.isChain'
+<stdin>:9:7: error: unknown constant 'List.Pairwise.getElem'
+List.mergeSort_perm.{u_1} {α : Type u_1} (l : List α) (le : α → α → Bool) : (l.mergeSort le).Perm l
+<stdin>:11:7: error: unknown constant 'List.pairwise_mergeSort'

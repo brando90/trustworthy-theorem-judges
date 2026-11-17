@@ -1,0 +1,31 @@
+{
+  "task_id": "humaneval_set__humaneval_14_all_prefixes",
+  "condition_sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "1000",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "humaneval_14_all_prefixes.py": "9793c5a006d2b3b17518199000cfafb46722dbf17451c773e5e1d4871251db92",
+    "instruction.md": "964683b3b6645ed75682c877c378efc15c54731af786ec2ce85c52f9645194c4"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean",
+  "model_call_performed": false
+}

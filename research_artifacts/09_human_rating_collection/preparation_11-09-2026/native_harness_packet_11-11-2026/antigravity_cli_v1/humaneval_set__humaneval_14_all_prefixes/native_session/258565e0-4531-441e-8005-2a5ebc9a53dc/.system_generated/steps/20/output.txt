@@ -1,0 +1,9 @@
+Created At: 2026-11-16T21:57:24Z
+Completed At: 2026-11-16T21:57:29Z
+Command exited with code 0.
+
+Command output:
+inferInstance : DecidableRel List.IsPrefix
+fun p s => p.IsPrefix s : String → String → Prop
+fun p s => p.data <+: s.data : String → String → Prop
+true

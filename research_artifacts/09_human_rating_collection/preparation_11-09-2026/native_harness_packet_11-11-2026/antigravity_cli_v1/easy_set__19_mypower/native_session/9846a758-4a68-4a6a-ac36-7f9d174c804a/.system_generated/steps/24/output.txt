@@ -1,0 +1,62 @@
+Created At: 2026-11-16T22:13:04Z
+Completed At: 2026-11-16T22:13:12Z
+Command exited with code 1.
+
+Command output:
+8
+1
+0
+1
+1
+81
+some 8
+some 1
+none
+none
+Veribench/19_MyPower.lean:193:39: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  0 < ?m.14469
+base exponent : ℕ
+⊢ base = 0 ∧ exponent ≠ 0 ↔ base = 0 ∧ exponent > 0
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/19_MyPower.lean:381:55: error: failed to synthesize
+  Decidable (Post_prop (base % 8) (exponent % 6))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/19_MyPower.lean:407:68: error: failed to synthesize
+  Decidable (Post_prop b e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+8
+1
+0
+1
+1
+81
+some 8
+some 1
+none
+none
+Unable to find a counter-example
+Unable to find a counter-example

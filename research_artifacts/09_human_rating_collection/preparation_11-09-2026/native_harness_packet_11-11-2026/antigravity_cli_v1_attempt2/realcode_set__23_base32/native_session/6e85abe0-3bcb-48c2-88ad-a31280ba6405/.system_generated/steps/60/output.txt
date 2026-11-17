@@ -1,0 +1,123 @@
+Command exited with code 1.
+
+Command output:
+Veribench/23_base32.lean:221:36: error: Application type mismatch: In the application
+  check benchmark_b32encode fun s => benchmark_b32decode s
+the argument
+  fun s => benchmark_b32decode s
+has type
+  Bytes → Bytes : Type
+but is expected to have type
+  Bytes → Bool → Option UInt8 → Bytes : Type
+[77, 90, 88, 87, 54, 89, 84, 66, 79, 73, 61, 61, 61, 61, 61, 61]
+[86, 101, 114, 105, 66, 101, 110, 99, 104]
+[102, 111, 111, 98, 97]
+Veribench/23_base32.lean:226:32: error: Application type mismatch: In the application
+  check benchmark_b32encode fun s => benchmark_b32decode s
+the argument
+  fun s => benchmark_b32decode s
+has type
+  Bytes → Bytes : Type
+but is expected to have type
+  Bytes → Bool → Option UInt8 → Bytes : Type
+Veribench/23_base32.lean:279:23: error: no goals to be solved
+Veribench/23_base32.lean:285:23: error: no goals to be solved
+Veribench/23_base32.lean:317:16: error: tactic 'rfl' failed, the left-hand side
+  List.length (b32encodeRaw [b0])
+is not definitionally equal to the right-hand side
+  ([b0].length + 4) / 5 * 8
+case case2
+b0 : UInt8
+⊢ List.length (b32encodeRaw [b0]) = ([b0].length + 4) / 5 * 8
+Veribench/23_base32.lean:318:19: error: tactic 'rfl' failed, the left-hand side
+  List.length (b32encodeRaw [b0, b1])
+is not definitionally equal to the right-hand side
+  ([b0, b1].length + 4) / 5 * 8
+case case3
+b0 b1 : UInt8
+⊢ List.length (b32encodeRaw [b0, b1]) = ([b0, b1].length + 4) / 5 * 8
+Veribench/23_base32.lean:319:22: error: tactic 'rfl' failed, the left-hand side
+  List.length (b32encodeRaw [b0, b1, b2])
+is not definitionally equal to the right-hand side
+  ([b0, b1, b2].length + 4) / 5 * 8
+case case4
+b0 b1 b2 : UInt8
+⊢ List.length (b32encodeRaw [b0, b1, b2]) = ([b0, b1, b2].length + 4) / 5 * 8
+Veribench/23_base32.lean:320:25: error: tactic 'rfl' failed, the left-hand side
+  List.length (b32encodeRaw [b0, b1, b2, b3])
+is not definitionally equal to the right-hand side
+  ([b0, b1, b2, b3].length + 4) / 5 * 8
+case case5
+b0 b1 b2 b3 : UInt8
+⊢ List.length (b32encodeRaw [b0, b1, b2, b3]) = ([b0, b1, b2, b3].length + 4) / 5 * 8
+Veribench/23_base32.lean:423:6: error: unknown constant 'List.map_eq_self'
+Veribench/23_base32.lean:422:67: error: unsolved goals
+s : Bytes
+⊢ List.map toUpperByte (b32encodeUnpadded s) = b32encodeUnpadded s
+Veribench/23_base32.lean:690:8: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  g ≥ 0
+  0 ≤ f ≤ 4
+  -8 ≤ f + 5*g - 8*h ≤ -1
+  -7 ≤ 8*e - f - 5*g ≤ 0
+  b ≥ 0
+  b + e - h ≥ 0
+  a ≥ 0
+  a + b + e ≥ -1
+where
+ a := ↑(List.length acc)
+ b := ↑[].length
+ e := ↑(bits + 5 - 8 + 5 * cs.length) / 8
+ f := ↑(bits + 5 - 8)
+ g := ↑cs.length
+ h := ↑(bits + 5 * (cs.length + 1)) / 8
+Veribench/23_base32.lean:689:39: warning: This simp argument is unused:
+  List.length_singleton
+
+Hint: Omit it from the simp argument list.
+  simp only [List.length_append, List.length_s̵i̵n̵g̵l̵e̵t̵o̵n̵,̵ ̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵cons] at hlen ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/23_base32.lean:731:6: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  List.length (b32encode s)
+s : Bytes
+h1 : List.length (b32encode s) = List.length (b32encodeRaw s)
+⊢ encode_length_prop s
+Veribench/23_base32.lean:752:8: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  rstripEq (b32encode ?s)
+case refine_2
+s : Bytes
+⊢ (List.all (rstripEq (if false = true then List.map toUpperByte (b32encode s) else b32encode s)) fun c =>
+      (revAlphabet c).isSome) =
+    true
+Veribench/23_base32.lean:803:8: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  rstripEq (b32encode ?s)
+s : Bytes
+⊢ decodeChars (rstripEq (if false = true then List.map toUpperByte (b32encode s) else b32encode s)) 0 0 [] = some s
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/23_base32.lean:1050:30: error: Application type mismatch: In the application
+  check b32encode_imp fun s => b32decode_imp s
+the argument
+  fun s => b32decode_imp s
+has type
+  Bytes → Bytes : Type
+but is expected to have type
+  Bytes → Bool → Option UInt8 → Bytes : Type
+Veribench/23_base32.lean:1052:26: error: Application type mismatch: In the application
+  check b32encode_imp fun s => b32decode_imp s
+the argument
+  fun s => b32decode_imp s
+has type
+  Bytes → Bytes : Type
+but is expected to have type
+  Bytes → Bool → Option UInt8 → Bytes : Type

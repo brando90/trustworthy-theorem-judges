@@ -1,0 +1,12 @@
+Created At: 2026-11-16T22:16:04Z
+Completed At: 2026-11-16T22:16:07Z
+Command exited with code 0.
+
+Command output:
+def String.replace : String → String → String → String :=
+fun s pattern replacement =>
+  if h : pattern.endPos.byteIdx = 0 then s
+  else
+    have hPatt := ⋯;
+    String.replace.loop s pattern replacement hPatt "" 0 0
+Plausible.String.sampleableExt

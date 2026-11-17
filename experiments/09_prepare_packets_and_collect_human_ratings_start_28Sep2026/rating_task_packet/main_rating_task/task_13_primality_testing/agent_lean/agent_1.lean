@@ -1,19 +1,15 @@
 import Mathlib
 
 /-!
-# 23_is_prime: Primality Test for Non-Negative Integers
+# Check if a Non-Negative Integer is Prime
 
-This module formalizes the Python `is_prime` function in Lean 4.
-A prime number is a natural number greater than 1 that is not divisible
-by any positive integer other than 1 and itself.
+This module translates the Python `is_prime` function into Lean 4, following the
+VeriBench specification format.
 
-Edge cases:
-- `0` and `1` are not prime.
-- Negative inputs violate the precondition `Pre n` (`n ≥ 0`).
-
-The algorithm checks edge cases (`n ≤ 1`, `n ≤ 3`, multiples of `2` or `3`)
-and then tests all candidate divisors of the form `6k ± 1` (i.e., `5 + 6k` and `7 + 6k`)
-up to `⌊√n⌋`.
+Given a non-negative integer `n`, `is_prime n` checks whether `n` is a prime number
+(a natural number greater than `1` that is not divisible by any positive integer
+other than `1` and itself) using trial division by `2`, `3`, and integers of the
+form `6k ± 1` up to `⌊√n⌋`.
 -/
 
 namespace «23_is_prime»
@@ -21,328 +17,363 @@ namespace «23_is_prime»
 /-! ## Implementation (Functional) -/
 
 /--
-Check if a non-negative integer `n` is prime.
-A prime number is a natural number greater than 1 that is not divisible by
-any positive integer other than 1 and itself.
+Helper function that checks whether `n` has any divisor of the form `i` or `i + 2`
+(representing `6k - 1` and `6k + 1`) starting from `i` and stepping by `6` up to `limit`.
+-/
+def checkDivisors (n : Nat) (i : Nat) (limit : Nat) : Bool :=
+  if _ : i ≤ limit then
+    if n % i == 0 || n % (i + 2) == 0 then
+      false
+    else
+      checkDivisors n (i + 6) limit
+  else
+    true
+termination_by limit + 1 - i
+
+/--
+Check if a non-negative integer is prime.
+A prime number is a natural number greater than 1 that is not divisible by any
+positive integer other than 1 and itself.
 -/
 def is_prime (n : Int) : Bool :=
-  if n ≤ 1 then false
-  else if n ≤ 3 then true
-  else if n % 2 == 0 || n % 3 == 0 then false
+  if n ≤ 1 then
+    false
+  else if n ≤ 3 then
+    true
+  else if n % 2 == 0 || n % 3 == 0 then
+    false
   else
-    let m := n.toNat
-    let limit := Nat.sqrt m
-    (List.range ((limit + 1) / 6)).all fun k =>
-      let i := 5 + 6 * k
-      m % i != 0 && m % (i + 2) != 0
+    let natN := n.toNat
+    checkDivisors natN 5 (Nat.sqrt natN)
 
 /-! ## Unit Tests -/
 
-#eval is_prime 2
-#eval is_prime 4
-#eval is_prime 0
-#eval is_prime 7
-#eval is_prime 1
-#eval is_prime 3
-#eval is_prime 25
-#eval is_prime 97
-
+-- Docstring examples
 example : is_prime 2 = true := by native_decide
 example : is_prime 4 = false := by native_decide
 example : is_prime 0 = false := by native_decide
+
+-- Test suite (`check`) examples and additional edge/composite/prime cases
 example : is_prime 7 = true := by native_decide
 example : is_prime 1 = false := by native_decide
+example : is_prime (-1) = false := by native_decide
 example : is_prime 3 = true := by native_decide
 example : is_prime 5 = true := by native_decide
 example : is_prime 9 = false := by native_decide
 example : is_prime 25 = false := by native_decide
 example : is_prime 29 = true := by native_decide
+example : is_prime 35 = false := by native_decide
 example : is_prime 49 = false := by native_decide
 example : is_prime 97 = true := by native_decide
 example : is_prime 121 = false := by native_decide
-example : is_prime (-1) = false := by native_decide
+
+#eval is_prime 2
+#eval is_prime 4
+#eval is_prime 0
+#eval is_prime 7
+#eval is_prime 97
 
 /-! ## Pre-condition -/
 
 /--
-Pre-condition for `is_prime`: input `n` must be a non-negative integer.
+Pre-condition for `is_prime`: the input integer `n` must be non-negative (`n ≥ 0`),
+corresponding to `def pre(n: int) -> bool: return isinstance(n, int) and n >= 0`.
 -/
-def Pre (n : Int) : Prop := n ≥ 0
-
-instance (n : Int) : Decidable (Pre n) :=
-  inferInstanceAs (Decidable (n ≥ 0))
-
-/-! ## Helper Lemmas for Primality Proof -/
-
-theorem sqrt_add_two_lt (m : Nat) (h : 5 ≤ m.sqrt) : m.sqrt + 2 < m := by
-  have h1 : m.sqrt * m.sqrt ≤ m := Nat.sqrt_le m
-  have h2 : 5 * m.sqrt ≤ m.sqrt * m.sqrt := Nat.mul_le_mul_right m.sqrt h
-  omega
-
-theorem minFac_cases (p s : Nat) (hp_le : p ≤ s) (hp_ge : 2 ≤ p)
-    (hp2 : p % 2 ≠ 0) (hp3 : p % 3 ≠ 0) :
-    (p = 5 + 6 * ((p - 5) / 6) ∧ (p - 5) / 6 < (s + 1) / 6) ∨
-    (p = 5 + 6 * ((p - 7) / 6) + 2 ∧ (p - 7) / 6 < (s + 1) / 6) := by
-  have : p % 6 = 1 ∨ p % 6 = 5 := by omega
-  omega
-
-theorem is_prime_iff_natPrime (n : Int) : is_prime n = true ↔ Nat.Prime n.toNat := by
-  unfold is_prime
-  by_cases h1 : n ≤ 1
-  · simp only [h1, ↓reduceIte, Bool.false_eq_true, false_iff]
-    intro hp
-    have := hp.two_le
-    omega
-  · by_cases h2 : n ≤ 3
-    · simp only [h1, h2, ↓reduceIte, true_iff]
-      have : n.toNat = 2 ∨ n.toNat = 3 := by omega
-      rcases this with h | h <;> rw [h]
-      · exact Nat.prime_two
-      · exact Nat.prime_three
-    · by_cases h3 : (n % 2 == 0 || n % 3 == 0) = true
-      · simp only [h1, h2, h3, ↓reduceIte, Bool.false_eq_true, false_iff]
-        intro hp
-        simp only [Bool.or_eq_true, beq_iff_eq] at h3
-        rcases h3 with h3 | h3
-        · have hdvd : 2 ∣ n.toNat := by omega
-          rcases hp.eq_one_or_self_of_dvd 2 hdvd with h | h <;> omega
-        · have hdvd : 3 ∣ n.toNat := by omega
-          rcases hp.eq_one_or_self_of_dvd 3 hdvd with h | h <;> omega
-      · simp only [h1, h2, h3, Bool.false_eq_true, ↓reduceIte, List.all_eq_true, List.mem_range,
-          Bool.and_eq_true, bne_iff_ne, ne_eq]
-        constructor
-        · intro hall
-          by_contra hnp
-          have hm1 : n.toNat ≠ 1 := by omega
-          have hm0 : 0 < n.toNat := by omega
-          have hp_prime : Nat.Prime n.toNat.minFac := Nat.minFac_prime hm1
-          have hp_dvd : n.toNat.minFac ∣ n.toNat := Nat.minFac_dvd n.toNat
-          have hp_sq : n.toNat.minFac ^ 2 ≤ n.toNat := Nat.minFac_sq_le_self hm0 hnp
-          have hp_le_sqrt : n.toNat.minFac ≤ n.toNat.sqrt := by
-            rw [Nat.le_sqrt]
-            simpa [sq] using hp_sq
-          have hp_ge2 : 2 ≤ n.toNat.minFac := hp_prime.two_le
-          simp only [Bool.or_eq_true, beq_iff_eq, not_or] at h3
-          have hnd2 : ¬ (2 ∣ n.toNat) := by omega
-          have hnd3 : ¬ (3 ∣ n.toNat) := by omega
-          have hp2 : n.toNat.minFac % 2 ≠ 0 := by
-            intro h
-            exact hnd2 (dvd_trans (Nat.dvd_of_mod_eq_zero h) hp_dvd)
-          have hp3 : n.toNat.minFac % 3 ≠ 0 := by
-            intro h
-            exact hnd3 (dvd_trans (Nat.dvd_of_mod_eq_zero h) hp_dvd)
-          have hp_mod : n.toNat % n.toNat.minFac = 0 := Nat.mod_eq_zero_of_dvd hp_dvd
-          rcases minFac_cases n.toNat.minFac n.toNat.sqrt hp_le_sqrt hp_ge2 hp2 hp3 with
-            ⟨heq, hlt⟩ | ⟨heq, hlt⟩
-          · have hne := (hall _ hlt).1
-            rw [← heq] at hne
-            exact hne hp_mod
-          · have hne := (hall _ hlt).2
-            rw [← heq] at hne
-            exact hne hp_mod
-        · intro hp k hk
-          have hsqrt : 5 ≤ n.toNat.sqrt := by omega
-          have : n.toNat.sqrt + 2 < n.toNat := sqrt_add_two_lt n.toNat hsqrt
-          constructor
-          · intro hmod
-            have hdvd : (5 + 6 * k) ∣ n.toNat := Nat.dvd_of_mod_eq_zero hmod
-            rcases hp.eq_one_or_self_of_dvd (5 + 6 * k) hdvd with h | h <;> omega
-          · intro hmod
-            have hdvd : (5 + 6 * k + 2) ∣ n.toNat := Nat.dvd_of_mod_eq_zero hmod
-            rcases hp.eq_one_or_self_of_dvd (5 + 6 * k + 2) hdvd with h | h <;> omega
-
-theorem natPrime_iff_no_proper_divisor (n : Int) :
-    Nat.Prime n.toNat ↔ (n > 1 ∧ ∀ d : Int, 1 < d → d < n → n % d ≠ 0) := by
-  rw [Nat.prime_def_lt']
-  constructor
-  · rintro ⟨h2, hall⟩
-    refine ⟨by omega, fun d hd1 hd2 hmod => ?_⟩
-    have h1 : 2 ≤ d.toNat := by omega
-    have h2' : d.toNat < n.toNat := by omega
-    have hdvd : d.toNat ∣ n.toNat := by
-      rw [← Int.ofNat_dvd, Int.toNat_of_nonneg (by omega), Int.toNat_of_nonneg (by omega)]
-      exact Int.dvd_of_emod_eq_zero hmod
-    exact hall d.toNat h1 h2' hdvd
-  · rintro ⟨hn1, hall⟩
-    refine ⟨by omega, fun m hm1 hm2 hdvd => ?_⟩
-    have hmod : n % (m : Int) = 0 := by
-      apply Int.emod_eq_zero_of_dvd
-      have := Int.ofNat_dvd.mpr hdvd
-      rwa [Int.toNat_of_nonneg (by omega)] at this
-    exact hall (m : Int) (by omega) (by omega) hmod
+def Pre (n : Int) : Prop :=
+  0 ≤ n
 
 /-! ## Property Propositions and Theorems -/
 
 /--
-Property 1: Numbers less than or equal to 1 (including 0 and 1) are not prime.
+Characterization of `checkDivisors`: it returns `true` if and only if for every step `k`
+with `i + 6 * k ≤ limit`, neither `i + 6 * k` nor `i + 6 * k + 2` divides `n`.
 -/
-def non_positive_or_one_not_prime_prop (n : Int) : Prop :=
-  n ≤ 1 → is_prime n = false
-
-instance (n : Int) : Decidable (non_positive_or_one_not_prime_prop n) :=
-  inferInstanceAs (Decidable (n ≤ 1 → is_prime n = false))
-
-theorem non_positive_or_one_not_prime_thm (n : Int) (_h : Pre n) :
-    non_positive_or_one_not_prime_prop n := by
-  intro hn1
-  unfold is_prime
-  simp [hn1]
+theorem checkDivisors_eq_true_iff (n i limit : Nat) :
+    checkDivisors n i limit = true ↔
+      ∀ k : Nat, i + 6 * k ≤ limit → ¬(i + 6 * k ∣ n) ∧ ¬(i + 6 * k + 2 ∣ n) := by
+  induction i using checkDivisors.induct n limit with
+  | case1 i hi hdiv =>
+    rw [checkDivisors]
+    simp only [hi, ↓reduceDIte, hdiv, ↓reduceIte, Bool.false_eq_true, false_iff, not_forall, not_and]
+    have hdiv' : n % i = 0 ∨ n % (i + 2) = 0 := by simpa using hdiv
+    refine ⟨0, by omega, ?_⟩
+    intro h1
+    rcases hdiv' with h | h
+    · exfalso; exact h1 (by simpa using Nat.dvd_of_mod_eq_zero h)
+    · simpa using Nat.dvd_of_mod_eq_zero h
+  | case2 i hi hdiv ih =>
+    rw [checkDivisors]
+    simp only [hi, ↓reduceDIte, hdiv, Bool.false_eq_true, ↓reduceIte]
+    rw [ih]
+    have hdiv' : ¬(i ∣ n) ∧ ¬(i + 2 ∣ n) := by
+      simp [Nat.dvd_iff_mod_eq_zero] at hdiv ⊢
+      exact hdiv
+    constructor
+    · intro hAll k hk
+      cases k with
+      | zero =>
+        simpa using hdiv'
+      | succ k' =>
+        have hk' : (i + 6) + 6 * k' ≤ limit := by omega
+        have hstep := hAll k' hk'
+        have heq1 : (i + 6) + 6 * k' = i + 6 * (k' + 1) := by omega
+        rw [← heq1]
+        exact hstep
+    · intro hAll k' hk'
+      have hk : i + 6 * (k' + 1) ≤ limit := by omega
+      have hstep := hAll (k' + 1) hk
+      have heq1 : (i + 6) + 6 * k' = i + 6 * (k' + 1) := by omega
+      rw [heq1]
+      exact hstep
+  | case3 i hi =>
+    rw [checkDivisors]
+    simp [hi]
+    intro k hk
+    omega
 
 /--
-Property 2: 2 and 3 are prime.
+Core equivalence theorem: `is_prime n = true` if and only if `0 ≤ n` and `n.toNat` is prime.
+-/
+theorem is_prime_eq_true_iff_nat_prime (n : Int) :
+    is_prime n = true ↔ (0 ≤ n ∧ Nat.Prime n.toNat) := by
+  unfold is_prime
+  by_cases h1 : n ≤ 1
+  · simp [h1]
+    intro _ hp
+    have : n.toNat ≤ 1 := by omega
+    have := hp.two_le
+    omega
+  · by_cases h3 : n ≤ 3
+    · simp only [h1, ↓reduceIte, h3, true_iff]
+      refine ⟨by omega, ?_⟩
+      have : n.toNat = 2 ∨ n.toNat = 3 := by omega
+      rcases this with h | h <;> rw [h]
+      · exact Nat.prime_two
+      · exact Nat.prime_three
+    · simp only [h1, ↓reduceIte, h3]
+      by_cases h23 : (n % 2 == 0 || n % 3 == 0) = true
+      · simp only [h23, ↓reduceIte, Bool.false_eq_true, false_iff, not_and]
+        intro _ hp
+        have hdiv : n.toNat % 2 = 0 ∨ n.toNat % 3 = 0 := by
+          simp [Bool.or_eq_true, beq_iff_eq] at h23
+          omega
+        rcases hdiv with h2 | h3'
+        · have hdvd : 2 ∣ n.toNat := Nat.dvd_of_mod_eq_zero h2
+          rcases (Nat.dvd_prime hp).mp hdvd with h | h <;> omega
+        · have hdvd : 3 ∣ n.toNat := Nat.dvd_of_mod_eq_zero h3'
+          rcases (Nat.dvd_prime hp).mp hdvd with h | h <;> omega
+      · simp only [h23, Bool.false_eq_true, ↓reduceIte]
+        rw [checkDivisors_eq_true_iff]
+        have hn4 : 4 ≤ n.toNat := by omega
+        have hn0 : 0 ≤ n := by omega
+        have hnot23 : ¬(2 ∣ n.toNat) ∧ ¬(3 ∣ n.toNat) := by
+          simp [Bool.or_eq_true, beq_iff_eq] at h23
+          rw [Nat.dvd_iff_mod_eq_zero, Nat.dvd_iff_mod_eq_zero]
+          omega
+        constructor
+        · intro hAll
+          refine ⟨hn0, ?_⟩
+          by_contra hnp
+          have hpos : 0 < n.toNat := by omega
+          have hne1 : n.toNat ≠ 1 := by omega
+          have hp_prime : Nat.Prime n.toNat.minFac := Nat.minFac_prime hne1
+          have hp_dvd : n.toNat.minFac ∣ n.toNat := Nat.minFac_dvd n.toNat
+          have hp_sq : n.toNat.minFac ^ 2 ≤ n.toNat := Nat.minFac_sq_le_self hpos hnp
+          have hp_le_sqrt : n.toNat.minFac ≤ Nat.sqrt n.toNat := by
+            rw [Nat.le_sqrt]
+            simpa [sq] using hp_sq
+          have hp2 : 2 ≤ n.toNat.minFac := hp_prime.two_le
+          have hp_not2 : ¬(2 ∣ n.toNat.minFac) := fun hd => hnot23.1 (dvd_trans hd hp_dvd)
+          have hp_not3 : ¬(3 ∣ n.toNat.minFac) := fun hd => hnot23.2 (dvd_trans hd hp_dvd)
+          have hp5 : 5 ≤ n.toNat.minFac := by omega
+          let k := (n.toNat.minFac - 5) / 6
+          have hm2 : (n.toNat.minFac - 5) % 2 = 0 := by omega
+          have hm3 : (n.toNat.minFac - 5) % 3 ≠ 1 := by omega
+          have hform : n.toNat.minFac = 5 + 6 * k ∨ n.toNat.minFac = 5 + 6 * k + 2 := by omega
+          have hk_le : 5 + 6 * k ≤ Nat.sqrt n.toNat := by omega
+          have hstep := hAll k hk_le
+          rcases hform with h5 | h7
+          · rw [← h5] at hstep
+            exact hstep.1 hp_dvd
+          · rw [← h7] at hstep
+            exact hstep.2 hp_dvd
+        · rintro ⟨_, hp⟩ k hk
+          have hsq : (5 + 6 * k) * (5 + 6 * k) ≤ n.toNat := Nat.le_sqrt.mp hk
+          constructor
+          · intro hdvd
+            rcases (Nat.dvd_prime hp).mp hdvd with h | h <;> nlinarith
+          · intro hdvd
+            rcases (Nat.dvd_prime hp).mp hdvd with h | h <;> nlinarith
+
+/--
+Property 1: Numbers less than or equal to `1` (including `0` and `1`) are not prime.
+-/
+def le_one_not_prime_prop (n : Int) : Prop :=
+  n ≤ 1 → is_prime n = false
+
+/-- Theorem proving `le_one_not_prime_prop` under `Pre`. -/
+theorem le_one_not_prime_thm (n : Int) : Pre n → le_one_not_prime_prop n := by
+  intro _ h1
+  unfold is_prime
+  simp [h1]
+
+/--
+Property 2: The small integers `2` and `3` are prime.
 -/
 def small_primes_prop (n : Int) : Prop :=
   (n = 2 ∨ n = 3) → is_prime n = true
 
-instance (n : Int) : Decidable (small_primes_prop n) :=
-  inferInstanceAs (Decidable ((n = 2 ∨ n = 3) → is_prime n = true))
-
-theorem small_primes_thm (n : Int) (_h : Pre n) : small_primes_prop n := by
-  rintro (rfl | rfl) <;> rfl
-
-/--
-Property 3: Every even integer strictly greater than 2 is composite (`is_prime n = false`).
--/
-def even_gt_two_not_prime_prop (n : Int) : Prop :=
-  (n > 2 ∧ n % 2 = 0) → is_prime n = false
-
-instance (n : Int) : Decidable (even_gt_two_not_prime_prop n) :=
-  inferInstanceAs (Decidable ((n > 2 ∧ n % 2 = 0) → is_prime n = false))
-
-theorem even_gt_two_not_prime_thm (n : Int) (_h : Pre n) :
-    even_gt_two_not_prime_prop n := by
-  rintro ⟨hgt2, heven⟩
+/-- Theorem proving `small_primes_prop` under `Pre`. -/
+theorem small_primes_thm (n : Int) : Pre n → small_primes_prop n := by
+  intro _ h23
   unfold is_prime
-  have h1 : ¬ (n ≤ 1) := by omega
-  have h2 : ¬ (n ≤ 3) := by omega
-  simp [h1, h2, heven]
+  rcases h23 with rfl | rfl <;> simp
 
 /--
-Property 4: Every multiple of 3 strictly greater than 3 is composite (`is_prime n = false`).
+Property 3: Any integer greater than `3` that is divisible by `2` or `3` is not prime.
 -/
-def multiple_of_three_gt_three_not_prime_prop (n : Int) : Prop :=
-  (n > 3 ∧ n % 3 = 0) → is_prime n = false
+def div_two_or_three_not_prime_prop (n : Int) : Prop :=
+  n > 3 → (n % 2 = 0 ∨ n % 3 = 0) → is_prime n = false
 
-instance (n : Int) : Decidable (multiple_of_three_gt_three_not_prime_prop n) :=
-  inferInstanceAs (Decidable ((n > 3 ∧ n % 3 = 0) → is_prime n = false))
-
-theorem multiple_of_three_gt_three_not_prime_thm (n : Int) (_h : Pre n) :
-    multiple_of_three_gt_three_not_prime_prop n := by
-  rintro ⟨hgt3, hdiv3⟩
+/-- Theorem proving `div_two_or_three_not_prime_prop` under `Pre`. -/
+theorem div_two_or_three_not_prime_thm (n : Int) : Pre n → div_two_or_three_not_prime_prop n := by
+  intro _ hgt3 hdiv
   unfold is_prime
-  have h1 : ¬ (n ≤ 1) := by omega
-  have h2 : ¬ (n ≤ 3) := by omega
-  simp [h1, h2, hdiv3]
+  have hnot1 : ¬(n ≤ 1) := by omega
+  have hnot3 : ¬(n ≤ 3) := by omega
+  have hcond : (n % 2 == 0 || n % 3 == 0) = true := by
+    simp only [Bool.or_eq_true, beq_iff_eq]
+    exact hdiv
+  simp [hnot1, hnot3, hcond]
 
 /--
-Property 5: Any number reported prime by `is_prime` is strictly greater than 1.
+Property 4: Docstring primality specification — `is_prime n = true` if and only if
+`n > 1` and `n` is not divisible by any integer `d` with `1 < d < n`.
 -/
-def prime_gt_one_prop (n : Int) : Prop :=
-  is_prime n = true → n > 1
+def prime_divisibility_prop (n : Int) : Prop :=
+  is_prime n = true ↔ (1 < n ∧ ∀ d : Int, 1 < d → d < n → ¬(d ∣ n))
 
-instance (n : Int) : Decidable (prime_gt_one_prop n) :=
-  inferInstanceAs (Decidable (is_prime n = true → n > 1))
-
-theorem prime_gt_one_thm (n : Int) (_h : Pre n) : prime_gt_one_prop n := by
-  intro hp
-  rw [is_prime_iff_natPrime] at hp
-  have := hp.two_le
-  omega
+/-- Theorem proving `prime_divisibility_prop` under `Pre`. -/
+theorem prime_divisibility_thm (n : Int) : Pre n → prime_divisibility_prop n := by
+  intro _
+  unfold prime_divisibility_prop
+  rw [is_prime_eq_true_iff_nat_prime, Nat.prime_def_lt']
+  constructor
+  · rintro ⟨hn0, hn2, hdiv⟩
+    refine ⟨by omega, ?_⟩
+    intro d hd1 hdn hdvd
+    have hd_nonneg : 0 ≤ d := by omega
+    have hd_nat : (d.toNat : Int) = d := Int.toNat_of_nonneg hd_nonneg
+    have hn_nat : (n.toNat : Int) = n := Int.toNat_of_nonneg hn0
+    have hdvd_nat : d.toNat ∣ n.toNat := by
+      rw [← Int.ofNat_dvd, hd_nat, hn_nat]
+      exact hdvd
+    exact hdiv d.toNat (by omega) (by omega) hdvd_nat
+  · rintro ⟨hn1, hdiv⟩
+    have hn0 : 0 ≤ n := by omega
+    refine ⟨hn0, by omega, ?_⟩
+    intro m hm2 hmn hdvd
+    have hdvd_int : (m : Int) ∣ n := by
+      have hn_nat : (n.toNat : Int) = n := Int.toNat_of_nonneg hn0
+      rw [← hn_nat]
+      exact Int.ofNat_dvd.mpr hdvd
+    exact hdiv (m : Int) (by omega) (by omega) hdvd_int
 
 /--
-Property 6 (Divisor specification): `is_prime n = true` iff `n > 1` and `n` is not
-divisible by any integer `d` with `1 < d < n`.
--/
-def no_proper_divisor_prop (n : Int) : Prop :=
-  (is_prime n = true) ↔ (n > 1 ∧ ∀ d : Int, 1 < d → d < n → n % d ≠ 0)
-
-instance (n : Int) : Decidable (∀ d : Int, 1 < d → d < n → n % d ≠ 0) :=
-  decidable_of_iff (∀ d ∈ Finset.Ioo 1 n, n % d ≠ 0) (by
-    simp [Finset.mem_Ioo, and_imp])
-
-instance (n : Int) : Decidable (no_proper_divisor_prop n) :=
-  inferInstanceAs (Decidable ((is_prime n = true) ↔ (n > 1 ∧ ∀ d : Int, 1 < d → d < n → n % d ≠ 0)))
-
-theorem no_proper_divisor_thm (n : Int) (_h : Pre n) : no_proper_divisor_prop n := by
-  unfold no_proper_divisor_prop
-  rw [is_prime_iff_natPrime, natPrime_iff_no_proper_divisor]
-
-/--
-Property 7 (Mathlib `Nat.Prime` equivalence): `is_prime n = true` iff `Nat.Prime n.toNat`.
+Property 5: Equivalence with Mathlib's `Nat.Prime` predicate on `n.toNat`.
 -/
 def nat_prime_iff_prop (n : Int) : Prop :=
-  (is_prime n = true) ↔ Nat.Prime n.toNat
+  is_prime n = true ↔ (0 ≤ n ∧ Nat.Prime n.toNat)
 
-instance (n : Int) : Decidable (nat_prime_iff_prop n) :=
-  inferInstanceAs (Decidable ((is_prime n = true) ↔ Nat.Prime n.toNat))
-
-theorem nat_prime_iff_thm (n : Int) (_h : Pre n) : nat_prime_iff_prop n :=
-  is_prime_iff_natPrime n
+/-- Theorem proving `nat_prime_iff_prop` under `Pre`. -/
+theorem nat_prime_iff_thm (n : Int) : Pre n → nat_prime_iff_prop n := by
+  intro _
+  exact is_prime_eq_true_iff_nat_prime n
 
 /-! ## Post-condition -/
 
 /--
-Post-condition for `is_prime`: conjunction of all specification properties.
+Full post-condition for `is_prime` as the conjunction of all stated properties.
 -/
 def Post_prop (n : Int) : Prop :=
-  non_positive_or_one_not_prime_prop n ∧
+  le_one_not_prime_prop n ∧
   small_primes_prop n ∧
-  even_gt_two_not_prime_prop n ∧
-  multiple_of_three_gt_three_not_prime_prop n ∧
-  prime_gt_one_prop n ∧
-  no_proper_divisor_prop n ∧
+  div_two_or_three_not_prime_prop n ∧
+  prime_divisibility_prop n ∧
   nat_prime_iff_prop n
-
-instance (n : Int) : Decidable (Post_prop n) :=
-  inferInstanceAs (Decidable (
-    non_positive_or_one_not_prime_prop n ∧
-    small_primes_prop n ∧
-    even_gt_two_not_prime_prop n ∧
-    multiple_of_three_gt_three_not_prime_prop n ∧
-    prime_gt_one_prop n ∧
-    no_proper_divisor_prop n ∧
-    nat_prime_iff_prop n))
 
 /-! ## Property-Based Tests (PBTs) -/
 
-#eval Plausible.Testable.check (∀ n : Int, Pre n → decide (non_positive_or_one_not_prime_prop n) = true)
-#eval Plausible.Testable.check (∀ n : Int, Pre n → decide (small_primes_prop n) = true)
-#eval Plausible.Testable.check (∀ n : Int, Pre n → decide (even_gt_two_not_prime_prop n) = true)
-#eval Plausible.Testable.check (∀ n : Int, Pre n → decide (multiple_of_three_gt_three_not_prime_prop n) = true)
-#eval Plausible.Testable.check (∀ n : Int, Pre n → decide (prime_gt_one_prop n) = true)
-#eval Plausible.Testable.check (∀ n : Int, Pre n → decide (no_proper_divisor_prop n) = true)
-#eval Plausible.Testable.check (∀ n : Int, Pre n → decide (nat_prime_iff_prop n) = true)
-#eval Plausible.Testable.check (∀ n : Int, Pre n → decide (Post_prop n) = true)
+-- Randomized PBTs for each property and the post-condition
+#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n →
+  (!decide (n ≤ 1) || is_prime n == false) = true) { numRetries := 50 }
 
--- Bounded exhaustive property-based tests on [0, 200)
-example : (List.range 200).all (fun k => decide (non_positive_or_one_not_prime_prop (Int.ofNat k))) = true := by native_decide
-example : (List.range 200).all (fun k => decide (small_primes_prop (Int.ofNat k))) = true := by native_decide
-example : (List.range 200).all (fun k => decide (even_gt_two_not_prime_prop (Int.ofNat k))) = true := by native_decide
-example : (List.range 200).all (fun k => decide (multiple_of_three_gt_three_not_prime_prop (Int.ofNat k))) = true := by native_decide
-example : (List.range 200).all (fun k => decide (prime_gt_one_prop (Int.ofNat k))) = true := by native_decide
-example : (List.range 200).all (fun k => decide (no_proper_divisor_prop (Int.ofNat k))) = true := by native_decide
-example : (List.range 200).all (fun k => decide (nat_prime_iff_prop (Int.ofNat k))) = true := by native_decide
-example : (List.range 200).all (fun k => decide (Post_prop (Int.ofNat k))) = true := by native_decide
+#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n →
+  (!decide (n = 2 ∨ n = 3) || is_prime n == true) = true) { numRetries := 50 }
+
+#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n →
+  (!decide (n > 3 ∧ (n % 2 = 0 ∨ n % 3 = 0)) || is_prime n == false) = true) { numRetries := 50 }
+
+#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n →
+  (is_prime n == decide (1 < n ∧ ((List.range n.toNat).filter (· ≥ 2)).all (fun d => !(d ∣ n.toNat)))) = true) { numRetries := 50 }
+
+#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n →
+  (is_prime n == decide (0 ≤ n ∧ Nat.Prime n.toNat)) = true) { numRetries := 50 }
+
+#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n →
+  ((!decide (n ≤ 1) || is_prime n == false) &&
+   (!decide (n = 2 ∨ n = 3) || is_prime n == true) &&
+   (!decide (n > 3 ∧ (n % 2 = 0 ∨ n % 3 = 0)) || is_prime n == false) &&
+   (is_prime n == decide (1 < n ∧ ((List.range n.toNat).filter (· ≥ 2)).all (fun d => !(d ∣ n.toNat)))) &&
+   (is_prime n == decide (0 ≤ n ∧ Nat.Prime n.toNat))) = true) { numRetries := 50 }
+
+-- Bounded exhaustive PBTs over [0, 200) for each property and the post-condition
+example : (List.range 200).all (fun m =>
+  let n : Int := m
+  (!decide (n ≤ 1) || is_prime n == false)) = true := by native_decide
+
+example : (List.range 200).all (fun m =>
+  let n : Int := m
+  (!decide (n = 2 ∨ n = 3) || is_prime n == true)) = true := by native_decide
+
+example : (List.range 200).all (fun m =>
+  let n : Int := m
+  (!decide (n > 3 ∧ (n % 2 = 0 ∨ n % 3 = 0)) || is_prime n == false)) = true := by native_decide
+
+example : (List.range 200).all (fun m =>
+  let n : Int := m
+  is_prime n == decide (1 < n ∧ ((List.range n.toNat).filter (· ≥ 2)).all (fun d => !(d ∣ n.toNat)))) = true := by native_decide
+
+example : (List.range 200).all (fun m =>
+  let n : Int := m
+  is_prime n == decide (0 ≤ n ∧ Nat.Prime n.toNat)) = true := by native_decide
+
+example : (List.range 200).all (fun m =>
+  let n : Int := m
+  (!decide (n ≤ 1) || is_prime n == false) &&
+  (!decide (n = 2 ∨ n = 3) || is_prime n == true) &&
+  (!decide (n > 3 ∧ (n % 2 = 0 ∨ n % 3 = 0)) || is_prime n == false) &&
+  (is_prime n == decide (1 < n ∧ ((List.range n.toNat).filter (· ≥ 2)).all (fun d => !(d ∣ n.toNat)))) &&
+  (is_prime n == decide (0 ≤ n ∧ Nat.Prime n.toNat))) = true := by native_decide
 
 /-! ## Correctness Theorem (Pre -> Post) -/
 
 /--
-Main correctness theorem: for any integer `n` satisfying `Pre n` (`n ≥ 0`),
-`Post_prop n` holds.
+Main correctness theorem: for any integer `n` satisfying `Pre n`, `Post_prop n` holds.
 -/
-theorem is_prime_correct (n : Int) (h : Pre n) : Post_prop n :=
-  ⟨non_positive_or_one_not_prime_thm n h,
-   small_primes_thm n h,
-   even_gt_two_not_prime_thm n h,
-   multiple_of_three_gt_three_not_prime_thm n h,
-   prime_gt_one_thm n h,
-   no_proper_divisor_thm n h,
-   nat_prime_iff_thm n h⟩
+theorem is_prime_correct (n : Int) : Pre n → Post_prop n := by
+  intro hpre
+  exact ⟨le_one_not_prime_thm n hpre,
+         small_primes_thm n hpre,
+         div_two_or_three_not_prime_thm n hpre,
+         prime_divisibility_thm n hpre,
+         nat_prime_iff_thm n hpre⟩
 
 /-! ## Imperative Implementation -/
 
 /--
-Imperative implementation of `is_prime` using `Id.run do` with mutable state and early exit.
+Imperative implementation of `is_prime` using `Id.run do` and mutable loop state,
+following the Python `for i in range(5, int(math.sqrt(n)) + 1, 6)` loop.
 -/
 def is_prime_imp (n : Int) : Bool := Id.run do
   if n ≤ 1 then
@@ -351,86 +382,99 @@ def is_prime_imp (n : Int) : Bool := Id.run do
     return true
   if n % 2 == 0 || n % 3 == 0 then
     return false
-  let m := n.toNat
-  let limit := Nat.sqrt m
-  let mut result := true
-  for k in List.range ((limit + 1) / 6) do
-    let i := 5 + 6 * k
-    if m % i == 0 || m % (i + 2) == 0 then
-      result := false
-      break
-  return result
+  let natN := n.toNat
+  let limit := Nat.sqrt natN
+  let mut i := 5
+  let mut isPrime := true
+  for _ in List.range (limit + 1) do
+    if i ≤ limit then
+      if natN % i == 0 || natN % (i + 2) == 0 then
+        isPrime := false
+        break
+      i := i + 6
+  return isPrime
 
 /-! ## Imperative Tests -/
-
-#eval is_prime_imp 2
-#eval is_prime_imp 4
-#eval is_prime_imp 0
-#eval is_prime_imp 7
-#eval is_prime_imp 1
-#eval is_prime_imp 3
-#eval is_prime_imp 25
-#eval is_prime_imp 97
 
 example : is_prime_imp 2 = true := by native_decide
 example : is_prime_imp 4 = false := by native_decide
 example : is_prime_imp 0 = false := by native_decide
 example : is_prime_imp 7 = true := by native_decide
 example : is_prime_imp 1 = false := by native_decide
+example : is_prime_imp (-1) = false := by native_decide
 example : is_prime_imp 3 = true := by native_decide
 example : is_prime_imp 5 = true := by native_decide
 example : is_prime_imp 9 = false := by native_decide
 example : is_prime_imp 25 = false := by native_decide
 example : is_prime_imp 29 = true := by native_decide
+example : is_prime_imp 35 = false := by native_decide
 example : is_prime_imp 49 = false := by native_decide
 example : is_prime_imp 97 = true := by native_decide
 example : is_prime_imp 121 = false := by native_decide
-example : is_prime_imp (-1) = false := by native_decide
 
-#eval Plausible.Testable.check (∀ n : Int, Pre n → is_prime n = is_prime_imp n)
-example : (List.range 200).all (fun k => is_prime (Int.ofNat k) == is_prime_imp (Int.ofNat k)) = true := by native_decide
+#eval is_prime_imp 2
+#eval is_prime_imp 4
+#eval is_prime_imp 0
+#eval is_prime_imp 7
+#eval is_prime_imp 97
 
 /-! ## Equivalence Theorem (Functional = Imperative) -/
 
-theorem forIn_all_eq (xs : List Nat) (m : Nat) :
+/--
+Helper lemma proving that the imperative `for` loop in `is_prime_imp` computes the
+same result as the recursive `checkDivisors` function whenever `limit + 1 - i ≤ xs.length`.
+-/
+theorem loop_eq_checkDivisors (natN limit : Nat) (xs : List Nat) (i : Nat)
+    (h : limit + 1 - i ≤ xs.length) :
     (Id.run do
-      let mut result := true
-      for k in xs do
-        let i := 5 + 6 * k
-        if m % i == 0 || m % (i + 2) == 0 then
-          result := false
-          break
-      return result) =
-    xs.all (fun k => let i := 5 + 6 * k; m % i != 0 && m % (i + 2) != 0) := by
-  simp only [Id.run, Bind.bind, Pure.pure]
-  induction xs with
-  | nil => rfl
-  | cons k xs ih =>
-    simp only [List.forIn_cons, List.all_cons, Bind.bind, Pure.pure, bne]
-    cases (m % (5 + 6 * k) == 0) <;> cases (m % (5 + 6 * k + 2) == 0) <;>
-      simp only [Bool.false_or, Bool.true_or, Bool.not_false, Bool.not_true,
-        Bool.false_and, Bool.true_and, ↓reduceIte, Bool.false_eq_true]
-    exact ih
+      let mut i := i
+      let mut isPrime := true
+      for _ in xs do
+        if i ≤ limit then
+          if natN % i == 0 || natN % (i + 2) == 0 then
+            isPrime := false
+            break
+          i := i + 6
+      return isPrime) = checkDivisors natN i limit := by
+  induction xs generalizing i with
+  | nil =>
+    simp at h
+    unfold checkDivisors
+    have : ¬ (i ≤ limit) := by omega
+    simp [this]
+  | cons x xs ih =>
+    by_cases hi : i ≤ limit
+    · by_cases hdiv : natN % i = 0 ∨ natN % (i + 2) = 0
+      · rw [checkDivisors]
+        simp [hi, hdiv]
+      · have hlen : limit + 1 - (i + 6) ≤ xs.length := by
+          simp at h
+          omega
+        have ih' := ih (i + 6) hlen
+        rw [checkDivisors]
+        simp [hi, hdiv] at ih' ⊢
+        exact ih'
+    · have ih' := ih i (by omega)
+      simp [hi] at ih' ⊢
+      exact ih'
 
 /--
-Equivalence theorem: the functional implementation `is_prime` and the imperative
-implementation `is_prime_imp` produce identical results for all inputs `n : Int`.
+Equivalence theorem showing that the functional implementation `is_prime` and the
+imperative implementation `is_prime_imp` agree on all integer inputs `n`.
 -/
-theorem is_prime_equiv (n : Int) : is_prime n = is_prime_imp n := by
+theorem is_prime_eq_is_prime_imp (n : Int) : is_prime n = is_prime_imp n := by
   unfold is_prime is_prime_imp
   by_cases h1 : n ≤ 1
-  · simp [h1, Id.run, Pure.pure]
-  · by_cases h2 : n ≤ 3
-    · simp [h1, h2, Id.run, Bind.bind, Pure.pure]
-    · by_cases h3 : (n % 2 == 0 || n % 3 == 0) = true
-      · simp [h1, h2, h3, Id.run, Bind.bind, Pure.pure]
-      · simp only [h1, h2, h3, Bool.false_eq_true, ↓reduceIte]
-        exact (forIn_all_eq (List.range ((n.toNat.sqrt + 1) / 6)) n.toNat).symm
-
-/--
-Equivalence under precondition `Pre n`.
--/
-theorem is_prime_equiv_under_pre (n : Int) (_h : Pre n) : is_prime n = is_prime_imp n :=
-  is_prime_equiv n
+  · simp [h1]
+  · by_cases h3 : n ≤ 3
+    · simp [h1, h3]
+    · by_cases h2 : 2 ∣ n
+      · simp [h1, h3, h2]
+      · by_cases h3' : 3 ∣ n
+        · simp [h1, h3, h2, h3']
+        · have hloop := loop_eq_checkDivisors n.toNat (Nat.sqrt n.toNat)
+            (List.range (Nat.sqrt n.toNat + 1)) 5 (by simp; omega)
+          simp [h1, h3, h2, h3'] at hloop ⊢
+          exact hloop.symm
 
 end «23_is_prime»

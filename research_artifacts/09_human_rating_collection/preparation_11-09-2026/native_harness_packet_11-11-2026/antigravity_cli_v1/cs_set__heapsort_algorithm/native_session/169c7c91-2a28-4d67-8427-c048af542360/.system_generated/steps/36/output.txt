@@ -1,0 +1,8 @@
+Created At: 2026-11-16T22:18:15Z
+Completed At: 2026-11-16T22:18:20Z
+Command exited with code 0.
+
+Command output:
+List.pairwise_iff_getElem.{u_1} {α : Type u_1} {R : α → α → Prop} {l : List α} :
+  List.Pairwise R l ↔ ∀ (i j : ℕ) (_hi : i < l.length) (_hj : j < l.length), i < j → R l[i] l[j]
+List.getD_eq_getElem.{u} {α : Type u} (l : List α) (d : α) {n : ℕ} (hn : n < l.length) : l.getD n d = l[n]

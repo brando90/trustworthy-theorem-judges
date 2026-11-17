@@ -1,789 +1,696 @@
 import Mathlib
-import Plausible
-
-set_option linter.deprecated false
-set_option linter.unnecessarySimpa false
-set_option linter.unusedSimpArgs false
 
 /-!
-# Shell quoting (`shlex.quote`)
+# VeriBench 21 — `shlex.quote`
 
-Lean 4 formalization of Python's `shlex.quote` (CPython `Lib/shlex.py`), as
-specialized by the task's `benchmark_quote`.
+Formalization of CPython's `shlex.quote` (and the benchmark wrapper
+`benchmark_quote`).
 
-Given a string `s`, the function returns a POSIX-shell-escaped word:
+A string is returned unchanged when it is non-empty and every character
+belongs to the POSIX safe set
 
-* the empty string becomes `''`;
-* a nonempty string whose every character lies in the POSIX safe set
-  letters, digits, and `_@%+=:,.` `/` `-`
-  is returned unchanged;
-* otherwise the string is wrapped in single quotes, and each embedded single
-  quote is replaced by the five-character sequence `'"'"'` (end single quote,
-  double-quoted single quote, start single quote). That is exactly
-  `"'" + s.replace("'", "'\"'\"'") + "'"`.
+`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@%+=:,.` plus `/` and `-`.
 
-Non-string inputs raise `TypeError("expected string object")` in Python.
-Lean excludes that case from `quote` / `benchmark_quote` by typing; it is
-modeled separately by `benchmark_quote_exc`.
+Otherwise the result is a single-quoted shell word: the string is wrapped in
+`'...'`, and each embedded `'` is replaced by the five-character sequence
+`'"'"'` (end single quote, double-quoted `'`, reopen single quote). The empty
+string is falsy in Python, so it takes this branch and becomes `''`.
+
+`benchmark_quote` raises `TypeError: expected string object` on non-strings.
+That branch is modeled by `ShellInput.nonString`. Every Lean `String` satisfies
+`pre_quote`.
+
+Correctness is stated both as the algorithm above and as a round trip through
+a POSIX quoting decoder: bare characters must be safe, single quotes are
+literal, and the only double-quoted text `shlex.quote` emits is `'`.
 -/
 
 namespace «21_shlex_quote»
 
 /-! ## Implementation -/
 
-/-- The POSIX safe set used by the Python source, as a string. -/
-def safeSetString : String :=
+/-- The safe character literal from CPython `shlex.quote`. -/
+def safeAlphabet : String :=
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@%+=:,./-"
 
-/-- Characters of `safeSetString`, in source order. -/
-def safeChars : List Char :=
-  safeSetString.data
-
-/-- `true` iff `c` belongs to the Python safe set. -/
+/-- `c` is in the POSIX safe set used by `shlex.quote`. -/
 def isSafeChar (c : Char) : Bool :=
-  safeChars.contains c
+  safeAlphabet.data.contains c
 
-/-- Replacement for an embedded `'`: the characters of `'"'"'`. -/
-def escapedQuote : List Char :=
-  ['\'', '"', '\'', '"', '\'']
+/-- ASCII classes that make up `safeAlphabet`, in the same order as the literal. -/
+def lowers : List Char := (List.range 26).map fun i => Char.ofNat (97 + i)
 
-/-- List model of `str.replace("'", "'\"'\"'")`. -/
-def escapeQuotes (cs : List Char) : List Char :=
-  cs.flatMap fun c => if c == '\'' then escapedQuote else [c]
+def uppers : List Char := (List.range 26).map fun i => Char.ofNat (65 + i)
 
-/-- Every character is in the POSIX safe set. Vacuous for `[]`. -/
-def allSafe (cs : List Char) : Bool :=
-  cs.all isSafeChar
+def digits : List Char := (List.range 10).map fun i => Char.ofNat (48 + i)
 
-/-- Number of single quotes in a character list. -/
-def quoteCount : List Char → Nat
-  | [] => 0
-  | c :: cs => (if c == '\'' then 1 else 0) + quoteCount cs
+/-- Punctuation in the safe set: `_@%+=:,.` plus slash and hyphen. -/
+def punct : List Char := ['_', '@', '%', '+', '=', ':', ',', '.', '/', '-']
 
-/-- List-level `shlex.quote`, following the Python control flow. -/
+/-- Replacement for one single quote: `'"'"'`. -/
+def quoteRepl : List Char := ['\'', '"', '\'', '"', '\'']
+
+/-- `str.replace("'", "'\"'\"'")` on a single character. -/
+def escapeChar (c : Char) : List Char :=
+  if c == '\'' then quoteRepl else [c]
+
+/-- `s.replace("'", "'\"'\"'")` as a characterwise substitution. -/
+def escape (cs : List Char) : List Char :=
+  cs.flatMap escapeChar
+
+/-- Character list of `shlex.quote`. Empty is not returned raw: `all` is
+vacuous on `[]`, but Python's `if not s` fires first. -/
 def quoteList (cs : List Char) : List Char :=
-  if cs.isEmpty then
-    ['\'', '\'']
-  else if allSafe cs then
+  if !cs.isEmpty && cs.all isSafeChar then
     cs
   else
-    ['\''] ++ escapeQuotes cs ++ ['\'']
+    ['\''] ++ escape cs ++ ['\'']
 
-/-- Shell-escape a string. Functional model of `quote` / `benchmark_quote`. -/
+/-- Shell-escaped form of `s`, matching `shlex.quote` on strings. -/
 def quote (s : String) : String :=
   String.mk (quoteList s.data)
 
-/-- Entry point matching the Python function under test. -/
-def benchmark_quote (s : String) : String :=
-  quote s
+/-- Modes of a POSIX shell word while reading quotes. -/
+inductive QuoteMode where
+  | bare
+  | single
+  | double
+deriving DecidableEq, Repr
 
-/-- Invert `escapeQuotes`. Every `'` in a well-formed escape begins `'"'"'`. -/
-def unescapeQuotes : List Char → List Char
-  | [] => []
-  | '\'' :: '"' :: '\'' :: '"' :: '\'' :: rest => '\'' :: unescapeQuotes rest
-  | c :: rest => c :: unescapeQuotes rest
+/-- One step of a shell-word decoder for the quoting forms `shlex.quote` emits.
 
-/-- Recover the original characters from a `quoteList` result.
-This is the shell-word reading of a value produced by `quote`. -/
-def unquoteList (cs : List Char) : List Char :=
-  if allSafe cs then
-    cs
-  else
-    unescapeQuotes ((cs.drop 1).dropLast)
+* Bare mode accepts only safe characters (no IFS and no expansions).
+* Single quotes are literal until the next `'`.
+* Double quotes are literal except the closing `"`. `$`, `` ` ``, `\` and
+  newline are rejected: a shell would expand or escape them, and `shlex.quote`
+  never places them inside double quotes. The only double-quoted span it emits
+  is `"'"` . -/
+def quoteStep (mode : QuoteMode) (acc : List Char) (c : Char) :
+    Option (QuoteMode × List Char) :=
+  match mode with
+  | .bare =>
+    if c == '\'' then some (.single, acc)
+    else if c == '"' then some (.double, acc)
+    else if isSafeChar c then some (.bare, c :: acc)
+    else none
+  | .single =>
+    if c == '\'' then some (.bare, acc)
+    else some (.single, c :: acc)
+  | .double =>
+    if c == '"' then some (.bare, acc)
+    else if c == '\\' || c == '$' || c == '`' || c == '\n' then none
+    else some (.double, c :: acc)
 
-/-- Inverse of `quote` on the image of `quote`. -/
-def unquote (s : String) : String :=
-  String.mk (unquoteList s.data)
+/-- Run the decoder from `mode`, accumulating decoded characters in reverse. -/
+def runDecode (mode : QuoteMode) (acc : List Char) :
+    List Char → Option (QuoteMode × List Char)
+  | [] => some (mode, acc)
+  | c :: cs =>
+    match quoteStep mode acc c with
+    | none => none
+    | some (mode', acc') => runDecode mode' acc' cs
 
-/-- A character list is a valid body of a single-quoted `shlex` word:
-either a non-quote character, or the escape token `'"'"'`. -/
-def isValidEscaped : List Char → Bool
-  | [] => true
-  | '\'' :: '"' :: '\'' :: '"' :: '\'' :: rest => isValidEscaped rest
-  | c :: rest => (c != '\'') && isValidEscaped rest
+/-- Decode one shell word. `none` if quotes are unmatched or a bare character
+is outside the safe set. -/
+def shellDecode (cs : List Char) : Option (List Char) :=
+  match runDecode .bare [] cs with
+  | some (.bare, acc) => some acc.reverse
+  | _ => none
 
-/-- A string is one safe shell token: either a nonempty safe word, or a
-single-quoted word whose interior is a valid escape sequence. -/
-def isShellToken (cs : List Char) : Bool :=
-  (!cs.isEmpty && allSafe cs) ||
-    (cs.head? == some '\'' && cs.getLast? == some '\'' &&
-      isValidEscaped ((cs.drop 1).dropLast))
+/-- `shellDecode` lifted to `String`. -/
+def shellDecodeStr (s : String) : Option String :=
+  (shellDecode s.data).map String.mk
 
-/-! ### Basic lemmas -/
+/-- Inputs of `benchmark_quote`. `.nonString` is every Python value that is
+not a `str` (the `TypeError` branch). -/
+inductive ShellInput where
+  | str (s : String)
+  | nonString
+deriving DecidableEq, Repr
 
-theorem if_false_true {α : Type} (a b : α) :
-    (if false = true then a else b) = b :=
-  if_neg (by decide)
+/-- Python `pre_quote`: true iff the input is a string. -/
+def preQuote : ShellInput → Bool
+  | .str _ => true
+  | .nonString => false
 
-theorem bool_eq_false_of_not_true {b : Bool} (h : ¬ b = true) : b = false := by
-  cases b <;> simp_all
-
-theorem isSafe_quote : isSafeChar '\'' = false := by
-  decide
-
-theorem beq_quote_true : ('\'' == '\'') = true := rfl
-
-theorem ne_of_not_beq {c : Char} (h : ¬ (c == '\'') = true) : c ≠ '\'' := by
-  intro heq
-  apply h
-  simpa [heq] using beq_quote_true
-
-theorem beq_false_of_not_true {c : Char} (h : ¬ (c == '\'') = true) :
-    (c == '\'') = false :=
-  bool_eq_false_of_not_true h
-
-theorem bne_quote_of_false (c : Char) (hb : (c == '\'') = false) :
-    (c != '\'') = true := by
-  simp [bne, hb]
-
-theorem escape_cons (c : Char) (cs : List Char) :
-    escapeQuotes (c :: cs) =
-      (if c == '\'' then escapedQuote else [c]) ++ escapeQuotes cs := by
-  simp [escapeQuotes]
-
-theorem if_escape_false (c : Char) (hb : (c == '\'') = false) :
-    (if c == '\'' then escapedQuote else [c]) = [c] := by
-  simp [hb]
-
-theorem isSafeChar_iff (c : Char) :
-    isSafeChar c = true ↔ c ∈ safeChars := by
-  simp [isSafeChar]
-
-theorem str_append_mk (xs ys : List Char) :
-    String.mk xs ++ String.mk ys = String.mk (xs ++ ys) := by
-  rfl
-
-theorem two_quotes_eq : String.mk ['\'', '\''] = "''" := by
-  rfl
-
-theorem one_quote_eq : String.mk ['\''] = "'" := by
-  rfl
-
-theorem empty_data : ("" : String).data = [] := rfl
-
-theorem getLast_concat (xs : List Char) (a : Char) :
-    (xs ++ [a]).getLast? = some a := by
-  induction xs with
-  | nil => simp
-  | cons x xs ih =>
-    cases xs with
-    | nil => simp
-    | cons y ys => simpa using ih
-
-theorem unescape_escape (cs : List Char) :
-    unescapeQuotes (escapeQuotes cs) = cs := by
-  induction cs with
-  | nil => simp [escapeQuotes, unescapeQuotes.eq_1]
-  | cons c cs ih =>
-    rw [escape_cons]
-    by_cases h : (c == '\'') = true
-    · have hc : c = '\'' := eq_of_beq h
-      subst hc
-      have happ : escapedQuote ++ escapeQuotes cs =
-          '\'' :: '"' :: '\'' :: '"' :: '\'' :: escapeQuotes cs := by
-        simp [escapedQuote]
-      rw [if_pos h, happ, unescapeQuotes.eq_2, ih]
-    · have hne : c ≠ '\'' := ne_of_not_beq h
-      have hb : (c == '\'') = false := beq_false_of_not_true h
-      rw [if_escape_false c hb, List.singleton_append]
-      rw [unescapeQuotes.eq_3 c (escapeQuotes cs) (by
-        intro rest hc _hrest
-        exact hne hc)]
-      exact congrArg (fun t => c :: t) ih
-
-theorem escape_valid (cs : List Char) :
-    isValidEscaped (escapeQuotes cs) = true := by
-  induction cs with
-  | nil => simp [escapeQuotes, isValidEscaped]
-  | cons c cs ih =>
-    rw [escape_cons]
-    by_cases h : (c == '\'') = true
-    · have hc : c = '\'' := eq_of_beq h
-      subst hc
-      have happ : escapedQuote ++ escapeQuotes cs =
-          '\'' :: '"' :: '\'' :: '"' :: '\'' :: escapeQuotes cs := by
-        simp [escapedQuote]
-      rw [if_pos h, happ, isValidEscaped.eq_2, ih]
-    · have hne : c ≠ '\'' := ne_of_not_beq h
-      have hb : (c == '\'') = false := beq_false_of_not_true h
-      rw [if_escape_false c hb, List.singleton_append]
-      rw [isValidEscaped.eq_3 c (escapeQuotes cs) (by
-        intro rest hc _hrest
-        exact hne hc)]
-      simp [bne_quote_of_false c hb, ih]
-
-theorem drop_wrap (cs : List Char) :
-    ((['\''] ++ escapeQuotes cs ++ ['\'']).drop 1).dropLast = escapeQuotes cs := by
-  have hdrop : (['\''] ++ escapeQuotes cs ++ ['\'']).drop 1 =
-      escapeQuotes cs ++ ['\''] := by
-    simp [List.append_assoc, List.cons_append, List.nil_append,
-      List.drop_succ_cons, List.drop_zero]
-  rw [hdrop]
-  simp [List.dropLast_concat]
-
-theorem foldl_and_aux (cs : List Char) (b : Bool) :
-    cs.foldl (fun acc c => acc && isSafeChar c) b = (b && cs.all isSafeChar) := by
-  induction cs generalizing b with
-  | nil => simp
-  | cons c cs ih =>
-    simp only [List.foldl_cons, List.all_cons, ih, Bool.and_assoc]
-
-theorem foldl_escape_aux (cs init : List Char) :
-    cs.foldl (fun out c => if (c == '\'') = true then out ++ escapedQuote else out ++ [c]) init
-      = init ++ escapeQuotes cs := by
-  induction cs generalizing init with
-  | nil => simp [escapeQuotes]
-  | cons c cs ih =>
-    simp only [List.foldl_cons, escapeQuotes, List.flatMap_cons]
-    rw [ih]
-    by_cases h : (c == '\'') = true
-    · simp [h, escapeQuotes, List.append_assoc]
-    · have hb : (c == '\'') = false := beq_false_of_not_true h
-      simp [hb, escapeQuotes, List.append_assoc]
-
-theorem escape_length_aux (cs : List Char) :
-    (escapeQuotes cs).length = cs.length + 4 * quoteCount cs := by
-  induction cs with
-  | nil => simp [escapeQuotes, quoteCount]
-  | cons c cs ih =>
-    rw [escape_cons, List.length_append, ih, List.length_cons]
-    by_cases h : (c == '\'') = true
-    · simp only [h, if_true, quoteCount, escapedQuote, List.length_cons, List.length_nil]
-      omega
-    · have hb : (c == '\'') = false := beq_false_of_not_true h
-      simp only [hb, if_false, if_false_true, quoteCount, List.length_singleton]
-      omega
-
-theorem unquote_quote_list (cs : List Char) :
-    unquoteList (quoteList cs) = cs := by
-  unfold unquoteList quoteList
-  by_cases h0 : cs.isEmpty = true
-  · have hempty : cs = [] := by simpa [List.isEmpty_eq_true] using h0
-    subst hempty
-    simp [allSafe, isSafe_quote, unescapeQuotes.eq_1, List.dropLast]
-  · have hempty : cs.isEmpty = false := bool_eq_false_of_not_true h0
-    simp only [hempty, if_false_true]
-    by_cases hs : allSafe cs = true
-    · simp [hs]
-    · have hsf : allSafe cs = false := bool_eq_false_of_not_true hs
-      simp only [hsf, if_false_true]
-      have hnot : allSafe (['\''] ++ escapeQuotes cs ++ ['\'']) = false := by
-        simp [allSafe, List.all_append, List.all_cons, isSafe_quote]
-      simp only [hnot, if_false_true]
-      rw [drop_wrap, unescape_escape]
-
-theorem quoteList_isShellToken (cs : List Char) :
-    isShellToken (quoteList cs) = true := by
-  unfold quoteList
-  by_cases h0 : cs.isEmpty = true
-  · have hempty : cs = [] := by simpa [List.isEmpty_eq_true] using h0
-    subst hempty
-    decide
-  · have hempty : cs.isEmpty = false := bool_eq_false_of_not_true h0
-    simp only [hempty, if_false_true]
-    by_cases hs : allSafe cs = true
-    · have hne : cs ≠ [] := by
-        intro h
-        apply h0
-        simp [h]
-      simp [isShellToken, hs, hempty]
-    · have hsf : allSafe cs = false := bool_eq_false_of_not_true hs
-      simp only [hsf, if_false_true]
-      have hlastCons : ('\'' :: (escapeQuotes cs ++ ['\''])).getLast? = some '\'' :=
-        getLast_concat ('\'' :: escapeQuotes cs) '\''
-      have hdrop : ((('\'' :: (escapeQuotes cs ++ ['\''])).drop 1).dropLast) =
-          escapeQuotes cs := by
-        simp [List.drop_succ_cons, List.drop_zero, List.dropLast_concat]
-      have h2 :
-          (('\'' :: (escapeQuotes cs ++ ['\''])).head? == some '\'' &&
-            ('\'' :: (escapeQuotes cs ++ ['\''])).getLast? == some '\'' &&
-            isValidEscaped (((('\'' :: (escapeQuotes cs ++ ['\''])).drop 1).dropLast))) = true := by
-        simp [List.head?_cons, hlastCons, hdrop, escape_valid]
-      simp [isShellToken, h2, Bool.or_true]
-      exact Or.inr ⟨hlastCons, escape_valid cs⟩
-
-theorem quoteList_ne_nil (cs : List Char) : quoteList cs ≠ [] := by
-  unfold quoteList
-  by_cases h0 : cs.isEmpty = true
-  · have hempty : cs = [] := by simpa [List.isEmpty_eq_true] using h0
-    subst hempty
-    decide
-  · have hempty : cs.isEmpty = false := bool_eq_false_of_not_true h0
-    simp only [hempty, if_false_true]
-    by_cases hs : allSafe cs = true
-    · intro h
-      apply h0
-      simpa [hs, List.isEmpty_iff] using h
-    · have hsf : allSafe cs = false := bool_eq_false_of_not_true hs
-      simp only [hsf, if_false_true]
-      intro h
-      simp [List.cons_append] at h
+/-- `benchmark_quote`: `TypeError` on non-strings, otherwise `quote`. -/
+def benchmarkQuote : ShellInput → Except String String
+  | .str s => .ok (quote s)
+  | .nonString => .error "expected string object"
 
 /-! ## Unit tests -/
 
 example : quote "" = "''" := by native_decide
+
 example : quote "abc" = "abc" := by native_decide
+
 example : quote "a b c" = "'a b c'" := by native_decide
+
 example : quote "a'b" = "'a'\"'\"'b'" := by native_decide
+
+example : quote " " = "' '" := by native_decide
+
 example : quote "'" = "''\"'\"''" := by native_decide
-example : quote "-" = "-" := by native_decide
-example : quote "hello-world" = "hello-world" := by native_decide
-example : quote "a\"b" = "'a\"b'" := by native_decide
-example : benchmark_quote "abc" = "abc" := by native_decide
-example : unquote (quote "a'b") = "a'b" := by native_decide
-example : unquote (quote "") = "" := by native_decide
+
+example : quote "a/b" = "a/b" := by native_decide
+
+example : quote "it's" = "'it'\"'\"'s'" := by native_decide
+
+example : quote "ä" = "'ä'" := by native_decide
+
+example : benchmarkQuote .nonString = .error "expected string object" := by
+  rfl
+
+example : benchmarkQuote (.str "abc") = .ok "abc" := by rfl
 
 #eval quote ""
+
 #eval quote "abc"
+
 #eval quote "a b c"
+
 #eval quote "a'b"
+
 #eval quote "'"
+
+#eval benchmarkQuote .nonString
 
 /-! ## Pre-condition -/
 
-/-- Python `pre_quote`: the input is a string.
-On the Lean type `String` this holds for every value. -/
+/-- `pre_quote` on the string domain of `benchmark_quote`.
+Every Lean `String` is a Python `str`, so the precondition holds for every
+input of `quote`. Non-strings are rejected by `typeerror_prop`. -/
 def Pre (_s : String) : Prop := True
-
-/-- Dynamic Python values, so the `TypeError` branch can be stated. -/
-inductive PyVal where
-  | str : String → PyVal
-  | nonStr : PyVal
-
-/-- `pre_quote` from the Python source. -/
-def pre_quote (v : PyVal) : Bool :=
-  match v with
-  | .str _ => true
-  | .nonStr => false
-
-/-- `benchmark_quote` including the non-string `TypeError`. -/
-def benchmark_quote_exc (v : PyVal) : Except String String :=
-  match v with
-  | .nonStr => .error "expected string object"
-  | .str s => .ok (quote s)
-
 
 /-! ## Properties -/
 
-def empty_quote_prop (s : String) : Prop :=
-  s = "" → quote s = "''"
+theorem squote_not_safe : isSafeChar '\'' = false := by decide
 
-theorem empty_quote_thm (s : String) : empty_quote_prop s := by
-  intro h
-  subst h
-  simp [quote, quoteList, empty_data, two_quotes_eq]
+theorem dquote_not_safe : isSafeChar '"' = false := by decide
 
-def safe_identity_prop (s : String) : Prop :=
-  s ≠ "" → allSafe s.data = true → quote s = s
+theorem safe_ne_squote {c : Char} (h : isSafeChar c = true) : c ≠ '\'' := by
+  intro eq
+  rw [eq, squote_not_safe] at h
+  simp at h
 
-theorem safe_identity_thm (s : String) : safe_identity_prop s := by
-  intro hne hs
-  cases s with
-  | mk data =>
-    cases data with
-    | nil => simp at hne
-    | cons c cs =>
-      simp [quote, quoteList, List.isEmpty_cons, hs]
+theorem safe_ne_dquote {c : Char} (h : isSafeChar c = true) : c ≠ '"' := by
+  intro eq
+  rw [eq, dquote_not_safe] at h
+  simp at h
 
-def unsafe_wrap_prop (s : String) : Prop :=
-  s ≠ "" → allSafe s.data = false →
-    quote s = "'" ++ String.mk (escapeQuotes s.data) ++ "'"
+theorem quoteStep_bare_safe (acc : List Char) {c : Char} (h : isSafeChar c = true) :
+    quoteStep .bare acc c = some (.bare, c :: acc) := by
+  have h1 : (c == '\'') = false := (beq_eq_false_iff_ne).2 (safe_ne_squote h)
+  have h2 : (c == '"') = false := (beq_eq_false_iff_ne).2 (safe_ne_dquote h)
+  simp [quoteStep, h, h1, h2]
 
-theorem unsafe_wrap_thm (s : String) : unsafe_wrap_prop s := by
-  intro hne hs
-  cases s with
-  | mk data =>
-    cases data with
-    | nil =>
-      exfalso
-      exact hne rfl
-    | cons c cs =>
-      simp only [quote, quoteList, List.isEmpty_cons, hs, if_false_true]
-      rw [← one_quote_eq, str_append_mk, str_append_mk]
+theorem runDecode_append (mode : QuoteMode) (acc xs ys : List Char) :
+    runDecode mode acc (xs ++ ys) =
+      match runDecode mode acc xs with
+      | none => none
+      | some (m, a) => runDecode m a ys := by
+  induction xs generalizing mode acc with
+  | nil => simp [runDecode]
+  | cons x xs ih =>
+    simp only [List.cons_append, runDecode]
+    cases quoteStep mode acc x with
+    | none => simp
+    | some v =>
+      cases v with
+      | mk m a =>
+        simpa using ih (mode := m) (acc := a)
 
-def roundtrip_prop (s : String) : Prop :=
-  unquote (quote s) = s
+theorem runDecode_bare_safe (acc cs : List Char) (h : cs.all isSafeChar = true) :
+    runDecode .bare acc cs = some (.bare, cs.reverse ++ acc) := by
+  induction cs generalizing acc with
+  | nil => simp [runDecode]
+  | cons c cs ih =>
+    rw [List.all_cons, Bool.and_eq_true_iff] at h
+    simp only [runDecode, quoteStep_bare_safe acc h.1]
+    rw [ih (c :: acc) h.2]
+    simp [List.reverse_cons, List.append_assoc]
 
-theorem roundtrip_thm (s : String) : roundtrip_prop s := by
-  cases s with
-  | mk data =>
-    simpa [roundtrip_prop, quote, unquote] using unquote_quote_list data
+theorem runDecode_quoteRepl (acc : List Char) :
+    runDecode .single acc quoteRepl = some (.single, '\'' :: acc) := by
+  simp [quoteRepl, runDecode, quoteStep]
 
-def output_nonempty_prop (s : String) : Prop :=
-  quote s ≠ ""
+theorem runDecode_single_escape (acc cs : List Char) :
+    runDecode .single acc (escape cs) = some (.single, cs.reverse ++ acc) := by
+  induction cs generalizing acc with
+  | nil => simp [escape, runDecode]
+  | cons c cs ih =>
+    cases h : c == '\'' with
+    | true =>
+      have hc : c = '\'' := (beq_iff_eq).1 h
+      subst hc
+      show runDecode .single acc (escape ('\'' :: cs)) =
+        some (.single, ('\'' :: cs).reverse ++ acc)
+      rw [escape, List.flatMap_cons]
+      have hchar : escapeChar '\'' = quoteRepl := by simp [escapeChar, quoteRepl]
+      rw [hchar, runDecode_append, runDecode_quoteRepl]
+      simp
+      rw [show List.flatMap escapeChar cs = escape cs from rfl]
+      rw [ih]
+    | false =>
+      rw [escape, List.flatMap_cons]
+      have hchar : escapeChar c = [c] := by simp [escapeChar, h]
+      rw [hchar]
+      have hstep : quoteStep .single acc c = some (.single, c :: acc) := by
+        simp [quoteStep, h]
+      simp [runDecode, hstep]
+      rw [show List.flatMap escapeChar cs = escape cs from rfl]
+      rw [ih]
 
-theorem output_nonempty_thm (s : String) : output_nonempty_prop s := by
-  intro h
-  have hdata : quoteList s.data = [] := by
-    have := congrArg String.data h
-    simpa [quote, empty_data] using this
-  exact quoteList_ne_nil s.data hdata
+theorem runDecode_wrapped (cs : List Char) :
+    runDecode .bare [] ('\'' :: (escape cs ++ ['\''])) = some (.bare, cs.reverse) := by
+  have hopen : runDecode .bare [] ('\'' :: (escape cs ++ ['\''])) =
+      runDecode .single [] (escape cs ++ ['\'']) := by
+    simp [runDecode, quoteStep]
+  rw [hopen, runDecode_append, runDecode_single_escape]
+  simp [runDecode, quoteStep]
 
-def quote_cases_prop (s : String) : Prop :=
-  (s = "" ∧ quote s = "''") ∨
-  (s ≠ "" ∧ allSafe s.data = true ∧ quote s = s) ∨
-  (s ≠ "" ∧ allSafe s.data = false ∧
-    quote s = "'" ++ String.mk (escapeQuotes s.data) ++ "'")
+theorem shellDecode_wrapped (cs : List Char) :
+    shellDecode ('\'' :: (escape cs ++ ['\''])) = some cs := by
+  simp [shellDecode, runDecode_wrapped, List.reverse_reverse]
 
-theorem quote_cases_thm (s : String) : quote_cases_prop s := by
-  by_cases h0 : s = ""
-  · exact Or.inl ⟨h0, empty_quote_thm s h0⟩
-  · by_cases hs : allSafe s.data = true
-    · exact Or.inr (Or.inl ⟨h0, hs, safe_identity_thm s h0 hs⟩)
-    · have hsf := bool_eq_false_of_not_true hs
-      exact Or.inr (Or.inr ⟨h0, hsf, unsafe_wrap_thm s h0 hsf⟩)
+theorem shellDecode_safe (cs : List Char) (h : cs.all isSafeChar = true) :
+    shellDecode cs = some cs := by
+  simp [shellDecode, runDecode_bare_safe [] cs h, List.append_nil, List.reverse_reverse]
 
-def quote_spec_prop (s : String) : Prop :=
-  quote s =
-    if s.data.isEmpty then "''"
-    else if allSafe s.data then s
-    else "'" ++ String.mk (escapeQuotes s.data) ++ "'"
+theorem shellDecode_quoteList (cs : List Char) :
+    shellDecode (quoteList cs) = some cs := by
+  cases hcond : (!cs.isEmpty && cs.all isSafeChar)
+  · have hform : quoteList cs = '\'' :: (escape cs ++ ['\'']) := by
+      simp [quoteList, hcond]
+    rw [hform]
+    exact shellDecode_wrapped cs
+  · have hall : cs.all isSafeChar = true := (Bool.and_eq_true_iff.mp hcond).2
+    have hform : quoteList cs = cs := by simp [quoteList, hcond]
+    rw [hform]
+    exact shellDecode_safe cs hall
 
-theorem quote_spec_thm (s : String) : quote_spec_prop s := by
-  cases s with
-  | mk data =>
-    cases data with
-    | nil =>
-      simp [quote_spec_prop, quote, quoteList, empty_data, two_quotes_eq]
-    | cons c cs =>
-      simp only [quote_spec_prop, quote, quoteList, List.isEmpty_cons, if_false_true]
-      by_cases hs : allSafe (c :: cs) = true
-      · simp [hs]
-      · have hsf := bool_eq_false_of_not_true hs
-        simp only [hsf, if_false_true]
-        rw [← one_quote_eq, str_append_mk, str_append_mk]
-
-def wrapped_boundary_prop (s : String) : Prop :=
-  s = "" ∨ allSafe s.data = false →
-    (quote s).data.head? = some '\'' ∧ (quote s).data.getLast? = some '\''
-
-theorem wrapped_boundary_thm (s : String) : wrapped_boundary_prop s := by
-  intro h
-  cases s with
-  | mk data =>
-    cases data with
-    | nil =>
-      simp [quote, quoteList]
-    | cons c cs =>
-      have hsf : allSafe (c :: cs) = false := by
-        cases h with
-        | inl hempty =>
-          have : (String.mk (c :: cs)).data = [] := by
-            simpa [empty_data] using congrArg String.data hempty
-          simp at this
-        | inr hsf =>
-          simpa using hsf
-      simp only [quote, quoteList, List.isEmpty_cons, hsf, if_false_true]
-      refine ⟨?_, ?_⟩
-      · simp
-      · simpa [List.append_assoc] using
-          getLast_concat (['\''] ++ escapeQuotes (c :: cs)) '\''
-
-def escape_length_prop (s : String) : Prop :=
-  (escapeQuotes s.data).length = s.data.length + 4 * quoteCount s.data
-
-theorem escape_length_thm (s : String) : escape_length_prop s :=
-  escape_length_aux s.data
-
-def shell_token_prop (s : String) : Prop :=
-  isShellToken (quote s).data = true
-
-theorem shell_token_thm (s : String) : shell_token_prop s := by
-  simpa [shell_token_prop, quote] using quoteList_isShellToken s.data
-
-def idempotent_safe_prop (s : String) : Prop :=
-  s ≠ "" → allSafe s.data = true → quote (quote s) = quote s
-
-theorem idempotent_safe_thm (s : String) : idempotent_safe_prop s := by
-  intro hne hs
-  have h := safe_identity_thm s hne hs
-  simp [h]
-
-def quote_length_prop (s : String) : Prop :=
-  if s.data.isEmpty then (quote s).data.length = 2
-  else if allSafe s.data then (quote s).data.length = s.data.length
-  else (quote s).data.length = s.data.length + 4 * quoteCount s.data + 2
-
-theorem quote_length_thm (s : String) : quote_length_prop s := by
-  cases s with
-  | mk data =>
-    cases data with
-    | nil => simp [quote_length_prop, quote, quoteList]
-    | cons c cs =>
-      simp only [quote_length_prop, List.isEmpty_cons, if_false_true, quote, quoteList]
-      by_cases hs : allSafe (c :: cs) = true
-      · simp [hs]
-      · have hsf := bool_eq_false_of_not_true hs
-        simp only [hsf, if_false_true, List.length_append, List.length_cons,
-          List.length_nil, escape_length_aux, quoteCount]
-        omega
-
-def safe_set_prop (c : Char) : Prop :=
-  isSafeChar c = true ↔ c ∈ safeSetString.data
-
-theorem safe_set_thm (c : Char) : safe_set_prop c := by
-  simp [safe_set_prop, isSafeChar, safeChars]
-
-/-- Shell metacharacters excluded by the Python safe set. -/
-def shellMetaChars : List Char :=
-  [' ', '\t', '\n', '\r', '"', '\'', '\\', '!', '#', '$', '&', '(', ')', '*',
-   ';', '<', '>', '?', '[', ']', '^', '`', '{', '|', '}', '~']
-
-def metachar_unsafe_prop : Prop :=
-  shellMetaChars.all (fun c => !isSafeChar c) = true
-
-theorem metachar_unsafe_thm : metachar_unsafe_prop := by
-  unfold metachar_unsafe_prop
-  decide
-
-def replacement_prop : Prop :=
-  String.mk escapedQuote = "'\"'\"'"
-
-theorem replacement_thm : replacement_prop := by
+theorem mk_data (s : String) : String.mk s.data = s := by
+  cases s
   rfl
 
-def escape_injective_prop (cs₁ cs₂ : List Char) : Prop :=
-  escapeQuotes cs₁ = escapeQuotes cs₂ → cs₁ = cs₂
+/-- The Python safe literal is exactly the ASCII letters, digits, and the
+punctuation `_@%+=:,.` together with slash and hyphen. -/
+theorem safeAlphabet_decomp_thm :
+    safeAlphabet.data = lowers ++ uppers ++ digits ++ punct := by
+  rfl
 
-theorem escape_injective_thm (cs₁ cs₂ : List Char) :
-    escape_injective_prop cs₁ cs₂ := by
+/-- `isSafeChar` accepts exactly the Python safe set. -/
+@[reducible] def charset_prop (c : Char) : Prop :=
+  isSafeChar c = true ↔
+    c ∈ lowers ∨ c ∈ uppers ∨ c ∈ digits ∨ c ∈ punct
+
+theorem charset_thm (c : Char) : charset_prop c := by
+  simp [charset_prop, isSafeChar, safeAlphabet_decomp_thm, List.mem_append,
+    List.contains_eq_mem, decide_eq_true_eq]
+
+/-- Each `'` expands from 1 character to 5, so the escape is longer by `4`
+per quote. -/
+theorem escape_length (cs : List Char) :
+    (escape cs).length = cs.length + 4 * cs.count '\'' := by
+  induction cs with
+  | nil => simp [escape]
+  | cons c cs ih =>
+    cases h : c == '\'' with
+    | true =>
+      have hc : c = '\'' := (beq_iff_eq).1 h
+      subst hc
+      rw [escape, List.flatMap_cons]
+      have hchar : escapeChar '\'' = quoteRepl := by simp [escapeChar]
+      rw [hchar, List.length_append]
+      rw [show List.flatMap escapeChar cs = escape cs from rfl, ih]
+      have hlen : quoteRepl.length = 5 := by decide
+      simp [hlen, List.count_cons_self, List.length_cons]
+      omega
+    | false =>
+      have hc : c ≠ '\'' := (beq_eq_false_iff_ne).1 h
+      rw [escape, List.flatMap_cons]
+      have hchar : escapeChar c = [c] := by simp [escapeChar, h]
+      rw [hchar, List.length_append]
+      rw [show List.flatMap escapeChar cs = escape cs from rfl, ih, List.count_cons_of_ne hc]
+      simp [List.length_cons]
+      omega
+
+theorem quoteList_length (cs : List Char) :
+    (quoteList cs).length =
+      if !cs.isEmpty && cs.all isSafeChar then cs.length
+      else cs.length + 4 * cs.count '\'' + 2 := by
+  cases hcond : (!cs.isEmpty && cs.all isSafeChar)
+  · have hform : quoteList cs = '\'' :: (escape cs ++ ['\'']) := by simp [quoteList, hcond]
+    rw [hform]
+    simp [List.length_cons, List.length_append, escape_length, Nat.add_assoc]
+  · have hform : quoteList cs = cs := by simp [quoteList, hcond]
+    simp [hform]
+
+theorem length_data (s : String) : s.length = s.data.length := by
+  cases s
+  rfl
+
+/-- Empty string quotes to `''` (Python's `if not s`). -/
+@[reducible] def empty_prop : Prop := quote "" = "''"
+
+/-- Control flow of `quote` on strings: raw when non-empty and safe, otherwise
+single-quote wrapping with `'` replaced by `'"'"'`. -/
+@[reducible] def algorithm_prop (s : String) : Prop :=
+  quote s =
+    if s.data.isEmpty then "''"
+    else if s.data.all isSafeChar then s
+    else String.mk ('\'' :: (escape s.data ++ ['\'']))
+
+theorem algorithm_thm (s : String) : algorithm_prop s := by
+  cases hemp : s.data.isEmpty
+  · cases hall : s.data.all isSafeChar <;>
+      simp [algorithm_prop, quote, quoteList, hemp, hall, mk_data]
+  · have hnil : s.data = [] := List.isEmpty_iff.mp hemp
+    simp [algorithm_prop, quote, quoteList, hnil, escape]
+
+theorem empty_thm : empty_prop := by
+  have h := algorithm_thm ""
+  simp only [algorithm_prop] at h
+  simpa using h
+
+/-- A shell word decoder recovers the original string from `quote`. -/
+@[reducible] def roundtrip_prop (s : String) : Prop :=
+  shellDecodeStr (quote s) = some s
+
+theorem roundtrip_thm (s : String) : roundtrip_prop s := by
+  simp [roundtrip_prop, shellDecodeStr, quote, shellDecode_quoteList, mk_data]
+
+/-- Distinct strings have distinct shell spellings. -/
+@[reducible] def injective_prop (s t : String) : Prop :=
+  quote s = quote t → s = t
+
+theorem injective_thm (s t : String) : injective_prop s t := by
   intro h
-  rw [← unescape_escape cs₁, ← unescape_escape cs₂, h]
+  have hs := roundtrip_thm s
+  have ht := roundtrip_thm t
+  simp only [roundtrip_prop] at hs ht
+  rw [h] at hs
+  exact Option.some.inj (hs.symm.trans ht)
 
-def pre_quote_prop (v : PyVal) : Prop :=
-  pre_quote v = true ↔ ∃ s, v = .str s
+/-- Length of the escaped word: unchanged when returned raw, otherwise the
+source length plus 2 wrapper quotes plus 4 per embedded `'`. -/
+@[reducible] def length_prop (s : String) : Prop :=
+  (quote s).length =
+    if !s.data.isEmpty && s.data.all isSafeChar then s.length
+    else s.length + 4 * (s.data.count '\'') + 2
 
-theorem pre_quote_thm (v : PyVal) : pre_quote_prop v := by
-  cases v <;> simp [pre_quote_prop, pre_quote]
+theorem length_thm (s : String) : length_prop s := by
+  unfold length_prop
+  have hlen : (quote s).length = (quoteList s.data).length := by
+    simp only [quote, String.length_mk]
+  rw [hlen, quoteList_length, length_data]
 
-def type_error_prop (v : PyVal) : Prop :=
-  pre_quote v = false →
-    benchmark_quote_exc v = .error "expected string object"
+/-- `quote` never returns the empty string. -/
+@[reducible] def nonempty_result_prop (s : String) : Prop :=
+  quote s ≠ ""
 
-theorem type_error_thm (v : PyVal) : type_error_prop v := by
+theorem nonempty_result_thm (s : String) : nonempty_result_prop s := by
+  intro h
+  have hround := shellDecode_quoteList s.data
+  have hdata : quoteList s.data = [] := by
+    have : (quote s).data = [] := by simp [h]
+    simpa [quote] using this
+  rw [hdata] at hround
+  have hempty : shellDecode [] = some [] := by simp [shellDecode, runDecode]
+  rw [hempty] at hround
+  have hnil : s.data = [] := Option.some.inj hround.symm
+  simp [quoteList, escape, hnil] at hdata
+
+/-- When the string is not returned raw, the result starts and ends with `'`. -/
+@[reducible] def boundary_prop (s : String) : Prop :=
+  (!s.data.isEmpty && s.data.all isSafeChar) = false →
+    (quote s).data.head? = some '\'' ∧ (quote s).data.getLast? = some '\''
+
+theorem boundary_thm (s : String) : boundary_prop s := by
+  intro hcond
+  have hform : (quote s).data = '\'' :: (escape s.data ++ ['\'']) := by
+    simp [quote, quoteList, hcond]
+  refine ⟨?_, ?_⟩
+  · simp [hform]
+  · have happ : '\'' :: (escape s.data ++ ['\'']) = ('\'' :: escape s.data) ++ ['\''] := by
+      simp [List.cons_append]
+    rw [hform, happ]
+    exact List.getLast?_concat
+
+/-- Non-empty safe strings are fixed points of `quote`. -/
+@[reducible] def raw_id_prop (s : String) : Prop :=
+  s ≠ "" → s.data.all isSafeChar = true → quote s = s
+
+theorem raw_id_thm (s : String) : raw_id_prop s := by
+  intro hne hall
+  have hemp : s.data.isEmpty = false := by
+    cases h : s.data.isEmpty
+    · rfl
+    · exact False.elim <| hne <| by
+        have hnil : s.data = [] := List.isEmpty_iff.mp h
+        exact String.ext hnil
+  have h := algorithm_thm s
+  simp only [algorithm_prop] at h
+  rw [h]
+  simp [hemp, hall]
+
+/-- A string with an unsafe character is the wrapped escape. -/
+@[reducible] def unsafe_wrap_prop (s : String) : Prop :=
+  s.data.all isSafeChar = false →
+    quote s = String.mk ('\'' :: (escape s.data ++ ['\'']))
+
+theorem unsafe_wrap_thm (s : String) : unsafe_wrap_prop s := by
+  intro hall
+  have hemp : s.data.isEmpty = false := by
+    cases h : s.data.isEmpty
+    · rfl
+    · have hnil : s.data = [] := List.isEmpty_iff.mp h
+      simp [hnil] at hall
+  have h := algorithm_thm s
+  simp only [algorithm_prop] at h
+  rw [h]
+  simp [hemp, hall]
+
+/-- Non-strings raise `TypeError: expected string object`. -/
+@[reducible] def typeerror_prop (v : ShellInput) : Prop :=
+  preQuote v = false → benchmarkQuote v = .error "expected string object"
+
+theorem typeerror_thm (v : ShellInput) : typeerror_prop v := by
   intro h
   cases v with
-  | str s => simp [pre_quote] at h
-  | nonStr => rfl
+  | nonString => rfl
+  | str _ => simp [preQuote] at h
 
-def dyn_ok_prop (s : String) : Prop :=
-  benchmark_quote_exc (.str s) = .ok (quote s)
+/-- On strings, `benchmark_quote` returns `quote`. -/
+@[reducible] def benchmark_ok_prop (s : String) : Prop :=
+  benchmarkQuote (.str s) = .ok (quote s)
 
-theorem dyn_ok_thm (s : String) : dyn_ok_prop s := rfl
-
-def benchmark_eq_prop (s : String) : Prop :=
-  benchmark_quote s = quote s
-
-theorem benchmark_eq_thm (s : String) : benchmark_eq_prop s := rfl
+theorem benchmark_ok_thm (s : String) : benchmark_ok_prop s := rfl
 
 /-! ## Post-condition -/
 
-/-- Full post-condition: the Python case split, round-trip, shell-token
-safety, length of the quote-escape, and the safe-string idempotence law. -/
-def Post_prop (s : String) : Prop :=
-  empty_quote_prop s ∧
-  safe_identity_prop s ∧
-  unsafe_wrap_prop s ∧
+/-- Successful `benchmark_quote` on a string: the Python control flow, a shell
+round trip, the length formula, and the raw / wrapped boundary cases. -/
+@[reducible] def Post_prop (s : String) : Prop :=
+  algorithm_prop s ∧
   roundtrip_prop s ∧
-  output_nonempty_prop s ∧
-  quote_cases_prop s ∧
-  quote_spec_prop s ∧
-  wrapped_boundary_prop s ∧
-  escape_length_prop s ∧
-  shell_token_prop s ∧
-  idempotent_safe_prop s ∧
-  quote_length_prop s
+  length_prop s ∧
+  nonempty_result_prop s ∧
+  boundary_prop s ∧
+  raw_id_prop s ∧
+  unsafe_wrap_prop s ∧
+  benchmark_ok_prop s ∧
+  empty_prop
+
+instance instDecidableEqExceptString : DecidableEq (Except String String) := fun a b =>
+  match a, b with
+  | .ok x, .ok y =>
+      if h : x = y then isTrue (h ▸ rfl) else isFalse (fun eq => h (by cases eq; rfl))
+  | .error x, .error y =>
+      if h : x = y then isTrue (h ▸ rfl) else isFalse (fun eq => h (by cases eq; rfl))
+  | .ok _, .error _ => isFalse (fun eq => by cases eq)
+  | .error _, .ok _ => isFalse (fun eq => by cases eq)
 
 /-! ## Property-based tests -/
 
-def b_empty (s : String) : Bool :=
-  s != "" || quote s == "''"
+/-- Small alphabet covering safe characters, space, quotes, `$`, and a
+non-ASCII letter. -/
+def pbtChars : List Char := ['a', 'Z', '0', '/', ' ', '\'', '"', '$', 'ä', '_']
 
-def b_safe (s : String) : Bool :=
-  !(s != "" && allSafe s.data) || quote s == s
+def extendWords (ws : List String) : List String :=
+  ws.flatMap fun w => pbtChars.map fun c => w.push c
 
-def b_unsafe (s : String) : Bool :=
-  !(s != "" && allSafe s.data == false) ||
-    quote s == "'" ++ String.mk (escapeQuotes s.data) ++ "'"
+/-- Every string of length at most 2 over `pbtChars`, plus the empty string. -/
+def boundedWords : List String :=
+  let w0 : List String := [""]
+  let w1 := extendWords w0
+  let w2 := extendWords w1
+  w0 ++ w1 ++ w2
 
-def b_round (s : String) : Bool :=
-  unquote (quote s) == s
+example : decide empty_prop = true := by native_decide
 
-def b_nonempty (s : String) : Bool :=
-  quote s != ""
+example : boundedWords.all (fun s => decide (algorithm_prop s)) = true := by native_decide
 
-def b_shell (s : String) : Bool :=
-  isShellToken (quote s).data
+example : boundedWords.all (fun s => decide (roundtrip_prop s)) = true := by native_decide
 
-def b_len (s : String) : Bool :=
-  (escapeQuotes s.data).length == s.data.length + 4 * quoteCount s.data
+example : boundedWords.all (fun s => decide (length_prop s)) = true := by native_decide
 
-def b_idemp (s : String) : Bool :=
-  !(s != "" && allSafe s.data) || quote (quote s) == quote s
+example : boundedWords.all (fun s => decide (nonempty_result_prop s)) = true := by
+  native_decide
 
-def b_wrap (s : String) : Bool :=
-  !(s == "" || allSafe s.data == false) ||
-    ((quote s).data.head? == some '\'' && (quote s).data.getLast? == some '\'')
+example : boundedWords.all (fun s => decide (boundary_prop s)) = true := by native_decide
 
-def b_spec (s : String) : Bool :=
-  quote s ==
-    if s.data.isEmpty then "''"
-    else if allSafe s.data then s
-    else "'" ++ String.mk (escapeQuotes s.data) ++ "'"
+example : boundedWords.all (fun s => decide (raw_id_prop s)) = true := by native_decide
 
-def b_post (s : String) : Bool :=
-  b_empty s && b_safe s && b_unsafe s && b_round s && b_nonempty s &&
-    b_shell s && b_len s && b_idemp s && b_wrap s && b_spec s
+example : boundedWords.all (fun s => decide (unsafe_wrap_prop s)) = true := by native_decide
 
-def pbtChars : List Char :=
-  ['a', 'Z', '0', ' ', '\'', '"', '-', '_', '@', '\n', '/', '.', '%', '+']
+example : boundedWords.all (fun s => decide (benchmark_ok_prop s)) = true := by native_decide
 
-def pbtStrings : List String :=
-  let cs := pbtChars
-  "" :: (cs.map fun c => String.mk [c]) ++
-    (cs.flatMap fun c1 => cs.map fun c2 => String.mk [c1, c2])
+example : boundedWords.all (fun s => decide (Post_prop s)) = true := by native_decide
 
--- PBT for empty_quote_prop
-example : pbtStrings.all b_empty = true := by native_decide
--- PBT for safe_identity_prop
-example : pbtStrings.all b_safe = true := by native_decide
--- PBT for unsafe_wrap_prop
-example : pbtStrings.all b_unsafe = true := by native_decide
--- PBT for roundtrip_prop
-example : pbtStrings.all b_round = true := by native_decide
--- PBT for output_nonempty_prop
-example : pbtStrings.all b_nonempty = true := by native_decide
--- PBT for shell_token_prop
-example : pbtStrings.all b_shell = true := by native_decide
--- PBT for escape_length_prop
-example : pbtStrings.all b_len = true := by native_decide
--- PBT for idempotent_safe_prop
-example : pbtStrings.all b_idemp = true := by native_decide
--- PBT for wrapped_boundary_prop
-example : pbtStrings.all b_wrap = true := by native_decide
--- PBT for quote_spec_prop
-example : pbtStrings.all b_spec = true := by native_decide
--- PBT for Post_prop
-example : pbtStrings.all b_post = true := by native_decide
--- PBT for safe_set_prop on the ASCII range
-example : (List.range 128).all (fun n =>
-    let c := Char.ofNat n
-    isSafeChar c == safeChars.contains c) = true := by native_decide
--- PBT for metachar_unsafe_prop
-example : shellMetaChars.all (fun c => !isSafeChar c) = true := by native_decide
--- PBT for quote_cases_prop / quote_length_prop on the same sample
-example : pbtStrings.all (fun s =>
-    (quote s).data.length ==
-      (if s.data.isEmpty then 2
-       else if allSafe s.data then s.data.length
-       else s.data.length + 4 * quoteCount s.data + 2)) = true := by native_decide
+example : (List.range 128).all (fun n => decide (charset_prop (Char.ofNat n))) = true := by
+  native_decide
 
--- PBT for quote_cases_prop
-example : pbtStrings.all (fun s =>
-    (s == "" && quote s == "''") ||
-    (s != "" && allSafe s.data && quote s == s) ||
-    (s != "" && allSafe s.data == false &&
-      quote s == "'" ++ String.mk (escapeQuotes s.data) ++ "'")) = true := by native_decide
--- PBT for replacement_prop
-example : String.mk escapedQuote = "'" ++ "\"" ++ "'" ++ "\"" ++ "'" := by native_decide
--- PBT for escape_injective_prop on the sample set
-example : pbtStrings.all (fun s1 => pbtStrings.all (fun s2 =>
-    !(escapeQuotes s1.data == escapeQuotes s2.data) || s1.data == s2.data)) = true := by native_decide
--- PBT for pre_quote_prop / type_error_prop / dyn_ok_prop / benchmark_eq_prop
-example : pre_quote PyVal.nonStr = false := by native_decide
-example : (match benchmark_quote_exc PyVal.nonStr with | .error m => m == "expected string object" | .ok _ => false) = true := by native_decide
-example : pbtStrings.all (fun s =>
-    pre_quote (PyVal.str s) && benchmark_quote s == quote s &&
-      (match benchmark_quote_exc (PyVal.str s) with
-       | .ok t => t == quote s
-       | .error _ => false)) = true := by native_decide
+example : decide (typeerror_prop .nonString) && decide (typeerror_prop (.str "x")) = true := by
+  native_decide
 
-#eval Plausible.Testable.check (∀ s : String, unquote (quote s) = s)
-#eval Plausible.Testable.check (∀ s : String, quote s ≠ "")
-#eval Plausible.Testable.check (∀ s : String, b_empty s = true)
-#eval Plausible.Testable.check (∀ s : String, b_shell s = true)
-#eval Plausible.Testable.check (∀ s : String, b_safe s = true)
-#eval Plausible.Testable.check (∀ s : String, b_post s = true)
+def injWords : List String := ["", "a", " ", "'", "ab", "a'b", "a b", "/", "ä"]
+
+example : injWords.all (fun s => injWords.all (fun t => decide (injective_prop s t))) = true := by
+  native_decide
+
+/-- Modest random configuration so the file checks many strings without a long search. -/
+def pbtCfg : Plausible.Configuration where
+  numInst := 30
+  maxSize := 12
+
+#eval Plausible.Testable.check (∀ s : String, algorithm_prop s) pbtCfg
+
+#eval Plausible.Testable.check (∀ s : String, roundtrip_prop s) pbtCfg
+
+#eval Plausible.Testable.check (∀ s : String, length_prop s) pbtCfg
+
+#eval Plausible.Testable.check (∀ s : String, nonempty_result_prop s) pbtCfg
+
+#eval Plausible.Testable.check (∀ s : String, boundary_prop s) pbtCfg
+
+#eval Plausible.Testable.check (∀ s : String, raw_id_prop s) pbtCfg
+
+#eval Plausible.Testable.check (∀ s : String, unsafe_wrap_prop s) pbtCfg
+
+#eval Plausible.Testable.check (∀ s : String, benchmark_ok_prop s) pbtCfg
+
+#eval Plausible.Testable.check (∀ s : String, Post_prop s) pbtCfg
+
+#eval Plausible.Testable.check (∀ s t : String, injective_prop s t) pbtCfg
+
+#eval Plausible.Testable.check (∀ c : Char, charset_prop c) pbtCfg
 
 /-! ## Correctness -/
 
-theorem correctness_thm (s : String) (_h : Pre s) : Post_prop s := by
-  exact ⟨empty_quote_thm s, safe_identity_thm s, unsafe_wrap_thm s, roundtrip_thm s,
-    output_nonempty_thm s, quote_cases_thm s, quote_spec_thm s, wrapped_boundary_thm s,
-    escape_length_thm s, shell_token_thm s, idempotent_safe_thm s, quote_length_thm s⟩
+theorem correctness_thm (s : String) (_h : Pre s) : Post_prop s :=
+  ⟨algorithm_thm s, roundtrip_thm s, length_thm s, nonempty_result_thm s,
+   boundary_thm s, raw_id_thm s, unsafe_wrap_thm s, benchmark_ok_thm s, empty_thm⟩
 
 /-! ## Imperative implementation -/
 
-/-- Imperative `shlex.quote`, using mutable accumulators in `Id`. -/
+/-- Mutable scan: every character is safe. Matches `str` truth of
+`all(c in safe_chars for c in s)`, without short-circuit (the Bool result is the same). -/
+def allSafeAcc (ok : Bool) (cs : List Char) : Bool :=
+  Id.run do
+    let mut ok := ok
+    for c in cs do
+      if !isSafeChar c then
+        ok := false
+    return ok
+
+/-- Append the escape of one character. -/
+def pushEscape (acc : List Char) (c : Char) : List Char :=
+  acc ++ escapeChar c
+
+/-- Mutable left-to-right build of `s.replace("'", "'\"'\"'")`. -/
+def escapeAcc (acc : List Char) (cs : List Char) : List Char :=
+  Id.run do
+    let mut acc := acc
+    for c in cs do
+      acc := pushEscape acc c
+    return acc
+
+theorem allSafeAcc_nil (ok : Bool) : allSafeAcc ok [] = ok := by
+  unfold allSafeAcc
+  simp [List.forIn_nil, bind, pure, Id.run]
+
+theorem allSafeAcc_cons (ok : Bool) (c : Char) (cs : List Char) :
+    allSafeAcc ok (c :: cs) = allSafeAcc (ok && isSafeChar c) cs := by
+  cases h : isSafeChar c <;>
+    simp [allSafeAcc, List.forIn_cons, bind, pure, Id.run, h]
+
+theorem allSafeAcc_eq (ok : Bool) (cs : List Char) :
+    allSafeAcc ok cs = (ok && cs.all isSafeChar) := by
+  induction cs generalizing ok with
+  | nil => simp [allSafeAcc_nil, List.all_nil]
+  | cons c cs ih =>
+    rw [allSafeAcc_cons, ih, List.all_cons]
+    cases ok <;> cases isSafeChar c <;> simp
+
+theorem escapeAcc_nil (acc : List Char) : escapeAcc acc [] = acc := by
+  unfold escapeAcc
+  simp [List.forIn_nil, bind, pure, Id.run]
+
+theorem escapeAcc_cons (acc : List Char) (c : Char) (cs : List Char) :
+    escapeAcc acc (c :: cs) = escapeAcc (pushEscape acc c) cs := by
+  simp only [escapeAcc, pushEscape, List.forIn_cons, bind, pure, Id.run]
+
+theorem escapeAcc_eq (acc cs : List Char) : escapeAcc acc cs = acc ++ escape cs := by
+  induction cs generalizing acc with
+  | nil => simp [escapeAcc_nil, escape]
+  | cons c cs ih =>
+    rw [escapeAcc_cons, ih]
+    simp [pushEscape, escape, List.flatMap_cons, List.append_assoc]
+
+/-- Imperative `quote`: empty check, a mutable safe-scan, then a mutable escape. -/
 def quoteImp (s : String) : String :=
   Id.run do
     let cs := s.data
     if cs.isEmpty then
-      return String.mk ['\'', '\'']
-    let mut allSafeAcc : Bool := true
-    for c in cs do
-      allSafeAcc := allSafeAcc && isSafeChar c
-    if allSafeAcc then
+      return "''"
+    else if allSafeAcc true cs then
       return s
-    let mut out : List Char := ['\'']
-    for c in cs do
-      if c == '\'' then
-        out := out ++ escapedQuote
-      else
-        out := out ++ [c]
-    out := out ++ ['\'']
-    return String.mk out
+    else
+      return String.mk ('\'' :: (escapeAcc [] cs ++ ['\'']))
 
 /-! ## Imperative tests -/
 
 example : quoteImp "" = "''" := by native_decide
+
 example : quoteImp "abc" = "abc" := by native_decide
+
 example : quoteImp "a b c" = "'a b c'" := by native_decide
+
 example : quoteImp "a'b" = "'a'\"'\"'b'" := by native_decide
-example : quoteImp "'" = "''\"'\"''" := by native_decide
-example : quoteImp "hello-world" = "hello-world" := by native_decide
+
+example : quoteImp "it's" = "'it'\"'\"'s'" := by native_decide
+
+example : quote "a'b" = quoteImp "a'b" := by native_decide
+
+example : quote "" = quoteImp "" := by native_decide
+
+#eval quoteImp ""
+
+#eval quoteImp "abc"
 
 #eval quoteImp "a b c"
+
 #eval quoteImp "a'b"
 
 /-! ## Equivalence -/
 
 theorem quote_equiv_thm (s : String) : quote s = quoteImp s := by
-  cases s with
-  | mk data =>
-    cases data with
-    | nil =>
-      unfold quote quoteList quoteImp
-      simp only [Id.run, bind, pure, List.isEmpty_nil]
-      rfl
-    | cons c cs =>
-      unfold quote quoteList quoteImp
-      simp only [Id.run, bind, pure, List.isEmpty_cons]
-      have hforSafe :
-          (forIn (m := Id) (c :: cs) true fun ch r => ForInStep.yield (r && isSafeChar ch))
-            = (c :: cs).foldl (fun acc x => acc && isSafeChar x) true :=
-        List.forIn_yield_eq_foldl (fun ch r => r && isSafeChar ch) true
-      rw [hforSafe]
-      rw [foldl_and_aux, Bool.true_and]
-      by_cases hs : allSafe (c :: cs) = true
-      · simp only [allSafe] at hs
-        simp only [hs, allSafe]
-        rfl
-      · have hs' : allSafe (c :: cs) = false := bool_eq_false_of_not_true hs
-        simp only [allSafe] at hs'
-        simp only [hs', if_false_true]
-        have hfun :
-            (fun ch r =>
-              if (ch == '\'') = true then ForInStep.yield (r ++ escapedQuote)
-              else ForInStep.yield (r ++ [ch]))
-            = (fun ch r =>
-              ForInStep.yield (if (ch == '\'') = true then r ++ escapedQuote else r ++ [ch])) := by
-          funext ch r
-          by_cases hb : (ch == '\'') = true <;> simp [hb]
-        rw [hfun]
-        rw [List.forIn_yield_eq_foldl
-          (fun ch r => if (ch == '\'') = true then r ++ escapedQuote else r ++ [ch]) ['\'']]
-        rw [foldl_escape_aux]
-        simp only [allSafe, hs', if_false_true]
+  cases hemp : s.data.isEmpty
+  · cases hall : s.data.all isSafeChar <;>
+      simp [quote, quoteImp, quoteList, hemp, hall, escape, Id.run, pure, allSafeAcc_eq,
+        escapeAcc_eq, mk_data]
+  · have hnil : s.data = [] := List.isEmpty_iff.mp hemp
+    simp [quote, quoteImp, quoteList, hnil, escape, Id.run, pure]
 
 end «21_shlex_quote»

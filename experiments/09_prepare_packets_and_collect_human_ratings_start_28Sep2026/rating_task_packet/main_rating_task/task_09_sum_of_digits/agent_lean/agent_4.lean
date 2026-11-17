@@ -1,521 +1,619 @@
 import Mathlib
-import Plausible
 
 /-!
-# Sum of Digits
+# Sum of decimal digits
 
-Lean 4 formalization of a Python program that returns the sum of decimal digits of a
-non-negative integer.
+Lean translation of a Python program that returns the sum of the decimal digits
+of a non-negative integer.
 
-Python reference:
-- `pre(n)` holds iff `n` is a non-negative integer (`isinstance(n, int) and n >= 0`).
-- `prog(n)` returns the sum of digits of `n`, computed by `total += n % 10; n //= 10`
-  while `n > 0` (the sum of digits of `0` is `0`).
-- If the precondition fails (negative integer, or a non-integer such as a float),
-  `prog` raises `ValueError`.
-
-The numeric content is formalized on `Nat`. Exceptional inputs are represented by
-`PyVal`, so the `ValueError` cases in the Python tests (negative `int` and `float`)
-are part of the specification rather than being erased by the type checker.
+The Python function raises `ValueError` unless its argument is an `int` with
+`n ≥ 0`. Negative integers and non-integers (the suite uses `3.14`) are
+rejected. On a valid input the loop `total += n % 10; n //= 10` runs while
+`n > 0`, and the sum of the digits of `0` is `0`.
 -/
 
-namespace MySumDigits
+namespace «20_MySumDigits»
 
-/-- Python values that the reference tests feed to `prog`. -/
-inductive PyVal where
-  | int : Int → PyVal
-  | float : Float → PyVal
+/-- Values that can be passed where Python accepts a dynamic object.
 
-/-- Error message, matching the Python `ValueError` text shape. -/
-def errorMsg : PyVal → String
-  | .int n => s!"Require non-negative integer (got n={n})"
-  | .float x => s!"Require non-negative integer (got n={x})"
+* `ofInt` is a Python `int`.
+* `ofFloat` is a Python `float` (the tests pass `3.14`). Every float fails
+  `isinstance(n, int)`, including integral values such as `2.0`.
+* `ofNonInt` stands for every other non-`int` (strings, `None`, lists, …).
+-/
+inductive Input
+  | ofInt (n : Int)
+  | ofFloat (x : Float)
+  | ofNonInt
+  deriving Repr
 
-/-- Sum of decimal digits of a natural number.
+/-- Message carried by the Lean counterpart of Python's `ValueError`. -/
+def errMsg : String := "Require non-negative integer"
 
-This is the direct recursive reading of the Python loop
-`while n > 0: total += n % 10; n //= 10`, with the explicit `n == 0` base case. -/
+/-- Sum of decimal digits, by the same recurrence as the Python loop.
+
+The `n = 0` branch is the loop that does not run. For `n > 0` one step adds
+`n % 10` and continues on `n // 10`. -/
 def sumDigits (n : Nat) : Nat :=
-  if h : n = 0 then 0
-  else n % 10 + sumDigits (n / 10)
+  if n = 0 then 0 else n % 10 + sumDigits (n / 10)
 termination_by n
-decreasing_by
-  simp_wf
-  omega
-
-/-- Functional implementation of the Python program, including precondition failures. -/
-def prog (v : PyVal) : Except String Nat :=
-  match v with
-  | .int n =>
-      if 0 ≤ n then
-        .ok (sumDigits n.toNat)
-      else
-        .error (errorMsg (.int n))
-  | .float x =>
-      .error (errorMsg (.float x))
-
-instance : BEq (Except String Nat) where
-  beq
-    | .ok a, .ok b => a == b
-    | .error a, .error b => a == b
-    | _, _ => false
-
-instance : DecidableEq (Except String Nat) := fun a b =>
-  match a, b with
-  | .ok x, .ok y =>
-      if h : x = y then isTrue (by subst h; rfl)
-      else isFalse (by intro hEq; cases hEq; exact h rfl)
-  | .error x, .error y =>
-      if h : x = y then isTrue (by subst h; rfl)
-      else isFalse (by intro hEq; cases hEq; exact h rfl)
-  | .ok _, .error _ => isFalse (by intro hEq; cases hEq)
-  | .error _, .ok _ => isFalse (by intro hEq; cases hEq)
-
-/-! ## Basic equations -/
 
 theorem sumDigits_zero : sumDigits 0 = 0 := by
-  unfold sumDigits
-  simp
+  rw [sumDigits.eq_def]
+  simp only [if_true]
 
-theorem sumDigits_of_pos (n : Nat) (h : 0 < n) :
-    sumDigits n = n % 10 + sumDigits (n / 10) := by
-  conv_lhs => unfold sumDigits
-  simp only [dif_neg (Nat.ne_of_gt h)]
-
-theorem sumDigits_eq_mod_add (n : Nat) :
-    sumDigits n = n % 10 + sumDigits (n / 10) := by
-  by_cases h : n = 0
+theorem sumDigits_rec (n : Nat) : sumDigits n = n % 10 + sumDigits (n / 10) := by
+  rw [sumDigits.eq_def]
+  split_ifs with h
   · subst h
-    simp [sumDigits_zero]
-  · exact sumDigits_of_pos n (Nat.pos_of_ne_zero h)
+    rw [Nat.zero_div, sumDigits_zero, Nat.zero_mod]
+  · rfl
 
-theorem sumDigits_lt_ten (n : Nat) (h : n < 10) : sumDigits n = n := by
-  by_cases hz : n = 0
-  · simp [hz, sumDigits_zero]
-  · rw [sumDigits_of_pos n (Nat.pos_of_ne_zero hz)]
-    have hd : n / 10 = 0 := Nat.div_eq_of_lt h
-    simp [hd, sumDigits_zero, Nat.mod_eq_of_lt h]
+instance instDecidableEqExcept {ε α : Type} [DecidableEq ε] [DecidableEq α] :
+    DecidableEq (Except ε α) := fun a b =>
+  match a, b with
+  | .error x, .error y =>
+      if h : x = y then isTrue (congrArg Except.error h)
+      else isFalse (fun heq => by cases heq; exact h rfl)
+  | .ok x, .ok y =>
+      if h : x = y then isTrue (congrArg Except.ok h)
+      else isFalse (fun heq => by cases heq; exact h rfl)
+  | .error _, .ok _ => isFalse (fun h => by cases h)
+  | .ok _, .error _ => isFalse (fun h => by cases h)
 
-/-- `sumDigits` is the sum of base-10 digits. -/
-theorem sumDigits_eq_digits_sum (n : Nat) :
-    sumDigits n = (Nat.digits 10 n).sum := by
-  refine Nat.strongRecOn n ?_
-  intro n ih
-  cases n with
-  | zero =>
-    simp [sumDigits_zero, Nat.digits_zero]
-  | succ n =>
-    have hpos : 0 < n.succ := Nat.succ_pos n
-    rw [sumDigits_of_pos _ hpos, Nat.digits_def' (by decide : 1 < 10) hpos, List.sum_cons]
-    have hlt : n.succ / 10 < n.succ := Nat.div_lt_self hpos (by decide)
-    exact congrArg (fun x => n.succ % 10 + x) (ih _ hlt)
-
-/-- The recursive equation and the zero base case characterize `sumDigits`. -/
-theorem sumDigits_unique (f : Nat → Nat)
-    (h0 : f 0 = 0)
-    (hstep : ∀ n, 0 < n → f n = n % 10 + f (n / 10)) :
-    ∀ n, f n = sumDigits n := by
-  intro n
-  refine Nat.strongRecOn n ?_
-  intro n ih
-  cases n with
-  | zero => simp [h0, sumDigits_zero]
-  | succ n =>
-    have hpos : 0 < n.succ := Nat.succ_pos n
-    rw [hstep _ hpos, sumDigits_of_pos _ hpos]
-    have hlt : n.succ / 10 < n.succ := Nat.div_lt_self hpos (by decide)
-    rw [ih _ hlt]
-
-theorem sumDigits_modEq (n : Nat) : n ≡ sumDigits n [MOD 9] := by
-  simpa [sumDigits_eq_digits_sum] using Nat.modEq_nine_digits_sum n
-
-theorem sumDigits_le (n : Nat) : sumDigits n ≤ n := by
-  simpa [sumDigits_eq_digits_sum] using Nat.digit_sum_le 10 n
-
-theorem sumDigits_nine_dvd_iff (n : Nat) : 9 ∣ n ↔ 9 ∣ sumDigits n := by
-  simpa [sumDigits_eq_digits_sum] using Nat.nine_dvd_iff n
+/-- Functional translation of Python `prog`, including the precondition check. -/
+def prog (x : Input) : Except String Nat :=
+  match x with
+  | .ofFloat _ => .error errMsg
+  | .ofNonInt => .error errMsg
+  | .ofInt n => if 0 ≤ n then .ok (sumDigits n.toNat) else .error errMsg
 
 /-! ## Unit tests -/
 
-example : prog (.int 123) = .ok 6 := by native_decide
-example : prog (.int 0) = .ok 0 := by native_decide
-example : prog (.int 5) = .ok 5 := by native_decide
-example : prog (.int 10) = .ok 1 := by native_decide
-example : prog (.int 999) = .ok 27 := by native_decide
-example : sumDigits 123 = 6 := by native_decide
-example : sumDigits 0 = 0 := by native_decide
+example : prog (.ofInt 123) = .ok 6 := by native_decide
 
-#eval prog (.int 123)
-#eval prog (.int 0)
-#eval sumDigits 2024
+example : prog (.ofInt 0) = .ok 0 := by native_decide
 
-/-- Python `check` harness, including the negative and non-integer cases. -/
-def check : Bool :=
-  prog (.int 123) == .ok 6 &&
-  prog (.int 0) == .ok 0 &&
-  (match prog (.int (-1)) with | .error _ => true | .ok _ => false) &&
-  (match prog (.float 3.14) with | .error _ => true | .ok _ => false)
+example : prog (.ofInt 5) = .ok 5 := by native_decide
 
-example : check = true := by native_decide
+example : prog (.ofInt 10) = .ok 1 := by native_decide
 
-/-! ## Pre-condition -/
+example : prog (.ofInt 999) = .ok 27 := by native_decide
 
-/-- Python `pre`: the value is a non-negative integer. -/
-def pre (v : PyVal) : Bool :=
-  match v with
-  | .int n => 0 ≤ n
-  | .float _ => false
+example : prog (.ofInt (-1)) = .error errMsg := by native_decide
 
-/-- Pre-condition predicate: input is a non-negative integer. -/
-def Pre (v : PyVal) : Prop :=
-  match v with
-  | .int n => 0 ≤ n
-  | .float _ => False
+example : prog (.ofFloat 3.14) = .error errMsg := by native_decide
 
-theorem pre_iff_Pre (v : PyVal) : pre v = true ↔ Pre v := by
-  cases v with
-  | int n =>
-    simp [pre, Pre]
-  | float x =>
-    simp [pre, Pre]
+example : prog (.ofFloat 2.0) = .error errMsg := by native_decide
+
+example : prog .ofNonInt = .error errMsg := by native_decide
+
+#eval prog (.ofInt 123)
+#eval prog (.ofInt 0)
+#eval prog (.ofInt 10)
+#eval prog (.ofInt (-1))
+#eval prog (.ofFloat 3.14)
+#eval prog .ofNonInt
+
+/-! ## Precondition -/
+
+/-- Boolean form of Python `pre`: `isinstance(n, int) and n ≥ 0`. -/
+def pre (x : Input) : Bool :=
+  match x with
+  | .ofInt n => decide (0 ≤ n)
+  | .ofFloat _ => false
+  | .ofNonInt => false
+
+/-- `x` is a non-negative integer. -/
+def Pre (x : Input) : Prop := pre x = true
+
+theorem pre_ofInt_iff (n : Int) : Pre (.ofInt n) ↔ 0 ≤ n := by
+  unfold Pre pre
+  simp
+
+theorem not_pre_float (x : Float) : ¬ Pre (.ofFloat x) := by
+  simp [Pre, pre]
+
+theorem not_pre_nonInt : ¬ Pre .ofNonInt := by
+  simp [Pre, pre]
 
 /-! ## Properties -/
 
-/-- Sum of digits of `0` is `0`. -/
-def zero_prop : Prop := sumDigits 0 = 0
+abbrev zero_prop : Prop := sumDigits 0 = 0
 
 theorem zero_thm : zero_prop := sumDigits_zero
 
-/-- A single-digit number is returned unchanged. -/
-def single_digit_prop (n : Nat) : Prop := n < 10 → sumDigits n = n
+abbrev single_digit_prop (n : Nat) : Prop := n < 10 → sumDigits n = n
 
-theorem single_digit_thm (n : Nat) : single_digit_prop n :=
-  fun h => sumDigits_lt_ten n h
+theorem single_digit_thm (n : Nat) : single_digit_prop n := by
+  intro hn
+  rw [sumDigits_rec, Nat.div_eq_of_lt hn, Nat.mod_eq_of_lt hn, sumDigits_zero, Nat.add_zero]
 
-/-- One step of the Python loop: peel off the least significant digit. -/
-def recursion_prop (n : Nat) : Prop :=
-  sumDigits n = n % 10 + sumDigits (n / 10)
+abbrev recurrence_prop (n : Nat) : Prop := sumDigits n = n % 10 + sumDigits (n / 10)
 
-theorem recursion_thm (n : Nat) : recursion_prop n :=
-  sumDigits_eq_mod_add n
+theorem recurrence_thm (n : Nat) : recurrence_prop n := sumDigits_rec n
 
-/-- Classic congruence: a number is congruent to the sum of its decimal digits modulo 9. -/
-def mod9_prop (n : Nat) : Prop := n ≡ sumDigits n [MOD 9]
+abbrev digits_sum_prop (n : Nat) : Prop := sumDigits n = (Nat.digits 10 n).sum
 
-theorem mod9_thm (n : Nat) : mod9_prop n := sumDigits_modEq n
+theorem digits_sum_thm (n : Nat) : digits_sum_prop n := by
+  unfold digits_sum_prop
+  induction n using Nat.strongRecOn with
+  | ind n ih =>
+    cases n with
+    | zero =>
+      rw [sumDigits_zero, Nat.digits_zero, List.sum_nil]
+    | succ n =>
+      have hne : n + 1 ≠ 0 := Nat.succ_ne_zero n
+      have hlt : (n + 1) / 10 < n + 1 := Nat.div_lt_self (Nat.succ_pos n) (by decide)
+      rw [sumDigits_rec, Nat.digits_eq_cons_digits_div (by decide : 1 < 10) hne, List.sum_cons]
+      exact congrArg (fun z => (n + 1) % 10 + z) (ih _ hlt)
 
-/-- The digit sum never exceeds the number itself. -/
-def le_prop (n : Nat) : Prop := sumDigits n ≤ n
+/-- `sumDigits n ≡ n (mod 9)`, the usual digit-sum congruence. -/
+abbrev mod_nine_prop (n : Nat) : Prop := sumDigits n ≡ n [MOD 9]
 
-theorem le_thm (n : Nat) : le_prop n := sumDigits_le n
+theorem mod_nine_thm (n : Nat) : mod_nine_prop n := by
+  unfold mod_nine_prop
+  rw [digits_sum_thm n]
+  exact (Nat.modEq_nine_digits_sum n).symm
 
-/-- The implementation agrees with Mathlib's base-10 digit expansion. -/
-def digits_sum_prop (n : Nat) : Prop := sumDigits n = (Nat.digits 10 n).sum
+abbrev le_self_prop (n : Nat) : Prop := sumDigits n ≤ n
 
-theorem digits_sum_thm (n : Nat) : digits_sum_prop n := sumDigits_eq_digits_sum n
+theorem le_self_thm (n : Nat) : le_self_prop n := by
+  unfold le_self_prop
+  rw [digits_sum_thm n]
+  exact Nat.digit_sum_le 10 n
 
-/-- Divisibility by 9 depends only on the digit sum. -/
-def nine_dvd_prop (n : Nat) : Prop := 9 ∣ n ↔ 9 ∣ sumDigits n
+abbrev eq_zero_iff_prop (n : Nat) : Prop := sumDigits n = 0 ↔ n = 0
 
-theorem nine_dvd_thm (n : Nat) : nine_dvd_prop n := sumDigits_nine_dvd_iff n
+theorem eq_zero_iff_thm (n : Nat) : eq_zero_iff_prop n := by
+  induction n using Nat.strongRecOn with
+  | ind n ih =>
+    constructor
+    · intro h
+      cases n with
+      | zero => rfl
+      | succ n =>
+        rw [sumDigits_rec] at h
+        obtain ⟨hmod, hrest⟩ := Nat.add_eq_zero.mp h
+        have hlt : (n + 1) / 10 < n + 1 := Nat.div_lt_self (Nat.succ_pos n) (by decide)
+        have hdiv : (n + 1) / 10 = 0 := (ih _ hlt).mp hrest
+        have hrepr : n + 1 = 10 * ((n + 1) / 10) + (n + 1) % 10 := (Nat.div_add_mod (n + 1) 10).symm
+        omega
+    · rintro rfl
+      exact sumDigits_zero
 
-/-- The recursive specification determines the function. -/
-def unique_prop : Prop :=
-  ∀ f : Nat → Nat,
-    f 0 = 0 → (∀ n, 0 < n → f n = n % 10 + f (n / 10)) → ∀ n, f n = sumDigits n
+/-- For `n ≥ 10` the digit sum is strictly smaller than `n`. -/
+abbrev strict_lt_prop (n : Nat) : Prop := 10 ≤ n → sumDigits n < n
 
-theorem unique_thm : unique_prop := by
-  intro f h0 hstep n
-  exact sumDigits_unique f h0 hstep n
+theorem strict_lt_thm (n : Nat) : strict_lt_prop n := by
+  intro hn
+  have hq : 0 < n / 10 := Nat.div_pos hn (by decide)
+  rw [sumDigits_rec]
+  have hle : sumDigits (n / 10) ≤ n / 10 := le_self_thm (n / 10)
+  have hmul : 1 * (n / 10) < 10 * (n / 10) :=
+    Nat.mul_lt_mul_of_pos_right (by decide : 1 < 10) hq
+  have hstep : n / 10 + n % 10 < n := by
+    have hrepr : n = 10 * (n / 10) + n % 10 := (Nat.div_add_mod n 10).symm
+    have : n / 10 < 10 * (n / 10) := by simpa using hmul
+    omega
+  have : n % 10 + sumDigits (n / 10) ≤ n % 10 + n / 10 := Nat.add_le_add_left hle _
+  omega
 
-/-- Negative integers violate the precondition and produce an error (Python `ValueError`). -/
-def neg_error_prop (n : Int) : Prop :=
-  n < 0 → ∃ msg, prog (.int n) = .error msg
+/-- The digit sum equals the number exactly on the single-digit inputs. -/
+abbrev eq_self_iff_prop (n : Nat) : Prop := sumDigits n = n ↔ n < 10
+
+theorem eq_self_iff_thm (n : Nat) : eq_self_iff_prop n := by
+  constructor
+  · intro h
+    by_contra hge
+    have hlt : sumDigits n < n := strict_lt_thm n (Nat.le_of_not_lt hge)
+    omega
+  · intro hn
+    exact single_digit_thm n hn
+
+/-- Each decimal digit is at most `9`, so the sum is at most nine times the length. -/
+abbrev digit_bound_prop (n : Nat) : Prop := sumDigits n ≤ 9 * (Nat.digits 10 n).length
+
+theorem list_sum_le_mul_length {l : List Nat} {c : Nat}
+    (h : ∀ d ∈ l, d ≤ c) : l.sum ≤ c * l.length := by
+  induction l with
+  | nil => simp
+  | cons d ds ih =>
+    rw [List.sum_cons, List.length_cons]
+    have hd : d ≤ c := h d List.mem_cons_self
+    have hds : ds.sum ≤ c * ds.length := ih (fun x hx => h x (List.mem_cons_of_mem d hx))
+    calc
+      d + ds.sum ≤ c + c * ds.length := Nat.add_le_add hd hds
+      _ = c * ds.length + c := Nat.add_comm _ _
+      _ = c * (ds.length + 1) := by rw [← Nat.mul_succ]
+
+theorem digit_bound_thm (n : Nat) : digit_bound_prop n := by
+  unfold digit_bound_prop
+  rw [digits_sum_thm n]
+  refine list_sum_le_mul_length ?_
+  intro d hd
+  have : d < 10 := Nat.digits_lt_base (by decide : 1 < 10) hd
+  omega
+
+/-- Appending a zero digit does not change the digit sum: `sumDigits (n * 10) = sumDigits n`. -/
+abbrev trailing_zero_prop (n : Nat) : Prop := sumDigits (n * 10) = sumDigits n
+
+/-- Splitting off the lowest `k` digits: if `b < 10^k` then
+`sumDigits (a * 10^k + b) = sumDigits a + sumDigits b`. -/
+abbrev split_prop (k a b : Nat) : Prop :=
+  b < 10 ^ k → sumDigits (a * 10 ^ k + b) = sumDigits a + sumDigits b
+
+theorem split_thm (k a b : Nat) : split_prop k a b := by
+  intro hb
+  induction k generalizing a b with
+  | zero =>
+    have hb0 : b = 0 := by
+      simpa [Nat.pow_zero, Nat.lt_one_iff] using hb
+    subst hb0
+    simp [sumDigits_zero]
+  | succ k ih =>
+    set q : Nat := b / 10
+    set r : Nat := b % 10
+    have hr : r < 10 := Nat.mod_lt b (by decide)
+    have hb_repr : b = 10 * q + r := by
+      simpa [q, r, Nat.mul_comm] using (Nat.div_add_mod b 10).symm
+    have hq : q < 10 ^ k := by
+      have hb' : b < 10 * 10 ^ k := by
+        rw [Nat.pow_succ, Nat.mul_comm] at hb
+        exact hb
+      simpa [q] using Nat.div_lt_of_lt_mul hb'
+    have hbody : a * 10 ^ (k + 1) + b = 10 * (a * 10 ^ k + q) + r := by
+      calc
+        a * 10 ^ (k + 1) + b
+            = a * (10 ^ k * 10) + (10 * q + r) := by rw [Nat.pow_succ, hb_repr]
+        _ = a * 10 ^ k * 10 + 10 * q + r := by ring
+        _ = 10 * (a * 10 ^ k + q) + r := by ring
+    have hdiv : (10 * (a * 10 ^ k + q) + r) / 10 = a * 10 ^ k + q := by
+      rw [Nat.add_comm, Nat.add_mul_div_left r _ (by decide), Nat.div_eq_of_lt hr, Nat.zero_add]
+    have hmod : (10 * (a * 10 ^ k + q) + r) % 10 = r := by
+      rw [Nat.mul_add_mod_self_left, Nat.mod_eq_of_lt hr]
+    have hsumN : sumDigits (a * 10 ^ (k + 1) + b) = sumDigits (a * 10 ^ k + q) + r := by
+      rw [hbody, sumDigits_rec, hdiv, hmod, Nat.add_comm]
+    have hdivB : (10 * q + r) / 10 = q := by
+      rw [Nat.add_comm, Nat.add_mul_div_left r _ (by decide), Nat.div_eq_of_lt hr, Nat.zero_add]
+    have hmodB : (10 * q + r) % 10 = r := by
+      rw [Nat.mul_add_mod_self_left, Nat.mod_eq_of_lt hr]
+    have hsumB : sumDigits b = sumDigits q + r := by
+      rw [hb_repr, sumDigits_rec, hdivB, hmodB, Nat.add_comm]
+    rw [hsumN, ih a q hq, hsumB, Nat.add_assoc]
+
+theorem trailing_zero_thm (n : Nat) : trailing_zero_prop n := by
+  have h := split_thm 1 n 0 (by decide : 0 < 10 ^ 1)
+  simpa [trailing_zero_prop, Nat.pow_one, sumDigits_zero, Nat.add_zero] using h
+
+abbrev neg_error_prop (n : Int) : Prop := n < 0 → prog (.ofInt n) = .error errMsg
 
 theorem neg_error_thm (n : Int) : neg_error_prop n := by
   intro hn
-  have hnot : ¬ 0 ≤ n := not_le_of_gt hn
-  refine ⟨errorMsg (.int n), ?_⟩
-  simp [prog, hnot]
+  simp [prog, if_neg (not_le_of_gt hn)]
 
-/-- Non-integers (floats) violate the precondition and produce an error. -/
-def float_error_prop (x : Float) : Prop :=
-  ∃ msg, prog (.float x) = .error msg
+abbrev float_error_prop : Prop := ∀ x : Float, prog (.ofFloat x) = .error errMsg
 
-theorem float_error_thm (x : Float) : float_error_prop x := by
-  refine ⟨errorMsg (.float x), ?_⟩
-  simp [prog]
+theorem float_error_thm : float_error_prop := by
+  intro _
+  rfl
 
-/-- On a non-negative integer the function returns the digit sum. -/
-def nonneg_ok_prop (n : Int) : Prop :=
-  0 ≤ n → prog (.int n) = .ok (sumDigits n.toNat)
+abbrev nonint_error_prop : Prop := prog .ofNonInt = .error errMsg
 
-theorem nonneg_ok_thm (n : Int) : nonneg_ok_prop n := by
-  intro hn
-  simp [prog, hn]
+theorem nonint_error_thm : nonint_error_prop := rfl
+
+abbrev ok_result_prop (n : Nat) : Prop := prog (.ofInt (n : Int)) = .ok (sumDigits n)
+
+theorem ok_result_thm (n : Nat) : ok_result_prop n := by
+  unfold ok_result_prop
+  have hn : 0 ≤ (n : Int) := by omega
+  simp [prog, hn, Int.toNat_natCast]
+
+/-- Full input/output specification, including both `ValueError` cases. -/
+abbrev result_spec_prop (x : Input) (r : Except String Nat) : Prop :=
+  match x with
+  | .ofFloat _ => r = .error errMsg
+  | .ofNonInt => r = .error errMsg
+  | .ofInt n =>
+      if 0 ≤ n then r = .ok ((Nat.digits 10 n.toNat).sum) else r = .error errMsg
+
+theorem result_spec_thm (x : Input) : result_spec_prop x (prog x) := by
+  cases x with
+  | ofFloat _ => simp [result_spec_prop, prog]
+  | ofNonInt => simp [result_spec_prop, prog]
+  | ofInt n =>
+      by_cases hn : 0 ≤ n
+      · simp only [result_spec_prop, prog, hn]
+        exact congrArg Except.ok (digits_sum_thm n.toNat)
+      · simp [result_spec_prop, prog, hn]
 
 /-! ## Post-condition -/
 
-/-- Post-condition of `prog`.
+/-- Post-condition of one call, packaged as the conjunction of the proved properties.
 
-On a non-negative integer the result is `ok` of the digit sum, and that digit sum
-satisfies the algorithm's recursive equation, the base-10 digit expansion, the
-mod-9 congruence, the upper bound, and the single-digit equation.
-On a negative integer or a float the result is an error, matching Python's `ValueError`.
+On the call itself, `result_spec_prop` requires the decimal digit sum when the
+input is a non-negative integer and `ValueError` otherwise. The remaining
+conjuncts are the algebraic properties of that digit sum.
 -/
-def Post_prop (v : PyVal) (r : Except String Nat) : Prop :=
-  match v with
-  | .int n =>
-      if 0 ≤ n then
-        r = .ok (sumDigits n.toNat) ∧
-        digits_sum_prop n.toNat ∧
-        mod9_prop n.toNat ∧
-        le_prop n.toNat ∧
-        single_digit_prop n.toNat ∧
-        recursion_prop n.toNat ∧
-        (n.toNat = 0 → zero_prop)
-      else
-        ∃ msg, r = .error msg
-  | .float _ =>
-      ∃ msg, r = .error msg
+abbrev Post_prop (x : Input) (r : Except String Nat) : Prop :=
+  result_spec_prop x r ∧
+  zero_prop ∧
+  (∀ n, single_digit_prop n) ∧
+  (∀ n, recurrence_prop n) ∧
+  (∀ n, digits_sum_prop n) ∧
+  (∀ n, mod_nine_prop n) ∧
+  (∀ n, le_self_prop n) ∧
+  (∀ n, eq_zero_iff_prop n) ∧
+  (∀ n, strict_lt_prop n) ∧
+  (∀ n, eq_self_iff_prop n) ∧
+  (∀ n, digit_bound_prop n) ∧
+  (∀ n, trailing_zero_prop n) ∧
+  (∀ k a b, split_prop k a b) ∧
+  (∀ n, neg_error_prop n) ∧
+  float_error_prop ∧
+  nonint_error_prop ∧
+  (∀ n, ok_result_prop n)
 
-/-! ## Property-based tests -/
+/-! ## Property-based tests
 
--- zero_prop
-example : (sumDigits 0 == 0) = true := by native_decide
-#eval Plausible.Testable.check (sumDigits 0 = 0)
+Executable checks of each stated property. A passing check is evidence, not a proof.
+-/
 
--- single_digit_prop (bounded: random samples rarely satisfy n < 10)
+#eval Plausible.Testable.check zero_prop
+
 example : (List.range 10).all (fun n => sumDigits n == n) = true := by native_decide
-example : (List.range 30).all (fun n => !(n < 10) || sumDigits n == n) = true := by native_decide
 
--- recursion_prop
-example : (List.range 80).all (fun n => sumDigits n == n % 10 + sumDigits (n / 10)) = true := by
+#eval Plausible.Testable.check (∀ n : Nat, single_digit_prop n)
+
+#eval Plausible.Testable.check (∀ n : Nat, recurrence_prop n)
+
+#eval Plausible.Testable.check (∀ n : Nat, digits_sum_prop n)
+
+#eval Plausible.Testable.check (∀ n : Nat, mod_nine_prop n)
+
+#eval Plausible.Testable.check (∀ n : Nat, le_self_prop n)
+
+#eval Plausible.Testable.check (∀ n : Nat, eq_zero_iff_prop n)
+
+#eval Plausible.Testable.check (∀ n : Nat, strict_lt_prop n)
+
+example : (List.range 40).all (fun n => decide (n < 10) || sumDigits n < n) = true := by
   native_decide
-#eval Plausible.Testable.check (∀ n : Nat, sumDigits n = n % 10 + sumDigits (n / 10))
 
--- mod9_prop, executable form of `n ≡ sumDigits n [MOD 9]`
-example : (List.range 80).all (fun n => sumDigits n % 9 == n % 9) = true := by native_decide
-#eval Plausible.Testable.check (∀ n : Nat, sumDigits n % 9 = n % 9)
+#eval Plausible.Testable.check (∀ n : Nat, eq_self_iff_prop n)
 
--- le_prop
-example : (List.range 80).all (fun n => sumDigits n ≤ n) = true := by native_decide
-#eval Plausible.Testable.check (∀ n : Nat, sumDigits n ≤ n)
+#eval Plausible.Testable.check (∀ n : Nat, digit_bound_prop n)
 
--- digits_sum_prop
-example : (List.range 80).all (fun n => sumDigits n == (Nat.digits 10 n).sum) = true := by
+#eval Plausible.Testable.check (∀ n : Nat, trailing_zero_prop n)
+
+-- Sparse guard `b < 10^k`: exhaustive small range, plus a random check.
+example :
+    ((List.range 4).all fun k =>
+      (List.range 12).all fun a =>
+        (List.range (min (10 ^ k) 30)).all fun b =>
+          sumDigits (a * 10 ^ k + b) == sumDigits a + sumDigits b) = true := by
   native_decide
-#eval Plausible.Testable.check (∀ n : Nat, sumDigits n = (Nat.digits 10 n).sum)
 
--- nine_dvd_prop
-example : (List.range 80).all (fun n => decide (9 ∣ n) == decide (9 ∣ sumDigits n)) = true := by
+-- `b < 10^k` is sparse for independent samples, so the random check draws the low
+-- part as `b % 10^k`, which is exactly the admissible range of `split_prop`.
+#eval Plausible.Testable.check (∀ k a b : Nat,
+  sumDigits (a * 10 ^ k + b % 10 ^ k) = sumDigits a + sumDigits (b % 10 ^ k))
+
+example : (List.range 20).all (fun i =>
+    prog (.ofInt (-(Int.ofNat i) - 1)) == .error errMsg) = true := by
   native_decide
-#eval Plausible.Testable.check (∀ n : Nat, 9 ∣ n ↔ 9 ∣ sumDigits n)
 
--- unique_prop quantifies over all functions `Nat → Nat`, which has no executable sampler.
--- PBT: not executable (quantifies over functions Nat → Nat)
+#eval Plausible.Testable.check (∀ n : Int, neg_error_prop n)
 
--- neg_error_prop
-example : (List.range 30).all (fun k =>
-    match prog (.int (-(Int.ofNat (k + 1)))) with
-    | .error _ => true
-    | .ok _ => false) = true := by native_decide
+-- `float_error_prop` is `∀ x : Float, …`. Float has no Plausible sampler here;
+-- the property does not inspect the float, and these values include the Python
+-- test `3.14` together with `2.0` (an integral float, still not an `int`).
+example : ([3.14, -1.5, 0.0, 2.0, -0.0] : List Float).all
+    (fun x => prog (.ofFloat x) == .error errMsg) = true := by native_decide
 
--- float_error_prop: every float is rejected; the Python test uses `3.14`.
-example : (match prog (.float 3.14) with | .error _ => true | .ok _ => false) = true := by
-  native_decide
--- PBT: not executable as a random Float law (Float arithmetic is opaque).
--- The property is proved for every Float in `float_error_thm`.
+#eval Plausible.Testable.check nonint_error_prop
 
--- nonneg_ok_prop
-example : (List.range 40).all (fun n => prog (.int (Int.ofNat n)) == .ok (sumDigits n)) = true := by
-  native_decide
-#eval Plausible.Testable.check (∀ n : Nat, prog (.int (Int.ofNat n)) = .ok (sumDigits n))
+#eval Plausible.Testable.check (∀ n : Nat, ok_result_prop n)
 
-/-- Executable form of `Post_prop` on non-negative integers. -/
-def postBool (n : Nat) : Bool :=
-  let r := sumDigits n
-  prog (.int (Int.ofNat n)) == .ok r &&
+-- `result_spec_prop` ranges over `Input`, which has no Plausible sampler.
+-- This exhaustive slice covers the Python tests: `123`, `0`, `-1`, and `3.14`.
+example : ([Input.ofNonInt, .ofFloat 3.14, .ofFloat 2.0, .ofFloat (-1.5),
+    .ofInt (-5), .ofInt (-1), .ofInt 0, .ofInt 7, .ofInt 10, .ofInt 123, .ofInt 999].all
+    (fun x => match x, prog x with
+      | .ofFloat _, .error m => m == errMsg
+      | .ofNonInt, .error m => m == errMsg
+      | .ofInt n, .ok r => decide (0 ≤ n) && r == (Nat.digits 10 n.toNat).sum
+      | .ofInt n, .error m => decide (n < 0) && m == errMsg
+      | _, _ => false)) = true := by native_decide
+
+-- Executable form of `Post_prop` on admissible inputs (non-negative integers).
+example : (List.range 50).all (fun n =>
+    let r := sumDigits n
     r == (Nat.digits 10 n).sum &&
     r % 9 == n % 9 &&
-    r ≤ n &&
-    (!(n < 10) || r == n) &&
-    r == n % 10 + sumDigits (n / 10)
+    decide (r ≤ n) &&
+    ((r == 0) == (n == 0)) &&
+    (decide (n < 10) || r < n) &&
+    ((r == n) == decide (n < 10)) &&
+    decide (r ≤ 9 * (Nat.digits 10 n).length) &&
+    sumDigits (n * 10) == r &&
+    r == n % 10 + sumDigits (n / 10)) = true := by native_decide
 
-example : (List.range 60).all postBool = true := by native_decide
-#eval Plausible.Testable.check (∀ n : Nat, postBool n = true)
+-- `Post_prop` also quantifies over `Float` (no Plausible sampler). The check below is
+-- the executable Nat payload of the post-condition, including the successful call.
+#eval Plausible.Testable.check (∀ n : Nat,
+  sumDigits n = (Nat.digits 10 n).sum ∧
+  sumDigits n % 9 = n % 9 ∧
+  sumDigits n ≤ n ∧
+  sumDigits n = n % 10 + sumDigits (n / 10) ∧
+  sumDigits n ≤ 9 * (Nat.digits 10 n).length ∧
+  sumDigits (n * 10) = sumDigits n ∧
+  prog (.ofInt (n : Int)) = .ok (sumDigits n))
 
-example : (match prog (.int (-1)) with | .error _ => true | .ok _ => false) = true := by
-  native_decide
-example : (match prog (.float 3.14) with | .error _ => true | .ok _ => false) = true := by
-  native_decide
+/-! ## Correctness: Pre → Post -/
 
-/-! ## Correctness -/
+theorem correctness_thm (x : Input) (hPre : Pre x) : Post_prop x (prog x) := by
+  cases x with
+  | ofFloat y => exact False.elim ((not_pre_float y) hPre)
+  | ofNonInt => exact False.elim (not_pre_nonInt hPre)
+  | ofInt n =>
+      have _hn : 0 ≤ n := (pre_ofInt_iff n).mp hPre
+      exact ⟨result_spec_thm (.ofInt n), zero_thm, single_digit_thm, recurrence_thm, digits_sum_thm,
+        mod_nine_thm, le_self_thm, eq_zero_iff_thm, strict_lt_thm, eq_self_iff_thm, digit_bound_thm,
+        trailing_zero_thm, split_thm, neg_error_thm, float_error_thm, nonint_error_thm,
+        ok_result_thm⟩
 
-theorem correctness_thm (v : PyVal) (hpre : Pre v) : Post_prop v (prog v) := by
-  cases v with
-  | float _ =>
-    simp [Pre] at hpre
-  | int n =>
-    dsimp [Pre] at hpre
-    have hprog : prog (.int n) = .ok (sumDigits n.toNat) := by
-      unfold prog
-      simp [hpre]
-    simp only [Post_prop]
-    rw [if_pos hpre, hprog]
-    refine ⟨rfl, sumDigits_eq_digits_sum n.toNat, sumDigits_modEq n.toNat,
-      sumDigits_le n.toNat, sumDigits_lt_ten n.toNat, sumDigits_eq_mod_add n.toNat, ?_⟩
-    intro _
-    exact sumDigits_zero
+/-! ## Imperative implementation
 
-/-- Full specification, including inputs that violate `Pre`. -/
-theorem prog_spec (v : PyVal) : Post_prop v (prog v) := by
-  cases v with
-  | float x =>
-    simp only [Post_prop, prog]
-    exact ⟨errorMsg (.float x), rfl⟩
-  | int n =>
-    by_cases h : 0 ≤ n
-    · exact correctness_thm (.int n) (by simpa [Pre] using h)
-    · simp only [Post_prop, prog, if_neg h]
-      exact ⟨errorMsg (.int n), rfl⟩
-
-/-! ## Imperative implementation -/
-
-/-- One iteration of `total, m = total + m % 10, m / 10` on the monomorphic pair
-used by `Id` mutable state. -/
-def mstep (p : MProd Nat Nat) : MProd Nat Nat :=
-  ⟨p.fst / 10, p.snd + p.fst % 10⟩
-
-/-- Same transition on an ordinary pair, used in the equivalence proof. -/
-def step (p : Nat × Nat) : Nat × Nat :=
-  (p.1 / 10, p.2 + p.1 % 10)
-
-/-- Imperative digit sum.
-
-`Id.run do` with mutable `total` and `m`, matching the Python loop
-`total = 0; while n > 0: total += n % 10; n //= 10`.
-The loop is a bounded `for` of `n + 1` iterations: each iteration divides by 10,
-`n < 10^(n+1)`, and once `m = 0` further iterations add `0`, so the final `total`
-is exactly the result of the `while` loop.
+Python's `while n > 0` loop, written with mutable state in `Id`. The iteration
+count is `n + 1`. That is enough to consume every digit (`n < 10^(n+1)`), and
+once the remaining value is `0` each further step adds `0` and stays at `0`,
+so the extra iterations match the loop guard `n > 0`.
 -/
+
 def sumDigitsImp (n : Nat) : Nat :=
   Id.run do
-    let mut total : Nat := 0
-    let mut m : Nat := n
+    let mut state : Nat × Nat := (n, 0)
     for _ in List.range (n + 1) do
-      total := total + m % 10
-      m := m / 10
-    return total
+      state := (state.1 / 10, state.2 + state.1 % 10)
+    return state.2
 
-/-- Imperative implementation of `prog`, including the precondition check. -/
-def progImp (v : PyVal) : Except String Nat :=
-  match v with
-  | .int n =>
-      if 0 ≤ n then
-        .ok (sumDigitsImp n.toNat)
-      else
-        .error (errorMsg (.int n))
-  | .float x =>
-      .error (errorMsg (.float x))
+def progImp (x : Input) : Except String Nat :=
+  match x with
+  | .ofFloat _ => .error errMsg
+  | .ofNonInt => .error errMsg
+  | .ofInt n => if 0 ≤ n then .ok (sumDigitsImp n.toNat) else .error errMsg
 
 /-! ## Imperative tests -/
 
-example : sumDigitsImp 123 = 6 := by native_decide
+example : progImp (.ofInt 123) = .ok 6 := by native_decide
+
+example : progImp (.ofInt 0) = .ok 0 := by native_decide
+
+example : progImp (.ofInt 5) = .ok 5 := by native_decide
+
+example : progImp (.ofInt 10) = .ok 1 := by native_decide
+
+example : progImp (.ofInt 999) = .ok 27 := by native_decide
+
+example : progImp (.ofInt (-1)) = .error errMsg := by native_decide
+
+example : progImp (.ofFloat 3.14) = .error errMsg := by native_decide
+
+example : progImp .ofNonInt = .error errMsg := by native_decide
+
+example : sumDigitsImp 123 = sumDigits 123 := by native_decide
+
 example : sumDigitsImp 0 = 0 := by native_decide
-example : sumDigitsImp 999 = 27 := by native_decide
-example : progImp (.int 123) = .ok 6 := by native_decide
-example : progImp (.int 0) = .ok 0 := by native_decide
-example : progImp (.int (-1)) = .error (errorMsg (.int (-1))) := by native_decide
-example : (match progImp (.float 3.14) with | .error _ => true | .ok _ => false) = true := by
-  native_decide
 
-#eval sumDigitsImp 123
-#eval progImp (.int 456)
-
-example : (List.range 50).all (fun n => sumDigitsImp n == sumDigits n) = true := by native_decide
+#eval progImp (.ofInt 123)
+#eval progImp (.ofInt 0)
+#eval progImp (.ofInt (-1))
+#eval progImp (.ofFloat 3.14)
+#eval sumDigitsImp 456
 
 /-! ## Equivalence -/
 
-theorem ten_pow_ge_self (k : Nat) : k ≤ 10 ^ k := by
-  induction k with
-  | zero => simp
+/-- State of the imperative loop after `k` steps, starting from `(start, 0)`. -/
+def foldSteps (k start : Nat) : Nat × Nat :=
+  (List.range k).foldl (fun p (_ : Nat) => (p.1 / 10, p.2 + p.1 % 10)) (start, 0)
+
+theorem foldSteps_zero (start : Nat) : foldSteps 0 start = (start, 0) := by
+  simp [foldSteps]
+
+theorem foldSteps_succ (k start : Nat) :
+    foldSteps (k + 1) start =
+      ((foldSteps k start).1 / 10, (foldSteps k start).2 + (foldSteps k start).1 % 10) := by
+  unfold foldSteps
+  rw [List.range_succ]
+  simp [List.foldl_append]
+
+theorem foldSteps_fst (k start : Nat) : (foldSteps k start).1 = start / 10 ^ k := by
+  induction k generalizing start with
+  | zero =>
+    simp [foldSteps_zero, Nat.div_one]
   | succ k ih =>
-    have hone : 1 ≤ 10 ^ k := Nat.one_le_pow k 10 (by decide)
+    rw [foldSteps_succ, ih, Nat.div_div_eq_div_mul, Nat.pow_succ, Nat.mul_comm]
+
+theorem foldSteps_snd (k start : Nat) :
+    (foldSteps k start).2 + sumDigits (start / 10 ^ k) = sumDigits start := by
+  induction k generalizing start with
+  | zero =>
+    simp [foldSteps_zero, Nat.div_one]
+  | succ k ih =>
+    have hq : (foldSteps k start).1 = start / 10 ^ k := foldSteps_fst k start
+    have hdiv : start / 10 ^ k / 10 = start / 10 ^ (k + 1) := by
+      rw [Nat.div_div_eq_div_mul, Nat.pow_succ, Nat.mul_comm]
     calc
-      k + 1 ≤ 10 ^ k + 1 := Nat.add_le_add_right ih 1
-      _ ≤ 10 ^ k + 10 ^ k := by omega
-      _ = 2 * 10 ^ k := by omega
-      _ ≤ 10 * 10 ^ k := by omega
-      _ = 10 ^ (k + 1) := by rw [Nat.pow_succ, Nat.mul_comm]
+      (foldSteps (k + 1) start).2 + sumDigits (start / 10 ^ (k + 1))
+          = ((foldSteps k start).2 + (foldSteps k start).1 % 10) +
+              sumDigits (start / 10 ^ (k + 1)) := by
+            rw [foldSteps_succ]
+      _ = (foldSteps k start).2 +
+            ((start / 10 ^ k) % 10 + sumDigits (start / 10 ^ (k + 1))) := by
+            rw [hq, Nat.add_assoc]
+      _ = (foldSteps k start).2 + sumDigits (start / 10 ^ k) := by
+            rw [← hdiv, ← sumDigits_rec]
+      _ = sumDigits start := ih start
 
 theorem nat_lt_ten_pow_succ (n : Nat) : n < 10 ^ (n + 1) := by
-  have h : n + 1 ≤ 10 ^ (n + 1) := ten_pow_ge_self (n + 1)
-  omega
+  induction n with
+  | zero => decide
+  | succ n ih =>
+    have hone : 1 ≤ 10 ^ (n + 1) := Nat.one_le_pow (n + 1) 10 (by decide)
+    have h1 : n + 1 < 10 ^ (n + 1) + 1 := Nat.add_lt_add_right ih 1
+    have h2 : 10 ^ (n + 1) + 1 ≤ 10 ^ (n + 1) + 10 ^ (n + 1) :=
+      Nat.add_le_add_left hone _
+    have h3 : 10 ^ (n + 1) + 10 ^ (n + 1) = 2 * 10 ^ (n + 1) := by
+      rw [Nat.two_mul]
+    have h4 : 2 * 10 ^ (n + 1) ≤ 10 * 10 ^ (n + 1) :=
+      Nat.mul_le_mul_right _ (by decide)
+    have h5 : 10 * 10 ^ (n + 1) = 10 ^ (n + 2) := by
+      rw [Nat.mul_comm, ← Nat.pow_succ]
+    exact lt_of_lt_of_le h1 (le_trans h2 (le_trans (le_of_eq h3) (le_trans h4 (le_of_eq h5))))
 
-/-- After `k` digit steps, with `m < 10^k`, the accumulator holds `total + sumDigits m`. -/
-theorem iterate_spec (k m total : Nat) (hk : m < 10 ^ k) :
-    (step^[k]) (m, total) = (m / 10 ^ k, total + sumDigits m) := by
-  induction k generalizing m total with
-  | zero =>
-    have hm : m = 0 := by
-      simpa [Nat.pow_zero] using hk
-    simp [hm, sumDigits_zero, Function.iterate_zero]
-  | succ k ih =>
-    rw [Function.iterate_succ_apply]
-    have hm : m / 10 < 10 ^ k := by
-      have hmul : m < 10 * 10 ^ k := by
-        have hk' : m < 10 ^ k * 10 := by simpa [Nat.pow_succ] using hk
-        rwa [Nat.mul_comm] at hk'
-      exact Nat.div_lt_of_lt_mul hmul
-    simp only [step]
-    rw [ih (m / 10) (total + m % 10) hm]
-    apply Prod.ext
-    · simp [Nat.div_div_eq_div_mul, Nat.pow_succ, Nat.mul_comm]
-    · rw [sumDigits_eq_mod_add m, Nat.add_assoc]
+theorem sumDigitsImp_eq_fold (n : Nat) : sumDigitsImp n = (foldSteps (n + 1) n).2 := by
+  unfold sumDigitsImp foldSteps
+  simp only [Id.run_bind, Id.run_pure, pure_bind]
+  have hbody :
+      (fun (_x : Nat) (r : Nat × Nat) =>
+        pure (ForInStep.yield (r.1 / 10, r.2 + r.1 % 10))) =
+      (fun (_x : Nat) (r : Nat × Nat) =>
+        ForInStep.yield <$> (pure (r.1 / 10, r.2 + r.1 % 10) : Id (Nat × Nat))) := by
+    funext _ r
+    rfl
+  rw [hbody]
+  exact congrArg Prod.snd
+    (List.idRun_forIn_yield_eq_foldl (List.range (n + 1))
+      (fun (_x : Nat) (r : Nat × Nat) => pure (r.1 / 10, r.2 + r.1 % 10)) (n, 0))
 
-theorem sumDigitsImp_eq_mfoldl (n : Nat) :
-    sumDigitsImp n =
-      (List.foldl (fun b (_ : Nat) => mstep b) ⟨n, 0⟩ (List.range (n + 1))).snd := by
-  simp [sumDigitsImp, mstep]
+theorem sumDigitsImp_eq_sumDigits (n : Nat) : sumDigitsImp n = sumDigits n := by
+  rw [sumDigitsImp_eq_fold]
+  have hdiv : n / 10 ^ (n + 1) = 0 := Nat.div_eq_of_lt (nat_lt_ten_pow_succ n)
+  have hs := foldSteps_snd (n + 1) n
+  rw [hdiv, sumDigits_zero, Nat.add_zero] at hs
+  exact hs
 
-def toProd (p : MProd Nat Nat) : Nat × Nat := (p.fst, p.snd)
+abbrev equiv_prop (x : Input) : Prop := prog x = progImp x
 
-theorem toProd_mstep (p : MProd Nat Nat) : toProd (mstep p) = step (toProd p) := by
-  simp [toProd, mstep, step]
+theorem equiv_thm (x : Input) : equiv_prop x := by
+  unfold equiv_prop
+  cases x with
+  | ofFloat _ => rfl
+  | ofNonInt => rfl
+  | ofInt n =>
+      by_cases h : 0 ≤ n
+      · simp [prog, progImp, h, sumDigitsImp_eq_sumDigits]
+      · simp [prog, progImp, h]
 
-theorem mfoldl_toProd (k m total : Nat) :
-    toProd (List.foldl (fun b (_ : Nat) => mstep b) ⟨m, total⟩ (List.range k))
-      = (step^[k]) (m, total) := by
-  induction k generalizing m total with
-  | zero => simp [Function.iterate_zero, toProd]
-  | succ k ih =>
-    rw [List.range_succ, List.foldl_append]
-    simp only [List.foldl_cons, List.foldl_nil]
-    rw [toProd_mstep, ih]
-    exact (Function.iterate_succ_apply' step k (m, total)).symm
+-- PBT for the equivalence property.
+example : (List.range 40).all (fun n => sumDigits n == sumDigitsImp n) = true := by native_decide
 
-/-- The imperative loop computes the same digit sum as the functional program. -/
-theorem sumDigitsImp_eq (n : Nat) : sumDigitsImp n = sumDigits n := by
-  rw [sumDigitsImp_eq_mfoldl]
-  have h := mfoldl_toProd (n + 1) n 0
-  have h2 := iterate_spec (n + 1) n 0 (nat_lt_ten_pow_succ n)
-  have hsnd :
-      (List.foldl (fun b (_ : Nat) => mstep b) ⟨n, 0⟩ (List.range (n + 1))).snd
-        = ((step^[n + 1]) (n, 0)).2 := by
-    have := congrArg Prod.snd h
-    simpa [toProd] using this
-  rw [hsnd, h2]
-  simp
+#eval Plausible.Testable.check (∀ n : Nat, sumDigits n = sumDigitsImp n)
 
-/-- Functional and imperative implementations agree on every Python input. -/
-theorem equivalence_thm (v : PyVal) : prog v = progImp v := by
-  cases v with
-  | int n =>
-    by_cases h : 0 ≤ n
-    · simp [prog, progImp, h, sumDigitsImp_eq]
-    · simp [prog, progImp, h]
-  | float x =>
-    simp [prog, progImp]
+example : (List.range 15).all (fun n =>
+    prog (.ofInt (n : Int)) == progImp (.ofInt (n : Int)) &&
+    prog (.ofInt (-(n : Int) - 1)) == progImp (.ofInt (-(n : Int) - 1))) = true := by
+  native_decide
 
-end MySumDigits
+end «20_MySumDigits»

@@ -1,33 +1,38 @@
 import Mathlib
 
 /-!
-# HTML Escape (`20_html_escape`)
+# HTML-Safe String Escaping (`20_html_escape`)
 
-Lean 4 formalization of Python's `html.escape` function.
+Lean 4 formalization of Python's `html.escape(s, quote=True)` function.
 
-Replaces special characters `"&"`, `"<"`, and `">"` with HTML-safe sequences
-(`"&amp;"`, `"&lt;"`, `"&gt;"`). If the optional flag `quote` is `true` (the default),
-both double quote (`"`) and single quote (`'`) characters are also translated
-(`"&quot;"` and `"&#x27;"`).
+Given an input string `s` and an optional boolean flag `quote` (defaulting to `true`),
+`escape` replaces the special HTML characters `'&'`, `'<'`, and `'>'` with their
+corresponding HTML-safe entity sequences `"&amp;"`, `"&lt;"`, and `"&gt;"`.
+When `quote` is `true`, double quotes (`'"'`) and single quotes (`'\''`) are also
+translated to `"&quot;"` and `"&#x27;"` respectively.
+
+Crucially, `'&'` is replaced first so that the ampersands introduced by subsequent
+replacements are never double-escaped. We formalize both the sequential 5-step
+replacement implementation from Python and the single-pass/imperative implementations,
+and prove their exact equivalence and comprehensive safety/structural properties.
 -/
 
 namespace «20_html_escape»
 
 /-! ## 4. Implementation (Functional Definition) -/
 
-/-- Pre-condition check corresponding to Python's `pre_escape`. -/
-def pre_escape (_s : String) : Bool :=
-  true
+/-- Pre-condition check corresponding to Python's `pre_escape(s)`. -/
+def pre_escape (_s : String) : Bool := true
 
-/-- Replace every occurrence of a character `target` in `s` with `replacement`. -/
+/-- Replace every occurrence of character `target` in `s` with `replacement`. -/
 def replaceChar (s : String) (target : Char) (replacement : String) : String :=
-  String.mk (s.data.flatMap (fun c => if c = target then replacement.data else [c]))
+  String.mk (s.data.flatMap (fun c => if c == target then replacement.data else [c]))
 
 /--
 Replace special characters `"&"`, `"<"` and `">"` with HTML-safe sequences.
-If the optional flag `quote` is `true` (the default), double quote (`"`) and
-single quote (`'`) characters are also translated.
-Order matters: `&` must be replaced first to avoid double-escaping.
+If the optional flag `quote` is `true` (the default), both double quote (`"\""`)
+and single quote (`"'"`) characters are also translated.
+Order matters: `"&"` is replaced first to avoid double-escaping.
 -/
 def escape (s : String) (quote : Bool := true) : String :=
   let s := replaceChar s '&' "&amp;"
@@ -35,37 +40,33 @@ def escape (s : String) (quote : Bool := true) : String :=
   let s := replaceChar s '>' "&gt;"
   if quote then
     let s := replaceChar s '"' "&quot;"
-    let s := replaceChar s '\'' "&#x27;"
-    s
+    replaceChar s '\'' "&#x27;"
   else
     s
 
-/-- Main benchmark entry point corresponding to Python's `benchmark_escape`. -/
+/-- Main entry point matching Python's `benchmark_escape(s, quote=True)`. -/
 def benchmark_escape (s : String) (quote : Bool := true) : String :=
   escape s quote
 
-/-- Single-character HTML escape specification. -/
-def escapeChar (c : Char) (quote : Bool := true) : String :=
-  if c = '&' then "&amp;"
-  else if c = '<' then "&lt;"
-  else if c = '>' then "&gt;"
-  else if quote && c = '"' then "&quot;"
-  else if quote && c = '\'' then "&#x27;"
-  else String.mk [c]
+/-- Single-character HTML escape sequence as a `List Char`. -/
+def escapeChar (c : Char) (quote : Bool := true) : List Char :=
+  if c == '&' then "&amp;".data
+  else if c == '<' then "&lt;".data
+  else if c == '>' then "&gt;".data
+  else if quote && c == '"' then "&quot;".data
+  else if quote && c == '\'' then "&#x27;".data
+  else [c]
 
-/-- Predicate indicating whether a character is left untouched by `escape`. -/
-def isSafeChar (c : Char) (quote : Bool := true) : Bool :=
-  c != '&' && c != '<' && c != '>' && (!quote || (c != '"' && c != '\''))
+/-- Predicate identifying whether a character `c` is escaped under flag `quote`. -/
+def isSpecialChar (c : Char) (quote : Bool := true) : Bool :=
+  c == '&' || c == '<' || c == '>' || (quote && (c == '"' || c == '\''))
 
 /-- Executable test suite matching Python's `check` function. -/
 def check (escape_candidate : String → Bool → String) : Bool :=
-  -- 1. Quote=True (Default)
-  (escape_candidate "<b>\"&'</b>" true == "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;") &&
-  (escape_candidate "" true == "") &&
-  -- 2. Quote=False
-  (escape_candidate "<b>\"&'</b>" false == "&lt;b&gt;\"&amp;'&lt;/b&gt;") &&
-  -- 3. Order check
-  (escape_candidate "&<" true == "&amp;&lt;")
+  escape_candidate "<b>\"&'</b>" true == "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;" &&
+  escape_candidate "" true == "" &&
+  escape_candidate "<b>\"&'</b>" false == "&lt;b&gt;\"&amp;'&lt;/b&gt;" &&
+  escape_candidate "&<" true == "&amp;&lt;"
 
 /-! ## 5. Unit Tests -/
 
@@ -73,20 +74,18 @@ def check (escape_candidate : String → Bool → String) : Bool :=
 example : escape "<b>\"&'</b>" = "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;" := by native_decide
 example : escape "" = "" := by native_decide
 
--- 2. Quote=False
+-- 2. Quote=False (" and ' remain untouched)
 example : escape "<b>\"&'</b>" false = "&lt;b&gt;\"&amp;'&lt;/b&gt;" := by native_decide
+example : escape "" false = "" := by native_decide
 
--- 3. Order check
+-- 3. Order check (& must be first to avoid double-escaping)
 example : escape "&<" = "&amp;&lt;" := by native_decide
+example : escape "&lt;" = "&amp;lt;" := by native_decide
+example : escape "<>\"'&" true = "&lt;&gt;&quot;&#x27;&amp;" := by native_decide
+example : escape "<>\"'&" false = "&lt;&gt;\"'&amp;" := by native_decide
+example : escape "hello world" true = "hello world" := by native_decide
 
--- 4. Additional unit tests
-example : benchmark_escape "<b>\"&'</b>" = "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;" := by native_decide
-example : benchmark_escape "" = "" := by native_decide
-example : benchmark_escape "<b>\"&'</b>" false = "&lt;b&gt;\"&amp;'&lt;/b&gt;" := by native_decide
-example : benchmark_escape "&<" = "&amp;&lt;" := by native_decide
-example : escape "hello world" = "hello world" := by native_decide
-example : escape "hello world" false = "hello world" := by native_decide
-example : check (fun s q => escape s q) = true := by native_decide
+-- 4. Full benchmark check suite
 example : check (fun s q => benchmark_escape s q) = true := by native_decide
 
 #eval escape "<b>\"&'</b>"
@@ -97,609 +96,709 @@ example : check (fun s q => benchmark_escape s q) = true := by native_decide
 
 /-! ## 6. Pre-condition Predicate -/
 
-/--
-Pre-condition for `escape`. In Python, `pre_escape(s)` checks `isinstance(s, str)`,
-which holds for all `s : String`.
--/
+/-- Pre-condition for `escape`: holds for all valid `String` and `Bool` inputs. -/
 def Pre (s : String) (_quote : Bool := true) : Prop :=
   pre_escape s = true
 
-theorem pre_trivial (s : String) (quote : Bool := true) : Pre s quote := by
-  rfl
-
 /-! ## 7. Property Propositions and Theorems -/
 
-/--
-Property 1 (Single-pass character specification):
-Sequential replacement of `&`, `<`, `>`, and (optionally) `"` and `'` is equivalent
-to a single-pass `flatMap` applying `escapeChar` to each character.
--/
-def char_spec_prop (s : String) (quote : Bool := true) : Prop :=
-  (escape s quote).data = s.data.flatMap (fun c => (escapeChar c quote).data)
+/-! ### Helper Lemmas on `String` and `escapeChar` -/
 
-theorem char_spec_thm (s : String) (quote : Bool := true) : char_spec_prop s quote := by
-  unfold char_spec_prop
+@[simp]
+lemma string_length_eq_data_length (s : String) : s.length = s.data.length := by
+  cases s; rfl
+
+@[simp]
+lemma escape_data (s : String) (quote : Bool) :
+    (escape s quote).data = s.data.flatMap (fun c => escapeChar c quote) := by
+  cases quote
+  · simp only [escape, replaceChar, Bool.false_eq_true, ↓reduceIte, List.flatMap_assoc]
+    congr 1; funext c
+    by_cases h1 : c = '&' <;> simp [h1, escapeChar]
+    by_cases h2 : c = '<' <;> simp [h2]
+  · simp only [escape, replaceChar, ↓reduceIte, List.flatMap_assoc]
+    congr 1; funext c
+    by_cases h1 : c = '&' <;> simp [h1, escapeChar]
+    by_cases h2 : c = '<' <;> simp [h2]
+    by_cases h3 : c = '>' <;> simp [h3]
+    by_cases h4 : c = '"' <;> simp [h4]
+
+lemma escapeChar_ne_nil (c : Char) (quote : Bool) : escapeChar c quote ≠ [] := by
+  unfold escapeChar
+  by_cases h1 : c = '&' <;> simp [h1]
+  by_cases h2 : c = '<' <;> simp [h2]
+  by_cases h3 : c = '>' <;> simp [h3]
+  cases quote <;> simp
+  by_cases h4 : c = '"' <;> simp [h4]
+  by_cases h5 : c = '\'' <;> simp [h5]
+
+lemma escapeChar_length (c : Char) (quote : Bool) :
+    (escapeChar c quote).length =
+      1 + 4 * (if c == '&' then 1 else 0) + 3 * (if c == '<' then 1 else 0) +
+        3 * (if c == '>' then 1 else 0) +
+        (if quote then 5 * (if c == '"' then 1 else 0) + 5 * (if c == '\'' then 1 else 0) else 0) := by
+  unfold escapeChar
+  by_cases h1 : c = '&' <;> simp [h1]
+  by_cases h2 : c = '<' <;> simp [h2]
+  by_cases h3 : c = '>' <;> simp [h3]
+  cases quote <;> simp
+  by_cases h4 : c = '"' <;> simp [h4]
+  by_cases h5 : c = '\'' <;> simp [h5]
+
+lemma escapeChar_length_bounds (c : Char) (quote : Bool) :
+    1 ≤ (escapeChar c quote).length ∧
+    (escapeChar c quote).length ≤ (if quote then 6 else 5) := by
+  have h := escapeChar_length c quote
   cases quote <;>
-  · simp only [escape, replaceChar, escapeChar, List.flatMap_assoc]
-    apply congrFun (congrArg List.flatMap _)
-    funext c
-    by_cases h1 : c = '&'; · subst h1; decide
-    by_cases h2 : c = '<'; · subst h2; decide
-    by_cases h3 : c = '>'; · subst h3; decide
-    by_cases h4 : c = '"'; · subst h4; decide
-    by_cases h5 : c = '\''; · subst h5; decide
-    simp [h1, h2, h3, h4, h5]
+  by_cases h1 : c = '&' <;>
+  by_cases h2 : c = '<' <;>
+  by_cases h3 : c = '>' <;>
+  by_cases h4 : c = '"' <;>
+  by_cases h5 : c = '\'' <;>
+  simp_all
+
+lemma escapeChar_count_amp (c : Char) (quote : Bool) :
+    (escapeChar c quote).count '&' =
+      (if c == '&' then 1 else 0) + (if c == '<' then 1 else 0) + (if c == '>' then 1 else 0) +
+        (if quote then (if c == '"' then 1 else 0) + (if c == '\'' then 1 else 0) else 0) := by
+  unfold escapeChar
+  by_cases h1 : c = '&' <;> simp [h1]
+  by_cases h2 : c = '<' <;> simp [h2]
+  by_cases h3 : c = '>' <;> simp [h3]
+  cases quote
+  · simp [h1]
+  · by_cases h4 : c = '"' <;> simp [h4]
+    by_cases h5 : c = '\'' <;> simp [h1, h5]
+
+lemma escapeChar_count_semi (c : Char) (quote : Bool) :
+    (escapeChar c quote).count ';' =
+      (if c == ';' then 1 else 0) + (if c == '&' then 1 else 0) + (if c == '<' then 1 else 0) +
+        (if c == '>' then 1 else 0) +
+        (if quote then (if c == '"' then 1 else 0) + (if c == '\'' then 1 else 0) else 0) := by
+  unfold escapeChar
+  by_cases h1 : c = '&' <;> simp [h1]
+  by_cases h2 : c = '<' <;> simp [h2]
+  by_cases h3 : c = '>' <;> simp [h3]
+  cases quote <;> simp
+  · by_cases h6 : c = ';' <;> simp [h6]
+  · by_cases h4 : c = '"' <;> simp [h4]
+    by_cases h5 : c = '\'' <;> simp [h5]
+    by_cases h6 : c = ';' <;> simp [h6]
+
+lemma escapeChar_count_dquote_false (c : Char) :
+    (escapeChar c false).count '"' = if c == '"' then 1 else 0 := by
+  unfold escapeChar
+  by_cases h1 : c = '&' <;> simp [h1]
+  by_cases h2 : c = '<' <;> simp [h2]
+  by_cases h3 : c = '>' <;> simp [h3]
+  by_cases h4 : c = '"' <;> simp [h4]
+
+lemma escapeChar_count_squote_false (c : Char) :
+    (escapeChar c false).count '\'' = if c == '\'' then 1 else 0 := by
+  unfold escapeChar
+  by_cases h1 : c = '&' <;> simp [h1]
+  by_cases h2 : c = '<' <;> simp [h2]
+  by_cases h3 : c = '>' <;> simp [h3]
+  by_cases h4 : c = '\'' <;> simp [h4]
+
+lemma escapeChar_eq_singleton_of_not_special (c : Char) (quote : Bool)
+    (h : isSpecialChar c quote = false) :
+    escapeChar c quote = [c] := by
+  unfold escapeChar isSpecialChar at *
+  by_cases h1 : c = '&' <;> simp_all
+  by_cases h2 : c = '<' <;> simp_all
+  by_cases h3 : c = '>' <;> simp_all
+  cases quote <;> simp_all
+
+lemma escapeChar_length_gt_one_of_special (c : Char) (quote : Bool)
+    (h : isSpecialChar c quote = true) :
+    1 < (escapeChar c quote).length := by
+  unfold escapeChar isSpecialChar at *
+  by_cases h1 : c = '&' <;> simp_all
+  by_cases h2 : c = '<' <;> simp_all
+  by_cases h3 : c = '>' <;> simp_all
+  cases quote <;> simp_all
+  by_cases h4 : c = '"' <;> simp_all
+
+lemma escapeChar_append_inj (quote : Bool) (c₁ c₂ : Char) (l₁ l₂ : List Char)
+    (h : escapeChar c₁ quote ++ l₁ = escapeChar c₂ quote ++ l₂) :
+    c₁ = c₂ ∧ l₁ = l₂ := by
+  unfold escapeChar at h
+  split_ifs at h <;> simp_all <;> exact absurd h.1.symm ‹_›
+
+lemma flatMap_escapeChar_inj (quote : Bool) :
+    ∀ (l₁ l₂ : List Char),
+      l₁.flatMap (fun c => escapeChar c quote) = l₂.flatMap (fun c => escapeChar c quote) →
+      l₁ = l₂
+  | [], [], _ => rfl
+  | c :: cs, [], h => by
+    simp only [List.flatMap_cons, List.flatMap_nil, List.append_eq_nil_iff] at h
+    exact absurd h.1 (escapeChar_ne_nil c quote)
+  | [], c :: cs, h => by
+    simp only [List.flatMap_cons, List.flatMap_nil, List.nil_eq_append_iff] at h
+    exact absurd h.1 (escapeChar_ne_nil c quote)
+  | c₁ :: cs₁, c₂ :: cs₂, h => by
+    simp only [List.flatMap_cons] at h
+    obtain ⟨rfl, hrest⟩ := escapeChar_append_inj quote c₁ c₂ _ _ h
+    rw [flatMap_escapeChar_inj quote cs₁ cs₂ hrest]
+
+/-! ### Property 1: Single-Pass Character Mapping Equivalence (No Double-Escaping) -/
 
 /--
-Property 2 (Empty string preservation):
-Escaping the empty string returns the empty string.
+Sequential replacement in the order `&`, `<`, `>`, `"`, `'` is equivalent to
+single-pass character-by-character escaping via `escapeChar`.
 -/
+def single_pass_prop (s : String) (quote : Bool := true) : Prop :=
+  (escape s quote).data = s.data.flatMap (fun c => escapeChar c quote)
+
+instance (s : String) (quote : Bool) : Decidable (single_pass_prop s quote) :=
+  inferInstanceAs (Decidable (_ = _))
+
+theorem single_pass_thm (s : String) (quote : Bool) : single_pass_prop s quote :=
+  escape_data s quote
+
+/-! ### Property 2: Empty String Preservation -/
+
+/-- Escaping the empty string returns the empty string regardless of `quote`. -/
 def empty_prop (quote : Bool := true) : Prop :=
   escape "" quote = ""
 
-theorem empty_thm (quote : Bool := true) : empty_prop quote := by
-  unfold empty_prop
-  apply String.ext
-  rw [char_spec_thm "" quote]
-  rfl
+instance (quote : Bool) : Decidable (empty_prop quote) :=
+  inferInstanceAs (Decidable (_ = _))
 
-/--
-Property 3 (Concatenation homomorphism):
-Escaping the concatenation of two strings equals the concatenation of their escaped results.
--/
+theorem empty_thm (quote : Bool) : empty_prop quote := by
+  unfold empty_prop
+  ext : 1
+  simp
+
+/-! ### Property 3: Concatenation Homomorphism -/
+
+/-- `escape` distributes over string concatenation (`++`). -/
 def append_prop (s₁ s₂ : String) (quote : Bool := true) : Prop :=
   escape (s₁ ++ s₂) quote = escape s₁ quote ++ escape s₂ quote
 
-theorem append_thm (s₁ s₂ : String) (quote : Bool := true) : append_prop s₁ s₂ quote := by
-  unfold append_prop
-  apply String.ext
-  rw [String.data_append, char_spec_thm (s₁ ++ s₂) quote, char_spec_thm s₁ quote,
-    char_spec_thm s₂ quote, String.data_append, List.flatMap_append]
+instance (s₁ s₂ : String) (quote : Bool) : Decidable (append_prop s₁ s₂ quote) :=
+  inferInstanceAs (Decidable (_ = _))
 
-/--
-Property 4 (No raw angle brackets in output):
-The escaped string never contains `'<'` or `'>'`.
--/
+theorem append_thm (s₁ s₂ : String) (quote : Bool) : append_prop s₁ s₂ quote := by
+  unfold append_prop
+  ext : 1
+  simp [String.data_append]
+
+/-! ### Property 4: Exact Translation of Special Characters -/
+
+/-- Each HTML special character is mapped to its exact entity specification. -/
+def special_chars_prop : Prop :=
+  escape "&" true = "&amp;" ∧
+  escape "&" false = "&amp;" ∧
+  escape "<" true = "&lt;" ∧
+  escape "<" false = "&lt;" ∧
+  escape ">" true = "&gt;" ∧
+  escape ">" false = "&gt;" ∧
+  escape "\"" true = "&quot;" ∧
+  escape "\"" false = "\"" ∧
+  escape "'" true = "&#x27;" ∧
+  escape "'" false = "'"
+
+instance : Decidable special_chars_prop :=
+  inferInstanceAs (Decidable (_ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _))
+
+theorem special_chars_thm : special_chars_prop := by
+  unfold special_chars_prop
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;>
+  · ext : 1; simp [escapeChar]
+
+/-! ### Property 5: Absence of Raw Angle Brackets in Output -/
+
+/-- The escaped string never contains raw `'<'` or `'>'` characters. -/
 def no_angle_brackets_prop (s : String) (quote : Bool := true) : Prop :=
   '<' ∉ (escape s quote).data ∧ '>' ∉ (escape s quote).data
 
-theorem no_angle_brackets_thm (s : String) (quote : Bool := true) :
+instance (s : String) (quote : Bool) : Decidable (no_angle_brackets_prop s quote) :=
+  inferInstanceAs (Decidable (_ ∧ _))
+
+theorem no_angle_brackets_thm (s : String) (quote : Bool) :
     no_angle_brackets_prop s quote := by
   unfold no_angle_brackets_prop
-  rw [char_spec_thm s quote]
-  constructor <;> intro h <;> rw [List.mem_flatMap] at h <;> rcases h with ⟨c, _, hc⟩
-  · cases quote <;>
-    · by_cases h1 : c = '&'; · subst h1; revert hc; decide
-      by_cases h2 : c = '<'; · subst h2; revert hc; decide
-      by_cases h3 : c = '>'; · subst h3; revert hc; decide
-      by_cases h4 : c = '"'; · subst h4; revert hc; decide
-      by_cases h5 : c = '\''; · subst h5; revert hc; decide
-      simp [escapeChar, h1, h2, h3, h4, h5, eq_comm] at hc
-  · cases quote <;>
-    · by_cases h1 : c = '&'; · subst h1; revert hc; decide
-      by_cases h2 : c = '<'; · subst h2; revert hc; decide
-      by_cases h3 : c = '>'; · subst h3; revert hc; decide
-      by_cases h4 : c = '"'; · subst h4; revert hc; decide
-      by_cases h5 : c = '\''; · subst h5; revert hc; decide
-      simp [escapeChar, h1, h2, h3, h4, h5, eq_comm] at hc
+  rw [escape_data]
+  constructor <;>
+  · intro h
+    rw [List.mem_flatMap] at h
+    rcases h with ⟨c, _, hc⟩
+    unfold escapeChar at hc
+    (split_ifs at hc <;> simp_all); exact absurd hc.symm ‹_›
 
-/--
-Property 5 (No raw quotes when `quote = true`):
-When `quote = true`, the escaped string never contains `'"'` or `'\''`.
--/
+/-! ### Property 6: Absence of Raw Quotes When `quote = true` -/
+
+/-- When `quote = true`, the escaped string never contains raw `'"'` or `'\''` characters. -/
 def no_quotes_when_quote_true_prop (s : String) : Prop :=
   '"' ∉ (escape s true).data ∧ '\'' ∉ (escape s true).data
+
+instance (s : String) : Decidable (no_quotes_when_quote_true_prop s) :=
+  inferInstanceAs (Decidable (_ ∧ _))
 
 theorem no_quotes_when_quote_true_thm (s : String) :
     no_quotes_when_quote_true_prop s := by
   unfold no_quotes_when_quote_true_prop
-  rw [char_spec_thm s true]
-  constructor <;> intro h <;> rw [List.mem_flatMap] at h <;> rcases h with ⟨c, _, hc⟩
-  · by_cases h1 : c = '&'; · subst h1; revert hc; decide
-    by_cases h2 : c = '<'; · subst h2; revert hc; decide
-    by_cases h3 : c = '>'; · subst h3; revert hc; decide
-    by_cases h4 : c = '"'; · subst h4; revert hc; decide
-    by_cases h5 : c = '\''; · subst h5; revert hc; decide
-    simp [escapeChar, h1, h2, h3, h4, h5, eq_comm] at hc
-  · by_cases h1 : c = '&'; · subst h1; revert hc; decide
-    by_cases h2 : c = '<'; · subst h2; revert hc; decide
-    by_cases h3 : c = '>'; · subst h3; revert hc; decide
-    by_cases h4 : c = '"'; · subst h4; revert hc; decide
-    by_cases h5 : c = '\''; · subst h5; revert hc; decide
-    simp [escapeChar, h1, h2, h3, h4, h5, eq_comm] at hc
+  rw [escape_data]
+  constructor <;>
+  · intro h
+    rw [List.mem_flatMap] at h
+    rcases h with ⟨c, _, hc⟩
+    unfold escapeChar at hc
+    (split_ifs at hc <;> simp_all); exact absurd hc.symm ‹_›
 
-/--
-Property 6 (Quotes preserved when `quote = false`):
-When `quote = false`, double quotes and single quotes appear in the output
-if and only if they appear in the input.
--/
+/-! ### Property 7: Preservation of Quotes When `quote = false` -/
+
+/-- When `quote = false`, double quotes and single quotes are preserved with identical counts. -/
 def quotes_preserved_when_quote_false_prop (s : String) : Prop :=
-  ('"' ∈ (escape s false).data ↔ '"' ∈ s.data) ∧
-  ('\'' ∈ (escape s false).data ↔ '\'' ∈ s.data)
+  (escape s false).data.count '"' = s.data.count '"' ∧
+  (escape s false).data.count '\'' = s.data.count '\''
+
+instance (s : String) : Decidable (quotes_preserved_when_quote_false_prop s) :=
+  inferInstanceAs (Decidable (_ ∧ _))
 
 theorem quotes_preserved_when_quote_false_thm (s : String) :
     quotes_preserved_when_quote_false_prop s := by
   unfold quotes_preserved_when_quote_false_prop
-  rw [char_spec_thm s false]
-  constructor
-  · rw [List.mem_flatMap]
-    constructor
-    · rintro ⟨c, hcs, hc⟩
-      by_cases h1 : c = '&'; · subst h1; exact False.elim (by revert hc; decide)
-      by_cases h2 : c = '<'; · subst h2; exact False.elim (by revert hc; decide)
-      by_cases h3 : c = '>'; · subst h3; exact False.elim (by revert hc; decide)
-      simp [escapeChar, h1, h2, h3] at hc
-      subst hc; exact hcs
-    · intro h
-      exact ⟨'"', h, by decide⟩
-  · rw [List.mem_flatMap]
-    constructor
-    · rintro ⟨c, hcs, hc⟩
-      by_cases h1 : c = '&'; · subst h1; exact False.elim (by revert hc; decide)
-      by_cases h2 : c = '<'; · subst h2; exact False.elim (by revert hc; decide)
-      by_cases h3 : c = '>'; · subst h3; exact False.elim (by revert hc; decide)
-      simp [escapeChar, h1, h2, h3] at hc
-      subst hc; exact hcs
-    · intro h
-      exact ⟨'\'', h, by decide⟩
-
-/--
-Property 7 (Quote mode dispatch):
-In `quote = true` mode, quotes are removed; in `quote = false` mode, quotes are preserved.
--/
-def quote_dispatch_prop (s : String) (quote : Bool := true) : Prop :=
-  (quote = true → no_quotes_when_quote_true_prop s) ∧
-  (quote = false → quotes_preserved_when_quote_false_prop s)
-
-theorem quote_dispatch_thm (s : String) (quote : Bool := true) :
-    quote_dispatch_prop s quote := by
-  exact ⟨fun _ => no_quotes_when_quote_true_thm s, fun _ => quotes_preserved_when_quote_false_thm s⟩
-
-/-- Helper lemma: each escaped character has length between 1 and 6. -/
-theorem escapeChar_length_bounds (c : Char) (quote : Bool) :
-    1 ≤ (escapeChar c quote).data.length ∧ (escapeChar c quote).data.length ≤ 6 := by
-  cases quote <;>
-  · by_cases h1 : c = '&'; · subst h1; decide
-    by_cases h2 : c = '<'; · subst h2; decide
-    by_cases h3 : c = '>'; · subst h3; decide
-    by_cases h4 : c = '"'; · subst h4; decide
-    by_cases h5 : c = '\''; · subst h5; decide
-    simp [escapeChar, h1, h2, h3, h4, h5]
-
-/--
-Property 8 (Length bounds):
-Escaping never shrinks a string and expands its length by at most a factor of 6.
--/
-def length_bounds_prop (s : String) (quote : Bool := true) : Prop :=
-  s.length ≤ (escape s quote).length ∧ (escape s quote).length ≤ 6 * s.length
-
-theorem length_bounds_thm (s : String) (quote : Bool := true) :
-    length_bounds_prop s quote := by
-  change s.data.length ≤ (escape s quote).data.length ∧ (escape s quote).data.length ≤ 6 * s.data.length
-  rw [char_spec_thm s quote]
+  rw [escape_data]
   induction s.data with
   | nil => simp
   | cons c cs ih =>
-    simp only [List.flatMap_cons, List.length_append, List.length_cons]
-    have hc := escapeChar_length_bounds c quote
+    simp only [List.flatMap_cons, List.count_append, List.count_cons,
+      escapeChar_count_dquote_false, escapeChar_count_squote_false, ih.1, ih.2]
     omega
 
-/-- Helper lemma: exact length of `escapeChar c quote`. -/
-theorem escapeChar_exact_length (c : Char) (quote : Bool) :
-    (escapeChar c quote).data.length =
-      1 + 4 * (if c == '&' then 1 else 0) + 3 * (if c == '<' then 1 else 0) +
-      3 * (if c == '>' then 1 else 0) +
-      (if quote then 5 * (if c == '"' then 1 else 0) + 5 * (if c == '\'' then 1 else 0) else 0) := by
-  cases quote <;>
-  · by_cases h1 : c = '&'; · subst h1; decide
-    by_cases h2 : c = '<'; · subst h2; decide
-    by_cases h3 : c = '>'; · subst h3; decide
-    by_cases h4 : c = '"'; · subst h4; decide
-    by_cases h5 : c = '\''; · subst h5; decide
-    simp [escapeChar, h1, h2, h3, h4, h5]
+/-! ### Property 8: Exact Output Length Formula -/
 
 /--
-Property 9 (Exact output length formula):
-Each `'&'` adds 4 characters, each `'<'` or `'>'` adds 3 characters, and when `quote = true`,
-each `'"'` or `'\''` adds 5 characters (confirming no double-escaping occurs).
+The length of `escape s quote` equals `s.length` plus the exact expansion overhead of
+each special character (`+4` per `'&'`, `+3` per `'<'` and `'>'`, and when `quote = true`,
+`+5` per `'"'` and `'\''`).
 -/
 def exact_length_prop (s : String) (quote : Bool := true) : Prop :=
   (escape s quote).length =
     s.length + 4 * s.data.count '&' + 3 * s.data.count '<' + 3 * s.data.count '>' +
-    (if quote then 5 * s.data.count '"' + 5 * s.data.count '\'' else 0)
+      (if quote then 5 * s.data.count '"' + 5 * s.data.count '\'' else 0)
 
-theorem exact_length_thm (s : String) (quote : Bool := true) :
-    exact_length_prop s quote := by
-  change (escape s quote).data.length =
-    s.data.length + 4 * s.data.count '&' + 3 * s.data.count '<' + 3 * s.data.count '>' +
-    (if quote then 5 * s.data.count '"' + 5 * s.data.count '\'' else 0)
-  rw [char_spec_thm s quote]
-  induction s.data with
-  | nil => cases quote <;> simp
-  | cons c cs ih =>
-    have hc := escapeChar_exact_length c quote
-    simp only [List.flatMap_cons, List.length_append, List.length_cons, List.count_cons, ih, hc]
-    cases quote <;> simp only [↓reduceIte, Bool.false_eq_true] <;> omega
+instance (s : String) (quote : Bool) : Decidable (exact_length_prop s quote) :=
+  inferInstanceAs (Decidable (_ = _))
 
-/-- Helper lemma: safe characters map to singleton `[c]`. -/
-theorem escapeChar_eq_singleton_of_safe {c : Char} {quote : Bool} (h : isSafeChar c quote = true) :
-    (escapeChar c quote).data = [c] := by
-  cases quote <;>
-  · by_cases h1 : c = '&'; · subst h1; revert h; decide
-    by_cases h2 : c = '<'; · subst h2; revert h; decide
-    by_cases h3 : c = '>'; · subst h3; revert h; decide
-    by_cases h4 : c = '"'; · subst h4; revert h; decide
-    by_cases h5 : c = '\''; · subst h5; revert h; decide
-    simp [escapeChar, h1, h2, h3, h4, h5]
-
-/-- Helper lemma: unsafe characters expand to length strictly greater than 1. -/
-theorem escapeChar_length_gt_one_of_unsafe {c : Char} {quote : Bool} (h : isSafeChar c quote = false) :
-    1 < (escapeChar c quote).data.length := by
-  cases quote <;>
-  · by_cases h1 : c = '&'; · subst h1; decide
-    by_cases h2 : c = '<'; · subst h2; decide
-    by_cases h3 : c = '>'; · subst h3; decide
-    by_cases h4 : c = '"'; · subst h4; revert h; decide
-    by_cases h5 : c = '\''; · subst h5; revert h; decide
-    simp [isSafeChar, h1, h2, h3, h4, h5] at h
-
-theorem safe_string_id (s : String) (quote : Bool)
-    (h : s.data.all (fun c => isSafeChar c quote) = true) :
-    escape s quote = s := by
-  apply String.ext
-  rw [char_spec_thm s quote]
-  revert h
-  induction s.data with
-  | nil =>
-    intro _
-    rfl
-  | cons c cs ih =>
-    intro h
-    simp only [List.all_cons, Bool.and_eq_true] at h
-    simp only [List.flatMap_cons]
-    rw [escapeChar_eq_singleton_of_safe h.1, List.singleton_append]
-    congr 1
-    exact ih h.2
-
-theorem strict_length_of_unsafe (s : String) (quote : Bool)
-    (h : s.data.all (fun c => isSafeChar c quote) = false) :
-    s.length < (escape s quote).length := by
-  change s.data.length < (escape s quote).data.length
-  rw [char_spec_thm s quote]
-  revert h
-  induction s.data with
-  | nil =>
-    intro h
-    simp at h
-  | cons c cs ih =>
-    intro h
-    simp only [List.all_cons, Bool.and_eq_false_iff] at h
-    simp only [List.flatMap_cons, List.length_append, List.length_cons]
-    rcases h with hc | hcs
-    · have h1 := escapeChar_length_gt_one_of_unsafe hc
-      have h2 : cs.length ≤ (cs.flatMap (fun c => (escapeChar c quote).data)).length := by
-        clear h1 hc ih
-        induction cs with
-        | nil => simp
-        | cons x xs ihx =>
-          simp only [List.flatMap_cons, List.length_append, List.length_cons]
-          have hx := (escapeChar_length_bounds x quote).1
-          omega
-      omega
-    · have h1 := (escapeChar_length_bounds c quote).1
-      have h2 := ih hcs
-      omega
-
-/--
-Property 10 (Fixed-point characterization):
-`escape s quote = s` if and only if every character in `s` is safe under `quote`.
--/
-def fixed_point_iff_safe_prop (s : String) (quote : Bool := true) : Prop :=
-  escape s quote = s ↔ s.data.all (fun c => isSafeChar c quote) = true
-
-theorem fixed_point_iff_safe_thm (s : String) (quote : Bool := true) :
-    fixed_point_iff_safe_prop s quote := by
-  unfold fixed_point_iff_safe_prop
-  constructor
-  · intro h
-    by_contra hns
-    simp only [Bool.not_eq_true] at hns
-    have hlt := strict_length_of_unsafe s quote hns
-    rw [h] at hlt
-    omega
-  · exact safe_string_id s quote
-
-/--
-Property 11 (Ampersand witness for escaped characters):
-Since every HTML entity starts with `'&'` and `'&'` itself is unsafe,
-`'&'` appears in `escape s quote` if and only if `s` contains at least one unsafe character.
--/
-def ampersand_iff_unsafe_prop (s : String) (quote : Bool := true) : Prop :=
-  '&' ∈ (escape s quote).data ↔ s.data.any (fun c => !isSafeChar c quote) = true
-
-theorem ampersand_iff_unsafe_thm (s : String) (quote : Bool := true) :
-    ampersand_iff_unsafe_prop s quote := by
-  unfold ampersand_iff_unsafe_prop
-  rw [char_spec_thm s quote, List.mem_flatMap, List.any_eq_true]
-  constructor
-  · rintro ⟨c, hcs, hc⟩
-    refine ⟨c, hcs, ?_⟩
-    cases quote <;>
-    · by_cases h1 : c = '&'; · subst h1; decide
-      by_cases h2 : c = '<'; · subst h2; decide
-      by_cases h3 : c = '>'; · subst h3; decide
-      by_cases h4 : c = '"'; · subst h4; revert hc; decide
-      by_cases h5 : c = '\''; · subst h5; revert hc; decide
-      simp [escapeChar, h1, h2, h3, h4, h5, eq_comm] at hc
-  · rintro ⟨c, hcs, hc⟩
-    refine ⟨c, hcs, ?_⟩
-    cases quote <;>
-    · by_cases h1 : c = '&'; · subst h1; decide
-      by_cases h2 : c = '<'; · subst h2; decide
-      by_cases h3 : c = '>'; · subst h3; decide
-      by_cases h4 : c = '"'; · subst h4; revert hc; decide
-      by_cases h5 : c = '\''; · subst h5; revert hc; decide
-      simp [isSafeChar, h1, h2, h3, h4, h5] at hc
-
-/-- Helper lemma: each escaped character has 1 ampersand iff unsafe, else 0. -/
-theorem escapeChar_count_amp (c : Char) (quote : Bool) :
-    (escapeChar c quote).data.count '&' = if !isSafeChar c quote then 1 else 0 := by
-  cases quote <;>
-  · by_cases h1 : c = '&'; · subst h1; decide
-    by_cases h2 : c = '<'; · subst h2; decide
-    by_cases h3 : c = '>'; · subst h3; decide
-    by_cases h4 : c = '"'; · subst h4; decide
-    by_cases h5 : c = '\''; · subst h5; decide
-    simp [escapeChar, isSafeChar, h1, h2, h3, h4, h5]
-
-/--
-Property 12 (Exact ampersand count / No double-escaping):
-The number of `'&'` characters in `escape s quote` equals the number of unsafe characters in `s`.
--/
-def ampersand_count_prop (s : String) (quote : Bool := true) : Prop :=
-  (escape s quote).data.count '&' = s.data.countP (fun c => !isSafeChar c quote)
-
-theorem ampersand_count_thm (s : String) (quote : Bool := true) :
-    ampersand_count_prop s quote := by
-  unfold ampersand_count_prop
-  rw [char_spec_thm s quote]
+theorem exact_length_thm (s : String) (quote : Bool) : exact_length_prop s quote := by
+  unfold exact_length_prop
+  simp only [string_length_eq_data_length, escape_data]
   induction s.data with
   | nil => simp
   | cons c cs ih =>
-    simp only [List.flatMap_cons, List.count_append, List.countP_cons, ih,
-      escapeChar_count_amp]
-    omega
+    simp only [List.flatMap_cons, List.length_append, List.length_cons, List.count_cons,
+      escapeChar_length, ih]
+    cases quote <;>
+    · simp only [↓reduceIte, Bool.false_eq_true]
+      omega
+
+/-! ### Property 9: Tight Length Bounds -/
 
 /--
-Property 13 (Relationship between `quote = true` and `quote = false`):
-Escaping with `quote = true` is equal to escaping with `quote = false` followed by
-replacing `"` and `'`.
+Escaping never decreases string length and increases it by at most a factor of `6`
+when `quote = true` (or `5` when `quote = false`).
 -/
-def quote_mode_relation_prop (s : String) : Prop :=
-  escape s true = replaceChar (replaceChar (escape s false) '"' "&quot;") '\'' "&#x27;"
+def length_bounds_prop (s : String) (quote : Bool := true) : Prop :=
+  s.length ≤ (escape s quote).length ∧
+  (escape s quote).length ≤ (if quote then 6 else 5) * s.length
 
-theorem quote_mode_relation_thm (s : String) : quote_mode_relation_prop s := by
+instance (s : String) (quote : Bool) : Decidable (length_bounds_prop s quote) :=
+  inferInstanceAs (Decidable (_ ∧ _))
+
+theorem length_bounds_thm (s : String) (quote : Bool) : length_bounds_prop s quote := by
+  unfold length_bounds_prop
+  simp only [string_length_eq_data_length, escape_data]
+  induction s.data with
+  | nil => simp
+  | cons c cs ih =>
+    simp only [List.flatMap_cons, List.length_append, List.length_cons]
+    have hb := escapeChar_length_bounds c quote
+    cases quote <;> simp_all <;> omega
+
+/-! ### Property 10: Fixed-Point Characterization (Unchanged Iff No Special Characters) -/
+
+lemma flatMap_escapeChar_length_gt_of_mem_special (l : List Char) (quote : Bool)
+    (c : Char) (hc : c ∈ l) (hspec : isSpecialChar c quote = true) :
+    l.length < (l.flatMap (fun x => escapeChar x quote)).length := by
+  induction l with
+  | nil => contradiction
+  | cons x xs ih =>
+    simp only [List.flatMap_cons, List.length_append, List.length_cons]
+    rcases List.mem_cons.mp hc with rfl | hmem
+    · have hgt := escapeChar_length_gt_one_of_special c quote hspec
+      have hge : xs.length ≤ (xs.flatMap (fun x => escapeChar x quote)).length := by
+        have := (length_bounds_thm (String.mk xs) quote).1
+        simpa [string_length_eq_data_length, escape_data] using this
+      omega
+    · have hlt := ih hmem
+      have hge := (escapeChar_length_bounds x quote).1
+      omega
+
+lemma flatMap_escapeChar_eq_self_of_no_special (l : List Char) (quote : Bool)
+    (hall : ∀ c ∈ l, isSpecialChar c quote = false) :
+    l.flatMap (fun c => escapeChar c quote) = l := by
+  induction l with
+  | nil => rfl
+  | cons c cs ih =>
+    simp only [List.flatMap_cons]
+    rw [escapeChar_eq_singleton_of_not_special c quote (hall c (List.mem_cons_self ..)),
+        ih (fun x hx => hall x (List.mem_cons_of_mem c hx)), List.singleton_append]
+
+/-- `escape s quote` equals `s` if and only if `s` contains no special characters. -/
+def unchanged_iff_no_special_prop (s : String) (quote : Bool := true) : Prop :=
+  escape s quote = s ↔ ∀ c ∈ s.data, isSpecialChar c quote = false
+
+instance (s : String) (quote : Bool) : Decidable (unchanged_iff_no_special_prop s quote) :=
+  inferInstanceAs (Decidable (_ ↔ _))
+
+theorem unchanged_iff_no_special_thm (s : String) (quote : Bool) :
+    unchanged_iff_no_special_prop s quote := by
+  unfold unchanged_iff_no_special_prop
+  constructor
+  · intro heq c hc
+    by_contra hne
+    have hspec : isSpecialChar c quote = true := by
+      cases h : isSpecialChar c quote <;> simp_all
+    have hlt := flatMap_escapeChar_length_gt_of_mem_special s.data quote c hc hspec
+    rw [← escape_data, heq] at hlt
+    exact Nat.lt_irrefl _ hlt
+  · intro hall
+    ext : 1
+    rw [escape_data]
+    exact flatMap_escapeChar_eq_self_of_no_special s.data quote hall
+
+/-! ### Property 11: Exact Ampersand Count -/
+
+/--
+Every special character in `s` produces exactly one `'&'` in `escape s quote`,
+and non-special characters produce none.
+-/
+def ampersand_count_prop (s : String) (quote : Bool := true) : Prop :=
+  (escape s quote).data.count '&' =
+    s.data.count '&' + s.data.count '<' + s.data.count '>' +
+      (if quote then s.data.count '"' + s.data.count '\'' else 0)
+
+instance (s : String) (quote : Bool) : Decidable (ampersand_count_prop s quote) :=
+  inferInstanceAs (Decidable (_ = _))
+
+theorem ampersand_count_thm (s : String) (quote : Bool) :
+    ampersand_count_prop s quote := by
+  unfold ampersand_count_prop
+  rw [escape_data]
+  induction s.data with
+  | nil => simp
+  | cons c cs ih =>
+    simp only [List.flatMap_cons, List.count_append, List.count_cons,
+      escapeChar_count_amp, ih]
+    cases quote <;>
+    · simp only [↓reduceIte, Bool.false_eq_true]
+      omega
+
+/-! ### Property 12: Exact Semicolon Count (No Double-Escaping Witness) -/
+
+/--
+Every special character in `s` adds exactly one semicolon `';'` to `escape s quote`
+(proving no entity is ever double-escaped into two semicolons such as `"&amp;lt;"`).
+-/
+def semicolon_count_prop (s : String) (quote : Bool := true) : Prop :=
+  (escape s quote).data.count ';' =
+    s.data.count ';' + s.data.count '&' + s.data.count '<' + s.data.count '>' +
+      (if quote then s.data.count '"' + s.data.count '\'' else 0)
+
+instance (s : String) (quote : Bool) : Decidable (semicolon_count_prop s quote) :=
+  inferInstanceAs (Decidable (_ = _))
+
+theorem semicolon_count_thm (s : String) (quote : Bool) :
+    semicolon_count_prop s quote := by
+  unfold semicolon_count_prop
+  rw [escape_data]
+  induction s.data with
+  | nil => simp
+  | cons c cs ih =>
+    simp only [List.flatMap_cons, List.count_append, List.count_cons,
+      escapeChar_count_semi, ih]
+    cases quote <;>
+    · simp only [↓reduceIte, Bool.false_eq_true]
+      omega
+
+/-! ### Property 13: Relationship Between `quote = true` and `quote = false` -/
+
+/--
+`escape s true` is obtained by escaping `'"'` and `'\''` in `escape s false`,
+and `escape s true = escape s false` whenever `s` contains no quotes.
+-/
+def quote_flag_relation_prop (s : String) : Prop :=
+  escape s true = replaceChar (replaceChar (escape s false) '"' "&quot;") '\'' "&#x27;" ∧
+  (('"' ∉ s.data ∧ '\'' ∉ s.data) → escape s true = escape s false)
+
+instance (s : String) : Decidable (quote_flag_relation_prop s) :=
+  inferInstanceAs (Decidable (_ ∧ _))
+
+theorem quote_flag_relation_thm (s : String) : quote_flag_relation_prop s := by
+  unfold quote_flag_relation_prop
+  refine ⟨rfl, ?_⟩
+  rintro ⟨hdq, hsq⟩
+  ext : 1
+  simp only [escape_data]
+  refine List.flatMap_congr (fun c hc => ?_)
+  have h1 : (c == '"') = false := beq_false_of_ne (fun h => hdq (h ▸ hc))
+  have h2 : (c == '\'') = false := beq_false_of_ne (fun h => hsq (h ▸ hc))
+  simp [escapeChar, h1, h2]
+
+/-! ### Property 14: Injectivity (Lossless Encoding) -/
+
+/-- `escape` is injective for any fixed `quote` flag. -/
+def injective_prop (s₁ s₂ : String) (quote : Bool := true) : Prop :=
+  escape s₁ quote = escape s₂ quote ↔ s₁ = s₂
+
+instance (s₁ s₂ : String) (quote : Bool) : Decidable (injective_prop s₁ s₂ quote) :=
+  inferInstanceAs (Decidable (_ ↔ _))
+
+theorem injective_thm (s₁ s₂ : String) (quote : Bool) : injective_prop s₁ s₂ quote := by
+  unfold injective_prop
+  constructor
+  · intro h
+    have hdata : (escape s₁ quote).data = (escape s₂ quote).data := congrArg String.data h
+    rw [escape_data, escape_data] at hdata
+    ext : 1
+    exact flatMap_escapeChar_inj quote s₁.data s₂.data hdata
+  · rintro rfl
+    rfl
+
+/-! ### Property 15: Agreement of `benchmark_escape` and `escape` -/
+
+/-- `benchmark_escape` agrees with `escape` on all strings. -/
+def benchmark_escape_eq_prop (s : String) (quote : Bool := true) : Prop :=
+  benchmark_escape s quote = escape s quote
+
+instance (s : String) (quote : Bool) : Decidable (benchmark_escape_eq_prop s quote) :=
+  inferInstanceAs (Decidable (_ = _))
+
+theorem benchmark_escape_eq_thm (s : String) (quote : Bool) :
+    benchmark_escape_eq_prop s quote := by
   rfl
 
-/-! ## 8. Post-condition -/
+/-! ## 8. Post-Condition (`Post_prop`) as Conjunction of Properties -/
 
-/--
-Full post-condition for `escape s quote` combining all specification properties.
--/
+/-- Full post-condition specification for `escape(s, quote)`. -/
 def Post_prop (s : String) (quote : Bool := true) : Prop :=
-  char_spec_prop s quote ∧
+  single_pass_prop s quote ∧
+  empty_prop quote ∧
+  append_prop s "" quote ∧
+  special_chars_prop ∧
   no_angle_brackets_prop s quote ∧
-  quote_dispatch_prop s quote ∧
-  length_bounds_prop s quote ∧
+  no_quotes_when_quote_true_prop s ∧
+  quotes_preserved_when_quote_false_prop s ∧
   exact_length_prop s quote ∧
-  fixed_point_iff_safe_prop s quote ∧
-  ampersand_iff_unsafe_prop s quote ∧
+  length_bounds_prop s quote ∧
+  unchanged_iff_no_special_prop s quote ∧
   ampersand_count_prop s quote ∧
-  quote_mode_relation_prop s
+  semicolon_count_prop s quote ∧
+  quote_flag_relation_prop s ∧
+  injective_prop s s quote ∧
+  benchmark_escape_eq_prop s quote
+
+instance (s : String) (quote : Bool) : Decidable (Post_prop s quote) :=
+  inferInstanceAs (Decidable (_ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _))
 
 /-! ## 9. Property-Based Tests (PBTs) -/
 
-/-- Executable Boolean form of `Post_prop` for property-based testing. -/
-def check_post_b (s : String) (quote : Bool) : Bool :=
-  let res := escape s quote
-  let char_spec_b := decide (res.data = s.data.flatMap (fun c => (escapeChar c quote).data))
-  let no_angle_b := decide ('<' ∉ res.data ∧ '>' ∉ res.data)
-  let quote_dispatch_b :=
-    if quote then
-      decide ('"' ∉ res.data ∧ '\'' ∉ res.data)
-    else
-      decide ((res.data.contains '"' = s.data.contains '"') ∧
-              (res.data.contains '\'' = s.data.contains '\''))
-  let length_bounds_b := decide (s.length ≤ res.length ∧ res.length ≤ 6 * s.length)
-  let exact_length_b :=
-    decide (res.length =
-      s.length + 4 * s.data.count '&' + 3 * s.data.count '<' + 3 * s.data.count '>' +
-      (if quote then 5 * s.data.count '"' + 5 * s.data.count '\'' else 0))
-  let fixed_point_b := decide ((res = s) ↔ s.data.all (fun c => isSafeChar c quote) = true)
-  let ampersand_b := decide (res.data.contains '&' = s.data.any (fun c => !isSafeChar c quote))
-  let ampersand_count_b := decide (res.data.count '&' = s.data.countP (fun c => !isSafeChar c quote))
-  let quote_rel_b := decide (escape s true = replaceChar (replaceChar (escape s false) '"' "&quot;") '\'' "&#x27;")
-  char_spec_b && no_angle_b && quote_dispatch_b && length_bounds_b && exact_length_b &&
-    fixed_point_b && ampersand_b && ampersand_count_b && quote_rel_b
+/-- Representative corpus of strings for bounded exhaustive property-based testing. -/
+def pbtCorpus : List String :=
+  [ "", "a", "hello world", "&", "<", ">", "\"", "'", ";",
+    "&<", "<>", "<b>\"&'</b>", "&amp;", "&lt;", "&gt;", "&quot;", "&#x27;",
+    "&&<<>>\"\"''", "<script>alert(\"xss\" & 'test');</script>",
+    "a&b<c>d\"e'f;g" ]
 
--- Randomized Property-Based Tests via Plausible
-#eval Plausible.Testable.check (∀ (s : String) (quote : Bool),
-  (escape s quote).data = s.data.flatMap (fun c => (escapeChar c quote).data))
+-- Randomized PBTs via Plausible for every `_prop` and `Post_prop`
+#eval Plausible.Testable.check (∀ (s : String) (quote : Bool), single_pass_prop s quote)
+#eval Plausible.Testable.check (∀ (quote : Bool), empty_prop quote)
+#eval Plausible.Testable.check (∀ (s₁ s₂ : String) (quote : Bool), append_prop s₁ s₂ quote)
+#eval Plausible.Testable.check special_chars_prop
+#eval Plausible.Testable.check (∀ (s : String) (quote : Bool), no_angle_brackets_prop s quote)
+#eval Plausible.Testable.check (∀ (s : String), no_quotes_when_quote_true_prop s)
+#eval Plausible.Testable.check (∀ (s : String), quotes_preserved_when_quote_false_prop s)
+#eval Plausible.Testable.check (∀ (s : String) (quote : Bool), exact_length_prop s quote)
+#eval Plausible.Testable.check (∀ (s : String) (quote : Bool), length_bounds_prop s quote)
+#eval Plausible.Testable.check (∀ (s : String) (quote : Bool), unchanged_iff_no_special_prop s quote)
+#eval Plausible.Testable.check (∀ (s : String) (quote : Bool), ampersand_count_prop s quote)
+#eval Plausible.Testable.check (∀ (s : String) (quote : Bool), semicolon_count_prop s quote)
+#eval Plausible.Testable.check (∀ (s : String), quote_flag_relation_prop s)
+#eval Plausible.Testable.check (∀ (s₁ s₂ : String) (quote : Bool), injective_prop s₁ s₂ quote)
+#eval Plausible.Testable.check (∀ (s : String) (quote : Bool), benchmark_escape_eq_prop s quote)
+#eval Plausible.Testable.check (∀ (s : String) (quote : Bool), Post_prop s quote)
 
-#eval Plausible.Testable.check (∀ (quote : Bool),
-  escape "" quote = "")
+-- Bounded PBTs via `native_decide` across `pbtCorpus`
+example : pbtCorpus.all (fun s => decide (single_pass_prop s true) && decide (single_pass_prop s false)) = true := by native_decide
+example : (decide (empty_prop true) && decide (empty_prop false)) = true := by native_decide
+example : pbtCorpus.all (fun s₁ => pbtCorpus.all (fun s₂ => decide (append_prop s₁ s₂ true) && decide (append_prop s₁ s₂ false))) = true := by native_decide
+example : decide special_chars_prop = true := by native_decide
+example : pbtCorpus.all (fun s => decide (no_angle_brackets_prop s true) && decide (no_angle_brackets_prop s false)) = true := by native_decide
+example : pbtCorpus.all (fun s => decide (no_quotes_when_quote_true_prop s)) = true := by native_decide
+example : pbtCorpus.all (fun s => decide (quotes_preserved_when_quote_false_prop s)) = true := by native_decide
+example : pbtCorpus.all (fun s => decide (exact_length_prop s true) && decide (exact_length_prop s false)) = true := by native_decide
+example : pbtCorpus.all (fun s => decide (length_bounds_prop s true) && decide (length_bounds_prop s false)) = true := by native_decide
+example : pbtCorpus.all (fun s => decide (unchanged_iff_no_special_prop s true) && decide (unchanged_iff_no_special_prop s false)) = true := by native_decide
+example : pbtCorpus.all (fun s => decide (ampersand_count_prop s true) && decide (ampersand_count_prop s false)) = true := by native_decide
+example : pbtCorpus.all (fun s => decide (semicolon_count_prop s true) && decide (semicolon_count_prop s false)) = true := by native_decide
+example : pbtCorpus.all (fun s => decide (quote_flag_relation_prop s)) = true := by native_decide
+example : pbtCorpus.all (fun s₁ => pbtCorpus.all (fun s₂ => decide (injective_prop s₁ s₂ true) && decide (injective_prop s₁ s₂ false))) = true := by native_decide
+example : pbtCorpus.all (fun s => decide (benchmark_escape_eq_prop s true) && decide (benchmark_escape_eq_prop s false)) = true := by native_decide
+example : pbtCorpus.all (fun s => decide (Post_prop s true) && decide (Post_prop s false)) = true := by native_decide
 
-#eval Plausible.Testable.check (∀ (s₁ s₂ : String) (quote : Bool),
-  escape (s₁ ++ s₂) quote = escape s₁ quote ++ escape s₂ quote)
+/-! ## 10. Correctness Theorem (`Pre -> Post`) -/
 
-#eval Plausible.Testable.check (∀ (s : String) (quote : Bool),
-  !((escape s quote).data.contains '<') = true ∧ !((escape s quote).data.contains '>') = true)
-
-#eval Plausible.Testable.check (∀ (s : String),
-  !((escape s true).data.contains '"') = true ∧ !((escape s true).data.contains '\'') = true)
-
-#eval Plausible.Testable.check (∀ (s : String),
-  ((escape s false).data.contains '"' = s.data.contains '"') ∧
-  ((escape s false).data.contains '\'' = s.data.contains '\''))
-
-#eval Plausible.Testable.check (∀ (s : String) (quote : Bool),
-  s.length ≤ (escape s quote).length ∧ (escape s quote).length ≤ 6 * s.length)
-
-#eval Plausible.Testable.check (∀ (s : String) (quote : Bool),
-  (escape s quote).length =
-    s.length + 4 * s.data.count '&' + 3 * s.data.count '<' + 3 * s.data.count '>' +
-    (if quote then 5 * s.data.count '"' + 5 * s.data.count '\'' else 0))
-
-#eval Plausible.Testable.check (∀ (s : String) (quote : Bool),
-  (escape s quote == s) = s.data.all (fun c => isSafeChar c quote))
-
-#eval Plausible.Testable.check (∀ (s : String) (quote : Bool),
-  (escape s quote).data.contains '&' = s.data.any (fun c => !isSafeChar c quote))
-
-#eval Plausible.Testable.check (∀ (s : String) (quote : Bool),
-  (escape s quote).data.count '&' = s.data.countP (fun c => !isSafeChar c quote))
-
-#eval Plausible.Testable.check (∀ (s : String),
-  escape s true = replaceChar (replaceChar (escape s false) '"' "&quot;") '\'' "&#x27;")
-
-#eval Plausible.Testable.check (∀ (s : String) (quote : Bool),
-  check_post_b s quote = true)
-
--- Bounded exhaustive PBT over strings built from HTML special characters and regular characters
-def pbtAlphabet : List Char := ['&', '<', '>', '"', '\'', 'a']
-
-def pbtStrings : List String :=
-  let len0 : List (List Char) := [[]]
-  let len1 := pbtAlphabet.map (fun c => [c])
-  let len2 := pbtAlphabet.flatMap (fun c₁ => pbtAlphabet.map (fun c₂ => [c₁, c₂]))
-  let len3 := pbtAlphabet.flatMap (fun c₁ =>
-    pbtAlphabet.flatMap (fun c₂ => pbtAlphabet.map (fun c₃ => [c₁, c₂, c₃])))
-  (len0 ++ len1 ++ len2 ++ len3).map String.mk
-
-example : pbtStrings.all (fun s => check_post_b s true && check_post_b s false) = true := by
-  native_decide
-
-example : pbtStrings.all (fun s₁ =>
-    (pbtStrings.take 20).all (fun s₂ =>
-      (escape (s₁ ++ s₂) true == escape s₁ true ++ escape s₂ true) &&
-      (escape (s₁ ++ s₂) false == escape s₁ false ++ escape s₂ false))) = true := by
-  native_decide
-
-/-! ## 10. Correctness Theorem (`Pre → Post`) -/
-
+/-- Main partial/total correctness theorem: `Pre s quote → Post_prop s quote`. -/
 theorem escape_correct (s : String) (quote : Bool := true) (_hPre : Pre s quote) :
-    Post_prop s quote :=
-  ⟨char_spec_thm s quote,
-   no_angle_brackets_thm s quote,
-   quote_dispatch_thm s quote,
-   length_bounds_thm s quote,
-   exact_length_thm s quote,
-   fixed_point_iff_safe_thm s quote,
-   ampersand_iff_unsafe_thm s quote,
-   ampersand_count_thm s quote,
-   quote_mode_relation_thm s⟩
+    Post_prop s quote := by
+  refine ⟨single_pass_thm s quote,
+          empty_thm quote,
+          append_thm s "" quote,
+          special_chars_thm,
+          no_angle_brackets_thm s quote,
+          no_quotes_when_quote_true_thm s,
+          quotes_preserved_when_quote_false_thm s,
+          exact_length_thm s quote,
+          length_bounds_thm s quote,
+          unchanged_iff_no_special_thm s quote,
+          ampersand_count_thm s quote,
+          semicolon_count_thm s quote,
+          quote_flag_relation_thm s,
+          injective_thm s s quote,
+          benchmark_escape_eq_thm s quote⟩
 
-theorem benchmark_escape_correct (s : String) (quote : Bool := true) (hPre : Pre s quote) :
-    Post_prop s quote :=
-  escape_correct s quote hPre
+/-! ## 11. Imperative Implementation (`Id.run do` with Mutable State) -/
 
-/-! ## 11. Imperative Implementation -/
+/-- Imperative character replacement using `Id.run do` and mutable accumulator `acc`. -/
+def replaceCharImp (s : String) (target : Char) (replacement : String) : String := Id.run do
+  let mut acc : List Char := []
+  for c in s.data do
+    if c == target then
+      acc := acc ++ replacement.data
+    else
+      acc := acc ++ [c]
+  return String.mk acc
 
 /--
-Imperative implementation of `escape` using `Id.run do` and mutable state.
-Iterates over the characters of `s` and accumulates the escaped string.
+Imperative multi-pass HTML escaping mirroring Python's sequential `s = s.replace(...)`
+mutations using `Id.run do` and mutable string state `res`.
 -/
-def escape_imp (s : String) (quote : Bool := true) : String := Id.run do
-  let mut acc : String := ""
-  for c in s.data do
-    if c = '&' then
-      acc := acc ++ "&amp;"
-    else if c = '<' then
-      acc := acc ++ "&lt;"
-    else if c = '>' then
-      acc := acc ++ "&gt;"
-    else if quote && c = '"' then
-      acc := acc ++ "&quot;"
-    else if quote && c = '\'' then
-      acc := acc ++ "&#x27;"
-    else
-      acc := acc ++ String.mk [c]
-  return acc
+def escapeImp (s : String) (quote : Bool := true) : String := Id.run do
+  let mut res : String := s
+  res := replaceCharImp res '&' "&amp;"
+  res := replaceCharImp res '<' "&lt;"
+  res := replaceCharImp res '>' "&gt;"
+  if quote then
+    res := replaceCharImp res '"' "&quot;"
+    res := replaceCharImp res '\'' "&#x27;"
+  return res
 
-/-- Imperative benchmark entry point. -/
-def benchmark_escape_imp (s : String) (quote : Bool := true) : String :=
-  escape_imp s quote
+/--
+Imperative single-pass HTML escaping using `Id.run do` with a single `for` loop
+and mutable character buffer `acc`.
+-/
+def escapeSinglePassImp (s : String) (quote : Bool := true) : String := Id.run do
+  let mut acc : List Char := []
+  for c in s.data do
+    if c == '&' then
+      acc := acc ++ "&amp;".data
+    else if c == '<' then
+      acc := acc ++ "&lt;".data
+    else if c == '>' then
+      acc := acc ++ "&gt;".data
+    else if quote && c == '"' then
+      acc := acc ++ "&quot;".data
+    else if quote && c == '\'' then
+      acc := acc ++ "&#x27;".data
+    else
+      acc := acc ++ [c]
+  return String.mk acc
 
 /-! ## 12. Imperative Tests -/
 
--- 1. Quote=True (Default)
-example : escape_imp "<b>\"&'</b>" = "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;" := by native_decide
-example : escape_imp "" = "" := by native_decide
+example : escapeImp "<b>\"&'</b>" = "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;" := by native_decide
+example : escapeImp "" = "" := by native_decide
+example : escapeImp "<b>\"&'</b>" false = "&lt;b&gt;\"&amp;'&lt;/b&gt;" := by native_decide
+example : escapeImp "&<" = "&amp;&lt;" := by native_decide
+example : check (fun s q => escapeImp s q) = true := by native_decide
 
--- 2. Quote=False
-example : escape_imp "<b>\"&'</b>" false = "&lt;b&gt;\"&amp;'&lt;/b&gt;" := by native_decide
+example : escapeSinglePassImp "<b>\"&'</b>" = "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;" := by native_decide
+example : escapeSinglePassImp "" = "" := by native_decide
+example : escapeSinglePassImp "<b>\"&'</b>" false = "&lt;b&gt;\"&amp;'&lt;/b&gt;" := by native_decide
+example : escapeSinglePassImp "&<" = "&amp;&lt;" := by native_decide
+example : check (fun s q => escapeSinglePassImp s q) = true := by native_decide
 
--- 3. Order check
-example : escape_imp "&<" = "&amp;&lt;" := by native_decide
+#eval escapeImp "<b>\"&'</b>"
+#eval escapeImp "<b>\"&'</b>" false
+#eval escapeSinglePassImp "<b>\"&'</b>"
+#eval escapeSinglePassImp "<b>\"&'</b>" false
+#eval Plausible.Testable.check (∀ (s : String) (quote : Bool), escape s quote = escapeImp s quote)
+#eval Plausible.Testable.check (∀ (s : String) (quote : Bool), escape s quote = escapeSinglePassImp s quote)
 
--- 4. Full check suite on imperative implementation
-example : check (fun s q => escape_imp s q) = true := by native_decide
-example : check (fun s q => benchmark_escape_imp s q) = true := by native_decide
-example : pbtStrings.all (fun s =>
-    (escape s true == escape_imp s true) && (escape s false == escape_imp s false)) = true := by
-  native_decide
+/-! ## 13. Equivalence Theorems (Functional = Imperative) -/
 
-#eval escape_imp "<b>\"&'</b>"
-#eval escape_imp ""
-#eval escape_imp "<b>\"&'</b>" false
-#eval escape_imp "&<"
-#eval check (fun s q => escape_imp s q)
-
-#eval Plausible.Testable.check (∀ (s : String) (quote : Bool),
-  escape s quote = escape_imp s quote)
-
-/-! ## 13. Equivalence Theorem (Functional = Imperative) -/
-
-/-- Loop invariant lemma for `escape_imp`. -/
-theorem escape_imp_loop (cs : List Char) (acc : String) (quote : Bool) :
-    (Id.run do
-      let mut acc : String := acc
-      for c in cs do
-        if c = '&' then
-          acc := acc ++ "&amp;"
-        else if c = '<' then
-          acc := acc ++ "&lt;"
-        else if c = '>' then
-          acc := acc ++ "&gt;"
-        else if quote && c = '"' then
-          acc := acc ++ "&quot;"
-        else if quote && c = '\'' then
-          acc := acc ++ "&#x27;"
+/-- Functional `replaceChar` is equivalent to imperative `replaceCharImp`. -/
+theorem replaceChar_eq_replaceCharImp (s : String) (target : Char) (replacement : String) :
+    replaceChar s target replacement = replaceCharImp s target replacement := by
+  simp only [replaceChar, replaceCharImp]
+  congr 1
+  have h : ∀ (l : List Char) (acc : List Char),
+      Id.run (forIn l acc fun c r =>
+        if c = target then
+          pure (ForInStep.yield (r ++ replacement.data))
         else
-          acc := acc ++ String.mk [c]
-      return acc).data = acc.data ++ cs.flatMap (fun c => (escapeChar c quote).data) := by
-  induction cs generalizing acc with
-  | nil => simp
-  | cons c cs ih =>
-    simp only [Id.run, bind, pure] at ih
-    simp only [List.forIn_cons, Id.run, bind, pure, List.flatMap_cons, escapeChar]
-    split_ifs <;> simp only [ih, String.data_append, List.append_assoc] <;> rfl
+          pure (ForInStep.yield (r ++ [c]))) =
+      acc ++ l.flatMap (fun c => if c = target then replacement.data else [c]) := by
+    intro l
+    induction l with
+    | nil => intro acc; simp
+    | cons c cs ih =>
+      intro acc
+      by_cases hc : c = target <;> simp [hc, ih, List.append_assoc]
+  simpa using (h s.data []).symm
 
-/--
-Equivalence theorem proving that the functional implementation `escape`
-and the imperative implementation `escape_imp` produce identical results
-for all inputs `s` and `quote`.
--/
-theorem escape_equiv (s : String) (quote : Bool := true) :
-    escape s quote = escape_imp s quote := by
-  apply String.ext
-  rw [char_spec_thm s quote]
-  unfold escape_imp
-  have h := escape_imp_loop s.data "" quote
-  simpa using h.symm
+/-- Functional `escape` is equivalent to imperative multi-pass `escapeImp`. -/
+theorem escape_eq_escapeImp (s : String) (quote : Bool := true) :
+    escape s quote = escapeImp s quote := by
+  cases quote <;>
+  · simp only [escape, escapeImp, replaceChar_eq_replaceCharImp]
+    rfl
 
-theorem benchmark_escape_equiv (s : String) (quote : Bool := true) :
-    benchmark_escape s quote = benchmark_escape_imp s quote :=
-  escape_equiv s quote
+/-- Functional `escape` is equivalent to imperative single-pass `escapeSinglePassImp`. -/
+theorem escape_eq_escapeSinglePassImp (s : String) (quote : Bool := true) :
+    escape s quote = escapeSinglePassImp s quote := by
+  ext : 1
+  rw [escape_data]
+  simp only [escapeSinglePassImp]
+  have h : ∀ (l : List Char) (acc : List Char),
+      Id.run (forIn l acc fun c r =>
+        if (c == '&') = true then pure (ForInStep.yield (r ++ "&amp;".data))
+        else if (c == '<') = true then pure (ForInStep.yield (r ++ "&lt;".data))
+        else if (c == '>') = true then pure (ForInStep.yield (r ++ "&gt;".data))
+        else if (quote && c == '"') = true then pure (ForInStep.yield (r ++ "&quot;".data))
+        else if (quote && c == '\'') = true then pure (ForInStep.yield (r ++ "&#x27;".data))
+        else pure (ForInStep.yield (r ++ [c]))) =
+      acc ++ l.flatMap (fun c => escapeChar c quote) := by
+    intro l
+    induction l with
+    | nil => intro acc; simp
+    | cons c cs ih =>
+      intro acc
+      simp only [List.forIn_cons, List.flatMap_cons]
+      split_ifs <;> ·
+        change Id.run (forIn cs _ _) = _
+        rw [ih, List.append_assoc]
+        congr 1; congr 1
+        simp [escapeChar, *]
+  simpa using (h s.data []).symm
+
+/-- Both imperative implementations (`escapeImp` and `escapeSinglePassImp`) are equivalent. -/
+theorem escapeImp_eq_escapeSinglePassImp (s : String) (quote : Bool := true) :
+    escapeImp s quote = escapeSinglePassImp s quote := by
+  rw [← escape_eq_escapeImp s quote, escape_eq_escapeSinglePassImp s quote]
 
 end «20_html_escape»

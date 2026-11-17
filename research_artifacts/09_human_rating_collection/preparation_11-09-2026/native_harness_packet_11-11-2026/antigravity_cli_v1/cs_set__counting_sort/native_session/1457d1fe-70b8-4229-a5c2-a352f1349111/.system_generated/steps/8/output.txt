@@ -1,0 +1,10 @@
+Created At: 2026-11-16T21:51:13Z
+Completed At: 2026-11-16T21:51:18Z
+Command exited with code 1.
+
+Command output:
+def List.Sorted.{u_1} : {α : Type u_1} → (α → α → Prop) → List α → Prop :=
+@List.Pairwise
+<stdin>:3:7: error: unknown constant 'List.Sorted.eq_of_perm'
+List.eq_of_perm_of_sorted.{u} {α : Type u} {r : α → α → Prop} [IsAntisymm α r] {l₁ l₂ : List α} (hp : l₁.Perm l₂)
+  (hs₁ : List.Sorted r l₁) (hs₂ : List.Sorted r l₂) : l₁ = l₂

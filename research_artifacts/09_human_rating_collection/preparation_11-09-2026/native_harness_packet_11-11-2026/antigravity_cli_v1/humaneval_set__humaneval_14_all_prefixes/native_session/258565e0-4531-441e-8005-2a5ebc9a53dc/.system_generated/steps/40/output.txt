@@ -1,0 +1,9 @@
+Created At: 2026-11-16T22:01:14Z
+Completed At: 2026-11-16T22:01:18Z
+Command exited with code 0.
+
+Command output:
+List.take_prefix.{u_1} {α : Type u_1} (i : ℕ) (l : List α) : List.take i l <+: l
+List.prefix_iff_eq_take.{u_1} {α✝ : Type u_1} {l₁ l₂ : List α✝} : l₁ <+: l₂ ↔ l₁ = List.take l₁.length l₂
+List.IsPrefix.length_le.{u_1} {α✝ : Type u_1} {l₁ l₂ : List α✝} (h : l₁ <+: l₂) : l₁.length ≤ l₂.length
+List.IsPrefix.eq_of_length.{u_1} {α✝ : Type u_1} {l₁ l₂ : List α✝} (h : l₁ <+: l₂) : l₁.length = l₂.length → l₁ = l₂

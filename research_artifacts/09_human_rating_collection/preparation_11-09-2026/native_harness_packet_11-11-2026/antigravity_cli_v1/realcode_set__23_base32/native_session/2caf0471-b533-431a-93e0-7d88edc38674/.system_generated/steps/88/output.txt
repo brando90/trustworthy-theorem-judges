@@ -1,0 +1,203 @@
+Created At: 2026-11-16T22:01:28Z
+Completed At: 2026-11-16T22:01:33Z
+Command exited with code 1.
+
+Command output:
+<stdin>:81:16: error: expected type must not contain free variables
+  8 ≤ List.length (encodeRaw [b0])
+Use the '+revert' option to automatically cleanup and revert free variables.
+<stdin>:82:19: error: expected type must not contain free variables
+  8 ≤ List.length (encodeRaw [b0, b1])
+Use the '+revert' option to automatically cleanup and revert free variables.
+<stdin>:83:22: error: expected type must not contain free variables
+  8 ≤ List.length (encodeRaw [b0, b1, b2])
+Use the '+revert' option to automatically cleanup and revert free variables.
+<stdin>:84:25: error: expected type must not contain free variables
+  8 ≤ List.length (encodeRaw [b0, b1, b2, b3])
+Use the '+revert' option to automatically cleanup and revert free variables.
+<stdin>:101:79: error: unsolved goals
+xs ys : Bytes
+k : ℕ
+hk : k ≤ List.length ys
+⊢ List.take (List.length xs + (List.length ys - k)) xs ++
+      List.take (List.length xs + (List.length ys - k) - List.length xs) ys =
+    xs ++ List.take (List.length ys - k) ys
+<stdin>:123:65: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  if (rest.length % 5 == 1) = true then
+    List.take (List.length (encodeRaw rest) - 6) (encodeRaw rest) ++ [61, 61, 61, 61, 61, 61]
+  else
+    if (rest.length % 5 == 2) = true then
+      List.take (List.length (encodeRaw rest) - 4) (encodeRaw rest) ++ [61, 61, 61, 61]
+    else
+      if (rest.length % 5 == 3) = true then
+        List.take (List.length (encodeRaw rest) - 3) (encodeRaw rest) ++ [61, 61, 61]
+      else
+        if (rest.length % 5 == 4) = true then List.take (List.length (encodeRaw rest) - 1) (encodeRaw rest) ++ [61]
+        else encodeRaw rest
+case pos
+b0 b1 b2 b3 b4 : UInt8
+rest : List UInt8
+ih :
+  (if (rest.length % 5 == 1) = true then
+      List.take (List.length (encodeRaw rest) - 6) (encodeRaw rest) ++ [61, 61, 61, 61, 61, 61]
+    else
+      if (rest.length % 5 == 2) = true then
+        List.take (List.length (encodeRaw rest) - 4) (encodeRaw rest) ++ [61, 61, 61, 61]
+      else
+        if (rest.length % 5 == 3) = true then
+          List.take (List.length (encodeRaw rest) - 3) (encodeRaw rest) ++ [61, 61, 61]
+        else
+          if (rest.length % 5 == 4) = true then List.take (List.length (encodeRaw rest) - 1) (encodeRaw rest) ++ [61]
+          else encodeRaw rest) =
+    b32encode rest
+hrem : (b0 :: b1 :: b2 :: b3 :: b4 :: rest).length % 5 = rest.length % 5
+hne : rest ≠ []
+hge : 8 ≤ List.length (encodeRaw rest)
+h1 : (rest.length % 5 == 1) = true
+⊢ encode5Bytes b0 b1 b2 b3 b4 ++
+      (List.take (List.length (encodeRaw rest) - 6) (encodeRaw rest) ++ [61, 61, 61, 61, 61, 61]) =
+    encode5Bytes b0 b1 b2 b3 b4 ++ b32encode rest
+<stdin>:124:65: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  if (rest.length % 5 == 1) = true then
+    List.take (List.length (encodeRaw rest) - 6) (encodeRaw rest) ++ [61, 61, 61, 61, 61, 61]
+  else
+    if (rest.length % 5 == 2) = true then
+      List.take (List.length (encodeRaw rest) - 4) (encodeRaw rest) ++ [61, 61, 61, 61]
+    else
+      if (rest.length % 5 == 3) = true then
+        List.take (List.length (encodeRaw rest) - 3) (encodeRaw rest) ++ [61, 61, 61]
+      else
+        if (rest.length % 5 == 4) = true then List.take (List.length (encodeRaw rest) - 1) (encodeRaw rest) ++ [61]
+        else encodeRaw rest
+case pos
+b0 b1 b2 b3 b4 : UInt8
+rest : List UInt8
+ih :
+  (if (rest.length % 5 == 1) = true then
+      List.take (List.length (encodeRaw rest) - 6) (encodeRaw rest) ++ [61, 61, 61, 61, 61, 61]
+    else
+      if (rest.length % 5 == 2) = true then
+        List.take (List.length (encodeRaw rest) - 4) (encodeRaw rest) ++ [61, 61, 61, 61]
+      else
+        if (rest.length % 5 == 3) = true then
+          List.take (List.length (encodeRaw rest) - 3) (encodeRaw rest) ++ [61, 61, 61]
+        else
+          if (rest.length % 5 == 4) = true then List.take (List.length (encodeRaw rest) - 1) (encodeRaw rest) ++ [61]
+          else encodeRaw rest) =
+    b32encode rest
+hrem : (b0 :: b1 :: b2 :: b3 :: b4 :: rest).length % 5 = rest.length % 5
+hne : rest ≠ []
+hge : 8 ≤ List.length (encodeRaw rest)
+h1 : ¬(rest.length % 5 == 1) = true
+h2 : (rest.length % 5 == 2) = true
+⊢ encode5Bytes b0 b1 b2 b3 b4 ++ (List.take (List.length (encodeRaw rest) - 4) (encodeRaw rest) ++ [61, 61, 61, 61]) =
+    encode5Bytes b0 b1 b2 b3 b4 ++ b32encode rest
+<stdin>:125:65: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  if (rest.length % 5 == 1) = true then
+    List.take (List.length (encodeRaw rest) - 6) (encodeRaw rest) ++ [61, 61, 61, 61, 61, 61]
+  else
+    if (rest.length % 5 == 2) = true then
+      List.take (List.length (encodeRaw rest) - 4) (encodeRaw rest) ++ [61, 61, 61, 61]
+    else
+      if (rest.length % 5 == 3) = true then
+        List.take (List.length (encodeRaw rest) - 3) (encodeRaw rest) ++ [61, 61, 61]
+      else
+        if (rest.length % 5 == 4) = true then List.take (List.length (encodeRaw rest) - 1) (encodeRaw rest) ++ [61]
+        else encodeRaw rest
+case pos
+b0 b1 b2 b3 b4 : UInt8
+rest : List UInt8
+ih :
+  (if (rest.length % 5 == 1) = true then
+      List.take (List.length (encodeRaw rest) - 6) (encodeRaw rest) ++ [61, 61, 61, 61, 61, 61]
+    else
+      if (rest.length % 5 == 2) = true then
+        List.take (List.length (encodeRaw rest) - 4) (encodeRaw rest) ++ [61, 61, 61, 61]
+      else
+        if (rest.length % 5 == 3) = true then
+          List.take (List.length (encodeRaw rest) - 3) (encodeRaw rest) ++ [61, 61, 61]
+        else
+          if (rest.length % 5 == 4) = true then List.take (List.length (encodeRaw rest) - 1) (encodeRaw rest) ++ [61]
+          else encodeRaw rest) =
+    b32encode rest
+hrem : (b0 :: b1 :: b2 :: b3 :: b4 :: rest).length % 5 = rest.length % 5
+hne : rest ≠ []
+hge : 8 ≤ List.length (encodeRaw rest)
+h1 : ¬(rest.length % 5 == 1) = true
+h2 : ¬(rest.length % 5 == 2) = true
+h3 : (rest.length % 5 == 3) = true
+⊢ encode5Bytes b0 b1 b2 b3 b4 ++ (List.take (List.length (encodeRaw rest) - 3) (encodeRaw rest) ++ [61, 61, 61]) =
+    encode5Bytes b0 b1 b2 b3 b4 ++ b32encode rest
+<stdin>:126:65: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  if (rest.length % 5 == 1) = true then
+    List.take (List.length (encodeRaw rest) - 6) (encodeRaw rest) ++ [61, 61, 61, 61, 61, 61]
+  else
+    if (rest.length % 5 == 2) = true then
+      List.take (List.length (encodeRaw rest) - 4) (encodeRaw rest) ++ [61, 61, 61, 61]
+    else
+      if (rest.length % 5 == 3) = true then
+        List.take (List.length (encodeRaw rest) - 3) (encodeRaw rest) ++ [61, 61, 61]
+      else
+        if (rest.length % 5 == 4) = true then List.take (List.length (encodeRaw rest) - 1) (encodeRaw rest) ++ [61]
+        else encodeRaw rest
+case pos
+b0 b1 b2 b3 b4 : UInt8
+rest : List UInt8
+ih :
+  (if (rest.length % 5 == 1) = true then
+      List.take (List.length (encodeRaw rest) - 6) (encodeRaw rest) ++ [61, 61, 61, 61, 61, 61]
+    else
+      if (rest.length % 5 == 2) = true then
+        List.take (List.length (encodeRaw rest) - 4) (encodeRaw rest) ++ [61, 61, 61, 61]
+      else
+        if (rest.length % 5 == 3) = true then
+          List.take (List.length (encodeRaw rest) - 3) (encodeRaw rest) ++ [61, 61, 61]
+        else
+          if (rest.length % 5 == 4) = true then List.take (List.length (encodeRaw rest) - 1) (encodeRaw rest) ++ [61]
+          else encodeRaw rest) =
+    b32encode rest
+hrem : (b0 :: b1 :: b2 :: b3 :: b4 :: rest).length % 5 = rest.length % 5
+hne : rest ≠ []
+hge : 8 ≤ List.length (encodeRaw rest)
+h1 : ¬(rest.length % 5 == 1) = true
+h2 : ¬(rest.length % 5 == 2) = true
+h3 : ¬(rest.length % 5 == 3) = true
+h4 : (rest.length % 5 == 4) = true
+⊢ encode5Bytes b0 b1 b2 b3 b4 ++ (List.take (List.length (encodeRaw rest) - 1) (encodeRaw rest) ++ [61]) =
+    encode5Bytes b0 b1 b2 b3 b4 ++ b32encode rest
+<stdin>:127:12: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  if (rest.length % 5 == 1) = true then
+    List.take (List.length (encodeRaw rest) - 6) (encodeRaw rest) ++ [61, 61, 61, 61, 61, 61]
+  else
+    if (rest.length % 5 == 2) = true then
+      List.take (List.length (encodeRaw rest) - 4) (encodeRaw rest) ++ [61, 61, 61, 61]
+    else
+      if (rest.length % 5 == 3) = true then
+        List.take (List.length (encodeRaw rest) - 3) (encodeRaw rest) ++ [61, 61, 61]
+      else
+        if (rest.length % 5 == 4) = true then List.take (List.length (encodeRaw rest) - 1) (encodeRaw rest) ++ [61]
+        else encodeRaw rest
+case neg
+b0 b1 b2 b3 b4 : UInt8
+rest : List UInt8
+ih :
+  (if (rest.length % 5 == 1) = true then
+      List.take (List.length (encodeRaw rest) - 6) (encodeRaw rest) ++ [61, 61, 61, 61, 61, 61]
+    else
+      if (rest.length % 5 == 2) = true then
+        List.take (List.length (encodeRaw rest) - 4) (encodeRaw rest) ++ [61, 61, 61, 61]
+      else
+        if (rest.length % 5 == 3) = true then
+          List.take (List.length (encodeRaw rest) - 3) (encodeRaw rest) ++ [61, 61, 61]
+        else
+          if (rest.length % 5 == 4) = true then List.take (List.length (encodeRaw rest) - 1) (encodeRaw rest) ++ [61]
+          else encodeRaw rest) =
+    b32encode rest
+hrem : (b0 :: b1 :: b2 :: b3 :: b4 :: rest).length % 5 = rest.length % 5
+hne : rest ≠ []
+hge : 8 ≤ List.length (encodeRaw rest)
+h1 : ¬(rest.length % 5 == 1) = true
+h2 : ¬(rest.length % 5 == 2) = true
+h3 : ¬(rest.length % 5 == 3) = true
+h4 : ¬(rest.length % 5 == 4) = true
+⊢ encode5Bytes b0 b1 b2 b3 b4 ++ encodeRaw rest = encode5Bytes b0 b1 b2 b3 b4 ++ b32encode rest

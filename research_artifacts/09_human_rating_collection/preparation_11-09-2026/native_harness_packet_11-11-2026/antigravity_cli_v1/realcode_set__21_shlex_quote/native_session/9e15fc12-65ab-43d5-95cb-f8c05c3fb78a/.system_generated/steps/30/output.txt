@@ -1,0 +1,68 @@
+Created At: 2026-11-16T22:20:38Z
+Completed At: 2026-11-16T22:20:42Z
+Command exited with code 1.
+
+Command output:
+Veribench/21_shlex_quote.lean:32:2: error: type mismatch
+  String.length_append
+has type
+  ∀ (s t : String), (s ++ t).length = s.length + t.length : Prop
+but is expected to have type
+  (s₁ ++ s₂).length = s₁.length + s₂.length : Prop
+Veribench/21_shlex_quote.lean:96:23: warning: `List.forIn_yield_eq_foldl` has been deprecated: use `List.idRun_forIn_yield_eq_foldl` instead
+Veribench/21_shlex_quote.lean:96:2: error: unsolved goals
+case isFalse
+s : String
+h✝ : ¬s = ""
+⊢ (if s.toList.all isSafeChar = true then s else "'" ++ { data := List.flatMap escapeChar s.toList } ++ "'") = do
+    let r ←
+      forIn s.toList true fun c r => do
+          pure PUnit.unit
+          pure (ForInStep.yield (r && isSafeChar c))
+    if r = true then s
+      else do
+        let r ←
+          forIn s.toList [] fun c r =>
+              if (c == '\'') = true then do
+                pure PUnit.unit
+                pure (ForInStep.yield (r ++ "'\"'\"'".toList))
+              else do
+                pure PUnit.unit
+                pure (ForInStep.yield (r ++ [c]))
+        "'" ++ { data := r } ++ "'"
+Veribench/21_shlex_quote.lean:96:23: warning: This simp argument is unused:
+  List.forIn_yield_eq_foldl
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run, L̵i̵s̵t̵.̵f̵o̵r̵I̵n̵_̵y̵i̵e̵l̵d̵_̵e̵q̵_̵f̵o̵l̵d̵l̵,̵ ̵foldl_allSafe, Bool.true_and, foldl_escapeChar, List.nil_append]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/21_shlex_quote.lean:96:50: warning: This simp argument is unused:
+  foldl_allSafe
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run, List.forIn_yield_eq_foldl, f̵o̵l̵d̵l̵_̵a̵l̵l̵S̵a̵f̵e̵,̵ ̵Bool.true_and, foldl_escapeChar, List.nil_append]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/21_shlex_quote.lean:96:65: warning: This simp argument is unused:
+  Bool.true_and
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run, List.forIn_yield_eq_foldl, foldl_allSafe, B̵o̵o̵l̵.̵t̵r̵u̵e̵_̵a̵n̵d̵,̵
+  ̵ ̵ ̵ ̵ ̵ ̵ ̵foldl_escapeChar, List.nil_append]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/21_shlex_quote.lean:97:6: warning: This simp argument is unused:
+  foldl_escapeChar
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run, List.forIn_yield_eq_foldl, foldl_allSafe, Bool.true_and, f̵o̵l̵d̵l̵_̵e̵s̵c̵a̵p̵e̵C̵h̵a̵r̵,̵ ̵List.nil_append]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/21_shlex_quote.lean:97:24: warning: This simp argument is unused:
+  List.nil_append
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run, List.forIn_yield_eq_foldl, foldl_allSafe, Bool.true_and, f̵o̵l̵d̵l̵_̵e̵s̵c̵a̵p̵e̵C̵h̵a̵r̵,̵ ̵L̵i̵s̵t̵.̵n̵i̵l̵_̵a̵p̵p̵e̵n̵d̵]̵f̲o̲l̲d̲l̲_̲e̲s̲c̲a̲p̲e̲C̲h̲a̲r̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

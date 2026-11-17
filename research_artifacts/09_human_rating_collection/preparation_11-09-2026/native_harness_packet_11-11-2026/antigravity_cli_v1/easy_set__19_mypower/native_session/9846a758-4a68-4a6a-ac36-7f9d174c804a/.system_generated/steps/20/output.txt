@@ -1,0 +1,40 @@
+Created At: 2026-11-16T22:11:29Z
+Completed At: 2026-11-16T22:11:36Z
+Command exited with code 1.
+
+Command output:
+8
+1
+0
+1
+some 8
+some 1
+none
+none
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/19_MyPower.lean:290:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ), Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), Post_prop (base % 8) (exponent % 6))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+8
+1
+0
+1
+some 8
+some 1
+none
+none

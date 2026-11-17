@@ -1,0 +1,15 @@
+Created At: 2026-11-16T21:48:08Z
+Completed At: 2026-11-16T21:48:12Z
+Command exited with code 0.
+
+Command output:
+UInt8.toNat_ofNat {n : ℕ} : (OfNat.ofNat n).toNat = n % 2 ^ 8
+UInt8.ofNat_toNat {x : UInt8} : UInt8.ofNat x.toNat = x
+(UInt8.ofNat 5).toNat : ℕ
+<stdin>:7:8: warning: This simp argument is unused:
+  UInt8.toNat_ofNat
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵U̵I̵n̵t̵8̵.̵t̵o̵N̵a̵t̵_̵o̵f̵N̵a̵t̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

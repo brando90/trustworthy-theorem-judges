@@ -1,0 +1,64 @@
+{
+  "task_id": "realcode_set__31_statistics_quantiles",
+  "condition_sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "1000",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "31_statistics_quantiles.py": "ec7999fdd36f74110c5cb04c4aa0befbd056975b34bb685e94c0bb5dda3818f9",
+    "instruction.md": "d9b2939e9e6163cc7c397c8392df7433a9bc7216473c7b7d69e1654772e99843"
+  },
+  "output": "/home/user/lean_project/Veribench/31_statistics_quantiles.lean",
+  "model_call_performed": true,
+  "container": "ttj-grok-ab5553a5a459",
+  "status": "TERMINAL",
+  "cli_version": "grok 1.0.77 (50ca579fa996)",
+  "actual_mounts": [],
+  "network": "ttj-native2-grok-v3",
+  "proxy": "ttj-native2-egress-grok-v3",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794869292.038636,
+  "exit_code": 137,
+  "stop_reason": "wall_time_budget",
+  "finished_at": 1794871154.940911,
+  "actual_models": [
+    "grok-4.7",
+    "grok-4.7-build"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "type": "auto_compact_started",
+    "percentage": 80
+  },
+  "egress_hosts": [
+    "api.mixpanel.com",
+    "api.x.ai",
+    "cli-chat-proxy.grok.com",
+    "grok.com"
+  ],
+  "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "c12a2ed99c2997d313e2828a48bc17a9a453c54ad71c9e542741b42278d0a1d1",
+  "candidate_bytes": 32953
+}

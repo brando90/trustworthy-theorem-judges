@@ -1,0 +1,44 @@
+Created At: 2026-11-16T22:00:54Z
+Completed At: 2026-11-16T22:01:01Z
+Command exited with code 1.
+
+Command output:
+some 6
+some 1
+some 1
+some 120
+none
+6
+1
+Veribench/16_MyFactorial.lean:111:27: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  a ≤ -1
+where
+ a := n
+Veribench/16_MyFactorial.lean:132:41: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  a ≤ -1
+where
+ a := n
+Veribench/16_MyFactorial.lean:227:39: warning: unused variable `h`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/16_MyFactorial.lean:385:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+some 6
+some 1
+some 1
+none
+6

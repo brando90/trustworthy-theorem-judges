@@ -1,0 +1,13 @@
+Created At: 2026-11-16T21:35:13Z
+Completed At: 2026-11-16T21:35:17Z
+Command exited with code 0.
+
+Command output:
+def Nat.decidablePrime : (p : ℕ) → Decidable (Nat.Prime p) :=
+fun p => decidable_of_iff' (2 ≤ p ∧ ∀ (m : ℕ), 2 ≤ m → m < p → ¬m ∣ p) ⋯
+def Nat.decidablePrime' : (p : ℕ) → Decidable (Nat.Prime p) :=
+fun p => decidable_of_iff' (2 ≤ p ∧ p.minFac = p) ⋯
+Nat.prime_def_minFac {p : ℕ} : Nat.Prime p ↔ 2 ≤ p ∧ p.minFac = p
+Nat.prime_def_lt {p : ℕ} : Nat.Prime p ↔ 2 ≤ p ∧ ∀ m < p, m ∣ p → m = 1
+Nat.prime_def_lt' {p : ℕ} : Nat.Prime p ↔ 2 ≤ p ∧ ∀ (m : ℕ), 2 ≤ m → m < p → ¬m ∣ p
+Nat.Prime.not_dvd_one {p : ℕ} (pp : Nat.Prime p) : ¬p ∣ 1

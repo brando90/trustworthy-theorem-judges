@@ -1,0 +1,12 @@
+Created At: 2026-11-16T21:26:15Z
+Completed At: 2026-11-16T21:26:19Z
+Command exited with code 0.
+
+Command output:
+Nat.prime_def {p : ℕ} : Nat.Prime p ↔ 2 ≤ p ∧ ∀ (m : ℕ), m ∣ p → m = 1 ∨ m = p
+Nat.prime_def_lt {p : ℕ} : Nat.Prime p ↔ 2 ≤ p ∧ ∀ m < p, m ∣ p → m = 1
+Nat.prime_def_lt' {p : ℕ} : Nat.Prime p ↔ 2 ≤ p ∧ ∀ (m : ℕ), 2 ≤ m → m < p → ¬m ∣ p
+Nat.prime_def_minFac {p : ℕ} : Nat.Prime p ↔ 2 ≤ p ∧ p.minFac = p
+Nat.minFac_sq_le_self {n : ℕ} (w : 0 < n) (h : ¬Nat.Prime n) : n.minFac ^ 2 ≤ n
+Nat.minFac_prime {n : ℕ} (n1 : n ≠ 1) : Nat.Prime n.minFac
+Nat.minFac_dvd (n : ℕ) : n.minFac ∣ n

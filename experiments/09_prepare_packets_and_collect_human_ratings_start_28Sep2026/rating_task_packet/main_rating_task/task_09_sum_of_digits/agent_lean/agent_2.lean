@@ -6,737 +6,660 @@ import Mathlib
 This module formalizes the Python program that computes the sum of base-10 digits
 of a non-negative integer `n`.
 
-## Edge Cases and Specification
-- Sum of digits of `0` is `0`.
-- Single-digit non-negative integers (`0 <= n < 10`) return themselves.
-- Input precondition `Pre n` requires `0 <= n`. The checked wrapper `mySumDigitsOpt`
-  returns `none` when `n < 0` (modeling Python's `ValueError`).
-- Includes functional implementations (`sumDigitsNat`, `mySumDigits`, `mySumDigitsOpt`),
-  unit tests, precondition predicate, mathematical property propositions and kernel-checked
-  proofs, postcondition conjunction, property-based tests (Plausible and bounded),
-  correctness theorem (`Pre n -> Post_prop n`), imperative implementations using `Id.run do`
-  with mutable state, imperative tests, and functional-imperative equivalence theorems.
+## Structure
+1. Functional implementation (`sumDigits`, `sumDigits?`)
+2. Unit tests (`example` with `native_decide` and `#eval`)
+3. Pre-condition predicate (`Pre`)
+4. Property propositions (`<name>_prop`) and kernel-checked theorems (`<name>_thm`)
+5. Post-condition predicate (`Post_prop`)
+6. Property-based tests (Plausible randomized checks and bounded `native_decide` checks)
+7. Correctness theorem (`Pre → Post_prop`)
+8. Imperative implementation using `Id.run do` with mutable state (`sumDigitsImp`, `sumDigitsImp?`)
+9. Imperative unit tests
+10. Equivalence theorems (`sumDigits n = sumDigitsImp n` and `sumDigits? n = sumDigitsImp? n`)
 -/
 
-namespace MySumDigits
+namespace «20_MySumDigits»
 
-/-! ## 1. Functional Implementation -/
+/-! ## Implementation (Functional Definition) -/
 
-/-- Sum of base-10 digits of a natural number `n`. -/
-def sumDigitsNat (n : Nat) : Nat :=
-  if n = 0 then 0
-  else n % 10 + sumDigitsNat (n / 10)
-
-/-- Sum of base-10 digits of an integer `n` (returns `0` for `n <= 0`). -/
-def mySumDigits (n : Int) : Int :=
+/-- Functional implementation returning the sum of base-10 digits of an integer `n`.
+For `n ≤ 0`, it returns `0`; for `n > 0`, it recursively adds `n % 10` to `sumDigits (n / 10)`. -/
+def sumDigits (n : Int) : Int :=
   if n ≤ 0 then 0
-  else (n % 10) + mySumDigits (n / 10)
+  else n % 10 + sumDigits (n / 10)
 termination_by n.toNat
-decreasing_by omega
 
-/-- Alias matching the Python function name `prog`. -/
-abbrev prog (n : Int) : Int := mySumDigits n
+abbrev mySumDigits : Int → Int := sumDigits
+abbrev prog : Int → Int := sumDigits
 
-/-- Checked version of `mySumDigits` that returns `none` if `n < 0`
-    (modeling Python's `ValueError` on precondition violation). -/
-def mySumDigitsOpt (n : Int) : Option Int :=
-  if n < 0 then none
-  else some (mySumDigits n)
+/-- Executable boolean precondition check corresponding to Python's `pre(n)`. -/
+def preCheck (n : Int) : Bool :=
+  decide (n ≥ 0)
 
-/-! ## 2. Unit Tests -/
+/-- Checked functional implementation modeling Python's `ValueError` on negative inputs
+by returning `none` when `n < 0` and `some (sumDigits n)` when `n ≥ 0`. -/
+def sumDigits? (n : Int) : Option Int :=
+  if n ≥ 0 then some (sumDigits n) else none
 
--- Basic unit test from Python `check`
-example : mySumDigits 123 = 6 := by native_decide
+abbrev prog? : Int → Option Int := sumDigits?
 
--- Edge case: sum of digits of 0 is 0
-example : mySumDigits 0 = 0 := by native_decide
+/-! ## Unit Tests -/
 
--- Edge case: single-digit numbers return themselves
-example : mySumDigits 1 = 1 := by native_decide
-example : mySumDigits 5 = 5 := by native_decide
-example : mySumDigits 9 = 9 := by native_decide
+example : sumDigits 123 = 6 := by native_decide
+example : sumDigits 0 = 0 := by native_decide
+example : sumDigits 1 = 1 := by native_decide
+example : sumDigits 7 = 7 := by native_decide
+example : sumDigits 9 = 9 := by native_decide
+example : sumDigits 10 = 1 := by native_decide
+example : sumDigits 99 = 18 := by native_decide
+example : sumDigits 999 = 27 := by native_decide
+example : sumDigits 10005 = 6 := by native_decide
+example : sumDigits (-1) = 0 := by native_decide
 
--- Additional multi-digit unit tests
-example : mySumDigits 10 = 1 := by native_decide
-example : mySumDigits 99 = 18 := by native_decide
-example : mySumDigits 999 = 27 := by native_decide
-example : mySumDigits 1000 = 1 := by native_decide
-example : mySumDigits 123456789 = 45 := by native_decide
+example : sumDigits? 123 = some 6 := by native_decide
+example : sumDigits? 0 = some 0 := by native_decide
+example : sumDigits? 7 = some 7 := by native_decide
+example : sumDigits? (-1) = none := by native_decide
+example : sumDigits? (-42) = none := by native_decide
 
--- Checked version unit tests (including negative input raising error / returning `none`)
-example : mySumDigitsOpt 123 = some 6 := by native_decide
-example : mySumDigitsOpt 0 = some 0 := by native_decide
-example : mySumDigitsOpt (-1) = none := by native_decide
-example : mySumDigitsOpt (-42) = none := by native_decide
+#eval sumDigits 123
+#eval sumDigits 0
+#eval sumDigits 7
+#eval sumDigits 999
+#eval sumDigits? 123
+#eval sumDigits? 0
+#eval sumDigits? (-1)
 
--- Nat version unit tests
-example : sumDigitsNat 123 = 6 := by native_decide
-example : sumDigitsNat 0 = 0 := by native_decide
-example : sumDigitsNat 7 = 7 := by native_decide
+/-! ## Pre-Condition Predicate -/
 
-#eval mySumDigits 123
-#eval mySumDigits 0
-#eval mySumDigits 9
-#eval mySumDigits 987654321
-#eval mySumDigitsOpt (-1)
-#eval mySumDigitsOpt 123
-
-/-! ## 3. Pre-condition Predicate -/
-
-/-- Executable boolean precondition: `True` iff `n` is a non-negative integer. -/
-def pre (n : Int) : Bool :=
-  decide (0 ≤ n)
-
-/-- Precondition predicate: `n` is a non-negative integer (`0 <= n`). -/
+/-- Pre-condition: `n` is a non-negative integer (`n ≥ 0`). -/
 def Pre (n : Int) : Prop :=
-  0 ≤ n
+  n ≥ 0
 
 instance (n : Int) : Decidable (Pre n) :=
-  inferInstanceAs (Decidable (0 ≤ n))
+  inferInstanceAs (Decidable (n ≥ 0))
 
-theorem pre_iff_Pre (n : Int) : pre n = true ↔ Pre n := by
-  simp [pre, Pre]
+/-! ## Helper Lemmas for Functional Implementation -/
 
-/-! ## 4. Helper Lemmas & Property Propositions / Theorems -/
-
-theorem sumDigitsNat_zero : sumDigitsNat 0 = 0 := by
-  unfold sumDigitsNat; rfl
-
-theorem sumDigitsNat_pos (n : Nat) (h : 0 < n) :
-    sumDigitsNat n = n % 10 + sumDigitsNat (n / 10) := by
-  rw [sumDigitsNat]
-  have hne : n ≠ 0 := by omega
-  simp [hne]
-
-theorem sumDigitsNat_step (n : Nat) :
-    sumDigitsNat n = n % 10 + sumDigitsNat (n / 10) := by
-  by_cases h : n = 0
-  · subst h; simp [sumDigitsNat_zero]
-  · exact sumDigitsNat_pos n (by omega)
-
-theorem sumDigitsNat_eq_digits_sum (n : Nat) :
-    sumDigitsNat n = (Nat.digits 10 n).sum := by
-  induction n using Nat.strong_induction_on with
-  | h n ih =>
-    by_cases hn : n = 0
-    · subst hn; simp [sumDigitsNat_zero]
-    · rw [sumDigitsNat_pos n (by omega)]
-      rw [Nat.digits_def' (by decide : 1 < 10) (by omega : 0 < n)]
-      simp only [List.sum_cons]
-      rw [ih (n / 10) (Nat.div_lt_self (by omega) (by decide))]
-
-theorem mySumDigits_nonpos (n : Int) (h : n ≤ 0) : mySumDigits n = 0 := by
-  rw [mySumDigits]
+theorem sumDigits_le_zero {n : Int} (h : n ≤ 0) : sumDigits n = 0 := by
+  unfold sumDigits
   simp [h]
 
-theorem mySumDigits_zero : mySumDigits 0 = 0 :=
-  mySumDigits_nonpos 0 (by omega)
+theorem sumDigits_zero : sumDigits 0 = 0 :=
+  sumDigits_le_zero (le_refl 0)
 
-theorem mySumDigits_pos_step (n : Int) (h : 0 < n) :
-    mySumDigits n = n % 10 + mySumDigits (n / 10) := by
-  rw [mySumDigits]
-  have hnotle : ¬ (n ≤ 0) := by omega
-  simp [hnotle]
+theorem sumDigits_pos_step {n : Int} (h : 0 < n) :
+    sumDigits n = n % 10 + sumDigits (n / 10) := by
+  conv_lhs => unfold sumDigits
+  have h1 : ¬ (n ≤ 0) := by omega
+  simp [h1]
 
-theorem mySumDigits_step (n : Int) (h : 0 ≤ n) :
-    mySumDigits n = n % 10 + mySumDigits (n / 10) := by
-  by_cases hn : n = 0
-  · subst hn; simp [mySumDigits_zero]
-  · exact mySumDigits_pos_step n (by omega)
+theorem sumDigits_nonneg_all (n : Int) : 0 ≤ sumDigits n := by
+  induction n using sumDigits.induct with
+  | case1 n hn =>
+    simp [sumDigits_le_zero hn]
+  | case2 n hn ih =>
+    have hpos : 0 < n := by omega
+    rw [sumDigits_pos_step hpos]
+    omega
 
-theorem mySumDigits_eq_sumDigitsNat (n : Int) (h : 0 ≤ n) :
-    mySumDigits n = Int.ofNat (sumDigitsNat n.toNat) := by
-  induction h_eq : n.toNat using Nat.strong_induction_on generalizing n with
-  | h k ih =>
-    by_cases hn : n ≤ 0
-    · have hn0 : n = 0 := by omega
-      subst hn0; subst h_eq; simp [mySumDigits_zero, sumDigitsNat_zero]
-    · rw [mySumDigits]
-      simp only [hn, ↓reduceIte]
-      have hk : 0 < k := by omega
-      rw [sumDigitsNat_pos k hk]
-      have hdiv_nonneg : 0 ≤ n / 10 := by omega
-      have hdiv_toNat : (n / 10).toNat = k / 10 := by omega
-      rw [ih (k / 10) (Nat.div_lt_self hk (by decide)) (n / 10) hdiv_nonneg hdiv_toNat]
-      simp only [Int.ofNat_eq_coe, Nat.cast_add]
+theorem sumDigits_pos_of_pos {n : Int} (h : 0 < n) : 0 < sumDigits n := by
+  induction n using sumDigits.induct with
+  | case1 n hn => omega
+  | case2 n hn ih =>
+    have hpos : 0 < n := by omega
+    rw [sumDigits_pos_step hpos]
+    by_cases hdiv : 0 < n / 10
+    · have := ih hdiv
+      omega
+    · have : n % 10 > 0 := by omega
+      have := sumDigits_nonneg_all (n / 10)
       omega
 
-/-- Property 1: Non-negativity of the digit sum. -/
+theorem sumDigits_single_digit_aux {n : Int} (h0 : 0 ≤ n) (h10 : n < 10) :
+    sumDigits n = n := by
+  by_cases hz : n ≤ 0
+  · have : n = 0 := by omega
+    subst this
+    exact sumDigits_zero
+  · have hpos : 0 < n := by omega
+    rw [sumDigits_pos_step hpos]
+    have hdiv : n / 10 ≤ 0 := by omega
+    rw [sumDigits_le_zero hdiv]
+    omega
+
+/-! ## Property Propositions and Theorems -/
+
+/-- Property 1: The sum of digits is always non-negative (`sumDigits n ≥ 0`). -/
 def nonneg_prop (n : Int) : Prop :=
-  0 ≤ mySumDigits n
+  sumDigits n ≥ 0
 
-theorem nonneg_thm (n : Int) (_h : Pre n) : nonneg_prop n := by
-  unfold nonneg_prop
-  clear _h
-  induction h_eq : n.toNat using Nat.strong_induction_on generalizing n with
-  | h k ih =>
-    by_cases hn : n ≤ 0
-    · rw [mySumDigits_nonpos n hn]
-    · rw [mySumDigits_pos_step n (by omega)]
-      have hrec : 0 ≤ mySumDigits (n / 10) :=
-        ih (n / 10).toNat (by omega) (n / 10) rfl
-      omega
+instance (n : Int) : Decidable (nonneg_prop n) :=
+  inferInstanceAs (Decidable (sumDigits n ≥ 0))
 
-/-- Property 2: Single-digit non-negative integers return themselves. -/
-def single_digit_prop (n : Int) : Prop :=
-  n < 10 → mySumDigits n = n
+theorem nonneg_thm (n : Int) (_h : Pre n) : nonneg_prop n :=
+  sumDigits_nonneg_all n
 
-theorem single_digit_thm (n : Int) (h : Pre n) : single_digit_prop n := by
-  unfold Pre at h
-  intro h10
-  rw [mySumDigits_step n h]
-  have hdiv : n / 10 = 0 := by omega
-  have hmod : n % 10 = n := by omega
-  rw [hdiv, hmod, mySumDigits_zero]
-  omega
-
-/-- Property 3: Strict positivity of the digit sum for positive integers. -/
-def pos_prop (n : Int) : Prop :=
-  0 < n → 0 < mySumDigits n
-
-theorem pos_thm (n : Int) (_h : Pre n) : pos_prop n := by
-  clear _h
-  intro hpos
-  induction h_eq : n.toNat using Nat.strong_induction_on generalizing n with
-  | h k ih =>
-    by_cases h10 : n < 10
-    · rw [single_digit_thm n (by unfold Pre; omega) h10]
-      exact hpos
-    · rw [mySumDigits_pos_step n hpos]
-      have hdiv_pos : 0 < n / 10 := by omega
-      have hrec : 0 < mySumDigits (n / 10) :=
-        ih (n / 10).toNat (by omega) (n / 10) hdiv_pos rfl
-      omega
-
-/-- Property 4: Sum of digits is `0` iff `n = 0` (for non-negative `n`). -/
+/-- Property 2: Edge case for `0` — the sum of digits of `0` is `0`. -/
 def zero_prop (n : Int) : Prop :=
-  (n = 0 → mySumDigits n = 0) ∧ (mySumDigits n = 0 ↔ n = 0)
+  n = 0 → sumDigits n = 0
 
-theorem zero_thm (n : Int) (h : Pre n) : zero_prop n := by
-  refine ⟨fun h0 => by subst h0; exact mySumDigits_zero, ?_⟩
+instance (n : Int) : Decidable (zero_prop n) :=
+  inferInstanceAs (Decidable (n = 0 → sumDigits n = 0))
+
+theorem zero_thm (n : Int) (_h : Pre n) : zero_prop n := by
+  intro hn
+  subst hn
+  exact sumDigits_zero
+
+/-- Property 3: For non-negative `n`, `sumDigits n = 0` if and only if `n = 0`. -/
+def zero_iff_prop (n : Int) : Prop :=
+  sumDigits n = 0 ↔ n = 0
+
+instance (n : Int) : Decidable (zero_iff_prop n) :=
+  inferInstanceAs (Decidable (sumDigits n = 0 ↔ n = 0))
+
+theorem zero_iff_thm (n : Int) (h : Pre n) : zero_iff_prop n := by
+  unfold zero_iff_prop
+  unfold Pre at h
   constructor
   · intro hsum
     by_contra hne
-    have hnp : 0 < n := by unfold Pre at h; omega
-    have hpos : 0 < mySumDigits n := pos_thm n h hnp
+    have hpos : 0 < n := by omega
+    have hsum_pos := sumDigits_pos_of_pos hpos
     omega
-  · intro h0
-    subst h0; exact mySumDigits_zero
+  · intro hn
+    subst hn
+    exact sumDigits_zero
 
-/-- Property 5: Base-10 step recurrence `mySumDigits n = n % 10 + mySumDigits (n / 10)`. -/
+/-- Property 4: For strictly positive `n`, the sum of digits is strictly positive (`sumDigits n > 0`). -/
+def pos_prop (n : Int) : Prop :=
+  n > 0 → sumDigits n > 0
+
+instance (n : Int) : Decidable (pos_prop n) :=
+  inferInstanceAs (Decidable (n > 0 → sumDigits n > 0))
+
+theorem pos_thm (n : Int) (_h : Pre n) : pos_prop n := by
+  intro hpos
+  exact sumDigits_pos_of_pos hpos
+
+/-- Property 5: Single-digit non-negative numbers (`0 ≤ n < 10`) return themselves. -/
+def single_digit_prop (n : Int) : Prop :=
+  (0 ≤ n ∧ n < 10) → sumDigits n = n
+
+instance (n : Int) : Decidable (single_digit_prop n) :=
+  inferInstanceAs (Decidable ((0 ≤ n ∧ n < 10) → sumDigits n = n))
+
+theorem single_digit_thm (n : Int) (_h : Pre n) : single_digit_prop n := by
+  intro ⟨h0, h10⟩
+  exact sumDigits_single_digit_aux h0 h10
+
+/-- Property 6: Recurrence step for positive integers (`n > 0 → sumDigits n = n % 10 + sumDigits (n / 10)`). -/
 def recurrence_prop (n : Int) : Prop :=
-  mySumDigits n = n % 10 + mySumDigits (n / 10)
+  n > 0 → sumDigits n = n % 10 + sumDigits (n / 10)
 
-theorem recurrence_thm (n : Int) (h : Pre n) : recurrence_prop n :=
-  mySumDigits_step n h
+instance (n : Int) : Decidable (recurrence_prop n) :=
+  inferInstanceAs (Decidable (n > 0 → sumDigits n = n % 10 + sumDigits (n / 10)))
 
-/-- Property 6: Upper bound `mySumDigits n <= n`. -/
-def upper_bound_prop (n : Int) : Prop :=
-  mySumDigits n ≤ n
+theorem recurrence_thm (n : Int) (_h : Pre n) : recurrence_prop n := by
+  intro hpos
+  exact sumDigits_pos_step hpos
 
-theorem upper_bound_thm (n : Int) (h : Pre n) : upper_bound_prop n := by
-  unfold upper_bound_prop
+/-- Property 7: Base-10 digit decomposition holds for all non-negative integers `n`. -/
+def decomp_prop (n : Int) : Prop :=
+  sumDigits n = n % 10 + sumDigits (n / 10)
+
+instance (n : Int) : Decidable (decomp_prop n) :=
+  inferInstanceAs (Decidable (sumDigits n = n % 10 + sumDigits (n / 10)))
+
+theorem decomp_thm (n : Int) (h : Pre n) : decomp_prop n := by
+  unfold decomp_prop
   unfold Pre at h
-  induction h_eq : n.toNat using Nat.strong_induction_on generalizing n with
-  | h k ih =>
-    by_cases hn0 : n = 0
-    · subst hn0; simp [mySumDigits_zero]
-    · rw [mySumDigits_pos_step n (by omega)]
-      have hrec : mySumDigits (n / 10) ≤ n / 10 :=
-        ih (n / 10).toNat (by omega) (n / 10) (by omega) rfl
-      omega
+  by_cases hz : n = 0
+  · subst hz
+    simp [sumDigits_zero]
+  · have hpos : 0 < n := by omega
+    exact sumDigits_pos_step hpos
 
-/-- Property 7: Multi-digit numbers (`n >= 10`) have digit sum strictly less than `n`. -/
-def strict_lt_prop (n : Int) : Prop :=
-  10 ≤ n → mySumDigits n < n
+/-- Property 8: The sum of digits of a non-negative integer never exceeds the integer itself (`sumDigits n ≤ n`). -/
+def le_self_prop (n : Int) : Prop :=
+  sumDigits n ≤ n
 
-theorem strict_lt_thm (n : Int) (_h : Pre n) : strict_lt_prop n := by
-  intro h10
-  rw [mySumDigits_pos_step n (by omega)]
-  have hrec : mySumDigits (n / 10) ≤ n / 10 := upper_bound_thm (n / 10) (by unfold Pre; omega)
-  omega
+instance (n : Int) : Decidable (le_self_prop n) :=
+  inferInstanceAs (Decidable (sumDigits n ≤ n))
 
-/-- Property 8: Fixed-point characterization (`mySumDigits n = n <-> n < 10`). -/
-def fixed_point_prop (n : Int) : Prop :=
-  mySumDigits n = n ↔ n < 10
-
-theorem fixed_point_thm (n : Int) (h : Pre n) : fixed_point_prop n := by
-  unfold fixed_point_prop
+theorem le_self_thm (n : Int) (h : Pre n) : le_self_prop n := by
+  unfold le_self_prop
   unfold Pre at h
-  constructor
-  · intro heq
-    by_contra hge
-    have hlt : mySumDigits n < n := strict_lt_thm n h (by omega)
+  induction n using sumDigits.induct with
+  | case1 n hn =>
+    rw [sumDigits_le_zero hn]
     omega
-  · intro hlt
-    exact single_digit_thm n h hlt
+  | case2 n hn ih =>
+    have hpos : 0 < n := by omega
+    rw [sumDigits_pos_step hpos]
+    have hdiv_nonneg : 0 ≤ n / 10 := by omega
+    have ih_step := ih hdiv_nonneg
+    omega
 
-/-- Property 9: Lower bound by the least significant digit (`n % 10 <= mySumDigits n`). -/
-def lower_bound_prop (n : Int) : Prop :=
-  n % 10 ≤ mySumDigits n
+/-- Property 9: For multi-digit integers (`n ≥ 10`), the sum of digits is strictly less than `n`. -/
+def lt_self_prop (n : Int) : Prop :=
+  n ≥ 10 → sumDigits n < n
 
-theorem lower_bound_thm (n : Int) (h : Pre n) : lower_bound_prop n := by
-  unfold lower_bound_prop
-  unfold Pre at h
-  rw [mySumDigits_step n h]
-  have hnonneg : 0 ≤ mySumDigits (n / 10) := nonneg_thm (n / 10) (by unfold Pre; omega)
+instance (n : Int) : Decidable (lt_self_prop n) :=
+  inferInstanceAs (Decidable (n ≥ 10 → sumDigits n < n))
+
+theorem lt_self_thm (n : Int) (_h : Pre n) : lt_self_prop n := by
+  intro h10
+  have hpos : 0 < n := by omega
+  rw [sumDigits_pos_step hpos]
+  have hdiv_nonneg : Pre (n / 10) := by
+    unfold Pre
+    omega
+  have hle : sumDigits (n / 10) ≤ n / 10 := le_self_thm (n / 10) hdiv_nonneg
   omega
 
-/-- Property 10: Appending a base-10 digit `d` (`0 <= d < 10`) adds `d` to the digit sum. -/
-def append_digit_prop (n : Int) : Prop :=
-  ∀ d : Int, 0 ≤ d → d < 10 → mySumDigits (10 * n + d) = mySumDigits n + d
-
-theorem append_digit_thm (n : Int) (h : Pre n) : append_digit_prop n := by
-  unfold Pre at h
-  intro d hd0 hd10
-  rw [mySumDigits_step (10 * n + d) (by omega)]
-  have hmod : (10 * n + d) % 10 = d := by omega
-  have hdiv : (10 * n + d) / 10 = n := by omega
-  rw [hmod, hdiv]
-  omega
-
-/-- Property 11: Multiplying by 10 preserves the sum of digits (`mySumDigits (10 * n) = mySumDigits n`). -/
-def mul_ten_prop (n : Int) : Prop :=
-  mySumDigits (10 * n) = mySumDigits n
-
-theorem mul_ten_thm (n : Int) (h : Pre n) : mul_ten_prop n := by
-  unfold mul_ten_prop
-  have happ := append_digit_thm n h 0 (by omega) (by omega)
-  simp only [add_zero] at happ
-  exact happ
-
-/-- Property 12: Congruence modulo 9 (casting out nines: `mySumDigits n % 9 = n % 9`). -/
+/-- Property 10: Congruence modulo 9 (casting out nines: `sumDigits n % 9 = n % 9`). -/
 def mod_nine_prop (n : Int) : Prop :=
-  mySumDigits n % 9 = n % 9
+  sumDigits n % 9 = n % 9
+
+instance (n : Int) : Decidable (mod_nine_prop n) :=
+  inferInstanceAs (Decidable (sumDigits n % 9 = n % 9))
 
 theorem mod_nine_thm (n : Int) (h : Pre n) : mod_nine_prop n := by
   unfold mod_nine_prop
   unfold Pre at h
-  induction h_eq : n.toNat using Nat.strong_induction_on generalizing n with
-  | h k ih =>
-    by_cases hn0 : n = 0
-    · subst hn0; simp [mySumDigits_zero]
-    · rw [mySumDigits_pos_step n (by omega)]
-      have hrec : mySumDigits (n / 10) % 9 = (n / 10) % 9 :=
-        ih (n / 10).toNat (by omega) (n / 10) (by omega) rfl
-      omega
-
-/-- Property 13: Congruence modulo 3 (`mySumDigits n % 3 = n % 3`). -/
-def mod_three_prop (n : Int) : Prop :=
-  mySumDigits n % 3 = n % 3
-
-theorem mod_three_thm (n : Int) (h : Pre n) : mod_three_prop n := by
-  unfold mod_three_prop
-  unfold Pre at h
-  induction h_eq : n.toNat using Nat.strong_induction_on generalizing n with
-  | h k ih =>
-    by_cases hn0 : n = 0
-    · subst hn0; simp [mySumDigits_zero]
-    · rw [mySumDigits_pos_step n (by omega)]
-      have hrec : mySumDigits (n / 10) % 3 = (n / 10) % 3 :=
-        ih (n / 10).toNat (by omega) (n / 10) (by omega) rfl
-      omega
-
-theorem mySumDigits_succ_le (n : Int) (hn : 0 ≤ n) :
-    mySumDigits (n + 1) ≤ mySumDigits n + 1 := by
-  induction h_eq : n.toNat using Nat.strong_induction_on generalizing n with
-  | h k ih =>
-    rw [mySumDigits_step (n + 1) (by omega), mySumDigits_step n hn]
-    by_cases hmod : n % 10 < 9
-    · have h1 : (n + 1) % 10 = n % 10 + 1 := by omega
-      have h2 : (n + 1) / 10 = n / 10 := by omega
-      rw [h1, h2]
-      omega
-    · have h1 : (n + 1) % 10 = 0 := by omega
-      have h2 : (n + 1) / 10 = n / 10 + 1 := by omega
-      have hrec : mySumDigits (n / 10 + 1) ≤ mySumDigits (n / 10) + 1 :=
-        ih (n / 10).toNat (by omega) (n / 10) (by omega) rfl
-      rw [h1, h2]
-      omega
-
-theorem mySumDigits_subadd (a b : Int) (ha : 0 ≤ a) (hb : 0 ≤ b) :
-    mySumDigits (a + b) ≤ mySumDigits a + mySumDigits b := by
-  induction h_eq : (a + b).toNat using Nat.strong_induction_on generalizing a b with
-  | h k ih =>
-    by_cases hab : a + b = 0
-    · have ha0 : a = 0 := by omega
-      have hb0 : b = 0 := by omega
-      subst ha0; subst hb0
-      simp [mySumDigits_zero]
-    · rw [mySumDigits_step (a + b) (by omega), mySumDigits_step a ha, mySumDigits_step b hb]
-      by_cases hcarry : a % 10 + b % 10 < 10
-      · have hmod : (a + b) % 10 = a % 10 + b % 10 := by omega
-        have hdiv : (a + b) / 10 = a / 10 + b / 10 := by omega
-        have hrec : mySumDigits (a / 10 + b / 10) ≤ mySumDigits (a / 10) + mySumDigits (b / 10) :=
-          ih (a / 10 + b / 10).toNat (by omega) (a / 10) (b / 10) (by omega) (by omega) rfl
-        rw [hmod, hdiv]
-        omega
-      · have hmod : (a + b) % 10 = a % 10 + b % 10 - 10 := by omega
-        have hdiv : (a + b) / 10 = a / 10 + b / 10 + 1 := by omega
-        have hsucc : mySumDigits (a / 10 + b / 10 + 1) ≤ mySumDigits (a / 10 + b / 10) + 1 :=
-          mySumDigits_succ_le (a / 10 + b / 10) (by omega)
-        have hrec : mySumDigits (a / 10 + b / 10) ≤ mySumDigits (a / 10) + mySumDigits (b / 10) :=
-          ih (a / 10 + b / 10).toNat (by omega) (a / 10) (b / 10) (by omega) (by omega) rfl
-        rw [hmod, hdiv]
-        omega
-
-/-- Property 14: Subadditivity (`mySumDigits (n + m) <= mySumDigits n + mySumDigits m`). -/
-def subadd_prop (n : Int) : Prop :=
-  ∀ m : Int, Pre m → mySumDigits (n + m) ≤ mySumDigits n + mySumDigits m
-
-theorem subadd_thm (n : Int) (h : Pre n) : subadd_prop n :=
-  fun m hm => mySumDigits_subadd n m h hm
-
-/-- Property 15: Agreement with Mathlib's `(Nat.digits 10 n.toNat).sum`. -/
-def digits_sum_prop (n : Int) : Prop :=
-  mySumDigits n = Int.ofNat ((Nat.digits 10 n.toNat).sum)
-
-theorem digits_sum_thm (n : Int) (h : Pre n) : digits_sum_prop n := by
-  unfold digits_sum_prop
-  rw [mySumDigits_eq_sumDigitsNat n h, sumDigitsNat_eq_digits_sum]
-
-theorem sumDigitsNat_digits_len_bound (k : Nat) :
-    sumDigitsNat k ≤ 9 * (Nat.digits 10 k).length := by
-  induction k using Nat.strong_induction_on with
-  | h k ih =>
-    by_cases hk0 : k = 0
-    · subst hk0; simp [sumDigitsNat]
-    · rw [sumDigitsNat_pos k (by omega)]
-      rw [Nat.digits_def' (by decide : 1 < 10) (by omega : 0 < k)]
-      simp only [List.length_cons]
-      have hrec : sumDigitsNat (k / 10) ≤ 9 * (Nat.digits 10 (k / 10)).length :=
-        ih (k / 10) (Nat.div_lt_self (by omega) (by decide))
-      omega
-
-/-- Property 16: Upper bound by `9` times the number of base-10 digits. -/
-def digits_len_bound_prop (n : Int) : Prop :=
-  mySumDigits n ≤ 9 * Int.ofNat (Nat.digits 10 n.toNat).length
-
-theorem digits_len_bound_thm (n : Int) (h : Pre n) : digits_len_bound_prop n := by
-  unfold digits_len_bound_prop
-  rw [mySumDigits_eq_sumDigitsNat n h]
-  have hnat := sumDigitsNat_digits_len_bound n.toNat
-  simp only [Int.ofNat_eq_coe]
-  omega
-
-/-- Property 17: Checked wrapper returns `some (mySumDigits n)` iff `Pre n`,
-    and `none` iff `not Pre n`. -/
-def pre_check_prop (n : Int) : Prop :=
-  (Pre n ↔ mySumDigitsOpt n = some (mySumDigits n)) ∧
-  (¬ Pre n ↔ mySumDigitsOpt n = none)
-
-theorem pre_check_thm (n : Int) : pre_check_prop n := by
-  unfold pre_check_prop mySumDigitsOpt Pre
-  by_cases h : n < 0
-  · simp [h]
-  · simp [h]
+  induction n using sumDigits.induct with
+  | case1 n hn =>
+    have : n = 0 := by omega
+    subst this
+    simp [sumDigits_zero]
+  | case2 n hn ih =>
+    have hpos : 0 < n := by omega
+    rw [sumDigits_pos_step hpos]
+    have hdiv_nonneg : 0 ≤ n / 10 := by omega
+    have ih_step := ih hdiv_nonneg
     omega
 
-/-! ## 5. Post-condition -/
+/-- Property 11: Appending a base-10 digit `d` (`0 ≤ d < 10`) adds `d` to the digit sum. -/
+def append_digit_prop (n d : Int) : Prop :=
+  (0 ≤ d ∧ d < 10) → sumDigits (10 * n + d) = sumDigits n + d
 
-/-- Postcondition combining all specification properties of `mySumDigits`. -/
+instance (n d : Int) : Decidable (append_digit_prop n d) :=
+  inferInstanceAs (Decidable ((0 ≤ d ∧ d < 10) → sumDigits (10 * n + d) = sumDigits n + d))
+
+theorem append_digit_thm (n d : Int) (h : Pre n) : append_digit_prop n d := by
+  unfold append_digit_prop
+  unfold Pre at h
+  intro ⟨hd0, hd10⟩
+  by_cases h0 : 10 * n + d ≤ 0
+  · have hn0 : n = 0 := by omega
+    have hd_zero : d = 0 := by omega
+    subst hn0 hd_zero
+    simp [sumDigits_zero]
+  · have hpos : 0 < 10 * n + d := by omega
+    rw [sumDigits_pos_step hpos]
+    have hdiv : (10 * n + d) / 10 = n := by omega
+    have hmod : (10 * n + d) % 10 = d := by omega
+    rw [hdiv, hmod]
+    omega
+
+/-- Property 12: Multiplying a non-negative integer by 10 preserves the sum of digits. -/
+def scale_ten_prop (n : Int) : Prop :=
+  sumDigits (10 * n) = sumDigits n
+
+instance (n : Int) : Decidable (scale_ten_prop n) :=
+  inferInstanceAs (Decidable (sumDigits (10 * n) = sumDigits n))
+
+theorem scale_ten_thm (n : Int) (h : Pre n) : scale_ten_prop n := by
+  unfold scale_ten_prop
+  have happ := append_digit_thm n 0 h ⟨le_refl 0, by decide⟩
+  simpa using happ
+
+/-- Property 13: Incrementing a non-negative integer by 1 increases the digit sum by at most 1. -/
+def succ_bound_prop (n : Int) : Prop :=
+  sumDigits (n + 1) ≤ sumDigits n + 1
+
+instance (n : Int) : Decidable (succ_bound_prop n) :=
+  inferInstanceAs (Decidable (sumDigits (n + 1) ≤ sumDigits n + 1))
+
+theorem succ_bound_thm (n : Int) (h : Pre n) : succ_bound_prop n := by
+  unfold succ_bound_prop
+  unfold Pre at h
+  induction n using sumDigits.induct with
+  | case1 n hn0 =>
+    have : n = 0 := by omega
+    subst this
+    have h1 : sumDigits 1 = 1 := sumDigits_single_digit_aux (by omega) (by omega)
+    simp only [zero_add, h1, sumDigits_zero]
+    omega
+  | case2 n hn0 ih =>
+    have hpos : 0 < n := by omega
+    have hpos1 : 0 < n + 1 := by omega
+    rw [sumDigits_pos_step hpos, sumDigits_pos_step hpos1]
+    by_cases h9 : n % 10 < 9
+    · have hdiv : (n + 1) / 10 = n / 10 := by omega
+      have hmod : (n + 1) % 10 = n % 10 + 1 := by omega
+      rw [hdiv, hmod]
+      omega
+    · have hdiv : (n + 1) / 10 = n / 10 + 1 := by omega
+      have hmod : (n + 1) % 10 = 0 := by omega
+      have hmodn : n % 10 = 9 := by omega
+      rw [hdiv, hmod]
+      have ih_step := ih (by omega)
+      omega
+
+/-- Property 14: Subadditivity — `sumDigits (a + b) ≤ sumDigits a + sumDigits b` for non-negative `a, b`. -/
+def subadd_prop (a b : Int) : Prop :=
+  sumDigits (a + b) ≤ sumDigits a + sumDigits b
+
+instance (a b : Int) : Decidable (subadd_prop a b) :=
+  inferInstanceAs (Decidable (sumDigits (a + b) ≤ sumDigits a + sumDigits b))
+
+theorem subadd_thm (a b : Int) (ha : Pre a) (hb : Pre b) : subadd_prop a b := by
+  unfold subadd_prop
+  unfold Pre at ha hb
+  induction a using sumDigits.induct generalizing b with
+  | case1 a ha0 =>
+    have : a = 0 := by omega
+    subst this
+    simp [sumDigits_zero]
+  | case2 a ha0 ih =>
+    have hapos : 0 < a := by omega
+    by_cases hb0 : b ≤ 0
+    · have : b = 0 := by omega
+      subst this
+      simp [sumDigits_zero]
+    · have hbpos : 0 < b := by omega
+      have habpos : 0 < a + b := by omega
+      rw [sumDigits_pos_step hapos, sumDigits_pos_step hbpos, sumDigits_pos_step habpos]
+      by_cases hcarry : a % 10 + b % 10 < 10
+      · have hdiv : (a + b) / 10 = a / 10 + b / 10 := by omega
+        have hmod : (a + b) % 10 = a % 10 + b % 10 := by omega
+        rw [hdiv, hmod]
+        have ih1 := ih (by omega) (b := b / 10) (by omega)
+        omega
+      · have hdiv : (a + b) / 10 = a / 10 + (b / 10 + 1) := by omega
+        have hmod : (a + b) % 10 = a % 10 + b % 10 - 10 := by omega
+        rw [hdiv, hmod]
+        have ih1 := ih (by omega) (b := b / 10 + 1) (by omega)
+        have hsucc : sumDigits (b / 10 + 1) ≤ sumDigits (b / 10) + 1 :=
+          succ_bound_thm (b / 10) (by unfold Pre; omega)
+        omega
+
+/-- Property 15: Exact correspondence with Mathlib's `Nat.digits 10`. -/
+def digits_sum_prop (n : Int) : Prop :=
+  sumDigits n = ((Nat.digits 10 n.toNat).sum : Int)
+
+instance (n : Int) : Decidable (digits_sum_prop n) :=
+  inferInstanceAs (Decidable (sumDigits n = ((Nat.digits 10 n.toNat).sum : Int)))
+
+theorem digits_sum_thm (n : Int) (_h : Pre n) : digits_sum_prop n := by
+  clear _h
+  unfold digits_sum_prop
+  induction n using sumDigits.induct with
+  | case1 n hn =>
+    have htoNat : n.toNat = 0 := by omega
+    simp [sumDigits_le_zero hn, htoNat]
+  | case2 n hn ih =>
+    have hpos : 0 < n := by omega
+    rw [sumDigits_pos_step hpos, ih]
+    have htoNat_pos : 0 < n.toNat := by omega
+    rw [Nat.digits_def' (by decide : 1 < 10) htoNat_pos]
+    simp only [List.sum_cons, Nat.cast_add]
+    have hmod : ((n.toNat % 10 : Nat) : Int) = n % 10 := by omega
+    have hdiv : n.toNat / 10 = (n / 10).toNat := by omega
+    rw [hmod, hdiv]
+
+/-- Property 16: On valid inputs (`Pre n`), `sumDigits? n` returns `some (sumDigits n)`. -/
+def checked_valid_prop (n : Int) : Prop :=
+  sumDigits? n = some (sumDigits n)
+
+instance (n : Int) : Decidable (checked_valid_prop n) :=
+  inferInstanceAs (Decidable (sumDigits? n = some (sumDigits n)))
+
+theorem checked_valid_thm (n : Int) (h : Pre n) : checked_valid_prop n := by
+  unfold checked_valid_prop sumDigits?
+  unfold Pre at h
+  simp [h]
+
+/-- Property 17: On negative inputs (`n < 0`), `sumDigits? n` returns `none` (modeling `ValueError`). -/
+def checked_neg_prop (n : Int) : Prop :=
+  n < 0 → sumDigits? n = none
+
+instance (n : Int) : Decidable (checked_neg_prop n) :=
+  inferInstanceAs (Decidable (n < 0 → sumDigits? n = none))
+
+theorem checked_neg_thm (n : Int) : checked_neg_prop n := by
+  unfold checked_neg_prop sumDigits?
+  intro hneg
+  have hnot : ¬ (n ≥ 0) := by omega
+  simp [hnot]
+
+/-! ## Post-Condition -/
+
+/-- Post-condition conjunction of properties for a valid input `n`. -/
 def Post_prop (n : Int) : Prop :=
   nonneg_prop n ∧
-  single_digit_prop n ∧
-  pos_prop n ∧
   zero_prop n ∧
+  zero_iff_prop n ∧
+  pos_prop n ∧
+  single_digit_prop n ∧
   recurrence_prop n ∧
-  upper_bound_prop n ∧
-  strict_lt_prop n ∧
-  fixed_point_prop n ∧
-  lower_bound_prop n ∧
-  append_digit_prop n ∧
-  mul_ten_prop n ∧
+  decomp_prop n ∧
+  le_self_prop n ∧
+  lt_self_prop n ∧
   mod_nine_prop n ∧
-  mod_three_prop n ∧
-  subadd_prop n ∧
+  scale_ten_prop n ∧
+  succ_bound_prop n ∧
   digits_sum_prop n ∧
-  digits_len_bound_prop n ∧
-  pre_check_prop n
+  checked_valid_prop n
 
-/-! ## 6. Property-Based Tests (PBTs) -/
+instance (n : Int) : Decidable (Post_prop n) :=
+  inferInstanceAs (Decidable (
+    nonneg_prop n ∧
+    zero_prop n ∧
+    zero_iff_prop n ∧
+    pos_prop n ∧
+    single_digit_prop n ∧
+    recurrence_prop n ∧
+    decomp_prop n ∧
+    le_self_prop n ∧
+    lt_self_prop n ∧
+    mod_nine_prop n ∧
+    scale_ten_prop n ∧
+    succ_bound_prop n ∧
+    digits_sum_prop n ∧
+    checked_valid_prop n))
 
--- Randomized PBTs via Plausible
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → 0 ≤ mySumDigits n)
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → n < 10 → mySumDigits n = n)
-#eval Plausible.Testable.check (∀ n : Int, 0 < n → 0 < mySumDigits n)
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → (mySumDigits n = 0 ↔ n = 0))
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → mySumDigits n = n % 10 + mySumDigits (n / 10))
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → mySumDigits n ≤ n)
-#eval Plausible.Testable.check (∀ n : Int, 10 ≤ n → mySumDigits n < n)
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → (mySumDigits n = n ↔ n < 10))
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → n % 10 ≤ mySumDigits n)
-#eval Plausible.Testable.check (∀ n d : Int, 0 ≤ n → 0 ≤ d → d < 10 → mySumDigits (10 * n + d) = mySumDigits n + d)
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → mySumDigits (10 * n) = mySumDigits n)
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → mySumDigits n % 9 = n % 9)
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → mySumDigits n % 3 = n % 3)
-#eval Plausible.Testable.check (∀ n m : Int, 0 ≤ n → 0 ≤ m → mySumDigits (n + m) ≤ mySumDigits n + mySumDigits m)
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → mySumDigits n = Int.ofNat ((Nat.digits 10 n.toNat).sum))
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → mySumDigits n ≤ 9 * Int.ofNat (Nat.digits 10 n.toNat).length)
-#eval Plausible.Testable.check (∀ n : Int, (0 ≤ n ↔ mySumDigitsOpt n = some (mySumDigits n)) ∧ (n < 0 ↔ mySumDigitsOpt n = none))
+/-! ## Property-Based Tests -/
 
--- Executable boolean checker for the full Post_prop on concrete inputs
-def checkPostBool (n : Int) : Bool :=
-  let s := mySumDigits n
-  (0 ≤ s) &&
-  (if n < 10 then s == n else true) &&
-  (if 0 < n then 0 < s else true) &&
-  ((s == 0) == (n == 0)) &&
-  (s == n % 10 + mySumDigits (n / 10)) &&
-  (s ≤ n) &&
-  (if 10 ≤ n then s < n else true) &&
-  ((s == n) == (n < 10)) &&
-  (n % 10 ≤ s) &&
-  ((List.range 10).all (fun d => mySumDigits (10 * n + Int.ofNat d) == s + Int.ofNat d)) &&
-  (mySumDigits (10 * n) == s) &&
-  (s % 9 == n % 9) &&
-  (s % 3 == n % 3) &&
-  ((List.range 20).all (fun m => mySumDigits (n + Int.ofNat m) ≤ s + mySumDigits (Int.ofNat m))) &&
-  (s == Int.ofNat ((Nat.digits 10 n.toNat).sum)) &&
-  (s ≤ 9 * Int.ofNat (Nat.digits 10 n.toNat).length) &&
-  (mySumDigitsOpt n == some s)
+-- Randomized PBTs with Plausible
+#eval Plausible.Testable.check (∀ n : Int, Pre n → nonneg_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → zero_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → zero_iff_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → pos_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → single_digit_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → recurrence_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → decomp_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → le_self_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → lt_self_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → mod_nine_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ (n d : Int), Pre n → append_digit_prop n d) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → scale_ten_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → succ_bound_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ a b : Int, Pre a → Pre b → subadd_prop a b) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → digits_sum_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → checked_valid_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, checked_neg_prop n) { numRetries := 20 }
+#eval Plausible.Testable.check (∀ n : Int, Pre n → Post_prop n) { numRetries := 20 }
 
-#eval Plausible.Testable.check (∀ n : Int, 0 ≤ n → checkPostBool n = true)
-
--- Bounded exhaustive PBTs covering every property over concrete ranges
-example : (List.range 300).all (fun k => 0 ≤ mySumDigits (Int.ofNat k)) = true := by native_decide
-example : (List.range 10).all (fun k => mySumDigits (Int.ofNat k) == Int.ofNat k) = true := by native_decide
-example : (List.range 300).all (fun k => 0 < mySumDigits (Int.ofNat (k + 1))) = true := by native_decide
-example : (List.range 300).all (fun k => (mySumDigits (Int.ofNat k) == 0) == (k == 0)) = true := by native_decide
-example : (List.range 300).all (fun k =>
-  let n := Int.ofNat k
-  mySumDigits n == n % 10 + mySumDigits (n / 10)) = true := by native_decide
-example : (List.range 300).all (fun k =>
-  let n := Int.ofNat k
-  mySumDigits n ≤ n) = true := by native_decide
-example : (List.range 300).all (fun k =>
-  let n := Int.ofNat (k + 10)
-  mySumDigits n < n) = true := by native_decide
-example : (List.range 300).all (fun k =>
-  let n := Int.ofNat k
-  (mySumDigits n == n) == (n < 10)) = true := by native_decide
-example : (List.range 300).all (fun k =>
-  let n := Int.ofNat k
-  n % 10 ≤ mySumDigits n) = true := by native_decide
-example : (List.range 100).all (fun k =>
-  let n := Int.ofNat k
-  (List.range 10).all (fun d =>
-    mySumDigits (10 * n + Int.ofNat d) == mySumDigits n + Int.ofNat d)) = true := by native_decide
-example : (List.range 300).all (fun k =>
-  let n := Int.ofNat k
-  mySumDigits (10 * n) == mySumDigits n) = true := by native_decide
-example : (List.range 300).all (fun k =>
-  let n := Int.ofNat k
-  mySumDigits n % 9 == n % 9 && mySumDigits n % 3 == n % 3) = true := by native_decide
+-- Bounded exhaustive PBTs over executable Boolean forms
+example : (List.range 250).all (fun k => sumDigits (k : Int) ≥ 0) = true := by native_decide
+example : (List.range 250).all (fun k => !(k == 0) || sumDigits (k : Int) == 0) = true := by native_decide
+example : (List.range 250).all (fun k => (sumDigits (k : Int) == 0) == (k == 0)) = true := by native_decide
+example : (List.range 250).all (fun k => !(k > 0) || sumDigits (k : Int) > 0) = true := by native_decide
+example : (List.range 250).all (fun k => !(k < 10) || sumDigits (k : Int) == (k : Int)) = true := by native_decide
+example : (List.range 250).all (fun k =>
+    !(k > 0) || sumDigits (k : Int) == (k : Int) % 10 + sumDigits ((k : Int) / 10)) = true := by native_decide
+example : (List.range 250).all (fun k =>
+    sumDigits (k : Int) == (k : Int) % 10 + sumDigits ((k : Int) / 10)) = true := by native_decide
+example : (List.range 250).all (fun k => sumDigits (k : Int) ≤ (k : Int)) = true := by native_decide
+example : (List.range 250).all (fun k => !(k ≥ 10) || sumDigits (k : Int) < (k : Int)) = true := by native_decide
+example : (List.range 250).all (fun k => sumDigits (k : Int) % 9 == (k : Int) % 9) = true := by native_decide
 example : (List.range 50).all (fun k =>
-  let n := Int.ofNat k
-  (List.range 50).all (fun m =>
-    let m' := Int.ofNat m
-    mySumDigits (n + m') ≤ mySumDigits n + mySumDigits m')) = true := by native_decide
-example : (List.range 300).all (fun k =>
-  let n := Int.ofNat k
-  mySumDigits n == Int.ofNat ((Nat.digits 10 k).sum)) = true := by native_decide
-example : (List.range 300).all (fun k =>
-  let n := Int.ofNat k
-  mySumDigits n ≤ 9 * Int.ofNat (Nat.digits 10 k).length) = true := by native_decide
-example : (List.range 300).all (fun k => checkPostBool (Int.ofNat k)) = true := by native_decide
-example : (List.range 100).all (fun k => mySumDigitsOpt (- Int.ofNat (k + 1)) == none) = true := by native_decide
+    (List.range 10).all (fun d =>
+      sumDigits (10 * (k : Int) + (d : Int)) == sumDigits (k : Int) + (d : Int))) = true := by native_decide
+example : (List.range 250).all (fun k => sumDigits (10 * (k : Int)) == sumDigits (k : Int)) = true := by native_decide
+example : (List.range 250).all (fun k => sumDigits ((k : Int) + 1) ≤ sumDigits (k : Int) + 1) = true := by native_decide
+example : (List.range 40).all (fun a =>
+    (List.range 40).all (fun b =>
+      sumDigits ((a : Int) + (b : Int)) ≤ sumDigits (a : Int) + sumDigits (b : Int))) = true := by native_decide
+example : (List.range 250).all (fun k =>
+    sumDigits (k : Int) == ((Nat.digits 10 k).sum : Int)) = true := by native_decide
+example : (List.range 250).all (fun k =>
+    sumDigits? (k : Int) == some (sumDigits (k : Int))) = true := by native_decide
+example : (List.range 100).all (fun k =>
+    sumDigits? (-(k : Int) - 1) == none) = true := by native_decide
+example : (List.range 250).all (fun k => decide (Post_prop (k : Int))) = true := by native_decide
 
-/-! ## 7. Correctness Theorem (`Pre -> Post`) -/
+/-! ## Correctness Theorem: `Pre -> Post` -/
 
-/-- Main correctness theorem: for every integer `n` satisfying `Pre n`, `Post_prop n` holds. -/
-theorem mySumDigits_correct (n : Int) (h : Pre n) : Post_prop n :=
+/-- Main correctness theorem: every integer `n` satisfying `Pre n` satisfies `Post_prop n`. -/
+theorem correctness_thm (n : Int) (h : Pre n) : Post_prop n :=
   ⟨nonneg_thm n h,
-   single_digit_thm n h,
-   pos_thm n h,
    zero_thm n h,
+   zero_iff_thm n h,
+   pos_thm n h,
+   single_digit_thm n h,
    recurrence_thm n h,
-   upper_bound_thm n h,
-   strict_lt_thm n h,
-   fixed_point_thm n h,
-   lower_bound_thm n h,
-   append_digit_thm n h,
-   mul_ten_thm n h,
+   decomp_thm n h,
+   le_self_thm n h,
+   lt_self_thm n h,
    mod_nine_thm n h,
-   mod_three_thm n h,
-   subadd_thm n h,
+   scale_ten_thm n h,
+   succ_bound_thm n h,
    digits_sum_thm n h,
-   digits_len_bound_thm n h,
-   pre_check_thm n⟩
+   checked_valid_thm n h⟩
 
-/-- Alias for `Pre -> Post` correctness theorem. -/
-theorem correctness_thm (n : Int) : Pre n → Post_prop n :=
-  mySumDigits_correct n
+abbrev sumDigits_correct : ∀ n : Int, Pre n → Post_prop n := correctness_thm
 
-/-! ## 8. Imperative Implementation (`Id.run do`) -/
+/-! ## Imperative Implementation -/
 
-/-- Imperative implementation on `Nat` using `Id.run do` and mutable variables. -/
-def sumDigitsNatImp (n : Nat) : Nat := Id.run do
-  let mut m : Nat := n
-  let mut total : Nat := 0
-  for _ in List.range n do
-    if m > 0 then
-      total := total + m % 10
-      m := m / 10
-    else
-      break
-  return total
-
-/-- Imperative implementation on `Int` using `Id.run do` and mutable variables
-    mirroring the Python loop `while n > 0: total += n % 10; n //= 10`. -/
-def mySumDigitsImp (n : Int) : Int := Id.run do
-  let mut m : Int := n
+/-- Imperative implementation of `sumDigits` using `Id.run do` and mutable state. -/
+def sumDigitsImp (n : Int) : Int := Id.run do
+  if n ≤ 0 then
+    return 0
   let mut total : Int := 0
+  let mut m : Int := n
   for _ in List.range n.toNat do
     if m > 0 then
       total := total + m % 10
       m := m / 10
-    else
-      break
   return total
 
-/-- Checked imperative implementation returning `none` if `not pre n`. -/
-def mySumDigitsOptImp (n : Int) : Option Int := Id.run do
-  if n < 0 then
+abbrev mySumDigitsImp : Int → Int := sumDigitsImp
+abbrev progImp : Int → Int := sumDigitsImp
+
+/-- Checked imperative implementation returning `none` when `n < 0` and `some total` when `n ≥ 0`,
+directly mirroring the structure of Python's `prog`. -/
+def sumDigitsImp? (n : Int) : Option Int := Id.run do
+  if ¬ (n ≥ 0) then
     return none
-  let mut m : Int := n
+  if n == 0 then
+    return some 0
   let mut total : Int := 0
+  let mut m : Int := n
   for _ in List.range n.toNat do
     if m > 0 then
       total := total + m % 10
       m := m / 10
-    else
-      break
   return some total
 
-/-! ## 9. Imperative Tests -/
+/-! ## Imperative Tests -/
 
-example : mySumDigitsImp 123 = 6 := by native_decide
-example : mySumDigitsImp 0 = 0 := by native_decide
-example : mySumDigitsImp 1 = 1 := by native_decide
-example : mySumDigitsImp 9 = 9 := by native_decide
-example : mySumDigitsImp 10 = 1 := by native_decide
-example : mySumDigitsImp 999 = 27 := by native_decide
-example : mySumDigitsImp 12345 = 15 := by native_decide
-example : mySumDigitsImp (-1) = 0 := by native_decide
+example : sumDigitsImp 123 = 6 := by native_decide
+example : sumDigitsImp 0 = 0 := by native_decide
+example : sumDigitsImp 1 = 1 := by native_decide
+example : sumDigitsImp 7 = 7 := by native_decide
+example : sumDigitsImp 9 = 9 := by native_decide
+example : sumDigitsImp 10 = 1 := by native_decide
+example : sumDigitsImp 99 = 18 := by native_decide
+example : sumDigitsImp 999 = 27 := by native_decide
+example : sumDigitsImp 10005 = 6 := by native_decide
+example : sumDigitsImp (-1) = 0 := by native_decide
 
-example : mySumDigitsOptImp 123 = some 6 := by native_decide
-example : mySumDigitsOptImp 0 = some 0 := by native_decide
-example : mySumDigitsOptImp (-1) = none := by native_decide
+example : sumDigitsImp? 123 = some 6 := by native_decide
+example : sumDigitsImp? 0 = some 0 := by native_decide
+example : sumDigitsImp? (-1) = none := by native_decide
 
-example : sumDigitsNatImp 123 = 6 := by native_decide
-example : sumDigitsNatImp 0 = 0 := by native_decide
-example : sumDigitsNatImp 9 = 9 := by native_decide
+#eval sumDigitsImp 123
+#eval sumDigitsImp 0
+#eval sumDigitsImp 999
+#eval sumDigitsImp? 123
+#eval sumDigitsImp? (-1)
 
-#eval mySumDigitsImp 123
-#eval mySumDigitsImp 0
-#eval mySumDigitsOptImp (-1)
-#eval mySumDigitsOptImp 123
+/-! ## Equivalence Theorem: Functional = Imperative -/
 
--- PBT comparing functional and imperative implementations
-#eval Plausible.Testable.check (∀ n : Int, mySumDigits n = mySumDigitsImp n)
-#eval Plausible.Testable.check (∀ n : Int, mySumDigitsOpt n = mySumDigitsOptImp n)
-#eval Plausible.Testable.check (∀ n : Nat, sumDigitsNat n = sumDigitsNatImp n)
-example : (List.range 300).all (fun k =>
-  mySumDigits (Int.ofNat k) == mySumDigitsImp (Int.ofNat k)) = true := by native_decide
-
-/-! ## 10. Equivalence Theorem: Functional = Imperative -/
-
-private def natLoopStep (_ : Nat) (r : MProd Nat Nat) : Id (ForInStep (MProd Nat Nat)) :=
-  if r.fst > 0 then
-    do
-      pure PUnit.unit
-      pure (ForInStep.yield ⟨r.fst / 10, r.snd + r.fst % 10⟩)
-  else
-    pure (ForInStep.done ⟨r.fst, r.snd⟩)
-
-private theorem nat_loop_eq (xs : List Nat) (m total : Nat) (h : m ≤ xs.length) :
-    (forIn xs (⟨m, total⟩ : MProd Nat Nat) natLoopStep).run.snd = total + sumDigitsNat m := by
+private theorem loop_invariant (xs : List Nat) (m total : Int) (hm : m.toNat ≤ xs.length) :
+    (Id.run (forIn xs (⟨m, total⟩ : MProd Int Int) (fun _ r => do
+      if r.fst > 0 then
+        return ForInStep.yield ⟨r.fst / 10, r.snd + r.fst % 10⟩
+      else
+        return ForInStep.yield ⟨r.fst, r.snd⟩))).snd = total + sumDigits m := by
   induction xs generalizing m total with
   | nil =>
-    have hm : m = 0 := Nat.eq_zero_of_le_zero h
-    subst hm
-    simp [sumDigitsNat]
-  | cons _ xs ih =>
-    simp only [List.forIn_cons, natLoopStep]
-    by_cases hm : m > 0
-    · simp only [hm, ↓reduceIte, bind, pure, Id.run]
-      have hdiv : m / 10 ≤ xs.length := by
-        simp only [List.length_cons] at h
-        omega
+    simp only [List.length_nil, Nat.le_zero] at hm
+    have hm0 : m ≤ 0 := by omega
+    simp [sumDigits_le_zero hm0]
+  | cons _ tl ih =>
+    simp only [List.length_cons] at hm
+    by_cases hpos : m > 0
+    · simp only [List.forIn_cons, hpos, ↓reduceIte, pure_bind]
+      have hdiv : (m / 10).toNat ≤ tl.length := by omega
       have ih_step := ih (m / 10) (total + m % 10) hdiv
-      simp only [Id.run] at ih_step
+      simp only [Id.run] at ih_step ⊢
+      rw [ih_step, sumDigits_pos_step hpos]
+      omega
+    · simp only [List.forIn_cons, hpos, ↓reduceIte, pure_bind]
+      have hdiv : m.toNat ≤ tl.length := by omega
+      have ih_step := ih m total hdiv
+      simp only [Id.run] at ih_step ⊢
       rw [ih_step]
-      conv_rhs => rw [sumDigitsNat]
-      have hm0 : ¬ (m = 0) := by omega
-      simp only [hm0, ↓reduceIte]
-      omega
-    · have hm0 : m = 0 := by omega
-      subst hm0
-      simp [sumDigitsNat, bind, pure, Id.run]
 
-/-- Equivalence theorem for the `Nat` implementations. -/
-theorem sumDigitsNat_equiv (n : Nat) : sumDigitsNat n = sumDigitsNatImp n := by
-  have hlen : n ≤ (List.range n).length := by simp
-  have hloop := nat_loop_eq (List.range n) n 0 hlen
-  unfold sumDigitsNatImp
-  change sumDigitsNat n = (forIn (List.range n) (⟨n, 0⟩ : MProd Nat Nat) natLoopStep).run.snd
-  omega
+/-- Equivalence theorem between the functional implementation `sumDigits`
+and the imperative implementation `sumDigitsImp`. -/
+theorem equivalence_thm (n : Int) : sumDigits n = sumDigitsImp n := by
+  unfold sumDigitsImp
+  by_cases hn : n ≤ 0
+  · simp [hn, sumDigits_le_zero hn]
+  · simp only [hn, ↓reduceIte]
+    have hlen : n.toNat ≤ (List.range n.toNat).length := by simp
+    have hinv := loop_invariant (List.range n.toNat) n 0 hlen
+    simpa [Id.run] using hinv.symm
 
-private def intLoopStep (_ : Nat) (r : MProd Int Int) : Id (ForInStep (MProd Int Int)) :=
-  if r.fst > 0 then
-    do
-      pure PUnit.unit
-      pure (ForInStep.yield ⟨r.fst / 10, r.snd + r.fst % 10⟩)
-  else
-    pure (ForInStep.done ⟨r.fst, r.snd⟩)
+/-- Equivalence theorem under the precondition `Pre n`. -/
+theorem equivalence_pre_thm (n : Int) (_h : Pre n) : sumDigits n = sumDigitsImp n :=
+  equivalence_thm n
 
-private theorem int_loop_eq (xs : List Nat) (m total : Int) (h : m.toNat ≤ xs.length) :
-    (forIn xs (⟨m, total⟩ : MProd Int Int) intLoopStep).run.snd = total + mySumDigits m := by
-  induction xs generalizing m total with
-  | nil =>
-    have hm0 : m ≤ 0 := by
-      simp only [List.length_nil] at h
-      omega
-    rw [mySumDigits]
-    simp [hm0]
-  | cons _ xs ih =>
-    simp only [List.forIn_cons, intLoopStep]
-    by_cases hm : m > 0
-    · simp only [hm, ↓reduceIte, bind, pure, Id.run]
-      have hdiv_len : (m / 10).toNat ≤ xs.length := by
-        simp only [List.length_cons] at h
-        omega
-      have ih_step := ih (m / 10) (total + m % 10) hdiv_len
-      simp only [Id.run] at ih_step
-      rw [ih_step]
-      conv_rhs => rw [mySumDigits]
-      have hnotle : ¬ (m ≤ 0) := by omega
-      simp only [hnotle, ↓reduceIte]
-      omega
-    · have hm0 : m ≤ 0 := by omega
-      conv_rhs => rw [mySumDigits]
-      simp [hm, hm0, bind, pure, Id.run]
+/-- Equivalence theorem for the checked implementations `sumDigits?` and `sumDigitsImp?`. -/
+theorem checked_equivalence_thm (n : Int) : sumDigits? n = sumDigitsImp? n := by
+  unfold sumDigits? sumDigitsImp?
+  by_cases hneg : n ≥ 0
+  · by_cases hz : n = 0
+    · subst hz
+      simp [sumDigits_zero]
+    · have hnotle : ¬ (n ≤ 0) := by omega
+      have hbeq : (n == 0) = false := beq_false_of_ne hz
+      simp only [hneg, not_true_eq_false, ↓reduceIte, hbeq, Bool.false_eq_true]
+      have hlen : n.toNat ≤ (List.range n.toNat).length := by simp
+      have hinv := loop_invariant (List.range n.toNat) n 0 hlen
+      simp only [Id.run, zero_add] at hinv
+      exact congrArg some hinv.symm
+  · simp [hneg]
 
-/-- Equivalence theorem: functional `mySumDigits` equals imperative `mySumDigitsImp` for all `n : Int`. -/
-theorem mySumDigits_equiv (n : Int) : mySumDigits n = mySumDigitsImp n := by
-  have hlen : n.toNat ≤ (List.range n.toNat).length := by simp
-  have hloop := int_loop_eq (List.range n.toNat) n 0 hlen
-  unfold mySumDigitsImp
-  change mySumDigits n = (forIn (List.range n.toNat) (⟨n, 0⟩ : MProd Int Int) intLoopStep).run.snd
-  omega
+#eval Plausible.Testable.check (∀ n : Int, sumDigits n = sumDigitsImp n)
+example : (List.range 250).all (fun k => decide (sumDigits (k : Int) = sumDigitsImp (k : Int))) = true := by native_decide
 
-/-- Equivalence theorem under precondition `Pre n`. -/
-theorem mySumDigits_equiv_under_pre (n : Int) (_h : Pre n) : mySumDigits n = mySumDigitsImp n :=
-  mySumDigits_equiv n
-
-/-- Equivalence theorem for the checked `Option Int` implementations. -/
-theorem mySumDigitsOpt_equiv (n : Int) : mySumDigitsOpt n = mySumDigitsOptImp n := by
-  unfold mySumDigitsOpt mySumDigitsOptImp
-  by_cases hlt : n < 0
-  · simp [hlt, pure, Id.run]
-  · simp only [hlt, ↓reduceIte, bind, pure, Id.run]
-    congr 1
-    exact mySumDigits_equiv n
-
-end MySumDigits
+end «20_MySumDigits»

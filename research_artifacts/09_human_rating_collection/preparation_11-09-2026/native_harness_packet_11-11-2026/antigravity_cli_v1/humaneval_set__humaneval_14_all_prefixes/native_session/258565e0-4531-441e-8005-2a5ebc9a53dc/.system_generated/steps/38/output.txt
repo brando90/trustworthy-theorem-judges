@@ -1,0 +1,7 @@
+Created At: 2026-11-16T22:00:51Z
+Completed At: 2026-11-16T22:00:55Z
+Command exited with code 0.
+
+Command output:
+List.isPrefixOf_iff_prefix.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {l₁ l₂ : List α} :
+  l₁.isPrefixOf l₂ = true ↔ l₁ <+: l₂

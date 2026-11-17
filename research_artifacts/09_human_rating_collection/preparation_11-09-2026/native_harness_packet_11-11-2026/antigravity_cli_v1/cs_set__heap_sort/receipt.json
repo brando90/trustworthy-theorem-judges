@@ -1,0 +1,72 @@
+{
+  "task_id": "cs_set__heap_sort",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "heap_sort.py": "9194b262a2b0d0ed6195687c4fdfef67b287f28605d2b3c8ac3cd63a6bfc2fbd",
+    "instruction.md": "f7f290893fba57a91795fa73020836a0465609e64a55e24b55fe4c668afb2bea"
+  },
+  "output": "/home/user/lean_project/Veribench/heap_sort.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-71cef9fea3e0",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794868279.7933729,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794869479.577773,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "845f2b9a-7686-4625-9800-a4ba11f9c75b",
+      "status": "SUCCESS",
+      "response": "I have launched the Lean compiler to verify the equivalence proof and property-based tests in [heap_sort.lean](file:///home/user/lean_project/Veribench/heap_sort.lean) and will wait for it to finish.\nI have launched the Lean compiler to verify the updated `heap_sort_equiv` proof in [heap_sort.lean](file:///home/user/lean_project/Veribench/heap_sort.lean) and will wait for it to finish.\nI have launched the Lean compiler to verify the final version of [heap_sort.lean](file:///home/user/lean_project/Veribench/heap_sort.lean) and will wait for it to finish.\nI have completed the Lean 4 formalization of `heap_sort` in [heap_sort.lean](file:///home/user/lean_project/Veribench/heap_sort.lean).\n\n### Summary of Formalization\n\n1. **Functional Implementation** ([heap_sort.lean](file:///home/user/lean_project/Veribench/heap_sort.lean#L16-L81)):\n   - `getElemD` and `swap` for index-based list access and element swapping.\n   - `chooseLargest`, `heapifyAux`, and `heapify` implementing the max-heap sift-down step over `[0, n)`.\n   - `buildMaxHeapLoop` and `build_max_heap` constructing a max-heap from index `n / 2 - 1` down to `0`.\n   - `extractMaxLoop` and `heap_sort` handling the `arr.length \u2264 1` base case, building the max-heap, and repeatedly extracting the maximum root to the sorted suffix.\n\n2. **Unit Tests & Property-Based Tests** ([heap_sort.lean](file:///home/user/lean_project/Veribench/heap_sort.lean#L83-L108), [heap_sort.lean](file:///home/user/lean_project/Veribench/heap_sort.lean#L914-L989)):\n   - Ground unit tests via `#eval` and `example : ... := by native_decide` covering all Python test cases.\n   - Randomized (`Plausible.Testable.check`) and bounded PBTs for every property proposition, `Post_prop`, and functional-imperative equivalence.\n\n3. **Specifications & Machine-Checked Proofs** ([heap_sort.lean](file:///home/user/lean_project/Veribench/heap_sort.lean#L110-L1007)):\n   - `Pre`: Precondition predicate on `List Int`.\n   - `base_case_prop` / `base_case_thm`: `arr.length \u2264 1 \u2192 heap_sort arr = arr`.\n   - `perm_prop` / `perm_thm`: `(heap_sort arr).Perm arr`.\n   - `length_prop` / `length_thm`: `(heap_sort arr).length = arr.length`.\n   - `mem_prop` / `mem_thm`: `\u2200 x : Int, x \u2208 heap_sort arr \u2194 x \u2208 arr`.\n   - `count_prop` / `count_thm`: `\u2200 x : Int, (heap_sort arr).count x = arr.count x`.\n   - `sorted_prop` / `sorted_thm`: `(heap_sort arr).Pairwise (\u00b7 \u2264 \u00b7)`.\n   - `already_sorted_prop` / `already_sorted_thm`: `arr.Pairwise (\u00b7 \u2264 \u00b7) \u2192 heap_sort arr = arr`.\n   - `idempotent_prop` / `idempotent_thm`: `heap_sort (heap_sort arr) = heap_sort arr`.\n   - `reverse_prop` / `reverse_thm`: `heap_sort arr.reverse = heap_sort arr`.\n   - `max_heap_prop` / `max_heap_thm`: `IsMaxHeap (build_max_heap arr) arr.length 0 \u2227 (build_max_heap arr).Perm arr`.\n   - `Post_prop` and `heap_sort_correct`: Full correctness theorem `Pre arr \u2192 Post_prop arr`.\n\n4. **Imperative Implementation & Equivalence Proof** ([heap_sort.lean](file:///home/user/lean_project/Veribench/heap_sort.lean#L1009-L1196)):\n   - `heapify_imp`, `build_max_heap_imp`, and `heap_sort_imp` written with `Id.run do` and mutable variables (`let mut`).\n   - `heap_sort_equiv`: Complete proof that `\u2200 arr : List Int, heap_sort arr = heap_sort_imp arr`.\n",
+      "duration_seconds": 1194.198192039,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 176732,
+        "output_tokens": 64427,
+        "thinking_tokens": 34773,
+        "cache_read_tokens": 2295859,
+        "total_tokens": 241159
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "oauth2.googleapis.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "66109b444ed89cbe50ae192cf2b796b1c1e9cb7a117ec403b7bb3f1ae6aa37c2",
+  "candidate_bytes": 48214
+}

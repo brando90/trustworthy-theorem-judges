@@ -1,0 +1,67 @@
+Command exited with code 1.
+
+Command output:
+"&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;"
+""
+"&lt;b&gt;\"&amp;'&lt;/b&gt;"
+"&amp;&lt;"
+true
+Veribench/20_html_escape.lean:126:79: error: unsolved goals
+case neg
+c : Char
+h1 : ¬c = '&'
+h2 : ¬c = '<'
+h3 : ¬c = '>'
+h4 : ¬c = '\"'
+⊢ ¬(if c = '\'' then ['&', '#', 'x', '2', '7', ';'] else [c]) = []
+Veribench/20_html_escape.lean:138:101: error: unsolved goals
+case neg
+c : Char
+h1 : ¬c = '&'
+h2 : ¬c = '<'
+h3 : ¬c = '>'
+h4 : ¬c = '\"'
+⊢ (if c = '\'' then ['&', '#', 'x', '2', '7', ';'] else [c]).length = 1 + if c = '\'' then 5 else 0
+Veribench/20_html_escape.lean:167:28: error: simp made no progress
+Veribench/20_html_escape.lean:325:35: error: no goals to be solved
+Veribench/20_html_escape.lean:325:35: error: no goals to be solved
+Veribench/20_html_escape.lean:325:35: error: no goals to be solved
+Veribench/20_html_escape.lean:325:35: error: no goals to be solved
+Veribench/20_html_escape.lean:325:35: error: no goals to be solved
+Veribench/20_html_escape.lean:325:35: error: no goals to be solved
+Veribench/20_html_escape.lean:325:35: error: no goals to be solved
+Veribench/20_html_escape.lean:325:35: error: no goals to be solved
+Veribench/20_html_escape.lean:325:35: error: no goals to be solved
+Veribench/20_html_escape.lean:325:35: error: no goals to be solved
+Veribench/20_html_escape.lean:345:35: error: no goals to be solved
+Veribench/20_html_escape.lean:345:35: error: no goals to be solved
+Veribench/20_html_escape.lean:345:35: error: no goals to be solved
+Veribench/20_html_escape.lean:345:35: error: no goals to be solved
+Veribench/20_html_escape.lean:345:35: error: no goals to be solved
+Veribench/20_html_escape.lean:345:35: error: no goals to be solved
+Veribench/20_html_escape.lean:345:35: error: no goals to be solved
+Veribench/20_html_escape.lean:345:35: error: no goals to be solved
+Veribench/20_html_escape.lean:345:35: error: no goals to be solved
+Veribench/20_html_escape.lean:345:35: error: no goals to be solved
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+"&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;"
+"&lt;b&gt;\"&amp;'&lt;/b&gt;"
+"&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;"
+"&lt;b&gt;\"&amp;'&lt;/b&gt;"
+Unable to find a counter-example
+Unable to find a counter-example

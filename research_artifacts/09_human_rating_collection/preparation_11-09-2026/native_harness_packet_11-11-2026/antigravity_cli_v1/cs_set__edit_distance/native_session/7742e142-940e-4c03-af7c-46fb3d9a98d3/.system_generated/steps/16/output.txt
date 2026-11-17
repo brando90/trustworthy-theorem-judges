@@ -1,0 +1,27 @@
+Created At: 2026-11-16T22:21:11Z
+Completed At: 2026-11-16T22:21:16Z
+Command exited with code 0.
+
+Command output:
+Veribench/edit_distance.lean:12:4: warning: The namespace 'edit_distance' is duplicated in the declaration 'edit_distance.edit_distance'
+
+Note: This linter can be disabled with `set_option linter.dupNamespace false`
+5
+Veribench/edit_distance.lean:48:43: warning: `Id.pure_eq` has been deprecated: use `Id.run_pure` instead
+Veribench/edit_distance.lean:48:55: warning: `Id.bind_eq` has been deprecated: use `Id.run_bind` instead
+Veribench/edit_distance.lean:48:67: warning: `List.forIn_yield_eq_foldl` has been deprecated: use `List.idRun_forIn_yield_eq_foldl` instead
+Veribench/edit_distance.lean:45:8: warning: declaration uses 'sorry'
+Veribench/edit_distance.lean:48:43: warning: This simp argument is unused:
+  Id.pure_eq
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run, Bind.bind, Pure.pure, Id.p̵u̵r̵e̵_̵e̵q̵,̵ ̵I̵d̵.̵bind_eq, List.forIn_yield_eq_foldl]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/edit_distance.lean:48:55: warning: This simp argument is unused:
+  Id.bind_eq
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run, Bind.bind, Pure.pure, Id.pure_eq, I̵d̵.̵b̵i̵n̵d̵_̵e̵q̵,̵ ̵List.forIn_yield_eq_foldl]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

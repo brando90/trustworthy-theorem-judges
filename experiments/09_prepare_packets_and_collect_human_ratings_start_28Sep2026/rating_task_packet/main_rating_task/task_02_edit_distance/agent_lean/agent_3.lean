@@ -3,51 +3,142 @@ import Mathlib
 /-!
 # Levenshtein Edit Distance
 
-Formalization of the Python `edit_distance` function, which computes the Levenshtein
-edit distance (minimum number of single-element insertions, deletions, or substitutions)
-between two sequences (`String` or `List α`).
+This module formalizes the Levenshtein edit distance between two sequences in Lean 4,
+corresponding to the Python `edit_distance` implementation.
 
-This file contains:
-1. Functional implementation (`edit_distance` and `edit_distance_str`)
-2. Unit tests (`example : ... := by native_decide` and `#eval`)
-3. Precondition (`Pre`)
-4. Formal property specifications (`_prop`) and kernel-checked proofs (`_thm`)
-5. Postcondition (`Post_prop`)
-6. Property-based tests (`#eval Plausible.Testable.checkIO` and bounded exhaustive checks)
-7. Correctness theorem (`Pre → Post_prop`)
-8. Imperative DP implementation using `Id.run do` with mutable state (`edit_distance_imp`)
-9. Imperative unit tests
-10. Functional-imperative equivalence theorem (`edit_distance_equiv`)
+The edit distance is the minimum number of single-element edits (insertions,
+deletions, or substitutions) required to transform one sequence into another.
+
+It includes:
+- Functional recursive specification (`edit_distance`) and functional DP implementation (`edit_distance_dp`)
+- Unit tests covering strings, integer lists, character lists, and edge cases
+- Pre-condition (`Pre`) and 14 formal properties (`_prop` and proven `_thm`) establishing
+  that edit distance forms a metric space with tight length bounds and structural invariances
+- Post-condition (`Post_prop`) and property-based tests (PBTs) using `Plausible` and bounded checks
+- Correctness theorem (`edit_distance_correct : Pre s1 s2 → Post_prop s1 s2`)
+- Imperative dynamic programming implementation (`edit_distance_imp`) using `Id.run do` and mutable state
+- Equivalence theorem (`edit_distance_eq_imp`) proving functional and imperative implementations agree on all inputs
 -/
-
-namespace edit_distance
 
 set_option linter.dupNamespace false
 
+namespace edit_distance
+
 /-! ## 1. Functional Implementation -/
 
-/-- Computes the Levenshtein edit distance between two sequences `s1` and `s2`.
-    The edit distance is the minimum number of single-element edits (insertions,
-    deletions, or substitutions) required to transform `s1` into `s2`. -/
+/-- Functional recursive definition of the Levenshtein edit distance between two sequences. -/
 def edit_distance {α : Type} [DecidableEq α] : List α → List α → Nat
   | [], s2 => s2.length
   | s1, [] => s1.length
-  | x :: xs, y :: ys =>
-    if x = y then
-      edit_distance xs ys
+  | a :: s1, b :: s2 =>
+    if a = b then
+      edit_distance s1 s2
     else
-      1 + min (edit_distance xs (y :: ys))
-          (min (edit_distance (x :: xs) ys)
-               (edit_distance xs ys))
+      1 + min (edit_distance s1 (b :: s2))
+            (min (edit_distance (a :: s1) s2)
+                 (edit_distance s1 s2))
 
-/-- String wrapper for `edit_distance`, converting strings to character lists
-    just as the Python implementation converts `str` inputs via `list(s)`. -/
+/-- Convenience wrapper computing Levenshtein edit distance between two strings. -/
 def edit_distance_str (s1 s2 : String) : Nat :=
   edit_distance s1.toList s2.toList
 
+/-- Inner loop step for row-by-row dynamic programming computation of edit distance. -/
+def innerStep {α : Type} [DecidableEq α] (a : α) :
+    MProd Nat (MProd Nat (List Nat)) → (α × Nat) → MProd Nat (MProd Nat (List Nat)) :=
+  fun r x =>
+    let curr := if a = x.1 then r.fst else 1 + min x.2 (min r.snd.fst r.fst)
+    ⟨x.2, curr, curr :: r.snd.snd⟩
+
+/-- Outer loop step for row-by-row dynamic programming computation of edit distance. -/
+def outerStep {α : Type} [DecidableEq α] (ys : List α) :
+    MProd Nat (MProd (List Nat) Nat) → α → MProd Nat (MProd (List Nat) Nat) :=
+  fun r a =>
+    let res := (ys.zip r.snd.fst).foldl (innerStep a) ⟨r.fst, r.fst + 1, []⟩
+    ⟨r.fst + 1, res.snd.snd.reverse, res.snd.fst⟩
+
+/-- Functional dynamic programming implementation of Levenshtein edit distance ($O(mn)$ time). -/
+def edit_distance_dp {α : Type} [DecidableEq α] (s1 s2 : List α) : Nat :=
+  (s1.reverse.foldl (outerStep s2.reverse) ⟨0, List.range' 1 s2.length, s2.length⟩).snd.snd
+
+/-- Specification of the DP row tail for a given first sequence `s1`,
+    accumulated prefix `acc2` of the second sequence, and remaining elements `ys`. -/
+def specTail {α : Type} [DecidableEq α] (s1 : List α) : List α → List α → List Nat
+  | _, [] => []
+  | acc2, b :: ys => edit_distance s1 (b :: acc2) :: specTail s1 (b :: acc2) ys
+
+theorem edit_distance_nil_left {α : Type} [DecidableEq α] (s2 : List α) :
+    edit_distance [] s2 = s2.length := by
+  simp [edit_distance]
+
+theorem edit_distance_nil_right {α : Type} [DecidableEq α] (s1 : List α) :
+    edit_distance s1 [] = s1.length := by
+  cases s1 <;> simp [edit_distance]
+
+theorem specTail_nil {α : Type} [DecidableEq α] (acc2 ys : List α) :
+    specTail [] acc2 ys = List.range' (acc2.length + 1) ys.length := by
+  induction ys generalizing acc2 with
+  | nil => rfl
+  | cons b ys ih =>
+    simp only [specTail, edit_distance_nil_left, List.length_cons, List.range'_succ]
+    rw [ih (b :: acc2)]
+    simp [Nat.add_assoc]
+
+theorem inner_foldl_spec {α : Type} [DecidableEq α] (a : α) (s1 acc2 ys : List α) (rev_tail : List Nat) :
+    (ys.zip (specTail s1 acc2 ys)).foldl (innerStep a)
+      ⟨edit_distance s1 acc2, edit_distance (a :: s1) acc2, rev_tail⟩ =
+    ⟨edit_distance s1 (ys.reverse ++ acc2),
+     edit_distance (a :: s1) (ys.reverse ++ acc2),
+     (specTail (a :: s1) acc2 ys).reverse ++ rev_tail⟩ := by
+  induction ys generalizing acc2 rev_tail with
+  | nil =>
+    simp [specTail]
+  | cons b ys ih =>
+    simp only [specTail, List.zip_cons_cons, List.foldl_cons, innerStep]
+    have h_ed : (if a = b then edit_distance s1 acc2
+                 else 1 + min (edit_distance s1 (b :: acc2))
+                           (min (edit_distance (a :: s1) acc2) (edit_distance s1 acc2))) =
+                edit_distance (a :: s1) (b :: acc2) := by
+      rw [edit_distance]
+    rw [h_ed, ih (b :: acc2) (edit_distance (a :: s1) (b :: acc2) :: rev_tail)]
+    simp [List.reverse_cons, List.append_assoc]
+
+theorem outer_foldl_spec {α : Type} [DecidableEq α] (xs acc1 ys : List α) :
+    xs.foldl (outerStep ys)
+      ⟨edit_distance acc1 [], specTail acc1 [] ys, edit_distance acc1 ys.reverse⟩ =
+    ⟨edit_distance (xs.reverse ++ acc1) [],
+     specTail (xs.reverse ++ acc1) [] ys,
+     edit_distance (xs.reverse ++ acc1) ys.reverse⟩ := by
+  induction xs generalizing acc1 with
+  | nil =>
+    simp
+  | cons a xs ih =>
+    simp only [List.foldl_cons, outerStep]
+    have h_head : edit_distance acc1 [] + 1 = edit_distance (a :: acc1) [] := by
+      simp [edit_distance_nil_right]
+    rw [h_head, inner_foldl_spec a acc1 [] ys []]
+    simp only [List.append_nil, List.reverse_reverse]
+    rw [ih (a :: acc1)]
+    simp [List.reverse_cons, List.append_assoc]
+
+theorem edit_distance_eq_dp {α : Type} [DecidableEq α] (s1 s2 : List α) :
+    edit_distance s1 s2 = edit_distance_dp s1 s2 := by
+  unfold edit_distance_dp
+  have h1 : List.range' 1 s2.length = specTail ([] : List α) [] s2.reverse := by
+    rw [specTail_nil]
+    simp
+  have h_out := congrArg (fun p => p.snd.snd) (outer_foldl_spec s1.reverse ([] : List α) s2.reverse)
+  simp only [List.append_nil, List.reverse_reverse, edit_distance_nil_left, List.length_nil] at h_out
+  rw [← h1] at h_out
+  exact h_out.symm
+
+@[csimp]
+theorem edit_distance_csimp : @edit_distance = @edit_distance_dp := by
+  funext α inst s1 s2
+  exact edit_distance_eq_dp s1 s2
+
 /-! ## 2. Unit Tests -/
 
--- Basic functionality tests with strings
+-- Basic functionality tests with strings (as character lists and via `edit_distance_str`)
 example : edit_distance "hello".toList "hello".toList = 0 := by native_decide
 example : edit_distance "cat".toList "bat".toList = 1 := by native_decide
 example : edit_distance "cat".toList "cats".toList = 1 := by native_decide
@@ -61,14 +152,14 @@ example : edit_distance "".toList "abc".toList = 3 := by native_decide
 example : edit_distance "ab".toList "".toList = 2 := by native_decide
 example : edit_distance "a".toList "b".toList = 1 := by native_decide
 
--- Tests with lists of integers
+-- Test with lists of integers
 example : edit_distance [1, 2, 3] [1, 2, 3] = 0 := by native_decide
 example : edit_distance [1, 2, 3] [1, 4, 3] = 1 := by native_decide
 example : edit_distance [1, 2, 3, 4] [1, 3, 4] = 1 := by native_decide
 example : edit_distance [1, 2, 3] [4, 5, 6] = 3 := by native_decide
 example : edit_distance [1, 2, 3, 4, 5] [6, 7, 8] = 5 := by native_decide
 
--- Tests with character lists
+-- Test with character lists
 example : edit_distance ['h', 'e', 'l', 'l', 'o'] ['h', 'e', 'l', 'l', 'o'] = 0 := by native_decide
 example : edit_distance ['c', 'a', 't'] ['b', 'a', 't'] = 1 := by native_decide
 example : edit_distance ['c', 'a', 't'] ['c', 'a', 't', 's'] = 1 := by native_decide
@@ -93,80 +184,67 @@ example : edit_distance "aaa".toList "aa".toList = 1 := by native_decide
 example : edit_distance "aa".toList "aaa".toList = 1 := by native_decide
 example : edit_distance "aaaa".toList "bbbb".toList = 4 := by native_decide
 
--- String wrapper tests
+-- String wrapper unit tests
 example : edit_distance_str "hello" "hello" = 0 := by native_decide
 example : edit_distance_str "kitten" "sitting" = 3 := by native_decide
 example : edit_distance_str "intention" "execution" = 5 := by native_decide
 example : edit_distance_str "saturday" "sunday" = 3 := by native_decide
 
--- #eval checks
 #eval edit_distance "hello".toList "hello".toList
-#eval edit_distance "cat".toList "bat".toList
-#eval edit_distance "cat".toList "cats".toList
 #eval edit_distance "kitten".toList "sitting".toList
-#eval edit_distance [1, 2, 3] [1, 4, 3]
-#eval edit_distance "intention".toList "execution".toList
-#eval edit_distance "saturday".toList "sunday".toList
+#eval edit_distance [1, 2, 3, 4, 5] [6, 7, 8]
+#eval edit_distance_str "intention" "execution"
 
 /-! ## 3. Pre-condition -/
 
-/-- Pre-condition for `edit_distance`: both inputs are valid sequences.
-    In Lean, sequence validity is enforced statically by the `List α` type. -/
+/-- Pre-condition for `edit_distance`: any two finite sequences (`List α`) are valid inputs. -/
 def Pre {α : Type} (_s1 _s2 : List α) : Prop := True
 
 /-! ## 4. Properties and Theorems -/
 
-/-- Helper unfolding lemmas for `edit_distance`. -/
-@[simp] theorem edit_distance_nil_left {α : Type} [DecidableEq α] (s2 : List α) :
-    edit_distance ([] : List α) s2 = s2.length := by
-  simp [edit_distance]
+/-- Property 1: Edit distance from an empty sequence to `s2` is `s2.length` (all insertions). -/
+def empty_left_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
+  s1 = [] → edit_distance s1 s2 = s2.length
 
-@[simp] theorem edit_distance_nil_right {α : Type} [DecidableEq α] (s1 : List α) :
-    edit_distance s1 ([] : List α) = s1.length := by
-  cases s1 <;> simp [edit_distance]
+theorem empty_left_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
+    empty_left_prop s1 s2 := by
+  intro h
+  subst h
+  exact edit_distance_nil_left s2
 
-theorem edit_distance_cons_cons {α : Type} [DecidableEq α] (x : α) (xs : List α) (y : α) (ys : List α) :
-    edit_distance (x :: xs) (y :: ys) =
-      if x = y then edit_distance xs ys
-      else 1 + min (edit_distance xs (y :: ys)) (min (edit_distance (x :: xs) ys) (edit_distance xs ys)) := by
-  simp [edit_distance]
+/-- Property 2: Edit distance from `s1` to an empty sequence is `s1.length` (all deletions). -/
+def empty_right_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
+  s2 = [] → edit_distance s1 s2 = s1.length
 
-/-- Property 1: Edit distance is always non-negative. -/
-def nonneg_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
-  0 ≤ edit_distance s1 s2
+theorem empty_right_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
+    empty_right_prop s1 s2 := by
+  intro h
+  subst h
+  exact edit_distance_nil_right s1
 
-theorem nonneg_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
-    nonneg_prop s1 s2 :=
-  Nat.zero_le (edit_distance s1 s2)
+theorem edit_distance_same_head {α : Type} [DecidableEq α] (a : α) (s1 s2 : List α) :
+    edit_distance (a :: s1) (a :: s2) = edit_distance s1 s2 := by
+  rw [edit_distance]
+  simp
 
-/-- Property 2: Edit distance from an empty sequence to `s2` is `s2.length` (all insertions). -/
-def empty_left_prop {α : Type} [DecidableEq α] (s2 : List α) : Prop :=
-  edit_distance ([] : List α) s2 = s2.length
-
-theorem empty_left_thm {α : Type} [DecidableEq α] (s2 : List α) :
-    empty_left_prop s2 := by
-  simp [empty_left_prop]
-
-/-- Property 3: Edit distance from `s1` to an empty sequence is `s1.length` (all deletions). -/
-def empty_right_prop {α : Type} [DecidableEq α] (s1 : List α) : Prop :=
-  edit_distance s1 ([] : List α) = s1.length
-
-theorem empty_right_thm {α : Type} [DecidableEq α] (s1 : List α) :
-    empty_right_prop s1 := by
-  simp [empty_right_prop]
-
-/-- Property 4: Reflexivity — the edit distance between any sequence and itself is 0. -/
-def refl_prop {α : Type} [DecidableEq α] (s : List α) : Prop :=
-  edit_distance s s = 0
-
-theorem refl_thm {α : Type} [DecidableEq α] (s : List α) :
-    refl_prop s := by
-  unfold refl_prop
+theorem edit_distance_self {α : Type} [DecidableEq α] (s : List α) :
+    edit_distance s s = 0 := by
   induction s with
-  | nil => simp
-  | cons x xs ih => simp [edit_distance_cons_cons, ih]
+  | nil => simp [edit_distance_nil_left]
+  | cons a s ih => rw [edit_distance_same_head, ih]
 
-/-- Property 5: Identity of indiscernibles — edit distance is 0 if and only if the sequences are equal. -/
+/-- Property 3: Identical sequences have zero edit distance (reflexivity). -/
+def self_zero_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
+  s1 = s2 → edit_distance s1 s2 = 0
+
+theorem self_zero_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
+    self_zero_prop s1 s2 := by
+  intro h
+  subst h
+  exact edit_distance_self s1
+
+/-- Property 4: Edit distance is zero if and only if the two sequences are equal
+    (identity of indiscernibles). -/
 def zero_iff_eq_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
   edit_distance s1 s2 = 0 ↔ s1 = s2
 
@@ -175,23 +253,22 @@ theorem zero_iff_eq_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
   unfold zero_iff_eq_prop
   induction s1 generalizing s2 with
   | nil =>
-    cases s2 <;> simp
-  | cons x xs ih =>
+    rw [edit_distance_nil_left, List.length_eq_zero_iff]
+    exact eq_comm
+  | cons a s1 ih =>
     cases s2 with
-    | nil => simp
-    | cons y ys =>
-      rw [edit_distance_cons_cons]
-      split_ifs with h
+    | nil =>
+      rw [edit_distance_nil_right]
+      simp
+    | cons b s2 =>
+      rw [edit_distance]
+      by_cases h : a = b
       · subst h
-        simp [ih]
-      · constructor
-        · intro h0
-          omega
-        · intro heq
-          cases heq
-          contradiction
+        simp [ih s2]
+      · simp only [h, ↓reduceIte, List.cons.injEq, false_and, iff_false]
+        omega
 
-/-- Property 6: Distinct sequences have strictly positive edit distance. -/
+/-- Property 5: Distinct sequences have strictly positive edit distance. -/
 def pos_of_ne_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
   s1 ≠ s2 → 0 < edit_distance s1 s2
 
@@ -199,33 +276,37 @@ theorem pos_of_ne_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
     pos_of_ne_prop s1 s2 := by
   intro hne
   have h0 : edit_distance s1 s2 ≠ 0 := by
-    intro hz
-    exact hne ((zero_iff_eq_thm s1 s2).mp hz)
+    intro h
+    exact hne ((zero_iff_eq_thm s1 s2).mp h)
   omega
 
-/-- Property 7: Symmetry — edit distance is symmetric in its arguments. -/
-def symm_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
+/-- Property 6: Edit distance is symmetric (`edit_distance s1 s2 = edit_distance s2 s1`). -/
+def symmetry_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
   edit_distance s1 s2 = edit_distance s2 s1
 
-theorem symm_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
-    symm_prop s1 s2 := by
-  unfold symm_prop
+theorem symmetry_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
+    symmetry_prop s1 s2 := by
+  unfold symmetry_prop
   induction s1 generalizing s2 with
-  | nil => simp
-  | cons x xs ih1 =>
+  | nil =>
+    rw [edit_distance_nil_left, edit_distance_nil_right]
+  | cons a s1 ih1 =>
     induction s2 with
-    | nil => simp
-    | cons y ys ih2 =>
-      rw [edit_distance_cons_cons, edit_distance_cons_cons]
-      have h1 := ih1 (y :: ys)
-      have h2 := ih1 ys
-      by_cases hxy : x = y
-      · subst hxy; simp [h2]
-      · have hyx : y ≠ x := Ne.symm hxy
-        simp only [hxy, hyx, ↓reduceIte]
+    | nil =>
+      rw [edit_distance_nil_right, edit_distance_nil_left]
+    | cons b s2 ih2 =>
+      rw [edit_distance, edit_distance]
+      by_cases h : a = b
+      · subst h
+        simp [ih1 s2]
+      · have h' : b ≠ a := Ne.symm h
+        simp only [h, h', ↓reduceIte]
+        have h_a : edit_distance s1 (b :: s2) = edit_distance (b :: s2) s1 := ih1 (b :: s2)
+        have h_b : edit_distance (a :: s1) s2 = edit_distance s2 (a :: s1) := ih2
+        have h_c : edit_distance s1 s2 = edit_distance s2 s1 := ih1 s2
         omega
 
-/-- Property 8: Upper bound by maximum length — edit distance is at most `max s1.length s2.length`. -/
+/-- Property 7: Edit distance is bounded above by the maximum of the two sequence lengths. -/
 def upper_bound_max_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
   edit_distance s1 s2 ≤ max s1.length s2.length
 
@@ -233,16 +314,20 @@ theorem upper_bound_max_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
     upper_bound_max_prop s1 s2 := by
   unfold upper_bound_max_prop
   induction s1 generalizing s2 with
-  | nil => simp
-  | cons x xs ih =>
+  | nil =>
+    rw [edit_distance_nil_left]
+    omega
+  | cons a s1 ih =>
     cases s2 with
-    | nil => simp
-    | cons y ys =>
-      rw [edit_distance_cons_cons]
-      have h := ih ys
+    | nil =>
+      rw [edit_distance_nil_right]
+      omega
+    | cons b s2 =>
+      rw [edit_distance]
+      have h := ih s2
       split_ifs <;> simp only [List.length_cons] <;> omega
 
-/-- Property 9: Upper bound by sum of lengths — edit distance is at most `s1.length + s2.length`. -/
+/-- Property 8: Edit distance is bounded above by the sum of the two sequence lengths. -/
 def upper_bound_sum_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
   edit_distance s1 s2 ≤ s1.length + s2.length
 
@@ -253,287 +338,374 @@ theorem upper_bound_sum_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
   unfold upper_bound_max_prop at h
   omega
 
-/-- Property 10: Lower bound by length difference — edit distance is at least the difference in lengths. -/
+/-- Property 9: Edit distance is bounded below by the absolute difference of the sequence lengths. -/
 def lower_bound_diff_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
-  s1.length - s2.length ≤ edit_distance s1 s2 ∧ s2.length - s1.length ≤ edit_distance s1 s2
+  s1.length - s2.length ≤ edit_distance s1 s2 ∧
+  s2.length - s1.length ≤ edit_distance s1 s2
 
 theorem lower_bound_diff_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
     lower_bound_diff_prop s1 s2 := by
   unfold lower_bound_diff_prop
   induction s1 generalizing s2 with
-  | nil => simp
-  | cons x xs ih1 =>
+  | nil =>
+    rw [edit_distance_nil_left]
+    simp
+  | cons a s1 ih1 =>
     induction s2 with
-    | nil => simp
-    | cons y ys ih2 =>
-      rw [edit_distance_cons_cons]
-      have h1 := ih1 (y :: ys)
-      have h2 := ih1 ys
+    | nil =>
+      rw [edit_distance_nil_right]
+      simp
+    | cons b s2 ih2 =>
+      rw [edit_distance]
+      have h1 := ih1 (b :: s2)
+      have h2 := ih1 s2
       simp only [List.length_cons] at h1 ih2 ⊢
       split_ifs <;> omega
 
-/-- Property 11: Matching head elements do not change edit distance. -/
-def cons_same_prop {α : Type} [DecidableEq α] (x : α) (s1 s2 : List α) : Prop :=
-  edit_distance (x :: s1) (x :: s2) = edit_distance s1 s2
-
-theorem cons_same_thm {α : Type} [DecidableEq α] (x : α) (s1 s2 : List α) :
-    cons_same_prop x s1 s2 := by
-  simp [cons_same_prop, edit_distance_cons_cons]
-
-/-- Property 12: Common prefix invariance — prepending the same prefix to both sequences
-    preserves the edit distance. -/
-def prefix_invariance_prop {α : Type} [DecidableEq α] (p s1 s2 : List α) : Prop :=
-  edit_distance (p ++ s1) (p ++ s2) = edit_distance s1 s2
-
-theorem prefix_invariance_thm {α : Type} [DecidableEq α] (p s1 s2 : List α) :
-    prefix_invariance_prop p s1 s2 := by
-  unfold prefix_invariance_prop
-  induction p with
-  | nil => rfl
-  | cons x xs ih => simp [edit_distance_cons_cons, ih]
-
-/-- Property 13: Bellman dynamic programming recurrence relation. -/
-def recurrence_prop {α : Type} [DecidableEq α] (x y : α) (s1 s2 : List α) : Prop :=
-  edit_distance (x :: s1) (y :: s2) =
-    if x = y then edit_distance s1 s2
-    else 1 + min (edit_distance s1 (y :: s2))
-             (min (edit_distance (x :: s1) s2)
-                  (edit_distance s1 s2))
-
-theorem recurrence_thm {α : Type} [DecidableEq α] (x y : α) (s1 s2 : List α) :
-    recurrence_prop x y s1 s2 := by
-  simp [recurrence_prop, edit_distance]
-
-/-- Mutual step bounds when prepending an element to the first sequence. -/
-theorem edit_distance_cons_bounds {α : Type} [DecidableEq α] (x : α) (s1 s2 : List α) :
-    edit_distance (x :: s1) s2 ≤ 1 + edit_distance s1 s2 ∧
-    edit_distance s1 s2 ≤ 1 + edit_distance (x :: s1) s2 := by
-  cases s2 with
-  | nil =>
-    simp only [edit_distance_nil_right, List.length_cons]
+theorem edit_distance_cons_bounds_aux {α : Type} [DecidableEq α] :
+    ∀ (n : Nat) (s1 s2 : List α), s1.length + s2.length ≤ n →
+      ∀ (a : α),
+        edit_distance (a :: s1) s2 ≤ 1 + edit_distance s1 s2 ∧
+        edit_distance s1 s2 ≤ 1 + edit_distance (a :: s1) s2
+  | _, s1, [], _, _ => by
+    simp [edit_distance_nil_right]
     omega
-  | cons y ys =>
-    have h1 := edit_distance_cons_bounds x s1 ys
-    have h2 := edit_distance_cons_bounds y ys s1
-    rw [symm_thm (y :: ys) s1, symm_thm ys s1] at h2
-    rw [edit_distance_cons_cons x s1 y ys]
+  | 0, _, _ :: _, h, _ => by
+    simp at h
+  | n + 1, s1, b :: s2, h, a => by
+    have h_len : s2.length + s1.length ≤ n := by
+      simp only [List.length_cons] at h
+      omega
+    have h_len' : s1.length + s2.length ≤ n := by
+      simp only [List.length_cons] at h
+      omega
+    have ⟨ih_b1, ih_b2⟩ := edit_distance_cons_bounds_aux n s2 s1 h_len b
+    have ⟨ih_a1, ih_a2⟩ := edit_distance_cons_bounds_aux n s1 s2 h_len' a
+    rw [symmetry_thm (b :: s2) s1, symmetry_thm s2 s1] at ih_b1 ih_b2
+    rw [edit_distance]
     split_ifs <;> omega
-termination_by s1.length + s2.length
 
-/-- Property 14: Single deletion/prepend on first sequence changes distance by at most 1. -/
-def del_bound_prop {α : Type} [DecidableEq α] (x : α) (s1 s2 : List α) : Prop :=
-  edit_distance (x :: s1) s2 ≤ 1 + edit_distance s1 s2
+theorem edit_distance_cons_left_le {α : Type} [DecidableEq α] (a : α) (s1 s2 : List α) :
+    edit_distance (a :: s1) s2 ≤ 1 + edit_distance s1 s2 :=
+  (edit_distance_cons_bounds_aux (s1.length + s2.length) s1 s2 le_rfl a).1
 
-theorem del_bound_thm {α : Type} [DecidableEq α] (x : α) (s1 s2 : List α) :
-    del_bound_prop x s1 s2 :=
-  (edit_distance_cons_bounds x s1 s2).1
+theorem edit_distance_le_cons_left {α : Type} [DecidableEq α] (a : α) (s1 s2 : List α) :
+    edit_distance s1 s2 ≤ 1 + edit_distance (a :: s1) s2 :=
+  (edit_distance_cons_bounds_aux (s1.length + s2.length) s1 s2 le_rfl a).2
 
-/-- Property 15: Single insertion/prepend on second sequence changes distance by at most 1. -/
-def ins_bound_prop {α : Type} [DecidableEq α] (y : α) (s1 s2 : List α) : Prop :=
-  edit_distance s1 (y :: s2) ≤ 1 + edit_distance s1 s2
+theorem edit_distance_cons_right_le {α : Type} [DecidableEq α] (b : α) (s1 s2 : List α) :
+    edit_distance s1 (b :: s2) ≤ 1 + edit_distance s1 s2 := by
+  rw [symmetry_thm s1 (b :: s2), symmetry_thm s1 s2]
+  exact edit_distance_cons_left_le b s2 s1
 
-theorem ins_bound_thm {α : Type} [DecidableEq α] (y : α) (s1 s2 : List α) :
-    ins_bound_prop y s1 s2 := by
-  unfold ins_bound_prop
-  rw [symm_thm s1 (y :: s2), symm_thm s1 s2]
-  exact (edit_distance_cons_bounds y s2 s1).1
+theorem edit_distance_le_cons_right {α : Type} [DecidableEq α] (b : α) (s1 s2 : List α) :
+    edit_distance s1 s2 ≤ 1 + edit_distance s1 (b :: s2) := by
+  rw [symmetry_thm s1 (b :: s2), symmetry_thm s1 s2]
+  exact edit_distance_le_cons_left b s2 s1
 
-/-- Property 16: Single substitution at the head increases edit distance by at most 1. -/
-def sub_bound_prop {α : Type} [DecidableEq α] (x y : α) (s1 s2 : List α) : Prop :=
-  edit_distance (x :: s1) (y :: s2) ≤ 1 + edit_distance s1 s2
-
-theorem sub_bound_thm {α : Type} [DecidableEq α] (x y : α) (s1 s2 : List α) :
-    sub_bound_prop x y s1 s2 := by
-  unfold sub_bound_prop
-  rw [edit_distance_cons_cons]
+theorem edit_distance_cons_cons_le {α : Type} [DecidableEq α] (a b : α) (s1 s2 : List α) :
+    edit_distance (a :: s1) (b :: s2) ≤ (if a = b then 0 else 1) + edit_distance s1 s2 := by
+  rw [edit_distance]
   split_ifs <;> omega
 
-/-- Property 17: Triangle inequality — `edit_distance` satisfies the metric triangle inequality. -/
-def triangle_prop {α : Type} [DecidableEq α] (s1 s2 s3 : List α) : Prop :=
-  edit_distance s1 s3 ≤ edit_distance s1 s2 + edit_distance s2 s3
+/-- Property 10: Prepending a single element to either sequence changes the edit distance by at most 1. -/
+def step_bound_prop {α : Type} [DecidableEq α] (a : α) (s1 s2 : List α) : Prop :=
+  edit_distance (a :: s1) s2 ≤ 1 + edit_distance s1 s2 ∧
+  edit_distance s1 (a :: s2) ≤ 1 + edit_distance s1 s2 ∧
+  edit_distance s1 s2 ≤ 1 + edit_distance (a :: s1) s2 ∧
+  edit_distance s1 s2 ≤ 1 + edit_distance s1 (a :: s2)
 
-theorem triangle_thm {α : Type} [DecidableEq α] (s1 s2 s3 : List α) :
-    triangle_prop s1 s2 s3 := by
-  unfold triangle_prop
-  induction s1 generalizing s2 s3 with
-  | nil =>
-    simp only [edit_distance_nil_left]
+theorem step_bound_thm {α : Type} [DecidableEq α] (a : α) (s1 s2 : List α) :
+    step_bound_prop a s1 s2 :=
+  ⟨edit_distance_cons_left_le a s1 s2,
+   edit_distance_cons_right_le a s1 s2,
+   edit_distance_le_cons_left a s1 s2,
+   edit_distance_le_cons_right a s1 s2⟩
+
+/-- Property 11: Bellman dynamic programming recurrence for non-empty sequences. -/
+def recurrence_prop {α : Type} [DecidableEq α] (a b : α) (s1 s2 : List α) : Prop :=
+  edit_distance (a :: s1) (b :: s2) =
+    if a = b then
+      edit_distance s1 s2
+    else
+      1 + min (edit_distance s1 (b :: s2))
+            (min (edit_distance (a :: s1) s2)
+                 (edit_distance s1 s2))
+
+theorem recurrence_thm {α : Type} [DecidableEq α] (a b : α) (s1 s2 : List α) :
+    recurrence_prop a b s1 s2 := by
+  unfold recurrence_prop
+  rw [edit_distance]
+
+/-- Property 12: Common prefixes do not change the edit distance (`edit_distance (p ++ s1) (p ++ s2) = edit_distance s1 s2`). -/
+def common_prefix_prop {α : Type} [DecidableEq α] (p s1 s2 : List α) : Prop :=
+  edit_distance (p ++ s1) (p ++ s2) = edit_distance s1 s2
+
+theorem common_prefix_thm {α : Type} [DecidableEq α] (p s1 s2 : List α) :
+    common_prefix_prop p s1 s2 := by
+  unfold common_prefix_prop
+  induction p with
+  | nil => rfl
+  | cons a p ih =>
+    simp only [List.cons_append, edit_distance_same_head, ih]
+
+theorem edit_distance_triangle_aux {α : Type} [DecidableEq α] :
+    ∀ (n : Nat) (s1 s2 s3 : List α), s1.length + s2.length + s3.length ≤ n →
+      edit_distance s1 s3 ≤ edit_distance s1 s2 + edit_distance s2 s3
+  | _, [], s2, s3, _ => by
+    rw [edit_distance_nil_left, edit_distance_nil_left]
     have h := (lower_bound_diff_thm s2 s3).2
     omega
-  | cons x xs ih1 =>
-    induction s2 generalizing s3 with
+  | _, s1, s2, [], _ => by
+    rw [edit_distance_nil_right, edit_distance_nil_right]
+    have h := (lower_bound_diff_thm s1 s2).1
+    omega
+  | _, a :: s1, [], c :: s3, _ => by
+    rw [edit_distance_nil_right, edit_distance_nil_left]
+    exact upper_bound_sum_thm (a :: s1) (c :: s3)
+  | 0, _ :: _, _ :: _, _ :: _, h => by
+    simp at h
+  | n + 1, a :: s1, b :: s2, c :: s3, h => by
+    have h1 : s1.length + (b :: s2).length + (c :: s3).length ≤ n := by
+      simp only [List.length_cons] at h ⊢; omega
+    have h2 : (a :: s1).length + s2.length + (c :: s3).length ≤ n := by
+      simp only [List.length_cons] at h ⊢; omega
+    have h3 : s1.length + s2.length + (c :: s3).length ≤ n := by
+      simp only [List.length_cons] at h ⊢; omega
+    have h4 : (a :: s1).length + (b :: s2).length + s3.length ≤ n := by
+      simp only [List.length_cons] at h ⊢; omega
+    have h5 : (a :: s1).length + s2.length + s3.length ≤ n := by
+      simp only [List.length_cons] at h ⊢; omega
+    have h6 : s1.length + s2.length + s3.length ≤ n := by
+      simp only [List.length_cons] at h ⊢; omega
+    have ih1 := edit_distance_triangle_aux n s1 (b :: s2) (c :: s3) h1
+    have ih2 := edit_distance_triangle_aux n (a :: s1) s2 (c :: s3) h2
+    have ih3 := edit_distance_triangle_aux n s1 s2 (c :: s3) h3
+    have ih4 := edit_distance_triangle_aux n (a :: s1) (b :: s2) s3 h4
+    have ih5 := edit_distance_triangle_aux n (a :: s1) s2 s3 h5
+    have ih6 := edit_distance_triangle_aux n s1 s2 s3 h6
+    have hb1 := edit_distance_cons_left_le a s1 (c :: s3)
+    have hb2 := edit_distance_cons_right_le c (a :: s1) s3
+    have hb3 := edit_distance_cons_cons_le a c s1 s3
+    have hd1 : edit_distance (a :: s1) (b :: s2) =
+      if a = b then edit_distance s1 s2
+      else 1 + min (edit_distance s1 (b :: s2))
+                (min (edit_distance (a :: s1) s2) (edit_distance s1 s2)) := by
+      rw [edit_distance]
+    have hd2 : edit_distance (b :: s2) (c :: s3) =
+      if b = c then edit_distance s2 s3
+      else 1 + min (edit_distance s2 (c :: s3))
+                (min (edit_distance (b :: s2) s3) (edit_distance s2 s3)) := by
+      rw [edit_distance]
+    by_cases hab : a = b <;> by_cases hbc : b = c <;> by_cases hac : a = c
+    · rw [if_pos hab] at hd1; rw [if_pos hbc] at hd2; rw [if_pos hac] at hb3; omega
+    · exfalso; exact hac (hab.trans hbc)
+    · rw [if_pos hab] at hd1; rw [if_neg hbc] at hd2; rw [if_pos hac] at hb3; omega
+    · rw [if_pos hab] at hd1; rw [if_neg hbc] at hd2; rw [if_neg hac] at hb3; omega
+    · exfalso; exact hab (hac.trans hbc.symm)
+    · rw [if_neg hab] at hd1; rw [if_pos hbc] at hd2; rw [if_neg hac] at hb3; omega
+    · rw [if_neg hab] at hd1; rw [if_neg hbc] at hd2; rw [if_pos hac] at hb3; omega
+    · rw [if_neg hab] at hd1; rw [if_neg hbc] at hd2; rw [if_neg hac] at hb3; omega
+
+/-- Property 13: Triangle inequality (`edit_distance s1 s3 ≤ edit_distance s1 s2 + edit_distance s2 s3`). -/
+def triangle_ineq_prop {α : Type} [DecidableEq α] (s1 s2 s3 : List α) : Prop :=
+  edit_distance s1 s3 ≤ edit_distance s1 s2 + edit_distance s2 s3
+
+theorem triangle_ineq_thm {α : Type} [DecidableEq α] (s1 s2 s3 : List α) :
+    triangle_ineq_prop s1 s2 s3 :=
+  edit_distance_triangle_aux (s1.length + s2.length + s3.length) s1 s2 s3 le_rfl
+
+/-- Property 14: Subadditivity under sequence concatenation. -/
+def append_subadd_prop {α : Type} [DecidableEq α] (s1 t1 s2 t2 : List α) : Prop :=
+  edit_distance (s1 ++ t1) (s2 ++ t2) ≤ edit_distance s1 s2 + edit_distance t1 t2
+
+theorem append_subadd_thm {α : Type} [DecidableEq α] (s1 t1 s2 t2 : List α) :
+    append_subadd_prop s1 t1 s2 t2 := by
+  unfold append_subadd_prop
+  induction s1 generalizing s2 with
+  | nil =>
+    rw [List.nil_append, edit_distance_nil_left]
+    induction s2 with
     | nil =>
-      simp only [edit_distance_nil_right, edit_distance_nil_left]
-      have h := upper_bound_sum_thm (x :: xs) s3
-      unfold upper_bound_sum_prop at h
+      simp
+    | cons b s2 ih =>
+      simp only [List.cons_append, List.length_cons]
+      have h := edit_distance_cons_right_le b t1 (s2 ++ t2)
       omega
-    | cons y ys ih2 =>
-      induction s3 with
-      | nil =>
-        simp only [edit_distance_nil_right]
-        have h := (lower_bound_diff_thm (x :: xs) (y :: ys)).1
+  | cons a s1 ih1 =>
+    induction s2 with
+    | nil =>
+      simp only [List.cons_append, List.nil_append, edit_distance_nil_right, List.length_cons]
+      have h := edit_distance_cons_left_le a (s1 ++ t1) t2
+      have ih := ih1 []
+      simp only [List.nil_append, edit_distance_nil_right] at ih
+      omega
+    | cons b s2 ih2 =>
+      simp only [List.cons_append]
+      have hd : edit_distance (a :: s1) (b :: s2) =
+        if a = b then edit_distance s1 s2
+        else 1 + min (edit_distance s1 (b :: s2))
+                  (min (edit_distance (a :: s1) s2) (edit_distance s1 s2)) := by
+        rw [edit_distance]
+      have h1 := edit_distance_cons_left_le a (s1 ++ t1) (b :: (s2 ++ t2))
+      have h2 := edit_distance_cons_right_le b (a :: (s1 ++ t1)) (s2 ++ t2)
+      have h3 := edit_distance_cons_cons_le a b (s1 ++ t1) (s2 ++ t2)
+      have ih_a := ih1 (b :: s2)
+      have ih_b := ih2
+      have ih_c := ih1 s2
+      simp only [List.cons_append] at ih_a ih_b
+      by_cases hab : a = b
+      · rw [if_pos hab] at hd h3
         omega
-      | cons z zs ih3 =>
-        have h_xs_ys_zs := ih1 ys zs
-        have h_xs_yys_zs := ih1 (y :: ys) zs
-        have h_xs_ys_zzs := ih1 ys (z :: zs)
-        have h_xs_yys_zzs := ih1 (y :: ys) (z :: zs)
-        have h_xxs_ys_zs := ih2 zs
-        have h_xxs_ys_zzs := ih2 (z :: zs)
-        have h_del1 := edit_distance_cons_bounds x xs (z :: zs)
-        have h_del2 := edit_distance_cons_bounds x xs zs
-        have h_xy := edit_distance_cons_cons x xs y ys
-        have h_yz := edit_distance_cons_cons y ys z zs
-        have h_xz := edit_distance_cons_cons x xs z zs
-        split_ifs at h_xy h_yz h_xz <;> subst_vars <;> (try contradiction) <;> omega
+      · rw [if_neg hab] at hd h3
+        omega
 
 /-! ## 5. Post-condition -/
 
-/-- Post-condition for `edit_distance` on sequences `s1` and `s2`, combining its
-    core metric and structural properties. -/
+/-- Post-condition combining all formal properties of `edit_distance` on `s1` and `s2`. -/
 def Post_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
-  nonneg_prop s1 s2 ∧
-  empty_left_prop s2 ∧
-  empty_right_prop s1 ∧
-  refl_prop s1 ∧
-  refl_prop s2 ∧
+  empty_left_prop s1 s2 ∧
+  empty_right_prop s1 s2 ∧
+  self_zero_prop s1 s2 ∧
   zero_iff_eq_prop s1 s2 ∧
   pos_of_ne_prop s1 s2 ∧
-  symm_prop s1 s2 ∧
+  symmetry_prop s1 s2 ∧
   upper_bound_max_prop s1 s2 ∧
   upper_bound_sum_prop s1 s2 ∧
-  lower_bound_diff_prop s1 s2
+  lower_bound_diff_prop s1 s2 ∧
+  (∀ a : α, step_bound_prop a s1 s2) ∧
+  (∀ a b : α, recurrence_prop a b s1 s2) ∧
+  (∀ p : List α, common_prefix_prop p s1 s2) ∧
+  (∀ s3 : List α, triangle_ineq_prop s1 s2 s3) ∧
+  (∀ t1 t2 : List α, append_subadd_prop s1 t1 s2 t2)
 
 /-! ## 6. Property-Based Tests (PBTs) -/
 
-/-- Sample lists for bounded exhaustive property-based tests. -/
-def sample_lists : List (List Nat) :=
-  [[], [0], [1], [2], [0, 0], [0, 1], [1, 0], [1, 1], [0, 1, 2], [2, 1, 0], [1, 0, 1], [0, 1, 0, 1]]
+-- PBT for `empty_left_prop`
+#eval Plausible.Testable.check (∀ s2 : List Nat, edit_distance [] s2 = s2.length)
+example : (List.range 15).all (fun n => edit_distance ([] : List Nat) (List.range n) == n) = true := by native_decide
 
--- PBT for Property 1: nonneg_prop
-example : (sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (0 ≤ edit_distance s1 s2)) = true := by native_decide
+-- PBT for `empty_right_prop`
+#eval Plausible.Testable.check (∀ s1 : List Nat, edit_distance s1 [] = s1.length)
+example : (List.range 15).all (fun n => edit_distance (List.range n) ([] : List Nat) == n) = true := by native_decide
 
--- PBT for Property 2: empty_left_prop
-example : (sample_lists.all fun s2 =>
-    decide (edit_distance ([] : List Nat) s2 = s2.length)) = true := by native_decide
+-- PBT for `self_zero_prop`
+#eval Plausible.Testable.check (∀ s : List Nat, edit_distance s s = 0)
+example : (List.range 15).all (fun n => edit_distance (List.range n) (List.range n) == 0) = true := by native_decide
 
--- PBT for Property 3: empty_right_prop
-example : (sample_lists.all fun s1 =>
-    decide (edit_distance s1 ([] : List Nat) = s1.length)) = true := by native_decide
+-- PBT for `zero_iff_eq_prop`
+#eval Plausible.Testable.check (∀ s1 s2 : List Bool, (edit_distance s1 s2 == 0) = (s1 == s2))
+#eval Plausible.Testable.check (∀ s1 s2 : List Nat, (edit_distance s1 s2 == 0) = (s1 == s2))
 
--- PBT for Property 4: refl_prop
-example : (sample_lists.all fun s =>
-    decide (edit_distance s s = 0)) = true := by native_decide
+-- PBT for `pos_of_ne_prop`
+#eval Plausible.Testable.check (∀ s1 s2 : List Nat, s1 = s2 ∨ 0 < edit_distance s1 s2)
+example : (List.range 10).all (fun m =>
+  (List.range 10).all (fun n =>
+    if m == n then true else decide (0 < edit_distance (List.range m) (List.range n)))) = true := by native_decide
 
--- PBT for Property 5: zero_iff_eq_prop
-example : (sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide ((edit_distance s1 s2 = 0) ↔ (s1 = s2))) = true := by native_decide
+-- PBT for `symmetry_prop`
+#eval Plausible.Testable.check (∀ s1 s2 : List Nat, edit_distance s1 s2 = edit_distance s2 s1)
 
--- PBT for Property 6: pos_of_ne_prop
-example : (sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (s1 ≠ s2 → 0 < edit_distance s1 s2)) = true := by native_decide
+-- PBT for `upper_bound_max_prop`
+#eval Plausible.Testable.check (∀ s1 s2 : List Nat, edit_distance s1 s2 ≤ max s1.length s2.length)
 
--- PBT for Property 7: symm_prop
-example : (sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (edit_distance s1 s2 = edit_distance s2 s1)) = true := by native_decide
+-- PBT for `upper_bound_sum_prop`
+#eval Plausible.Testable.check (∀ s1 s2 : List Nat, edit_distance s1 s2 ≤ s1.length + s2.length)
 
--- PBT for Property 8: upper_bound_max_prop
-example : (sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (edit_distance s1 s2 ≤ max s1.length s2.length)) = true := by native_decide
+-- PBT for `lower_bound_diff_prop`
+#eval Plausible.Testable.check (∀ s1 s2 : List Nat,
+  s1.length - s2.length ≤ edit_distance s1 s2 ∧ s2.length - s1.length ≤ edit_distance s1 s2)
 
--- PBT for Property 9: upper_bound_sum_prop
-example : (sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (edit_distance s1 s2 ≤ s1.length + s2.length)) = true := by native_decide
+-- PBT for `step_bound_prop`
+#eval Plausible.Testable.check (∀ (a : Nat) (s1 s2 : List Nat),
+  edit_distance (a :: s1) s2 ≤ 1 + edit_distance s1 s2 ∧
+  edit_distance s1 (a :: s2) ≤ 1 + edit_distance s1 s2 ∧
+  edit_distance s1 s2 ≤ 1 + edit_distance (a :: s1) s2 ∧
+  edit_distance s1 s2 ≤ 1 + edit_distance s1 (a :: s2))
 
--- PBT for Property 10: lower_bound_diff_prop
-example : (sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (s1.length - s2.length ≤ edit_distance s1 s2 ∧ s2.length - s1.length ≤ edit_distance s1 s2)) = true := by native_decide
+-- PBT for `recurrence_prop`
+#eval Plausible.Testable.check (∀ (a b : Nat) (s1 s2 : List Nat),
+  edit_distance (a :: s1) (b :: s2) =
+    if a = b then edit_distance s1 s2
+    else 1 + min (edit_distance s1 (b :: s2))
+              (min (edit_distance (a :: s1) s2) (edit_distance s1 s2)))
 
--- PBT for Property 11: cons_same_prop
-example : ([0, 1, 2].all fun x => sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (edit_distance (x :: s1) (x :: s2) = edit_distance s1 s2)) = true := by native_decide
+-- PBT for `common_prefix_prop`
+#eval Plausible.Testable.check (∀ p s1 s2 : List Nat,
+  edit_distance (p ++ s1) (p ++ s2) = edit_distance s1 s2)
 
--- PBT for Property 12: prefix_invariance_prop
-example : (([[0], [1, 2]] : List (List Nat)).all fun p => sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (edit_distance (p ++ s1) (p ++ s2) = edit_distance s1 s2)) = true := by native_decide
+-- PBT for `triangle_ineq_prop`
+#eval Plausible.Testable.check (∀ s1 s2 s3 : List Nat,
+  edit_distance s1 s3 ≤ edit_distance s1 s2 + edit_distance s2 s3)
 
--- PBT for Property 13: recurrence_prop
-example : ([0, 1].all fun x => [0, 1].all fun y => sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (edit_distance (x :: s1) (y :: s2) =
-      if x = y then edit_distance s1 s2
-      else 1 + min (edit_distance s1 (y :: s2)) (min (edit_distance (x :: s1) s2) (edit_distance s1 s2)))) = true := by native_decide
+-- PBT for `append_subadd_prop`
+#eval Plausible.Testable.check (∀ s1 t1 s2 t2 : List Nat,
+  edit_distance (s1 ++ t1) (s2 ++ t2) ≤ edit_distance s1 s2 + edit_distance t1 t2)
 
--- PBT for Property 14: del_bound_prop
-example : ([0, 1].all fun x => sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (edit_distance (x :: s1) s2 ≤ 1 + edit_distance s1 s2)) = true := by native_decide
+-- Combined PBT for `Post_prop`
+#eval Plausible.Testable.check (∀ (a b : Nat) (p s1 s2 s3 t1 t2 : List Nat),
+  edit_distance [] s2 = s2.length ∧
+  edit_distance s1 [] = s1.length ∧
+  edit_distance s1 s1 = 0 ∧
+  ((edit_distance s1 s2 == 0) = (s1 == s2)) ∧
+  (s1 = s2 ∨ 0 < edit_distance s1 s2) ∧
+  edit_distance s1 s2 = edit_distance s2 s1 ∧
+  edit_distance s1 s2 ≤ max s1.length s2.length ∧
+  edit_distance s1 s2 ≤ s1.length + s2.length ∧
+  s1.length - s2.length ≤ edit_distance s1 s2 ∧
+  s2.length - s1.length ≤ edit_distance s1 s2 ∧
+  edit_distance (a :: s1) s2 ≤ 1 + edit_distance s1 s2 ∧
+  edit_distance s1 (a :: s2) ≤ 1 + edit_distance s1 s2 ∧
+  edit_distance (a :: s1) (b :: s2) =
+    (if a = b then edit_distance s1 s2
+     else 1 + min (edit_distance s1 (b :: s2))
+               (min (edit_distance (a :: s1) s2) (edit_distance s1 s2))) ∧
+  edit_distance (p ++ s1) (p ++ s2) = edit_distance s1 s2 ∧
+  edit_distance s1 s3 ≤ edit_distance s1 s2 + edit_distance s2 s3 ∧
+  edit_distance (s1 ++ t1) (s2 ++ t2) ≤ edit_distance s1 s2 + edit_distance t1 t2)
 
--- PBT for Property 15: ins_bound_prop
-example : ([0, 1].all fun y => sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (edit_distance s1 (y :: s2) ≤ 1 + edit_distance s1 s2)) = true := by native_decide
+/-! ## 7. Correctness Theorem (`Pre → Post`) -/
 
--- PBT for Property 16: sub_bound_prop
-example : ([0, 1].all fun x => [0, 1].all fun y => sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (edit_distance (x :: s1) (y :: s2) ≤ 1 + edit_distance s1 s2)) = true := by native_decide
-
--- PBT for Property 17: triangle_prop
-example : (sample_lists.all fun s1 => sample_lists.all fun s2 => sample_lists.all fun s3 =>
-    decide (edit_distance s1 s3 ≤ edit_distance s1 s2 + edit_distance s2 s3)) = true := by native_decide
-
--- PBT for Post_prop
-example : (sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (
-      0 ≤ edit_distance s1 s2 ∧
-      edit_distance ([] : List Nat) s2 = s2.length ∧
-      edit_distance s1 ([] : List Nat) = s1.length ∧
-      edit_distance s1 s1 = 0 ∧
-      edit_distance s2 s2 = 0 ∧
-      ((edit_distance s1 s2 = 0) ↔ (s1 = s2)) ∧
-      (s1 ≠ s2 → 0 < edit_distance s1 s2) ∧
-      edit_distance s1 s2 = edit_distance s2 s1 ∧
-      edit_distance s1 s2 ≤ max s1.length s2.length ∧
-      edit_distance s1 s2 ≤ s1.length + s2.length ∧
-      (s1.length - s2.length ≤ edit_distance s1 s2 ∧ s2.length - s1.length ≤ edit_distance s1 s2))) = true := by native_decide
-
-/-! ## 7. Correctness Theorem (Pre → Post) -/
-
-/-- Main correctness theorem: for any valid input sequences satisfying `Pre`,
-    `edit_distance` satisfies the full post-condition `Post_prop`. -/
-theorem edit_distance_correct {α : Type} [DecidableEq α] (s1 s2 : List α) :
-    Pre s1 s2 → Post_prop s1 s2 := by
-  intro _hpre
-  refine ⟨nonneg_thm s1 s2,
-          empty_left_thm s2,
-          empty_right_thm s1,
-          refl_thm s1,
-          refl_thm s2,
-          zero_iff_eq_thm s1 s2,
-          pos_of_ne_thm s1 s2,
-          symm_thm s1 s2,
-          upper_bound_max_thm s1 s2,
-          upper_bound_sum_thm s1 s2,
-          lower_bound_diff_thm s1 s2⟩
+/-- Main correctness theorem: for any valid sequences `s1` and `s2`, `Post_prop s1 s2` holds. -/
+theorem edit_distance_correct {α : Type} [DecidableEq α] (s1 s2 : List α)
+    (_hPre : Pre s1 s2) : Post_prop s1 s2 :=
+  ⟨empty_left_thm s1 s2,
+   empty_right_thm s1 s2,
+   self_zero_thm s1 s2,
+   zero_iff_eq_thm s1 s2,
+   pos_of_ne_thm s1 s2,
+   symmetry_thm s1 s2,
+   upper_bound_max_thm s1 s2,
+   upper_bound_sum_thm s1 s2,
+   lower_bound_diff_thm s1 s2,
+   fun a => step_bound_thm a s1 s2,
+   fun a b => recurrence_thm a b s1 s2,
+   fun p => common_prefix_thm p s1 s2,
+   fun s3 => triangle_ineq_thm s1 s2 s3,
+   fun t1 t2 => append_subadd_thm s1 t1 s2 t2⟩
 
 /-! ## 8. Imperative Implementation -/
 
-/-- Imperative dynamic programming implementation of `edit_distance` using `Id.run do`
-    with mutable DP row state and nested `for` loops. -/
+/-- Imperative implementation of Levenshtein edit distance using `Id.run do` and mutable state. -/
 def edit_distance_imp {α : Type} [DecidableEq α] (s1 s2 : List α) : Nat := Id.run do
-  let mut dp : List Nat := [0]
-  for _ in s2.reverse do
-    dp := (dp.headD 0 + 1) :: dp
-  let mut i : Nat := 0
-  for x in s1.reverse do
-    i := i + 1
-    let mut curr : List Nat := [i]
-    for (y, del, sub) in (s2.zip (dp.zip dp.tail)).reverse do
-      let ins := curr.headD 0
-      let v := if x = y then sub else 1 + min del (min ins sub)
-      curr := v :: curr
-    dp := curr
-  return dp.headD 0
+  let mut dp_head : Nat := 0
+  let mut dp_tail : List Nat := List.range' 1 s2.length
+  let mut result : Nat := s2.length
+  for a in s1.reverse do
+    let mut diag : Nat := dp_head
+    let mut left : Nat := dp_head + 1
+    let mut rev_tail : List Nat := []
+    for (b, up) in s2.reverse.zip dp_tail do
+      let curr := if a = b then diag else 1 + min up (min left diag)
+      rev_tail := curr :: rev_tail
+      diag := up
+      left := curr
+    dp_head := dp_head + 1
+    dp_tail := rev_tail.reverse
+    result := left
+  return result
 
-/-- String wrapper for `edit_distance_imp`. -/
+/-- Convenience wrapper for imperative edit distance on strings. -/
 def edit_distance_imp_str (s1 s2 : String) : Nat :=
   edit_distance_imp s1.toList s2.toList
 
@@ -553,118 +725,59 @@ example : edit_distance_imp "".toList "abc".toList = 3 := by native_decide
 example : edit_distance_imp "ab".toList "".toList = 2 := by native_decide
 example : edit_distance_imp "a".toList "b".toList = 1 := by native_decide
 
--- Tests with lists of integers
+-- Lists of integers
 example : edit_distance_imp [1, 2, 3] [1, 2, 3] = 0 := by native_decide
 example : edit_distance_imp [1, 2, 3] [1, 4, 3] = 1 := by native_decide
 example : edit_distance_imp [1, 2, 3, 4] [1, 3, 4] = 1 := by native_decide
 example : edit_distance_imp [1, 2, 3] [4, 5, 6] = 3 := by native_decide
 example : edit_distance_imp [1, 2, 3, 4, 5] [6, 7, 8] = 5 := by native_decide
 
--- Tests with character lists
+-- Character lists
 example : edit_distance_imp ['h', 'e', 'l', 'l', 'o'] ['h', 'e', 'l', 'l', 'o'] = 0 := by native_decide
 example : edit_distance_imp ['c', 'a', 't'] ['b', 'a', 't'] = 1 := by native_decide
 example : edit_distance_imp ['c', 'a', 't'] ['c', 'a', 't', 's'] = 1 := by native_decide
 example : edit_distance_imp ['c', 'a', 't', 's'] ['c', 'a', 't'] = 1 := by native_decide
 
--- Longer sequences
+-- Longer sequences, all different, one-char, repeated
 example : edit_distance_imp "intention".toList "execution".toList = 5 := by native_decide
 example : edit_distance_imp "saturday".toList "sunday".toList = 3 := by native_decide
-
--- Same length, all different
 example : edit_distance_imp "abc".toList "def".toList = 3 := by native_decide
 example : edit_distance_imp "xyz".toList "abc".toList = 3 := by native_decide
-
--- One character strings
 example : edit_distance_imp "a".toList "a".toList = 0 := by native_decide
-example : edit_distance_imp "a".toList "b".toList = 1 := by native_decide
 example : edit_distance_imp "a".toList "".toList = 1 := by native_decide
 example : edit_distance_imp "".toList "a".toList = 1 := by native_decide
-
--- Repeated characters
 example : edit_distance_imp "aaa".toList "aa".toList = 1 := by native_decide
 example : edit_distance_imp "aa".toList "aaa".toList = 1 := by native_decide
 example : edit_distance_imp "aaaa".toList "bbbb".toList = 4 := by native_decide
+example : edit_distance_imp_str "intention" "execution" = 5 := by native_decide
 
-#eval edit_distance_imp "hello".toList "hello".toList
 #eval edit_distance_imp "kitten".toList "sitting".toList
-#eval edit_distance_imp "intention".toList "execution".toList
-#eval edit_distance_imp "saturday".toList "sunday".toList
+#eval edit_distance_imp_str "saturday" "sunday"
+#eval Plausible.Testable.check (∀ s1 s2 : List Nat, edit_distance s1 s2 = edit_distance_imp s1 s2)
 
 /-! ## 10. Equivalence Theorem (Functional = Imperative) -/
 
-@[simp] theorem Id.bind_eq {α β : Type} (x : Id α) (f : α → Id β) : (x >>= f) = f x := rfl
-@[simp] theorem Id.pure_eq {α : Type} (x : α) : (pure x : Id α) = x := rfl
-
-/-- Specification of the DP table row for suffix `xs` across all suffixes of `s2`. -/
-def dp_spec {α : Type} [DecidableEq α] (xs : List α) : List α → List Nat
-  | [] => [xs.length]
-  | y :: ys => edit_distance xs (y :: ys) :: dp_spec xs ys
-
-theorem dp_spec_headD {α : Type} [DecidableEq α] (xs s2 : List α) :
-    (dp_spec xs s2).headD 0 = edit_distance xs s2 := by
-  cases s2 <;> simp [dp_spec]
-
-theorem dp_init_eq {α : Type} [DecidableEq α] (s2 : List α) :
-    List.foldl (fun (r : List Nat) _ => (r.headD 0 + 1) :: r) [0] s2.reverse =
-      dp_spec ([] : List α) s2 := by
-  induction s2 with
-  | nil => rfl
-  | cons y ys ih =>
-    simp only [List.reverse_cons, List.foldl_append, List.foldl_cons, List.foldl_nil, ih,
-      dp_spec_headD, dp_spec, edit_distance, List.length_cons]
-
-theorem dp_inner_eq {α : Type} [DecidableEq α] (x : α) (xs : List α) (s2 : List α) :
-    List.foldl
-      (fun (curr : List Nat) (t : α × Nat × Nat) =>
-        (if x = t.1 then t.2.2 else 1 + min t.2.1 (min (curr.headD 0) t.2.2)) :: curr)
-      [xs.length + 1]
-      (s2.zip ((dp_spec xs s2).zip (dp_spec xs s2).tail)).reverse = dp_spec (x :: xs) s2 := by
-  induction s2 with
-  | nil => rfl
-  | cons y ys ih =>
-    have h_zip : (y :: ys).zip ((dp_spec xs (y :: ys)).zip (dp_spec xs (y :: ys)).tail) =
-        (y, edit_distance xs (y :: ys), edit_distance xs ys) ::
-          ys.zip ((dp_spec xs ys).zip (dp_spec xs ys).tail) := by
-      cases ys <;> simp [dp_spec]
-    rw [h_zip]
-    simp only [List.reverse_cons, List.foldl_append, List.foldl_cons, List.foldl_nil,
-      ih, dp_spec_headD, dp_spec, edit_distance]
-
-theorem dp_outer_eq {α : Type} [DecidableEq α] (s1 s2 : List α) :
-    List.foldl
-      (fun (r : MProd (List Nat) Nat) (x : α) =>
-        ⟨List.foldl
-          (fun (curr : List Nat) (t : α × Nat × Nat) =>
-            (if x = t.1 then t.2.2 else 1 + min t.2.1 (min (curr.headD 0) t.2.2)) :: curr)
-          [r.snd + 1]
-          (s2.zip (r.fst.zip r.fst.tail)).reverse,
-        r.snd + 1⟩)
-      ⟨dp_spec [] s2, 0⟩
-      s1.reverse = ⟨dp_spec s1 s2, s1.length⟩ := by
-  induction s1 with
+theorem forIn_id_yield {α β : Type} (xs : List α) (init : β) (f : α → β → β) :
+    forIn (m := Id) xs init (fun a r => ForInStep.yield (f a r)) =
+    xs.foldl (fun r a => f a r) init := by
+  induction xs generalizing init with
   | nil => rfl
   | cons x xs ih =>
-    simp only [List.reverse_cons, List.foldl_append, List.foldl_cons, List.foldl_nil, ih,
-      dp_inner_eq, List.length_cons]
+    simp only [forIn, List.forIn'_cons, Bind.bind, List.foldl_cons]
+    exact ih (f x init)
 
-/-- Proposition stating equivalence of the functional and imperative implementations. -/
-def equiv_prop {α : Type} [DecidableEq α] (s1 s2 : List α) : Prop :=
-  edit_distance s1 s2 = edit_distance_imp s1 s2
-
--- PBT for equiv_prop
-example : (sample_lists.all fun s1 => sample_lists.all fun s2 =>
-    decide (edit_distance s1 s2 = edit_distance_imp s1 s2)) = true := by native_decide
-
-set_option linter.deprecated false in
-/-- Equivalence theorem: the functional implementation `edit_distance` and the
-    imperative implementation `edit_distance_imp` produce identical results on all inputs. -/
-theorem edit_distance_equiv {α : Type} [DecidableEq α] (s1 s2 : List α) :
+/-- Equivalence theorem: the functional implementation `edit_distance` and the imperative
+    implementation `edit_distance_imp` return identical results on all inputs. -/
+theorem edit_distance_eq_imp {α : Type} [DecidableEq α] (s1 s2 : List α) :
     edit_distance s1 s2 = edit_distance_imp s1 s2 := by
-  simp only [edit_distance_imp, Id.run, Id.bind_eq, Id.pure_eq,
-    List.forIn_yield_eq_foldl, dp_init_eq, dp_outer_eq, dp_spec_headD]
+  rw [edit_distance_eq_dp]
+  unfold edit_distance_dp edit_distance_imp
+  simp only [Id.run, Bind.bind, Pure.pure, forIn_id_yield]
+  rfl
 
-theorem equiv_thm {α : Type} [DecidableEq α] (s1 s2 : List α) :
-    equiv_prop s1 s2 :=
-  edit_distance_equiv s1 s2
+/-- Equivalence theorem for the string wrappers. -/
+theorem edit_distance_str_eq_imp_str (s1 s2 : String) :
+    edit_distance_str s1 s2 = edit_distance_imp_str s1 s2 :=
+  edit_distance_eq_imp s1.toList s2.toList
 
 end edit_distance

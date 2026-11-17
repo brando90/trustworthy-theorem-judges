@@ -1,0 +1,16 @@
+Created At: 2026-11-16T22:42:32Z
+Completed At: 2026-11-16T22:42:40Z
+Command exited with code 0.
+
+Command output:
+[1, 2, 3]
+[]
+[1]
+[11, 12, 22, 25, 34, 42, 50, 64, 76, 88, 90]
+Veribench/heap_sort.lean:669:21: warning: This simp argument is unused:
+  hi_ne
+
+Hint: Omit it from the simp argument list.
+  simp only [h̵i̵_̵n̵e̵,̵ ̵↓reduceIte, hi0]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

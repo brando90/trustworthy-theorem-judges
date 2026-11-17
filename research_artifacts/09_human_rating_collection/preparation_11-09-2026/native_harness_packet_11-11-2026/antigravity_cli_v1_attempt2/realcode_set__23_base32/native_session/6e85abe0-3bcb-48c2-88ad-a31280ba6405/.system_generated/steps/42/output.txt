@@ -1,0 +1,33 @@
+Created At: 2026-11-16T23:07:49Z
+Completed At: 2026-11-16T23:07:52Z
+Command exited with code 1.
+
+Command output:
+<stdin>:15:2: error: tactic 'split_ifs' failed, no if-then-else conditions to split
+case a
+b : UInt8
+hb : b.toNat < 256
+⊢ (have n :=
+        (have n := b.toNat;
+          if 65 ≤ n ∧ n ≤ 90 then UInt8.ofNat (n + 32) else b).toNat;
+      if 97 ≤ n ∧ n ≤ 122 then UInt8.ofNat (n - 32)
+      else
+        have n := b.toNat;
+        if 65 ≤ n ∧ n ≤ 90 then UInt8.ofNat (n + 32) else b).toNat =
+    (have n := b.toNat;
+      if 97 ≤ n ∧ n ≤ 122 then UInt8.ofNat (n - 32) else b).toNat
+<stdin>:21:2: error: tactic 'split_ifs' failed, no if-then-else conditions to split
+case a
+b : UInt8
+hb : b.toNat < 256
+⊢ (have n :=
+        (have n := b.toNat;
+          if 97 ≤ n ∧ n ≤ 122 then UInt8.ofNat (n - 32) else b).toNat;
+      if 97 ≤ n ∧ n ≤ 122 then UInt8.ofNat (n - 32)
+      else
+        have n := b.toNat;
+        if 97 ≤ n ∧ n ≤ 122 then UInt8.ofNat (n - 32) else b).toNat =
+    (have n := b.toNat;
+      if 97 ≤ n ∧ n ≤ 122 then UInt8.ofNat (n - 32) else b).toNat
+'toUpperByte_toLowerByte' depends on axioms: [propext, sorryAx]
+'toUpperByte_idempotent' depends on axioms: [propext, sorryAx]

@@ -1,0 +1,24 @@
+Created At: 2026-11-16T22:22:06Z
+Completed At: 2026-11-16T22:22:10Z
+Command exited with code 1.
+
+Command output:
+Veribench/21_shlex_quote.lean:83:2: error: unsolved goals
+case isFalse
+s : String
+h✝ : ¬s = ""
+⊢ (if ∀ x ∈ s.data, isSafeChar x = true then s else "'" ++ { data := (List.map escapeChar s.data).flatten } ++ "'") =
+    (if ∀ x ∈ s.data, isSafeChar x = true then s
+      else
+        "'" ++
+            {
+              data :=
+                (List.map (fun x2 => if x2 = '\'' then ['\'', '\"', '\'', '\"', '\''] else [x2]) s.data).flatten } ++
+          "'").run
+Veribench/21_shlex_quote.lean:83:25: warning: This simp argument is unused:
+  escapeChar
+
+Hint: Omit it from the simp argument list.
+  simp [foldl_allSafe, e̵s̵c̵a̵p̵e̵C̵h̵a̵r̵,̵ ̵List.flatMap_def]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

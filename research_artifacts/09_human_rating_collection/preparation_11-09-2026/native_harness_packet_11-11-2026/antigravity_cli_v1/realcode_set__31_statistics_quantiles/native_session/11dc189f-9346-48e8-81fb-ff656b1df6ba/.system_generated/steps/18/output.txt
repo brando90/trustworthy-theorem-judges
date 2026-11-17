@@ -1,0 +1,32 @@
+Created At: 2026-11-16T22:22:25Z
+Completed At: 2026-11-16T22:22:31Z
+Command exited with code 1.
+
+Command output:
+<stdin>:49:66: error: failed to prove positivity/nonnegativity/nonzeroness
+<stdin>:50:62: error: mod_cast has type
+  i * (s.length - 1) % n ≤ n : Prop
+but is expected to have type
+  ↑(↑i * Int.subNatNat s.length 1) % ↑n ≤ ↑n : Prop
+<stdin>:55:4: error: linarith failed to find a contradiction
+case right.h
+s : List ℚ
+n i : ℕ
+hs : List.Pairwise (fun x1 x2 => x1 ≤ x2) s
+hld : 2 ≤ s.length
+hn : 1 ≤ n
+hi : i < n
+j : ℕ := i * (s.length - 1) / n
+hj1 : j + 1 < s.length
+hj : j < s.length
+hle : s.getD j 0 ≤ s.getD (j + 1) 0
+hmod : i * (s.length - 1) % n < n
+hn_pos : 0 < ↑n
+hd_nonneg : 0 ≤ ↑i * (↑s.length - 1) % ↑n
+hd_le : ↑i * (↑s.length - 1) % ↑n ≤ ↑n
+a✝ :
+  s.getD (j + 1) 0 * ↑n <
+    s.getD (i * (s.length - 1) / n) 0 * (↑n - ↑(i * (s.length - 1) % n)) +
+      s.getD (i * (s.length - 1) / n + 1) 0 * ↑(i * (s.length - 1) % n)
+⊢ False
+failed

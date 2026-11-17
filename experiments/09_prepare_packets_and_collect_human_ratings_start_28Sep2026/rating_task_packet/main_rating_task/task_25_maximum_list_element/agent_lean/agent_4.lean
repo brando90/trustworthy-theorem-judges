@@ -3,8 +3,7 @@ import Mathlib
 /-!
 # HumanEval/35 — `max_element`
 
-Translation of the Python function `max_element`, which returns the maximum
-element of a non-empty list.
+Python source (`humaneval_35_max_element.py`):
 
 ```python
 def max_element(l: list):
@@ -15,410 +14,369 @@ def max_element(l: list):
     return m
 ```
 
-Python raises `IndexError` on the empty list because it reads `l[0]`.
-The Lean model is total: both implementations return the dummy value `0` on
-`[]`, and `Pre` excludes that case. The examples use integers (including
-negatives), so the numeric model is `Int`. The update `if e > m: m = e`
-keeps the earlier value on ties; the returned *value* is still the unique
-mathematical maximum.
+The function returns the largest value in a non-empty list of integers.
+The scan starts at `l[0]` and replaces the accumulator only when a strictly
+greater element is seen, so equal maxima keep the earlier value. On `Int`
+that value is the mathematical maximum.
+
+An empty list makes Python raise `IndexError`. `Pre` is exactly that
+non-empty domain. The Lean functions are total so they can be evaluated:
+outside `Pre` both return `0`, and no correctness claim is made there.
 -/
 
 namespace humaneval_35_max_element
 
-/-- Python's accumulator update: replace `m` only when `e` is strictly greater. -/
-def step (m e : Int) : Int :=
+/-! ## Implementation -/
+
+/-- One step of the Python update `if e > m: m = e`. -/
+def updateMax (m e : Int) : Int :=
   if e > m then e else m
 
-/-- Functional implementation.
+/-- Maximum element of `l`, written as the Python left fold.
 
-Mirrors the Python scan: start from the head (or `0` if the list is empty)
-and fold `step` across every element, including the head. On a non-empty list
-this is exactly `m = l[0]; for e in l: if e > m: m = e`. -/
-def max_element (l : List Int) : Int :=
-  l.foldl step (l.headD 0)
+`l.headD 0` is `l[0]` when `l` is non-empty. The fold walks every element,
+including the head, matching `for e in l`. -/
+def maxElement (l : List Int) : Int :=
+  l.foldl updateMax (l.headD 0)
 
 /-! ## Unit tests -/
 
-example : max_element [1, 2, 3] = 3 := by native_decide
-example : max_element [5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10] = 123 := by native_decide
-example : max_element [5, 3, -5, 2, -3, 3, 9, 0, 124, 1, -10] = 124 := by native_decide
-example : max_element [42] = 42 := by native_decide
-example : max_element [-10] = -10 := by native_decide
-example : max_element [-5, -1, -3] = -1 := by native_decide
-example : max_element [0, 0, 0] = 0 := by native_decide
-example : max_element [7, 1, 7] = 7 := by native_decide
-example : max_element [3, 2, 1] = 3 := by native_decide
-example : max_element [1, 1, 2, 2] = 2 := by native_decide
+/-- The Python `check` harness. The second literal is `124`, as in `check`. -/
+def check (candidate : List Int → Int) : Bool :=
+  candidate [1, 2, 3] == 3 &&
+    candidate [5, 3, -5, 2, -3, 3, 9, 0, 124, 1, -10] == 124
 
-#eval max_element [1, 2, 3]
-#eval max_element [5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10]
-#eval max_element [5, 3, -5, 2, -3, 3, 9, 0, 124, 1, -10]
-#eval max_element [-5, -1, -3]
+example : maxElement [1, 2, 3] = 3 := by native_decide
+
+example : maxElement [5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10] = 123 := by native_decide
+
+example : maxElement [5, 3, -5, 2, -3, 3, 9, 0, 124, 1, -10] = 124 := by native_decide
+
+example : maxElement [7] = 7 := by native_decide
+
+example : maxElement [-5, -1, -10] = -1 := by native_decide
+
+example : maxElement [9, 1, 2] = 9 := by native_decide
+
+example : maxElement [2, 2, 2] = 2 := by native_decide
+
+example : check maxElement = true := by native_decide
+
+#eval maxElement [1, 2, 3]
+
+#eval maxElement [5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10]
+
+#eval maxElement [5, 3, -5, 2, -3, 3, 9, 0, 124, 1, -10]
+
+#eval check maxElement
 
 /-! ## Pre-condition -/
 
-/-- The list must be non-empty: Python indexes `l[0]`. -/
+/-- The list is non-empty, so `l[0]` is defined in Python. -/
 def Pre (l : List Int) : Prop :=
   l ≠ []
 
-/-! ## Helper lemmas about `step` -/
-
-lemma step_self (m : Int) : step m m = m := by
-  simp [step]
-
-lemma step_eq_max (m e : Int) : step m e = max m e := by
-  unfold step
-  rw [max_def]
-  by_cases h : e > m
-  · have hle : m ≤ e := le_of_lt h
-    simp [h, hle, gt_iff_lt]
-  · have hle : e ≤ m := le_of_not_gt h
-    simp [h, gt_iff_lt]
-    intro h2
-    exact le_antisymm h2 hle
-
-lemma foldl_step_eq_foldl_max (init : Int) (l : List Int) :
-    l.foldl step init = l.foldl max init := by
-  induction l generalizing init with
-  | nil => rfl
-  | cons x xs ih =>
-    simp only [List.foldl_cons, step_eq_max]
-    exact ih (max init x)
-
-lemma foldl_step_eq_or_mem (init : Int) (l : List Int) :
-    l.foldl step init = init ∨ l.foldl step init ∈ l := by
-  induction l generalizing init with
-  | nil =>
-    simp
-  | cons y ys ih =>
-    simp only [List.foldl_cons]
-    rcases ih (step init y) with h | h
-    · rw [h]
-      by_cases hgt : y > init
-      · right
-        unfold step
-        simp [hgt]
-      · left
-        unfold step
-        simp [hgt]
-    · right
-      exact List.mem_cons_of_mem y h
-
-lemma le_step_left (m e : Int) : m ≤ step m e := by
-  unfold step
-  split_ifs with h
-  · exact le_of_lt h
-  · exact le_refl m
-
-lemma le_step_right (m e : Int) : e ≤ step m e := by
-  unfold step
-  split_ifs with h
-  · exact le_refl e
-  · exact le_of_not_gt h
-
-lemma foldl_step_ge_init (init : Int) (l : List Int) : init ≤ l.foldl step init := by
-  induction l generalizing init with
-  | nil => exact le_refl init
-  | cons y ys ih =>
-    simp only [List.foldl_cons]
-    exact le_trans (le_step_left init y) (ih (step init y))
-
-lemma foldl_step_ge_mem (init : Int) (l : List Int) {x : Int} (hx : x ∈ l) :
-    x ≤ l.foldl step init := by
-  induction l generalizing init with
-  | nil => cases hx
-  | cons y ys ih =>
-    simp only [List.mem_cons] at hx
-    simp only [List.foldl_cons]
-    rcases hx with rfl | hx
-    · exact le_trans (le_step_right init x) (foldl_step_ge_init (step init x) ys)
-    · exact ih (step init y) hx
-
-lemma max_element_cons_fold (x : Int) (xs : List Int) :
-    max_element (x :: xs) = xs.foldl max x := by
-  unfold max_element
-  simp only [List.headD_cons, List.foldl_cons, step_eq_max, max_self]
-  exact foldl_step_eq_foldl_max x xs
-
 /-! ## Properties -/
 
-/-- The result is a member of the input list. -/
-def mem_prop (l : List Int) : Prop :=
-  max_element l ∈ l
+/-- Comparing a value with itself leaves it unchanged (`e > m` is false). -/
+@[simp] theorem updateMax_self (m : Int) : updateMax m m = m := by
+  simp only [updateMax]
+  exact if_neg (lt_irrefl m)
 
-theorem mem_thm (l : List Int) (h : Pre l) : mem_prop l := by
-  unfold mem_prop max_element Pre at *
+/-- The strict update returns the same integer as `max`. -/
+theorem updateMax_eq_max (m e : Int) : updateMax m e = max m e := by
+  simp only [updateMax, Int.max_def]
+  by_cases hgt : e > m
+  · have hle : m ≤ e := le_of_lt hgt
+    simp [hgt, hle]
+  · have hle : e ≤ m := Int.le_of_not_gt hgt
+    by_cases hle' : m ≤ e
+    · have heq : m = e := le_antisymm hle' hle
+      simp [heq]
+    · simp [hgt, hle']
+
+theorem updateMax_ge_left (m e : Int) : m ≤ updateMax m e := by
+  simp only [updateMax]
+  split
+  · next h => exact le_of_lt h
+  · exact le_refl m
+
+theorem updateMax_ge_right (m e : Int) : e ≤ updateMax m e := by
+  simp only [updateMax]
+  split
+  · exact le_refl e
+  · next h => exact Int.le_of_not_gt h
+
+theorem foldl_updateMax_acc_le (m : Int) (l : List Int) : m ≤ l.foldl updateMax m := by
+  induction l generalizing m with
+  | nil => exact le_refl m
+  | cons e es ih =>
+    simp only [List.foldl_cons]
+    exact le_trans (updateMax_ge_left m e) (ih (updateMax m e))
+
+theorem foldl_updateMax_of_mem (m : Int) (l : List Int) :
+    ∀ x ∈ l, x ≤ l.foldl updateMax m := by
+  induction l generalizing m with
+  | nil =>
+    intro x hx
+    cases hx
+  | cons e es ih =>
+    intro x hx
+    simp only [List.foldl_cons]
+    cases hx with
+    | head =>
+      exact le_trans (updateMax_ge_right m e) (foldl_updateMax_acc_le (updateMax m e) es)
+    | tail _ hx =>
+      exact ih (updateMax m e) x hx
+
+theorem foldl_updateMax_eq_or_mem (m : Int) (l : List Int) :
+    l.foldl updateMax m = m ∨ l.foldl updateMax m ∈ l := by
+  induction l generalizing m with
+  | nil =>
+    left
+    rfl
+  | cons e es ih =>
+    simp only [List.foldl_cons]
+    rcases ih (updateMax m e) with hEq | hmem
+    · rw [hEq]
+      by_cases h : e > m
+      · right
+        have he : updateMax m e = e := by simp only [updateMax, if_pos h]
+        rw [he]
+        exact List.mem_cons_self
+      · left
+        simp only [updateMax, if_neg h]
+    · right
+      exact List.mem_cons_of_mem e hmem
+
+/-- Folding `max` is associative through `updateMax`. -/
+theorem foldl_updateMax_assoc (m a : Int) (l : List Int) :
+    l.foldl updateMax (updateMax m a) = updateMax m (l.foldl updateMax a) := by
+  induction l generalizing m a with
+  | nil => simp
+  | cons e es ih =>
+    simp only [List.foldl_cons]
+    have hstep : updateMax (updateMax m a) e = updateMax m (updateMax a e) := by
+      simp only [updateMax_eq_max, Int.max_assoc]
+    rw [hstep]
+    exact ih m (updateMax a e)
+
+/-- The full-list fold agrees with a fold of the tail that starts at the head. -/
+theorem maxElement_cons (x : Int) (xs : List Int) :
+    maxElement (x :: xs) = xs.foldl updateMax x := by
+  simp only [maxElement, List.headD, List.foldl_cons, updateMax_self]
+
+theorem foldl_updateMax_eq_max_maxElement (m : Int) (l : List Int) (hl : l ≠ []) :
+    l.foldl updateMax m = max m (maxElement l) := by
+  cases l with
+  | nil => exact absurd rfl hl
+  | cons y ys =>
+    rw [List.foldl_cons, foldl_updateMax_assoc, updateMax_eq_max, maxElement_cons]
+
+/-- The returned value occurs in the list. -/
+def mem_prop (l : List Int) (result : Int) : Prop :=
+  result ∈ l
+
+/-- Every element of the list is less than or equal to the result. -/
+def upper_bound_prop (l : List Int) (result : Int) : Prop :=
+  ∀ x ∈ l, x ≤ result
+
+/-- A one-element list returns that element. -/
+def singleton_prop (a : Int) : Prop :=
+  maxElement [a] = a
+
+/-- Pushing a new head takes `max` with the maximum of the tail. -/
+def cons_max_prop (a : Int) (l : List Int) : Prop :=
+  l ≠ [] → maxElement (a :: l) = max a (maxElement l)
+
+/-- The maximum of a concatenation is the max of the maxima. -/
+def append_prop (l₁ l₂ : List Int) : Prop :=
+  l₁ ≠ [] → l₂ ≠ [] → maxElement (l₁ ++ l₂) = max (maxElement l₁) (maxElement l₂)
+
+/-- The maximum depends only on the multiset of values. -/
+def perm_prop (l₁ l₂ : List Int) : Prop :=
+  l₁ ≠ [] → List.Perm l₁ l₂ → maxElement l₁ = maxElement l₂
+
+/-- The maximum of a non-empty subset is at most the maximum of the whole list. -/
+def mono_prop (l₁ l₂ : List Int) : Prop :=
+  l₁ ≠ [] → l₁ ⊆ l₂ → maxElement l₁ ≤ maxElement l₂
+
+/-- The result is Mathlib's list maximum (`⊥` on the empty list). -/
+def eq_maximum_prop (l : List Int) : Prop :=
+  Pre l → l.maximum = (maxElement l : WithBot Int)
+
+theorem mem_thm (l : List Int) (h : Pre l) : mem_prop l (maxElement l) := by
   cases l with
   | nil => exact absurd rfl h
   | cons x xs =>
-    simp only [List.headD_cons]
-    rcases foldl_step_eq_or_mem x (x :: xs) with hEq | hMem
+    rw [maxElement_cons]
+    rcases foldl_updateMax_eq_or_mem x xs with hEq | hmem
     · rw [hEq]
       exact List.mem_cons_self
-    · exact hMem
+    · exact List.mem_cons_of_mem x hmem
 
-/-- Every element of the list is `≤` the result.
-This holds for the empty list vacuously as well. -/
-def upper_bound_prop (l : List Int) : Prop :=
-  ∀ x ∈ l, x ≤ max_element l
-
-theorem upper_bound_thm (l : List Int) : upper_bound_prop l := by
-  intro x hx
-  simpa [upper_bound_prop, max_element] using foldl_step_ge_mem (l.headD 0) l hx
-
-/-- A singleton list returns its only element. -/
-def singleton_prop (x : Int) : Prop :=
-  max_element [x] = x
-
-theorem singleton_thm (x : Int) : singleton_prop x := by
-  simp [singleton_prop, max_element, step]
-
-private lemma eq_maximum_aux (l : List Int) (h : Pre l) :
-    (max_element l : WithBot Int) = l.maximum := by
-  symm
-  rw [List.maximum_eq_coe_iff]
-  exact ⟨mem_thm l h, upper_bound_thm l⟩
-
-/-- Recursive characterization: `max_element (x :: xs) = max x (max_element xs)`
-when `xs` is non-empty, and `x` when `xs` is empty. -/
-def cons_prop (x : Int) (xs : List Int) : Prop :=
-  max_element (x :: xs) =
-    match xs with
-    | [] => x
-    | _ => max x (max_element xs)
-
-theorem cons_thm (x : Int) (xs : List Int) : cons_prop x xs := by
-  unfold cons_prop
-  cases xs with
-  | nil =>
-    simp [max_element, step]
-  | cons y ys =>
-    have hy : Pre (y :: ys) := List.cons_ne_nil y ys
-    have hx : Pre (x :: y :: ys) := List.cons_ne_nil x (y :: ys)
-    rw [← WithBot.coe_inj]
-    calc
-      (max_element (x :: y :: ys) : WithBot Int)
-          = (x :: y :: ys).maximum := eq_maximum_aux (x :: y :: ys) hx
-      _ = max (x : WithBot Int) (y :: ys).maximum := List.maximum_cons x (y :: ys)
-      _ = max (x : WithBot Int) (max_element (y :: ys) : WithBot Int) := by
-            rw [eq_maximum_aux (y :: ys) hy]
-      _ = (max x (max_element (y :: ys)) : WithBot Int) := by
-            rw [← WithBot.coe_max]
-
-/-- The result agrees with Mathlib's `List.maximum` on non-empty lists. -/
-def eq_maximum_prop (l : List Int) : Prop :=
-  Pre l → (max_element l : WithBot Int) = l.maximum
-
-theorem eq_maximum_thm (l : List Int) : eq_maximum_prop l :=
-  eq_maximum_aux l
-
-/-- The result agrees with the standard-library `List.max?`. -/
-def eq_max?_prop (l : List Int) : Prop :=
-  Pre l → l.max? = some (max_element l)
-
-theorem eq_max?_thm (l : List Int) : eq_max?_prop l := by
-  intro h
+theorem upper_bound_thm (l : List Int) (h : Pre l) : upper_bound_prop l (maxElement l) := by
   cases l with
   | nil => exact absurd rfl h
   | cons x xs =>
-    rw [List.max?_cons']
-    congr 1
-    symm
-    exact max_element_cons_fold x xs
+    rw [maxElement_cons]
+    intro y hy
+    cases hy with
+    | head =>
+      exact foldl_updateMax_acc_le x xs
+    | tail _ hy =>
+      exact foldl_updateMax_of_mem x xs y hy
 
-/-- Appending two non-empty lists: the max is the max of the maxes. -/
-def append_prop (l₁ l₂ : List Int) : Prop :=
-  Pre l₁ → Pre l₂ → max_element (l₁ ++ l₂) = max (max_element l₁) (max_element l₂)
+theorem singleton_thm (a : Int) : singleton_prop a := by
+  simp [singleton_prop, maxElement_cons]
+
+theorem cons_max_thm (a : Int) (l : List Int) : cons_max_prop a l := by
+  intro hl
+  rw [maxElement_cons, foldl_updateMax_eq_max_maxElement a l hl]
 
 theorem append_thm (l₁ l₂ : List Int) : append_prop l₁ l₂ := by
-  intro h1 h2
-  have h12 : Pre (l₁ ++ l₂) := by
-    intro h
-    exact h1 (List.append_eq_nil_iff.mp h).1
-  rw [← WithBot.coe_inj]
-  calc
-    (max_element (l₁ ++ l₂) : WithBot Int)
-        = (l₁ ++ l₂).maximum := eq_maximum_thm (l₁ ++ l₂) h12
-    _ = max l₁.maximum l₂.maximum := List.maximum_append l₁ l₂
-    _ = max (max_element l₁ : WithBot Int) (max_element l₂ : WithBot Int) := by
-          rw [eq_maximum_thm l₁ h1, eq_maximum_thm l₂ h2]
-    _ = (max (max_element l₁) (max_element l₂) : WithBot Int) := by
-          rw [← WithBot.coe_max]
-
-/-- The returned value is invariant under permutation. -/
-def perm_prop (l₁ l₂ : List Int) : Prop :=
-  l₁.Perm l₂ → Pre l₁ → max_element l₁ = max_element l₂
+  intro h₁ h₂
+  cases l₁ with
+  | nil => exact absurd rfl h₁
+  | cons x xs =>
+    have happ : (x :: xs) ++ l₂ = x :: (xs ++ l₂) := rfl
+    rw [happ, maxElement_cons x (xs ++ l₂), List.foldl_append]
+    rw [← maxElement_cons x xs]
+    exact foldl_updateMax_eq_max_maxElement (maxElement (x :: xs)) l₂ h₂
 
 theorem perm_thm (l₁ l₂ : List Int) : perm_prop l₁ l₂ := by
-  intro hperm h1
-  have h2 : Pre l₂ := by
+  intro h₁ hp
+  have h₂ : l₂ ≠ [] := by
     intro hnil
-    have : l₁.Perm [] := by simpa [hnil] using hperm
-    exact h1 this.eq_nil
-  rw [← WithBot.coe_inj]
-  rw [eq_maximum_thm l₁ h1, eq_maximum_thm l₂ h2]
-  exact le_antisymm (List.maximum_mono hperm.subset) (List.maximum_mono hperm.symm.subset)
-
-/-- Extending the list cannot decrease the maximum. -/
-def subset_mono_prop (l₁ l₂ : List Int) : Prop :=
-  l₁ ⊆ l₂ → Pre l₁ → Pre l₂ → max_element l₁ ≤ max_element l₂
-
-theorem subset_mono_thm (l₁ l₂ : List Int) : subset_mono_prop l₁ l₂ := by
-  intro hsub h1 h2
-  have hle : (max_element l₁ : WithBot Int) ≤ max_element l₂ := by
-    rw [eq_maximum_thm l₁ h1, eq_maximum_thm l₂ h2]
-    exact List.maximum_mono hsub
-  exact WithBot.coe_le_coe.mp hle
-
-/-- The maximum value is unique: any member that dominates the list equals the result. -/
-def unique_max_prop (l : List Int) (z : Int) : Prop :=
-  Pre l → z ∈ l → (∀ x ∈ l, x ≤ z) → z = max_element l
-
-theorem unique_max_thm (l : List Int) (z : Int) : unique_max_prop l z := by
-  intro hpre hz hub
+    subst hnil
+    exact h₁ hp.eq_nil
   apply le_antisymm
-  · exact upper_bound_thm l z hz
-  · exact hub (max_element l) (mem_thm l hpre)
+  · exact upper_bound_thm l₂ h₂ (maxElement l₁) ((hp.mem_iff).mp (mem_thm l₁ h₁))
+  · exact upper_bound_thm l₁ h₁ (maxElement l₂) ((hp.mem_iff).mpr (mem_thm l₂ h₂))
+
+theorem mono_thm (l₁ l₂ : List Int) : mono_prop l₁ l₂ := by
+  intro h₁ hsub
+  have hmem : maxElement l₁ ∈ l₂ := hsub (mem_thm l₁ h₁)
+  have h₂ : l₂ ≠ [] := List.ne_nil_of_mem hmem
+  exact upper_bound_thm l₂ h₂ (maxElement l₁) hmem
+
+theorem eq_maximum_thm (l : List Int) : eq_maximum_prop l := by
+  intro h
+  exact (List.maximum_eq_coe_iff).mpr ⟨mem_thm l h, upper_bound_thm l h⟩
 
 /-! ## Post-condition -/
 
-/-- Post-condition: the result is a member of the list and an upper bound. -/
-def Post_prop (l : List Int) : Prop :=
-  mem_prop l ∧ upper_bound_prop l
+/-- `result` is a greatest element of `l`: it occurs in `l` and bounds every entry. -/
+def Post_prop (l : List Int) (result : Int) : Prop :=
+  mem_prop l result ∧ upper_bound_prop l result
 
 /-! ## Property-based tests -/
 
-/-- Non-empty inputs used by exhaustive small-case checks. -/
-def boundedInputs : List (List Int) :=
-  [[1], [-1], [0], [1, 2, 3], [3, 2, 1],
-   [5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10],
-   [5, 3, -5, 2, -3, 3, 9, 0, 124, 1, -10],
-   [-5, -1, -3], [0, 0, 0], [7, 7, 1], [2, 1], [-10, -10],
-   [100, -100, 50], [-8, 4, 4, -3]]
-  ++ (List.range 12).map fun n =>
-    (List.range (n + 1)).map fun i => (i : Int) - 6
+/-- Finite non-empty samples: lengths `1..5`, entries shifted through `-3..3`. -/
+def boundedSamples : List (List Int) :=
+  (List.range 5).flatMap fun n =>
+    let len := n + 1
+    (List.range 7).map fun k =>
+      (List.range len).map fun i => (Int.ofNat (i + k)) - 3
 
--- mem_prop
+-- PBT for `mem_prop`
+#eval Plausible.Testable.check
+  (∀ (x : Int) (xs : List Int), decide (maxElement (x :: xs) ∈ x :: xs) = true)
+
+example : boundedSamples.all (fun l => decide (maxElement l ∈ l)) = true := by
+  native_decide
+
+-- PBT for `upper_bound_prop`
 #eval Plausible.Testable.check
   (∀ (x : Int) (xs : List Int),
-    (x :: xs).elem (max_element (x :: xs)) = true)
+    (x :: xs).all (fun y => decide (y ≤ maxElement (x :: xs))) = true)
 
-example : boundedInputs.all (fun l => decide (max_element l ∈ l)) = true := by
+example : boundedSamples.all
+    (fun l => l.all (fun y => decide (y ≤ maxElement l))) = true := by
   native_decide
 
--- upper_bound_prop
+-- PBT for `singleton_prop`
+#eval Plausible.Testable.check (∀ a : Int, maxElement [a] = a)
+
+example : ((List.range 21).all fun k =>
+    maxElement [(Int.ofNat k) - 10] == (Int.ofNat k) - 10) = true := by
+  native_decide
+
+-- PBT for `cons_max_prop`
+#eval Plausible.Testable.check
+  (∀ (a x : Int) (xs : List Int),
+    maxElement (a :: x :: xs) = max a (maxElement (x :: xs)))
+
+example : boundedSamples.all (fun l =>
+    (List.range 7).all fun k =>
+      let a : Int := (Int.ofNat k) - 3
+      maxElement (a :: l) == max a (maxElement l)) = true := by
+  native_decide
+
+-- PBT for `append_prop`
+#eval Plausible.Testable.check
+  (∀ (x : Int) (xs : List Int) (y : Int) (ys : List Int),
+    maxElement ((x :: xs) ++ (y :: ys)) = max (maxElement (x :: xs)) (maxElement (y :: ys)))
+
+example : boundedSamples.all (fun l₁ =>
+    boundedSamples.all fun l₂ =>
+      maxElement (l₁ ++ l₂) == max (maxElement l₁) (maxElement l₂)) = true := by
+  native_decide
+
+-- PBT for `perm_prop`
+#eval Plausible.Testable.check
+  (∀ a b c : Int,
+    ([a, b, c].permutations.all fun p => maxElement p == maxElement [a, b, c]) = true)
+
+example : boundedSamples.all (fun l =>
+    l.permutations.all fun p => maxElement p == maxElement l) = true := by
+  native_decide
+
+-- PBT for `mono_prop`
+#eval Plausible.Testable.check
+  (∀ (x : Int) (xs zs : List Int),
+    maxElement (x :: xs) ≤ maxElement (zs ++ (x :: xs)))
+
+example : boundedSamples.all (fun l₁ =>
+    boundedSamples.all fun l₂ =>
+      ((!decide (l₁ ⊆ l₂)) || decide (maxElement l₁ ≤ maxElement l₂))) = true := by
+  native_decide
+
+-- PBT for `eq_maximum_prop`
 #eval Plausible.Testable.check
   (∀ (x : Int) (xs : List Int),
-    (x :: xs).all (fun y => y ≤ max_element (x :: xs)) = true)
+    decide ((x :: xs).maximum = (maxElement (x :: xs) : WithBot Int)) = true)
 
-example : boundedInputs.all (fun l => l.all (fun x => x ≤ max_element l)) = true := by
+example : boundedSamples.all (fun l =>
+    decide (l.maximum = (maxElement l : WithBot Int))) = true := by
   native_decide
 
--- singleton_prop
-#eval Plausible.Testable.check (∀ x : Int, max_element [x] = x)
-
-example : (List.range 30).all (fun n =>
-    max_element [(n : Int) - 15] == (n : Int) - 15) = true := by
-  native_decide
-
--- cons_prop
-#eval Plausible.Testable.check
-  (∀ (x y : Int) (ys : List Int),
-    max_element (x :: y :: ys) = max x (max_element (y :: ys)))
-
-example : boundedInputs.all (fun l =>
-    match l with
-    | [] => true
-    | x :: xs =>
-      max_element (x :: xs) ==
-        match xs with
-        | [] => x
-        | _ => max x (max_element xs)) = true := by
-  native_decide
-
--- append_prop
-#eval Plausible.Testable.check
-  (∀ (a : Int) (as : List Int) (b : Int) (bs : List Int),
-    max_element ((a :: as) ++ (b :: bs)) =
-      max (max_element (a :: as)) (max_element (b :: bs)))
-
-example : boundedInputs.all (fun l₁ =>
-    boundedInputs.all (fun l₂ =>
-      max_element (l₁ ++ l₂) == max (max_element l₁) (max_element l₂))) = true := by
-  native_decide
-
--- perm_prop (reverse and rotation are permutations; full relation is proved)
-example : boundedInputs.all (fun l =>
-    max_element l == max_element l.reverse &&
-    max_element l == max_element (l.drop 1 ++ l.take 1)) = true := by
-  native_decide
-
-#eval Plausible.Testable.check
-  (∀ (x y : Int) (xs : List Int),
-    max_element (x :: y :: xs) = max_element (y :: x :: xs))
-
--- subset_mono_prop
-example : (List.range 8).all (fun n =>
-    (List.range 8).all (fun m =>
-      let l₂ := (List.range (n + m + 1)).map (fun i => (i : Int) - 3)
-      let l₁ := l₂.take (n + 1)
-      decide (max_element l₁ ≤ max_element l₂))) = true := by
-  native_decide
-
-#eval Plausible.Testable.check
-  (∀ (x : Int) (xs ys : List Int),
-    max_element (x :: xs) ≤ max_element (x :: xs ++ ys))
-
--- unique_max_prop: any list element that dominates the list equals the result.
--- Checking every element of each sample list covers every `z` that can satisfy `z ∈ l`.
-example : boundedInputs.all (fun l =>
-    l.all (fun z =>
-      !(l.elem z && l.all (fun y => y ≤ z)) || z == max_element l)) = true := by
-  native_decide
-
+-- PBT for `Post_prop`
 #eval Plausible.Testable.check
   (∀ (x : Int) (xs : List Int),
-    let l := x :: xs
-    let z := max_element l
-    (l.elem z && l.all (fun y => y ≤ z)) = true)
+    decide (maxElement (x :: xs) ∈ x :: xs) = true ∧
+      (x :: xs).all (fun y => decide (y ≤ maxElement (x :: xs))) = true)
 
--- eq_maximum_prop
-example : boundedInputs.all (fun l =>
-    decide ((max_element l : WithBot Int) = l.maximum)) = true := by
-  native_decide
-
-#eval Plausible.Testable.check
-  (∀ (x : Int) (xs : List Int),
-    max_element (x :: xs) =
-      (x :: xs).maximum_of_length_pos (Nat.succ_pos xs.length))
-
--- eq_max?_prop
-#eval Plausible.Testable.check
-  (∀ (x : Int) (xs : List Int), (x :: xs).max? = some (max_element (x :: xs)))
-
-example : boundedInputs.all (fun l =>
-    decide (l.max? = some (max_element l))) = true := by
-  native_decide
-
--- Post_prop
-#eval Plausible.Testable.check
-  (∀ (x : Int) (xs : List Int),
-    ((x :: xs).elem (max_element (x :: xs)) &&
-      (x :: xs).all (fun y => y ≤ max_element (x :: xs))) = true)
-
-example : boundedInputs.all (fun l =>
-    (l.elem (max_element l) && l.all (fun x => x ≤ max_element l))) = true := by
+example : boundedSamples.all (fun l =>
+    (decide (maxElement l ∈ l) &&
+      l.all (fun y => decide (y ≤ maxElement l)))) = true := by
   native_decide
 
 /-! ## Correctness -/
 
-/-- If the input is non-empty, the result satisfies the post-condition. -/
-theorem correctness_thm (l : List Int) (h : Pre l) : Post_prop l := by
-  exact ⟨mem_thm l h, upper_bound_thm l⟩
+/-- Any value satisfying `Post_prop` is the value `maxElement` returns. -/
+theorem spec_unique_thm (l : List Int) (a : Int) (h : Post_prop l a) :
+    a = maxElement l := by
+  have hne : Pre l := List.ne_nil_of_mem h.1
+  exact le_antisymm (upper_bound_thm l hne a h.1) (h.2 (maxElement l) (mem_thm l hne))
+
+/-- On the Python domain, `maxElement` returns a greatest element of the list. -/
+theorem maxElement_correct_thm (l : List Int) (h : Pre l) : Post_prop l (maxElement l) :=
+  ⟨mem_thm l h, upper_bound_thm l h⟩
 
 /-! ## Imperative implementation -/
 
-/-- Imperative implementation using mutable state, matching the Python loop.
+/-- Direct translation of the Python loop, using mutable state in `Id`.
 
 ```python
 m = l[0]
@@ -427,57 +385,64 @@ for e in l:
         m = e
 return m
 ```
--/
-def max_element_imp (l : List Int) : Int :=
+
+`l.headD 0` stands in for `l[0]` so the loop is total. Under `Pre` it is `l[0]`. -/
+def maxElementImp (l : List Int) : Int :=
   Id.run do
-    let mut m : Int := l.headD 0
+    let mut m := l.headD 0
     for e in l do
       if e > m then
         m := e
     return m
 
-/-- The `for`-loop that always yields the strict-greater update is a left fold. -/
-lemma forIn_step_eq_foldl (l : List Int) (init : Int) :
-    forIn (m := Id) l init (fun e r =>
-      if r < e then pure (ForInStep.yield e) else pure (ForInStep.yield r))
-    = l.foldl step init := by
-  induction l generalizing init with
-  | nil =>
-    rfl
-  | cons x xs ih =>
-    simp only [List.forIn_cons, List.foldl_cons]
-    by_cases h : init < x
-    · simp [h, step, gt_iff_lt, ih]
-    · simp [h, step, gt_iff_lt, ih]
-
 /-! ## Imperative tests -/
 
-example : max_element_imp [1, 2, 3] = 3 := by native_decide
-example : max_element_imp [5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10] = 123 := by native_decide
-example : max_element_imp [5, 3, -5, 2, -3, 3, 9, 0, 124, 1, -10] = 124 := by native_decide
-example : max_element_imp [42] = 42 := by native_decide
-example : max_element_imp [-5, -1, -3] = -1 := by native_decide
-example : max_element_imp [0, 0, 0] = 0 := by native_decide
-example : max_element_imp [7, 1, 7] = 7 := by native_decide
+example : maxElementImp [1, 2, 3] = 3 := by native_decide
 
-#eval max_element_imp [1, 2, 3]
-#eval max_element_imp [5, 3, -5, 2, -3, 3, 9, 0, 124, 1, -10]
-#eval max_element_imp [-5, -1, -3]
+example : maxElementImp [5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10] = 123 := by native_decide
 
-example : boundedInputs.all (fun l => max_element l == max_element_imp l) = true := by
+example : maxElementImp [5, 3, -5, 2, -3, 3, 9, 0, 124, 1, -10] = 124 := by native_decide
+
+example : maxElementImp [-5, -1, -10] = -1 := by native_decide
+
+example : maxElementImp [2, 2, 1] = 2 := by native_decide
+
+example : check maxElementImp = true := by native_decide
+
+example : boundedSamples.all (fun l => maxElement l == maxElementImp l) = true := by
   native_decide
+
+#eval maxElementImp [1, 2, 3]
+
+#eval maxElementImp [5, 3, -5, 2, -3, 3, 9, 0, 124, 1, -10]
+
+#eval check maxElementImp
 
 /-! ## Equivalence -/
 
-/-- The functional scan and the imperative loop return the same value on every list,
-including the shared totalization of the empty list. -/
-theorem equivalence_thm (l : List Int) : max_element l = max_element_imp l := by
-  unfold max_element max_element_imp
-  simp only [Id.run, List.headD]
-  rw [← forIn_step_eq_foldl]
+/-- The functional fold and the imperative loop return the same integer on every list. -/
+theorem maxElement_equiv_thm (l : List Int) : maxElement l = maxElementImp l := by
+  unfold maxElementImp maxElement
+  simp only [Id.run_bind, Id.run_pure]
+  have hbody : ∀ e r,
+      (if e > r then do
+          pure PUnit.unit
+          pure (ForInStep.yield e)
+        else do
+          pure PUnit.unit
+          pure (ForInStep.yield r) : Id (ForInStep Int)) =
+        pure (ForInStep.yield (if e > r then e else r)) := by
+    intro e r
+    by_cases h : e > r
+    · simp [h]
+    · simp [h]
+  simp only [hbody, List.forIn_pure_yield_eq_foldl, Id.run_pure]
+  unfold updateMax
   rfl
 
--- PBT: functional = imperative on random lists, including the empty totalization.
-#eval Plausible.Testable.check (∀ l : List Int, max_element l = max_element_imp l)
+/-- On the Python domain the imperative loop meets `Post_prop`. -/
+theorem maxElementImp_correct_thm (l : List Int) (h : Pre l) :
+    Post_prop l (maxElementImp l) := by
+  simpa [maxElement_equiv_thm l] using maxElement_correct_thm l h
 
 end humaneval_35_max_element

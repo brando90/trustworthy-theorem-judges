@@ -3,792 +3,775 @@ import Mathlib
 /-!
 # HTML escape
 
-Lean 4 formalization of Python's `html.escape` (and the benchmark wrapper
-`benchmark_escape`).
+Lean translation of Python's `html.escape` (the special-character replacement
+used by the standard-library helper). The function replaces `&`, `<` and `>`
+by `&amp;`, `&lt;` and `&gt;`. When `quote` is true, which is the default, it
+also replaces `"` by `&quot;` and `'` by `&#x27;`.
 
-The Python implementation replaces `&`, then `<`, then `>`, and — when
-`quote` is true — `"` and `'`, using `str.replace`. Ampersand is replaced
-first so that the `&` characters introduced by later entities are not
-double-escaped. Patterns are single Unicode code points and the replacement
-strings are not rescanned, so the algorithm is exactly the character-wise
-expansion proved equivalent below to `escapeSeq`.
-
-In Lean the input is already a `String`, which is the static counterpart of
-`pre_escape` / `isinstance(s, str)`.
+Ampersand is replaced first. The entities introduced by the later replacements
+contain `&`, and those ampersands are not escaped again inside a single call.
+A second call does escape them, so the function is not idempotent.
 -/
 
 namespace «20_html_escape»
 
-/-- Characters that `html.escape` rewrites for the given `quote` flag. -/
-def isSpecial (quote : Bool) (c : Char) : Bool :=
-  c == '&' || c == '<' || c == '>' || (quote && (c == '"' || c == '\''))
+inductive CharClass where
+  | amp | lt | gt | quot | apos | other
+  deriving DecidableEq
 
-/-- HTML expansion of a single character. Mirrors one step of `str.replace`. -/
+def classify (quote : Bool) (c : Char) : CharClass :=
+  if c == '&' then .amp
+  else if c == '<' then .lt
+  else if c == '>' then .gt
+  else if quote && c == '"' then .quot
+  else if quote && c == '\'' then .apos
+  else .other
+
 def escapeChar (quote : Bool) (c : Char) : String :=
-  if c == '&' then "&amp;"
-  else if c == '<' then "&lt;"
-  else if c == '>' then "&gt;"
-  else if quote && c == '"' then "&quot;"
-  else if quote && c == '\'' then "&#x27;"
-  else String.singleton c
+  match classify quote c with
+  | .amp => "&amp;"
+  | .lt => "&lt;"
+  | .gt => "&gt;"
+  | .quot => "&quot;"
+  | .apos => "&#x27;"
+  | .other => String.singleton c
 
-/-- Escape a list of code points by concatenating per-character expansions. -/
-def escapeList (quote : Bool) : List Char → String
-  | [] => ""
-  | c :: cs => escapeChar quote c ++ escapeList quote cs
+def extraLen (quote : Bool) (c : Char) : Nat :=
+  match classify quote c with
+  | .amp => 4
+  | .lt => 3
+  | .gt => 3
+  | .quot => 5
+  | .apos => 5
+  | .other => 0
 
-/--
-HTML-escape `s`.
+def repl (pat : Char) (rep : List Char) (cs : List Char) : List Char :=
+  cs.flatMap fun c => if c == pat then rep else [c]
 
-`quote = true` (the default, as in Python) also translates `"` and `'`.
--/
+def replaceChar (s : String) (pat : Char) (rep : String) : String :=
+  String.mk (repl pat (rep.data) (s.data))
+
 def escape (s : String) (quote : Bool := true) : String :=
-  escapeList quote s.data
+  let s3 := replaceChar (replaceChar (replaceChar s '&' "&amp;") '<' "&lt;") '>' "&gt;"
+  cond quote (replaceChar (replaceChar s3 '"' "&quot;") '\'' "&#x27;") s3
 
-/-- Python `isinstance(s, str)`. At this type the check is identically true. -/
-def pre_escape (_s : String) : Bool :=
-  true
+/-- Entry point corresponding to Python `benchmark_escape`.
+`pre_escape` is the Lean type of `s`; a non-string cannot be passed. -/
+def benchmarkEscape (s : String) (quote : Bool := true) : String :=
+  escape s quote
 
-/--
-Benchmark entry point. The Python wrapper raises `TypeError` when the input
-is not a string; every Lean `String` satisfies `pre_escape`.
--/
-def benchmark_escape (s : String) (quote : Bool := true) : String :=
-  if pre_escape s then escape s quote else ""
 
-/-- Replace every occurrence of the code point `old` by `neu`, without
-rescanning inserted text. This is `str.replace` for a one-character pattern. -/
-def replaceChar (old : Char) (neu : List Char) : List Char → List Char
-  | [] => []
-  | c :: cs => (if c == old then neu else [c]) ++ replaceChar old neu cs
+-- Unit tests (Python `check`)
 
-/--
-Python's successive `str.replace` calls, modelled on Unicode code points.
-Order is significant: `&` is rewritten before `<`, `>`, `"`, and `'`.
--/
-def escapeSeqList (quote : Bool) (cs : List Char) : List Char :=
-  let cs := replaceChar '&' "&amp;".data cs
-  let cs := replaceChar '<' "&lt;".data cs
-  let cs := replaceChar '>' "&gt;".data cs
-  if quote then
-    let cs := replaceChar '"' "&quot;".data cs
-    replaceChar '\'' "&#x27;".data cs
-  else
-    cs
-
-/-- Sequential-replace model of `html.escape`. -/
-def escapeSeq (s : String) (quote : Bool := true) : String :=
-  String.mk (escapeSeqList quote s.data)
-
-/-- Left inverse of a single expansion (entities, or a raw one-character string). -/
-def decodeExpansion (s : String) : Option Char :=
-  if s == "&amp;" then some '&'
-  else if s == "&lt;" then some '<'
-  else if s == "&gt;" then some '>'
-  else if s == "&quot;" then some '"'
-  else if s == "&#x27;" then some '\''
-  else if s.length == 1 then s.data.head?
-  else none
-
-/-! ## Unit tests -/
-
-example : benchmark_escape "<b>\"&'</b>" = "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;" := by
+example : benchmarkEscape "<b>\"&'</b>" = "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;" := by
   native_decide
 
-example : benchmark_escape "" = "" := by
+example : benchmarkEscape "" = "" := by
   native_decide
 
-example : benchmark_escape "<b>\"&'</b>" false = "&lt;b&gt;\"&amp;'&lt;/b&gt;" := by
+example : benchmarkEscape "<b>\"&'</b>" false = "&lt;b&gt;\"&amp;'&lt;/b&gt;" := by
   native_decide
 
-example : benchmark_escape "&<" = "&amp;&lt;" := by
+example : benchmarkEscape "&<" = "&amp;&lt;" := by
   native_decide
 
-example : escape "&" = "&amp;" := by native_decide
-example : escape "<" = "&lt;" := by native_decide
-example : escape ">" = "&gt;" := by native_decide
-example : escape "\"" = "&quot;" := by native_decide
-example : escape "'" = "&#x27;" := by native_decide
-example : escape "\"" false = "\"" := by native_decide
-example : escape "'" false = "'" := by native_decide
-example : escape "abc" = "abc" := by native_decide
-example : escape "&&" = "&amp;&amp;" := by native_decide
-example : escape "<>" false = "&lt;&gt;" := by native_decide
+example : benchmarkEscape "plain" = "plain" := by
+  native_decide
 
-#eval escape "<b>\"&'</b>"
-#eval escape "<b>\"&'</b>" false
-#eval escape "&<"
-#eval benchmark_escape ""
+#eval benchmarkEscape "<b>\"&'</b>"
+#eval benchmarkEscape "<b>\"&'</b>" false
+#eval benchmarkEscape "&<"
+#eval benchmarkEscape ""
+#eval benchmarkEscape "plain"
 
-/-! ## Pre-condition -/
+/-- Python `pre_escape`: the input must be a string. Lean's type system enforces this. -/
+def Pre (_s : String) (_quote : Bool) : Prop := True
 
-/-- Input is a string, i.e. Python `pre_escape(s)`. -/
-def Pre (s : String) (_quote : Bool) : Prop :=
-  pre_escape s = true
+theorem data_amp : "&amp;".data = ['&', 'a', 'm', 'p', ';'] := rfl
+theorem data_lt : "&lt;".data = ['&', 'l', 't', ';'] := rfl
+theorem data_gt : "&gt;".data = ['&', 'g', 't', ';'] := rfl
+theorem data_quot : "&quot;".data = ['&', 'q', 'u', 'o', 't', ';'] := rfl
+theorem data_apos : "&#x27;".data = ['&', '#', 'x', '2', '7', ';'] := rfl
+theorem mk_data (l : List Char) : (String.mk l).data = l := rfl
+theorem empty_data : "".data = [] := rfl
 
+theorem repl_append (pat : Char) (rep xs ys : List Char) :
+    repl pat rep (xs ++ ys) = repl pat rep xs ++ repl pat rep ys := by
+  simp [repl, List.flatMap_append]
 
-/-! ## Auxiliary lemmas -/
+theorem repl_nil (pat : Char) (rep : List Char) : repl pat rep [] = [] := by
+  simp [repl]
 
-lemma replaceChar_append (old : Char) (neu xs ys : List Char) :
-    replaceChar old neu (xs ++ ys) = replaceChar old neu xs ++ replaceChar old neu ys := by
-  induction xs with
-  | nil => simp [replaceChar]
-  | cons x xs ih => simp [replaceChar, ih, List.append_assoc]
+theorem image_false (c : Char) :
+    repl '>' "&gt;".data (repl '<' "&lt;".data (repl '&' "&amp;".data [c]))
+      = (escapeChar false c).data := by
+  by_cases hamp : c = '&'
+  · subst hamp
+    simp [repl, escapeChar, classify]
+  · by_cases hlt : c = '<'
+    · subst hlt
+      simp [repl, escapeChar, classify, hamp]
+    · by_cases hgt : c = '>'
+      · subst hgt
+        simp [repl, escapeChar, classify, hamp, hlt]
+      · simp [repl, escapeChar, classify, hamp, hlt, hgt, beq_iff_eq]
 
-lemma escapeSeqList_append (q : Bool) (xs ys : List Char) :
-    escapeSeqList q (xs ++ ys) = escapeSeqList q xs ++ escapeSeqList q ys := by
-  simp only [escapeSeqList]
-  cases q <;> simp [replaceChar_append]
+theorem image_true (c : Char) :
+    repl '\'' "&#x27;".data
+      (repl '"' "&quot;".data
+        (repl '>' "&gt;".data
+          (repl '<' "&lt;".data
+            (repl '&' "&amp;".data [c]))))
+      = (escapeChar true c).data := by
+  by_cases hamp : c = '&'
+  · subst hamp; simp [repl, escapeChar, classify]
+  · by_cases hlt : c = '<'
+    · subst hlt; simp [repl, escapeChar, classify, hamp]
+    · by_cases hgt : c = '>'
+      · subst hgt; simp [repl, escapeChar, classify, hamp, hlt]
+      · by_cases hqu : c = '"'
+        · subst hqu; simp [repl, escapeChar, classify, hamp, hlt, hgt]
+        · by_cases hap : c = '\''
+          · subst hap; simp [repl, escapeChar, classify, hamp, hlt, hgt, hqu]
+          · simp [repl, escapeChar, classify, hamp, hlt, hgt, hqu, hap, beq_iff_eq]
 
-lemma escapeSeqList_flatMap (q : Bool) (cs : List Char) :
-    escapeSeqList q cs = cs.flatMap (fun c => escapeSeqList q [c]) := by
+def pipeFalse (cs : List Char) : List Char :=
+  repl '>' "&gt;".data (repl '<' "&lt;".data (repl '&' "&amp;".data cs))
+
+def pipeTrue (cs : List Char) : List Char :=
+  repl '\'' "&#x27;".data
+    (repl '"' "&quot;".data
+      (repl '>' "&gt;".data (repl '<' "&lt;".data (repl '&' "&amp;".data cs))))
+
+theorem pipeFalse_append (xs ys : List Char) :
+    pipeFalse (xs ++ ys) = pipeFalse xs ++ pipeFalse ys := by
+  simp [pipeFalse, repl_append]
+
+theorem pipeTrue_append (xs ys : List Char) :
+    pipeTrue (xs ++ ys) = pipeTrue xs ++ pipeTrue ys := by
+  simp [pipeTrue, repl_append]
+
+theorem pipeFalse_spec (cs : List Char) :
+    pipeFalse cs = cs.flatMap (fun c => (escapeChar false c).data) := by
   induction cs with
-  | nil => simp [escapeSeqList, replaceChar]
+  | nil => simp [pipeFalse, repl]
   | cons c cs ih =>
-    have hcons : c :: cs = [c] ++ cs := by simp
-    rw [hcons, escapeSeqList_append, ih]
-    simp [List.flatMap]
+    have hcons : pipeFalse (c :: cs) = pipeFalse [c] ++ pipeFalse cs := by
+      simpa using pipeFalse_append [c] cs
+    have himg : pipeFalse [c] = (escapeChar false c).data := by
+      simpa [pipeFalse] using image_false c
+    simp [hcons, himg, ih, List.flatMap_cons]
 
-lemma escapeSeqList_singleton (q : Bool) (c : Char) :
-    escapeSeqList q [c] = (escapeChar q c).data := by
-  unfold escapeSeqList escapeChar
-  cases hamp : c == '&' <;>
-  cases hlt : c == '<' <;>
-  cases hgt : c == '>' <;>
-  cases hqu : c == '"' <;>
-  cases hap : c == '\'' <;>
-  cases q <;>
-  simp [replaceChar, String.singleton_eq, hamp, hlt, hgt, hqu, hap]
+theorem pipeTrue_spec (cs : List Char) :
+    pipeTrue cs = cs.flatMap (fun c => (escapeChar true c).data) := by
+  induction cs with
+  | nil => simp [pipeTrue, repl]
+  | cons c cs ih =>
+    have hcons : pipeTrue (c :: cs) = pipeTrue [c] ++ pipeTrue cs := by
+      simpa using pipeTrue_append [c] cs
+    have himg : pipeTrue [c] = (escapeChar true c).data := by
+      simpa [pipeTrue] using image_true c
+    simp [hcons, himg, ih, List.flatMap_cons]
 
-lemma escapeList_append (q : Bool) (xs ys : List Char) :
-    escapeList q (xs ++ ys) = escapeList q xs ++ escapeList q ys := by
+theorem replaceChar_data (s : String) (pat : Char) (rep : String) :
+    (replaceChar s pat rep).data = repl pat (rep.data) (s.data) := by
+  simp [replaceChar, mk_data]
+
+theorem escape_data (s : String) (quote : Bool) :
+    (escape s quote).data = s.data.flatMap (fun c => (escapeChar quote c).data) := by
+  cases quote with
+  | false =>
+    simp only [escape, cond_false, replaceChar_data]
+    simpa [pipeFalse] using pipeFalse_spec s.data
+  | true =>
+    simp only [escape, cond_true, replaceChar_data]
+    simpa [pipeTrue] using pipeTrue_spec s.data
+
+theorem escapeChar_length (q : Bool) (c : Char) :
+    (escapeChar q c).length = 1 + extraLen q c := by
+  cases h : classify q c
+  · simp [escapeChar, extraLen, h]; rfl
+  · simp [escapeChar, extraLen, h]; rfl
+  · simp [escapeChar, extraLen, h]; rfl
+  · simp [escapeChar, extraLen, h]; rfl
+  · simp [escapeChar, extraLen, h]; rfl
+  · simp [escapeChar, extraLen, h, String.length_singleton]
+
+theorem length_data (s : String) : s.length = s.data.length := rfl
+
+theorem escape_spec (s : String) (quote : Bool) :
+    escape s quote = String.mk (s.data.flatMap fun c => (escapeChar quote c).data) := by
+  apply String.ext
+  simp [escape_data, mk_data]
+
+theorem escape_append (s t : String) (quote : Bool) :
+    escape (s ++ t) quote = escape s quote ++ escape t quote := by
+  apply String.ext
+  simp [escape_spec, mk_data, String.data_append, List.flatMap_append]
+
+theorem escape_empty (quote : Bool) : escape "" quote = "" := by
+  apply String.ext
+  simp [escape_spec, mk_data, empty_data]
+
+theorem escape_default (s : String) : escape s = escape s true := rfl
+
+theorem sum_map_add {α : Type} (xs : List α) (f g : α → Nat) :
+    (xs.map fun a => f a + g a).sum = (xs.map f).sum + (xs.map g).sum := by
   induction xs with
-  | nil => simp [escapeList]
-  | cons x xs ih => simp [escapeList, ih, String.append_assoc]
-
-lemma escapeList_data (q : Bool) (cs : List Char) :
-    (escapeList q cs).data = cs.flatMap (fun c => (escapeChar q c).data) := by
-  induction cs with
-  | nil => simp [escapeList]
-  | cons c cs ih => simp [escapeList, ih]
-
-lemma escapeChar_no_lt (q : Bool) (c : Char) : '<' ∉ (escapeChar q c).data := by
-  unfold escapeChar
-  split_ifs with h1 h2 h3 h4 h5
-  · decide
-  · decide
-  · decide
-  · decide
-  · decide
-  · simp [String.data_singleton]
-    intro h
-    simp at h2
-    exact h2 h.symm
-
-lemma escapeChar_no_gt (q : Bool) (c : Char) : '>' ∉ (escapeChar q c).data := by
-  unfold escapeChar
-  split_ifs with h1 h2 h3 h4 h5
-  · decide
-  · decide
-  · decide
-  · decide
-  · decide
-  · simp [String.data_singleton]
-    intro h
-    simp at h3
-    exact h3 h.symm
-
-lemma escapeChar_no_quot (c : Char) : '"' ∉ (escapeChar true c).data := by
-  unfold escapeChar
-  split_ifs with h1 h2 h3 h4 h5
-  · decide
-  · decide
-  · decide
-  · decide
-  · decide
-  · simp [String.data_singleton]
-    intro h
-    simp at h4
-    exact h4 h.symm
-
-lemma escapeChar_no_apos (c : Char) : '\'' ∉ (escapeChar true c).data := by
-  unfold escapeChar
-  split_ifs with h1 h2 h3 h4 h5
-  · decide
-  · decide
-  · decide
-  · decide
-  · decide
-  · simp [String.data_singleton]
-    intro h
-    simp at h5
-    exact h5 h.symm
-
-lemma escapeList_no_lt (q : Bool) (cs : List Char) : '<' ∉ (escapeList q cs).data := by
-  induction cs with
-  | nil => simp [escapeList]
-  | cons c cs ih => simp [escapeList, List.mem_append, escapeChar_no_lt q c, ih]
-
-lemma escapeList_no_gt (q : Bool) (cs : List Char) : '>' ∉ (escapeList q cs).data := by
-  induction cs with
-  | nil => simp [escapeList]
-  | cons c cs ih => simp [escapeList, List.mem_append, escapeChar_no_gt q c, ih]
-
-lemma escapeList_no_quot (cs : List Char) : '"' ∉ (escapeList true cs).data := by
-  induction cs with
-  | nil => simp [escapeList]
-  | cons c cs ih => simp [escapeList, List.mem_append, escapeChar_no_quot c, ih]
-
-lemma escapeList_no_apos (cs : List Char) : '\'' ∉ (escapeList true cs).data := by
-  induction cs with
-  | nil => simp [escapeList]
-  | cons c cs ih => simp [escapeList, List.mem_append, escapeChar_no_apos c, ih]
-
-lemma escapeChar_length_ge (q : Bool) (c : Char) : 1 ≤ (escapeChar q c).length := by
-  unfold escapeChar
-  split_ifs
-  · decide
-  · decide
-  · decide
-  · decide
-  · decide
-  · simp
-
-lemma escapeList_length_eq (q : Bool) (cs : List Char) :
-    (escapeList q cs).length = (cs.map (fun c => (escapeChar q c).length)).sum := by
-  induction cs with
-  | nil => simp [escapeList]
-  | cons c cs ih => simp [escapeList, ih, String.length_append]
-
-lemma map_length_sum_ge (q : Bool) (cs : List Char) :
-    cs.length ≤ (cs.map (fun c => (escapeChar q c).length)).sum := by
-  induction cs with
   | nil => simp
-  | cons c cs ih =>
-    simp
-    have hc : 1 ≤ (escapeChar q c).length := escapeChar_length_ge q c
+  | cons a as ih =>
+    simp only [List.map_cons, List.sum_cons, ih]
     omega
 
-lemma singleton_ne_long (c : Char) (e : String) (hlen : e.length ≠ 1) :
-    (String.singleton c == e) = false := by
-  simp
-  intro h
-  apply hlen
-  have := congrArg String.length h
-  simpa [String.length_singleton] using this.symm
+theorem sum_map_one (xs : List Char) : (xs.map fun _ => 1).sum = xs.length := by
+  induction xs with
+  | nil => simp
+  | cons _ xs ih => simp [ih, Nat.add_comm]
 
-lemma decode_escapeChar (q : Bool) (c : Char) :
-    decodeExpansion (escapeChar q c) = some c := by
-  unfold escapeChar
-  split_ifs with h1 h2 h3 h4 h5
-  · have hc : c = '&' := by simpa [beq_iff_eq] using h1
-    subst hc
-    decide
-  · have hc : c = '<' := by simpa [beq_iff_eq] using h2
-    subst hc
-    decide
-  · have hc : c = '>' := by simpa [beq_iff_eq] using h3
-    subst hc
-    decide
-  · have hc : c = '"' := by
-      simp only [Bool.and_eq_true, beq_iff_eq] at h4
-      exact h4.2
-    subst hc
-    decide
-  · have hc : c = '\'' := by
-      simp only [Bool.and_eq_true, beq_iff_eq] at h5
-      exact h5.2
-    subst hc
-    decide
-  · have n1 : ("&amp;").length ≠ 1 := by decide
-    have n2 : ("&lt;").length ≠ 1 := by decide
-    have n3 : ("&gt;").length ≠ 1 := by decide
-    have n4 : ("&quot;").length ≠ 1 := by decide
-    have n5 : ("&#x27;").length ≠ 1 := by decide
-    simp [decodeExpansion, String.length_singleton, String.data_singleton,
-      singleton_ne_long c "&amp;" n1, singleton_ne_long c "&lt;" n2,
-      singleton_ne_long c "&gt;" n3, singleton_ne_long c "&quot;" n4,
-      singleton_ne_long c "&#x27;" n5]
+theorem escape_length (s : String) (quote : Bool) :
+    (escape s quote).length = s.length + (s.data.map (extraLen quote)).sum := by
+  have hdata := escape_data s quote
+  rw [show (escape s quote).length = (escape s quote).data.length from rfl, hdata, List.length_flatMap]
+  have hchar : ∀ c, ((escapeChar quote c).data).length = 1 + extraLen quote c := by
+    intro c
+    simpa using escapeChar_length quote c
+  simp only [hchar, sum_map_add, sum_map_one]
+  rfl
 
-lemma escapeChar_nonspecial (q : Bool) (c : Char) (h : isSpecial q c = false) :
+theorem classify_other_ne_amp {q : Bool} {c : Char} (h : classify q c = .other) : c ≠ '&' := by
+  intro hc; subst hc; simp [classify] at h
+
+theorem classify_other_ne_lt {q : Bool} {c : Char} (h : classify q c = .other) : c ≠ '<' := by
+  intro hc; subst hc; simp [classify] at h
+
+theorem classify_other_ne_gt {q : Bool} {c : Char} (h : classify q c = .other) : c ≠ '>' := by
+  intro hc; subst hc; simp [classify] at h
+
+theorem classify_other_ne_quot {c : Char} (h : classify true c = .other) : c ≠ '"' := by
+  intro hc; subst hc; simp [classify] at h
+
+theorem classify_other_ne_apos {c : Char} (h : classify true c = .other) : c ≠ '\'' := by
+  intro hc; subst hc; simp [classify] at h
+
+theorem escapeChar_count_lt (q : Bool) (c : Char) : (escapeChar q c).data.count '<' = 0 := by
+  cases h : classify q c
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · have hne := classify_other_ne_lt h
+    simp [escapeChar, h, String.data_singleton, hne]
+
+theorem escapeChar_count_gt (q : Bool) (c : Char) : (escapeChar q c).data.count '>' = 0 := by
+  cases h : classify q c
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · have hne := classify_other_ne_gt h
+    simp [escapeChar, h, String.data_singleton, hne]
+
+theorem escapeChar_count_quot_on (c : Char) : (escapeChar true c).data.count '"' = 0 := by
+  cases h : classify true c
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · have hne := classify_other_ne_quot h
+    simp [escapeChar, h, String.data_singleton, hne]
+
+theorem escapeChar_count_apos_on (c : Char) : (escapeChar true c).data.count '\'' = 0 := by
+  cases h : classify true c
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · simp [escapeChar, h]
+  · have hne := classify_other_ne_apos h
+    simp [escapeChar, h, String.data_singleton, hne]
+
+theorem count_flat_zero {xs : List Char} {f : Char → List Char} {a : Char}
+    (h : ∀ c, (f c).count a = 0) : (xs.flatMap f).count a = 0 := by
+  induction xs with
+  | nil => simp
+  | cons c cs ih => simp [List.flatMap_cons, List.count_append, h, ih]
+
+theorem escape_no_lt (s : String) (q : Bool) : '<' ∉ (escape s q).data := by
+  apply List.not_mem_of_count_eq_zero
+  rw [escape_data]
+  exact count_flat_zero (fun c => escapeChar_count_lt q c)
+
+theorem escape_no_gt (s : String) (q : Bool) : '>' ∉ (escape s q).data := by
+  apply List.not_mem_of_count_eq_zero
+  rw [escape_data]
+  exact count_flat_zero (fun c => escapeChar_count_gt q c)
+
+theorem escape_no_quot (s : String) (q : Bool) (hq : q = true) : '"' ∉ (escape s q).data := by
+  subst hq
+  apply List.not_mem_of_count_eq_zero
+  rw [escape_data]
+  exact count_flat_zero (fun c => escapeChar_count_quot_on c)
+
+theorem escape_no_apos (s : String) : '\'' ∉ (escape s true).data := by
+  apply List.not_mem_of_count_eq_zero
+  rw [escape_data]
+  exact count_flat_zero (fun c => escapeChar_count_apos_on c)
+
+def isSafeChar (quote : Bool) (c : Char) : Prop :=
+  c ≠ '&' ∧ c ≠ '<' ∧ c ≠ '>' ∧ (quote = true → c ≠ '"' ∧ c ≠ '\'')
+
+theorem escapeChar_of_safe {q : Bool} {c : Char} (h : isSafeChar q c) :
     escapeChar q c = String.singleton c := by
-  unfold escapeChar
-  split_ifs with h1 h2 h3 h4 h5
-  · unfold isSpecial at h
-    simp [h1] at h
-  · unfold isSpecial at h
-    simp [h2] at h
-  · unfold isSpecial at h
-    simp [h3] at h
-  · simp only [Bool.and_eq_true, beq_iff_eq] at h4
-    have hq : q = true := h4.1
-    have hc : c = '"' := h4.2
-    unfold isSpecial at h
-    simp [hq, hc] at h
-  · simp only [Bool.and_eq_true, beq_iff_eq] at h5
-    have hq : q = true := h5.1
-    have hc : c = '\'' := h5.2
-    unfold isSpecial at h
-    simp [hq, hc] at h
-  · rfl
+  rcases h with ⟨h1, h2, h3, h4⟩
+  cases q with
+  | false => simp [escapeChar, classify, beq_iff_eq, h1, h2, h3]
+  | true =>
+    rcases h4 rfl with ⟨h5, h6⟩
+    simp [escapeChar, classify, beq_iff_eq, h1, h2, h3, h5, h6]
 
-lemma count_escapeChar_dquot_off (c : Char) :
-    (escapeChar false c).data.count '"' = [c].count '"' := by
-  by_cases h1 : c = '&'
-  · subst h1
-    simp [escapeChar]
-  · by_cases h2 : c = '<'
-    · subst h2
-      simp [escapeChar]
-    · by_cases h3 : c = '>'
-      · subst h3
-        simp [escapeChar]
-      · have hb1 : (c == '&') = false := by simpa [beq_iff_eq] using h1
-        have hb2 : (c == '<') = false := by simpa [beq_iff_eq] using h2
-        have hb3 : (c == '>') = false := by simpa [beq_iff_eq] using h3
-        simp [escapeChar, hb1, hb2, hb3, Bool.false_and, String.data_singleton]
-
-lemma count_escapeChar_apos_off (c : Char) :
-    (escapeChar false c).data.count '\'' = [c].count '\'' := by
-  by_cases h1 : c = '&'
-  · subst h1
-    simp [escapeChar]
-  · by_cases h2 : c = '<'
-    · subst h2
-      simp [escapeChar]
-    · by_cases h3 : c = '>'
-      · subst h3
-        simp [escapeChar]
-      · have hb1 : (c == '&') = false := by simpa [beq_iff_eq] using h1
-        have hb2 : (c == '<') = false := by simpa [beq_iff_eq] using h2
-        have hb3 : (c == '>') = false := by simpa [beq_iff_eq] using h3
-        simp [escapeChar, hb1, hb2, hb3, Bool.false_and, String.data_singleton]
-
-lemma count_escapeList_dquot_off (cs : List Char) :
-    (escapeList false cs).data.count '"' = cs.count '"' := by
-  induction cs with
-  | nil => simp [escapeList]
-  | cons c cs ih =>
-    simp [escapeList, List.count_append, count_escapeChar_dquot_off, ih, List.count_cons]
-    omega
-
-lemma count_escapeList_apos_off (cs : List Char) :
-    (escapeList false cs).data.count '\'' = cs.count '\'' := by
-  induction cs with
-  | nil => simp [escapeList]
-  | cons c cs ih =>
-    simp [escapeList, List.count_append, count_escapeChar_apos_off, ih, List.count_cons]
-    omega
-
-lemma foldl_append_strings (xs : List String) (a : String) :
-    xs.foldl (fun acc s => acc ++ s) a = a ++ xs.foldl (fun acc s => acc ++ s) "" := by
-  induction xs generalizing a with
+theorem flatMap_id_of_singleton (xs : List Char) (f : Char → List Char)
+    (h : ∀ c ∈ xs, f c = [c]) : xs.flatMap f = xs := by
+  induction xs with
   | nil => simp
-  | cons x xs ih =>
-    simp
-    rw [ih (a ++ x), ih x]
-    simp [String.append_assoc]
-
-lemma escapeList_eq_join (q : Bool) (cs : List Char) :
-    escapeList q cs = String.join (cs.map (escapeChar q)) := by
-  induction cs with
-  | nil => simp [escapeList, String.join]
   | cons c cs ih =>
-    simp [escapeList, String.join, ih]
-    exact (foldl_append_strings (cs.map (escapeChar q)) (escapeChar q c)).symm
+    simp [List.flatMap_cons, h c (by simp), ih (fun x hx => h x (by simp [hx]))]
 
-
-/-! ## Properties and theorems -/
-
-def benchmark_eq_prop (s : String) (q : Bool) : Prop :=
-  benchmark_escape s q = escape s q
-
-theorem benchmark_eq_thm (s : String) (q : Bool) : benchmark_eq_prop s q := by
-  simp [benchmark_eq_prop, benchmark_escape, pre_escape]
-
-def escape_empty_prop (q : Bool) : Prop :=
-  escape "" q = ""
-
-theorem escape_empty_thm (q : Bool) : escape_empty_prop q := by
-  simp [escape_empty_prop, escape, escapeList]
-
-def escape_amp_prop (q : Bool) : Prop :=
-  escape "&" q = "&amp;"
-
-theorem escape_amp_thm (q : Bool) : escape_amp_prop q := by
-  simp [escape_amp_prop, escape, escapeList, escapeChar]
-
-def escape_lt_prop (q : Bool) : Prop :=
-  escape "<" q = "&lt;"
-
-theorem escape_lt_thm (q : Bool) : escape_lt_prop q := by
-  simp [escape_lt_prop, escape, escapeList, escapeChar]
-
-def escape_gt_prop (q : Bool) : Prop :=
-  escape ">" q = "&gt;"
-
-theorem escape_gt_thm (q : Bool) : escape_gt_prop q := by
-  simp [escape_gt_prop, escape, escapeList, escapeChar]
-
-def escape_quot_on_prop : Prop :=
-  escape "\"" true = "&quot;"
-
-theorem escape_quot_on_thm : escape_quot_on_prop := by
-  simp [escape_quot_on_prop, escape, escapeList, escapeChar]
-
-def escape_apos_on_prop : Prop :=
-  escape "'" true = "&#x27;"
-
-theorem escape_apos_on_thm : escape_apos_on_prop := by
-  simp [escape_apos_on_prop, escape, escapeList, escapeChar]
-
-def escape_quot_off_prop : Prop :=
-  escape "\"" false = "\""
-
-theorem escape_quot_off_thm : escape_quot_off_prop := by
-  simp [escape_quot_off_prop, escape, escapeList, escapeChar, String.singleton_eq]
-
-def escape_apos_off_prop : Prop :=
-  escape "'" false = "'"
-
-theorem escape_apos_off_thm : escape_apos_off_prop := by
-  simp [escape_apos_off_prop, escape, escapeList, escapeChar, String.singleton_eq]
-
-def escape_append_prop (s t : String) (q : Bool) : Prop :=
-  escape (s ++ t) q = escape s q ++ escape t q
-
-theorem escape_append_thm (s t : String) (q : Bool) : escape_append_prop s t q := by
-  simp [escape_append_prop, escape, String.data_append, escapeList_append]
-
-def amp_first_prop (q : Bool) : Prop :=
-  escape "&<" q = "&amp;&lt;" ∧ escape "&<" q ≠ "&amp;amp;lt;"
-
-theorem amp_first_thm (q : Bool) : amp_first_prop q := by
-  have hcat : "&<" = "&" ++ "<" := rfl
-  have happ : escape "&<" q = escape "&" q ++ escape "<" q := by
-    simpa [escape_append_prop, hcat] using escape_append_thm "&" "<" q
-  have hamp : escape "&" q = "&amp;" := escape_amp_thm q
-  have hlt : escape "<" q = "&lt;" := escape_lt_thm q
-  have heq : escape "&<" q = "&amp;&lt;" := by
-    rw [happ, hamp, hlt]
-    rfl
-  refine ⟨heq, ?_⟩
-  intro hne
-  rw [heq] at hne
-  revert hne
-  decide
-
-def escape_eq_seq_prop (s : String) (q : Bool) : Prop :=
-  escape s q = escapeSeq s q
-
-theorem escape_eq_seq_thm (s : String) (q : Bool) : escape_eq_seq_prop s q := by
-  unfold escape_eq_seq_prop escape escapeSeq
+theorem escape_safe_id (s : String) (q : Bool) (h : ∀ c ∈ s.data, isSafeChar q c) :
+    escape s q = s := by
   apply String.ext
-  rw [escapeList_data, escapeSeqList_flatMap]
-  simp only [escapeSeqList_singleton]
+  rw [escape_data]
+  refine flatMap_id_of_singleton s.data _ ?_
+  intro c hc
+  simp [escapeChar_of_safe (h c hc), String.data_singleton]
 
-def no_raw_lt_prop (s : String) (q : Bool) : Prop :=
-  '<' ∉ (escape s q).data
+-- quotes preserved pointwise
+theorem escapeChar_singleton_off {c : Char} (h1 : c ≠ '&') (h2 : c ≠ '<') (h3 : c ≠ '>') :
+    escapeChar false c = String.singleton c := by
+  simp [escapeChar, classify, beq_iff_eq, h1, h2, h3]
 
-theorem no_raw_lt_thm (s : String) (q : Bool) : no_raw_lt_prop s q := by
-  simpa [no_raw_lt_prop, escape] using escapeList_no_lt q s.data
+theorem escapeChar_count_quot_off (c : Char) :
+    (escapeChar false c).data.count '"' = [c].count '"' := by
+  by_cases hamp : c = '&'
+  · subst hamp; simp [escapeChar, classify]
+  · by_cases hlt : c = '<'
+    · subst hlt; simp [escapeChar, classify]
+    · by_cases hgt : c = '>'
+      · subst hgt; simp [escapeChar, classify]
+      · simp [escapeChar_singleton_off hamp hlt hgt, String.data_singleton]
 
-def no_raw_gt_prop (s : String) (q : Bool) : Prop :=
-  '>' ∉ (escape s q).data
+theorem escapeChar_count_apos_off (c : Char) :
+    (escapeChar false c).data.count '\'' = [c].count '\'' := by
+  by_cases hamp : c = '&'
+  · subst hamp; simp [escapeChar, classify]
+  · by_cases hlt : c = '<'
+    · subst hlt; simp [escapeChar, classify]
+    · by_cases hgt : c = '>'
+      · subst hgt; simp [escapeChar, classify]
+      · simp [escapeChar_singleton_off hamp hlt hgt, String.data_singleton]
 
-theorem no_raw_gt_thm (s : String) (q : Bool) : no_raw_gt_prop s q := by
-  simpa [no_raw_gt_prop, escape] using escapeList_no_gt q s.data
+theorem count_flatMap_pointwise {xs : List Char} {f g : Char → List Char} {a : Char}
+    (h : ∀ c, (f c).count a = (g c).count a) :
+    (xs.flatMap f).count a = (xs.flatMap g).count a := by
+  induction xs with
+  | nil => simp
+  | cons c cs ih => simp [List.flatMap_cons, List.count_append, h, ih]
 
-def no_raw_quot_prop (s : String) (q : Bool) : Prop :=
-  q = true → '"' ∉ (escape s q).data
+theorem escape_quotes_preserved (s : String) :
+    (escape s false).data.count '"' = s.data.count '"' ∧
+    (escape s false).data.count '\'' = s.data.count '\'' := by
+  constructor
+  · rw [escape_data]
+    have h := count_flatMap_pointwise (xs := s.data)
+      (f := fun c => (escapeChar false c).data) (g := fun c => [c]) (a := '"')
+      escapeChar_count_quot_off
+    simpa [List.flatMap_singleton'] using h
+  · rw [escape_data]
+    have h := count_flatMap_pointwise (xs := s.data)
+      (f := fun c => (escapeChar false c).data) (g := fun c => [c]) (a := '\'')
+      escapeChar_count_apos_off
+    simpa [List.flatMap_singleton'] using h
 
-theorem no_raw_quot_thm (s : String) (q : Bool) : no_raw_quot_prop s q := by
+def escapeWrong (s : String) : String :=
+  replaceChar (replaceChar (replaceChar s '<' "&lt;") '>' "&gt;") '&' "&amp;"
+
+theorem order_lt : escape "<" true = "&lt;" := by
+  apply String.ext
+  simp [escape_data, data_lt, List.flatMap]
+  rfl
+
+theorem order_wrong_lt : escapeWrong "<" = "&amp;lt;" := by
+  apply String.ext
+  simp [escapeWrong, replaceChar_data, data_lt, data_amp, repl]
+
+theorem not_idem_amp : escape (escape "&" true) true = "&amp;amp;" := by
+  apply String.ext
+  simp [escape_data, data_amp]
+  rfl
+
+
+theorem order_amp_lt : escape "&<" true = "&amp;&lt;" := by
+  apply String.ext
+  simp [escape_data, data_amp, data_lt]
+  rfl
+
+theorem order_wrong_amp_lt : escapeWrong "&<" = "&amp;&amp;lt;" := by
+  apply String.ext
+  simp [escapeWrong, replaceChar_data, data_amp, data_lt, repl]
+
+theorem not_idem_lt : escape (escape "<" true) true = "&amp;lt;" := by
+  apply String.ext
+  simp [escape_data, data_lt, data_amp]
+  rfl
+
+theorem not_idem_gt : escape (escape ">" true) true = "&amp;gt;" := by
+  apply String.ext
+  simp [escape_data, data_gt, data_amp]
+  rfl
+
+theorem not_idem_quot : escape (escape "\"" true) true = "&amp;quot;" := by
+  apply String.ext
+  simp [escape_data, data_quot, data_amp]
+  rfl
+
+theorem not_idem_apos : escape (escape "'" true) true = "&amp;#x27;" := by
+  apply String.ext
+  simp [escape_data, data_apos, data_amp]
+  rfl
+
+theorem ex_main : escape "<b>\"&'</b>" true = "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;" := by
+  apply String.ext
+  simp [escape_data]
+  rfl
+
+theorem ex_off : escape "<b>\"&'</b>" false = "&lt;b&gt;\"&amp;'&lt;/b&gt;" := by
+  apply String.ext
+  simp [escape_data]
+  rfl
+
+
+def escape_spec_prop (s : String) (quote : Bool) : Prop :=
+  escape s quote = String.mk (s.data.flatMap fun c => (escapeChar quote c).data)
+
+theorem escape_spec_thm (s : String) (quote : Bool) : escape_spec_prop s quote :=
+  escape_spec s quote
+
+def escape_append_prop (s : String) (quote : Bool) : Prop :=
+  ∀ t : String, escape (s ++ t) quote = escape s quote ++ escape t quote
+
+theorem escape_append_thm (s : String) (quote : Bool) : escape_append_prop s quote :=
+  fun t => escape_append s t quote
+
+def escape_empty_prop (quote : Bool) : Prop :=
+  escape "" quote = ""
+
+theorem escape_empty_thm (quote : Bool) : escape_empty_prop quote :=
+  escape_empty quote
+
+def escape_length_prop (s : String) (quote : Bool) : Prop :=
+  (escape s quote).length = s.length + (s.data.map (extraLen quote)).sum
+
+theorem escape_length_thm (s : String) (quote : Bool) : escape_length_prop s quote :=
+  escape_length s quote
+
+def escape_no_lt_prop (s : String) (quote : Bool) : Prop :=
+  '<' ∉ (escape s quote).data
+
+theorem escape_no_lt_thm (s : String) (quote : Bool) : escape_no_lt_prop s quote :=
+  escape_no_lt s quote
+
+def escape_no_gt_prop (s : String) (quote : Bool) : Prop :=
+  '>' ∉ (escape s quote).data
+
+theorem escape_no_gt_thm (s : String) (quote : Bool) : escape_no_gt_prop s quote :=
+  escape_no_gt s quote
+
+def escape_no_quot_prop (s : String) (quote : Bool) : Prop :=
+  quote = true → '"' ∉ (escape s quote).data
+
+theorem escape_no_quot_thm (s : String) (quote : Bool) : escape_no_quot_prop s quote :=
+  fun hq => escape_no_quot s quote hq
+
+def escape_no_apos_prop (s : String) (quote : Bool) : Prop :=
+  quote = true → '\'' ∉ (escape s quote).data
+
+theorem escape_no_apos_thm (s : String) (quote : Bool) : escape_no_apos_prop s quote := by
   intro hq
   subst hq
-  simpa [escape] using escapeList_no_quot s.data
+  exact escape_no_apos s
 
-def no_raw_apos_prop (s : String) (q : Bool) : Prop :=
-  q = true → '\'' ∉ (escape s q).data
+def escape_safe_id_prop (s : String) (quote : Bool) : Prop :=
+  (∀ c ∈ s.data, isSafeChar quote c) → escape s quote = s
 
-theorem no_raw_apos_thm (s : String) (q : Bool) : no_raw_apos_prop s q := by
+theorem escape_safe_id_thm (s : String) (quote : Bool) : escape_safe_id_prop s quote :=
+  fun h => escape_safe_id s quote h
+
+def escape_quotes_preserved_prop (s : String) (quote : Bool) : Prop :=
+  quote = false →
+    (escape s quote).data.count '"' = s.data.count '"' ∧
+    (escape s quote).data.count '\'' = s.data.count '\''
+
+theorem escape_quotes_preserved_thm (s : String) (quote : Bool) :
+    escape_quotes_preserved_prop s quote := by
   intro hq
   subst hq
-  simpa [escape] using escapeList_no_apos s.data
+  exact escape_quotes_preserved s
 
-def length_ge_prop (s : String) (q : Bool) : Prop :=
-  s.length ≤ (escape s q).length
+def escape_default_prop (s : String) : Prop :=
+  escape s = escape s true
 
-theorem length_ge_thm (s : String) (q : Bool) : length_ge_prop s q := by
-  simp [length_ge_prop, escape, escapeList_length_eq]
-  simpa using map_length_sum_ge q s.data
+theorem escape_default_thm (s : String) : escape_default_prop s :=
+  escape_default s
 
-def length_eq_prop (s : String) (q : Bool) : Prop :=
-  (escape s q).length = (s.data.map (fun c => (escapeChar q c).length)).sum
+def escape_singleton_prop (c : Char) (quote : Bool) : Prop :=
+  escape (String.singleton c) quote = escapeChar quote c
 
-theorem length_eq_thm (s : String) (q : Bool) : length_eq_prop s q := by
-  simp [length_eq_prop, escape, escapeList_length_eq]
-
-def decode_char_prop (q : Bool) (c : Char) : Prop :=
-  decodeExpansion (escapeChar q c) = some c
-
-theorem decode_char_thm (q : Bool) (c : Char) : decode_char_prop q c := by
-  simpa [decode_char_prop] using decode_escapeChar q c
-
-def decode_all_prop (s : String) (q : Bool) : Prop :=
-  ∀ c ∈ s.data, decodeExpansion (escapeChar q c) = some c
-
-theorem decode_all_thm (s : String) (q : Bool) : decode_all_prop s q := by
-  intro c _hc
-  exact decode_char_thm q c
-
-
-def nonspecial_prop (q : Bool) (c : Char) : Prop :=
-  isSpecial q c = false → escape (String.singleton c) q = String.singleton c
-
-theorem nonspecial_thm (q : Bool) (c : Char) : nonspecial_prop q c := by
-  intro h
-  simp [escape, escapeList, escapeChar_nonspecial q c h, String.data_singleton]
-
-def escape_id_prop (s : String) (q : Bool) : Prop :=
-  (∀ c ∈ s.data, isSpecial q c = false) → escape s q = s
-
-theorem escape_id_thm (s : String) (q : Bool) : escape_id_prop s q := by
-  intro h
+theorem escape_singleton_thm (c : Char) (quote : Bool) : escape_singleton_prop c quote := by
   apply String.ext
-  simp [escape]
-  suffices ∀ cs, (∀ d ∈ cs, isSpecial q d = false) → (escapeList q cs).data = cs by
-    exact this s.data h
-  intro cs hcs
-  induction cs with
-  | nil => simp [escapeList]
-  | cons c cs ih =>
-    have hc : isSpecial q c = false := hcs c (List.Mem.head _)
-    have htail : ∀ d ∈ cs, isSpecial q d = false := fun d hd => hcs d (List.Mem.tail _ hd)
-    simp [escapeList, escapeChar_nonspecial q c hc, ih htail, String.data_append,
-      String.data_singleton]
+  simp [escape_data, String.data_singleton]
 
-def preserve_dquot_off_prop (s : String) : Prop :=
-  (escape s false).data.count '"' = s.data.count '"'
+def escape_examples_prop : Prop :=
+  benchmarkEscape "<b>\"&'</b>" true = "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;" ∧
+  benchmarkEscape "" true = "" ∧
+  benchmarkEscape "<b>\"&'</b>" false = "&lt;b&gt;\"&amp;'&lt;/b&gt;" ∧
+  benchmarkEscape "&<" true = "&amp;&lt;"
 
-theorem preserve_dquot_off_thm (s : String) : preserve_dquot_off_prop s := by
-  simpa [preserve_dquot_off_prop, escape] using count_escapeList_dquot_off s.data
+theorem escape_examples_thm : escape_examples_prop :=
+  ⟨ex_main, escape_empty true, ex_off, order_amp_lt⟩
 
-def preserve_apos_off_prop (s : String) : Prop :=
-  (escape s false).data.count '\'' = s.data.count '\''
+def escape_order_matters_prop : Prop :=
+  escape "<" true = "&lt;" ∧
+  escapeWrong "<" = "&amp;lt;" ∧
+  escape "&<" true = "&amp;&lt;" ∧
+  escapeWrong "&<" = "&amp;&amp;lt;"
 
-theorem preserve_apos_off_thm (s : String) : preserve_apos_off_prop s := by
-  simpa [preserve_apos_off_prop, escape] using count_escapeList_apos_off s.data
+theorem escape_order_matters_thm : escape_order_matters_prop :=
+  ⟨order_lt, order_wrong_lt, order_amp_lt, order_wrong_amp_lt⟩
 
-def escape_join_prop (s : String) (q : Bool) : Prop :=
-  escape s q = String.join (s.data.map (escapeChar q))
+/-- A second pass escapes the ampersands introduced by the first. -/
+def escape_not_idempotent_prop : Prop :=
+  escape (escape "&" true) true = "&amp;amp;" ∧
+  escape (escape "<" true) true = "&amp;lt;" ∧
+  escape (escape ">" true) true = "&amp;gt;" ∧
+  escape (escape "\"" true) true = "&amp;quot;" ∧
+  escape (escape "'" true) true = "&amp;#x27;"
 
-theorem escape_join_thm (s : String) (q : Bool) : escape_join_prop s q := by
-  simp [escape_join_prop, escape, escapeList_eq_join]
+theorem escape_not_idempotent_thm : escape_not_idempotent_prop :=
+  ⟨not_idem_amp, not_idem_lt, not_idem_gt, not_idem_quot, not_idem_apos⟩
 
-theorem escape_unique_thm (f : String → Bool → String)
-    (h_empty : ∀ q, f "" q = "")
-    (h_append : ∀ s t q, f (s ++ t) q = f s q ++ f t q)
-    (h_char : ∀ c q, f (String.singleton c) q = escapeChar q c)
-    (s : String) (q : Bool) : f s q = escape s q := by
-  have hs : s = String.mk s.data := rfl
-  suffices ∀ cs, f (String.mk cs) q = escapeList q cs by
-    rw [hs, escape]
-    exact this s.data
-  intro cs
-  induction cs with
-  | nil =>
-    have hempty : String.mk ([] : List Char) = "" := rfl
-    rw [hempty, escapeList]
-    exact h_empty q
-  | cons c cs ih =>
-    have hsplit : String.mk (c :: cs) = String.singleton c ++ String.mk cs := by
-      apply String.ext
-      simp [String.data_append, String.data_singleton]
-    rw [hsplit, h_append, h_char, ih, escapeList]
+def benchmark_escape_prop (s : String) (quote : Bool) : Prop :=
+  benchmarkEscape s quote = escape s quote
 
-/-! ## Post-condition -/
+theorem benchmark_escape_thm (s : String) (quote : Bool) : benchmark_escape_prop s quote := rfl
 
-def Post_prop (s : String) (q : Bool) : Prop :=
-  escape_eq_seq_prop s q ∧
-  no_raw_lt_prop s q ∧
-  no_raw_gt_prop s q ∧
-  no_raw_quot_prop s q ∧
-  no_raw_apos_prop s q ∧
-  length_ge_prop s q ∧
-  length_eq_prop s q ∧
-  decode_all_prop s q ∧
-  escape_join_prop s q ∧
-  (q = false → preserve_dquot_off_prop s ∧ preserve_apos_off_prop s)
-
+/-- Post-condition: the escape contract, as the conjunction of the properties above. -/
+def Post_prop (s : String) (quote : Bool) : Prop :=
+  escape_spec_prop s quote ∧
+  escape_append_prop s quote ∧
+  escape_empty_prop quote ∧
+  escape_length_prop s quote ∧
+  escape_no_lt_prop s quote ∧
+  escape_no_gt_prop s quote ∧
+  escape_no_quot_prop s quote ∧
+  escape_no_apos_prop s quote ∧
+  escape_safe_id_prop s quote ∧
+  escape_quotes_preserved_prop s quote ∧
+  escape_default_prop s ∧
+  (∀ c : Char, escape_singleton_prop c quote) ∧
+  escape_examples_prop ∧
+  escape_order_matters_prop ∧
+  escape_not_idempotent_prop ∧
+  benchmark_escape_prop s quote
 
 /-! ## Property-based tests -/
 
+def pbtAlphabet : List Char := ['a', '&', '<', '>', '"', '\'', 'x']
+
+def pbtSingles : List String :=
+  pbtAlphabet.map fun c => String.singleton c
+
+def pbtDoubles : List String :=
+  pbtAlphabet.flatMap fun c =>
+    pbtAlphabet.map fun d => String.singleton c ++ String.singleton d
+
 def pbtStrings : List String :=
-  ["", "a", "&", "<", ">", "\"", "'", "<b>\"&'</b>", "&<", "&&", "<>",
-   "foo", "&amp;", "\"'", "a<b>c", " ", "&#x27;", ">><<"]
+  ["", "plain", "<b>\"&'</b>", "&<", "&amp;", "<>\"'", "hello"] ++ pbtSingles ++ pbtDoubles
 
-def postBool (s : String) (q : Bool) : Bool :=
-  (escape s q == escapeSeq s q) &&
-  !(escape s q).data.elem '<' &&
-  !(escape s q).data.elem '>' &&
-  (!q || !(escape s q).data.elem '"') &&
-  (!q || !(escape s q).data.elem '\'') &&
-  decide (s.length ≤ (escape s q).length) &&
-  decide ((escape s q).length = (s.data.map (fun c => (escapeChar q c).length)).sum) &&
-  s.data.all (fun c => decodeExpansion (escapeChar q c) == some c) &&
-  (escape s q == String.join (s.data.map (escapeChar q))) &&
-  (q || ((escape s false).data.count '"' == s.data.count '"' &&
-         (escape s false).data.count '\'' == s.data.count '\''))
+def pbtShort : List String :=
+  "" :: pbtSingles
 
--- PBT for escape_append_prop
+def safeB (quote : Bool) (c : Char) : Bool :=
+  c != '&' && c != '<' && c != '>' && (quote == false || (c != '"' && c != '\''))
+
+def encoded (quote : Bool) (s : String) : String :=
+  String.mk (s.data.flatMap fun c => (escapeChar quote c).data)
+
+/-- Executable form of `Post_prop` on one input, with append checked against `partners`. -/
+def postBool (s : String) (quote : Bool) (partners : List String) : Bool :=
+  (escape s quote == encoded quote s) &&
+  (escape "" quote == "") &&
+  ((escape s quote).length == s.length + (s.data.map (extraLen quote)).sum) &&
+  ((escape s quote).data.count '<' == 0) &&
+  ((escape s quote).data.count '>' == 0) &&
+  (quote == false || (escape s quote).data.count '"' == 0) &&
+  (quote == false || (escape s quote).data.count '\'' == 0) &&
+  (!(s.data.all (safeB quote)) || escape s quote == s) &&
+  (quote == true ||
+    ((escape s quote).data.count '"' == s.data.count '"' &&
+     (escape s quote).data.count '\'' == s.data.count '\'')) &&
+  (escape s == escape s true) &&
+  (benchmarkEscape s quote == escape s quote) &&
+  partners.all (fun t => escape (s ++ t) quote == escape s quote ++ escape t quote)
+
+def globalsBool : Bool :=
+  (benchmarkEscape "<b>\"&'</b>" true == "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;") &&
+  (benchmarkEscape "" true == "") &&
+  (benchmarkEscape "<b>\"&'</b>" false == "&lt;b&gt;\"&amp;'&lt;/b&gt;") &&
+  (benchmarkEscape "&<" true == "&amp;&lt;") &&
+  (escape "<" true == "&lt;") &&
+  (escapeWrong "<" == "&amp;lt;") &&
+  (escape "&<" true == "&amp;&lt;") &&
+  (escapeWrong "&<" == "&amp;&amp;lt;") &&
+  (escape (escape "&" true) true == "&amp;amp;") &&
+  (escape (escape "<" true) true == "&amp;lt;") &&
+  (escape (escape ">" true) true == "&amp;gt;") &&
+  (escape (escape "\"" true) true == "&amp;quot;") &&
+  (escape (escape "'" true) true == "&amp;#x27;")
+
+-- PBT: escape_spec_prop
+example : ([true, false]).all (fun q =>
+    pbtStrings.all (fun s => escape s q == encoded q s)) = true := by
+  native_decide
+
+-- PBT: escape_append_prop
+example : ([true, false]).all (fun q =>
+    pbtShort.all (fun s =>
+      pbtShort.all (fun t =>
+        escape (s ++ t) q == escape s q ++ escape t q))) = true := by
+  native_decide
+
+-- PBT: escape_empty_prop
+example : ([true, false]).all (fun q => escape "" q == "") = true := by
+  native_decide
+
+-- PBT: escape_length_prop
+example : ([true, false]).all (fun q =>
+    pbtStrings.all (fun s =>
+      (escape s q).length == s.length + (s.data.map (extraLen q)).sum)) = true := by
+  native_decide
+
+-- PBT: escape_no_lt_prop
+example : ([true, false]).all (fun q =>
+    pbtStrings.all (fun s => (escape s q).data.count '<' == 0)) = true := by
+  native_decide
+
+-- PBT: escape_no_gt_prop
+example : ([true, false]).all (fun q =>
+    pbtStrings.all (fun s => (escape s q).data.count '>' == 0)) = true := by
+  native_decide
+
+-- PBT: escape_no_quot_prop
+example : pbtStrings.all (fun s => (escape s true).data.count '"' == 0) = true := by
+  native_decide
+
+-- PBT: escape_no_apos_prop
+example : pbtStrings.all (fun s => (escape s true).data.count '\'' == 0) = true := by
+  native_decide
+
+-- PBT: escape_safe_id_prop
+example : ([true, false]).all (fun q =>
+    pbtStrings.all (fun s =>
+      !(s.data.all (safeB q)) || escape s q == s)) = true := by
+  native_decide
+
+-- PBT: escape_quotes_preserved_prop
+example : pbtStrings.all (fun s =>
+    (escape s false).data.count '"' == s.data.count '"' &&
+    (escape s false).data.count '\'' == s.data.count '\'') = true := by
+  native_decide
+
+-- PBT: escape_default_prop
+example : pbtStrings.all (fun s => escape s == escape s true) = true := by
+  native_decide
+
+-- PBT: escape_singleton_prop, exhaustive on ASCII
+example : (List.range 128).all (fun n =>
+    let c := Char.ofNat n
+    (escape (String.singleton c) true == escapeChar true c) &&
+    (escape (String.singleton c) false == escapeChar false c)) = true := by
+  native_decide
+
+-- PBT: escape_examples_prop, escape_order_matters_prop, escape_not_idempotent_prop
+example : globalsBool = true := by
+  native_decide
+
+-- PBT: benchmark_escape_prop
+example : ([true, false]).all (fun q =>
+    pbtStrings.all (fun s => benchmarkEscape s q == escape s q)) = true := by
+  native_decide
+
+-- PBT: Post_prop
+example : ([true, false]).all (fun q =>
+    pbtStrings.all (fun s => postBool s q pbtShort)) && globalsBool = true := by
+  native_decide
+
 #eval Plausible.Testable.check
   (∀ s t : String, ∀ q : Bool, escape (s ++ t) q = escape s q ++ escape t q)
 
-example : (pbtStrings.all fun s => pbtStrings.all fun t =>
-    escape (s ++ t) true == escape s true ++ escape t true &&
-    escape (s ++ t) false == escape s false ++ escape t false) = true := by
-  native_decide
-
--- PBT for escape_empty_prop
-#eval Plausible.Testable.check (∀ q : Bool, escape "" q = "")
-
-example : escape "" true = "" ∧ escape "" false = "" := by native_decide
-
--- PBT for escape_amp_prop
-#eval Plausible.Testable.check (∀ q : Bool, escape "&" q = "&amp;")
-
--- PBT for escape_lt_prop
-#eval Plausible.Testable.check (∀ q : Bool, escape "<" q = "&lt;")
-
--- PBT for escape_gt_prop
-#eval Plausible.Testable.check (∀ q : Bool, escape ">" q = "&gt;")
-
--- PBT for escape_quot_on_prop and escape_quot_off_prop
-example : escape "\"" true = "&quot;" ∧ escape "\"" false = "\"" := by native_decide
-
--- PBT for escape_apos_on_prop and escape_apos_off_prop
-example : escape "'" true = "&#x27;" ∧ escape "'" false = "'" := by native_decide
-
--- PBT for amp_first_prop
 #eval Plausible.Testable.check
-  (∀ q : Bool, escape "&<" q = "&amp;&lt;" ∧ escape "&<" q ≠ "&amp;amp;lt;")
+  (∀ s : String, ∀ q : Bool, escape s q = encoded q s)
 
--- PBT for escape_eq_seq_prop
-#eval Plausible.Testable.check (∀ s : String, ∀ q : Bool, escape s q = escapeSeq s q)
-
-example : (pbtStrings.all fun s => escape s true == escapeSeq s true &&
-    escape s false == escapeSeq s false) = true := by native_decide
-
--- PBT for no_raw_lt_prop
-#eval Plausible.Testable.check (∀ s : String, ∀ q : Bool, '<' ∉ (escape s q).data)
-
--- PBT for no_raw_gt_prop
-#eval Plausible.Testable.check (∀ s : String, ∀ q : Bool, '>' ∉ (escape s q).data)
-
--- PBT for no_raw_quot_prop
-#eval Plausible.Testable.check (∀ s : String, '"' ∉ (escape s true).data)
-
-example : (pbtStrings.all fun s => !(escape s true).data.elem '"') = true := by native_decide
-
--- PBT for no_raw_apos_prop
-#eval Plausible.Testable.check (∀ s : String, '\'' ∉ (escape s true).data)
-
-example : (pbtStrings.all fun s => !(escape s true).data.elem '\'') = true := by native_decide
-
--- PBT for length_ge_prop
-#eval Plausible.Testable.check (∀ s : String, ∀ q : Bool, s.length ≤ (escape s q).length)
-
--- PBT for length_eq_prop
 #eval Plausible.Testable.check
-  (∀ s : String, ∀ q : Bool,
-    (escape s q).length = (s.data.map (fun c => (escapeChar q c).length)).sum)
+  (∀ s : String, ∀ q : Bool, (escape s q).data.count '<' = 0)
 
--- PBT for decode_char_prop and decode_all_prop
 #eval Plausible.Testable.check
-  (∀ q : Bool, ∀ c : Char, decodeExpansion (escapeChar q c) = some c)
+  (∀ s : String, ∀ q : Bool, (escape s q).data.count '>' = 0)
 
-example : (pbtStrings.all fun s =>
-    s.data.all (fun c => decodeExpansion (escapeChar true c) == some c &&
-      decodeExpansion (escapeChar false c) == some c)) = true := by native_decide
-
-
--- PBT for nonspecial_prop
 #eval Plausible.Testable.check
-  (∀ q : Bool, ∀ c : Char, isSpecial q c = false →
-    escape (String.singleton c) q = String.singleton c)
+  (∀ s : String, ∀ q : Bool, (s.data.all (safeB q) = true) → escape s q = s)
 
--- PBT for escape_id_prop
 #eval Plausible.Testable.check
-  (∀ s : String, ∀ q : Bool,
-    s.data.all (fun c => !isSpecial q c) = true → escape s q = s)
+  (∀ q : Bool, escape "" q = "")
 
-example : (pbtStrings.all fun s =>
-    (s.data.all (fun c => !isSpecial false c) = true → escape s false == s) &&
-    (s.data.all (fun c => !isSpecial true c) = true → escape s true == s)) = true := by
-  native_decide
+theorem correctness_thm (s : String) (quote : Bool) (_hpre : Pre s quote) :
+    Post_prop s quote :=
+  ⟨escape_spec_thm s quote,
+   escape_append_thm s quote,
+   escape_empty_thm quote,
+   escape_length_thm s quote,
+   escape_no_lt_thm s quote,
+   escape_no_gt_thm s quote,
+   escape_no_quot_thm s quote,
+   escape_no_apos_thm s quote,
+   escape_safe_id_thm s quote,
+   escape_quotes_preserved_thm s quote,
+   escape_default_thm s,
+   fun c => escape_singleton_thm c quote,
+   escape_examples_thm,
+   escape_order_matters_thm,
+   escape_not_idempotent_thm,
+   benchmark_escape_thm s quote⟩
 
--- PBT for preserve_dquot_off_prop
-#eval Plausible.Testable.check
-  (∀ s : String, (escape s false).data.count '"' = s.data.count '"')
+def replaceStep (pat : Char) (rep acc : String) (c : Char) : String :=
+  if c == pat then acc ++ rep else acc.push c
 
--- PBT for preserve_apos_off_prop
-#eval Plausible.Testable.check
-  (∀ s : String, (escape s false).data.count '\'' = s.data.count '\'')
-
--- PBT for escape_join_prop
-#eval Plausible.Testable.check
-  (∀ s : String, ∀ q : Bool, escape s q = String.join (s.data.map (escapeChar q)))
-
--- PBT for benchmark_eq_prop
-#eval Plausible.Testable.check
-  (∀ s : String, ∀ q : Bool, benchmark_escape s q = escape s q)
-
--- Bounded PBT for Post_prop
-example : (pbtStrings.all fun s => postBool s true && postBool s false) = true := by
-  native_decide
-
--- Randomized PBT for Post_prop
-#eval Plausible.Testable.check (∀ s : String, ∀ q : Bool, postBool s q = true)
-
-/-! ## Correctness -/
-
-theorem correctness_thm (s : String) (q : Bool) (_h : Pre s q) : Post_prop s q := by
-  unfold Post_prop
-  refine ⟨escape_eq_seq_thm s q, no_raw_lt_thm s q, no_raw_gt_thm s q,
-    no_raw_quot_thm s q, no_raw_apos_thm s q, length_ge_thm s q, length_eq_thm s q,
-    decode_all_thm s q, escape_join_thm s q, ?_⟩
-  intro hq
-  subst hq
-  exact ⟨preserve_dquot_off_thm s, preserve_apos_off_thm s⟩
-
-/-! ## Imperative implementation -/
+def replaceCharImp (s : String) (pat : Char) (rep : String) : String :=
+  Id.run do
+    let mut acc := ""
+    for c in s.data do
+      acc := replaceStep pat rep acc c
+    return acc
 
 def escapeImp (s : String) (quote : Bool := true) : String :=
   Id.run do
-    let mut acc : String := ""
-    for c in s.data do
-      acc := acc ++ escapeChar quote c
-    return acc
+    let mut out := replaceCharImp (replaceCharImp (replaceCharImp s '&' "&amp;") '<' "&lt;") '>' "&gt;"
+    out := cond quote (replaceCharImp (replaceCharImp out '"' "&quot;") '\'' "&#x27;") out
+    return out
 
-lemma foldl_escape_acc (q : Bool) (cs : List Char) (acc : String) :
-    cs.foldl (fun a c => a ++ escapeChar q c) acc
-      = acc ++ cs.foldl (fun a c => a ++ escapeChar q c) "" := by
-  induction cs generalizing acc with
-  | nil => simp
-  | cons c cs ih =>
-    simp
-    rw [ih (acc ++ escapeChar q c), ih (escapeChar q c)]
-    simp [String.append_assoc]
 
-lemma escapeList_eq_foldl (q : Bool) (cs : List Char) :
-    escapeList q cs = cs.foldl (fun acc c => acc ++ escapeChar q c) "" := by
-  induction cs with
-  | nil => rfl
-  | cons c cs ih =>
-    simp [escapeList, ih]
-    rw [foldl_escape_acc q cs (escapeChar q c)]
-
-/-! ## Imperative tests -/
+-- Imperative tests
 
 example : escapeImp "<b>\"&'</b>" = "&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;" := by
   native_decide
@@ -802,30 +785,69 @@ example : escapeImp "<b>\"&'</b>" false = "&lt;b&gt;\"&amp;'&lt;/b&gt;" := by
 example : escapeImp "&<" = "&amp;&lt;" := by
   native_decide
 
-example : escapeImp "\"" false = "\"" := by
-  native_decide
-
-example : escapeImp "'" = "&#x27;" := by
+example : escapeImp "plain" = "plain" := by
   native_decide
 
 #eval escapeImp "<b>\"&'</b>"
 #eval escapeImp "<b>\"&'</b>" false
 #eval escapeImp "&<"
-#eval escapeImp "abc" false
+#eval escapeImp ""
+#eval escapeImp "plain"
 
-/-! ## Functional / imperative equivalence -/
+theorem loop_eq (orig xs : List Char) (acc : String) (pat : Char) (rep : String)
+    (h : ∃ bs, bs ++ xs = orig) :
+    List.forIn'.loop (m := Id) orig
+        (fun c _mem r => do
+          pure PUnit.unit
+          pure (ForInStep.yield (replaceStep pat rep r c)))
+        xs acc h
+      = xs.foldl (replaceStep pat rep) acc := by
+  induction xs generalizing acc orig with
+  | nil =>
+    rw [List.forIn'.loop.eq_1]
+    simp [pure, List.foldl]
+  | cons x xs ih =>
+    rw [List.forIn'.loop.eq_2]
+    simp [bind, pure, List.foldl]
+    apply ih
 
-def escape_eq_imp_prop (s : String) (q : Bool) : Prop :=
-  escape s q = escapeImp s q
+theorem replaceCharImp_foldl (s : String) (pat : Char) (rep : String) :
+    replaceCharImp s pat rep = s.data.foldl (replaceStep pat rep) "" := by
+  unfold replaceCharImp
+  delta Id.run
+  simp only [forIn_eq_forIn', ← List.forIn'_eq_forIn']
+  unfold List.forIn'
+  exact loop_eq s.data s.data "" pat rep ⟨[], by simp⟩
 
-theorem escape_eq_imp_thm (s : String) (q : Bool) : escape_eq_imp_prop s q := by
-  simp [escape_eq_imp_prop, escape, escapeImp, escapeList_eq_foldl]
+theorem push_append_singleton (s : String) (c : Char) :
+    s.push c = s ++ String.singleton c := by
+  apply String.ext
+  simp [String.data_push, String.data_append, String.data_singleton]
 
--- PBT for escape_eq_imp_prop
-#eval Plausible.Testable.check (∀ s : String, ∀ q : Bool, escape s q = escapeImp s q)
+theorem foldl_step_data (xs : List Char) (acc : String) (pat : Char) (rep : String) :
+    (xs.foldl (replaceStep pat rep) acc).data = acc.data ++ repl pat (rep.data) xs := by
+  induction xs generalizing acc with
+  | nil => simp [repl]
+  | cons x xs ih =>
+    rw [List.foldl_cons, ih]
+    simp only [repl, List.flatMap_cons, List.append_assoc]
+    unfold replaceStep
+    split <;> simp [String.data_append, String.data_singleton, push_append_singleton, List.append_assoc]
 
-example : (pbtStrings.all fun s =>
-    escape s true == escapeImp s true && escape s false == escapeImp s false) = true := by
-  native_decide
+theorem replaceCharImp_eq (s : String) (pat : Char) (rep : String) :
+    replaceCharImp s pat rep = replaceChar s pat rep := by
+  apply String.ext
+  rw [replaceCharImp_foldl, foldl_step_data]
+  simp [replaceChar, empty_data]
+
+theorem escapeImp_unfold (s : String) (quote : Bool) :
+    escapeImp s quote =
+      let base := replaceCharImp (replaceCharImp (replaceCharImp s '&' "&amp;") '<' "&lt;") '>' "&gt;"
+      cond quote (replaceCharImp (replaceCharImp base '"' "&quot;") '\'' "&#x27;") base := by
+  rfl
+
+theorem escape_equiv_thm (s : String) (quote : Bool) : escape s quote = escapeImp s quote := by
+  rw [escapeImp_unfold]
+  cases quote <;> simp [escape, replaceCharImp_eq]
 
 end «20_html_escape»

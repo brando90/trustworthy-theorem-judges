@@ -1,0 +1,13 @@
+Created At: 2026-11-16T21:27:35Z
+Completed At: 2026-11-16T21:27:37Z
+Command exited with code 0.
+
+Command output:
+case neg
+s : String
+c : Char
+h1 : ¬(c == '&') = true
+⊢ List.flatMap (fun c => if c = '>' then ['&', 'g', 't', ';'] else [c])
+      (if c = '<' then ['&', 'l', 't', ';'] else [c]) =
+    if c = '<' then ['&', 'l', 't', ';'] else if c = '>' then ['&', 'g', 't', ';'] else [c]
+<stdin>:22:8: warning: declaration uses 'sorry'

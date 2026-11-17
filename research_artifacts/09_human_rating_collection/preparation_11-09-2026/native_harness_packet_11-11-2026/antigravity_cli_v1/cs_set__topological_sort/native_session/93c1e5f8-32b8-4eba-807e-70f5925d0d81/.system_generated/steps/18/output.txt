@@ -1,0 +1,11 @@
+Created At: 2026-11-16T21:34:52Z
+Completed At: 2026-11-16T21:34:56Z
+Command exited with code 1.
+
+Command output:
+List.mergeSort.{u_1} {α : Type u_1} (xs : List α) (le : α → α → Bool := by exact fun a b => a ≤ b) : List α
+<stdin>:3:8: error: unknown constant 'List.Perm.mergeSort_eq'
+@List.mergeSort_perm : ∀ {α : Type u_1} (l : List α) (le : α → α → Bool), (l.mergeSort le).Perm l
+inferInstance : Decidable ([1, 2].Perm [2, 1])
+@List.isPerm : {α : Type u_1} → [BEq α] → List α → List α → Bool
+@List.isPerm_iff : ∀ {α : Type u_1} [inst : BEq α] [LawfulBEq α] {l₁ l₂ : List α}, l₁.isPerm l₂ = true ↔ l₁.Perm l₂

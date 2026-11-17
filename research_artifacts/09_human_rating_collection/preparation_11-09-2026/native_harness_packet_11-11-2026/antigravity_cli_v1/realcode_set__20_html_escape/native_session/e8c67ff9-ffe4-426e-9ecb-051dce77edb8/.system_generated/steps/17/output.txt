@@ -1,0 +1,12 @@
+Created At: 2026-11-16T21:26:57Z
+Completed At: 2026-11-16T21:26:59Z
+Command exited with code 0.
+
+Command output:
+List.flatMap_assoc.{u_1, u_2, u_3} {α : Type u_1} {β : Type u_2} {γ : Type u_3} {l : List α} {f : α → List β}
+  {g : β → List γ} : List.flatMap g (List.flatMap f l) = List.flatMap (fun x => List.flatMap g (f x)) l
+List.flatMap_cons.{u, v} {α : Type u} {β : Type v} {x : α} {xs : List α} {f : α → List β} :
+  List.flatMap f (x :: xs) = f x ++ List.flatMap f xs
+List.flatMap_nil.{u, v} {α : Type u} {β : Type v} {f : α → List β} : List.flatMap f [] = []
+List.flatMap_append.{u_1, u_2} {α : Type u_1} {β : Type u_2} {xs ys : List α} {f : α → List β} :
+  List.flatMap f (xs ++ ys) = List.flatMap f xs ++ List.flatMap f ys

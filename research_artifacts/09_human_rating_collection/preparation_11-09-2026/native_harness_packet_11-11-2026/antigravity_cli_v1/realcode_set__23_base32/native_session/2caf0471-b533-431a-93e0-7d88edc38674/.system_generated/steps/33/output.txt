@@ -1,0 +1,33 @@
+Created At: 2026-11-16T21:43:55Z
+Completed At: 2026-11-16T21:43:59Z
+Command exited with code 1.
+
+Command output:
+Nat.testBit_two_pow_mul_add (a : ℕ) {b i : ℕ} (b_lt : b < 2 ^ i) (j : ℕ) :
+  (2 ^ i * a + b).testBit j = if j < i then b.testBit j else a.testBit (j - i)
+Nat.testBit_mul_two_pow_add_eq (a b i : ℕ) : (2 ^ i * a + b).testBit i = (decide (a % 2 = 1) ^^ b.testBit i)
+<stdin>:5:7: error: unknown constant 'Nat.or_eq_add_of_and_eq_zero'
+<stdin>:13:2: error: unsolved goals
+case pred.inl
+v d : ℕ
+hd : d < 32
+i : ℕ
+hi : i < 5
+h1 : (2 ^ 5 * v).testBit i = false
+⊢ (32 * v).testBit i = true → d.testBit i = true
+<stdin>:17:64: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b ≥ 5
+  0 ≤ a ≤ 31
+  a - c ≥ 0
+where
+ a := ↑d
+ b := ↑i
+ c := ↑2 ^ i
+<stdin>:16:10: warning: This simp argument is unused:
+  h1
+
+Hint: Omit it from the simp argument list.
+  simp [h1̵,̵ ̵h̵i]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

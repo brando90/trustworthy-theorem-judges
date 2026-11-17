@@ -1,0 +1,73 @@
+{
+  "task_id": "realcode_set__23_base32",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "23_base32.py": "dc4bc7238f984eccdcbc4824be46e876896849db5f1e64e49d5283199368549b",
+    "instruction.md": "dc3733926a27eb6b9837e41f2da68c582bd573bcd34b7c066b9b7e4c9a4bab7e"
+  },
+  "output": "/home/user/lean_project/Veribench/23_base32.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-b9e43ded1bbb",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794864919.7421188,
+  "exit_code": 3,
+  "stop_reason": "process_exit_3",
+  "finished_at": 1794866725.047182,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "2caf0471-b533-431a-93e0-7d88edc38674",
+      "status": "ERROR",
+      "response": "Testing `omega` on the 40-bit Base32 chunk round-trip identity.\nWaiting for the `chunk5_roundtrip` test with arbitrary initial `val0` to finish.\nWaiting for the Base32 round-trip proof test to complete.\nWaiting for the round-trip proof compilation test to finish.\nWaiting for `decodeLoop_encode_roundtrip` compilation to finish.\nWaiting for `decodeLoop_encode_roundtrip` verification to finish.\nWaiting for the `decodeLoop_encode_roundtrip` proof check to finish.\n",
+      "error": "print timeout after 30m0s with the turn still in progress; the response is partial",
+      "duration_seconds": 1793.037059788,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 189468,
+        "output_tokens": 108070,
+        "thinking_tokens": 46495,
+        "cache_read_tokens": 3234238,
+        "total_tokens": 297538
+      },
+      "finished_reason": "print_timeout"
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": false,
+  "candidate_sha256": null,
+  "candidate_bytes": null
+}

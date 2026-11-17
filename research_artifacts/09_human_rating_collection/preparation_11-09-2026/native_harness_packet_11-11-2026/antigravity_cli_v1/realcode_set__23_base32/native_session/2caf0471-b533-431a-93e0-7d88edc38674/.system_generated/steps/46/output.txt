@@ -1,0 +1,547 @@
+Created At: 2026-11-16T21:47:50Z
+Completed At: 2026-11-16T21:47:57Z
+Command exited with code 1.
+
+Command output:
+<stdin>:145:4: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b ≥ 0
+  0 ≤ a ≤ 255
+  a - b ≥ 1
+where
+ a := ↑b0.toNat
+ b := ↑(UInt8.ofNat
+      (((val * 32 +
+                (b0.toNat * 2 ^ 32 + 0 % 2 ^ 8 * 2 ^ 24 + 0 % 2 ^ 8 * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 35 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + 0 % 2 ^ 8 * 2 ^ 24 + 0 % 2 ^ 8 * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 30 %
+                32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8) %
+        256)).toNat
+<stdin>:163:15: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  c ≥ 0
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+  a - c ≥ 1
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑(UInt8.ofNat
+      (((val * 32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + 0 % 2 ^ 8 * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 35 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + 0 % 2 ^ 8 * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 30 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8) %
+        256)).toNat
+<stdin>:163:25: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  c ≥ 0
+  0 ≤ b ≤ 255
+  b - c ≥ 1
+  0 ≤ a ≤ 255
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑(UInt8.ofNat
+      (((((val * 32 +
+                        (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + 0 % 2 ^ 8 * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) /
+                              2 ^ 35 %
+                            32 %
+                          32) *
+                      32 +
+                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + 0 % 2 ^ 8 * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) /
+                          2 ^ 30 %
+                        32 %
+                      32) *
+                  32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + 0 % 2 ^ 8 * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 25 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + 0 % 2 ^ 8 * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 20 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8) %
+        256)).toNat
+<stdin>:184:15: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+  a - d ≥ 1
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑(UInt8.ofNat
+      (((val * 32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 35 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 30 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8) %
+        256)).toNat
+<stdin>:184:25: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  b - d ≥ 1
+  0 ≤ a ≤ 255
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑(UInt8.ofNat
+      (((((val * 32 +
+                        (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) /
+                              2 ^ 35 %
+                            32 %
+                          32) *
+                      32 +
+                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) /
+                          2 ^ 30 %
+                        32 %
+                      32) *
+                  32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 25 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 20 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8) %
+        256)).toNat
+<stdin>:184:35: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  0 ≤ c ≤ 255
+  c - d ≥ 1
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑(UInt8.ofNat
+      ((((((val * 32 +
+                            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 +
+                                    0 % 2 ^ 8) /
+                                  2 ^ 35 %
+                                32 %
+                              32) *
+                          32 +
+                        (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) /
+                              2 ^ 30 %
+                            32 %
+                          32) *
+                      32 +
+                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) /
+                          2 ^ 25 %
+                        32 %
+                      32) *
+                  32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 20 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + 0 % 2 ^ 8 * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 15 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8 + 5 - 8) %
+        256)).toNat
+<stdin>:209:15: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  0 ≤ d ≤ 255
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+  a - e ≥ 1
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑b3.toNat
+ e := ↑(UInt8.ofNat
+      (((val * 32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 35 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 30 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8) %
+        256)).toNat
+<stdin>:209:25: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  0 ≤ d ≤ 255
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  b - e ≥ 1
+  0 ≤ a ≤ 255
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑b3.toNat
+ e := ↑(UInt8.ofNat
+      (((((val * 32 +
+                        (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) /
+                              2 ^ 35 %
+                            32 %
+                          32) *
+                      32 +
+                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) /
+                          2 ^ 30 %
+                        32 %
+                      32) *
+                  32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 25 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 20 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8) %
+        256)).toNat
+<stdin>:209:35: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  0 ≤ d ≤ 255
+  0 ≤ c ≤ 255
+  c - e ≥ 1
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑b3.toNat
+ e := ↑(UInt8.ofNat
+      ((((((val * 32 +
+                            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) /
+                                  2 ^ 35 %
+                                32 %
+                              32) *
+                          32 +
+                        (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) /
+                              2 ^ 30 %
+                            32 %
+                          32) *
+                      32 +
+                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) /
+                          2 ^ 25 %
+                        32 %
+                      32) *
+                  32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 20 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 15 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8 + 5 - 8) %
+        256)).toNat
+<stdin>:209:45: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  0 ≤ d ≤ 255
+  d - e ≥ 1
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑b3.toNat
+ e := ↑(UInt8.ofNat
+      ((((((((val * 32 +
+                                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 +
+                                            0 % 2 ^ 8) /
+                                          2 ^ 35 %
+                                        32 %
+                                      32) *
+                                  32 +
+                                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 +
+                                        0 % 2 ^ 8) /
+                                      2 ^ 30 %
+                                    32 %
+                                  32) *
+                              32 +
+                            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) /
+                                  2 ^ 25 %
+                                32 %
+                              32) *
+                          32 +
+                        (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) /
+                              2 ^ 20 %
+                            32 %
+                          32) *
+                      32 +
+                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) /
+                          2 ^ 15 %
+                        32 %
+                      32) *
+                  32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 10 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + 0 % 2 ^ 8) / 2 ^ 5 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8 + 5 - 8 + 5 + 5 - 8) %
+        256)).toNat
+<stdin>:237:15: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  f ≥ 0
+  0 ≤ e ≤ 255
+  0 ≤ d ≤ 255
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+  a - f ≥ 1
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑b3.toNat
+ e := ↑b4.toNat
+ f := ↑(UInt8.ofNat
+      (((val * 32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 35 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 30 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8) %
+        256)).toNat
+<stdin>:237:25: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  f ≥ 0
+  0 ≤ e ≤ 255
+  0 ≤ d ≤ 255
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  b - f ≥ 1
+  0 ≤ a ≤ 255
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑b3.toNat
+ e := ↑b4.toNat
+ f := ↑(UInt8.ofNat
+      (((((val * 32 +
+                        (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) /
+                              2 ^ 35 %
+                            32 %
+                          32) *
+                      32 +
+                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 30 %
+                        32 %
+                      32) *
+                  32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 25 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 20 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8) %
+        256)).toNat
+<stdin>:237:35: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  f ≥ 0
+  0 ≤ e ≤ 255
+  0 ≤ d ≤ 255
+  0 ≤ c ≤ 255
+  c - f ≥ 1
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑b3.toNat
+ e := ↑b4.toNat
+ f := ↑(UInt8.ofNat
+      ((((((val * 32 +
+                            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) /
+                                  2 ^ 35 %
+                                32 %
+                              32) *
+                          32 +
+                        (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) /
+                              2 ^ 30 %
+                            32 %
+                          32) *
+                      32 +
+                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 25 %
+                        32 %
+                      32) *
+                  32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 20 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 15 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8 + 5 - 8) %
+        256)).toNat
+<stdin>:237:45: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  f ≥ 0
+  0 ≤ e ≤ 255
+  0 ≤ d ≤ 255
+  d - f ≥ 1
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑b3.toNat
+ e := ↑b4.toNat
+ f := ↑(UInt8.ofNat
+      ((((((((val * 32 +
+                                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 +
+                                            b4.toNat) /
+                                          2 ^ 35 %
+                                        32 %
+                                      32) *
+                                  32 +
+                                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 +
+                                        b4.toNat) /
+                                      2 ^ 30 %
+                                    32 %
+                                  32) *
+                              32 +
+                            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) /
+                                  2 ^ 25 %
+                                32 %
+                              32) *
+                          32 +
+                        (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) /
+                              2 ^ 20 %
+                            32 %
+                          32) *
+                      32 +
+                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 15 %
+                        32 %
+                      32) *
+                  32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 10 %
+                    32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 5 % 32 %
+              32) /
+          2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8 + 5 - 8 + 5 + 5 - 8) %
+        256)).toNat
+<stdin>:237:55: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  f ≥ 0
+  0 ≤ e ≤ 255
+  e - f ≥ 1
+  0 ≤ d ≤ 255
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+where
+ a := ↑b0.toNat
+ b := ↑b1.toNat
+ c := ↑b2.toNat
+ d := ↑b3.toNat
+ e := ↑b4.toNat
+ f := ↑(UInt8.ofNat
+      (((((((((val * 32 +
+                                        (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 +
+                                                b4.toNat) /
+                                              2 ^ 35 %
+                                            32 %
+                                          32) *
+                                      32 +
+                                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 +
+                                            b4.toNat) /
+                                          2 ^ 30 %
+                                        32 %
+                                      32) *
+                                  32 +
+                                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 +
+                                        b4.toNat) /
+                                      2 ^ 25 %
+                                    32 %
+                                  32) *
+                              32 +
+                            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) /
+                                  2 ^ 20 %
+                                32 %
+                              32) *
+                          32 +
+                        (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) /
+                              2 ^ 15 %
+                            32 %
+                          32) *
+                      32 +
+                    (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 10 %
+                        32 %
+                      32) *
+                  32 +
+                (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) / 2 ^ 5 % 32 %
+                  32) *
+              32 +
+            (b0.toNat * 2 ^ 32 + b1.toNat * 2 ^ 24 + b2.toNat * 2 ^ 16 + b3.toNat * 2 ^ 8 + b4.toNat) % 32 % 32) /
+          2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8 + 5 - 8 + 5 + 5 - 8 + 5 - 8) %
+        256)).toNat
+<stdin>:126:8: error: (kernel) deep recursion detected
+<stdin>:144:54: warning: This simp argument is unused:
+  UInt8.toNat_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [Nat.shiftRight_eq_div_pow, nat_and_31,̵ ̵U̵I̵n̵t̵8̵.̵t̵o̵N̵a̵t̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+<stdin>:162:45: warning: This simp argument is unused:
+  UInt8.toNat_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [List.cons.injEq, and_true, ← UInt8.toNat_inj, UInt8.toNat_ofNat,
+        Nat.shiftRight_eq_div_pow, nat_and_31,̵ ̵U̵I̵n̵t̵8̵.̵t̵o̵N̵a̵t̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+<stdin>:183:45: warning: This simp argument is unused:
+  UInt8.toNat_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [List.cons.injEq, and_true, ← UInt8.toNat_inj, UInt8.toNat_ofNat,
+        Nat.shiftRight_eq_div_pow, nat_and_31,̵ ̵U̵I̵n̵t̵8̵.̵t̵o̵N̵a̵t̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+<stdin>:208:45: warning: This simp argument is unused:
+  UInt8.toNat_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [List.cons.injEq, and_true, ← UInt8.toNat_inj, UInt8.toNat_ofNat,
+        Nat.shiftRight_eq_div_pow, nat_and_31,̵ ̵U̵I̵n̵t̵8̵.̵t̵o̵N̵a̵t̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+<stdin>:235:61: warning: This simp argument is unused:
+  UInt8.toNat_ofNat
+
+Hint: Omit it from the simp argument list.
+  simp only [List.cons.injEq, and_true, ← UInt8.toNat_inj, U̵I̵n̵t̵8̵.̵t̵o̵N̵a̵t̵_̵o̵f̵N̵a̵t̵,̵Nat.shiftRight_eq_div_pow, nat_and_31]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

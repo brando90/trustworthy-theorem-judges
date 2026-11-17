@@ -1,0 +1,60 @@
+Created At: 2026-11-16T22:28:14Z
+Completed At: 2026-11-16T22:28:20Z
+Command exited with code 1.
+
+Command output:
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:298:6: error: tactic 'rewrite' failed, motive is not type correct:
+  fun _a =>
+    (let sorted := _a;
+      let n := sorted.length;
+      if h : n = 0 then none else if n % 2 = 1 then some sorted[n / 2] else some sorted[n / 2 - 1]) =
+      let sorted := data.mergeSort fun x1 x2 => decide (x1 ≤ x2);
+      let n := sorted.length;
+      if h : n = 0 then none else if n % 2 = 1 then some sorted[n / 2] else some sorted[n / 2 - 1]
+Error: Application type mismatch: In the application
+  median_low._proof_3 (data.mergeSort fun x1 x2 => decide (x1 ≤ x2)) h
+the argument
+  h
+has type
+  ¬n = 0 : Prop
+but is expected to have type
+  ¬((data.mergeSort fun x1 x2 => decide (x1 ≤ x2)).mergeSort fun x1 x2 => decide (x1 ≤ x2)).length = 0 : Prop
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+data : List ℤ
+⊢ (let sorted := (data.mergeSort fun x1 x2 => decide (x1 ≤ x2)).mergeSort fun x1 x2 => decide (x1 ≤ x2);
+    let n := sorted.length;
+    if h : n = 0 then none else if n % 2 = 1 then some sorted[n / 2] else some sorted[n / 2 - 1]) =
+    let sorted := data.mergeSort fun x1 x2 => decide (x1 ≤ x2);
+    let n := sorted.length;
+    if h : n = 0 then none else if n % 2 = 1 then some sorted[n / 2] else some sorted[n / 2 - 1]
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:310:6: error: tactic 'rewrite' failed, motive is not type correct:
+  fun _a =>
+    (let sorted := _a;
+      let n := sorted.length;
+      if h : n = 0 then none else if n % 2 = 1 then some sorted[n / 2] else some sorted[n / 2 - 1]) =
+      let sorted := data₂.mergeSort fun x1 x2 => decide (x1 ≤ x2);
+      let n := sorted.length;
+      if h : n = 0 then none else if n % 2 = 1 then some sorted[n / 2] else some sorted[n / 2 - 1]
+Error: Application type mismatch: In the application
+  median_low._proof_3 data₁ h
+the argument
+  h
+has type
+  ¬n = 0 : Prop
+but is expected to have type
+  ¬(data₁.mergeSort fun x1 x2 => decide (x1 ≤ x2)).length = 0 : Prop
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+data₁ data₂ : List ℤ
+hperm : data₁.Perm data₂
+⊢ (let sorted := data₁.mergeSort fun x1 x2 => decide (x1 ≤ x2);
+    let n := sorted.length;
+    if h : n = 0 then none else if n % 2 = 1 then some sorted[n / 2] else some sorted[n / 2 - 1]) =
+    let sorted := data₂.mergeSort fun x1 x2 => decide (x1 ≤ x2);
+    let n := sorted.length;
+    if h : n = 0 then none else if n % 2 = 1 then some sorted[n / 2] else some sorted[n / 2 - 1]

@@ -1,0 +1,38 @@
+Created At: 2026-11-16T21:50:28Z
+Completed At: 2026-11-16T21:50:36Z
+Command exited with code 0.
+
+Command output:
+"0"
+"0 1 2 3"
+"0 1 2 3 4 5"
+"0 1 2 3 4 5 6 7 8 9 10"
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+"0"
+"0 1 2 3"
+"0 1 2 3 4 5"
+"0 1 2 3 4 5 6 7 8 9 10"
+Unable to find a counter-example
+'humaneval_15_string_sequence.zero_thm' does not depend on any axioms
+'humaneval_15_string_sequence.recurrence_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_15_string_sequence.intercalate_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_15_string_sequence.tokens_thm' depends on axioms: [propext, Quot.sound]
+'humaneval_15_string_sequence.space_count_thm' depends on axioms: [propext, Quot.sound]
+'humaneval_15_string_sequence.valid_chars_thm' depends on axioms: [propext, Quot.sound]
+'humaneval_15_string_sequence.length_thm' depends on axioms: [propext, Quot.sound]
+'humaneval_15_string_sequence.boundary_thm' depends on axioms: [propext, Quot.sound]
+'humaneval_15_string_sequence.monotonicity_thm' depends on axioms: [propext, Quot.sound]
+'humaneval_15_string_sequence.string_sequence_injective' depends on axioms: [propext, Quot.sound]
+'humaneval_15_string_sequence.string_sequence_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_15_string_sequence.string_sequence_imp_eq' depends on axioms: [propext, Quot.sound]
+'humaneval_15_string_sequence.equivalence_thm' depends on axioms: [propext, Quot.sound]
+'humaneval_15_string_sequence.string_sequence_imp_correct' depends on axioms: [propext, Classical.choice, Quot.sound]

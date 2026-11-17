@@ -1,0 +1,35 @@
+Created At: 2026-11-16T22:19:47Z
+Completed At: 2026-11-16T22:19:54Z
+Command exited with code 1.
+
+Command output:
+<stdin>:336:6: error: type mismatch
+  hstep j hj1 hj2
+has type
+  HeapNode (max_heapify arr i arr.length) arr.length j : Prop
+but is expected to have type
+  HeapNode (max_heapify arr i arr.length) (max_heapify arr i arr.length).length j : Prop
+<stdin>:339:4: error: tactic 'apply' failed, could not unify the conclusion of `hres j hj1`
+  HeapNode (build_max_heap_loop (max_heapify arr i arr.length) i) (max_heapify arr i arr.length).length j
+with the goal
+  HeapNode (build_max_heap_loop (max_heapify arr i arr.length) i) arr.length j
+
+Note: The full type of `hres j hj1` is
+  j < (max_heapify arr i arr.length).length →
+    HeapNode (build_max_heap_loop (max_heapify arr i arr.length) i) (max_heapify arr i arr.length).length j
+case succ
+i : ℕ
+ih : ∀ (arr : List ℕ), IsMaxHeapFrom arr i arr.length → IsMaxHeapFrom (build_max_heap_loop arr i) 0 arr.length
+arr : List ℕ
+hheap : IsMaxHeapFrom arr (i + 1) arr.length
+hstep : IsMaxHeapFrom (max_heapify arr i arr.length) i arr.length
+hlen : (max_heapify arr i arr.length).length = arr.length
+hstep' : IsMaxHeapFrom (max_heapify arr i arr.length) i (max_heapify arr i arr.length).length
+hres : IsMaxHeapFrom (build_max_heap_loop (max_heapify arr i arr.length) i) 0 (max_heapify arr i arr.length).length
+j : ℕ
+hj1 : 0 ≤ j
+hj2 : j < arr.length
+⊢ HeapNode (build_max_heap_loop (max_heapify arr i arr.length) i) arr.length j
+<stdin>:430:55: error: simp made no progress
+<stdin>:433:56: error: simp made no progress
+<stdin>:450:64: error: simp made no progress

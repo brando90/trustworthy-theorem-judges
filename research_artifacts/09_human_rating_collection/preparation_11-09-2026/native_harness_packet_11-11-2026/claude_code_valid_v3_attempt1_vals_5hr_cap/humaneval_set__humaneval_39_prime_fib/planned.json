@@ -1,0 +1,37 @@
+{
+  "task_id": "humaneval_set__humaneval_39_prime_fib",
+  "condition_sha256": "b42e82954164ed1db4a61656256f60d0d0470a7c117e7836a52f0d42c4936959",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "humaneval_39_prime_fib.py": "391562d77b03c0491e2b36756c874726f6aa23497b317928f1f3439e10ec039c",
+    "instruction.md": "bed24b87028f02c7a82885bc437ae51b5ce62972a51b300f4478f1a32f583af3"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_39_prime_fib.lean",
+  "model_call_performed": false
+}

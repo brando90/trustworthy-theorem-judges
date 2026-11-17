@@ -1,0 +1,21 @@
+Created At: 2026-11-16T21:53:56Z
+Completed At: 2026-11-16T21:54:01Z
+Command exited with code 1.
+
+Command output:
+<stdin>:148:46: error: unsolved goals
+v x : ℤ
+xs : List ℤ
+hmin_x : List.foldl min x xs ≤ x
+hmax_x : x ≤ List.foldl max x xs
+hmin_all : ∀ z ∈ x :: xs, List.foldl min x xs ≤ z
+h : List.foldl min x xs ≤ v ∧ v < List.foldl min x xs + ↑(List.foldl max x xs - List.foldl min x xs + 1).toNat
+hi : (v - List.foldl min x xs).toNat < (List.foldl max x xs - List.foldl min x xs + 1).toNat
+hlen : (v - List.foldl min x xs).toNat < (List.replicate (List.foldl max x xs - List.foldl min x xs + 1).toNat 0).length
+⊢ (if
+            v - List.foldl min x xs < List.foldl max x xs - List.foldl min x xs + 1 ∧
+              0 < List.foldl max x xs - List.foldl min x xs + 1 then
+          some 0
+        else none).getD
+      0 =
+    0

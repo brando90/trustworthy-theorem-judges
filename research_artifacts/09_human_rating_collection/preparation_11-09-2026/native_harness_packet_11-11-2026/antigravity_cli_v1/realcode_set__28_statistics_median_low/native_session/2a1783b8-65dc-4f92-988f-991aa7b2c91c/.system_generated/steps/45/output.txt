@@ -1,0 +1,30 @@
+Created At: 2026-11-16T22:29:48Z
+Completed At: 2026-11-16T22:29:54Z
+Command exited with code 1.
+
+Command output:
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:125:31: error: unsolved goals
+case neg
+data : List ℤ
+h : Pre data
+hlen_eq : (data.mergeSort fun x1 x2 => decide (x1 ≤ x2)).length = data.length
+hpos : 0 < data.length
+hlen_ne : (data.mergeSort fun x1 x2 => decide (x1 ≤ x2)).length ≠ 0
+hodd : ¬data.length = 0
+h✝ : ¬data.length % 2 = 1
+⊢ (data.mergeSort fun x1 x2 => decide (x1 ≤ x2))[data.length / 2 - 1]? =
+    (data.mergeSort fun x1 x2 => decide (x1 ≤ x2))[(data.length - 1) / 2]?
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:132:13: warning: This simp argument is unused:
+  hlen_ne
+
+Hint: Omit it from the simp argument list.
+  simp only [h̵l̵e̵n̵_̵n̵e̵,̵ ̵↓reduceIte, hlen_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:132:22: warning: This simp argument is unused:
+  ↓reduceIte
+
+Hint: Omit it from the simp argument list.
+  simp only [hlen_ne, ↓̵r̵e̵d̵u̵c̵e̵I̵t̵e̵,̵ ̵hlen_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

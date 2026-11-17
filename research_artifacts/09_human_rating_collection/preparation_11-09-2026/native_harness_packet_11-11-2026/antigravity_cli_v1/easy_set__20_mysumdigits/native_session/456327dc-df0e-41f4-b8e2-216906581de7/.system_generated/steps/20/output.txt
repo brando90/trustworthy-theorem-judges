@@ -1,0 +1,46 @@
+Created At: 2026-11-16T21:59:14Z
+Completed At: 2026-11-16T21:59:19Z
+Command exited with code 1.
+
+Command output:
+<stdin>:40:36: error: tactic 'decide' failed for proposition
+  sumDigits 1 = 1
+since its 'Decidable' instance
+  (sumDigits 1).instDecidableEq 1
+did not reduce to 'isTrue' or 'isFalse'.
+
+After unfolding the instances 'Int.decEq' and 'Int.instDecidableEq', reduction got stuck at the 'Decidable' instance
+  match sumDigits 1, 1 with
+  | Int.ofNat a, Int.ofNat b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+  | Int.ofNat a, Int.negSucc a_1 => isFalse ⋯
+  | Int.negSucc a, Int.ofNat a_1 => isFalse ⋯
+  | Int.negSucc a, Int.negSucc b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+<stdin>:41:36: error: tactic 'decide' failed for proposition
+  sumDigits 0 = 0
+since its 'Decidable' instance
+  (sumDigits 0).instDecidableEq 0
+did not reduce to 'isTrue' or 'isFalse'.
+
+After unfolding the instances 'Int.decEq' and 'Int.instDecidableEq', reduction got stuck at the 'Decidable' instance
+  match sumDigits 0, 0 with
+  | Int.ofNat a, Int.ofNat b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+  | Int.ofNat a, Int.negSucc a_1 => isFalse ⋯
+  | Int.negSucc a, Int.ofNat a_1 => isFalse ⋯
+  | Int.negSucc a, Int.negSucc b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+<stdin>:42:4: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  a ≥ 2
+where
+ a := sumDigits (0 + 1)

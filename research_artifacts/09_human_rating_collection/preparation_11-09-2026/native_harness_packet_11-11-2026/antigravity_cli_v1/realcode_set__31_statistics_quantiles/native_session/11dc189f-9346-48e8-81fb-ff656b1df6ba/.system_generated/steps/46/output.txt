@@ -1,0 +1,867 @@
+Command exited with code 1.
+
+Command output:
+some [(5 : Rat)/4, (5 : Rat)/2, (15 : Rat)/4]
+some [1.250000, 2.500000, 3.750000]
+some [(1 : Rat)/5, (7 : Rat)/5, (13 : Rat)/5, (19 : Rat)/5, 5, (31 : Rat)/5, (37 : Rat)/5, (43 : Rat)/5, (49 : Rat)/5]
+some [3]
+some [(7 : Rat)/4, (5 : Rat)/2, (13 : Rat)/4]
+some [1.750000, 2.500000, 3.250000]
+some [(5 : Rat)/4, (5 : Rat)/2, (15 : Rat)/4]
+some [(11 : Rat)/4, (11 : Rat)/2, (33 : Rat)/4]
+some [(5 : Rat)/4, (5 : Rat)/2, (15 : Rat)/4]
+some [3]
+none
+none
+none
+Veribench/31_statistics_quantiles.lean:196:56: error: failed to synthesize
+  Decidable (benchmark_quantilesFloat [1.0] = none)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/31_statistics_quantiles.lean:197:61: error: failed to synthesize
+  Decidable (benchmark_quantilesFloat [1.0, 2.0] 0 = none)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/31_statistics_quantiles.lean:198:76: error: failed to synthesize
+  Decidable (benchmark_quantilesFloat [1.0, 2.0, 3.0] 4 "invalid" = none)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/31_statistics_quantiles.lean:215:52: error: unsolved goals
+α : Type u_1
+data : List α
+n : ℕ
+method : String
+⊢ (2 ≤ data.length ∧ 1 ≤ n) ∧ (method = "inclusive" ∨ method = "exclusive") ↔
+    2 ≤ data.length ∧ 1 ≤ n ∧ (method = "inclusive" ∨ method = "exclusive")
+Veribench/31_statistics_quantiles.lean:458:15: error: no goals to be solved
+Veribench/31_statistics_quantiles.lean:460:28: error: no goals to be solved
+Veribench/31_statistics_quantiles.lean:490:11: error: don't know how to synthesize implicit argument 'b'
+  @And.intro
+    ((if n < 1 then none
+      else
+        have sortedData := List.insertionSort (fun x1 x2 => x1 ≤ x2) data;
+        have ld := sortedData.length;
+        if ld < 2 then none
+        else
+          if ("inclusive" == "inclusive") = true then
+            some (List.map (inclusiveInterp sortedData n) (List.range' 1 (n - 1)))
+          else
+            if ("inclusive" == "exclusive") = true then
+              some (List.map (exclusiveInterp sortedData n) (List.range' 1 (n - 1)))
+            else none) =
+      some ?m.62367)
+    (List.length ?m.62367 = n - 1) ?m.62379 ?m.62380
+context:
+data : List ℚ
+n : ℕ
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬(List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length < 2
+⊢ Prop
+Veribench/31_statistics_quantiles.lean:490:11: error: don't know how to synthesize implicit argument 'a'
+  @And.intro
+    ((if n < 1 then none
+      else
+        have sortedData := List.insertionSort (fun x1 x2 => x1 ≤ x2) data;
+        have ld := sortedData.length;
+        if ld < 2 then none
+        else
+          if ("inclusive" == "inclusive") = true then
+            some (List.map (inclusiveInterp sortedData n) (List.range' 1 (n - 1)))
+          else
+            if ("inclusive" == "exclusive") = true then
+              some (List.map (exclusiveInterp sortedData n) (List.range' 1 (n - 1)))
+            else none) =
+      some ?m.62367)
+    (List.length ?m.62367 = n - 1) ?m.62379 ?m.62380
+context:
+data : List ℚ
+n : ℕ
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬(List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length < 2
+⊢ Prop
+Veribench/31_statistics_quantiles.lean:490:12: error: don't know how to synthesize placeholder for argument 'w'
+context:
+data : List ℚ
+n : ℕ
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬(List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length < 2
+⊢ List ℚ
+Veribench/31_statistics_quantiles.lean:540:15: error: unsolved goals
+data : List ℚ
+n : ℕ
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_sort : List.Pairwise (fun x1 x2 => x1 ≤ x2) s
+hs_len : s.length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬s.length < 2
+⊢ 2 ≤ data.length ∧
+    List.map (inclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) = ?m.64013
+Veribench/31_statistics_quantiles.lean:547:15: error: unsolved goals
+data : List ℚ
+n : ℕ
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_sort : List.Pairwise (fun x1 x2 => x1 ≤ x2) s
+hs_len : s.length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬s.length < 2
+⊢ 2 ≤ data.length ∧
+    List.map (exclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) = ?m.72943
+Veribench/31_statistics_quantiles.lean:540:32: warning: This simp argument is unused:
+  hld'
+
+Hint: Omit it from the simp argument list.
+  simp [s, hn',̵ ̵h̵l̵d̵'̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:547:32: warning: This simp argument is unused:
+  hld'
+
+Hint: Omit it from the simp argument list.
+  simp [s, hn',̵ ̵h̵l̵d̵'̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:574:13: error: unsolved goals
+data : List ℚ
+n : ℕ
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_sort : List.Pairwise (fun x1 x2 => x1 ≤ x2) s
+hs_len : s.length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+right✝ : "inclusive" = "inclusive" ∨ "inclusive" = "exclusive"
+hn' : ¬n < 1
+hld' : ¬s.length < 2
+⊢ 2 ≤ data.length ∧
+    List.map (inclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) = ?m.64717
+Veribench/31_statistics_quantiles.lean:563:43: error: unsolved goals
+case intro.intro
+data : List ℚ
+n : ℕ
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_sort : List.Pairwise (fun x1 x2 => x1 ≤ x2) s
+hs_len : s.length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+right✝ : "inclusive" = "inclusive" ∨ "inclusive" = "exclusive"
+hn' : ¬n < 1
+hld' : ¬s.length < 2
+⊢ ∃ res,
+    (if n < 1 then none
+        else
+          have sortedData := s;
+          have ld := sortedData.length;
+          if ld < 2 then none
+          else
+            if ("inclusive" == "inclusive") = true then
+              some (List.map (inclusiveInterp sortedData n) (List.range' 1 (n - 1)))
+            else
+              if ("inclusive" == "exclusive") = true then
+                some (List.map (exclusiveInterp sortedData n) (List.range' 1 (n - 1)))
+              else none) =
+        some res ∧
+      have s := s;
+      ∀ q ∈ res, s.getD 0 0 ≤ q ∧ q ≤ s.getD (s.length - 1) 0
+Veribench/31_statistics_quantiles.lean:574:30: warning: This simp argument is unused:
+  hld'
+
+Hint: Omit it from the simp argument list.
+  simp [s, hn',̵ ̵h̵l̵d̵'̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:612:15: error: unsolved goals
+data : List ℚ
+n : ℕ
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_len : s.length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬s.length < 2
+⊢ 2 ≤ data.length ∧
+    List.map (inclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) = ?m.64913
+Veribench/31_statistics_quantiles.lean:612:42: error: simp made no progress
+Veribench/31_statistics_quantiles.lean:620:15: error: unsolved goals
+data : List ℚ
+n : ℕ
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_len : s.length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬s.length < 2
+⊢ 2 ≤ data.length ∧
+    List.map (exclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) = ?m.77841
+Veribench/31_statistics_quantiles.lean:620:42: error: simp made no progress
+Veribench/31_statistics_quantiles.lean:612:32: warning: This simp argument is unused:
+  hld'
+
+Hint: Omit it from the simp argument list.
+  simp [s, hn',̵ ̵h̵l̵d̵'̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:620:32: warning: This simp argument is unused:
+  hld'
+
+Hint: Omit it from the simp argument list.
+  simp [s, hn',̵ ̵h̵l̵d̵'̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:667:11: error: invalid 'calc' step, left-hand side is
+  (c * (↑n - (1 + 1 * ↑k) * (↑s.length - 1) % ↑n) + c * ((1 + 1 * ↑k) * (↑s.length - 1) % ↑n)) / ↑n : Rat
+but is expected to be
+  (c * (↑n - ↑((1 + 1 * k) * ((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length - 1) % n)) +
+      c * ↑((1 + 1 * k) * ((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length - 1) % n)) /
+    ↑n : Rat
+Veribench/31_statistics_quantiles.lean:753:10: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  (List.map (fun x => x + c) s).getD j 0
+case intro.intro.inl.h
+data : List ℚ
+n : ℕ
+c : ℚ
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_len : s.length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬s.length < 2
+k : ℕ
+hk1 : k < n - 1
+hk2 :
+  k <
+    (List.map ((fun x => x + c) ∘ inclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n)
+        (List.range' 1 (n - 1))).length
+hi : 1 + 1 * k < n
+j : ℕ := (1 + 1 * k) * (s.length - 1) / n
+d : ℕ := (1 + 1 * k) * (s.length - 1) % n
+hj1 : j + 1 < s.length
+hj : j < s.length
+hget1 : (List.map (fun x => x + c) s).getD j 0 = s.getD j 0 + c
+hget2 : (List.map (fun x => x + c) s).getD (j + 1) 0 = s.getD (j + 1) 0 + c
+⊢ ((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).getD
+            ((1 + 1 * k) * ((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length - 1) /
+              n)
+            0 *
+          (↑n -
+            ↑((1 + 1 * k) * ((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length - 1) %
+                n)) +
+        (List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).getD
+            ((1 + 1 * k) * ((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length - 1) /
+                n +
+              1)
+            0 *
+          ↑((1 + 1 * k) * ((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length - 1) %
+              n)) /
+      ↑n =
+    ((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).getD j 0 * (↑n - ↑d) +
+          (List.insertionSort (fun x1 x2 => x1 ≤ x2) data).getD (j + 1) 0 * ↑d) /
+        ↑n +
+      c
+Veribench/31_statistics_quantiles.lean:778:10: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  (List.map (fun x => x + c) s).getD (j - 1) 0
+case intro.intro.inr.h
+data : List ℚ
+n : ℕ
+c : ℚ
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_len : s.length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬s.length < 2
+hne : ("exclusive" == "inclusive") = false
+k : ℕ
+hk1 :
+  k <
+    (List.map (exclusiveInterp (List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)) n)
+        (List.range' 1 (n - 1))).length
+hk2 :
+  k <
+    (List.map ((fun x => x + c) ∘ exclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n)
+        (List.range' 1 (n - 1))).length
+j : ℕ := exclusiveClamp s.length ((1 + 1 * k) * (s.length + 1) / n)
+hb :
+  1 ≤ exclusiveClamp s.length ((1 + 1 * k) * (s.length + 1) / n) ∧
+    exclusiveClamp s.length ((1 + 1 * k) * (s.length + 1) / n) ≤ s.length - 1
+hj_prev : j - 1 < s.length
+hj_curr : j < s.length
+hget1 : (List.map (fun x => x + c) s).getD (j - 1) 0 = s.getD (j - 1) 0 + c
+hget2 : (List.map (fun x => x + c) s).getD j 0 = s.getD j 0 + c
+⊢ ((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).getD
+            (exclusiveClamp (List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length
+                ((1 + 1 * k) *
+                    ((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) /
+                  n) -
+              1)
+            0 *
+          (↑n -
+            ↑(↑(1 + 1 * k) *
+                  ↑((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) -
+                ↑(exclusiveClamp (List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length
+                      ((1 + 1 * k) *
+                          ((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) /
+                        n)) *
+                  ↑n)) +
+        (List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).getD
+            (exclusiveClamp (List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length
+              ((1 + 1 * k) * ((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) /
+                n))
+            0 *
+          ↑(↑(1 + 1 * k) * ↑((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) -
+              ↑(exclusiveClamp (List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length
+                    ((1 + 1 * k) *
+                        ((List.map (fun x => x + c) (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) /
+                      n)) *
+                ↑n)) /
+      ↑n =
+    ((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).getD (j - 1) 0 *
+            (↑n - ↑(↑(1 + 1 * k) * ↑((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length + 1) - ↑j * ↑n)) +
+          (List.insertionSort (fun x1 x2 => x1 ≤ x2) data).getD j 0 *
+            ↑(↑(1 + 1 * k) * ↑((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length + 1) - ↑j * ↑n)) /
+        ↑n +
+      c
+Veribench/31_statistics_quantiles.lean:823:4: error: unsolved goals
+case pos
+data : List ℚ
+n : ℕ
+method : String
+this : DecidableRel fun x1 x2 => x1 ≤ x2 := Classical.decRel fun x1 x2 => x1 ≤ x2
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_len : s.length = data.length
+hn : ¬n < 1
+hld : s.length < 2
+⊢ (if data.length < 2 then none
+    else
+      if method = "inclusive" then
+        some
+          (List.map (inclusiveInterp (List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)) n)
+            (List.range' 1 (n - 1)))
+      else
+        if method = "exclusive" then
+          some
+            (List.map (exclusiveInterp (List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)) n)
+              (List.range' 1 (n - 1)))
+        else none) =
+    Option.map (List.map Rat.cast)
+      (if data.length < 2 then none
+      else
+        if method = "inclusive" then
+          some (List.map (inclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)))
+        else
+          if method = "exclusive" then
+            some (List.map (exclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)))
+          else none)
+Veribench/31_statistics_quantiles.lean:842:14: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  (List.map Rat.cast s).getD j 0
+case pos.h
+data : List ℚ
+n : ℕ
+method : String
+this : DecidableRel fun x1 x2 => x1 ≤ x2 := Classical.decRel fun x1 x2 => x1 ≤ x2
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_len : s.length = data.length
+hn : ¬n < 1
+hld : ¬s.length < 2
+hm1 : (method == "inclusive") = true
+k : ℕ
+hk1 : k < n - 1
+hk2 :
+  k <
+    (List.map (Rat.cast ∘ inclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n)
+        (List.range' 1 (n - 1))).length
+hi : 1 + 1 * k < n
+j : ℕ := (1 + 1 * k) * (s.length - 1) / n
+hj1 : j + 1 < s.length
+hj : j < s.length
+hget1 : (List.map Rat.cast s).getD j 0 = ↑(s.getD j 0)
+hget2 : (List.map Rat.cast s).getD (j + 1) 0 = ↑(s.getD (j + 1) 0)
+⊢ ((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).getD
+            ((1 + 1 * k) * ((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length - 1) / n) 0 *
+          (↑n -
+            ↑((1 + 1 * k) * ((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length - 1) % n)) +
+        (List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).getD
+            ((1 + 1 * k) * ((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length - 1) / n + 1)
+            0 *
+          ↑((1 + 1 * k) * ((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length - 1) % n)) /
+      ↑n =
+    ↑(((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).getD j 0 *
+            (↑n - ↑((1 + 1 * k) * ((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length - 1) % n)) +
+          (List.insertionSort (fun x1 x2 => x1 ≤ x2) data).getD (j + 1) 0 *
+            ↑((1 + 1 * k) * ((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length - 1) % n)) /
+        ↑n)
+Veribench/31_statistics_quantiles.lean:863:16: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  (List.map Rat.cast s).getD (j - 1) 0
+case pos.h
+data : List ℚ
+n : ℕ
+method : String
+this : DecidableRel fun x1 x2 => x1 ≤ x2 := Classical.decRel fun x1 x2 => x1 ≤ x2
+s : List ℚ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_len : s.length = data.length
+hn : ¬n < 1
+hld : ¬s.length < 2
+hm1 : ¬(method == "inclusive") = true
+hm2 : (method == "exclusive") = true
+k : ℕ
+hk1 :
+  k <
+    (List.map (exclusiveInterp (List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)) n)
+        (List.range' 1 (n - 1))).length
+hk2 :
+  k <
+    (List.map (Rat.cast ∘ exclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n)
+        (List.range' 1 (n - 1))).length
+j : ℕ := exclusiveClamp s.length ((1 + 1 * k) * (s.length + 1) / n)
+hb :
+  1 ≤ exclusiveClamp s.length ((1 + 1 * k) * (s.length + 1) / n) ∧
+    exclusiveClamp s.length ((1 + 1 * k) * (s.length + 1) / n) ≤ s.length - 1
+hj_prev : j - 1 < s.length
+hj_curr : j < s.length
+hget1 : (List.map Rat.cast s).getD (j - 1) 0 = ↑(s.getD (j - 1) 0)
+hget2 : (List.map Rat.cast s).getD j 0 = ↑(s.getD j 0)
+⊢ ((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).getD
+            (exclusiveClamp (List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length
+                ((1 + 1 * k) * ((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) / n) -
+              1)
+            0 *
+          (↑n -
+            ↑(↑(1 + 1 * k) * ↑((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) -
+                ↑(exclusiveClamp (List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length
+                      ((1 + 1 * k) * ((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) /
+                        n)) *
+                  ↑n)) +
+        (List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).getD
+            (exclusiveClamp (List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length
+              ((1 + 1 * k) * ((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) / n))
+            0 *
+          ↑(↑(1 + 1 * k) * ↑((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) -
+              ↑(exclusiveClamp (List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length
+                    ((1 + 1 * k) * ((List.map Rat.cast (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)).length + 1) /
+                      n)) *
+                ↑n)) /
+      ↑n =
+    ↑(((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).getD (j - 1) 0 *
+            (↑n - ↑(↑(1 + 1 * k) * ↑((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length + 1) - ↑j * ↑n)) +
+          (List.insertionSort (fun x1 x2 => x1 ≤ x2) data).getD j 0 *
+            ↑(↑(1 + 1 * k) * ↑((List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length + 1) - ↑j * ↑n)) /
+        ↑n)
+Veribench/31_statistics_quantiles.lean:823:19: warning: This simp argument is unused:
+  hld
+
+Hint: Omit it from the simp argument list.
+  simp [s, hn,̵ ̵h̵l̵d̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:866:23: warning: This simp argument is unused:
+  hld
+
+Hint: Omit it from the simp argument list.
+  simp [s, hn, hl̵d̵,̵ ̵h̵m1, hm2]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:882:15: error: unsolved goals
+data : List ℝ
+n : ℕ
+this : DecidableRel fun x1 x2 => x1 ≤ x2 := Classical.decRel fun x1 x2 => x1 ≤ x2
+s : List ℝ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_sort : List.Pairwise (fun x1 x2 => x1 ≤ x2) s
+hs_len : s.length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬s.length < 2
+⊢ 2 ≤ data.length ∧
+    List.map (inclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) = ?m.70517
+Veribench/31_statistics_quantiles.lean:882:42: error: simp made no progress
+Veribench/31_statistics_quantiles.lean:889:15: error: unsolved goals
+data : List ℝ
+n : ℕ
+this : DecidableRel fun x1 x2 => x1 ≤ x2 := Classical.decRel fun x1 x2 => x1 ≤ x2
+s : List ℝ := List.insertionSort (fun x1 x2 => x1 ≤ x2) data
+hs_sort : List.Pairwise (fun x1 x2 => x1 ≤ x2) s
+hs_len : s.length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬s.length < 2
+⊢ 2 ≤ data.length ∧
+    List.map (exclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) = ?m.83470
+Veribench/31_statistics_quantiles.lean:889:42: error: simp made no progress
+Veribench/31_statistics_quantiles.lean:882:32: warning: This simp argument is unused:
+  hld'
+
+Hint: Omit it from the simp argument list.
+  simp [s, hn',̵ ̵h̵l̵d̵'̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:889:32: warning: This simp argument is unused:
+  hld'
+
+Hint: Omit it from the simp argument list.
+  simp [s, hn',̵ ̵h̵l̵d̵'̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:909:14: error: unsolved goals
+data : List Float
+n : ℕ
+hs_len : (List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬(List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length < 2
+⊢ 2 ≤ data.length ∧
+    List.map (inclusiveInterpFloat (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) =
+      ?m.70187
+Veribench/31_statistics_quantiles.lean:909:38: error: simp made no progress
+Veribench/31_statistics_quantiles.lean:913:14: error: unsolved goals
+data : List Float
+n : ℕ
+hs_len : (List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length = data.length
+hld : data.length ≥ 2
+hn : n ≥ 1
+hn' : ¬n < 1
+hld' : ¬(List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length < 2
+⊢ 2 ≤ data.length ∧
+    List.map (exclusiveInterpFloat (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) =
+      ?m.83881
+Veribench/31_statistics_quantiles.lean:913:38: error: simp made no progress
+Veribench/31_statistics_quantiles.lean:909:28: warning: This simp argument is unused:
+  hld'
+
+Hint: Omit it from the simp argument list.
+  simp [hn',̵ ̵h̵l̵d̵'̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:913:28: warning: This simp argument is unused:
+  hld'
+
+Hint: Omit it from the simp argument list.
+  simp [hn',̵ ̵h̵l̵d̵'̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+some [(5 : Rat)/4, (5 : Rat)/2, (15 : Rat)/4]
+some [(7 : Rat)/4, (5 : Rat)/2, (13 : Rat)/4]
+some [1.250000, 2.500000, 3.750000]
+Veribench/31_statistics_quantiles.lean:1239:2: error: unsolved goals
+case pos
+data : List ℚ
+n : optParam ℕ 4
+method : optParam String "exclusive"
+hn : n < 1
+⊢ none = pure none
+Veribench/31_statistics_quantiles.lean:1241:4: error: unsolved goals
+case pos
+data : List ℚ
+n : optParam ℕ 4
+method : optParam String "exclusive"
+hn : ¬n < 1
+hld : (List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length < 2
+⊢ (if data.length < 2 then none
+    else
+      if method = "inclusive" then
+        some (List.map (inclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)))
+      else
+        if method = "exclusive" then
+          some (List.map (exclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)))
+        else none) =
+    if data.length < 2 then pure none
+    else
+      if method = "inclusive" then
+        pure
+          (some
+            (List.map
+                (fun x2 =>
+                  [((List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[x2 * (data.length - 1) / n]?.getD 0 *
+                          (↑n - ↑(x2 * (data.length - 1) % n)) +
+                        (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[x2 * (data.length - 1) / n + 1]?.getD 0 *
+                          ↑(x2 * (data.length - 1) % n)) /
+                      ↑n])
+                (List.range' 1 (n - 1))).flatten)
+      else
+        if method = "exclusive" then
+          pure
+            (some
+              (List.map
+                  (fun x2 =>
+                    [((List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                                    data)[exclusiveClamp data.length (x2 * (data.length + 1) / n) - 1]?.getD
+                              0 *
+                            (↑n -
+                              (↑x2 * (↑data.length + 1) -
+                                ↑(exclusiveClamp data.length (x2 * (data.length + 1) / n)) * ↑n)) +
+                          (List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                                    data)[exclusiveClamp data.length (x2 * (data.length + 1) / n)]?.getD
+                              0 *
+                            (↑x2 * (↑data.length + 1) -
+                              ↑(exclusiveClamp data.length (x2 * (data.length + 1) / n)) * ↑n)) /
+                        ↑n])
+                  (List.range' 1 (n - 1))).flatten)
+        else pure none
+Veribench/31_statistics_quantiles.lean:1246:8: error: type mismatch, term
+  congrArg some (Eq.symm hloop)
+after simplification has type
+  pure (List.map (inclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1))) =
+    pure
+      (List.map
+          (fun x2 =>
+            [((List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[x2 * (data.length - 1) / n]?.getD 0 *
+                    (↑n - ↑(x2 * (data.length - 1) % n)) +
+                  (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[x2 * (data.length - 1) / n + 1]?.getD 0 *
+                    ↑(x2 * (data.length - 1) % n)) /
+                ↑n])
+          (List.range' 1 (n - 1))).flatten : Prop
+but is expected to have type
+  List.map (inclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) =
+    forIn (List.range' 1 (n - 1)) [] fun i r =>
+      ForInStep.yield
+        (r ++
+          [((List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[i * (data.length - 1) / n]?.getD 0 *
+                  (↑n - ↑(i * (data.length - 1) % n)) +
+                (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[i * (data.length - 1) / n + 1]?.getD 0 *
+                  ↑(i * (data.length - 1) % n)) /
+              ↑n]) : Prop
+Veribench/31_statistics_quantiles.lean:1251:10: error: type mismatch, term
+  congrArg some (Eq.symm hloop)
+after simplification has type
+  pure (List.map (exclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1))) =
+    pure
+      (List.map
+          (fun x2 =>
+            [((List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                            data)[exclusiveClamp data.length (x2 * (data.length + 1) / n) - 1]?.getD
+                      0 *
+                    (↑n -
+                      (↑x2 * (↑data.length + 1) - ↑(exclusiveClamp data.length (x2 * (data.length + 1) / n)) * ↑n)) +
+                  (List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                            data)[exclusiveClamp data.length (x2 * (data.length + 1) / n)]?.getD
+                      0 *
+                    (↑x2 * (↑data.length + 1) - ↑(exclusiveClamp data.length (x2 * (data.length + 1) / n)) * ↑n)) /
+                ↑n])
+          (List.range' 1 (n - 1))).flatten : Prop
+but is expected to have type
+  List.map (exclusiveInterp (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) =
+    forIn (List.range' 1 (n - 1)) [] fun i r =>
+      ForInStep.yield
+        (r ++
+          [((List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                          data)[exclusiveClamp data.length (i * (data.length + 1) / n) - 1]?.getD
+                    0 *
+                  (↑n - (↑i * (↑data.length + 1) - ↑(exclusiveClamp data.length (i * (data.length + 1) / n)) * ↑n)) +
+                (List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                          data)[exclusiveClamp data.length (i * (data.length + 1) / n)]?.getD
+                    0 *
+                  (↑i * (↑data.length + 1) - ↑(exclusiveClamp data.length (i * (data.length + 1) / n)) * ↑n)) /
+              ↑n]) : Prop
+Veribench/31_statistics_quantiles.lean:1252:8: error: unsolved goals
+case neg
+data : List ℚ
+n : optParam ℕ 4
+method : optParam String "exclusive"
+hn : ¬n < 1
+hld : ¬(List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length < 2
+hm1 : ¬(method == "inclusive") = true
+hm2 : ¬(method == "exclusive") = true
+⊢ none = pure none
+Veribench/31_statistics_quantiles.lean:1241:16: warning: This simp argument is unused:
+  hld
+
+Hint: Omit it from the simp argument list.
+  simp [hn, h̵l̵d̵,̵ ̵Id.run]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:1252:20: warning: This simp argument is unused:
+  hld
+
+Hint: Omit it from the simp argument list.
+  simp [hn, hl̵d̵,̵ ̵h̵m1, hm2, Id.run]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:1259:2: error: unsolved goals
+case pos
+data : List ℚ
+n : optParam ℕ 4
+method : optParam String "exclusive"
+hp : pre data n method = true
+⊢ quantiles_imp data n method = pure (quantiles_imp data n method)
+Veribench/31_statistics_quantiles.lean:1260:2: error: unsolved goals
+case neg
+data : List ℚ
+n : optParam ℕ 4
+method : optParam String "exclusive"
+hp : ¬pre data n method = true
+⊢ none = pure none
+Veribench/31_statistics_quantiles.lean:1267:2: error: unsolved goals
+case pos
+data : List Float
+n : optParam ℕ 4
+method : optParam String "exclusive"
+hn : n < 1
+⊢ none = pure none
+Veribench/31_statistics_quantiles.lean:1269:4: error: unsolved goals
+case pos
+data : List Float
+n : optParam ℕ 4
+method : optParam String "exclusive"
+hn : ¬n < 1
+hld : (List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length < 2
+⊢ (if data.length < 2 then none
+    else
+      if method = "inclusive" then
+        some
+          (List.map (inclusiveInterpFloat (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)))
+      else
+        if method = "exclusive" then
+          some
+            (List.map (exclusiveInterpFloat (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)))
+        else none) =
+    if data.length < 2 then pure none
+    else
+      if method = "inclusive" then
+        pure
+          (some
+            (List.map
+                (fun x2 =>
+                  [((List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[x2 * (data.length - 1) / n]?.getD 0.0 *
+                          (Float.ofNat n - Float.ofNat (x2 * (data.length - 1) % n)) +
+                        (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[x2 * (data.length - 1) / n + 1]?.getD 0.0 *
+                          Float.ofNat (x2 * (data.length - 1) % n)) /
+                      Float.ofNat n])
+                (List.range' 1 (n - 1))).flatten)
+      else
+        if method = "exclusive" then
+          pure
+            (some
+              (List.map
+                  (fun x2 =>
+                    [((List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                                    data)[exclusiveClamp data.length (x2 * (data.length + 1) / n) - 1]?.getD
+                              0.0 *
+                            (Float.ofInt ↑n -
+                              Float.ofInt
+                                (↑x2 * (↑data.length + 1) -
+                                  ↑(exclusiveClamp data.length (x2 * (data.length + 1) / n)) * ↑n)) +
+                          (List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                                    data)[exclusiveClamp data.length (x2 * (data.length + 1) / n)]?.getD
+                              0.0 *
+                            Float.ofInt
+                              (↑x2 * (↑data.length + 1) -
+                                ↑(exclusiveClamp data.length (x2 * (data.length + 1) / n)) * ↑n)) /
+                        Float.ofNat n])
+                  (List.range' 1 (n - 1))).flatten)
+        else pure none
+Veribench/31_statistics_quantiles.lean:1274:8: error: type mismatch, term
+  congrArg some (Eq.symm hloop)
+after simplification has type
+  pure (List.map (inclusiveInterpFloat (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1))) =
+    pure
+      (List.map
+          (fun x2 =>
+            [((List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[x2 * (data.length - 1) / n]?.getD 0.0 *
+                    (Float.ofNat n - Float.ofNat (x2 * (data.length - 1) % n)) +
+                  (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[x2 * (data.length - 1) / n + 1]?.getD 0.0 *
+                    Float.ofNat (x2 * (data.length - 1) % n)) /
+                Float.ofNat n])
+          (List.range' 1 (n - 1))).flatten : Prop
+but is expected to have type
+  List.map (inclusiveInterpFloat (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) =
+    forIn (List.range' 1 (n - 1)) [] fun i r =>
+      ForInStep.yield
+        (r ++
+          [((List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[i * (data.length - 1) / n]?.getD 0.0 *
+                  (Float.ofNat n - Float.ofNat (i * (data.length - 1) % n)) +
+                (List.insertionSort (fun x1 x2 => x1 ≤ x2) data)[i * (data.length - 1) / n + 1]?.getD 0.0 *
+                  Float.ofNat (i * (data.length - 1) % n)) /
+              Float.ofNat n]) : Prop
+Veribench/31_statistics_quantiles.lean:1279:10: error: type mismatch, term
+  congrArg some (Eq.symm hloop)
+after simplification has type
+  pure (List.map (exclusiveInterpFloat (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1))) =
+    pure
+      (List.map
+          (fun x2 =>
+            [((List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                            data)[exclusiveClamp data.length (x2 * (data.length + 1) / n) - 1]?.getD
+                      0.0 *
+                    (Float.ofInt ↑n -
+                      Float.ofInt
+                        (↑x2 * (↑data.length + 1) - ↑(exclusiveClamp data.length (x2 * (data.length + 1) / n)) * ↑n)) +
+                  (List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                            data)[exclusiveClamp data.length (x2 * (data.length + 1) / n)]?.getD
+                      0.0 *
+                    Float.ofInt
+                      (↑x2 * (↑data.length + 1) - ↑(exclusiveClamp data.length (x2 * (data.length + 1) / n)) * ↑n)) /
+                Float.ofNat n])
+          (List.range' 1 (n - 1))).flatten : Prop
+but is expected to have type
+  List.map (exclusiveInterpFloat (List.insertionSort (fun x1 x2 => x1 ≤ x2) data) n) (List.range' 1 (n - 1)) =
+    forIn (List.range' 1 (n - 1)) [] fun i r =>
+      ForInStep.yield
+        (r ++
+          [((List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                          data)[exclusiveClamp data.length (i * (data.length + 1) / n) - 1]?.getD
+                    0.0 *
+                  (Float.ofInt ↑n -
+                    Float.ofInt
+                      (↑i * (↑data.length + 1) - ↑(exclusiveClamp data.length (i * (data.length + 1) / n)) * ↑n)) +
+                (List.insertionSort (fun x1 x2 => x1 ≤ x2)
+                          data)[exclusiveClamp data.length (i * (data.length + 1) / n)]?.getD
+                    0.0 *
+                  Float.ofInt
+                    (↑i * (↑data.length + 1) - ↑(exclusiveClamp data.length (i * (data.length + 1) / n)) * ↑n)) /
+              Float.ofNat n]) : Prop
+Veribench/31_statistics_quantiles.lean:1280:8: error: unsolved goals
+case neg
+data : List Float
+n : optParam ℕ 4
+method : optParam String "exclusive"
+hn : ¬n < 1
+hld : ¬(List.insertionSort (fun x1 x2 => x1 ≤ x2) data).length < 2
+hm1 : ¬(method == "inclusive") = true
+hm2 : ¬(method == "exclusive") = true
+⊢ none = pure none
+Veribench/31_statistics_quantiles.lean:1269:16: warning: This simp argument is unused:
+  hld
+
+Hint: Omit it from the simp argument list.
+  simp [hn, h̵l̵d̵,̵ ̵Id.run]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:1280:20: warning: This simp argument is unused:
+  hld
+
+Hint: Omit it from the simp argument list.
+  simp [hn, hl̵d̵,̵ ̵h̵m1, hm2, Id.run]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/31_statistics_quantiles.lean:1287:2: error: unsolved goals
+case pos
+data : List Float
+n : optParam ℕ 4
+method : optParam String "exclusive"
+hp : pre data n method = true
+⊢ quantilesFloat_imp data n method = pure (quantilesFloat_imp data n method)
+Veribench/31_statistics_quantiles.lean:1288:2: error: unsolved goals
+case neg
+data : List Float
+n : optParam ℕ 4
+method : optParam String "exclusive"
+hp : ¬pre data n method = true
+⊢ none = pure none

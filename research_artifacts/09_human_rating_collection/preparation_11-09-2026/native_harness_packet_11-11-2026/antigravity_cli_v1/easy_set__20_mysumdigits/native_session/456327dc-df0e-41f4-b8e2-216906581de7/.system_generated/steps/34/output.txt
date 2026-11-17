@@ -1,0 +1,66 @@
+Created At: 2026-11-16T22:04:30Z
+Completed At: 2026-11-16T22:04:39Z
+Command exited with code 1.
+
+Command output:
+6
+0
+7
+27
+some 6
+some 0
+none
+Veribench/20_MySumDigits.lean:336:4: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  a ≥ 2
+where
+ a := sumDigits (0 + 1)
+Veribench/20_MySumDigits.lean:404:18: error: unsolved goals
+case case2
+n : ℤ
+hn : ¬n ≤ 0
+ih : Pre (n / 10) → sumDigits (n / 10) = ↑(Nat.digits 10 (n / 10).toNat).sum
+_h : Pre n
+hpos : 0 < n
+⊢ Pre (n / 10)
+Veribench/20_MySumDigits.lean:478:68: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:479:66: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:480:70: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:481:65: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:482:74: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:483:72: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:484:68: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:485:69: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:486:69: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:487:70: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:488:50: error: unexpected token ','; expected ')'
+Veribench/20_MySumDigits.lean:489:71: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:490:72: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:491:80: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Veribench/20_MySumDigits.lean:491:0: warning: Gave up after failing to generate values that fulfill the preconditions 5 times.
+Veribench/20_MySumDigits.lean:492:72: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:493:75: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:494:65: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+Veribench/20_MySumDigits.lean:495:66: error: 'maxFail' is not a field of structure 'Plausible.Configuration'
+Unable to find a counter-example
+6
+0
+27
+some 6
+none
+Unable to find a counter-example

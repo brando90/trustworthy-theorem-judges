@@ -1,0 +1,235 @@
+Created At: 2026-11-16T22:34:25Z
+Completed At: 2026-11-16T22:34:30Z
+Command exited with code 1.
+
+Command output:
+<stdin>:73:2: error: tactic 'rfl' failed, the left-hand side
+  (↑(s.getD (i * (s.length - 1) / n) 0) * (↑n - ↑(i * (s.length - 1) % n)) +
+      ↑(s.getD (i * (s.length - 1) / n + 1) 0) * ↑(i * (s.length - 1) % n)) /
+    ↑n
+is not definitionally equal to the right-hand side
+  ((do
+              let a ← s
+              pure ↑a).getD
+          (i *
+              ((do
+                    let a ← s
+                    pure ↑a).length -
+                1) /
+            n)
+          0 *
+        (↑n -
+          ↑(i *
+                ((do
+                      let a ← s
+                      pure ↑a).length -
+                  1) %
+              n)) +
+      (do
+              let a ← s
+              pure ↑a).getD
+          (i *
+                ((do
+                      let a ← s
+                      pure ↑a).length -
+                  1) /
+              n +
+            1)
+          0 *
+        ↑(i *
+              ((do
+                    let a ← s
+                    pure ↑a).length -
+                1) %
+            n)) /
+    ↑n
+s : List ℚ
+n i : ℕ
+hld : 2 ≤ s.length
+hn : 1 ≤ n
+hi : i < n
+hj1 : i * (s.length - 1) / n + 1 < s.length
+hj : i * (s.length - 1) / n < s.length
+⊢ (↑(s.getD (i * (s.length - 1) / n) 0) * (↑n - ↑(i * (s.length - 1) % n)) +
+        ↑(s.getD (i * (s.length - 1) / n + 1) 0) * ↑(i * (s.length - 1) % n)) /
+      ↑n =
+    ((do
+                let a ← s
+                pure ↑a).getD
+            (i *
+                ((do
+                      let a ← s
+                      pure ↑a).length -
+                  1) /
+              n)
+            0 *
+          (↑n -
+            ↑(i *
+                  ((do
+                        let a ← s
+                        pure ↑a).length -
+                    1) %
+                n)) +
+        (do
+                let a ← s
+                pure ↑a).getD
+            (i *
+                  ((do
+                        let a ← s
+                        pure ↑a).length -
+                    1) /
+                n +
+              1)
+            0 *
+          ↑(i *
+                ((do
+                      let a ← s
+                      pure ↑a).length -
+                  1) %
+              n)) /
+      ↑n
+<stdin>:85:2: error: tactic 'rfl' failed, the left-hand side
+  (↑(s.getD (exclusiveClamp s.length (i * (s.length + 1) / n) - 1) 0) *
+        (↑n - (↑i * (↑s.length + 1) - ↑(exclusiveClamp s.length (i * (s.length + 1) / n)) * ↑n)) +
+      ↑(s.getD (exclusiveClamp s.length (i * (s.length + 1) / n)) 0) *
+        (↑i * (↑s.length + 1) - ↑(exclusiveClamp s.length (i * (s.length + 1) / n)) * ↑n)) /
+    ↑n
+is not definitionally equal to the right-hand side
+  ((do
+              let a ← s
+              pure ↑a).getD
+          (exclusiveClamp
+              (do
+                  let a ← s
+                  pure ↑a).length
+              (i *
+                  ((do
+                        let a ← s
+                        pure ↑a).length +
+                    1) /
+                n) -
+            1)
+          0 *
+        (↑n -
+          (↑i *
+              (↑(do
+                      let a ← s
+                      pure ↑a).length +
+                1) -
+            ↑(exclusiveClamp
+                  (do
+                      let a ← s
+                      pure ↑a).length
+                  (i *
+                      ((do
+                            let a ← s
+                            pure ↑a).length +
+                        1) /
+                    n)) *
+              ↑n)) +
+      (do
+              let a ← s
+              pure ↑a).getD
+          (exclusiveClamp
+            (do
+                let a ← s
+                pure ↑a).length
+            (i *
+                ((do
+                      let a ← s
+                      pure ↑a).length +
+                  1) /
+              n))
+          0 *
+        (↑i *
+            (↑(do
+                    let a ← s
+                    pure ↑a).length +
+              1) -
+          ↑(exclusiveClamp
+                (do
+                    let a ← s
+                    pure ↑a).length
+                (i *
+                    ((do
+                          let a ← s
+                          pure ↑a).length +
+                      1) /
+                  n)) *
+            ↑n)) /
+    ↑n
+s : List ℚ
+n i : ℕ
+hld : 2 ≤ s.length
+hb :
+  1 ≤ exclusiveClamp s.length (i * (s.length + 1) / n) ∧ exclusiveClamp s.length (i * (s.length + 1) / n) ≤ s.length - 1
+hj_prev : exclusiveClamp s.length (i * (s.length + 1) / n) - 1 < s.length
+hj_curr : exclusiveClamp s.length (i * (s.length + 1) / n) < s.length
+⊢ (↑(s.getD (exclusiveClamp s.length (i * (s.length + 1) / n) - 1) 0) *
+          (↑n - (↑i * (↑s.length + 1) - ↑(exclusiveClamp s.length (i * (s.length + 1) / n)) * ↑n)) +
+        ↑(s.getD (exclusiveClamp s.length (i * (s.length + 1) / n)) 0) *
+          (↑i * (↑s.length + 1) - ↑(exclusiveClamp s.length (i * (s.length + 1) / n)) * ↑n)) /
+      ↑n =
+    ((do
+                let a ← s
+                pure ↑a).getD
+            (exclusiveClamp
+                (do
+                    let a ← s
+                    pure ↑a).length
+                (i *
+                    ((do
+                          let a ← s
+                          pure ↑a).length +
+                      1) /
+                  n) -
+              1)
+            0 *
+          (↑n -
+            (↑i *
+                (↑(do
+                        let a ← s
+                        pure ↑a).length +
+                  1) -
+              ↑(exclusiveClamp
+                    (do
+                        let a ← s
+                        pure ↑a).length
+                    (i *
+                        ((do
+                              let a ← s
+                              pure ↑a).length +
+                          1) /
+                      n)) *
+                ↑n)) +
+        (do
+                let a ← s
+                pure ↑a).getD
+            (exclusiveClamp
+              (do
+                  let a ← s
+                  pure ↑a).length
+              (i *
+                  ((do
+                        let a ← s
+                        pure ↑a).length +
+                    1) /
+                n))
+            0 *
+          (↑i *
+              (↑(do
+                      let a ← s
+                      pure ↑a).length +
+                1) -
+            ↑(exclusiveClamp
+                  (do
+                      let a ← s
+                      pure ↑a).length
+                  (i *
+                      ((do
+                            let a ← s
+                            pure ↑a).length +
+                        1) /
+                    n)) *
+              ↑n)) /
+      ↑n

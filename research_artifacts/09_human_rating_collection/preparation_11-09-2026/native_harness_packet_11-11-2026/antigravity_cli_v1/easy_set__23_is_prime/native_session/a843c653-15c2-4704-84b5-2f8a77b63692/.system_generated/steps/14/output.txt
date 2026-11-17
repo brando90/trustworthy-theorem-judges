@@ -1,0 +1,48 @@
+Created At: 2026-11-16T21:27:27Z
+Completed At: 2026-11-16T21:27:32Z
+Command exited with code 0.
+
+Command output:
+def is_prime_imp2 : ℤ → Bool :=
+fun n =>
+  (have __do_jp := fun y =>
+      have __do_jp := fun y =>
+        have __do_jp := fun y =>
+          have natN := n.toNat;
+          have limit := natN.sqrt;
+          have i := 5;
+          have isPrime := true;
+          do
+          let r ←
+            forIn (List.range (limit + 1)) ⟨i, isPrime⟩ fun x r =>
+                have i := r.fst;
+                have isPrime := r.snd;
+                if i ≤ limit then
+                  have __do_jp := fun i isPrime y =>
+                    have i := i + 6;
+                    do
+                    pure PUnit.unit
+                    pure (ForInStep.yield ⟨i, isPrime⟩);
+                  if (natN % i == 0 || natN % (i + 2) == 0) = true then
+                    have isPrime := false;
+                    pure (ForInStep.done ⟨i, isPrime⟩)
+                  else do
+                    let y ← pure PUnit.unit
+                    __do_jp i isPrime y
+                else do
+                  pure PUnit.unit
+                  pure (ForInStep.yield ⟨i, isPrime⟩)
+          match r with
+            | ⟨i, isPrime⟩ => pure isPrime;
+        if (n % 2 == 0 || n % 3 == 0) = true then pure false
+        else do
+          let y ← pure PUnit.unit
+          __do_jp y;
+      if n ≤ 3 then pure true
+      else do
+        let y ← pure PUnit.unit
+        __do_jp y;
+    if n ≤ 1 then pure false
+    else do
+      let y ← pure PUnit.unit
+      __do_jp y).run

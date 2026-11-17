@@ -1,0 +1,20 @@
+Created At: 2026-11-16T21:36:08Z
+Completed At: 2026-11-16T21:36:08Z
+Command exited with code 0.
+
+Command output:
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Nodup.lean:66:theorem nodup_mergeSort {l : List α} {le : α → α → Bool} : (l.mergeSort le).Nodup ↔ l.Nodup :=
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Nodup.lean:67:  (mergeSort_perm l le).nodup_iff
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Nodup.lean:69:protected alias ⟨_, Nodup.mergeSort⟩ := nodup_mergeSort
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:670:We provide some wrapper functions around the theorems for `mergeSort` provided in Lean,
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:676:    mergeSort [5, 27, 221, 95, 17, 43, 7, 2, 98, 567, 23, 12] (fun m n => m / 10 ≤ n / 10) =
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:677:      [5, 7, 2, 17, 12, 27, 23, 43, 95, 98, 221, 567] := by simp [mergeSort]
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:696:/-- Variant of `sorted_mergeSort` using relation typeclasses. -/
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:697:theorem sorted_mergeSort' (l : List α) : Sorted r (mergeSort l (r · ·)) := by
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:698:  simpa using sorted_mergeSort (le := (r · ·))
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:705:theorem mergeSort_eq_self {l : List α} : Sorted r l → mergeSort l (r · ·) = l :=
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:706:  eq_of_perm_of_sorted (mergeSort_perm _ _) (sorted_mergeSort' _ l)
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:708:theorem mergeSort_eq_insertionSort (l : List α) :
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:709:    mergeSort l (r · ·) = insertionSort r l :=
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:710:  eq_of_perm_of_sorted ((mergeSort_perm l _).trans (perm_insertionSort r l).symm)
+/home/user/lean_project/.lake/packages/mathlib/Mathlib/Data/List/Sort.lean:711:    (sorted_mergeSort' r l) (sorted_insertionSort r l)

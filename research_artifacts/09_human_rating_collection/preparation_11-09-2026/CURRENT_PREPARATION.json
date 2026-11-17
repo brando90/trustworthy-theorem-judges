@@ -1,15 +1,16 @@
 {
-  "version": "full_team_100_four_agents_11-16-2026",
-  "status": "A1_EMAILED_TO_SELF_TEAM_DRAFTS_SAVED_UNSENT",
+  "version": "full_team_100_all_native_11-17-2026",
+  "status": "A1_EMAILED_TO_SELF_TEAM_DRAFTS_SAVED_UNSENT_TEAM_SEND_ON_HOLD",
   "round_id": "native-heavy-11-11-2026",
-  "review": "full_team_11-14-2026/REVIEW_ALL_31_EMAILS_11-16-2026.md",
-  "queue": "Gmail Drafts (31, one per rater); log full_team_11-14-2026/sealed/DRAFTS_SAVED_100.json",
-  "packets": "full_team_11-14-2026/sealed/builds_100",
+  "review": "full_team_11-14-2026/REVIEW_ALL_31_EMAILS_11-17-2026.md",
+  "queue": "Gmail Drafts (31, one per rater); log full_team_11-14-2026/sealed/DRAFTS_SAVED_100_NATIVE.json",
+  "packets": "full_team_11-14-2026/sealed/builds_100_native",
   "sheet_registry": "full_team_11-14-2026/SHEET_REGISTRY.json",
-  "build_index": "full_team_11-14-2026/sealed/BUILD_INDEX_100.json",
-  "cohort_commitment": "full_team_11-14-2026/COHORT_100_COMMITMENT.json",
-  "parent_cohort_commitment": "full_team_11-14-2026/COHORT_75_COMMITMENT.json",
+  "build_index": "full_team_11-14-2026/sealed/BUILD_INDEX_100_NATIVE.json",
+  "cohort_commitment": "full_team_11-14-2026/COHORT_100_NATIVE_COMMITMENT.json",
+  "parent_cohort_commitment": "full_team_11-14-2026/COHORT_100_COMMITMENT.json",
   "send_authorized": false,
+  "team_send_hold": "Brando, 11-16-2026: \"don't send anything to the team until I do my ratings\"; build_full_team_packets.py send --confirm refuses while TEAM_SEND_HOLD is set",
   "send_command": "python3 experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/scripts/native_packet_generation/build_full_team_packets.py send --confirm --all",
   "status_command": "python3 experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/scripts/native_packet_generation/build_full_team_packets.py status",
   "counts": {
@@ -19,23 +20,71 @@
     "author_sheets": 1,
     "outgoing_raters_staged": 31,
     "excluded_individuals": 4,
-    "sent_emails": 1,
+    "sent_emails": 2,
     "completed_main_ratings": 0,
     "warmup_numeric_ratings": 15,
     "warmup_not_applicable_rows": 3,
     "agents_per_task": 4,
-    "sent_emails_note": "A1's own packet to Brando only (11-16-2026, requested in chat)"
+    "sent_emails_note": "A1's own packet to Brando only: the four-agent packet on 11-16-2026 and its all-native replacement on 11-17-2026 (00:32 PST); no team email sent"
   },
   "configuration_counts": {
     "historical_codex_astra": 25,
     "native_claude_fable": 19,
-    "historical_terminus_fable": 6,
-    "historical_terminus_grok": 25,
-    "historical_terminus_gemini": 25
+    "native_claude_fable_v3": 6,
+    "native_grok_cli": 25,
+    "native_antigravity_gemini": 25
   },
+  "agents": [
+    {
+      "model": "GPT-6 Astra",
+      "selector": "gpt-6-astra",
+      "harness": "Codex 0.154.0",
+      "effort": "xhigh",
+      "files": 25,
+      "prompt_version": 5,
+      "condition": "historical Codex outputs (VeriBench experiment 85)"
+    },
+    {
+      "model": "Claude Fable 5.1",
+      "selector": "claude-fable-5-1",
+      "harness": "Claude Code 2.1.322",
+      "effort": "max",
+      "files": 19,
+      "prompt_version": 8,
+      "condition": "native_claude_fable51_valid_v2"
+    },
+    {
+      "model": "Claude Fable 5.1",
+      "selector": "claude-fable-5-1",
+      "harness": "Claude Code 2.1.322",
+      "effort": "max",
+      "files": 6,
+      "prompt_version": 8,
+      "condition": "native_claude_fable51_valid_v3 (single-response cap 64,000)"
+    },
+    {
+      "model": "Grok 4.7",
+      "selector": "grok-4.7",
+      "harness": "Grok CLI 1.0.77",
+      "effort": "xhigh",
+      "files": 25,
+      "prompt_version": 8,
+      "condition": "native_grok_cli_grok47_v3"
+    },
+    {
+      "model": "Gemini 4 Argon",
+      "selector": "gemini-4-argon-high",
+      "harness": "Antigravity CLI 1.5.9",
+      "effort": "high",
+      "files": 25,
+      "prompt_version": 8,
+      "condition": "native_antigravity_gemini4argon_v1"
+    }
+  ],
   "deadlines": {
     "preferred": "Thursday, 11-19-2026, 6:00 PM PT",
-    "final": "Sunday, 11-22-2026"
+    "final": "Sunday, 11-22-2026",
+    "note": "Set before the team-email hold; revisit when the team emails go out"
   },
-  "note": "Supersedes full_team_75_v2_11-14-2026: adds Gemini 4 Argon (google/gemini-4-argon, Terminus 2, high effort; 25 set N files of record) in the 25 planned Google cells, so every task has agent_1..agent_4. Existing Sheet rows and orders are unchanged; the 75-file send script and its staged manifest are retired (git history keeps them)."
+  "note": "Supersedes full_team_100_four_agents_11-16-2026: every file now comes from its agent's own harness. 56 files changed (25 Grok and 25 Gemini from Terminus 2 to Grok CLI and Antigravity CLI; 6 Claude from Terminus 2 to Claude Code); the 25 Codex and 19 earlier Claude Code files, all Sheet rows, row orders and file names are unchanged. The never-sent build that still held the 6 Terminus 2 Claude files is kept as sealed/builds_100_native_with_terminus2_claude_never_sent_20261117-002812."
 }

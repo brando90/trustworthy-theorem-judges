@@ -1,0 +1,25 @@
+{
+  "task_id": "cs_set__edit_distance",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "edit_distance.py": "64d1e83ce02b690a6a73dd6ed132f512f71cf5071a1df65ff12d32240449baa1",
+    "instruction.md": "254cf23f668898d9dd676d762b3046e53b8846135652a46f83e67ec34075e234"
+  },
+  "output": "/home/user/lean_project/Veribench/edit_distance.lean",
+  "model_call_performed": false
+}

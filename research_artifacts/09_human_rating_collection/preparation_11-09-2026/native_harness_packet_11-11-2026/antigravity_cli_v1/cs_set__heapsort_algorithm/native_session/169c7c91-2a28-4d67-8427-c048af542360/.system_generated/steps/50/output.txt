@@ -1,0 +1,65 @@
+Created At: 2026-11-16T22:23:53Z
+Completed At: 2026-11-16T22:23:58Z
+Command exited with code 0.
+
+Command output:
+def max_heapify_imp : List ℕ → ℕ → ℕ → List ℕ :=
+fun arr i heap_size =>
+  (have result := arr;
+    have curr := i;
+    do
+    let r ←
+      forIn (List.replicate (heap_size - i) ()) ⟨curr, result⟩ fun x r =>
+          have curr := r.fst;
+          have result := r.snd;
+          have largest := choose_largest result curr heap_size;
+          if (largest != curr) = true then
+            have result := swap result curr largest;
+            have curr := largest;
+            do
+            pure PUnit.unit
+            pure (ForInStep.yield ⟨curr, result⟩)
+          else do
+            pure PUnit.unit
+            pure (ForInStep.yield ⟨curr, result⟩)
+    match r with
+      | ⟨curr, result⟩ => pure result).run
+def build_max_heap_imp : List ℕ → List ℕ :=
+fun arr =>
+  (have __do_jp := fun y =>
+      have result := arr;
+      have n := result.length;
+      do
+      let r ←
+        forIn (List.range (parent (n - 1) + 1)).reverse result fun i r =>
+            have result := r;
+            have result := max_heapify_imp result i n;
+            do
+            pure PUnit.unit
+            pure (ForInStep.yield result)
+      have result : List ℕ := r
+      pure result;
+    if arr.length ≤ 1 then pure arr
+    else do
+      let y ← pure PUnit.unit
+      __do_jp y).run
+def heapsort_imp : List ℕ → List ℕ :=
+fun arr =>
+  (have __do_jp := fun y =>
+      have result := build_max_heap_imp arr;
+      do
+      let r ←
+        forIn (List.range (result.length - 1)).reverse result fun idx r =>
+            have result := r;
+            have i := idx + 1;
+            have result := swap result 0 i;
+            have result := max_heapify_imp result 0 i;
+            do
+            pure PUnit.unit
+            pure (ForInStep.yield result)
+      have result : List ℕ := r
+      pure result;
+    if arr.length ≤ 1 then pure arr
+    else do
+      let y ← pure PUnit.unit
+      __do_jp y).run

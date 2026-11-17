@@ -1,0 +1,31 @@
+Created At: 2026-11-16T21:33:30Z
+Completed At: 2026-11-16T21:33:40Z
+Command exited with code 0.
+
+Command output:
+true
+false
+false
+true
+true
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+true
+false
+false
+true
+true
+'«23_is_prime».checkDivisors_eq_true_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_is_prime».is_prime_eq_true_iff_nat_prime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_is_prime».le_one_not_prime_thm' depends on axioms: [propext, Quot.sound]
+'«23_is_prime».small_primes_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_is_prime».div_two_or_three_not_prime_thm' depends on axioms: [propext, Quot.sound]
+'«23_is_prime».prime_divisibility_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_is_prime».nat_prime_iff_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_is_prime».is_prime_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_is_prime».loop_eq_checkDivisors' depends on axioms: [propext, Quot.sound]
+'«23_is_prime».is_prime_eq_is_prime_imp' depends on axioms: [propext, Classical.choice, Quot.sound]

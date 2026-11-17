@@ -1,0 +1,167 @@
+Command exited with code 1.
+
+Command output:
+/home/user/.gemini/antigravity-cli/brain/1b1e2929-b842-490c-9230-edf23a6bb5ae/scratch/test_mathlib.lean:84:8: error: type mismatch
+  ih (f.push (b + a)) b (b + a) (rem - 1) hsize' ha' hb'
+has type
+  prime_fib_loop xs.length b (b + a) (rem - 1) =
+    (let f := f.push (b + a);
+      let rem := rem - 1;
+      do
+      let r ←
+        forIn xs ⟨none, f, rem⟩ fun x r =>
+            let r := r.snd;
+            let f := r.fst;
+            let rem := r.snd;
+            let next := f[f.size - 1]! + f[f.size - 2]!;
+            let f := f.push next;
+            let __do_jp := fun rem y =>
+              if (rem == 0) = true then pure (ForInStep.done ⟨some f[f.size - 1]!, f, rem⟩)
+              else do
+                pure PUnit.unit
+                pure (ForInStep.yield ⟨none, f, rem⟩);
+            if is_prime f[f.size - 1]! = true then
+              let rem := rem - 1;
+              do
+              let y ← pure PUnit.unit
+              __do_jp rem y
+            else do
+              let y ← pure PUnit.unit
+              __do_jp rem y
+      match r.snd with
+        | ⟨f, rem⟩ =>
+          let __do_jp := fun y => pure 2;
+          match r.fst with
+          | none => do
+            let y ← pure PUnit.unit
+            __do_jp y
+          | some a => pure a).run : Prop
+but is expected to have type
+  (if false = true then b + a else prime_fib_loop xs.length b (b + a) (rem - 1)) = do
+    let r ←
+      do
+        let x ←
+          do
+            pure PUnit.unit
+            if false = true then pure (ForInStep.done ⟨some (b + a), f.push (b + a), rem - 1⟩)
+              else do
+                pure PUnit.unit
+                pure (ForInStep.yield ⟨none, f.push (b + a), rem - 1⟩)
+        match x with
+          | ForInStep.done b => pure b
+          | ForInStep.yield b =>
+            forIn xs b fun x r =>
+              if is_prime (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!) = true then do
+                pure PUnit.unit
+                if (r.snd.snd - 1 == 0) = true then
+                    pure
+                      (ForInStep.done
+                        ⟨some (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!),
+                          r.snd.fst.push (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!),
+                          r.snd.snd - 1⟩)
+                  else do
+                    pure PUnit.unit
+                    pure
+                        (ForInStep.yield
+                          ⟨none, r.snd.fst.push (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!),
+                            r.snd.snd - 1⟩)
+              else do
+                pure PUnit.unit
+                if (r.snd.snd == 0) = true then
+                    pure
+                      (ForInStep.done
+                        ⟨some (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!),
+                          r.snd.fst.push (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!), r.snd.snd⟩)
+                  else do
+                    pure PUnit.unit
+                    pure
+                        (ForInStep.yield
+                          ⟨none, r.snd.fst.push (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!),
+                            r.snd.snd⟩)
+    match r.fst with
+      | none => do
+        pure PUnit.unit
+        pure 2
+      | some a => pure a : Prop
+/home/user/.gemini/antigravity-cli/brain/1b1e2929-b842-490c-9230-edf23a6bb5ae/scratch/test_mathlib.lean:89:8: error: type mismatch
+  ih (f.push (b + a)) b (b + a) rem hsize' ha' hb'
+has type
+  prime_fib_loop xs.length b (b + a) rem =
+    (let f := f.push (b + a);
+      let rem := rem;
+      do
+      let r ←
+        forIn xs ⟨none, f, rem⟩ fun x r =>
+            let r := r.snd;
+            let f := r.fst;
+            let rem := r.snd;
+            let next := f[f.size - 1]! + f[f.size - 2]!;
+            let f := f.push next;
+            let __do_jp := fun rem y =>
+              if (rem == 0) = true then pure (ForInStep.done ⟨some f[f.size - 1]!, f, rem⟩)
+              else do
+                pure PUnit.unit
+                pure (ForInStep.yield ⟨none, f, rem⟩);
+            if is_prime f[f.size - 1]! = true then
+              let rem := rem - 1;
+              do
+              let y ← pure PUnit.unit
+              __do_jp rem y
+            else do
+              let y ← pure PUnit.unit
+              __do_jp rem y
+      match r.snd with
+        | ⟨f, rem⟩ =>
+          let __do_jp := fun y => pure 2;
+          match r.fst with
+          | none => do
+            let y ← pure PUnit.unit
+            __do_jp y
+          | some a => pure a).run : Prop
+but is expected to have type
+  (if false = true then b + a else prime_fib_loop xs.length b (b + a) rem) = do
+    let r ←
+      do
+        let x ←
+          do
+            pure PUnit.unit
+            if false = true then pure (ForInStep.done ⟨some (b + a), f.push (b + a), rem⟩)
+              else do
+                pure PUnit.unit
+                pure (ForInStep.yield ⟨none, f.push (b + a), rem⟩)
+        match x with
+          | ForInStep.done b => pure b
+          | ForInStep.yield b =>
+            forIn xs b fun x r =>
+              if is_prime (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!) = true then do
+                pure PUnit.unit
+                if (r.snd.snd - 1 == 0) = true then
+                    pure
+                      (ForInStep.done
+                        ⟨some (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!),
+                          r.snd.fst.push (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!),
+                          r.snd.snd - 1⟩)
+                  else do
+                    pure PUnit.unit
+                    pure
+                        (ForInStep.yield
+                          ⟨none, r.snd.fst.push (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!),
+                            r.snd.snd - 1⟩)
+              else do
+                pure PUnit.unit
+                if (r.snd.snd == 0) = true then
+                    pure
+                      (ForInStep.done
+                        ⟨some (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!),
+                          r.snd.fst.push (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!), r.snd.snd⟩)
+                  else do
+                    pure PUnit.unit
+                    pure
+                        (ForInStep.yield
+                          ⟨none, r.snd.fst.push (r.snd.fst[r.snd.fst.size - 1]! + r.snd.fst[r.snd.fst.size - 2]!),
+                            r.snd.snd⟩)
+    match r.fst with
+      | none => do
+        pure PUnit.unit
+        pure 2
+      | some a => pure a : Prop

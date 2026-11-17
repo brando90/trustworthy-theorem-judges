@@ -1,0 +1,71 @@
+{
+  "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "75_unsafeCertHostname.py": "3f2f94afbd2a7d07596e5ac6ab9cc81419b90ec279ccda76fb750ba2238ef5b2",
+    "instruction.md": "1e162953ec46ea09bfc9f51bc77e1fb27d8a5af4e7b5465a51b69e67b74c2450"
+  },
+  "output": "/home/user/lean_project/Veribench/75_unsafeCertHostname.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-4fbb9657eacb",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794864497.92474,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794864752.715843,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "15a3a59a-ac0c-4a5f-8383-47c337024ce5",
+      "status": "SUCCESS",
+      "response": "I have translated the Python program into a Lean 4 formalization at [75_unsafeCertHostname.lean](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean) and verified that it compiles cleanly (`lake env lean Veribench/75_unsafeCertHostname.lean` exits with code `0` and no `sorry` or warnings).\n\n### Summary of Formalization\n- **Functional & Imperative Implementations**:\n  - [unsafe_cert_hostname](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L25-L27) and [check](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L33-L46) mirror the Python implementation and test suite.\n  - [unsafe_cert_hostname_imp](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L345-L353) implements the imperative equivalent using `Id.run do` with mutable state (`let mut accepted : Bool := false`).\n- **Properties & Theorems**:\n  - `exact_spec_prop` / [exact_spec_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L93-L96): exact equivalence to `cert_valid && cert_not_expired`.\n  - `accepts_iff_valid_and_not_expired_prop` / [accepts_iff_valid_and_not_expired_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L104-L107) and `rejects_iff_invalid_or_expired_prop` / [rejects_iff_invalid_or_expired_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L115-L119): logical characterizations of acceptance and rejection.\n  - `accepts_valid_matching_host_prop` / [accepts_valid_matching_host_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L128-L132) and `mitm_mismatch_accepted_prop` / [mitm_mismatch_accepted_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L142-L146): normal operation and the MITM hostname-mismatch vulnerability.\n  - `rejects_invalid_cert_prop` / [rejects_invalid_cert_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L154-L158), `rejects_expired_cert_prop` / [rejects_expired_cert_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L166-L170), and `accepts_empty_hostname_prop` / [accepts_empty_hostname_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L180-L184).\n  - `ignores_hostnames_prop` / [ignores_hostnames_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L193-L196), `hostname_independent_prop` / [hostname_independent_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L204-L207), `hostname_swap_prop` / [hostname_swap_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L215-L218), and `validity_comm_prop` / [validity_comm_thm](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L226-L230).\n- **Pre/Post-Condition, PBTs, Correctness & Equivalence**:\n  - [Pre](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L82-L83), [Post_prop](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L235-L247), randomized (`Plausible.Testable.check`) and bounded (`native_decide`) property-based tests ([lines 249\u2013322](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L249-L322)), correctness theorem [unsafe_cert_hostname_correct](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L327-L341), and functional-imperative equivalence theorems [unsafe_cert_hostname_equiv](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L380-L384) and [unsafe_cert_hostname_funext](file:///home/user/lean_project/Veribench/75_unsafeCertHostname.lean#L387-L390).\n",
+      "duration_seconds": 249.614751672,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 37871,
+        "output_tokens": 21019,
+        "thinking_tokens": 7098,
+        "cache_read_tokens": 93490,
+        "total_tokens": 58890
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "2ac5543c0c5c903445d6514debebc649d39e2127e9ad06bdd1ce929da170ee92",
+  "candidate_bytes": 21419
+}

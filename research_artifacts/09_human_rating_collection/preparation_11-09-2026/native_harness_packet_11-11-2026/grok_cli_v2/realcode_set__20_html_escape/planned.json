@@ -1,0 +1,31 @@
+{
+  "task_id": "realcode_set__20_html_escape",
+  "condition_sha256": "8741654014e21c223e7484338ce8c68ff08bf6093a63cc716430c4f714fb9f26",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "20_html_escape.py": "6f39b1bd6ebfb76f6d189a05ae0700a231d1b9101eb6a96388a335736485a04c",
+    "instruction.md": "95cbb6dcc34813e5804d2fba2cb1a0850b79dc132fac7768bf593e64a4d3e772"
+  },
+  "output": "/home/user/lean_project/Veribench/20_html_escape.lean",
+  "model_call_performed": false
+}

@@ -1,0 +1,14 @@
+Created At: 2026-11-16T23:09:35Z
+Completed At: 2026-11-16T23:09:39Z
+Command exited with code 0.
+
+Command output:
+<stdin>:125:21: warning: `List.forIn_yield_eq_foldl` has been deprecated: use `List.idRun_forIn_yield_eq_foldl` instead
+<stdin>:125:48: warning: This simp argument is unused:
+  List.forIn_pure_yield_eq_foldl
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run, List.forIn_yield_eq_foldl, L̵i̵s̵t̵.̵f̵o̵r̵I̵n̵_̵p̵u̵r̵e̵_̵y̵i̵e̵l̵d̵_̵e̵q̵_̵f̵o̵l̵d̵l̵,̵ ̵bind, pure]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'b32encode_equiv' depends on axioms: [propext, Quot.sound]

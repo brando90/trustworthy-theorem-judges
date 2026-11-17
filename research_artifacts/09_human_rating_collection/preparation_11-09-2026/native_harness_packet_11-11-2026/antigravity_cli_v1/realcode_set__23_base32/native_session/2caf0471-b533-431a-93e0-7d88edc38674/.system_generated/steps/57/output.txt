@@ -1,0 +1,34 @@
+Command exited with code 1.
+
+Command output:
+<stdin>:159:105: error: tactic 'rfl' failed, the left-hand side
+  if 3 + 5 ≥ 8 then
+    match decodeLoop cs (val * 32 + i % 32) (3 + 5 - 8) with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 2 ^ (3 + 5 - 8) % 256) :: rest)
+  else decodeLoop cs (val * 32 + i % 32) (3 + 5)
+is not definitionally equal to the right-hand side
+  match decodeLoop cs (val * 32 + i % 32) 0 with
+  | none => none
+  | some rest => some (UInt8.ofNat ((val * 32 + i % 32) % 256) :: rest)
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (if 3 + 5 ≥ 8 then
+      match decodeLoop cs (val * 32 + i % 32) (3 + 5 - 8) with
+      | none => none
+      | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 2 ^ (3 + 5 - 8) % 256) :: rest)
+    else decodeLoop cs (val * 32 + i % 32) (3 + 5)) =
+    match decodeLoop cs (val * 32 + i % 32) 0 with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) % 256) :: rest)
+<stdin>:257:59: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+<stdin>:256:4: error: (deterministic) timeout at `«tactic execution»`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

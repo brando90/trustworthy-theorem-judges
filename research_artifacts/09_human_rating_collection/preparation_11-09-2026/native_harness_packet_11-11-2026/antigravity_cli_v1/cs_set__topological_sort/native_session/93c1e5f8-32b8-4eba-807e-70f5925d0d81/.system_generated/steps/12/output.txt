@@ -1,0 +1,7 @@
+Created At: 2026-11-16T21:34:10Z
+Completed At: 2026-11-16T21:34:14Z
+Command exited with code 0.
+
+Command output:
+@List.mem_permutations : ∀ {α : Type u_1} {s t : List α}, s ∈ t.permutations ↔ s.Perm t
+@List.permutations_nil : ∀ {α : Type u_1}, [].permutations = [[]]

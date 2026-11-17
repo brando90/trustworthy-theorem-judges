@@ -1,0 +1,71 @@
+{
+  "task_id": "cs_set__topological_sort",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "topological_sort.py": "f8b63f6ebf52572f4f8e7e5fc4c41cebee75b8176c79ce6a64bf2ab57b145632",
+    "instruction.md": "d18643805dbd9a3abcca2cb9d5aece2f976f331ffffce85a4f7a18d9ed39625e"
+  },
+  "output": "/home/user/lean_project/Veribench/topological_sort.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-4e34cabdacf4",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794864736.116744,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794865813.074983,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "93c1e5f8-32b8-4eba-807e-70f5925d0d81",
+      "status": "SUCCESS",
+      "response": "Checking Mathlib permutation and sorting lemmas for the Lean 4 formalization.\nChecking `Plausible.Testable.check` configuration options.\nChecking Mathlib lemmas for `List.idxOf` on `List.range`.\nI have completed the Lean 4 formalization of the Python topological sorting program in [topological_sort.lean](file:///home/user/lean_project/Veribench/topological_sort.lean).\n\n### Summary of Formalization\n\n1. **Functional Implementation** ([topological_sort.lean](file:///home/user/lean_project/Veribench/topological_sort.lean#L29-L77)):\n   - `pre`: Checks that every neighbor `v` in `graph` satisfies `v < graph.length`.\n   - `is_topological_order`: Verifies `pre graph`, `order.mergeSort == List.range graph.length`, and `order.idxOf u < order.idxOf v` for every edge `(u, v)`.\n   - `topological_sort`: Searches `(List.range graph.length).permutations` and returns the first candidate satisfying `is_topological_order graph`, or `none` if `graph` is malformed or cyclic.\n   - `check`: Mirrors the Python test harness.\n\n2. **Unit Tests & Property-Based Tests** ([topological_sort.lean](file:///home/user/lean_project/Veribench/topological_sort.lean#L79-L108), [topological_sort.lean](file:///home/user/lean_project/Veribench/topological_sort.lean#L502-L711)):\n   - Unit tests using `#eval` and `example : ... := by native_decide` covering all Python test cases (connected DAGs, disconnected DAGs, empty graph, edgeless graphs, cycles, self-loops, and malformed graphs).\n   - Bounded `native_decide` PBTs and randomized `Plausible.Testable.check` PBTs for all 15 properties and `Post_prop`.\n\n3. **Specifications, Properties, and Proofs** ([topological_sort.lean](file:///home/user/lean_project/Veribench/topological_sort.lean#L110-L500), [topological_sort.lean](file:///home/user/lean_project/Veribench/topological_sort.lean#L713-L735)):\n   - `Pre` and `pre_iff_Pre`, `IsTopologicalOrder` and `is_topological_order_iff`.\n   - Proven properties (`_prop` and `_thm`): `malformed_none`, `soundness`, `vertex_coverage`, `edge_ordering`, `reachability_ordering`, `completeness`, `empty_graph`, `forward_dag`, `edgeless_graph`, `cycle_none`, `self_loop_none`, `two_cycle_none`, `unique_vertex_count`, `index_bijection`, and `first_permutation`.\n   - `Post_prop`, `topological_sort_post`, and `topological_sort_correct : Pre graph \u2192 Post_prop graph`.\n\n4. **Imperative Implementation & Equivalence Proofs** ([topological_sort.lean](file:///home/user/lean_project/Veribench/topological_sort.lean#L737-L892)):\n   - Imperative implementations `pre_imp`, `is_topological_order_imp`, and `topological_sort_imp` using `Id.run do` with mutable state and loops.\n   - Proven equivalence theorems `pre_equiv`, `is_topological_order_equiv`, and `topological_sort_equiv`.\n",
+      "duration_seconds": 1071.995690037,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 161369,
+        "output_tokens": 46001,
+        "thinking_tokens": 18379,
+        "cache_read_tokens": 1911830,
+        "total_tokens": 207370
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "1a4c1fcbb35037dcf17c4a670d479c667d6ef719bee75f1ec8577119558036d2",
+  "candidate_bytes": 39796
+}

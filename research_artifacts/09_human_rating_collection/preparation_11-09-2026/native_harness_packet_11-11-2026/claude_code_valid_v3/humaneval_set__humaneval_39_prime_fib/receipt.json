@@ -1,0 +1,179 @@
+{
+  "task_id": "humaneval_set__humaneval_39_prime_fib",
+  "condition_sha256": "b42e82954164ed1db4a61656256f60d0d0470a7c117e7836a52f0d42c4936959",
+  "command": [
+    "claude",
+    "-p",
+    "--safe-mode",
+    "--dangerously-skip-permissions",
+    "--permission-prompts",
+    "none",
+    "--model",
+    "claude-fable-5-1",
+    "--effort",
+    "max",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--verbose",
+    "--no-chrome",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--tools",
+    "Bash,Read,Write,Edit,Glob,Grep",
+    "--disallowed-tools",
+    "WebSearch,WebFetch,Agent,Task"
+  ],
+  "visible_files": {
+    "humaneval_39_prime_fib.py": "391562d77b03c0491e2b36756c874726f6aa23497b317928f1f3439e10ec039c",
+    "instruction.md": "bed24b87028f02c7a82885bc437ae51b5ce62972a51b300f4478f1a32f583af3"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_39_prime_fib.lean",
+  "model_call_performed": true,
+  "container": "ttj-cc-26160ea2272e",
+  "status": "TERMINAL",
+  "cli_version": "2.1.322 (Claude Code)",
+  "actual_mounts": [],
+  "network": "ttj-native-source-only",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794876713.8384042,
+  "exit_code": 1,
+  "stop_reason": "native_result",
+  "finished_at": 1794877490.1484349,
+  "actual_models": [
+    "<synthetic>",
+    "claude-fable-5-1"
+  ],
+  "observed_total_tokens": 0,
+  "observed_output_tokens": 0,
+  "usage_evidence": {
+    "source": "native_result",
+    "complete": true,
+    "messages_seen": 5,
+    "messages_with_stop": 3,
+    "native_aggregate_usage": {
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 0,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "native_result": {
+    "duration_api_ms": 625183,
+    "stop_reason": "stop_sequence",
+    "session_id": "d4761d53-583a-419e-8a24-f77eb35d0af0",
+    "total_cost_usd": 4.06972475,
+    "usage": {
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 0,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-fable-5-1": {
+        "inputTokens": 66,
+        "outputTokens": 57712,
+        "cacheReadInputTokens": 67379,
+        "cacheCreationInputTokens": 58331,
+        "webSearchRequests": 0,
+        "costUSD": 4.06972475,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 42958,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 58331,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "api_error",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "origin": {
+      "kind": "task-notification",
+      "producer": "session-task",
+      "runId": "0mwjzmngn-883c0832"
+    },
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": true,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": 429,
+    "api_error_origin": "first_party",
+    "api_error": "usage_limit_reached",
+    "result": "You've hit your individual spend limit \u00b7 ask your admin to raise it at https://claude.ai/admin-settings/usage \u00b7 your 5-hour limit resets 5:50am (UTC)",
+    "type": "result",
+    "duration_ms": 649,
+    "uuid": "47c97c53-b790-4967-ad3d-e9e2fb08d624",
+    "queued_turn_count": 0,
+    "result_index": 1,
+    "model_usage_since_last_result": {}
+  },
+  "model_identity_verified": false,
+  "candidate_captured": true,
+  "candidate_sha256": "7fc80632359b5b942ab45b3edcd0c49658e23a48406ad3758c1aa33ab208d2b0",
+  "candidate_bytes": 26755,
+  "token_limit_note": "Observed-response stop; an in-flight response can cross the threshold. Per-response output is separately capped."
+}

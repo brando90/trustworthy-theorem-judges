@@ -1,0 +1,7 @@
+Created At: 2026-11-16T21:58:25Z
+Completed At: 2026-11-16T21:58:29Z
+Command exited with code 0.
+
+Command output:
+sumDigits.induct (motive : ℤ → Prop) (case1 : ∀ x ≤ 0, motive x)
+  (case2 : ∀ (x : ℤ), ¬x ≤ 0 → motive (x / 10) → motive x) (n : ℤ) : motive n

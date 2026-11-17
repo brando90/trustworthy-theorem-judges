@@ -1,722 +1,707 @@
 import Mathlib
-import Plausible
 
 /-!
-# VeriBench – 19_MyPower
+# 19_MyPower
 
-Translation of a Python natural-number power function.
+Lean 4 formalization of the Python `power` program: base raised to a natural exponent.
 
-Python `prog(base, exponent)` returns `base` raised to `exponent` for
-non-negative integers, with the conventions
+Python semantics preserved here:
 
-* `power(n, 0) = 1` for every natural `n` (including `n = 0`),
-* `power(0, n) = 0` for every `n > 0`,
-* `power(0, 0) = 1`.
+- `power(n, 0) = 1` for every natural `n`, and `power(0, 0) = 1` by convention
+- `power(0, n) = 0` for every `n > 0`
+- both arguments must be natural numbers (non-negative integers); otherwise the
+  program raises `ValueError`
+- on the success path the value is computed by repeated multiplication
+  (`result = 1; repeat exponent times: result *= base`), which is unbounded
+  integer arithmetic, matching Python `int`
 
-If either input is negative, Python raises `ValueError`. That partiality is
-modeled by `Except String Nat`: `.error` is the `ValueError` (carrying the
-Python f-string message) and `.ok` is the successful natural-number result.
-The `isinstance(..., int)` conjunct of `pre` is represented by the Lean type
-`Int`; `Pre` records the remaining non-negativity obligation.
+Model:
 
-The functional core is the same accumulator iteration as the Python loop
-(`result = 1; for _ in range(exponent): result *= base`). The imperative
-implementation uses `Id.run do` and mutable state. Both are proved equal to
-`Nat.pow` (and therefore to each other).
+- inputs are `Int` (unbounded, like Python `int`); being an `int` is enforced by the type
+- `Pre` is non-negativity of both arguments
+- `ValueError` is `Except.error` carrying the Python error text
+- `prog` is the functional implementation; `progImp` is the imperative loop
 -/
 
 namespace «19_MyPower»
 
-deriving instance DecidableEq, BEq, Repr for Except
-
-
-/-! ## Implementation -/
-
-/-- Error message matching Python
-`f"Require base,exponent ∈ ℕ (got base={base}, exponent={exponent})"`. -/
+/-- Message matching Python's `ValueError` text. -/
 def errorMsg (base exponent : Int) : String :=
   s!"Require base,exponent ∈ ℕ (got base={base}, exponent={exponent})"
 
-/-- Python `pre`: both arguments are non-negative integers.
-`isinstance` is the `Int` type; this Bool checks `≥ 0`. -/
+/-- Boolean precondition: both inputs are non-negative integers. Mirrors Python `pre`. -/
 def pre (base exponent : Int) : Bool :=
-  decide (base ≥ 0) && decide (exponent ≥ 0)
+  decide (0 ≤ base) && decide (0 ≤ exponent)
 
-/-- Functional core: start from `1` and multiply by `base`, `exponent` times.
-This is the tail-recursive form of the Python accumulator loop.
-In particular `powerNat _ 0 = 1`, so `powerNat 0 0 = 1`. -/
-def powerNat (base exponent : Nat) : Nat :=
-  Nat.rec 1 (fun _ acc => acc * base) exponent
+/-- `base^exponent` by recursion, i.e. repeated multiplication.
 
-/-- Recursion equations of `powerNat`, matching the Python control flow. -/
-theorem powerNat_zero_eq (base : Nat) : powerNat base 0 = 1 := rfl
+`myPower base 0 = 1` for every `base`, including `myPower 0 0 = 1`. -/
+def myPower (base : Nat) : Nat → Nat
+  | 0 => 1
+  | e + 1 => myPower base e * base
 
-theorem powerNat_succ_eq (base e : Nat) :
-    powerNat base (e + 1) = powerNat base e * base := rfl
+/-- Functional translation of Python `prog`.
 
-/-- Python `prog`: return `base^exponent` or raise `ValueError`. -/
-def prog (base exponent : Int) : Except String Nat :=
+Returns `Except.ok (base^exponent)` when both arguments are natural numbers,
+and `Except.error` (the `ValueError`) otherwise. -/
+def prog (base exponent : Int) : Except String Int :=
   if pre base exponent then
-    .ok (powerNat base.toNat exponent.toNat)
+    .ok (↑(myPower base.toNat exponent.toNat))
   else
     .error (errorMsg base exponent)
 
+instance : DecidableEq (Except String Int) := fun a b =>
+  match a, b with
+  | .error x, .error y =>
+    if h : x = y then isTrue (h ▸ rfl) else isFalse (fun he => by cases he; exact h rfl)
+  | .ok x, .ok y =>
+    if h : x = y then isTrue (h ▸ rfl) else isFalse (fun he => by cases he; exact h rfl)
+  | .error _, .ok _ => isFalse (fun h => by cases h)
+  | .ok _, .error _ => isFalse (fun h => by cases h)
 
 /-! ## Unit tests -/
 
--- Basic unit test: `prog(2, 3) == 8`.
 example : prog 2 3 = .ok 8 := by native_decide
-#eval prog 2 3 -- expected: Except.ok 8
-
--- Edge unit test: `prog(0, 0) == 1`.
 example : prog 0 0 = .ok 1 := by native_decide
-#eval prog 0 0 -- expected: Except.ok 1
-
 example : prog 0 5 = .ok 0 := by native_decide
-#eval prog 0 5 -- expected: Except.ok 0
-
-example : prog 5 0 = .ok 1 := by native_decide
-#eval prog 5 0 -- expected: Except.ok 1
-
-example : prog 7 1 = .ok 7 := by native_decide
-#eval prog 7 1 -- expected: Except.ok 7
-
-example : prog 3 4 = .ok 81 := by native_decide
-#eval prog 3 4 -- expected: Except.ok 81
-
-example : prog 10 3 = .ok 1000 := by native_decide
-#eval prog 10 3 -- expected: Except.ok 1000
-
+example : prog 7 0 = .ok 1 := by native_decide
 example : prog 1 8 = .ok 1 := by native_decide
-#eval prog 1 8 -- expected: Except.ok 1
-
+example : prog 3 4 = .ok 81 := by native_decide
+example : prog 10 3 = .ok 1000 := by native_decide
 example : prog 2 10 = .ok 1024 := by native_decide
-#eval prog 2 10 -- expected: Except.ok 1024
-
--- Negative tests: pre-violations must be `ValueError` (modeled by `.error`).
 example : prog (-1) 2 = .error (errorMsg (-1) 2) := by native_decide
-#eval prog (-1) 2 -- expected: Except.error (ValueError message)
-
 example : prog 2 (-1) = .error (errorMsg 2 (-1)) := by native_decide
-#eval prog 2 (-1) -- expected: Except.error (ValueError message)
+example : prog (-3) (-1) = .error (errorMsg (-3) (-1)) := by native_decide
+example : prog (-4) 0 = .error (errorMsg (-4) 0) := by native_decide
+example : myPower 2 3 = 8 := by native_decide
+example : myPower 0 0 = 1 := by native_decide
+example : myPower 0 4 = 0 := by native_decide
 
-example : prog (-3) (-4) = .error (errorMsg (-3) (-4)) := by native_decide
-#eval prog (-3) (-4) -- expected: Except.error (ValueError message)
+#eval prog 2 3
+#eval prog 0 0
+#eval prog 0 5
+#eval prog (-1) 2
+#eval prog 2 (-1)
+#eval myPower 2 10
 
-/-- A negative base is rejected even when the exponent is zero. -/
-example : prog (-5) 0 = .error (errorMsg (-5) 0) := by native_decide
-#eval prog (-5) 0 -- expected: Except.error (ValueError message)
+/-! ## Precondition -/
 
-/-- Mirror of the Python `check` harness. -/
-def check : Bool :=
-  (prog 2 3 == .ok 8) &&
-  (prog 0 0 == .ok 1) &&
-  (prog (-1) 2 == .error (errorMsg (-1) 2)) &&
-  (prog 2 (-1) == .error (errorMsg 2 (-1)))
-
-example : check = true := by native_decide
-#eval check -- expected: true
-
-/-! ## Pre-condition -/
-
-/-- Python `pre` as a proposition: both inputs are natural numbers. -/
-@[reducible] def Pre (base exponent : Int) : Prop :=
+/-- Both arguments are natural numbers: non-negative integers. -/
+def Pre (base exponent : Int) : Prop :=
   0 ≤ base ∧ 0 ≤ exponent
 
-/-! ## Property propositions and theorems -/
+/-! ## Properties and theorems -/
 
-/-- `powerNat` agrees with mathematical exponentiation. -/
-@[reducible] def powerNat_eq_pow_prop (base exponent : Nat) : Prop :=
-  powerNat base exponent = base ^ exponent
-
-@[simp] theorem powerNat_eq_pow (base exponent : Nat) :
-    powerNat base exponent = base ^ exponent := by
-  induction exponent with
-  | zero =>
-    exact powerNat_zero_eq base
-  | succ e ih =>
-    rw [powerNat_succ_eq, ih, Nat.pow_succ]
-
-theorem powerNat_eq_pow_thm (base exponent : Nat) :
-    powerNat_eq_pow_prop base exponent :=
-  powerNat_eq_pow base exponent
-
-/-- `power(n, 0) = 1` for every natural `n`. -/
-@[reducible] def powerNat_zero_prop (base : Nat) : Prop :=
-  powerNat base 0 = 1
-
-theorem powerNat_zero_thm (base : Nat) : powerNat_zero_prop base := by
-  simp [powerNat_zero_prop]
-
-/-- `power(0, n) = 0` for `n > 0`. -/
-@[reducible] def powerNat_zero_base_prop (exponent : Nat) : Prop :=
-  0 < exponent → powerNat 0 exponent = 0
-
-theorem powerNat_zero_base_thm (exponent : Nat) : powerNat_zero_base_prop exponent := by
-  intro h
-  rw [powerNat_eq_pow]
-  exact Nat.zero_pow h
-
-/-- `power(0, 0) = 1` by convention. -/
-@[reducible] def powerNat_zero_zero_prop : Prop :=
-  powerNat 0 0 = 1
-
-theorem powerNat_zero_zero_thm : powerNat_zero_zero_prop := by
-  simp [powerNat_zero_zero_prop]
-
-/-- One more multiplication advances the exponent by one (`result *= base`). -/
-@[reducible] def powerNat_succ_prop (base exponent : Nat) : Prop :=
-  powerNat base (exponent + 1) = powerNat base exponent * base
-
-theorem powerNat_succ_thm (base exponent : Nat) : powerNat_succ_prop base exponent :=
-  powerNat_succ_eq base exponent
-
-/-- `power(n, 1) = n`. -/
-@[reducible] def powerNat_one_exp_prop (base : Nat) : Prop :=
-  powerNat base 1 = base
-
-theorem powerNat_one_exp_thm (base : Nat) : powerNat_one_exp_prop base := by
-  unfold powerNat_one_exp_prop
-  rw [powerNat_eq_pow]
-  exact Nat.pow_one base
-
-/-- `power(1, n) = 1`. -/
-@[reducible] def powerNat_one_base_prop (exponent : Nat) : Prop :=
-  powerNat 1 exponent = 1
-
-theorem powerNat_one_base_thm (exponent : Nat) : powerNat_one_base_prop exponent := by
-  unfold powerNat_one_base_prop
-  rw [powerNat_eq_pow]
-  exact Nat.one_pow exponent
-
-/-- Exponent addition: `b^(m+n) = b^m * b^n`. -/
-@[reducible] def powerNat_add_prop (base m n : Nat) : Prop :=
-  powerNat base (m + n) = powerNat base m * powerNat base n
-
-theorem powerNat_add_thm (base m n : Nat) : powerNat_add_prop base m n := by
-  unfold powerNat_add_prop
-  rw [powerNat_eq_pow, powerNat_eq_pow, powerNat_eq_pow]
-  exact Nat.pow_add base m n
-
-/-- Base multiplication: `(a*b)^n = a^n * b^n`. -/
-@[reducible] def powerNat_mul_base_prop (a b n : Nat) : Prop :=
-  powerNat (a * b) n = powerNat a n * powerNat b n
-
-theorem powerNat_mul_base_thm (a b n : Nat) : powerNat_mul_base_prop a b n := by
-  unfold powerNat_mul_base_prop
-  rw [powerNat_eq_pow, powerNat_eq_pow, powerNat_eq_pow]
-  exact Nat.mul_pow a b n
-
-/-- Exponent multiplication: `b^(m*n) = (b^m)^n`. -/
-@[reducible] def powerNat_mul_exp_prop (base m n : Nat) : Prop :=
-  powerNat base (m * n) = powerNat (powerNat base m) n
-
-theorem powerNat_mul_exp_thm (base m n : Nat) : powerNat_mul_exp_prop base m n := by
-  unfold powerNat_mul_exp_prop
-  rw [powerNat_eq_pow, powerNat_eq_pow, powerNat_eq_pow]
-  exact Nat.pow_mul base m n
-
-
-/-- A positive base stays positive at every exponent. -/
-@[reducible] def powerNat_pos_prop (base exponent : Nat) : Prop :=
-  0 < base → 0 < powerNat base exponent
-
-theorem powerNat_pos_thm (base exponent : Nat) : powerNat_pos_prop base exponent := by
-  intro h
-  rw [powerNat_eq_pow]
-  exact Nat.pow_pos h
-
-/-- Monotonicity in the base. -/
-@[reducible] def powerNat_mono_base_prop (a b n : Nat) : Prop :=
-  a ≤ b → powerNat a n ≤ powerNat b n
-
-theorem powerNat_mono_base_thm (a b n : Nat) : powerNat_mono_base_prop a b n := by
-  intro h
-  rw [powerNat_eq_pow, powerNat_eq_pow]
-  exact Nat.pow_le_pow_left h n
-
-/-- Monotonicity in the exponent, for a positive base.
-This fails for base `0` because `0^0 = 1 > 0 = 0^1`; that edge is specified
-separately by `powerNat_zero_zero_thm` and `powerNat_zero_base_thm`. -/
-@[reducible] def powerNat_mono_exp_prop (base m n : Nat) : Prop :=
-  0 < base → m ≤ n → powerNat base m ≤ powerNat base n
-
-theorem powerNat_mono_exp_thm (base m n : Nat) : powerNat_mono_exp_prop base m n := by
-  intro hb hmn
-  rw [powerNat_eq_pow, powerNat_eq_pow]
-  exact Nat.pow_le_pow_right hb hmn
-
-/-- The Python loop body (`foldl` of `acc * base`, `exponent` times from `1`)
-equals mathematical exponentiation. -/
-@[reducible] def iter_mul_prop (base exponent : Nat) : Prop :=
-  (List.range exponent).foldl (fun acc (_ : Nat) => acc * base) 1 = base ^ exponent
-
-theorem iter_mul_thm (base exponent : Nat) : iter_mul_prop base exponent := by
-  induction exponent with
-  | zero =>
-    simp [iter_mul_prop]
-  | succ e ih =>
-    simp only [iter_mul_prop] at ih ⊢
-    rw [List.range_succ, List.foldl_append, ih]
-    simp [Nat.pow_succ]
-
-/-- The accumulator equations characterise `powerNat`. -/
-@[reducible] def rec_spec_prop (f : Nat → Nat → Nat) : Prop :=
-  (∀ b, f b 0 = 1) ∧ (∀ b e, f b (e + 1) = f b e * b)
-
-@[reducible] def powerNat_rec_spec_prop : Prop :=
-  rec_spec_prop powerNat
-
-theorem powerNat_rec_spec_thm : powerNat_rec_spec_prop := by
-  refine ⟨?_, ?_⟩
-  · intro b; exact powerNat_zero_eq b
-  · intro b e; exact powerNat_succ_eq b e
-
-@[reducible] def powerNat_unique_prop (f : Nat → Nat → Nat) : Prop :=
-  rec_spec_prop f → ∀ b e, f b e = powerNat b e
-
-theorem powerNat_unique_thm (f : Nat → Nat → Nat) : powerNat_unique_prop f := by
-  intro h b e
-  induction e with
-  | zero =>
-    rw [h.1, powerNat_zero_eq]
-  | succ e ih =>
-    rw [h.2, ih, powerNat_succ_eq]
-
-/-- Bool `pre` agrees with propositional `Pre`. -/
-@[reducible] def pre_iff_prop (base exponent : Int) : Prop :=
+/-- The Boolean `pre` agrees with the proposition `Pre`. -/
+def pre_iff_prop (base exponent : Int) : Prop :=
   pre base exponent = true ↔ Pre base exponent
 
 theorem pre_iff_thm (base exponent : Int) : pre_iff_prop base exponent := by
-  unfold pre_iff_prop Pre pre
+  unfold pre_iff_prop pre Pre
   simp [Bool.and_eq_true]
 
-lemma toNat_pos_of_pos {a : Int} (h : 0 < a) : 0 < a.toNat := by
-  have hc : ((a.toNat : Nat) : Int) = a := Int.toNat_of_nonneg (le_of_lt h)
-  refine Nat.pos_of_ne_zero ?_
-  intro hz
-  have : a = 0 := by simpa [hz] using hc.symm
-  exact ne_of_gt h this
+/-- Repeated multiplication agrees with mathematical exponentiation. -/
+def pow_eq_prop (base exponent : Nat) : Prop :=
+  myPower base exponent = base ^ exponent
 
-/-- On admissible inputs, `prog` returns the core accumulator result. -/
-@[reducible] def returns_powerNat_prop (base exponent : Int) : Prop :=
-  Pre base exponent → prog base exponent = .ok (powerNat base.toNat exponent.toNat)
+theorem pow_eq_thm (base exponent : Nat) : pow_eq_prop base exponent := by
+  unfold pow_eq_prop
+  induction exponent with
+  | zero => rfl
+  | succ e ih =>
+    simp only [myPower, Nat.pow_succ, ih]
 
-theorem returns_powerNat_thm (base exponent : Int) : returns_powerNat_prop base exponent := by
+/-- `power(n, 0) = 1` for every natural `n`. -/
+def zero_exp_prop (base : Nat) : Prop :=
+  myPower base 0 = 1
+
+theorem zero_exp_thm (base : Nat) : zero_exp_prop base := by
+  unfold zero_exp_prop
+  rfl
+
+/-- `power(0, n) = 0` for every `n > 0`. -/
+def zero_base_prop (exponent : Nat) : Prop :=
+  0 < exponent → myPower 0 exponent = 0
+
+theorem zero_base_thm (exponent : Nat) : zero_base_prop exponent := by
+  unfold zero_base_prop
   intro h
-  have hp : pre base exponent = true := (pre_iff_thm base exponent).2 h
+  rw [pow_eq_thm, Nat.zero_pow h]
+
+/-- `power(0, 0) = 1` by convention. -/
+def zero_zero_prop : Prop :=
+  myPower 0 0 = 1
+
+theorem zero_zero_thm : zero_zero_prop := by
+  unfold zero_zero_prop
+  rfl
+
+/-- One iteration of `result *= base`. -/
+def succ_prop (base exponent : Nat) : Prop :=
+  myPower base (exponent + 1) = myPower base exponent * base
+
+theorem succ_thm (base exponent : Nat) : succ_prop base exponent := by
+  unfold succ_prop
+  rfl
+
+/-- Exponent `1` returns the base. -/
+def one_exp_prop (base : Nat) : Prop :=
+  myPower base 1 = base
+
+theorem one_exp_thm (base : Nat) : one_exp_prop base := by
+  unfold one_exp_prop
+  simp [myPower]
+
+/-- `1` to any power is `1`. -/
+def one_base_prop (exponent : Nat) : Prop :=
+  myPower 1 exponent = 1
+
+theorem one_base_thm (exponent : Nat) : one_base_prop exponent := by
+  unfold one_base_prop
+  rw [pow_eq_thm, Nat.one_pow]
+
+/-- Exponents add: `b^(m+n) = b^m * b^n`, the loop split into two segments. -/
+def add_exp_prop (base m n : Nat) : Prop :=
+  myPower base (m + n) = myPower base m * myPower base n
+
+theorem add_exp_thm (base m n : Nat) : add_exp_prop base m n := by
+  unfold add_exp_prop
+  rw [pow_eq_thm, pow_eq_thm, pow_eq_thm, Nat.pow_add]
+
+/-- `(b^m)^n = b^(m*n)`. -/
+def pow_mul_prop (base m n : Nat) : Prop :=
+  myPower (myPower base m) n = myPower base (m * n)
+
+theorem pow_mul_thm (base m n : Nat) : pow_mul_prop base m n := by
+  unfold pow_mul_prop
+  calc
+    myPower (myPower base m) n = (myPower base m) ^ n := pow_eq_thm _ _
+    _ = (base ^ m) ^ n := by rw [pow_eq_thm]
+    _ = base ^ (m * n) := by rw [← Nat.pow_mul]
+    _ = myPower base (m * n) := by rw [← pow_eq_thm]
+
+/-- `(a*b)^n = a^n * b^n`. -/
+def mul_base_prop (a b n : Nat) : Prop :=
+  myPower (a * b) n = myPower a n * myPower b n
+
+theorem mul_base_thm (a b n : Nat) : mul_base_prop a b n := by
+  unfold mul_base_prop
+  calc
+    myPower (a * b) n = (a * b) ^ n := pow_eq_thm _ _
+    _ = a ^ n * b ^ n := Nat.mul_pow a b n
+    _ = myPower a n * b ^ n := by rw [← pow_eq_thm]
+    _ = myPower a n * myPower b n := by rw [← pow_eq_thm]
+
+/-- A positive base yields a positive power (including exponent `0`, which is `1`). -/
+def pos_prop (base exponent : Nat) : Prop :=
+  0 < base → 0 < myPower base exponent
+
+theorem pos_thm (base exponent : Nat) : pos_prop base exponent := by
+  unfold pos_prop
+  intro h
+  rw [pow_eq_thm]
+  exact Nat.pow_pos h
+
+/-- Exponentiation is monotone in the base. -/
+def mono_base_prop (a b exponent : Nat) : Prop :=
+  a ≤ b → myPower a exponent ≤ myPower b exponent
+
+theorem mono_base_thm (a b exponent : Nat) : mono_base_prop a b exponent := by
+  unfold mono_base_prop
+  intro h
+  rw [pow_eq_thm, pow_eq_thm]
+  exact Nat.pow_le_pow_left h exponent
+
+/-- For a positive base, exponentiation is monotone in the exponent. -/
+def mono_exp_prop (base e1 e2 : Nat) : Prop :=
+  0 < base → e1 ≤ e2 → myPower base e1 ≤ myPower base e2
+
+theorem mono_exp_thm (base e1 e2 : Nat) : mono_exp_prop base e1 e2 := by
+  unfold mono_exp_prop
+  intro hb hle
+  rw [pow_eq_thm, pow_eq_thm]
+  exact Nat.pow_le_pow_right hb hle
+
+/-- Folding `acc ↦ acc * base` over `range exponent`, from `1`, is the Python loop. -/
+def iter_prop (base exponent : Nat) : Prop :=
+  (List.range exponent).foldl (fun acc (_ : Nat) => acc * base) 1 = myPower base exponent
+
+private theorem foldl_mul_nat (base acc n : Nat) :
+    (List.range n).foldl (fun r (_ : Nat) => r * base) acc = acc * base ^ n := by
+  induction n generalizing acc with
+  | zero => simp [List.range_zero]
+  | succ n ih =>
+    rw [List.range_succ, List.foldl_append, ih]
+    simp [Nat.pow_succ, Nat.mul_assoc]
+
+theorem iter_thm (base exponent : Nat) : iter_prop base exponent := by
+  unfold iter_prop
+  rw [foldl_mul_nat, Nat.one_mul, pow_eq_thm]
+
+/-- On `Pre`, `prog` returns the repeated-multiplication power. -/
+def prog_ok_prop (base exponent : Int) : Prop :=
+  Pre base exponent →
+    prog base exponent = .ok (↑(myPower base.toNat exponent.toNat))
+
+theorem prog_ok_thm (base exponent : Int) : prog_ok_prop base exponent := by
+  unfold prog_ok_prop
+  intro hPre
+  have hiff := pre_iff_thm base exponent
+  unfold pre_iff_prop at hiff
+  have hp : pre base exponent = true := hiff.mpr hPre
   simp [prog, hp]
 
-/-- On admissible inputs, `prog` returns `base.toNat ^ exponent.toNat`. -/
-@[reducible] def returns_nat_pow_prop (base exponent : Int) : Prop :=
-  Pre base exponent → prog base exponent = .ok (base.toNat ^ exponent.toNat)
+private theorem myPower_cast_eq_int_pow (base exponent : Int) (hb : 0 ≤ base) :
+    ((myPower base.toNat exponent.toNat : Nat) : Int) = base ^ exponent.toNat := by
+  rw [pow_eq_thm, Int.natCast_pow, Int.toNat_of_nonneg hb]
 
-theorem returns_nat_pow_thm (base exponent : Int) : returns_nat_pow_prop base exponent := by
-  intro h
-  rw [returns_powerNat_thm base exponent h, powerNat_eq_pow]
-
-/-- The natural result, cast to `Int`, is the integer power `base ^ exponent`. -/
-@[reducible] def returns_int_pow_prop (base exponent : Int) : Prop :=
+/-- On `Pre`, `prog` returns the mathematical integer power `base ^ exponent`. -/
+def prog_math_prop (base exponent : Int) : Prop :=
   Pre base exponent →
-    ((base.toNat ^ exponent.toNat : Nat) : Int) = base ^ exponent.toNat
+    prog base exponent = .ok (base ^ exponent.toNat)
 
-theorem returns_int_pow_thm (base exponent : Int) : returns_int_pow_prop base exponent := by
-  intro h
-  rw [Nat.cast_pow, Int.toNat_of_nonneg h.1]
+theorem prog_math_thm (base exponent : Int) : prog_math_prop base exponent := by
+  unfold prog_math_prop
+  intro hPre
+  have hok := prog_ok_thm base exponent hPre
+  rw [hok]
+  exact congrArg Except.ok (myPower_cast_eq_int_pow base exponent hPre.1)
 
-/-- `power(n, 0) = 1` at the Python `prog` layer (any non-negative base). -/
-@[reducible] def pow_zero_prop (base : Int) : Prop :=
+/-- Python edge: `power(n, 0) = 1` for every natural `n`. -/
+def prog_zero_exp_prop (base : Int) : Prop :=
   0 ≤ base → prog base 0 = .ok 1
 
-theorem pow_zero_thm (base : Int) : pow_zero_prop base := by
+theorem prog_zero_exp_thm (base : Int) : prog_zero_exp_prop base := by
+  unfold prog_zero_exp_prop
   intro hb
-  have hp : pre base 0 = true := (pre_iff_thm base 0).2 ⟨hb, le_refl (0 : Int)⟩
-  simp [prog, hp]
+  have hok := prog_ok_thm base 0 ⟨hb, Int.le_refl 0⟩
+  simpa [myPower] using hok
 
-/-- `power(0, 0) = 1` at the Python `prog` layer. -/
-@[reducible] def zero_pow_zero_prop : Prop :=
-  prog 0 0 = .ok 1
+private theorem toNat_pos_of_pos {n : Int} (h : 0 < n) : 0 < n.toNat := by
+  apply Nat.pos_of_ne_zero
+  intro hz
+  exact absurd (lt_of_lt_of_le h (Int.toNat_eq_zero.mp hz)) (lt_irrefl (0 : Int))
 
-theorem zero_pow_zero_thm : zero_pow_zero_prop := by
-  simpa [zero_pow_zero_prop] using pow_zero_thm 0 (le_refl (0 : Int))
-
-/-- `power(0, n) = 0` for `n > 0` at the Python `prog` layer. -/
-@[reducible] def zero_pow_pos_prop (exponent : Int) : Prop :=
+/-- Python edge: `power(0, n) = 0` for `n > 0`. -/
+def prog_zero_base_prop (exponent : Int) : Prop :=
   0 < exponent → prog 0 exponent = .ok 0
 
-theorem zero_pow_pos_thm (exponent : Int) : zero_pow_pos_prop exponent := by
-  intro hpos
-  have hp : pre 0 exponent = true :=
-    (pre_iff_thm 0 exponent).2 ⟨le_refl (0 : Int), le_of_lt hpos⟩
-  have hposN : 0 < exponent.toNat := toNat_pos_of_pos hpos
-  simp [prog, hp, powerNat_eq_pow, Nat.zero_pow hposN, Int.toNat_zero]
+theorem prog_zero_base_thm (exponent : Int) : prog_zero_base_prop exponent := by
+  unfold prog_zero_base_prop
+  intro he
+  have hPre : Pre 0 exponent := ⟨Int.le_refl 0, le_of_lt he⟩
+  have hok := prog_ok_thm 0 exponent hPre
+  have htn : 0 < exponent.toNat := toNat_pos_of_pos he
+  rw [hok, Int.toNat_zero, pow_eq_thm, Nat.zero_pow htn]
+  rfl
 
-/-- Inputs outside `ℕ` raise `ValueError` with the Python message. -/
-@[reducible] def raises_value_error_prop (base exponent : Int) : Prop :=
-  ¬ Pre base exponent → prog base exponent = .error (errorMsg base exponent)
+/-- Python edge: `power(0, 0) = 1`. -/
+def prog_zero_zero_prop : Prop :=
+  prog 0 0 = .ok 1
 
-theorem raises_value_error_thm (base exponent : Int) :
-    raises_value_error_prop base exponent := by
+theorem prog_zero_zero_thm : prog_zero_zero_prop := by
+  unfold prog_zero_zero_prop
+  simpa using prog_zero_exp_thm 0 (Int.le_refl 0)
+
+/-- Violating `Pre` raises `ValueError`. -/
+def valueError_prop (base exponent : Int) : Prop :=
+  ¬ Pre base exponent →
+    prog base exponent = .error (errorMsg base exponent)
+
+theorem valueError_thm (base exponent : Int) : valueError_prop base exponent := by
+  unfold valueError_prop
   intro hNot
-  have hne : pre base exponent ≠ true := by
-    intro hp
-    exact hNot ((pre_iff_thm base exponent).1 hp)
-  have hpre : pre base exponent = false := eq_false_of_ne_true hne
-  simp [prog, hpre]
+  have hiff := pre_iff_thm base exponent
+  unfold pre_iff_prop at hiff
+  cases hp : pre base exponent with
+  | false => simp [prog, hp]
+  | true => exact absurd (hiff.mp hp) hNot
 
-/-- A negative base always raises, including the exponent-zero case. -/
-@[reducible] def neg_base_errors_prop (base exponent : Int) : Prop :=
+/-- A negative base is rejected, as in the Python tests. -/
+def neg_base_prop (base exponent : Int) : Prop :=
   base < 0 → prog base exponent = .error (errorMsg base exponent)
 
-theorem neg_base_errors_thm (base exponent : Int) : neg_base_errors_prop base exponent := by
+theorem neg_base_thm (base exponent : Int) : neg_base_prop base exponent := by
+  unfold neg_base_prop
   intro hb
-  apply raises_value_error_thm base exponent
+  apply valueError_thm
   intro hPre
-  exact absurd hb (not_lt_of_ge hPre.1)
+  exact absurd hPre.1 (not_le_of_gt hb)
 
-/-- A negative exponent always raises. -/
-@[reducible] def neg_exp_errors_prop (base exponent : Int) : Prop :=
+/-- A negative exponent is rejected, as in the Python tests. -/
+def neg_exp_prop (base exponent : Int) : Prop :=
   exponent < 0 → prog base exponent = .error (errorMsg base exponent)
 
-theorem neg_exp_errors_thm (base exponent : Int) : neg_exp_errors_prop base exponent := by
+theorem neg_exp_thm (base exponent : Int) : neg_exp_prop base exponent := by
+  unfold neg_exp_prop
   intro he
-  apply raises_value_error_thm base exponent
+  apply valueError_thm
   intro hPre
-  exact absurd he (not_lt_of_ge hPre.2)
+  exact absurd hPre.2 (not_le_of_gt he)
 
-/-- Total specification: success computes the power, failure is `ValueError`. -/
-@[reducible] def total_correctness_prop (base exponent : Int) : Prop :=
-  (Pre base exponent → prog base exponent = .ok (base.toNat ^ exponent.toNat))
-  ∧ (¬ Pre base exponent → prog base exponent = .error (errorMsg base exponent))
+/-- The two negative inputs from the Python `check` harness raise `ValueError`. -/
+def bad_inputs_prop : Prop :=
+  prog (-1) 2 = .error (errorMsg (-1) 2) ∧
+  prog 2 (-1) = .error (errorMsg 2 (-1))
 
-theorem total_correctness_thm (base exponent : Int) :
-    total_correctness_prop base exponent := by
-  refine ⟨returns_nat_pow_thm base exponent, raises_value_error_thm base exponent⟩
+theorem bad_inputs_thm : bad_inputs_prop := by
+  unfold bad_inputs_prop
+  refine ⟨?_, ?_⟩
+  · exact neg_base_thm (-1) 2 (by decide)
+  · exact neg_exp_thm 2 (-1) (by decide)
 
+/-- A successful call returns a non-negative integer (a natural number). -/
+def result_nonneg_prop (base exponent : Int) : Prop :=
+  Pre base exponent → ∃ n : Nat, prog base exponent = .ok (↑n)
+
+theorem result_nonneg_thm (base exponent : Int) : result_nonneg_prop base exponent := by
+  unfold result_nonneg_prop
+  intro hPre
+  exact ⟨myPower base.toNat exponent.toNat, prog_ok_thm base exponent hPre⟩
 
 /-! ## Post-condition -/
 
-/-- Successful-call post-condition: the result is the natural power, the
-documented edge cases hold, the integer cast is the integer power, and the
-Python accumulator loop computes that power. -/
-@[reducible] def Post_prop (base exponent : Int) : Prop :=
-  prog base exponent = .ok (powerNat base.toNat exponent.toNat)
-  ∧ prog base exponent = .ok (base.toNat ^ exponent.toNat)
-  ∧ (exponent = 0 → prog base exponent = .ok 1)
-  ∧ (base = 0 ∧ exponent = 0 → prog base exponent = .ok 1)
-  ∧ (base = 0 ∧ 0 < exponent → prog base exponent = .ok 0)
-  ∧ ((base.toNat ^ exponent.toNat : Nat) : Int) = base ^ exponent.toNat
-  ∧ (List.range exponent.toNat).foldl (fun acc (_ : Nat) => acc * base.toNat) 1
-      = base.toNat ^ exponent.toNat
+/-- Success post-condition, required whenever `Pre` holds.
 
-/-! ## Property-based tests -/
+The result is the repeated-multiplication power and the integer power
+`base ^ exponent`, and the three documented edge cases hold. -/
+def Post_prop (base exponent : Int) : Prop :=
+  prog base exponent = .ok (↑(myPower base.toNat exponent.toNat)) ∧
+  prog base exponent = .ok (base ^ exponent.toNat) ∧
+  (exponent = 0 → prog base exponent = .ok 1) ∧
+  (base = 0 ∧ exponent = 0 → prog base exponent = .ok 1) ∧
+  (base = 0 ∧ 0 < exponent → prog base exponent = .ok 0)
 
--- Randomized PBTs (Plausible). Each checks an executable form of a `_prop`.
+/-! ## Property-based tests
 
+Random checks use Plausible on admissible inputs (naturals, or explicitly negative
+integers) so every sample meets the guard. Bounded checks exhaust a small grid,
+including the negative inputs that raise `ValueError`.
+-/
+
+def pbtCfg : Plausible.Configuration where
+  numInst := 25
+  maxSize := 10
+  quiet := true
+
+/-- Integers used by the exhaustive grid, covering negatives and the edges `0` and `0^0`. -/
+def pbtInts : List Int := [0, 1, 2, 3, 4, 5, 6, 7, -1, -2, -3, -4]
+
+-- PBT for pow_eq_prop
 #eval Plausible.Testable.check
-  (∀ base exponent : Nat, powerNat base exponent = base ^ exponent)
-
-#eval Plausible.Testable.check
-  (∀ base : Nat, powerNat base 0 = 1)
-
-#eval Plausible.Testable.check
-  (∀ exponent : Nat, 0 < exponent → powerNat 0 exponent = 0)
-
-#eval Plausible.Testable.check
-  (∀ base exponent : Nat, powerNat base (exponent + 1) = powerNat base exponent * base)
-
-#eval Plausible.Testable.check
-  (∀ base : Nat, powerNat base 1 = base)
-
-#eval Plausible.Testable.check
-  (∀ exponent : Nat, powerNat 1 exponent = 1)
-
-#eval Plausible.Testable.check
-  (∀ base m n : Nat, powerNat base (m + n) = powerNat base m * powerNat base n)
-
-#eval Plausible.Testable.check
-  (∀ a b n : Nat, powerNat (a * b) n = powerNat a n * powerNat b n)
-
-#eval Plausible.Testable.check
-  (∀ base m n : Nat, powerNat base (m * n) = powerNat (powerNat base m) n)
-
-#eval Plausible.Testable.check
-  (∀ base exponent : Nat, 0 < base → 0 < powerNat base exponent)
-
-#eval Plausible.Testable.check
-  (∀ a b n : Nat, a ≤ b → powerNat a n ≤ powerNat b n)
-
-#eval Plausible.Testable.check
-  (∀ base m n : Nat, 0 < base → m ≤ n → powerNat base m ≤ powerNat base n)
-
-#eval Plausible.Testable.check
-  (∀ base exponent : Nat,
-    (List.range exponent).foldl (fun acc (_ : Nat) => acc * base) 1 = base ^ exponent)
-
-#eval Plausible.Testable.check
-  (∀ b e : Int, pre b e = true ↔ 0 ≤ b ∧ 0 ≤ e)
-
-#eval Plausible.Testable.check
-  (∀ base exponent : Int, base < 0 → prog base exponent = .error (errorMsg base exponent))
-
-#eval Plausible.Testable.check
-  (∀ base exponent : Int,
-    exponent < 0 → prog base exponent = .error (errorMsg base exponent))
-
--- Bounded exhaustive PBTs.
-
-example : (List.range 30).all (fun b => powerNat b 0 == 1) = true := by native_decide
-
-example : (List.range 30).all (fun e => decide (0 < e → powerNat 0 e = 0)) = true := by
-  native_decide
-
-example : decide powerNat_zero_zero_prop = true := by native_decide
-
-example : (List.range 15).all (fun b =>
-    (List.range 12).all (fun e =>
-      powerNat b (e + 1) == powerNat b e * b)) = true := by native_decide
-
-example : (List.range 30).all (fun b => powerNat b 1 == b) = true := by native_decide
-
-example : (List.range 30).all (fun e => powerNat 1 e == 1) = true := by native_decide
-
-example : (List.range 10).all (fun b =>
-    (List.range 10).all (fun m =>
-      (List.range 10).all (fun n =>
-        powerNat b (m + n) == powerNat b m * powerNat b n))) = true := by native_decide
-
-example : (List.range 8).all (fun a =>
-    (List.range 8).all (fun b =>
-      (List.range 8).all (fun n =>
-        powerNat (a * b) n == powerNat a n * powerNat b n))) = true := by native_decide
-
-example : (List.range 8).all (fun b =>
-    (List.range 8).all (fun m =>
-      (List.range 6).all (fun n =>
-        powerNat b (m * n) == powerNat (powerNat b m) n))) = true := by native_decide
-
-example : (List.range 15).all (fun b =>
-    (List.range 10).all (fun e =>
-      decide (0 < b → 0 < powerNat b e))) = true := by native_decide
-
-example : (List.range 10).all (fun a =>
-    (List.range 10).all (fun b =>
-      (List.range 6).all (fun n =>
-        decide (a ≤ b → powerNat a n ≤ powerNat b n)))) = true := by native_decide
-
-example : (List.range 8).all (fun b =>
-    (List.range 8).all (fun m =>
-      (List.range 8).all (fun n =>
-        decide (0 < b → m ≤ n → powerNat b m ≤ powerNat b n)))) = true := by native_decide
-
-example : (List.range 12).all (fun b =>
-    (List.range 12).all (fun e =>
-      (List.range e).foldl (fun acc _ => acc * b) 1 == b ^ e)) = true := by native_decide
+  (∀ base exponent : Nat, myPower base exponent = base ^ exponent) pbtCfg
 
 example : (List.range 20).all (fun b =>
-    (List.range 20).all (fun e =>
-      powerNat b e == b ^ e)) = true := by native_decide
+    (List.range 8).all (fun e => myPower b e == b ^ e)) = true := by native_decide
 
-/-- Executable form of `powerNat_rec_spec_prop`. -/
-example : (List.range 20).all (fun b => powerNat b 0 == 1) &&
-    (List.range 12).all (fun b =>
-      (List.range 12).all (fun e => powerNat b (e + 1) == powerNat b e * b)) = true := by
+-- PBT for zero_exp_prop
+#eval Plausible.Testable.check (∀ base : Nat, myPower base 0 = 1) pbtCfg
+
+example : (List.range 40).all (fun b => myPower b 0 == 1) = true := by native_decide
+
+-- PBT for zero_base_prop
+#eval Plausible.Testable.check (∀ exponent : Nat, myPower 0 (exponent + 1) = 0) pbtCfg
+
+example : (List.range 40).all (fun e => e == 0 || myPower 0 e == 0) = true := by native_decide
+
+-- PBT for zero_zero_prop (single conventional point)
+example : myPower 0 0 == 1 := by native_decide
+
+-- PBT for succ_prop
+#eval Plausible.Testable.check
+  (∀ base exponent : Nat, myPower base (exponent + 1) = myPower base exponent * base) pbtCfg
+
+example : (List.range 15).all (fun b =>
+    (List.range 8).all (fun e => myPower b (e + 1) == myPower b e * b)) = true := by native_decide
+
+-- PBT for one_exp_prop
+#eval Plausible.Testable.check (∀ base : Nat, myPower base 1 = base) pbtCfg
+
+example : (List.range 40).all (fun b => myPower b 1 == b) = true := by native_decide
+
+-- PBT for one_base_prop
+#eval Plausible.Testable.check (∀ exponent : Nat, myPower 1 exponent = 1) pbtCfg
+
+example : (List.range 40).all (fun e => myPower 1 e == 1) = true := by native_decide
+
+-- PBT for add_exp_prop
+#eval Plausible.Testable.check
+  (∀ base m n : Nat, myPower base (m + n) = myPower base m * myPower base n) pbtCfg
+
+example : (List.range 8).all (fun b =>
+    (List.range 6).all (fun m =>
+      (List.range 6).all (fun n => myPower b (m + n) == myPower b m * myPower b n))) = true := by
   native_decide
 
--- PBT: not executable (powerNat_unique_prop quantifies over all functions
--- `Nat → Nat → Nat`; function equality is not decidable and there is no
--- sampler for arbitrary functions). The theorem is proved above.
+-- PBT for pow_mul_prop
+#eval Plausible.Testable.check
+  (∀ base m n : Nat, myPower (myPower base m) n = myPower base (m * n)) pbtCfg
 
-/-- Small integers for bounded tests of the partial `Int` interface. -/
-def pbtInts : List Int := (List.range 15).map fun n => (n : Int) - 7
-
-example : pbtInts.all (fun b =>
-    pbtInts.all (fun e =>
-      decide (pre b e = true ↔ 0 ≤ b ∧ 0 ≤ e))) = true := by native_decide
-
-example : pbtInts.all (fun b =>
-    decide (0 ≤ b → prog b 0 = .ok 1)) = true := by native_decide
-
-example : decide zero_pow_zero_prop = true := by native_decide
-
-example : pbtInts.all (fun e =>
-    decide (0 < e → prog 0 e = .ok 0)) = true := by native_decide
-
-example : pbtInts.all (fun b =>
-    pbtInts.all (fun e =>
-      decide (¬ (0 ≤ b ∧ 0 ≤ e) → prog b e = .error (errorMsg b e)))) = true := by
+example : (List.range 6).all (fun b =>
+    (List.range 4).all (fun m =>
+      (List.range 4).all (fun n => myPower (myPower b m) n == myPower b (m * n)))) = true := by
   native_decide
 
-example : pbtInts.all (fun b =>
-    pbtInts.all (fun e =>
-      decide (0 ≤ b → 0 ≤ e → prog b e = .ok (b.toNat ^ e.toNat)))) = true := by
+-- PBT for mul_base_prop
+#eval Plausible.Testable.check
+  (∀ a b n : Nat, myPower (a * b) n = myPower a n * myPower b n) pbtCfg
+
+example : (List.range 6).all (fun a =>
+    (List.range 6).all (fun b =>
+      (List.range 5).all (fun n => myPower (a * b) n == myPower a n * myPower b n))) = true := by
   native_decide
 
-example : pbtInts.all (fun b =>
-    pbtInts.all (fun e =>
-      decide (0 ≤ b → 0 ≤ e → prog b e = .ok (powerNat b.toNat e.toNat)))) = true := by
+-- PBT for pos_prop
+#eval Plausible.Testable.check (∀ base exponent : Nat, 0 < myPower (base + 1) exponent) pbtCfg
+
+example : (List.range 12).all (fun b =>
+    (List.range 8).all (fun e => 0 < myPower (b + 1) e)) = true := by native_decide
+
+-- PBT for mono_base_prop
+#eval Plausible.Testable.check
+  (∀ a k exponent : Nat, myPower a exponent ≤ myPower (a + k) exponent) pbtCfg
+
+example : (List.range 8).all (fun a =>
+    (List.range 6).all (fun k =>
+      (List.range 5).all (fun e => myPower a e ≤ myPower (a + k) e))) = true := by native_decide
+
+-- PBT for mono_exp_prop
+#eval Plausible.Testable.check
+  (∀ base e1 k : Nat, myPower (base + 1) e1 ≤ myPower (base + 1) (e1 + k)) pbtCfg
+
+example : (List.range 6).all (fun b =>
+    (List.range 5).all (fun e1 =>
+      (List.range 5).all (fun k => myPower (b + 1) e1 ≤ myPower (b + 1) (e1 + k)))) = true := by
   native_decide
 
-example : pbtInts.all (fun b =>
-    pbtInts.all (fun e =>
-      decide (0 ≤ b → 0 ≤ e →
-        ((b.toNat ^ e.toNat : Nat) : Int) = b ^ e.toNat))) = true := by native_decide
+-- PBT for iter_prop
+#eval Plausible.Testable.check
+  (∀ base exponent : Nat,
+    (List.range exponent).foldl (fun acc (_ : Nat) => acc * base) 1 = myPower base exponent)
+  pbtCfg
+
+example : (List.range 12).all (fun b =>
+    (List.range 8).all (fun e =>
+      (List.range e).foldl (fun acc (_ : Nat) => acc * b) 1 == myPower b e)) = true := by
+  native_decide
+
+-- PBT for pre_iff_prop
+#eval Plausible.Testable.check
+  (∀ base exponent : Int, pre base exponent = true ↔ 0 ≤ base ∧ 0 ≤ exponent) pbtCfg
 
 example : pbtInts.all (fun b =>
-    pbtInts.all (fun e =>
-      decide (b < 0 → prog b e = .error (errorMsg b e)))) = true := by native_decide
+    pbtInts.all (fun e => pre b e == decide (0 ≤ b ∧ 0 ≤ e))) = true := by native_decide
+
+-- PBT for prog_ok_prop, on the natural numbers (the `Pre` domain)
+#eval Plausible.Testable.check
+  (∀ base exponent : Nat,
+    prog (base : Int) (exponent : Int) = .ok (↑(myPower base exponent))) pbtCfg
+
+example : (List.range 12).all (fun b =>
+    (List.range 8).all (fun e =>
+      prog (b : Int) (e : Int) == .ok (↑(myPower b e)))) = true := by native_decide
+
+-- PBT for prog_math_prop
+#eval Plausible.Testable.check
+  (∀ base exponent : Nat,
+    prog (base : Int) (exponent : Int) = .ok ((base : Int) ^ exponent)) pbtCfg
+
+example : (List.range 12).all (fun b =>
+    (List.range 8).all (fun e =>
+      prog (b : Int) (e : Int) == .ok ((b : Int) ^ e))) = true := by native_decide
+
+-- PBT for valueError_prop: every negative pair is rejected with the Python message
+#eval Plausible.Testable.check
+  (∀ base exponent : Nat,
+    prog (-(base + 1) : Int) (exponent : Int) =
+      .error (errorMsg (-(base + 1) : Int) (exponent : Int)) ∧
+    prog (base : Int) (-(exponent + 1) : Int) =
+      .error (errorMsg (base : Int) (-(exponent + 1) : Int)) ∧
+    prog (-(base + 1) : Int) (-(exponent + 1) : Int) =
+      .error (errorMsg (-(base + 1) : Int) (-(exponent + 1) : Int))) pbtCfg
 
 example : pbtInts.all (fun b =>
     pbtInts.all (fun e =>
-      decide (e < 0 → prog b e = .error (errorMsg b e)))) = true := by native_decide
+      pre b e || prog b e == .error (errorMsg b e))) = true := by native_decide
 
-/-- Executable Boolean form of `Post_prop` on admissible inputs. -/
-def postBool (base exponent : Int) : Bool :=
-  decide (prog base exponent = .ok (powerNat base.toNat exponent.toNat))
-  && decide (prog base exponent = .ok (base.toNat ^ exponent.toNat))
-  && decide (exponent = 0 → prog base exponent = .ok 1)
-  && decide (base = 0 ∧ exponent = 0 → prog base exponent = .ok 1)
-  && decide (base = 0 ∧ 0 < exponent → prog base exponent = .ok 0)
-  && decide (((base.toNat ^ exponent.toNat : Nat) : Int) = base ^ exponent.toNat)
-  && decide ((List.range exponent.toNat).foldl (fun acc (_ : Nat) => acc * base.toNat) 1
-        = base.toNat ^ exponent.toNat)
+-- PBT for neg_base_prop
+#eval Plausible.Testable.check
+  (∀ base exponent : Nat,
+    prog (-(base + 1) : Int) (exponent : Int) =
+      .error (errorMsg (-(base + 1) : Int) (exponent : Int))) pbtCfg
+
+example : (List.range 8).all (fun b =>
+    pbtInts.all (fun e =>
+      prog (-(b + 1) : Int) e == .error (errorMsg (-(b + 1) : Int) e))) = true := by native_decide
+
+-- PBT for neg_exp_prop
+#eval Plausible.Testable.check
+  (∀ base exponent : Nat,
+    prog (base : Int) (-(exponent + 1) : Int) =
+      .error (errorMsg (base : Int) (-(exponent + 1) : Int))) pbtCfg
 
 example : pbtInts.all (fun b =>
-    pbtInts.all (fun e =>
-      !(pre b e) || postBool b e)) = true := by native_decide
+    (List.range 8).all (fun e =>
+      prog b (-(e + 1) : Int) == .error (errorMsg b (-(e + 1) : Int)))) = true := by native_decide
+
+-- PBT for prog_zero_exp_prop
+#eval Plausible.Testable.check
+  (∀ base : Nat, prog (base : Int) 0 = .ok 1) pbtCfg
+
+example : (List.range 30).all (fun b => prog (b : Int) 0 == .ok 1) = true := by native_decide
+
+-- PBT for prog_zero_base_prop
+#eval Plausible.Testable.check
+  (∀ exponent : Nat, prog 0 ((exponent + 1 : Nat) : Int) = .ok 0) pbtCfg
+
+example : (List.range 20).all (fun e => e == 0 || prog 0 (e : Int) == .ok 0) = true := by
+  native_decide
+
+-- PBT for prog_zero_zero_prop
+example : prog 0 0 == .ok 1 := by native_decide
+
+-- PBT for bad_inputs_prop
+example : (prog (-1) 2 == .error (errorMsg (-1) 2) &&
+    prog 2 (-1) == .error (errorMsg 2 (-1))) = true := by native_decide
+
+-- PBT for result_nonneg_prop
+#eval Plausible.Testable.check
+  (∀ base exponent : Nat,
+    0 ≤ ((myPower base exponent : Nat) : Int) ∧
+      prog (base : Int) (exponent : Int) = .ok (↑(myPower base exponent))) pbtCfg
+
+example : (List.range 12).all (fun b =>
+    (List.range 8).all (fun e =>
+      match prog (b : Int) (e : Int) with
+      | .ok n => decide (0 ≤ n)
+      | .error _ => false)) = true := by native_decide
+
+/-- Executable form of `Post_prop` on one pair. Used by the grid test below. -/
+def checkPost (base exponent : Int) : Bool :=
+  let r := prog base exponent
+  (r == .ok (↑(myPower base.toNat exponent.toNat))) &&
+  (r == .ok (base ^ exponent.toNat)) &&
+  (!(exponent == 0) || r == .ok 1) &&
+  (!(base == 0 && exponent == 0) || r == .ok 1) &&
+  (!(base == 0 && decide (0 < exponent)) || r == .ok 0)
+
+-- PBT for Post_prop, quantified over natural inputs (all of which satisfy `Pre`)
+#eval Plausible.Testable.check
+  (∀ base exponent : Nat,
+    prog (base : Int) (exponent : Int) = .ok (↑(myPower base exponent)) ∧
+    prog (base : Int) (exponent : Int) = .ok ((base : Int) ^ exponent) ∧
+    (exponent = 0 → prog (base : Int) (exponent : Int) = .ok 1) ∧
+    (base = 0 ∧ exponent = 0 → prog (base : Int) (exponent : Int) = .ok 1) ∧
+    (base = 0 ∧ 0 < exponent → prog (base : Int) (exponent : Int) = .ok 0)) pbtCfg
 
 example : pbtInts.all (fun b =>
-    pbtInts.all (fun e =>
-      decide (total_correctness_prop b e))) = true := by native_decide
+    pbtInts.all (fun e => !(pre b e) || checkPost b e)) = true := by native_decide
 
--- Success-path Int PBT is the bounded `pbtInts` / `postBool` check above.
--- An unrestricted Plausible sample can build enormous powers.
+/-! ## Correctness: Pre → Post -/
 
-
-/-! ## Correctness theorem -/
-
-theorem correctness_thm (base exponent : Int) (h : Pre base exponent) :
+theorem correctness_thm (base exponent : Int) (hPre : Pre base exponent) :
     Post_prop base exponent := by
   unfold Post_prop
-  have hprogNat : prog base exponent = .ok (powerNat base.toNat exponent.toNat) :=
-    returns_powerNat_thm base exponent h
-  have hprog : prog base exponent = .ok (base.toNat ^ exponent.toNat) :=
-    returns_nat_pow_thm base exponent h
-  have hcast : ((base.toNat ^ exponent.toNat : Nat) : Int) = base ^ exponent.toNat :=
-    returns_int_pow_thm base exponent h
-  have hfold :
-      (List.range exponent.toNat).foldl (fun acc (_ : Nat) => acc * base.toNat) 1
-        = base.toNat ^ exponent.toNat :=
-    iter_mul_thm base.toNat exponent.toNat
-  refine ⟨hprogNat, hprog, ?_, ?_, ?_, hcast, hfold⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · exact prog_ok_thm base exponent hPre
+  · exact prog_math_thm base exponent hPre
   · intro hz
-    rw [hprog, hz]
-    simp [Int.toNat_zero]
-  · intro ⟨hb, he⟩
-    rw [hprog, hb, he]
-    simp [Int.toNat_zero]
-  · intro ⟨hb, he⟩
-    rw [hprog, hb]
-    have hpos : 0 < exponent.toNat := toNat_pos_of_pos he
-    simp [Nat.zero_pow hpos, Int.toNat_zero]
+    subst hz
+    exact prog_zero_exp_thm base hPre.1
+  · intro h
+    rcases h with ⟨hb, hz⟩
+    subst hb hz
+    exact prog_zero_zero_thm
+  · intro h
+    rcases h with ⟨hb, he⟩
+    subst hb
+    exact prog_zero_base_thm exponent he
 
 /-! ## Imperative implementation -/
 
-/-- Imperative core: the Python loop, using mutable state inside `Id.run`. -/
-def powerNatImp (base exponent : Nat) : Nat :=
-  Id.run do
-    if exponent == 0 then
-      return 1
-    let mut result : Nat := 1
-    for _ in List.range exponent do
-      result := result * base
-    return result
+/-- Imperative translation of Python `prog`.
 
-/-- Imperative Python `prog`: reject non-naturals, otherwise run the loop. -/
-def progImp (base exponent : Int) : Except String Nat :=
-  Id.run do
-    if !(pre base exponent) then
-      return .error (errorMsg base exponent)
-    let b := base.toNat
-    let e := exponent.toNat
-    if e == 0 then
-      return .ok 1
-    let mut result : Nat := 1
-    for _ in List.range e do
-      result := result * b
-    return .ok result
+The `pre` check and the `exponent == 0` short-circuit match the Python control
+flow. The loop is `result = 1` followed by `exponent` updates `result *= base`. -/
+def progImp (base exponent : Int) : Except String Int :=
+  if !pre base exponent then
+    .error (errorMsg base exponent)
+  else if exponent == 0 then
+    .ok 1
+  else
+    Id.run do
+      let mut result : Int := 1
+      for _ in List.range exponent.toNat do
+        result := result * base
+      return .ok result
 
 /-! ## Imperative tests -/
 
-example : powerNatImp 2 3 = 8 := by native_decide
-#eval powerNatImp 2 3 -- expected: 8
-
-example : powerNatImp 0 0 = 1 := by native_decide
-#eval powerNatImp 0 0 -- expected: 1
-
-example : powerNatImp 0 5 = 0 := by native_decide
-#eval powerNatImp 0 5 -- expected: 0
-
-example : powerNatImp 7 1 = 7 := by native_decide
-#eval powerNatImp 7 1 -- expected: 7
-
-example : powerNatImp 3 4 = 81 := by native_decide
-#eval powerNatImp 3 4 -- expected: 81
-
 example : progImp 2 3 = .ok 8 := by native_decide
-#eval progImp 2 3 -- expected: Except.ok 8
-
 example : progImp 0 0 = .ok 1 := by native_decide
-#eval progImp 0 0 -- expected: Except.ok 1
-
-example : progImp 0 4 = .ok 0 := by native_decide
-#eval progImp 0 4 -- expected: Except.ok 0
-
-example : progImp 5 0 = .ok 1 := by native_decide
-#eval progImp 5 0 -- expected: Except.ok 1
-
+example : progImp 0 5 = .ok 0 := by native_decide
+example : progImp 7 0 = .ok 1 := by native_decide
+example : progImp 3 4 = .ok 81 := by native_decide
+example : progImp 2 10 = .ok 1024 := by native_decide
 example : progImp (-1) 2 = .error (errorMsg (-1) 2) := by native_decide
-#eval progImp (-1) 2 -- expected: Except.error (ValueError message)
-
 example : progImp 2 (-1) = .error (errorMsg 2 (-1)) := by native_decide
-#eval progImp 2 (-1) -- expected: Except.error (ValueError message)
+example : progImp (-3) (-1) = .error (errorMsg (-3) (-1)) := by native_decide
+example : progImp (-4) 0 = .error (errorMsg (-4) 0) := by native_decide
+
+#eval progImp 2 3
+#eval progImp 0 0
+#eval progImp (-1) 2
+#eval progImp 2 (-1)
+#eval progImp 10 3
+
+/-! ## Equivalence: functional = imperative -/
+
+/-- `acc * base`, repeated `n` times, as the fold performed by the imperative loop. -/
+def loopMul (base : Int) (n : Nat) : Int :=
+  (List.range n).foldl (fun r (_ : Nat) => r * base) 1
+
+private theorem foldl_mul (base acc : Int) (n : Nat) :
+    (List.range n).foldl (fun r (_ : Nat) => r * base) acc = acc * base ^ n := by
+  induction n generalizing acc with
+  | zero => simp [List.range_zero]
+  | succ n ih =>
+    rw [List.range_succ, List.foldl_append, ih]
+    simp [Int.pow_succ, Int.mul_assoc]
+
+private theorem loopMul_eq_pow (base : Int) (n : Nat) : loopMul base n = base ^ n := by
+  unfold loopMul
+  rw [foldl_mul, Int.one_mul]
+
+private theorem progImp_char (base exponent : Int) :
+    progImp base exponent =
+      if pre base exponent then
+        if exponent == 0 then
+          .ok 1
+        else
+          .ok (loopMul base exponent.toNat)
+      else
+        .error (errorMsg base exponent) := by
+  unfold progImp loopMul
+  cases pre base exponent <;> cases exponent == 0 <;>
+    (dsimp [Bool.not]
+     try simp only [Id.run_pure, pure_bind, List.forIn_pure_yield_eq_foldl])
+
+/-- `prog` and `progImp` agree on every integer input, including `ValueError` cases. -/
+theorem equiv_thm (base exponent : Int) : prog base exponent = progImp base exponent := by
+  rw [progImp_char]
+  cases hp : pre base exponent
+  · simp [prog, hp]
+  · have hiff := pre_iff_thm base exponent
+    unfold pre_iff_prop at hiff
+    have hb : 0 ≤ base := (hiff.mp hp).1
+    have hcast := myPower_cast_eq_int_pow base exponent hb
+    cases he : exponent == 0
+    · simp [prog, hp, hcast, loopMul_eq_pow]
+    · have hexp : exponent = 0 := beq_iff_eq.mp he
+      subst hexp
+      simp [prog, hp, myPower]
 
 example : pbtInts.all (fun b =>
     pbtInts.all (fun e => prog b e == progImp b e)) = true := by native_decide
-
-/-! ## Equivalence theorem -/
-
-theorem powerNatImp_eq_fold (base exponent : Nat) :
-    powerNatImp base exponent =
-      (List.range exponent).foldl (fun acc (_ : Nat) => acc * base) 1 := by
-  simp [powerNatImp]
-  by_cases h : exponent = 0
-  · simp [h]
-  · simp [h]
-
-theorem powerNat_equivalence_thm (base exponent : Nat) :
-    powerNat base exponent = powerNatImp base exponent := by
-  rw [powerNat_eq_pow_thm, powerNatImp_eq_fold, iter_mul_thm]
-
-/-- Functional `prog` and imperative `progImp` agree on every integer input,
-including the `ValueError` branch. -/
-theorem equivalence_thm (base exponent : Int) :
-    prog base exponent = progImp base exponent := by
-  simp [prog, progImp]
-  by_cases h : pre base exponent = true
-  · simp [h]
-    by_cases he : exponent.toNat = 0
-    · simp [he]
-    · have hexp : 0 ≤ exponent := by
-        simp [pre] at h
-        exact h.2
-      have hnot : ¬ exponent ≤ 0 := by
-        intro hle
-        have heq : exponent = 0 := le_antisymm hle hexp
-        apply he
-        simp [heq]
-      simp [hnot]
-      exact (iter_mul_thm base.toNat exponent.toNat).symm
-  · simp [h]
 
 end «19_MyPower»

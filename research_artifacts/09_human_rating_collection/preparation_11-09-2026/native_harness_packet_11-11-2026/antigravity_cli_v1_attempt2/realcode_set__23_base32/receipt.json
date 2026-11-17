@@ -1,0 +1,72 @@
+{
+  "task_id": "realcode_set__23_base32",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "23_base32.py": "dc4bc7238f984eccdcbc4824be46e876896849db5f1e64e49d5283199368549b",
+    "instruction.md": "dc3733926a27eb6b9837e41f2da68c582bd573bcd34b7c066b9b7e4c9a4bab7e"
+  },
+  "output": "/home/user/lean_project/Veribench/23_base32.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-15564f390285",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794869648.5867689,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794871132.716737,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "6e85abe0-3bcb-48c2-88ad-a31280ba6405",
+      "status": "SUCCESS",
+      "response": "I have written the initial formalization in [23_base32.lean](file:///home/user/lean_project/Veribench/23_base32.lean) and launched the Lean compiler to check it; I will wait for the compilation task to finish and then address the diagnostics.\nI have applied the fixes to [23_base32.lean](file:///home/user/lean_project/Veribench/23_base32.lean) and launched the Lean compiler; I will wait for it to finish.\nI have launched a verification check to inspect the axioms used by all theorems in [23_base32.lean](file:///home/user/lean_project/Veribench/23_base32.lean) and will wait for it to finish.\nI have translated the Python Base32 encoder and decoder into a complete, verified Lean 4 formalization at [23_base32.lean](file:///home/user/lean_project/Veribench/23_base32.lean).\n\n### Summary of Formalization\n\n1. **Functional Implementation** ([23_base32.lean](file:///home/user/lean_project/Veribench/23_base32.lean#L35-L202)):\n   - Defined `Bytes := List UInt8`, the Base32 alphabet `b32alphabet` / `b32Char`, reverse lookup `revAlphabet`, 40-bit big-endian chunk packing `chunkVal` / `encodeChunk5`, padding logic `padCount` / `fixPadding`, and `b32encode` / `benchmark_b32encode`.\n   - Defined `toUpperByte`, `toLowerByte`, `applyMap01Byte`, `rstripEq`, `preprocessDecode`, `decodeChars`, option-valued `b32decode?` (returning `none` on non-Base32 characters), total `b32decode` / `benchmark_b32decode`, and `check`.\n\n2. **Unit Tests & Property-Based Tests** ([23_base32.lean](file:///home/user/lean_project/Veribench/23_base32.lean#L204-L227), [23_base32.lean](file:///home/user/lean_project/Veribench/23_base32.lean#L868-L934)):\n   - Verified all unit tests from the Python `check` suite via `by native_decide` and `#eval`.\n   - Added randomized Plausible PBTs (`#eval Plausible.Testable.check ...`) and bounded exhaustive tests for every property proposition and the full post-condition.\n\n3. **Specifications & Proven Theorems** ([23_base32.lean](file:///home/user/lean_project/Veribench/23_base32.lean#L229-L948)):\n   - `Pre` and `pre_holds`: Pre-condition predicate for byte sequences.\n   - `encode_empty_prop` / `encode_empty_thm`: Empty byte list behavior and characterization `b32encode s = [] \u2194 s = []`.\n   - `encode_length_prop` / `encode_length_thm`: Output length formula `(b32encode s).length = ((s.length + 4) / 5) * 8` and divisibility `(b32encode s).length % 8 = 0`.\n   - `encode_valid_chars_prop` / `encode_valid_chars_thm`: Output characters belong to `_b32alphabet` or `'='`, are valid ASCII (`< 128`), and satisfy `isValidBase32 (b32encode s) false none = true`.\n   - `encode_padding_prop` / `encode_padding_thm`: Exact decomposition into unpadded Base32 digits followed by `padCount (s.length % 5)` `'='` bytes, and exact recovery via `rstripEq`.\n   - `encode_append_mult5_prop` / `encode_append_mult5_thm`: 5-byte block homomorphism (`s1.length % 5 = 0 \u2192 b32encode (s1 ++ s2) = b32encode s1 ++ b32encode s2`).\n   - `decode_encode_roundtrip_prop` / `decode_encode_roundtrip_thm`: Full round-trip left-inverse proofs `b32decode? (b32encode s) false none = some s` and `b32decode (b32encode s) false none = s`.\n   - `encode_injective_prop` / `encode_injective_thm`: Injectivity of `b32encode`.\n   - `decode_casefold_prop` / `decode_casefold_thm`: Case-insensitive decoding on normal and lowercased encodings.\n   - `decode_map01_prop` / `decode_map01_thm`: Equivalence of `map01` parameter handling with `'0' \u2192 'O'` and `'1' \u2192 m` pre-mapping.\n   - `decode_valid_length_prop` / `decode_valid_length_thm`: Error characterization (`b32decode? s casefold map01 = none \u2194 isValidBase32 s casefold map01 = false`) and decoded output length formula.\n   - `Post_prop` & `correctness_thm`: Main correctness theorem `Pre s \u2192 Post_prop s`.\n\n4. **Imperative Implementation & Equivalence** ([23_base32.lean](file:///home/user/lean_project/Veribench/23_base32.lean#L950-L1149)):\n   - Implemented `b32encode_imp`, `b32decode?_imp`, and `b32decode_imp` using `Id.run do` with mutable state and proven `b32encode_equiv_thm`, `b32decode?_equiv_thm`, and `b32decode_equiv_thm`.\n",
+      "duration_seconds": 1478.697704962,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 189759,
+        "output_tokens": 93462,
+        "thinking_tokens": 34784,
+        "cache_read_tokens": 2973620,
+        "total_tokens": 283221
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "oauth2.googleapis.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "7577ec3b9613073b7d88280c033389427e366927fc56f363f1987eed0894165f",
+  "candidate_bytes": 49812
+}

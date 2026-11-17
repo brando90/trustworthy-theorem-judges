@@ -1,0 +1,12 @@
+Created At: 2026-11-16T21:35:03Z
+Completed At: 2026-11-16T21:35:07Z
+Command exited with code 1.
+
+Command output:
+<stdin>:2:8: error: unknown constant 'List.Pairwise.eq_of_perm'
+<stdin>:3:8: error: unknown constant 'List.Sorted.eq_of_perm'
+<stdin>:4:8: error: unknown constant 'List.pairwise_mergeSort'
+@List.sorted_mergeSort : ∀ {α : Type u_1} {le : α → α → Bool},
+  (∀ (a b c : α), le a b = true → le b c = true → le a c = true) →
+    (∀ (a b : α), (le a b || le b a) = true) → ∀ (l : List α), List.Pairwise (fun a b => le a b = true) (l.mergeSort le)
+@List.pairwise_lt_range : ∀ {n : ℕ}, List.Pairwise (fun x1 x2 => x1 < x2) (List.range n)

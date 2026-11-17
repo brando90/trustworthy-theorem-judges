@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/COORDINATOR_README.md>
 
-**TLDR:** Current state (11-16-2026): the main packet is **100 files = 25 tasks x 4 agents** — GPT-6 Astra (Codex, `xhigh`), Claude Fable 5.1 (Claude Code, `max`), Grok 4.7 (Terminus 2, `xhigh`) and Gemini 4 Argon (Terminus 2, `high`) — in 32 personal Sheets; Brando's own packet is emailed and the 31 team emails are unsent Gmail drafts. See [the experiment README](../README.md) for the agent table, why Grok and Gemini are not native, and live per-rater progress. The sections below are dated history (54-file packet of 11-11-2026, 75-file packet of 11-14-2026).
+**TLDR:** Current state (11-17-2026): the main packet is **100 files = 25 tasks x 4 agents, each run in its vendor's own harness** — GPT-6 Astra (Codex, `xhigh`), Claude Fable 5.1 (Claude Code, `max`), Grok 4.7 (Grok CLI, `xhigh`) and Gemini 4 Argon (Antigravity CLI, `high`) — in 32 personal Sheets. Brando's own all-native packet was emailed to him on 11-17-2026; the 31 team emails are unsent Gmail drafts, on hold until he has done his own ratings. See [the experiment README](../README.md) for the agent table, how the native runs were made, and live per-rater progress. The sections below are dated history (54-file packet of 11-11-2026, 75-file packet of 11-14-2026, and the 11-16-2026 packet whose Grok and Gemini files came from Terminus 2).
 
 This is supporting coordinator documentation. For the actual rating task, start with [the short README](../README.md).
 

@@ -1,0 +1,36 @@
+Created At: 2026-11-16T21:32:32Z
+Completed At: 2026-11-16T21:32:42Z
+Command exited with code 1.
+
+Command output:
+true
+false
+false
+true
+true
+Veribench/23_is_prime.lean:244:52: error: unsolved goals
+n : ℤ
+a✝ : Pre n
+hgt3 : n > 3
+hdiv : n % 2 = 0 ∨ n % 3 = 0
+hnot1 : ¬n ≤ 1
+hnot3 : ¬n ≤ 3
+⊢ 2 ∣ n ∨ 3 ∣ n
+Veribench/23_is_prime.lean:245:39: warning: This simp argument is unused:
+  hdiv
+
+Hint: Omit it from the simp argument list.
+  simp [Bool.or_eq_true, beq_iff_eq,̵ ̵h̵d̵i̵v̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/23_is_prime.lean:316:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Unable to find a counter-example
+Unable to find a counter-example
+true
+false
+false
+true
+true

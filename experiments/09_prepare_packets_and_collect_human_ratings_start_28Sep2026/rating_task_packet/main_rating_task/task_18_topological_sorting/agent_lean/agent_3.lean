@@ -1,725 +1,472 @@
 import Mathlib
-import Plausible
 
 /-!
 # Topological sorting
 
-Lean 4 formalization of topological sorting for finite directed graphs given as
-adjacency lists. The functional implementation follows the Python reference:
-validate the adjacency list (`pre`), enumerate the permutations of `0 .. n-1`
-in lexicographic order (the order produced by `itertools.permutations(range(n))`),
-and return the first permutation that is a topological order. Malformed
-adjacency lists and directed cycles yield `none`.
+Lean 4 formalization of a Python topological sort on finite directed graphs
+given as adjacency lists. Vertices of a graph `g` are `0, …, g.length - 1`,
+and `g[u]` is the list of outgoing neighbors of `u`.
 
-Python type errors such as a non-list neighbor entry are excluded by Lean's type
-system. Out-of-range neighbor indices are the representable malformed case.
+The Python implementation searches `itertools.permutations(range(n))`, which
+emits permutations in lexicographic order, and returns the first permutation
+that is a topological order. If the adjacency list is malformed or the graph
+has a directed cycle, it returns `None`.
+
+In Lean the dynamic checks `isinstance(..., list)` are enforced by the type
+`List (List Nat)`. The check that remains is that every neighbor lies in
+`0, …, n - 1`. Out-of-range neighbors, including the Python test `[[2]]`,
+are malformed. The Python test `[[1], "not a list"]` is not a value of
+`List (List Nat)`; `topologicalSortOrMalformed` models that failure.
 -/
 
 namespace topological_sort
 
-/-- Index of the first occurrence of `v` in `order`, or `order.length` if absent.
-When `order` is a permutation of `0 .. n-1` this is the unique position, matching
-Python's `{v: i for i, v in enumerate(order)}`. -/
-def position (order : List Nat) (v : Nat) : Nat :=
-  order.findIdx (· == v)
+/-! ## Order instances used by lexicographic list comparison -/
 
-/-- Python `pre`: every neighbor lies in `0 .. n-1`. -/
-def pre (graph : List (List Nat)) : Bool :=
-  graph.all fun neighbors => neighbors.all fun v => v < graph.length
+instance : Std.Irrefl (· < · : Nat → Nat → Prop) where
+  irrefl a := Nat.lt_irrefl a
 
-/-- Python `sorted(order) == list(range(n))`. -/
-def isPermutationOfRange (n : Nat) (order : List Nat) : Bool :=
-  order.mergeSort (fun a b => decide (a ≤ b)) == List.range n
+instance : Std.Asymm (· < · : Nat → Nat → Prop) where
+  asymm _ _ := Nat.lt_asymm
 
-/-- Every recorded edge points strictly forward in `order`. -/
-def edgesRespected (graph : List (List Nat)) (order : List Nat) : Bool :=
-  (List.range graph.length).all fun u =>
-    (graph.getD u []).all fun v => position order u < position order v
+instance : Std.Total (¬ · < · : Nat → Nat → Prop) where
+  total a b := by
+    cases Nat.le_total a b with
+    | inl h => exact Or.inr (Nat.not_lt.mpr h)
+    | inr h => exact Or.inl (Nat.not_lt.mpr h)
 
-/-- Executable checker used by the search and by the Python tests. -/
-def isTopologicalOrder (graph : List (List Nat)) (order : List Nat) : Bool :=
-  pre graph && isPermutationOfRange graph.length order && edgesRespected graph order
+instance : Trans (¬ · < · : Nat → Nat → Prop) (¬ · < ·) (¬ · < ·) where
+  trans {a b c} (h1 : ¬ a < b) (h2 : ¬ b < c) : ¬ a < c := by
+    exact Nat.not_lt.mpr (Nat.le_trans (Nat.not_lt.mp h2) (Nat.not_lt.mp h1))
 
-/-- All permutations of `xs`, sorted lexicographically. -/
-def lexPermutations (xs : List Nat) : List (List Nat) :=
-  (List.permutations' xs).mergeSort (fun a b => decide (a ≤ b))
+/-! ## Validation and the lexicographic permutation list -/
 
-/-- Functional topological sort: the lexicographically least topological order. -/
-def topologicalSort (graph : List (List Nat)) : Option (List Nat) :=
-  if pre graph then
-    (lexPermutations (List.range graph.length)).find? (isTopologicalOrder graph)
-  else
-    none
+/-- Python `pre`: every neighbor index lies in `0 .. n - 1`. -/
+def pre (g : List (List Nat)) : Bool :=
+  g.all fun ns => ns.all fun v => decide (v < g.length)
 
-/-- Directed edge `u → v`, requiring `u` to be a real vertex. -/
-def hasEdge (graph : List (List Nat)) (u v : Nat) : Bool :=
-  decide (u < graph.length) && decide (v ∈ graph.getD u [])
+/-- Boolean lexicographic order on lists, equivalent to `decide (a ≤ b)`. -/
+def leB (a b : List Nat) : Bool :=
+  decide (a ≤ b)
 
-/-! ## Unit tests -/
+/-- Nondecreasing order on `Nat`, used to match Python `sorted`. -/
+def natLeB (a b : Nat) : Bool :=
+  decide (a ≤ b)
 
-example : topologicalSort [[1], [2], []] = some [0, 1, 2] := by native_decide
-example : topologicalSort [[1, 2], [3], [3], []] = some [0, 1, 2, 3] := by native_decide
-example : topologicalSort ([] : List (List Nat)) = some [] := by native_decide
-example : topologicalSort [[], [], []] = some [0, 1, 2] := by native_decide
-example : topologicalSort [[2], [], []] = some [0, 1, 2] := by native_decide
-example : topologicalSort [[], [0]] = some [1, 0] := by native_decide
-example : topologicalSort [[], [0], []] = some [1, 0, 2] := by native_decide
-example : topologicalSort [[1], [0]] = none := by native_decide
-example : topologicalSort [[0]] = none := by native_decide
-example : topologicalSort [[2]] = none := by native_decide
-example : isTopologicalOrder [[1, 2], [3], [3], []] [0, 1, 2, 3] = true := by native_decide
-example : isTopologicalOrder [[2], [], []] [0, 1, 2] = true := by native_decide
+/-- All permutations of `0 .. n - 1` in nondecreasing lexicographic order. -/
+def lexPerms (n : Nat) : List (List Nat) :=
+  ((List.range n).permutations').mergeSort leB
+
+/-- Outgoing edges point forward in `order`. -/
+def edgesBefore (g : List (List Nat)) (order : List Nat) : Bool :=
+  (List.range g.length).all fun u =>
+    (g[u]?.getD []).all fun v => decide (order.idxOf u < order.idxOf v)
+
+/-- Python `is_topological_order`. -/
+def isTopologicalOrder (g : List (List Nat)) (order : List Nat) : Bool :=
+  pre g && order.isPerm (List.range g.length) && edgesBefore g order
+
+/-- Python `topological_sort`. -/
+def topologicalSort (g : List (List Nat)) : Option (List Nat) :=
+  if pre g then (lexPerms g.length).find? (isTopologicalOrder g) else none
+
+/-- Model of a Python adjacency list that may contain a non-list entry. -/
+def topologicalSortOrMalformed (g : List (Option (List Nat))) : Option (List Nat) :=
+  match g.mapM id with
+  | none => none
+  | some g => topologicalSort g
+
+/-! ## Unit tests
+
+The fixed examples are the Python `check` suite. `native_decide` is used only
+on closed `example` goals.
+-/
 
 #eval topologicalSort [[1], [2], []]
 #eval topologicalSort [[1, 2], [3], [3], []]
-#eval topologicalSort ([[], [0], []] : List (List Nat))
+#eval topologicalSort ([] : List (List Nat))
+#eval topologicalSort [[], [], []]
+#eval topologicalSort [[2], [], []]
 #eval topologicalSort [[1], [0]]
+#eval topologicalSort [[0]]
 #eval topologicalSort [[2]]
+#eval topologicalSort [[], [0]]
+#eval topologicalSort [[], [], [1]]
+#eval topologicalSortOrMalformed [some [1], none]
 
-/-! ## Pre-condition -/
+example : topologicalSort [[1], [2], []] = some [0, 1, 2] := by native_decide
 
-/-- The graph is a valid adjacency list on vertices `0 .. n-1`. -/
-def Pre (graph : List (List Nat)) : Prop :=
-  pre graph = true
+example : isTopologicalOrder [[1], [2], []] [0, 1, 2] = true := by native_decide
 
-theorem Pre_iff (graph : List (List Nat)) :
-    Pre graph ↔ ∀ neighbors ∈ graph, ∀ v ∈ neighbors, v < graph.length := by
-  unfold Pre pre
-  simp [List.all_eq_true]
+example : topologicalSort [[1, 2], [3], [3], []] = some [0, 1, 2, 3] := by native_decide
 
-/-! ## Supporting lemmas -/
+example :
+    match topologicalSort [[1, 2], [3], [3], []] with
+    | some order =>
+        isTopologicalOrder [[1, 2], [3], [3], []] order &&
+          order.mergeSort natLeB == [0, 1, 2, 3]
+    | none => false
+  := by native_decide
 
-theorem lexPermutations_pairwise (xs : List Nat) :
-    (lexPermutations xs).Pairwise (· ≤ ·) := by
-  unfold lexPermutations
-  have h := List.sorted_mergeSort
-    (le := fun a b : List Nat => decide (a ≤ b))
-    (trans := by
-      intro a b c hab hbc
-      simp only [decide_eq_true_eq] at hab hbc ⊢
-      exact le_trans hab hbc)
-    (total := by
-      intro a b
-      rcases le_total a b with h | h
-      · simp [h]
-      · simp [h])
-    (List.permutations' xs)
-  simpa [decide_eq_true_eq] using h
+example : topologicalSort ([] : List (List Nat)) = some [] := by native_decide
 
-theorem mem_lexPermutations {xs p : List Nat} :
-    p ∈ lexPermutations xs ↔ List.Perm p xs := by
-  unfold lexPermutations
-  rw [List.mem_mergeSort, List.mem_permutations']
+example : topologicalSort [[], [], []] = some [0, 1, 2] := by native_decide
 
-theorem isPermutationOfRange_perm {n : Nat} {order : List Nat}
-    (h : isPermutationOfRange n order = true) :
-    List.Perm order (List.range n) := by
-  unfold isPermutationOfRange at h
-  have heq : order.mergeSort (fun a b => decide (a ≤ b)) = List.range n := by
-    simpa [beq_iff_eq] using h
-  have hperm := List.mergeSort_perm order (fun a b => decide (a ≤ b))
-  exact (heq ▸ hperm).symm
+example :
+    match topologicalSort [[2], [], []] with
+    | some order =>
+        isTopologicalOrder [[2], [], []] order && order.idxOf 0 < order.idxOf 2
+    | none => false
+  := by native_decide
 
-theorem find?_le_of_mem {p : List Nat → Bool} {l : List (List Nat)} {a b : List Nat}
-    (hsorted : l.Pairwise (· ≤ ·))
-    (hfind : l.find? p = some b)
-    (hmem : a ∈ l) (hpa : p a = true) :
-    b ≤ a := by
-  rw [List.find?_eq_some_iff_append] at hfind
-  obtain ⟨_hb, as, bs, rfl, has⟩ := hfind
-  rw [List.pairwise_append] at hsorted
-  obtain ⟨_, hrest, _⟩ := hsorted
-  rw [List.pairwise_cons] at hrest
-  obtain ⟨hbs, _⟩ := hrest
-  simp only [List.mem_append, List.mem_cons] at hmem
-  rcases hmem with hmem | rfl | hmem
-  · have hfalse : (!p a) = true := has a hmem
-    rw [hpa] at hfalse
-    simp at hfalse
-  · exact le_rfl
-  · exact hbs a hmem
+example : topologicalSort [[1], [0]] = none := by native_decide
 
-theorem lex_map_succ {xs ys : List Nat} (h : List.Lex (· < ·) xs ys) :
-    List.Lex (· < ·) (xs.map Nat.succ) (ys.map Nat.succ) := by
-  induction h with
-  | nil => simp
-  | rel hlt =>
-    simp
-    exact List.Lex.rel (Nat.succ_lt_succ hlt)
-  | cons _h ih =>
-    simp
-    exact List.Lex.cons ih
+example : topologicalSort [[0]] = none := by native_decide
 
-theorem map_succ_mono {xs ys : List Nat} (h : xs ≤ ys) :
-    xs.map Nat.succ ≤ ys.map Nat.succ := by
-  rcases le_iff_lt_or_eq.mp h with hlt | heq
-  · have hlex : List.Lex (· < ·) xs ys := by simpa [List.lt_iff_lex_lt] using hlt
-    have : xs.map Nat.succ < ys.map Nat.succ := by
-      simpa [List.lt_iff_lex_lt] using lex_map_succ hlex
-    exact le_of_lt this
-  · simp [heq]
+example : topologicalSort [[2]] = none := by native_decide
 
-theorem map_pred_succ_of_pos (ps : List Nat) (hpos : ∀ x ∈ ps, 0 < x) :
-    (ps.map Nat.pred).map Nat.succ = ps := by
-  induction ps with
-  | nil => simp
-  | cons x xs ih =>
-    have hx : 0 < x := hpos x List.mem_cons_self
-    have hxs : ∀ y ∈ xs, 0 < y := fun y hy => hpos y (List.mem_cons_of_mem _ hy)
-    simp [ih hxs]
-    omega
+example : topologicalSortOrMalformed [some [1], none] = none := by native_decide
 
-theorem map_pred_map_succ_range (n : Nat) :
-    ((List.range n).map Nat.succ).map Nat.pred = List.range n := by
-  induction n with
-  | zero => simp
-  | succ n ih =>
-    rw [List.range_succ]
-    simp [List.map_append, ih]
+example : topologicalSort [[], [0]] = some [1, 0] := by native_decide
 
-theorem range_succ_eq_cons_map_succ (n : Nat) :
-    List.range (n + 1) = 0 :: (List.range n).map Nat.succ := by
-  induction n with
-  | zero => decide
-  | succ n ih =>
-    calc
-      List.range (n + 2) = List.range (n + 1) ++ [n + 1] := by rw [List.range_succ]
-      _ = (0 :: (List.range n).map Nat.succ) ++ [n + 1] := by rw [ih]
-      _ = 0 :: ((List.range n).map Nat.succ ++ [n + 1]) := by simp
-      _ = 0 :: ((List.range (n + 1)).map Nat.succ) := by
-        rw [List.range_succ]
-        simp [List.map_append]
+example : topologicalSort [[], [], [1]] = some [0, 2, 1] := by native_decide
 
-theorem range_le_of_perm (n : Nat) (p : List Nat) (h : List.Perm p (List.range n)) :
-    List.range n ≤ p := by
-  induction n generalizing p with
-  | zero =>
-    have hp : p = [] := by simpa using h.eq_nil
-    simp [hp]
-  | succ n ih =>
-    rw [range_succ_eq_cons_map_succ]
-    cases p with
-    | nil => simp at h
-    | cons a ps =>
-      have ha_mem : a ∈ List.range (n + 1) := (List.Perm.mem_iff h).mp List.mem_cons_self
-      have ha_lt : a < n + 1 := List.mem_range.mp ha_mem
-      by_cases ha : a = 0
-      · subst ha
-        apply List.cons_le_cons
-        have hperm : List.Perm (0 :: ps) (0 :: (List.range n).map Nat.succ) := by
-          simpa [range_succ_eq_cons_map_succ] using h
-        have hps : List.Perm ps ((List.range n).map Nat.succ) := (List.perm_cons 0).mp hperm
-        have hnodup : (0 :: ps).Nodup := (List.Perm.nodup_iff h).mpr List.nodup_range
-        have hnot : 0 ∉ ps := by
-          simp only [List.nodup_cons] at hnodup
-          exact hnodup.1
-        have hpos : ∀ x ∈ ps, 0 < x := by
-          intro x hx
-          have hxmem : x ∈ List.range (n + 1) :=
-            (List.Perm.mem_iff h).mp (List.mem_cons_of_mem 0 hx)
-          have hxne : x ≠ 0 := fun heq => hnot (heq ▸ hx)
-          have hxlt : x < n + 1 := List.mem_range.mp hxmem
-          omega
-        have hq : List.Perm (ps.map Nat.pred) (List.range n) := by
-          have hmap := hps.map Nat.pred
-          simpa [map_pred_map_succ_range n] using hmap
-        have hle : List.range n ≤ ps.map Nat.pred := ih _ hq
-        rw [show ps = (ps.map Nat.pred).map Nat.succ from (map_pred_succ_of_pos ps hpos).symm]
-        exact map_succ_mono hle
-      · have hlt : (0 :: (List.range n).map Nat.succ) < a :: ps := by
-          simpa [List.lt_iff_lex_lt] using (List.Lex.rel (show 0 < a from by omega))
-        exact le_of_lt hlt
+example : topologicalSort [[1, 1], []] = some [0, 1] := by native_decide
 
-theorem pre_replicate_nil (n : Nat) : pre (List.replicate n []) = true := by
-  induction n with
-  | zero => decide
-  | succ n ih =>
-    simp [pre, List.replicate_succ, ih]
+/-! ## Specification -/
 
-theorem getD_replicate_nil (n u : Nat) :
-    (List.replicate n ([] : List Nat)).getD u ([] : List Nat) = [] := by
-  induction n generalizing u with
-  | zero => simp
-  | succ n ih =>
-    cases u with
-    | zero => simp [List.replicate_succ, List.getD]
-    | succ u => simp [List.replicate_succ, List.getD, ih]
+/-- Adjacency list over vertices `0 .. n - 1`. -/
+def Pre (g : List (List Nat)) : Prop :=
+  ∀ ns, ns ∈ g → ∀ v, v ∈ ns → v < g.length
 
-theorem edges_replicate_nil (n : Nat) (order : List Nat) :
-    edgesRespected (List.replicate n []) order = true := by
-  unfold edgesRespected
-  rw [List.all_eq_true]
-  intro u _hu
-  simp [getD_replicate_nil n u]
+/-- A directed edge `u → v`. -/
+structure HasEdge (g : List (List Nat)) (u v : Nat) : Prop where
+  src : u < g.length
+  mem : v ∈ g[u]
 
-theorem mergeSort_range (n : Nat) :
-    (List.range n).mergeSort (fun a b => decide (a ≤ b)) = List.range n := by
-  apply List.mergeSort_of_sorted
-  have h := List.sorted_le_range n
-  simpa [List.Sorted, decide_eq_true_eq] using h
+/-- A directed walk of positive length. -/
+inductive Reach (g : List (List Nat)) : Nat → Nat → Prop
+  | edge {u v : Nat} : HasEdge g u v → Reach g u v
+  | cons {u v w : Nat} : HasEdge g u v → Reach g v w → Reach g u w
 
-theorem isPerm_range (n : Nat) : isPermutationOfRange n (List.range n) = true := by
-  unfold isPermutationOfRange
-  rw [mergeSort_range]
-  simp
+/-- The graph has a directed closed walk of positive length. -/
+def HasCycle (g : List (List Nat)) : Prop :=
+  ∃ u, Reach g u u
 
-theorem isTopo_range_replicate (n : Nat) :
-    isTopologicalOrder (List.replicate n []) (List.range n) = true := by
-  unfold isTopologicalOrder
-  simp [pre_replicate_nil n, isPerm_range n, edges_replicate_nil n (List.range n)]
+/-- `order` is a topological ordering of a valid adjacency list. -/
+structure IsTopologicalOrder (g : List (List Nat)) (order : List Nat) : Prop where
+  pre : Pre g
+  perm : order ~ List.range g.length
+  edges : ∀ u, (hu : u < g.length) → ∀ v, v ∈ g[u] → order.idxOf u < order.idxOf v
 
-theorem edge_forward_aux (graph : List (List Nat)) (order : List Nat)
-    (h : edgesRespected graph order = true) {u v : Nat}
-    (hu : u < graph.length) (hv : v ∈ graph.getD u []) :
-    position order u < position order v := by
-  unfold edgesRespected at h
-  have hall := List.all_eq_true.mp h
-  have hu' : u ∈ List.range graph.length := List.mem_range.mpr hu
-  have hvu := hall u hu'
-  have hall2 := List.all_eq_true.mp hvu
-  have hlt := hall2 v hv
-  simpa using hlt
+/-! ## Checker and permutation lemmas -/
 
-theorem topo_parts (graph : List (List Nat)) (order : List Nat)
-    (h : isTopologicalOrder graph order = true) :
-    pre graph = true ∧ isPermutationOfRange graph.length order = true ∧
-      edgesRespected graph order = true := by
-  unfold isTopologicalOrder at h
-  rw [Bool.and_eq_true] at h
-  obtain ⟨h12, hedges⟩ := h
-  rw [Bool.and_eq_true] at h12
-  obtain ⟨hpre, hperm⟩ := h12
-  exact ⟨hpre, hperm, hedges⟩
+theorem pre_iff (g : List (List Nat)) : pre g = true ↔ Pre g := by
+  simp [pre, Pre, List.all_eq_true, decide_eq_true_eq]
 
-theorem edge_forward (graph : List (List Nat)) (order : List Nat) (u v : Nat)
-    (htopo : isTopologicalOrder graph order = true)
-    (hedge : hasEdge graph u v = true) :
-    position order u < position order v := by
-  obtain ⟨_, _, hedges⟩ := topo_parts graph order htopo
-  unfold hasEdge at hedge
-  rw [Bool.and_eq_true] at hedge
-  obtain ⟨hu, hv⟩ := hedge
-  rw [decide_eq_true_eq] at hu hv
-  exact edge_forward_aux graph order hedges hu hv
+theorem getD_getElem {g : List (List Nat)} {u : Nat} (hu : u < g.length) :
+    g[u]?.getD [] = g[u] := by
+  simp [List.getElem?_eq_getElem hu]
 
-/-- A positive-length directed walk. A cycle is a walk from a vertex to itself. -/
-inductive HasPath (graph : List (List Nat)) : Nat → Nat → Prop
-  | edge {u v : Nat} : hasEdge graph u v = true → HasPath graph u v
-  | cons {u v w : Nat} : hasEdge graph u v = true → HasPath graph v w → HasPath graph u w
-
-theorem path_pos_lt (graph : List (List Nat)) (order : List Nat) (u v : Nat)
-    (htopo : isTopologicalOrder graph order = true)
-    (hpath : HasPath graph u v) :
-    position order u < position order v := by
-  induction hpath with
-  | edge hedge =>
-    exact edge_forward graph order _ _ htopo hedge
-  | cons hedge _hrest ih =>
-    exact Nat.lt_trans (edge_forward graph order _ _ htopo hedge) ih
-
-/-! ## Properties and theorems -/
-
-def invalid_none_prop (graph : List (List Nat)) : Prop :=
-  pre graph = false → topologicalSort graph = none
-
-theorem invalid_none_thm (graph : List (List Nat)) : invalid_none_prop graph := by
-  intro h
-  simp [topologicalSort, h]
-
-def soundness_prop (graph : List (List Nat)) : Prop :=
-  ∀ order, topologicalSort graph = some order → isTopologicalOrder graph order = true
-
-theorem soundness_thm (graph : List (List Nat)) : soundness_prop graph := by
-  intro order h
-  unfold topologicalSort at h
-  by_cases hp : pre graph = true
-  · simp [hp] at h
-    exact List.find?_some h
-  · simp [hp] at h
-
-def completeness_prop (graph : List (List Nat)) : Prop :=
-  ∀ order, isTopologicalOrder graph order = true → (topologicalSort graph).isSome
-
-theorem completeness_thm (graph : List (List Nat)) : completeness_prop graph := by
-  intro order h
-  obtain ⟨hp, hpermBool, _⟩ := topo_parts graph order h
-  have hperm : List.Perm order (List.range graph.length) :=
-    isPermutationOfRange_perm hpermBool
-  have hmem : order ∈ lexPermutations (List.range graph.length) :=
-    mem_lexPermutations.mpr hperm
-  simp [topologicalSort, hp, List.find?_isSome]
-  exact ⟨order, hmem, h⟩
-
-def lex_minimal_prop (graph : List (List Nat)) : Prop :=
-  ∀ order, topologicalSort graph = some order →
-    ∀ order', isTopologicalOrder graph order' = true → order ≤ order'
-
-theorem lex_minimal_thm (graph : List (List Nat)) : lex_minimal_prop graph := by
-  intro order h order' h'
-  have hp : pre graph = true := by
-    unfold topologicalSort at h
-    by_cases hp : pre graph = true
-    · exact hp
-    · simp [hp] at h
-  simp [topologicalSort, hp] at h
-  obtain ⟨_, hpermBool, _⟩ := topo_parts graph order' h'
-  have hperm : List.Perm order' (List.range graph.length) :=
-    isPermutationOfRange_perm hpermBool
-  have hmem : order' ∈ lexPermutations (List.range graph.length) :=
-    mem_lexPermutations.mpr hperm
-  exact find?_le_of_mem (lexPermutations_pairwise _) h hmem h'
-
-def none_iff_prop (graph : List (List Nat)) : Prop :=
-  topologicalSort graph = none ↔ ∀ order, isTopologicalOrder graph order = false
-
-theorem none_iff_thm (graph : List (List Nat)) : none_iff_prop graph := by
+theorem edgesBefore_iff (g : List (List Nat)) (order : List Nat) :
+    edgesBefore g order = true ↔
+      ∀ u, (hu : u < g.length) → ∀ v, v ∈ g[u] → order.idxOf u < order.idxOf v := by
   constructor
-  · intro h order
-    by_contra hpos
-    have htrue : isTopologicalOrder graph order = true := by
-      cases hres : isTopologicalOrder graph order <;> simp_all
-    have hsome := completeness_thm graph order htrue
-    simp [h] at hsome
+  · intro h u hu v hv
+    have hall := (List.all_eq_true.mp h) u (by simpa [List.mem_range] using hu)
+    rw [getD_getElem hu, List.all_eq_true, decide_eq_true_eq] at hall
+    exact hall v hv
   · intro h
-    by_cases hp : pre graph = true
-    · rw [topologicalSort, if_pos hp, List.find?_eq_none]
-      intro order _hmem
-      have hfalse := h order
-      simpa using hfalse
-    · rw [topologicalSort, if_neg hp]
+    rw [List.all_eq_true]
+    intro u hu
+    rw [List.mem_range] at hu
+    rw [getD_getElem hu, List.all_eq_true, decide_eq_true_eq]
+    exact h u hu
 
-def covers_vertices_prop (graph : List (List Nat)) : Prop :=
-  ∀ order, topologicalSort graph = some order →
-    List.Perm order (List.range graph.length)
+theorem isTopologicalOrder_iff (g : List (List Nat)) (order : List Nat) :
+    isTopologicalOrder g order = true ↔ IsTopologicalOrder g order := by
+  simp only [isTopologicalOrder, Bool.and_eq_true, pre_iff, List.isPerm_iff, edgesBefore_iff]
+  constructor
+  · rintro ⟨hp, hperm, hedges⟩
+    exact ⟨hp, hperm, hedges⟩
+  · rintro ⟨hp, hperm, hedges⟩
+    exact ⟨hp, hperm, hedges⟩
 
-theorem covers_vertices_thm (graph : List (List Nat)) : covers_vertices_prop graph := by
-  intro order h
-  have htopo := soundness_thm graph order h
-  obtain ⟨_, hpermBool, _⟩ := topo_parts graph order htopo
-  exact isPermutationOfRange_perm hpermBool
+theorem leB_trans (a b c : List Nat) (hab : leB a b = true) (hbc : leB b c = true) :
+    leB a c = true := by
+  simp only [leB, decide_eq_true_eq] at *
+  exact List.le_trans hab hbc
 
-def respects_edges_prop (graph : List (List Nat)) : Prop :=
-  ∀ order, topologicalSort graph = some order →
-    ∀ u v, hasEdge graph u v = true → position order u < position order v
+theorem leB_total (a b : List Nat) : (leB a b || leB b a) = true := by
+  simp only [leB]
+  cases List.le_total a b with
+  | inl h => simp [h]
+  | inr h => simp [h]
 
-theorem respects_edges_thm (graph : List (List Nat)) : respects_edges_prop graph := by
-  intro order h u v hedge
-  exact edge_forward graph order u v (soundness_thm graph order h) hedge
+theorem lexPerms_pairwise (n : Nat) : (lexPerms n).Pairwise (fun a b => a ≤ b) := by
+  have htrans : ∀ a b c : List Nat, leB a b → leB b c → leB a c := by
+    intro a b c hab hbc
+    exact leB_trans a b c hab hbc
+  have htotal : ∀ a b : List Nat, leB a b || leB b a := by
+    intro a b
+    exact leB_total a b
+  have hs := List.sorted_mergeSort htrans htotal (List.range n).permutations'
+  simpa [lexPerms, leB, decide_eq_true_eq] using hs
 
-def lex_unique_prop (graph : List (List Nat)) : Prop :=
-  ∀ order order', topologicalSort graph = some order →
-    isTopologicalOrder graph order' = true → order' ≤ order → order = order'
+theorem mem_lexPerms {n : Nat} {p : List Nat} :
+    p ∈ lexPerms n ↔ p ~ List.range n := by
+  simp [lexPerms, List.mem_mergeSort, List.mem_permutations']
 
-theorem lex_unique_thm (graph : List (List Nat)) : lex_unique_prop graph := by
-  intro order order' h h' hle
-  exact le_antisymm (lex_minimal_thm graph order h order' h') hle
+theorem natLeB_trans (a b c : Nat) (hab : natLeB a b = true) (hbc : natLeB b c = true) :
+    natLeB a c = true := by
+  simp only [natLeB, decide_eq_true_eq] at *
+  exact Nat.le_trans hab hbc
 
-def cycle_none_prop (graph : List (List Nat)) : Prop :=
-  (∃ u, HasPath graph u u) → topologicalSort graph = none
+theorem natLeB_total (a b : Nat) : (natLeB a b || natLeB b a) = true := by
+  simp only [natLeB]
+  cases Nat.le_total a b with
+  | inl h => simp [h]
+  | inr h => simp [h]
 
-theorem cycle_none_thm (graph : List (List Nat)) : cycle_none_prop graph := by
-  intro hcycle
-  obtain ⟨u, hpath⟩ := hcycle
-  by_cases hp : pre graph = true
-  · rw [topologicalSort, if_pos hp, List.find?_eq_none]
-    intro order _hmem
-    cases htopo : isTopologicalOrder graph order with
-    | true =>
-      have hlt := path_pos_lt graph order u u htopo hpath
-      exact absurd hlt (Nat.lt_irrefl _)
-    | false => simp
-  · rw [topologicalSort, if_neg hp]
-
-theorem self_loop_none_thm : topologicalSort [[0]] = none := by
-  have hpath : HasPath [[0]] 0 0 := HasPath.edge (by decide)
-  exact cycle_none_thm [[0]] ⟨0, hpath⟩
-
-theorem two_cycle_none_thm : topologicalSort [[1], [0]] = none := by
-  have h01 : hasEdge [[1], [0]] 0 1 = true := by decide
-  have h10 : hasEdge [[1], [0]] 1 0 = true := by decide
-  exact cycle_none_thm [[1], [0]] ⟨0, HasPath.cons h01 (HasPath.edge h10)⟩
-
-theorem malformed_out_of_range_thm : topologicalSort [[2]] = none := by
-  have hp : pre [[2]] = false := by decide
-  exact invalid_none_thm [[2]] hp
-
-def no_edges_prop (n : Nat) : Prop :=
-  topologicalSort (List.replicate n []) = some (List.range n)
-
-theorem no_edges_thm (n : Nat) : no_edges_prop n := by
-  unfold no_edges_prop
-  have hpre := pre_replicate_nil n
-  have htopo := isTopo_range_replicate n
-  rw [topologicalSort, if_pos hpre, List.length_replicate]
-  have hmem : List.range n ∈ lexPermutations (List.range n) :=
-    mem_lexPermutations.mpr (List.Perm.refl _)
-  have hsorted := lexPermutations_pairwise (List.range n)
-  cases hlist : lexPermutations (List.range n) with
-  | nil => simp [hlist] at hmem
-  | cons p ps =>
-    have hp_le_range : p ≤ List.range n := by
-      have hs := hsorted
-      rw [hlist] at hs
-      rw [List.pairwise_cons] at hs
-      have hmem' : List.range n ∈ p :: ps := by simpa [hlist] using hmem
-      simp only [List.mem_cons] at hmem'
-      rcases hmem' with rfl | hmem'
-      · exact le_rfl
-      · exact hs.1 _ hmem'
-    have hp_mem : p ∈ lexPermutations (List.range n) := by
-      rw [hlist]
-      exact List.mem_cons_self
-    have hrange_le_p : List.range n ≤ p :=
-      range_le_of_perm n p (mem_lexPermutations.mp hp_mem)
-    have hp_eq : p = List.range n := le_antisymm hp_le_range hrange_le_p
-    have hp_topo : isTopologicalOrder (List.replicate n []) p = true := by
-      simpa [hp_eq] using htopo
-    rw [List.find?_cons_of_pos hp_topo, hp_eq]
-
-def empty_graph_prop : Prop :=
-  topologicalSort [] = some []
-
-theorem empty_graph_thm : empty_graph_prop := by
-  have h := no_edges_thm 0
-  simpa [empty_graph_prop, no_edges_prop, List.replicate_zero, List.range_zero] using h
-
-def edgeless_identity_prop (graph : List (List Nat)) : Prop :=
-  (∀ ns ∈ graph, ns = []) → topologicalSort graph = some (List.range graph.length)
-
-theorem all_nil_eq_replicate (graph : List (List Nat))
-    (h : ∀ ns ∈ graph, ns = []) :
-    graph = List.replicate graph.length [] := by
-  induction graph with
-  | nil => simp
-  | cons ns g ih =>
-    have hns : ns = [] := h ns List.mem_cons_self
-    have hg : ∀ ns' ∈ g, ns' = [] := fun ns' hmem => h ns' (List.mem_cons_of_mem _ hmem)
-    rw [hns, ih hg, List.length_cons, List.length_replicate, List.replicate_succ]
-
-theorem edgeless_identity_thm (graph : List (List Nat)) : edgeless_identity_prop graph := by
-  intro h
-  have hg := all_nil_eq_replicate graph h
-  rw [hg, List.length_replicate]
-  exact no_edges_thm graph.length
-
-/-! ## Post-condition -/
-
-def Post_prop (graph : List (List Nat)) : Prop :=
-  invalid_none_prop graph ∧
-  soundness_prop graph ∧
-  completeness_prop graph ∧
-  lex_minimal_prop graph ∧
-  none_iff_prop graph ∧
-  covers_vertices_prop graph ∧
-  respects_edges_prop graph ∧
-  lex_unique_prop graph ∧
-  cycle_none_prop graph ∧
-  edgeless_identity_prop graph
-
-/-! ## Property-based tests -/
-
-def subsetsOf : Nat → List (List Nat)
-  | 0 => [[]]
-  | n + 1 =>
-    let prev := subsetsOf n
-    prev ++ prev.map (fun s => s ++ [n])
-
-def productAdj (n : Nat) : List (List (List Nat)) :=
-  let choices := subsetsOf n
-  (List.range n).foldl (fun acc _ =>
-    acc.flatMap fun g => choices.map fun c => g ++ [c]) [[]]
-
-/-- All simple digraphs on at most 3 vertices, plus malformed and cyclic samples. -/
-def testGraphs : List (List (List Nat)) :=
-  ((List.range 4).flatMap productAdj) ++
-  [[[2]], [[5]], [[1], [2]], [[0, 4]], [[1, 1], [0]], [[], [3], []],
-   [[2], [0], [1]], [[0]], [[1], [0]]]
-
-def invalid_none_bool (g : List (List Nat)) : Bool :=
-  pre g || (topologicalSort g).isNone
-
-def soundness_bool (g : List (List Nat)) : Bool :=
-  match topologicalSort g with
-  | none => true
-  | some order => isTopologicalOrder g order
-
-def completeness_bool (g : List (List Nat)) : Bool :=
-  let anyTopo := (lexPermutations (List.range g.length)).any (isTopologicalOrder g)
-  anyTopo == (topologicalSort g).isSome
-
-def lex_minimal_bool (g : List (List Nat)) : Bool :=
-  match topologicalSort g with
-  | none => true
-  | some order =>
-    (lexPermutations (List.range g.length)).all fun order' =>
-      !(isTopologicalOrder g order') || decide (order ≤ order')
-
-def none_iff_bool (g : List (List Nat)) : Bool :=
-  let noOrder := (lexPermutations (List.range g.length)).all fun order =>
-    !(isTopologicalOrder g order)
-  ((topologicalSort g).isNone) == noOrder
-
-def covers_vertices_bool (g : List (List Nat)) : Bool :=
-  match topologicalSort g with
-  | none => true
-  | some order => isPermutationOfRange g.length order
-
-def respects_edges_bool (g : List (List Nat)) : Bool :=
-  match topologicalSort g with
-  | none => true
-  | some order =>
-    (List.range g.length).all fun u =>
-      (g.getD u []).all fun v =>
-        !(hasEdge g u v) || position order u < position order v
-
-def lex_unique_bool (g : List (List Nat)) : Bool :=
-  match topologicalSort g with
-  | none => true
-  | some order =>
-    (lexPermutations (List.range g.length)).all fun order' =>
-      !(isTopologicalOrder g order') || !(decide (order' ≤ order)) || order == order'
-
-def boolMatrixGet (m : List (List Bool)) (i j : Nat) : Bool :=
-  (m.getD i []).getD j false
-
-def warshall (graph : List (List Nat)) : List (List Bool) :=
-  let n := graph.length
-  let init := (List.range n).map fun u =>
-    (List.range n).map fun v => hasEdge graph u v
-  (List.range n).foldl (fun m k =>
-    (List.range n).map fun u =>
-      (List.range n).map fun v =>
-        boolMatrixGet m u v || (boolMatrixGet m u k && boolMatrixGet m k v)) init
-
-def hasCycleBool (graph : List (List Nat)) : Bool :=
-  let m := warshall graph
-  (List.range graph.length).any fun u => boolMatrixGet m u u
-
-def cycle_none_bool (g : List (List Nat)) : Bool :=
-  !hasCycleBool g || (topologicalSort g).isNone
-
-def edgeless_identity_bool (g : List (List Nat)) : Bool :=
-  if g.any (fun ns => !ns.isEmpty) then true
-  else if g.length > 5 then true
-  else topologicalSort g == some (List.range g.length)
-
-def post_bool (g : List (List Nat)) : Bool :=
-  invalid_none_bool g && soundness_bool g && completeness_bool g &&
-    lex_minimal_bool g && none_iff_bool g && covers_vertices_bool g &&
-    respects_edges_bool g && lex_unique_bool g && cycle_none_bool g &&
-    edgeless_identity_bool g
-
-example : testGraphs.all invalid_none_bool = true := by native_decide
-example : testGraphs.all soundness_bool = true := by native_decide
-example : testGraphs.all completeness_bool = true := by native_decide
-example : testGraphs.all lex_minimal_bool = true := by native_decide
-example : testGraphs.all none_iff_bool = true := by native_decide
-example : testGraphs.all covers_vertices_bool = true := by native_decide
-example : testGraphs.all respects_edges_bool = true := by native_decide
-example : testGraphs.all lex_unique_bool = true := by native_decide
-example : testGraphs.all cycle_none_bool = true := by native_decide
-example : testGraphs.all edgeless_identity_bool = true := by native_decide
-example : testGraphs.all post_bool = true := by native_decide
-
-example : (List.range 5).all (fun n =>
-    topologicalSort (List.replicate n []) == some (List.range n)) = true := by
-  native_decide
-
-#eval Plausible.Testable.check (∀ g : List (List Nat),
-  !(decide (g.length ≤ 3)) || invalid_none_bool g)
-#eval Plausible.Testable.check (∀ g : List (List Nat),
-  !(decide (g.length ≤ 3)) || soundness_bool g)
-#eval Plausible.Testable.check (∀ g : List (List Nat),
-  !(decide (g.length ≤ 3)) || completeness_bool g)
-#eval Plausible.Testable.check (∀ g : List (List Nat),
-  !(decide (g.length ≤ 3)) || lex_minimal_bool g)
-#eval Plausible.Testable.check (∀ g : List (List Nat),
-  !(decide (g.length ≤ 3)) || none_iff_bool g)
-#eval Plausible.Testable.check (∀ g : List (List Nat),
-  !(decide (g.length ≤ 3)) || covers_vertices_bool g)
-#eval Plausible.Testable.check (∀ g : List (List Nat),
-  !(decide (g.length ≤ 3)) || respects_edges_bool g)
-#eval Plausible.Testable.check (∀ g : List (List Nat),
-  !(decide (g.length ≤ 3)) || lex_unique_bool g)
-#eval Plausible.Testable.check (∀ g : List (List Nat),
-  !(decide (g.length ≤ 3)) || cycle_none_bool g)
-#eval Plausible.Testable.check (∀ g : List (List Nat),
-  !(decide (g.length ≤ 3)) || edgeless_identity_bool g)
-#eval Plausible.Testable.check (∀ g : List (List Nat),
-  !(decide (g.length ≤ 3)) || post_bool g)
-
-/-! ## Correctness -/
-
-theorem correctness_thm (graph : List (List Nat)) (_h : Pre graph) : Post_prop graph :=
-  ⟨invalid_none_thm graph, soundness_thm graph, completeness_thm graph,
-    lex_minimal_thm graph, none_iff_thm graph, covers_vertices_thm graph,
-    respects_edges_thm graph, lex_unique_thm graph, cycle_none_thm graph,
-    edgeless_identity_thm graph⟩
-
-theorem correctness_total_thm (graph : List (List Nat)) : Post_prop graph :=
-  ⟨invalid_none_thm graph, soundness_thm graph, completeness_thm graph,
-    lex_minimal_thm graph, none_iff_thm graph, covers_vertices_thm graph,
-    respects_edges_thm graph, lex_unique_thm graph, cycle_none_thm graph,
-    edgeless_identity_thm graph⟩
-
-/-! ## Imperative implementation -/
-
-def scanPerms (graph : List (List Nat)) : List (List Nat) → Option (List Nat)
-  | [] =>
-    Id.run do
-      let mut result : Option (List Nat) := none
-      return result
-  | p :: ps =>
-    Id.run do
-      let mut accepted : Bool := isTopologicalOrder graph p
-      if accepted then
-        let mut chosen : Option (List Nat) := some p
-        return chosen
-      else
-        return scanPerms graph ps
-
-def topologicalSortImp (graph : List (List Nat)) : Option (List Nat) :=
-  Id.run do
-    let mut g := graph
-    let mut wellFormed : Bool := pre g
-    if !wellFormed then
-      return none
-    let mut candidates : List (List Nat) := lexPermutations (List.range g.length)
-    return scanPerms g candidates
-
-/-! ## Imperative tests -/
-
-example : topologicalSortImp [[1], [2], []] = some [0, 1, 2] := by native_decide
-example : topologicalSortImp [[1, 2], [3], [3], []] = some [0, 1, 2, 3] := by native_decide
-example : topologicalSortImp ([] : List (List Nat)) = some [] := by native_decide
-example : topologicalSortImp [[], [], []] = some [0, 1, 2] := by native_decide
-example : topologicalSortImp [[], [0]] = some [1, 0] := by native_decide
-example : topologicalSortImp [[1], [0]] = none := by native_decide
-example : topologicalSortImp [[0]] = none := by native_decide
-example : topologicalSortImp [[2]] = none := by native_decide
-
-#eval topologicalSortImp [[1], [2], []]
-#eval topologicalSortImp [[], [0], []]
-#eval topologicalSortImp [[1], [0]]
-
-/-! ## Equivalence -/
-
-theorem scanPerms_eq_find? (graph : List (List Nat)) (perms : List (List Nat)) :
-    scanPerms graph perms = perms.find? (isTopologicalOrder graph) := by
-  induction perms with
+theorem eq_of_pairwise_lt_mem {l₁ l₂ : List Nat}
+    (h₁ : l₁.Pairwise (· < ·)) (h₂ : l₂.Pairwise (· < ·))
+    (hmem : ∀ x, x ∈ l₁ ↔ x ∈ l₂) : l₁ = l₂ := by
+  induction l₁ generalizing l₂ with
   | nil =>
-    simp [scanPerms, Id.run, pure]
-  | cons p ps ih =>
-    simp [scanPerms, Id.run, pure, ih]
-    split <;> simp_all [List.find?]
+    cases l₂ with
+    | nil => rfl
+    | cons b _ =>
+      have : b ∈ ([] : List Nat) := (hmem b).2 (by simp)
+      simp at this
+  | cons a l₁ ih =>
+    cases l₂ with
+    | nil =>
+      have : a ∈ ([] : List Nat) := (hmem a).1 (by simp)
+      simp at this
+    | cons b l₂ =>
+      have ha : a ∈ b :: l₂ := (hmem a).1 (by simp)
+      have hb : b ∈ a :: l₁ := (hmem b).2 (by simp)
+      have hmin₁ := List.rel_of_pairwise_cons h₁
+      have hmin₂ := List.rel_of_pairwise_cons h₂
+      cases List.mem_cons.1 ha with
+      | inl heq =>
+        subst heq
+        congr 1
+        apply ih (List.Pairwise.of_cons h₁) (List.Pairwise.of_cons h₂)
+        intro x
+        constructor
+        · intro hx
+          have hx' : x ∈ a :: l₂ := (hmem x).1 (List.mem_cons_of_mem _ hx)
+          cases List.mem_cons.1 hx' with
+          | inl hxa =>
+            exact absurd (hmin₁ x hx) (by simp [hxa, Nat.lt_irrefl])
+          | inr hx₂ => exact hx₂
+        · intro hx
+          have hx' : x ∈ a :: l₁ := (hmem x).2 (List.mem_cons_of_mem _ hx)
+          cases List.mem_cons.1 hx' with
+          | inl hxa =>
+            exact absurd (hmin₂ x hx) (by simp [hxa, Nat.lt_irrefl])
+          | inr hx₁ => exact hx₁
+      | inr ha₂ =>
+        cases List.mem_cons.1 hb with
+        | inl heq =>
+          subst heq
+          exact absurd (hmin₂ a ha₂) (Nat.lt_irrefl _)
+        | inr hb₂ =>
+          exact Nat.lt_asymm (hmin₂ a ha₂) (hmin₁ b hb₂)
 
-theorem equivalence_thm (graph : List (List Nat)) :
-    topologicalSort graph = topologicalSortImp graph := by
-  simp [topologicalSort, topologicalSortImp, Id.run, pure, bind, scanPerms_eq_find?]
-  by_cases h : pre graph = true
-  · simp [h, pure_bind, bind_pure_comp]
-  · have hfalse : pre graph = false := by
-      cases hp : pre graph <;> simp_all
-    simp [h, hfalse, pure_bind, bind_pure_comp]
+theorem eq_of_pairwise_lt_perm {l₁ l₂ : List Nat}
+    (h₁ : l₁.Pairwise (· < ·)) (h₂ : l₂.Pairwise (· < ·)) (hp : l₁ ~ l₂) : l₁ = l₂ :=
+  eq_of_pairwise_lt_mem h₁ h₂ (fun x => hp.mem_iff)
 
-end topological_sort
+theorem pairwise_le_nodup_lt {l : List Nat}
+    (hs : l.Pairwise (fun a b => natLeB a b = true)) (hd : l.Nodup) :
+    l.Pairwise (· < ·) := by
+  induction l with
+  | nil => simp
+  | cons a l ih =>
+    rw [List.pairwise_cons] at hs
+    rw [List.nodup_cons] at hd
+    constructor
+    · intro b hb
+      have hle : a ≤ b := by simpa [natLeB, decide_eq_true_eq] using hs.1 b hb
+      have hne : a ≠ b := by
+        intro eq
+        exact hd.1 (eq ▸ hb)
+      exact Nat.lt_of_le_of_ne hle hne
+    · exact ih hs.2 hd.2
+
+theorem mergeSort_nat_pairwise (l : List Nat) :
+    (l.mergeSort natLeB).Pairwise (fun a b => natLeB a b = true) := by
+  have htrans : ∀ a b c : Nat, natLeB a b → natLeB b c → natLeB a c := by
+    intro a b c hab hbc
+    exact natLeB_trans a b c hab hbc
+  have htotal : ∀ a b : Nat, natLeB a b || natLeB b a := by
+    intro a b
+    exact natLeB_total a b
+  simpa [natLeB] using List.sorted_mergeSort htrans htotal l
+
+theorem mergeSort_eq_range {order : List Nat} {n : Nat} (hp : order ~ List.range n) :
+    order.mergeSort natLeB = List.range n := by
+  have hperm : order.mergeSort natLeB ~ List.range n :=
+    (List.mergeSort_perm order natLeB).trans hp
+  have hnodup : (order.mergeSort natLeB).Nodup :=
+    (hperm.nodup_iff).mpr List.nodup_range
+  have hlt : (order.mergeSort natLeB).Pairwise (· < ·) :=
+    pairwise_le_nodup_lt (mergeSort_nat_pairwise order) hnodup
+  exact eq_of_pairwise_lt_perm hlt List.pairwise_lt_range hperm
+
+/-- Python checks `sorted(order) == list(range(n))`, which is `isPerm`. -/
+theorem isPerm_eq_sorted (order : List Nat) (n : Nat) :
+    order.isPerm (List.range n) = (order.mergeSort natLeB == List.range n) := by
+  cases h1 : order.isPerm (List.range n) <;> cases h2 : order.mergeSort natLeB == List.range n
+  · rfl
+  · simp only [beq_iff_eq] at h2
+    have hp : order ~ List.range n := by
+      have hperm := (List.mergeSort_perm order natLeB).symm
+      simpa [h2] using hperm
+    have := List.isPerm_iff.mpr hp
+    simp [h1] at this
+  · have hp : order ~ List.range n := List.isPerm_iff.mp (by simp [h1])
+    have heq := mergeSort_eq_range hp
+    simp [beq_iff_eq, heq] at h2
+  · rfl
+
+theorem find?_le_mem {l : List (List Nat)} {p : List Nat → Bool} {a : List Nat}
+    (hs : l.Pairwise (fun x y => x ≤ y)) (hf : l.find? p = some a) :
+    ∀ b, b ∈ l → p b = true → a ≤ b := by
+  rw [List.find?_eq_some_iff_append] at hf
+  rcases hf with ⟨_, as, bs, rfl, hall⟩
+  intro b hb hpb
+  have hpair : (as ++ a :: bs).Pairwise (fun x y => x ≤ y) := hs
+  simp only [List.mem_append, List.mem_cons] at hb
+  rcases hb with hbas | rfl | hbbs
+  · have hnot : (!p b) = true := hall b hbas
+    have : p b = false := by
+      cases hp : p b <;> simp [hp, Bool.not_true, Bool.not_false] at hnot
+    simp [hpb] at this
+  · exact List.le_refl a
+  · have hrel : ∀ x ∈ bs, a ≤ x := by
+      induction as generalizing a bs with
+      | nil =>
+        simpa using List.rel_of_pairwise_cons hpair
+      | cons y ys ih =>
+        exact ih (List.Pairwise.of_cons hpair)
+    exact hrel b hbbs
+
+/-! ## Lexicographically least permutation of a range -/
+
+theorem permutations'Aux_ne_nil (a : Nat) (l : List Nat) :
+    List.permutations'Aux a l ≠ [] := by
+  induction l <;> simp [List.permutations'Aux]
+
+theorem permutations'_ne_nil : ∀ l : List Nat, l.permutations' ≠ []
+  | [] => by simp [List.permutations']
+  | a :: l => by
+    intro h
+    rw [List.permutations'] at h
+    have hflat := List.flatMap_eq_nil_iff.mp h
+    have hne : l.permutations' ≠ [] := permutations'_ne_nil l
+    cases hp : l.permutations' with
+    | nil => exact hne hp
+    | cons p ps =>
+      have hnil := hflat p (by simp [hp])
+      exact permutations'Aux_ne_nil a p hnil
+
+theorem lexPerms_ne_nil (n : Nat) : lexPerms n ≠ [] := by
+  intro h
+  have hlen := congrArg List.length h
+  simp only [lexPerms, List.length_mergeSort, List.length_nil] at hlen
+  exact permutations'_ne_nil (List.range n) (List.eq_nil_of_length_eq_zero hlen)
+
+theorem range'_le_of_perm {start len : Nat} {p : List Nat}
+    (hp : p ~ List.range' start len) : List.range' start len ≤ p := by
+  induction len generalizing start p with
+  | zero =>
+    simp at hp
+    subst hp
+    exact List.le_refl _
+  | succ len ih =>
+    have hform : List.range' start (len + 1) = start :: List.range' (start + 1) len := by
+      simp [List.range'_succ]
+    rw [hform] at hp ⊢
+    have hnodup : p.Nodup := (hp.nodup_iff).mpr (by simpa [hform] using (List.nodup_range' (s := start) (n := len + 1)))
+    have hmem : start ∈ p := hp.mem_iff.mp (by simp)
+    obtain ⟨as, bs, rfl⟩ := List.append_of_mem hmem
+    have hsplit := (List.nodup_append.mp hnodup)
+    have hstart_not_as : start ∉ as := by
+      intro hin
+      have hdis := hsplit.2.2 start hin start (by simp)
+      exact hdis rfl
+    have hstart_not_bs : start ∉ bs := by
+      have hcons := (List.nodup_cons.mp hsplit.2.1)
+      exact hcons.1
+    cases as with
+    | nil =>
+      simp only [List.nil_append] at hp ⊢
+      have htail : bs ~ List.range' (start + 1) len := (List.perm_cons start).mp hp
+      have hle : List.range' (start + 1) len ≤ bs := ih htail
+      rw [List.cons_le_cons_iff]
+      exact Or.inr ⟨rfl, hle⟩
+    | cons x xs =>
+      have hxne : x ≠ start := by
+        intro hxs
+        exact hstart_not_as (by simp [hxs])
+      have hxmem : x ∈ List.range' start (len + 1) := by
+        have : x ∈ x :: xs ++ start :: bs := by simp
+        exact hp.mem_iff.mpr this
+      have hxge : start ≤ x := by
+        have := (List.mem_range'.mp hxmem)
+        simpa using this.1
+      have hxlt : start < x := Nat.lt_of_le_of_ne hxge (Ne.symm hxne)
+      have hlt : (start :: List.range' (start + 1) len) < (x :: xs ++ start :: bs) := by
+        rw [List.cons_append]
+        exact List.Lex.rel hxlt
+      exact List.le_of_lt hlt
+
+theorem range_le_of_perm {n : Nat} {p : List Nat} (hp : p ~ List.range n) :
+    List.range n ≤ p := by
+  simpa [List.range_eq_range'] using range'_le_of_perm (by simpa [List.range_eq_range'] using hp)
+
+theorem lexPerms_head_eq_range (n : Nat) :
+    lexPerms n = List.range n :: (lexPerms n).tail := by
+  have hne := lexPerms_ne_nil n
+  cases hlex : lexPerms n with
+  | nil => exact absurd hlex hne
+  | cons a t =>
+    have ha_mem : a ∈ lexPerms n := by simp [hlex]
+    have ha_perm : a ~ List.range n := mem_lexPerms.mp ha_mem
+    have hle_range : a ≤ List.range n := by
+      have hmemr : List.range n ∈ lexPerms n := mem_lexPerms.mpr (List.Perm.refl _)
+      rw [hlex] at hmemr
+      cases List.mem_cons.1 hmemr with
+      | inl h =>
+        simpa [h] using List.le_refl a
+      | inr h =>
+        have hsort := lexPerms_pairwise n
+        rw [hlex] at hsort
+        exact List.rel_of_pairwise_cons hsort h
+    have hge_range : List.range n ≤ a := range_le_of_perm ha_perm
+    have heq : a = List.range n := List.le_antisymm hle_range hge_range
+    simp [hlex, heq, List.tail_cons]
+
+/-! ## Reachability and cycles -/
+
+theorem idx_lt_of_hasEdge {g : List (List Nat)} {order u v : Nat}
+    (hT : IsTopologicalOrder g order) (hE : HasEdge g u v) :
+    order.idxOf u < order.idxOf v :=
+  hT.edges u hE.src v hE.mem
+
+theorem idx_lt_of_reach {g : List (List Nat)} {order u v : Nat}
+    (hT : IsTopologicalOrder g order) (hR : Reach g u v) :
+    order.idxOf u < order.idxOf v := by
+  induction hR with
+  | edge e => exact idx_lt_of_hasEdge hT e
+  | cons e _ ih => exact Nat.lt_trans (idx_lt_of_hasEdge hT e) ih
+
+theorem no_cycle_of_topo {g : List (List Nat)} {order : List Nat}
+    (hT : IsTopologicalOrder g order) : ¬ HasCycle g := by
+  intro hC
+  rcases hC with ⟨u, hR⟩
+  have hlt := idx_lt_of_reach hT hR
+  exact Nat.lt_irrefl _ hlt

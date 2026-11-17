@@ -1,0 +1,25 @@
+{
+  "task_id": "easy_set__23_is_prime",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "23_is_prime.py": "813772624e9ec33a62e3497ba44c094f7ea56e90adbcb3e96483bfd71ddbb379",
+    "instruction.md": "477f8ac10d612ddbddbda451ec8928b6b28a2f00e72c20983bb90c2be0a0badc"
+  },
+  "output": "/home/user/lean_project/Veribench/23_is_prime.lean",
+  "model_call_performed": false
+}

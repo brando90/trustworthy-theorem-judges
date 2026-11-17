@@ -1,0 +1,20 @@
+Created At: 2026-11-16T21:49:32Z
+Completed At: 2026-11-16T21:49:40Z
+Command exited with code 0.
+
+Command output:
+some [0, 1, 2, 3]
+some []
+some [0, 1, 2]
+some [0, 1, 2]
+none
+none
+none
+true
+'topological_sort.pre_iff_Pre' depends on axioms: [propext, Quot.sound]
+'topological_sort.is_topological_order_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'topological_sort.topological_sort_post' depends on axioms: [propext, Classical.choice, Quot.sound]
+'topological_sort.topological_sort_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'topological_sort.pre_equiv' depends on axioms: [propext, Quot.sound]
+'topological_sort.is_topological_order_equiv' depends on axioms: [propext, Quot.sound]
+'topological_sort.topological_sort_equiv' depends on axioms: [propext, Quot.sound]

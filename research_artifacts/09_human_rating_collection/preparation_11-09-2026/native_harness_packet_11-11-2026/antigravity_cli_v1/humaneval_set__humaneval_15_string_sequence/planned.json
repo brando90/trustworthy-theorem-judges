@@ -1,0 +1,25 @@
+{
+  "task_id": "humaneval_set__humaneval_15_string_sequence",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "humaneval_15_string_sequence.py": "8f4dde6215aa746cbc8642b82008ab0437f73b7f09394d0f001c1bca8d7c1f2d",
+    "instruction.md": "e4622569ec189ff7c90f632d14723d6c867dee8240c8206fb1a255dabaf8412c"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_15_string_sequence.lean",
+  "model_call_performed": false
+}

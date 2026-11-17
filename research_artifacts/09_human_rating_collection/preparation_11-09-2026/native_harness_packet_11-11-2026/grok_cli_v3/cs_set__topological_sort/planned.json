@@ -1,0 +1,31 @@
+{
+  "task_id": "cs_set__topological_sort",
+  "condition_sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "1000",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "topological_sort.py": "f8b63f6ebf52572f4f8e7e5fc4c41cebee75b8176c79ce6a64bf2ab57b145632",
+    "instruction.md": "d18643805dbd9a3abcca2cb9d5aece2f976f331ffffce85a4f7a18d9ed39625e"
+  },
+  "output": "/home/user/lean_project/Veribench/topological_sort.lean",
+  "model_call_performed": false
+}

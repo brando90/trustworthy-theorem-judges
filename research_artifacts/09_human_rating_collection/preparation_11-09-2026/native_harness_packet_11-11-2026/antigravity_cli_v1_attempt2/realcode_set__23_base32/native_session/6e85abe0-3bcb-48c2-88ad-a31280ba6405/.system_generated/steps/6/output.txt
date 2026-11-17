@@ -1,0 +1,14 @@
+Created At: 2026-11-16T22:56:09Z
+Completed At: 2026-11-16T22:56:14Z
+Command exited with code 1.
+
+Command output:
+<stdin>:7:2: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b ≥ 0
+  a ≥ 0
+  a - b ≥ 1
+where
+ a := ↑b0.toNat
+ b := ↑(((b0.toNat >>> 3 &&& 31) <<< 5 ||| b0.toNat <<< 2 &&& 31) >>> 2 &&& 255)
+'test_bv' depends on axioms: [propext, sorryAx]

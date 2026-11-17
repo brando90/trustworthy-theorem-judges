@@ -1,0 +1,71 @@
+{
+  "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "125_unsafeTPMHash_safe.py": "6b4d586252669a2458a1891d5b9f28886a77f43e0fa54b06aed18fee736f65a6",
+    "instruction.md": "10c37400246dbe35d902b2ba75384e8d6f1218e88ae197fdbdf83ce028922a16"
+  },
+  "output": "/home/user/lean_project/Veribench/125_unsafeTPMHash_safe.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-0b81642424d2",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794866950.056444,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794867320.887997,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "87a99b7c-3fb4-47ab-80e7-6537a4712d5f",
+      "status": "SUCCESS",
+      "response": "The Python program has been translated into a Lean 4 formalization at [125_unsafeTPMHash_safe.lean](file:///home/user/lean_project/Veribench/125_unsafeTPMHash_safe.lean) and verified with `lake env lean`.\n\n### Summary of Formalization\n\n- **Functional Implementation** ([125_unsafeTPMHash_safe.lean](file:///home/user/lean_project/Veribench/125_unsafeTPMHash_safe.lean#L18-L29)):\n  - `simulated_hash`: computes `((old_pcr ^^^ new_data) * 6364136223846793005 + 1442695040888963407) &&& 0xFFFFFFFF`.\n  - `safe_tpm_hash_check`: checks whether `claimed_pcr == simulated_hash`.\n- **Unit Tests** ([125_unsafeTPMHash_safe.lean](file:///home/user/lean_project/Veribench/125_unsafeTPMHash_safe.lean#L31-L53)):\n  - `#eval` and `native_decide` unit tests covering `(0xAAAA, 0xBBBB, expected_0)`, `(0xAAAA, 0xBBBB, 0xDEAD)`, `(0xAAAA, 0xBBBB, 0x1234)`, and `(0, 0, expected_zero)`.\n- **Pre-condition, Properties, and Post-condition** ([125_unsafeTPMHash_safe.lean](file:///home/user/lean_project/Veribench/125_unsafeTPMHash_safe.lean#L55-L199)):\n  - `Pre`: accepts any natural number inputs `old_pcr`, `new_data`, and `claimed_pcr`.\n  - Stated and proved 10 specification theorems (`exact_match_thm`, `exact_mismatch_thm`, `accepts_valid_pcr_thm`, `rejects_forged_pcr_thm`, `unique_valid_pcr_thm`, `canonical_valid_pcr_thm`, `xor_symmetry_thm`, `xor_invariance_thm`, `self_extend_thm`, and `bounded_32bit_thm`).\n  - `Post_prop` & `safe_tpm_hash_check_correct`: combines all 10 properties and proves `Pre \u2192 Post_prop`.\n- **Property-Based Tests** ([125_unsafeTPMHash_safe.lean](file:///home/user/lean_project/Veribench/125_unsafeTPMHash_safe.lean#L201-L266)):\n  - Randomized `Plausible.Testable.check` tests for each property and `Post_prop`, plus an exhaustive bounded test over `List.range 25`.\n- **Imperative Implementation & Equivalence** ([125_unsafeTPMHash_safe.lean](file:///home/user/lean_project/Veribench/125_unsafeTPMHash_safe.lean#L284-L320)):\n  - `safe_tpm_hash_check_imp`: imperative implementation using `Id.run do` and mutable variables.\n  - `safe_tpm_hash_check_equiv`: proves functional and imperative implementations are equivalent for all inputs.\n",
+      "duration_seconds": 366.099223961,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 44078,
+        "output_tokens": 23951,
+        "thinking_tokens": 7485,
+        "cache_read_tokens": 148043,
+        "total_tokens": 68029
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "b52c2851866aae590e251187eedd8f60319588826abcaddd101a18002b1f3ffd",
+  "candidate_bytes": 15646
+}

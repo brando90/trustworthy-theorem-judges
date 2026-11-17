@@ -1,674 +1,672 @@
 import Mathlib
-import Plausible
 
 /-!
 # HumanEval/4 — Mean Absolute Deviation
 
-Python source (`mean_absolute_deviation`) computes, for a non-empty list of
-numbers,
+Python source: `mean_absolute_deviation(numbers)`.
 
-```
-MAD = average |x - mean(x)|
-    = (sum |x_i - mean|) / n
-    where mean = (sum x_i) / n.
-```
+For a nonempty list, the mean absolute deviation about the mean is
 
-The Python surface type is `float`. The algorithm itself is the standard
-mathematical definition of mean absolute deviation about the arithmetic mean;
-it is not a specification of IEEE-754 rounding. This file therefore contains:
+`MAD = average |x - mean|`, where `mean = (sum of the list) / (length of the list)`.
 
-* an executable `Float` transcription used for ground unit tests (the Python
-  checks use a `1e-6` absolute tolerance);
-* an exact implementation over any linear ordered field (`Rat` and `Real`),
-  which is the mathematical model of the program. Property, correctness and
-  functional/imperative equivalence theorems are stated and proved at that
-  level. `Rat` is the executable counterpart used for property-based tests;
-  the same definitions instantiate at `Real`.
+The Python function divides by `len(numbers)` and therefore raises `ZeroDivisionError`
+on the empty list. That domain is `Pre`.
 
-The Python program divides by `len(numbers)` and therefore requires a
-non-empty list. That is the precondition.
+Numeric layers:
+
+* `Float` — executable mirror of Python `float`, used for the ground tests.
+* `Rat` — exact executable arithmetic, used for property-based tests.
+* `Real` — mathematical model. Property, correctness, and equivalence theorems
+  are stated here. `rat_real_correspondence_thm` identifies the `Rat` and `Real`
+  functions on rational inputs.
+
+In Mathlib a field satisfies `a / 0 = 0`. The identities below are true for every
+finite list under that convention, including the empty list. They restrict to the
+Python domain through `Pre`.
 -/
 
 namespace humaneval_4_mean_absolute_deviation
 
-set_option linter.unusedSectionVars false
-set_option linter.unusedVariables false
+/-! ## Implementation -/
 
-/-! ## Float layer (Python executable surface) -/
+/-- Executable Python `float` mirror of `mean_absolute_deviation`. -/
+def mean_absolute_deviation_float (numbers : List Float) : Float :=
+  let n := numbers.length.toFloat
+  let mean := numbers.foldl (fun acc x => acc + x) 0 / n
+  (numbers.map (fun x => Float.abs (x - mean))).foldl (fun acc x => acc + x) 0 / n
 
-/-- Direct transcription of the Python function on Lean `Float`. -/
-def meanAbsoluteDeviationFloat (numbers : List Float) : Float :=
-  let mean := numbers.sum / numbers.length.toFloat
-  (numbers.map (fun x => (x - mean).abs)).sum / numbers.length.toFloat
+/-- Exact mean, as a rational. -/
+def mean_rat (numbers : List ℚ) : ℚ :=
+  numbers.sum / (numbers.length : ℚ)
 
-/-- Python-facing name. -/
-abbrev mean_absolute_deviation := meanAbsoluteDeviationFloat
+/-- Exact mean absolute deviation, as a rational. -/
+def mean_absolute_deviation_rat (numbers : List ℚ) : ℚ :=
+  (numbers.map (fun x => |x - mean_rat numbers|)).sum / (numbers.length : ℚ)
 
-/-! ## Exact mathematical model -/
+/-- Arithmetic mean of a list of reals. -/
+noncomputable def mean (numbers : List ℝ) : ℝ :=
+  numbers.sum / (numbers.length : ℝ)
 
-section OrderedField
+/-- Mean absolute deviation about the mean.
 
-variable {α : Type*} [Field α] [LinearOrder α] [IsStrictOrderedRing α]
-
-/-- Arithmetic mean. On the empty list this is `0 / 0 = 0` in a field;
-    the Python program is not called on that input (`Pre`). -/
-def listMean (xs : List α) : α :=
-  xs.sum / (xs.length : α)
-
-/-- Mean absolute deviation about the arithmetic mean.
-
-    `MAD(xs) = (sum |x - mean(xs)|) / length(xs)`. -/
-def meanAbsoluteDeviation (xs : List α) : α :=
-  (xs.map (fun x => |x - listMean xs|)).sum / (xs.length : α)
+`mean_absolute_deviation numbers = (∑ |x - mean numbers|) / length numbers`. -/
+noncomputable def mean_absolute_deviation (numbers : List ℝ) : ℝ :=
+  (numbers.map (fun x => |x - mean numbers|)).sum / (numbers.length : ℝ)
 
 /-! ## Unit tests -/
 
--- Float ground tests corresponding to `check` in the Python source.
-#eval meanAbsoluteDeviationFloat [1.0, 2.0, 3.0]
-#eval meanAbsoluteDeviationFloat [1.0, 2.0, 3.0, 4.0]
-#eval meanAbsoluteDeviationFloat [1.0, 2.0, 3.0, 4.0, 5.0]
-
-example : (meanAbsoluteDeviationFloat [1.0, 2.0, 3.0] - (2.0 / 3.0)).abs < (1e-6 : Float) := by
+-- Python `check`: absolute error below `1e-6`.
+example : Float.abs (mean_absolute_deviation_float [1.0, 2.0, 3.0] - (2.0 / 3.0)) < 1e-6 := by
   native_decide
 
-example : meanAbsoluteDeviationFloat [1.0, 2.0, 3.0, 4.0] == 1.0 := by
+example : Float.abs (mean_absolute_deviation_float [1.0, 2.0, 3.0, 4.0] - 1.0) < 1e-6 := by
   native_decide
 
-example : (meanAbsoluteDeviationFloat [1.0, 2.0, 3.0, 4.0, 5.0] - (6.0 / 5.0)).abs < (1e-6 : Float) := by
+example :
+    Float.abs (mean_absolute_deviation_float [1.0, 2.0, 3.0, 4.0, 5.0] - (6.0 / 5.0)) < 1e-6 := by
   native_decide
 
--- Exact Rat counterparts of the same checks (the Python expected values).
-#eval meanAbsoluteDeviation ([1, 2, 3] : List Rat)
-#eval meanAbsoluteDeviation ([1, 2, 3, 4] : List Rat)
-#eval meanAbsoluteDeviation ([1, 2, 3, 4, 5] : List Rat)
-
-example : meanAbsoluteDeviation ([1, 2, 3] : List Rat) = 2 / 3 := by
+example : (mean_absolute_deviation_float [1.0, 2.0, 3.0, 4.0] == 1.0) = true := by
   native_decide
 
-example : meanAbsoluteDeviation ([1, 2, 3, 4] : List Rat) = 1 := by
-  native_decide
+#eval mean_absolute_deviation_float [1.0, 2.0, 3.0, 4.0]
 
-example : meanAbsoluteDeviation ([1, 2, 3, 4, 5] : List Rat) = 6 / 5 := by
-  native_decide
+-- Exact rational values of the same three tests.
+example : mean_absolute_deviation_rat [1, 2, 3] = 2 / 3 := by native_decide
+example : mean_absolute_deviation_rat [1, 2, 3, 4] = 1 := by native_decide
+example : mean_absolute_deviation_rat [1, 2, 3, 4, 5] = 6 / 5 := by native_decide
+
+#eval mean_absolute_deviation_rat [1, 2, 3, 4]
 
 /-! ## Precondition -/
 
-/-- The Python function divides by `len(numbers)`, so the list must be non-empty. -/
-def Pre (xs : List α) : Prop :=
-  xs ≠ []
-
-/-! ## Supporting lemmas -/
-
-lemma sum_nonneg_of_mem {xs : List α} (h : ∀ x ∈ xs, 0 ≤ x) : 0 ≤ xs.sum := by
-  induction xs with
-  | nil => simp
-  | cons a xs ih =>
-    simp only [List.sum_cons, List.mem_cons, forall_eq_or_imp] at h ⊢
-    exact add_nonneg h.1 (ih h.2)
-
-lemma length_cast_ne_zero {xs : List α} (h : xs ≠ []) : (xs.length : α) ≠ 0 := by
-  intro h0
-  have : xs.length = 0 := by exact_mod_cast h0
-  exact h (List.length_eq_zero_iff.mp this)
-
-lemma sum_eq_zero_of_nonneg {xs : List α} (hnn : ∀ x ∈ xs, 0 ≤ x) (hs : xs.sum = 0) :
-    ∀ x ∈ xs, x = 0 := by
-  induction xs with
-  | nil => simp
-  | cons a xs ih =>
-    simp only [List.sum_cons, List.mem_cons, forall_eq_or_imp] at hnn hs ⊢
-    have hxs : 0 ≤ xs.sum := sum_nonneg_of_mem hnn.2
-    have ha_le : a ≤ 0 := by
-      have hle : a ≤ a + xs.sum := le_add_of_nonneg_right hxs
-      simpa [hs] using hle
-    have ha0 : a = 0 := le_antisymm ha_le hnn.1
-    refine ⟨ha0, ih hnn.2 ?_⟩
-    simpa [ha0] using hs
-
-lemma sum_map_add_const (xs : List α) (c : α) :
-    (xs.map (fun x => x + c)).sum = xs.sum + (xs.length : α) * c := by
-  induction xs with
-  | nil => simp
-  | cons a xs ih =>
-    simp only [List.map_cons, List.sum_cons, List.length_cons, ih, Nat.cast_succ]
-    ring
-
-lemma sum_map_mul_const (xs : List α) (c : α) :
-    (xs.map (fun x => c * x)).sum = c * xs.sum := by
-  induction xs with
-  | nil => simp
-  | cons a xs ih =>
-    simp only [List.map_cons, List.sum_cons, ih]
-    ring
-
-lemma sum_map_const_mul (xs : List α) (c : α) (f : α → α) :
-    (xs.map (fun x => c * f x)).sum = c * (xs.map f).sum := by
-  induction xs with
-  | nil => simp
-  | cons a xs ih =>
-    simp only [List.map_cons, List.sum_cons, ih]
-    ring
-
-lemma sum_eq_card_mul_of_all_eq (xs : List α) (x : α) (h : ∀ y ∈ xs, y = x) :
-    xs.sum = (xs.length : α) * x := by
-  induction xs with
-  | nil => simp
-  | cons a xs ih =>
-    simp only [List.sum_cons, List.length_cons, List.mem_cons, forall_eq_or_imp] at h ⊢
-    rw [h.1, ih h.2, Nat.cast_succ]
-    ring
-
-lemma mean_add (xs : List α) (c : α) (h : xs ≠ []) :
-    listMean (xs.map (fun x => x + c)) = listMean xs + c := by
-  unfold listMean
-  rw [sum_map_add_const, List.length_map]
-  have hn := length_cast_ne_zero (xs := xs) h
-  field_simp [hn]
-  ring
-
-lemma mean_mul (xs : List α) (c : α) :
-    listMean (xs.map (fun x => c * x)) = c * listMean xs := by
-  unfold listMean
-  rw [sum_map_mul_const, List.length_map, mul_div_assoc]
+/-- The Python function is defined precisely on nonempty lists. -/
+def Pre {α : Type*} (numbers : List α) : Prop :=
+  numbers ≠ []
 
 /-! ## Properties -/
 
-/-- MAD is nonnegative. -/
-def nonneg_prop (xs : List α) : Prop :=
-  0 ≤ meanAbsoluteDeviation xs
+lemma length_cast_ne_zero {numbers : List ℝ} (h : numbers ≠ []) :
+    (numbers.length : ℝ) ≠ 0 := by
+  exact_mod_cast (List.length_pos_iff.mpr h).ne'
 
-theorem nonneg_thm (xs : List α) (h : Pre xs) : nonneg_prop xs := by
-  have _ := h
-  unfold nonneg_prop meanAbsoluteDeviation
+lemma sum_map_add_const (numbers : List ℝ) (c : ℝ) :
+    (numbers.map (fun x => x + c)).sum = numbers.sum + (numbers.length : ℝ) * c := by
+  induction numbers with
+  | nil => simp
+  | cons hd tl ih =>
+    simp only [List.map_cons, List.sum_cons, List.length_cons, ih, Nat.cast_succ]
+    ring
+
+lemma mean_add_const (numbers : List ℝ) (c : ℝ) (h : numbers ≠ []) :
+    mean (numbers.map (fun x => x + c)) = mean numbers + c := by
+  unfold mean
+  rw [List.length_map, sum_map_add_const, add_div,
+    mul_div_cancel_left₀ c (length_cast_ne_zero h)]
+
+lemma sum_map_mul_const (numbers : List ℝ) (c : ℝ) :
+    (numbers.map (fun x => x * c)).sum = numbers.sum * c := by
+  induction numbers with
+  | nil => simp
+  | cons hd tl ih =>
+    simp only [List.map_cons, List.sum_cons, ih]
+    ring
+
+lemma mean_mul_const (numbers : List ℝ) (c : ℝ) :
+    mean (numbers.map (fun x => x * c)) = mean numbers * c := by
+  unfold mean
+  rw [List.length_map, sum_map_mul_const]
+  calc
+    (numbers.sum * c) / (numbers.length : ℝ)
+        = (c * numbers.sum) / (numbers.length : ℝ) := by rw [mul_comm numbers.sum c]
+      _ = c * (numbers.sum / (numbers.length : ℝ)) := mul_div_assoc _ _ _
+      _ = numbers.sum / (numbers.length : ℝ) * c := by rw [mul_comm]
+
+/-- The returned value is the average absolute deviation from the mean. -/
+def formula_prop (numbers : List ℝ) : Prop :=
+  mean_absolute_deviation numbers =
+    (numbers.map (fun x => |x - mean numbers|)).sum / (numbers.length : ℝ)
+
+theorem formula_thm (numbers : List ℝ) : formula_prop numbers := rfl
+
+/-- Cleared-denominator form of the Python formula. -/
+def spec_prop (numbers : List ℝ) : Prop :=
+  mean_absolute_deviation numbers * (numbers.length : ℝ) =
+    (numbers.map (fun x => |x - mean numbers|)).sum
+
+theorem spec_thm (numbers : List ℝ) : spec_prop numbers := by
+  unfold spec_prop mean_absolute_deviation
+  by_cases h : (numbers.length : ℝ) = 0
+  · have hlen : numbers.length = 0 := by exact_mod_cast h
+    have hempty : numbers = [] := List.length_eq_zero_iff.mp hlen
+    simp [hempty]
+  · exact div_mul_cancel₀ _ h
+
+/-- Mean absolute deviation is nonnegative. -/
+def nonneg_prop (numbers : List ℝ) : Prop :=
+  0 ≤ mean_absolute_deviation numbers
+
+theorem nonneg_thm (numbers : List ℝ) : nonneg_prop numbers := by
+  unfold nonneg_prop mean_absolute_deviation
   apply div_nonneg
-  · apply sum_nonneg_of_mem
+  · apply List.sum_nonneg
     intro y hy
-    simp only [List.mem_map] at hy
-    obtain ⟨_, -, rfl⟩ := hy
+    rcases List.mem_map.mp hy with ⟨_, _, rfl⟩
     exact abs_nonneg _
   · exact Nat.cast_nonneg _
 
-/-- MAD is zero iff every element equals the mean. -/
-def zero_iff_mean_prop (xs : List α) : Prop :=
-  meanAbsoluteDeviation xs = 0 ↔ ∀ x ∈ xs, x = listMean xs
+/-- The deviation is zero exactly when every element equals the mean. -/
+def zero_iff_eq_mean_prop (numbers : List ℝ) : Prop :=
+  mean_absolute_deviation numbers = 0 ↔ ∀ x ∈ numbers, x = mean numbers
 
-theorem zero_iff_mean_thm (xs : List α) (h : Pre xs) : zero_iff_mean_prop xs := by
-  unfold zero_iff_mean_prop
-  have hn := length_cast_ne_zero h
+theorem zero_iff_eq_mean_thm (numbers : List ℝ) : zero_iff_eq_mean_prop numbers := by
+  unfold zero_iff_eq_mean_prop
   constructor
   · intro hz x hx
-    have hsum : (xs.map (fun z => |z - listMean xs|)).sum = 0 := by
-      unfold meanAbsoluteDeviation at hz
-      rw [div_eq_iff hn] at hz
-      simpa using hz
-    have hall0 : ∀ z ∈ xs, |z - listMean xs| = 0 := by
-      intro z hzmem
-      apply sum_eq_zero_of_nonneg (xs := xs.map (fun w => |w - listMean xs|))
-      · intro t ht
-        simp only [List.mem_map] at ht
-        obtain ⟨_, -, rfl⟩ := ht
-        exact abs_nonneg _
-      · exact hsum
-      · exact List.mem_map_of_mem hzmem
-    exact sub_eq_zero.mp (abs_eq_zero.mp (hall0 x hx))
+    by_cases hne : numbers = []
+    · simp [hne] at hx
+    · have hn := length_cast_ne_zero hne
+      unfold mean_absolute_deviation at hz
+      rw [div_eq_zero_iff] at hz
+      rcases hz with hsum | hlen
+      · have hnonneg : ∀ y ∈ numbers.map (fun y => |y - mean numbers|), 0 ≤ y := by
+          intro y hy
+          rcases List.mem_map.mp hy with ⟨_, _, rfl⟩
+          exact abs_nonneg _
+        have hx0 : |x - mean numbers| = 0 :=
+          List.all_zero_of_le_zero_le_of_sum_eq_zero hnonneg hsum
+            (List.mem_map.mpr ⟨x, hx, rfl⟩)
+        exact eq_of_sub_eq_zero (abs_eq_zero.mp hx0)
+      · exact absurd hlen hn
   · intro hall
-    unfold meanAbsoluteDeviation
-    have hsum : (xs.map (fun z => |z - listMean xs|)).sum = 0 := by
+    unfold mean_absolute_deviation
+    have hsum : (numbers.map (fun y => |y - mean numbers|)).sum = 0 := by
       apply List.sum_eq_zero
-      intro t ht
-      simp only [List.mem_map] at ht
-      obtain ⟨z, hz, rfl⟩ := ht
-      rw [hall z hz, sub_self, abs_zero]
-    rw [hsum, zero_div]
+      intro y hy
+      rcases List.mem_map.mp hy with ⟨z, hz, rfl⟩
+      simp [hall z hz]
+    simp [hsum]
 
-/-- MAD is zero iff all elements are equal. -/
-def zero_iff_const_prop (xs : List α) : Prop :=
-  meanAbsoluteDeviation xs = 0 ↔ ∀ x ∈ xs, ∀ y ∈ xs, x = y
+lemma mean_eq_of_constant {numbers : List ℝ} {a : ℝ}
+    (h : ∀ x ∈ numbers, x = a) (hne : numbers ≠ []) : mean numbers = a := by
+  unfold mean
+  have hs : numbers.sum = (numbers.length : ℝ) * a := by
+    simpa [nsmul_eq_mul] using List.sum_eq_card_nsmul numbers a h
+  rw [hs, mul_div_cancel_left₀ a (length_cast_ne_zero hne)]
 
-theorem zero_iff_const_thm (xs : List α) (h : Pre xs) : zero_iff_const_prop xs := by
-  unfold zero_iff_const_prop
-  have hmean := zero_iff_mean_thm xs h
-  unfold zero_iff_mean_prop at hmean
+/-- The deviation is zero exactly when all elements are equal. -/
+def zero_iff_constant_prop (numbers : List ℝ) : Prop :=
+  mean_absolute_deviation numbers = 0 ↔ ∀ x ∈ numbers, ∀ y ∈ numbers, x = y
+
+theorem zero_iff_constant_thm (numbers : List ℝ) : zero_iff_constant_prop numbers := by
+  unfold zero_iff_constant_prop
+  have hmean := zero_iff_eq_mean_thm numbers
+  unfold zero_iff_eq_mean_prop at hmean
   rw [hmean]
   constructor
   · intro hall x hx y hy
     rw [hall x hx, hall y hy]
   · intro hall x hx
-    obtain ⟨y, hy⟩ := List.exists_mem_of_ne_nil xs h
-    have hallx : ∀ z ∈ xs, z = y := fun z hz => hall z hz y hy
-    have hmean : listMean xs = y := by
-      unfold listMean
-      rw [sum_eq_card_mul_of_all_eq xs y hallx, mul_div_cancel_left₀ _ (length_cast_ne_zero h)]
-    rw [hallx x hx, hmean]
+    have hconst : ∀ y ∈ numbers, y = x := fun y hy => hall y hy x hx
+    have hne : numbers ≠ [] := List.length_pos_iff.mp (List.length_pos_of_mem hx)
+    exact (mean_eq_of_constant hconst hne).symm
 
-/-- Translating every element by `c` does not change MAD. -/
-def translation_invariance_prop (xs : List α) : Prop :=
-  ∀ c : α, meanAbsoluteDeviation (xs.map (fun x => x + c)) = meanAbsoluteDeviation xs
+/-- Adding a constant to every element does not change the deviation. -/
+def translation_invariance_prop (numbers : List ℝ) : Prop :=
+  ∀ c : ℝ,
+    mean_absolute_deviation (numbers.map (fun x => x + c)) =
+      mean_absolute_deviation numbers
 
-theorem translation_invariance_thm (xs : List α) (h : Pre xs) :
-    translation_invariance_prop xs := by
+theorem translation_invariance_thm (numbers : List ℝ) :
+    translation_invariance_prop numbers := by
   intro c
-  unfold meanAbsoluteDeviation
-  have hm := mean_add xs c h
-  rw [List.length_map]
-  have hmap :
-      (xs.map (fun x => x + c)).map (fun y => |y - listMean (xs.map (fun x => x + c))|)
-        = xs.map (fun x => |x - listMean xs|) := by
-    rw [hm, List.map_map]
-    refine List.map_congr_left ?_
-    intro x _hx
-    simp only [Function.comp_apply]
-    rw [show x + c - (listMean xs + c) = x - listMean xs by ring]
-  rw [hmap]
+  cases numbers with
+  | nil => simp [mean_absolute_deviation, mean]
+  | cons hd tl =>
+    have hne : (hd :: tl) ≠ [] := List.cons_ne_nil _ _
+    have hmap :
+        ((hd :: tl).map (fun x => x + c)).map
+            (fun y => |y - mean ((hd :: tl).map (fun x => x + c))|)
+          = (hd :: tl).map (fun x => |x - mean (hd :: tl)|) := by
+      rw [List.map_map]
+      refine List.map_congr_left ?_
+      intro x _
+      rw [mean_add_const (hd :: tl) c hne]
+      change |x + c - (mean (hd :: tl) + c)| = |x - mean (hd :: tl)|
+      have hsub : x + c - (mean (hd :: tl) + c) = x - mean (hd :: tl) := by abel
+      rw [hsub]
+    unfold mean_absolute_deviation
+    rw [List.length_map, hmap]
 
-/-- Scaling every element by `c` scales MAD by `|c|`. -/
-def absolute_homogeneity_prop (xs : List α) : Prop :=
-  ∀ c : α, meanAbsoluteDeviation (xs.map (fun x => c * x)) = |c| * meanAbsoluteDeviation xs
+/-- Scaling every element by `c` scales the deviation by `|c|`. -/
+def homogeneity_prop (numbers : List ℝ) : Prop :=
+  ∀ c : ℝ,
+    mean_absolute_deviation (numbers.map (fun x => x * c)) =
+      |c| * mean_absolute_deviation numbers
 
-theorem absolute_homogeneity_thm (xs : List α) (h : Pre xs) :
-    absolute_homogeneity_prop xs := by
-  have _ := h
+theorem homogeneity_thm (numbers : List ℝ) : homogeneity_prop numbers := by
   intro c
-  unfold meanAbsoluteDeviation
-  rw [List.length_map]
-  have hm := mean_mul xs c
   have hmap :
-      (xs.map (fun x => c * x)).map (fun y => |y - listMean (xs.map (fun x => c * x))|)
-        = xs.map (fun x => |c| * |x - listMean xs|) := by
-    rw [hm, List.map_map]
+      (numbers.map (fun x => x * c)).map
+          (fun y => |y - mean (numbers.map (fun x => x * c))|)
+        = numbers.map (fun x => |x - mean numbers| * |c|) := by
+    rw [List.map_map, mean_mul_const]
     refine List.map_congr_left ?_
-    intro x _hx
-    simp only [Function.comp_apply]
-    rw [show c * x - c * listMean xs = c * (x - listMean xs) by ring, abs_mul]
-  rw [hmap, sum_map_const_mul, mul_div_assoc]
+    intro x _
+    change |x * c - mean numbers * c| = |x - mean numbers| * |c|
+    rw [show x * c - mean numbers * c = (x - mean numbers) * c by ring, abs_mul]
+  unfold mean_absolute_deviation
+  rw [List.length_map, hmap, List.sum_map_mul_right]
+  calc
+    ((numbers.map (fun x => |x - mean numbers|)).sum * |c|) / (numbers.length : ℝ)
+        = (|c| * (numbers.map (fun x => |x - mean numbers|)).sum) / (numbers.length : ℝ) := by
+          rw [mul_comm]
+      _ = |c| * ((numbers.map (fun x => |x - mean numbers|)).sum / (numbers.length : ℝ)) :=
+          mul_div_assoc _ _ _
 
-/-- The mean is a center: the signed deviations sum to zero. -/
-def centered_sum_prop (xs : List α) : Prop :=
-  (xs.map (fun x => x - listMean xs)).sum = 0
+/-- The deviation depends only on the multiset of values. -/
+def permutation_invariance_prop (numbers : List ℝ) : Prop :=
+  ∀ ys : List ℝ, numbers.Perm ys →
+    mean_absolute_deviation numbers = mean_absolute_deviation ys
 
-theorem centered_sum_thm (xs : List α) (h : Pre xs) : centered_sum_prop xs := by
-  unfold centered_sum_prop
-  have hsum : (xs.map (fun x => x - listMean xs)).sum
-      = xs.sum + (xs.length : α) * (-listMean xs) := by
-    simp only [sub_eq_add_neg]
-    exact sum_map_add_const xs (-listMean xs)
-  rw [hsum]
-  unfold listMean
-  have hn := length_cast_ne_zero h
-  field_simp [hn]
-  ring
-
-/-- MAD depends only on the multiset of values. -/
-def permutation_invariance_prop (xs ys : List α) : Prop :=
-  xs.Perm ys → meanAbsoluteDeviation xs = meanAbsoluteDeviation ys
-
-theorem permutation_invariance_thm (xs ys : List α) :
-    permutation_invariance_prop xs ys := by
-  intro hperm
-  have hlen : xs.length = ys.length := hperm.length_eq
-  have hsum : xs.sum = ys.sum := hperm.sum_eq
-  have hmean : listMean xs = listMean ys := by
-    unfold listMean
-    rw [hsum, hlen]
-  unfold meanAbsoluteDeviation
-  rw [hmean, hlen]
-  have hp : (xs.map (fun x => |x - listMean ys|)).Perm
-      (ys.map (fun y => |y - listMean ys|)) := hperm.map _
+theorem permutation_invariance_thm (numbers : List ℝ) :
+    permutation_invariance_prop numbers := by
+  intro ys hperm
+  have hlen : numbers.length = ys.length := hperm.length_eq
+  have hsum : numbers.sum = ys.sum := hperm.sum_eq
+  have hmean : mean numbers = mean ys := by
+    unfold mean
+    rw [hlen, hsum]
+  unfold mean_absolute_deviation
+  rw [hlen]
+  have hp :
+      (numbers.map fun x => |x - mean numbers|).Perm
+        (ys.map fun y => |y - mean ys|) := by
+    rw [hmean]
+    exact hperm.map (fun y => |y - mean ys|)
   rw [hp.sum_eq]
 
-/-- A singleton has MAD zero. -/
-def singleton_zero_prop (a : α) : Prop :=
-  meanAbsoluteDeviation [a] = 0
+/-- A one-element dataset has deviation zero. -/
+def singleton_prop (x : ℝ) : Prop :=
+  mean_absolute_deviation [x] = 0
 
-theorem singleton_zero_thm (a : α) : singleton_zero_prop a := by
-  unfold singleton_zero_prop meanAbsoluteDeviation listMean
-  simp [abs_zero]
+theorem singleton_thm (x : ℝ) : singleton_prop x := by
+  simp [singleton_prop, mean_absolute_deviation, mean]
 
-/-- The three assertions in the Python `check` function, exactly, over `Rat`. -/
-def matches_reference_checks_prop : Prop :=
-  meanAbsoluteDeviation ([1, 2, 3] : List Rat) = 2 / 3 ∧
-  meanAbsoluteDeviation ([1, 2, 3, 4] : List Rat) = 1 ∧
-  meanAbsoluteDeviation ([1, 2, 3, 4, 5] : List Rat) = 6 / 5
+/-- Deviation of a pair is half the distance between its elements. -/
+def two_point_prop (a b : ℝ) : Prop :=
+  mean_absolute_deviation [a, b] = |a - b| / 2
 
-theorem matches_reference_checks_thm : matches_reference_checks_prop := by
-  unfold matches_reference_checks_prop
-  refine ⟨?_, ?_, ?_⟩
-  · unfold meanAbsoluteDeviation listMean
-    simp only [List.map_cons, List.map_nil, List.sum_cons, List.sum_nil,
-      List.length_cons, List.length_nil]
-    norm_num
-  · unfold meanAbsoluteDeviation listMean
-    simp only [List.map_cons, List.map_nil, List.sum_cons, List.sum_nil,
-      List.length_cons, List.length_nil]
-    norm_num
-    have h32 : |(3 : Rat) / 2| = 3 / 2 := abs_of_nonneg (by norm_num)
-    have h12 : |(1 : Rat) / 2| = 1 / 2 := abs_of_nonneg (by norm_num)
-    simp only [h32, h12]
-    norm_num
-  · unfold meanAbsoluteDeviation listMean
-    simp only [List.map_cons, List.map_nil, List.sum_cons, List.sum_nil,
-      List.length_cons, List.length_nil]
-    norm_num
+theorem two_point_thm (a b : ℝ) : two_point_prop a b := by
+  unfold two_point_prop mean_absolute_deviation mean
+  simp only [List.map_cons, List.map_nil, List.sum_cons, List.sum_nil,
+    List.length_cons, List.length_nil]
+  have hlen : ((0 + 1 + 1 : ℕ) : ℝ) = 2 := by norm_num
+  rw [hlen]
+  have h1 : a - (a + (b + 0)) / 2 = (a - b) / 2 := by ring
+  have h2 : b - (a + (b + 0)) / 2 = (b - a) / 2 := by ring
+  rw [h1, h2, abs_div, abs_div]
+  have hab : |b - a| = |a - b| := by rw [← abs_neg, neg_sub]
+  rw [hab, abs_of_nonneg (show (0 : ℝ) ≤ 2 by norm_num)]
+  field_simp
 
-/-! ## Post-condition -/
+lemma cast_sum_abs_dev (numbers : List ℚ) (μ : ℚ) :
+    (List.map (fun q : ℚ => |(q : ℝ) - (μ : ℝ)|) numbers).sum
+      = (((List.map (fun q : ℚ => |q - μ|) numbers).sum) : ℝ) := by
+  induction numbers with
+  | nil => simp
+  | cons hd tl ih =>
+    simp only [List.map_cons, List.sum_cons, ih]
+    rw [Rat.cast_add, ← Rat.cast_sub, ← Rat.cast_abs]
 
-/-- Conjunction of the mathematical obligations of the Python program
-    on a non-empty list: nonnegativity, zero-characterization, translation
-    invariance, absolute homogeneity, and centering of the mean. -/
-def Post_prop (xs : List α) : Prop :=
-  nonneg_prop xs ∧
-  zero_iff_mean_prop xs ∧
-  zero_iff_const_prop xs ∧
-  translation_invariance_prop xs ∧
-  absolute_homogeneity_prop xs ∧
-  centered_sum_prop xs
+lemma mean_rat_real_correspondence (numbers : List ℚ) :
+    mean (List.map (Rat.cast : ℚ → ℝ) numbers) = (mean_rat numbers : ℝ) := by
+  simp [mean, mean_rat, List.length_map, Rat.cast_list_sum, Rat.cast_div, Rat.cast_natCast]
 
-/-! ## Property-based tests
+/-- On rational inputs the real function agrees with the exact rational function. -/
+theorem rat_real_correspondence_thm (numbers : List ℚ) :
+    mean_absolute_deviation (List.map (Rat.cast : ℚ → ℝ) numbers) =
+      (mean_absolute_deviation_rat numbers : ℝ) := by
+  simp only [mean_absolute_deviation, mean_absolute_deviation_rat, List.length_map]
+  rw [mean_rat_real_correspondence, List.map_map]
+  have hs := cast_sum_abs_dev numbers (mean_rat numbers)
+  have hs' :
+      (List.map ((fun x => |x - (mean_rat numbers : ℝ)|) ∘ Rat.cast) numbers).sum
+        = (((List.map (fun q : ℚ => |q - mean_rat numbers|) numbers).sum) : ℝ) := by
+    simpa [Function.comp] using hs
+  rw [hs']
+  simp [Rat.cast_div, Rat.cast_natCast]
 
-The properties above are stated for every linear ordered field, including `Real`.
-Real equality and order are not computable, so there is no executable PBT at
-the `Real` layer. The checks below exercise the executable `Rat` counterpart of
-each property (the same algorithm, exact rational arithmetic).
--/
+/-- Docstring example: `mean_absolute_deviation([1.0, 2.0, 3.0, 4.0]) = 1.0`. -/
+def docstring_example_prop : Prop :=
+  mean_absolute_deviation [(1 : ℝ), 2, 3, 4] = 1
 
--- nonneg_prop
+theorem docstring_example_thm : docstring_example_prop := by
+  unfold docstring_example_prop
+  simp [mean_absolute_deviation, mean]
+  have ha : (1 : ℝ) - (1 + (2 + (3 + 4))) / 4 = -(3 / 2) := by norm_num
+  have hb : (2 : ℝ) - (1 + (2 + (3 + 4))) / 4 = -(1 / 2) := by norm_num
+  have hc : (3 : ℝ) - (1 + (2 + (3 + 4))) / 4 = 1 / 2 := by norm_num
+  have hd : (4 : ℝ) - (1 + (2 + (3 + 4))) / 4 = 3 / 2 := by norm_num
+  rw [ha, hb, hc, hd, abs_neg, abs_neg]
+  have h1 : |(3 / 2 : ℝ)| = 3 / 2 := abs_of_nonneg (by norm_num)
+  have h2 : |(1 / 2 : ℝ)| = 1 / 2 := abs_of_nonneg (by norm_num)
+  rw [h1, h2]
+  norm_num
+
+/-- Python check: `mean_absolute_deviation([1.0, 2.0, 3.0]) = 2/3`. -/
+def check_three_prop : Prop :=
+  mean_absolute_deviation [(1 : ℝ), 2, 3] = 2 / 3
+
+theorem check_three_thm : check_three_prop := by
+  unfold check_three_prop
+  simp [mean_absolute_deviation, mean]
+  norm_num
+
+/-- Python check: `mean_absolute_deviation([1.0, 2.0, 3.0, 4.0, 5.0]) = 6/5`. -/
+def check_five_prop : Prop :=
+  mean_absolute_deviation [(1 : ℝ), 2, 3, 4, 5] = 6 / 5
+
+theorem check_five_thm : check_five_prop := by
+  unfold check_five_prop
+  simp [mean_absolute_deviation, mean]
+  norm_num
+
+/-! ## Postcondition -/
+
+/-- Properties of the value returned for a list of real numbers. -/
+def Post_prop (numbers : List ℝ) : Prop :=
+  formula_prop numbers ∧
+  spec_prop numbers ∧
+  nonneg_prop numbers ∧
+  zero_iff_eq_mean_prop numbers ∧
+  zero_iff_constant_prop numbers ∧
+  translation_invariance_prop numbers ∧
+  homogeneity_prop numbers ∧
+  permutation_invariance_prop numbers
+
+/-! ## Property-based tests -/
+
+-- The `_prop` statements quantify over `Real`, whose order is not computable.
+-- Each test below is the executable Rat (or Float) counterpart.
+-- `rat_real_correspondence_thm` identifies that Rat function with the Real
+-- function on rational inputs, which is the domain of these checks.
+-- PBT: not executable directly (`nonneg_prop`, `Real` comparison).
+
+private def pbtCfg : Plausible.Configuration :=
+  { numInst := 40, maxSize := 12, quiet := true }
+
 #eval Plausible.Testable.check
-  (∀ (x : Int) (xs : List Int),
-    0 ≤ meanAbsoluteDeviation ((x :: xs).map (fun n => (n : Rat))))
-  { numInst := 40, maxSize := 8 }
+  (∀ xs : List Int,
+    let ys : List ℚ := xs.map (fun n => (n : ℚ))
+    decide (0 ≤ mean_absolute_deviation_rat ys) = true)
+  pbtCfg
 
-example : (List.range 30).all (fun n =>
-    decide (0 ≤ meanAbsoluteDeviation ([(n : Rat), (n + 1 : Rat), (n + 3 : Rat)]))) = true := by
-  native_decide
-
--- zero_iff_mean_prop / zero_iff_const_prop
--- Executable Boolean form: every element equals the head iff MAD is zero.
-def ratAllConst (ys : List Rat) : Bool :=
-  match ys with
-  | [] => true
-  | y :: rest => rest.all (fun z => z == y)
-
-def ratAllEqMean (ys : List Rat) : Bool :=
-  let m := listMean ys
-  ys.all (fun a => a == m)
-
+-- PBT for `zero_iff_eq_mean_prop` via the Rat layer.
 #eval Plausible.Testable.check
-  (∀ (x : Int) (xs : List Int),
-    let ys : List Rat := (x :: xs).map (fun n => (n : Rat))
-    ((meanAbsoluteDeviation ys == 0) = ratAllEqMean ys) ∧
-      ((meanAbsoluteDeviation ys == 0) = ratAllConst ys))
-  { numInst := 40, maxSize := 8 }
+  (∀ xs : List Int,
+    let ys : List ℚ := xs.map (fun n => (n : ℚ))
+    let m := mean_absolute_deviation_rat ys
+    let μ := mean_rat ys
+    ((m == 0) == ys.all (fun x => x == μ)) = true)
+  pbtCfg
 
-example : (List.range 30).all (fun n =>
-    decide (meanAbsoluteDeviation (List.replicate (n + 1) (n : Rat)) = 0)) = true := by
-  native_decide
-
-example : decide (meanAbsoluteDeviation ([1, 2, 3] : List Rat) ≠ 0) = true := by
-  native_decide
-
--- translation_invariance_prop
+-- PBT for `zero_iff_constant_prop` via the Rat layer.
 #eval Plausible.Testable.check
-  (∀ (x : Int) (xs : List Int) (c : Int),
-    let ys : List Rat := (x :: xs).map (fun n => (n : Rat))
-    meanAbsoluteDeviation (ys.map (fun y => y + (c : Rat))) = meanAbsoluteDeviation ys)
-  { numInst := 40, maxSize := 8 }
+  (∀ xs : List Int,
+    let ys : List ℚ := xs.map (fun n => (n : ℚ))
+    let m := mean_absolute_deviation_rat ys
+    ((m == 0) == ys.all (fun x => ys.all (fun y => x == y))) = true)
+  pbtCfg
 
-example : (List.range 20).all (fun n =>
-    decide (meanAbsoluteDeviation ([((n : Rat)), n + 1, n + 2].map (fun y => y + 5))
-      = meanAbsoluteDeviation [(n : Rat), n + 1, n + 2])) = true := by
-  native_decide
-
--- absolute_homogeneity_prop
+-- PBT for `translation_invariance_prop` via the Rat layer.
 #eval Plausible.Testable.check
-  (∀ (x : Int) (xs : List Int) (c : Int),
-    let ys : List Rat := (x :: xs).map (fun n => (n : Rat))
-    meanAbsoluteDeviation (ys.map (fun y => (c : Rat) * y))
-      = |(c : Rat)| * meanAbsoluteDeviation ys)
-  { numInst := 40, maxSize := 8 }
+  (∀ xs : List Int, ∀ c : Int,
+    let ys : List ℚ := xs.map (fun n => (n : ℚ))
+    mean_absolute_deviation_rat (ys.map (fun x => x + (c : ℚ))) =
+      mean_absolute_deviation_rat ys)
+  pbtCfg
 
-example : (List.range 15).all (fun n =>
-    decide (meanAbsoluteDeviation ([((n : Rat)), n + 1].map (fun y => (-2 : Rat) * y))
-      = 2 * meanAbsoluteDeviation [(n : Rat), n + 1])) = true := by
-  native_decide
-
--- centered_sum_prop
+-- PBT for `homogeneity_prop` via the Rat layer.
 #eval Plausible.Testable.check
-  (∀ (x : Int) (xs : List Int),
-    let ys : List Rat := (x :: xs).map (fun n => (n : Rat))
-    (ys.map (fun y => y - listMean ys)).sum = 0)
-  { numInst := 40, maxSize := 8 }
+  (∀ xs : List Int, ∀ c : Int,
+    let ys : List ℚ := xs.map (fun n => (n : ℚ))
+    mean_absolute_deviation_rat (ys.map (fun x => x * (c : ℚ))) =
+      |(c : ℚ)| * mean_absolute_deviation_rat ys)
+  pbtCfg
 
-example : (List.range 20).all (fun n =>
-    decide (([(n : Rat), n + 2, n + 5].map (fun y => y - listMean [(n : Rat), n + 2, n + 5])).sum = 0))
+-- PBT for `permutation_invariance_prop` via the Rat layer.
+-- Every rotation is a permutation (`List.rotate_perm`); the Boolean guard
+-- evaluates that fact and then checks the deviation.
+#eval Plausible.Testable.check
+  (∀ xs : List Int, ∀ k : Nat,
+    let ys : List ℚ := xs.map (fun n => (n : ℚ))
+    let zs := ys.rotate k
+    ((!decide (List.Perm ys zs)) ||
+      (mean_absolute_deviation_rat ys == mean_absolute_deviation_rat zs)) = true)
+  pbtCfg
+
+-- PBT for `spec_prop` via the Rat layer.
+#eval Plausible.Testable.check
+  (∀ xs : List Int,
+    let ys : List ℚ := xs.map (fun n => (n : ℚ))
+    mean_absolute_deviation_rat ys * (ys.length : ℚ) =
+      (ys.map (fun x => |x - mean_rat ys|)).sum)
+  pbtCfg
+
+-- PBT for `formula_prop` via the Rat layer.
+#eval Plausible.Testable.check
+  (∀ xs : List Int,
+    let ys : List ℚ := xs.map (fun n => (n : ℚ))
+    mean_absolute_deviation_rat ys =
+      (ys.map (fun x => |x - mean_rat ys|)).sum / (ys.length : ℚ))
+  pbtCfg
+
+-- PBT for `singleton_prop` via the Rat layer.
+#eval Plausible.Testable.check
+  (∀ a : Int, mean_absolute_deviation_rat [(a : ℚ)] = 0)
+  pbtCfg
+
+-- PBT for `two_point_prop` via the Rat layer.
+#eval Plausible.Testable.check
+  (∀ a b : Int,
+    mean_absolute_deviation_rat [(a : ℚ), (b : ℚ)] = |(a : ℚ) - (b : ℚ)| / 2)
+  pbtCfg
+
+-- PBT for the ground-truth Real properties `docstring_example_prop`,
+-- `check_three_prop`, and `check_five_prop`: their Rat counterparts are the
+-- closed unit tests above. Bounded Float checks of the same inputs:
+example :
+    (List.range 3).all (fun i =>
+      match i with
+      | 0 =>
+        Float.abs (mean_absolute_deviation_float [1.0, 2.0, 3.0] - (2.0 / 3.0)) < 1e-6
+      | 1 =>
+        Float.abs (mean_absolute_deviation_float [1.0, 2.0, 3.0, 4.0] - 1.0) < 1e-6
+      | _ =>
+        Float.abs (mean_absolute_deviation_float [1.0, 2.0, 3.0, 4.0, 5.0] - (6.0 / 5.0)) < 1e-6)
     = true := by
   native_decide
 
--- permutation_invariance_prop
-#eval Plausible.Testable.check
-  (∀ (a b c : Int),
-    meanAbsoluteDeviation ([(a : Rat), b, c]) = meanAbsoluteDeviation ([(c : Rat), a, b]))
-  { numInst := 40, maxSize := 12 }
-
-example : (List.range 20).all (fun n =>
-    decide (meanAbsoluteDeviation [(n : Rat), n + 1, n + 2]
-      = meanAbsoluteDeviation [(n + 2 : Rat), n, n + 1])) = true := by
-  native_decide
-
--- singleton_zero_prop
-#eval Plausible.Testable.check
-  (∀ a : Int, meanAbsoluteDeviation [(a : Rat)] = 0)
-  { numInst := 40, maxSize := 20 }
-
-example : (List.range 30).all (fun n =>
-    decide (meanAbsoluteDeviation [(n : Rat)] = 0)) = true := by
-  native_decide
-
--- matches_reference_checks_prop (closed; executable Boolean form of the three equalities)
+-- Bounded Rat checks of nonnegativity, translation, homogeneity, and the
+-- zero-on-constants case of `zero_iff_constant_prop`.
 example :
-    (meanAbsoluteDeviation ([1, 2, 3] : List Rat) == 2 / 3 &&
-      meanAbsoluteDeviation ([1, 2, 3, 4] : List Rat) == 1 &&
-      meanAbsoluteDeviation ([1, 2, 3, 4, 5] : List Rat) == 6 / 5) = true := by
+    (List.range 8).all (fun n =>
+      let ys : List ℚ := (List.range (n + 1)).map (fun i => (i : ℚ) - 3)
+      let constant : List ℚ := List.replicate (n + 1) 4
+      decide (0 ≤ mean_absolute_deviation_rat ys) &&
+        (mean_absolute_deviation_rat (ys.map (fun x => x + 5)) ==
+          mean_absolute_deviation_rat ys) &&
+        (mean_absolute_deviation_rat (ys.map (fun x => x * (-2))) ==
+          |(-2 : ℚ)| * mean_absolute_deviation_rat ys) &&
+        (mean_absolute_deviation_rat constant == 0)) = true := by
   native_decide
 
--- Post_prop, executable counterpart on sampled non-empty integer data
+-- Bounded Float counterpart of `nonneg_prop`, `singleton_prop`, and
+-- `translation_invariance_prop` on small integers (exact in binary64).
+example :
+    (List.range 8).all (fun n =>
+      let xs := (List.range (n + 1)).map (fun i => Float.ofNat i)
+      decide (0 ≤ mean_absolute_deviation_float xs) &&
+        (mean_absolute_deviation_float [Float.ofNat n] == 0) &&
+        (mean_absolute_deviation_float (xs.map (fun x => x + 3.0)) ==
+          mean_absolute_deviation_float xs)) = true := by
+  native_decide
+
+/-- Executable Rat form of `Post_prop`, at a sampled shift, scale, and rotation. -/
+def rat_post_ok (ys : List ℚ) (c : ℚ) (k : Nat) : Bool :=
+  let m := mean_absolute_deviation_rat ys
+  let μ := mean_rat ys
+  let shifted := mean_absolute_deviation_rat (ys.map (fun x => x + c))
+  let scaled := mean_absolute_deviation_rat (ys.map (fun x => x * c))
+  let rotated := ys.rotate k
+  decide (0 ≤ m) &&
+    ((m == 0) == ys.all (fun x => x == μ)) &&
+    ((m == 0) == ys.all (fun x => ys.all (fun y => x == y))) &&
+    (shifted == m) &&
+    (scaled == |c| * m) &&
+    (m * (ys.length : ℚ) == (ys.map (fun x => |x - μ|)).sum) &&
+    (m == (ys.map (fun x => |x - μ|)).sum / (ys.length : ℚ)) &&
+    ((!decide (List.Perm ys rotated)) || (mean_absolute_deviation_rat rotated == m))
+
+-- PBT for `Post_prop` via `rat_post_ok`.
 #eval Plausible.Testable.check
-  (∀ (x : Int) (xs : List Int) (c : Int),
-    let ys : List Rat := (x :: xs).map (fun n => (n : Rat))
-    (0 ≤ meanAbsoluteDeviation ys) ∧
-      ((meanAbsoluteDeviation ys == 0) = ratAllEqMean ys) ∧
-      ((meanAbsoluteDeviation ys == 0) = ratAllConst ys) ∧
-      meanAbsoluteDeviation (ys.map (fun y => y + (c : Rat))) = meanAbsoluteDeviation ys ∧
-      meanAbsoluteDeviation (ys.map (fun y => (c : Rat) * y))
-        = |(c : Rat)| * meanAbsoluteDeviation ys ∧
-      (ys.map (fun y => y - listMean ys)).sum = 0)
-  { numInst := 30, maxSize := 6 }
-
-example : (List.range 12).all (fun n =>
-    let ys : List Rat := [(n : Rat), n + 1, n + 4]
-    decide (0 ≤ meanAbsoluteDeviation ys ∧
-      meanAbsoluteDeviation (ys.map (fun y => y + 3)) = meanAbsoluteDeviation ys ∧
-      meanAbsoluteDeviation (ys.map (fun y => (2 : Rat) * y)) = 2 * meanAbsoluteDeviation ys ∧
-      (ys.map (fun y => y - listMean ys)).sum = 0)) = true := by
-  native_decide
+  (∀ xs : List Int, ∀ c : Int, ∀ k : Nat,
+    rat_post_ok (xs.map (fun n => (n : ℚ))) (c : ℚ) k = true)
+  pbtCfg
 
 /-! ## Correctness -/
 
-theorem correctness_thm (xs : List α) (h : Pre xs) : Post_prop xs := by
-  refine ⟨nonneg_thm xs h, zero_iff_mean_thm xs h, zero_iff_const_thm xs h,
-    translation_invariance_thm xs h, absolute_homogeneity_thm xs h, centered_sum_thm xs h⟩
+theorem correctness_thm (numbers : List ℝ) (h : Pre numbers) : Post_prop numbers := by
+  have : numbers ≠ [] := h
+  exact ⟨formula_thm numbers, spec_thm numbers, nonneg_thm numbers,
+    zero_iff_eq_mean_thm numbers, zero_iff_constant_thm numbers,
+    translation_invariance_thm numbers, homogeneity_thm numbers,
+    permutation_invariance_thm numbers⟩
 
-/-! ## Imperative implementation (`Id.run do`, mutable accumulators) -/
+/-! ## Imperative implementation -/
 
-/-- Running sum, starting from `acc`. -/
-def sumFrom (acc : α) (xs : List α) : α :=
+/-- Imperative Python-style loop over `Float`, using mutable accumulators. -/
+def mean_absolute_deviation_float_imp (numbers : List Float) : Float :=
   Id.run do
-    let mut s := acc
-    for x in xs do
-      s := s + x
-    return s
+    let mut total : Float := 0
+    for x in numbers do
+      total := total + x
+    let mean := total / numbers.length.toFloat
+    let mut acc : Float := 0
+    for x in numbers do
+      acc := acc + Float.abs (x - mean)
+    return acc / numbers.length.toFloat
 
-/-- Running sum of absolute deviations from a fixed center. -/
-def devFrom (acc mean : α) (xs : List α) : α :=
+/-- Imperative loop over rationals. -/
+def mean_absolute_deviation_rat_imp (numbers : List ℚ) : ℚ :=
   Id.run do
-    let mut a := acc
-    for x in xs do
-      a := a + |x - mean|
-    return a
-
-/-- Imperative MAD: one pass for the mean, one pass for the average absolute
-    deviation. Mirrors a straightforward stateful transcription of the Python. -/
-def meanAbsoluteDeviationImp (xs : List α) : α :=
-  Id.run do
-    let mut s : α := 0
-    for x in xs do
-      s := s + x
-    let mean := s / (xs.length : α)
-    let mut acc : α := 0
-    for x in xs do
+    let mut total : ℚ := 0
+    for x in numbers do
+      total := total + x
+    let mean := total / (numbers.length : ℚ)
+    let mut acc : ℚ := 0
+    for x in numbers do
       acc := acc + |x - mean|
-    return acc / (xs.length : α)
+    return acc / (numbers.length : ℚ)
 
-lemma sumFrom_cons (acc a : α) (xs : List α) :
-    sumFrom acc (a :: xs) = sumFrom (acc + a) xs := by
-  unfold sumFrom
-  simp only [Id.run, List.forIn_cons, pure_bind]
-
-lemma sumFrom_eq (acc : α) (xs : List α) : sumFrom acc xs = acc + xs.sum := by
-  induction xs generalizing acc with
-  | nil => unfold sumFrom; simp
-  | cons a xs ih =>
-    rw [sumFrom_cons, ih, List.sum_cons]
-    abel
-
-lemma devFrom_cons (acc mean a : α) (xs : List α) :
-    devFrom acc mean (a :: xs) = devFrom (acc + |a - mean|) mean xs := by
-  unfold devFrom
-  simp only [Id.run, List.forIn_cons, pure_bind]
-
-lemma devFrom_eq (acc mean : α) (xs : List α) :
-    devFrom acc mean xs = acc + (xs.map (fun x => |x - mean|)).sum := by
-  induction xs generalizing acc with
-  | nil => unfold devFrom; simp
-  | cons a xs ih =>
-    rw [devFrom_cons, ih, List.map_cons, List.sum_cons]
-    abel
-
-lemma imp_eq_helpers (xs : List α) :
-    meanAbsoluteDeviationImp xs =
-      devFrom 0 (sumFrom 0 xs / (xs.length : α)) xs / (xs.length : α) := by
-  unfold meanAbsoluteDeviationImp sumFrom devFrom
-  rfl
+/-- Imperative loop over reals. Same control flow as the Python function. -/
+noncomputable def mean_absolute_deviation_imp (numbers : List ℝ) : ℝ :=
+  Id.run do
+    let mut total : ℝ := 0
+    for x in numbers do
+      total := total + x
+    let mean := total / (numbers.length : ℝ)
+    let mut acc : ℝ := 0
+    for x in numbers do
+      acc := acc + |x - mean|
+    return acc / (numbers.length : ℝ)
 
 /-! ## Imperative tests -/
 
-#eval meanAbsoluteDeviationImp ([1, 2, 3] : List Rat)
-#eval meanAbsoluteDeviationImp ([1, 2, 3, 4] : List Rat)
-#eval meanAbsoluteDeviationImp ([1, 2, 3, 4, 5] : List Rat)
-
-example : meanAbsoluteDeviationImp ([1, 2, 3] : List Rat) = 2 / 3 := by
+example :
+    Float.abs (mean_absolute_deviation_float_imp [1.0, 2.0, 3.0] - (2.0 / 3.0)) < 1e-6 := by
   native_decide
 
-example : meanAbsoluteDeviationImp ([1, 2, 3, 4] : List Rat) = 1 := by
+example : Float.abs (mean_absolute_deviation_float_imp [1.0, 2.0, 3.0, 4.0] - 1.0) < 1e-6 := by
   native_decide
 
-example : meanAbsoluteDeviationImp ([1, 2, 3, 4, 5] : List Rat) = 6 / 5 := by
+example :
+    Float.abs (mean_absolute_deviation_float_imp [1.0, 2.0, 3.0, 4.0, 5.0] - (6.0 / 5.0))
+      < 1e-6 := by
   native_decide
 
-example : meanAbsoluteDeviation ([1, 2, 3, 4] : List Rat)
-    = meanAbsoluteDeviationImp ([1, 2, 3, 4] : List Rat) := by
-  native_decide
+#eval mean_absolute_deviation_float_imp [1.0, 2.0, 3.0, 4.0]
 
-end OrderedField
+example : mean_absolute_deviation_rat_imp [1, 2, 3] = 2 / 3 := by native_decide
+example : mean_absolute_deviation_rat_imp [1, 2, 3, 4] = 1 := by native_decide
+example : mean_absolute_deviation_rat_imp [1, 2, 3, 4, 5] = 6 / 5 := by native_decide
 
-/-- Imperative Float transcription (mutable two-pass loop). -/
-def meanAbsoluteDeviationFloatImp (numbers : List Float) : Float :=
-  Id.run do
-    let mut s : Float := 0.0
-    for x in numbers do
-      s := s + x
-    let mean := s / numbers.length.toFloat
-    let mut acc : Float := 0.0
-    for x in numbers do
-      acc := acc + (x - mean).abs
-    return acc / numbers.length.toFloat
+#eval mean_absolute_deviation_rat_imp [1, 2, 3, 4, 5]
 
-#eval meanAbsoluteDeviationFloatImp [1.0, 2.0, 3.0]
-#eval meanAbsoluteDeviationFloatImp [1.0, 2.0, 3.0, 4.0]
-#eval meanAbsoluteDeviationFloatImp [1.0, 2.0, 3.0, 4.0, 5.0]
+/-! ## Equivalence -/
 
-example : meanAbsoluteDeviationFloatImp [1.0, 2.0, 3.0, 4.0] == 1.0 := by
-  native_decide
+section FoldEquiv
+variable {α : Type*} [AddCommGroup α]
 
-example : (meanAbsoluteDeviationFloatImp [1.0, 2.0, 3.0] - (2.0 / 3.0)).abs < (1e-6 : Float) := by
-  native_decide
+lemma foldl_add_eq_sum (xs : List α) (acc : α) :
+    xs.foldl (fun s x => s + x) acc = acc + xs.sum := by
+  induction xs generalizing acc with
+  | nil => simp
+  | cons hd tl ih =>
+    simp only [List.foldl_cons, List.sum_cons, ih]
+    abel
 
-example : meanAbsoluteDeviationFloat [1.0, 2.0, 3.0, 4.0]
-    == meanAbsoluteDeviationFloatImp [1.0, 2.0, 3.0, 4.0] := by
-  native_decide
+lemma foldl_add_map (f : α → α) (xs : List α) (acc : α) :
+    xs.foldl (fun s x => s + f x) acc = acc + (xs.map f).sum := by
+  induction xs generalizing acc with
+  | nil => simp
+  | cons hd tl ih =>
+    simp only [List.foldl_cons, List.map_cons, List.sum_cons, ih]
+    abel
 
-example : (meanAbsoluteDeviationFloat [1.0, 2.0, 3.0, 4.0, 5.0]
-    - meanAbsoluteDeviationFloatImp [1.0, 2.0, 3.0, 4.0, 5.0]).abs < (1e-6 : Float) := by
-  native_decide
+end FoldEquiv
 
-/-! ## Equivalence: functional = imperative
+lemma foldl_float_map (f : Float → Float) (xs : List Float) (acc : Float) :
+    xs.foldl (fun s x => s + f x) acc = (xs.map f).foldl (fun s x => s + x) acc := by
+  induction xs generalizing acc with
+  | nil => simp
+  | cons _ tl ih =>
+    simp only [List.foldl_cons, List.map_cons, ih]
 
-Proved for the exact ordered-field model (including `Rat` and `Real`).
-Primitive `Float` arithmetic is opaque, so the same identity is checked on the
-Python ground examples above rather than proved for arbitrary `Float` lists.
--/
+/-- The real functional and imperative implementations agree. -/
+theorem equivalence_thm (numbers : List ℝ) :
+    mean_absolute_deviation numbers = mean_absolute_deviation_imp numbers := by
+  simp [mean_absolute_deviation, mean_absolute_deviation_imp, mean]
+  have h1 : numbers.foldl (fun b a => b + a) 0 = numbers.sum := by
+    simpa using foldl_add_eq_sum numbers 0
+  rw [h1]
+  have h2 :
+      numbers.foldl (fun b a => b + |a - numbers.sum / (numbers.length : ℝ)|) 0
+        = (numbers.map (fun a => |a - numbers.sum / (numbers.length : ℝ)|)).sum := by
+    simpa using foldl_add_map (fun a => |a - numbers.sum / (numbers.length : ℝ)|) numbers 0
+  rw [h2]
 
-section Equivalence
+theorem rat_equivalence_thm (numbers : List ℚ) :
+    mean_absolute_deviation_rat numbers = mean_absolute_deviation_rat_imp numbers := by
+  simp [mean_absolute_deviation_rat, mean_absolute_deviation_rat_imp, mean_rat]
+  have h1 : numbers.foldl (fun b a => b + a) 0 = numbers.sum := by
+    simpa using foldl_add_eq_sum numbers 0
+  rw [h1]
+  have h2 :
+      numbers.foldl (fun b a => b + |a - numbers.sum / (numbers.length : ℚ)|) 0
+        = (numbers.map (fun a => |a - numbers.sum / (numbers.length : ℚ)|)).sum := by
+    simpa using foldl_add_map (fun a => |a - numbers.sum / (numbers.length : ℚ)|) numbers 0
+  rw [h2]
 
-variable {α : Type*} [Field α] [LinearOrder α] [IsStrictOrderedRing α]
-
-theorem equivalence_thm (xs : List α) :
-    meanAbsoluteDeviation xs = meanAbsoluteDeviationImp xs := by
-  rw [imp_eq_helpers, devFrom_eq, sumFrom_eq]
-  simp [meanAbsoluteDeviation, listMean, zero_add]
-
-end Equivalence
-
-
-/-! ## Real specializations
-
-The theorems above are polymorphic in any linear ordered field, so they apply
-to `Real`. The corollaries below name that instance explicitly. Executable
-checks of the same properties are the `Rat` PBTs above (`Real` comparison is
-not computable).
--/
-
-theorem nonneg_thm_real (xs : List Real) (h : Pre xs) : nonneg_prop xs :=
-  nonneg_thm xs h
-
-theorem zero_iff_mean_thm_real (xs : List Real) (h : Pre xs) : zero_iff_mean_prop xs :=
-  zero_iff_mean_thm xs h
-
-theorem zero_iff_const_thm_real (xs : List Real) (h : Pre xs) : zero_iff_const_prop xs :=
-  zero_iff_const_thm xs h
-
-theorem translation_invariance_thm_real (xs : List Real) (h : Pre xs) :
-    translation_invariance_prop xs :=
-  translation_invariance_thm xs h
-
-theorem absolute_homogeneity_thm_real (xs : List Real) (h : Pre xs) :
-    absolute_homogeneity_prop xs :=
-  absolute_homogeneity_thm xs h
-
-theorem centered_sum_thm_real (xs : List Real) (h : Pre xs) : centered_sum_prop xs :=
-  centered_sum_thm xs h
-
-theorem permutation_invariance_thm_real (xs ys : List Real) :
-    permutation_invariance_prop xs ys :=
-  permutation_invariance_thm xs ys
-
-theorem singleton_zero_thm_real (a : Real) : singleton_zero_prop a :=
-  singleton_zero_thm a
-
-theorem correctness_thm_real (xs : List Real) (h : Pre xs) : Post_prop xs :=
-  correctness_thm xs h
-
-theorem equivalence_thm_real (xs : List Real) :
-    meanAbsoluteDeviation xs = meanAbsoluteDeviationImp xs :=
-  equivalence_thm xs
+theorem float_equivalence_thm (numbers : List Float) :
+    mean_absolute_deviation_float numbers = mean_absolute_deviation_float_imp numbers := by
+  simp [mean_absolute_deviation_float, mean_absolute_deviation_float_imp]
+  congr 1
+  simpa using
+    (foldl_float_map
+      (fun a =>
+        Float.abs (a - numbers.foldl (fun s x => s + x) 0 / numbers.length.toFloat))
+      numbers 0).symm
 
 end humaneval_4_mean_absolute_deviation

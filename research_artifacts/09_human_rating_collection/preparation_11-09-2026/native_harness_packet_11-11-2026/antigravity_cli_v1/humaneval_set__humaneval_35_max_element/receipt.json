@@ -1,0 +1,71 @@
+{
+  "task_id": "humaneval_set__humaneval_35_max_element",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "humaneval_35_max_element.py": "4b70c0542c0a72624d51825c14157212b6998cff49b7161ef77e6ae8451006c2",
+    "instruction.md": "8a5adb5219cc42294f5097a3f6ffe5d03f19d058dee6c2e196d38ef82f460ee8"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_35_max_element.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-1641c2256a49",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794864598.1934478,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794864925.1222668,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "38610427-cd12-48c7-b1b5-999d54f090c7",
+      "status": "SUCCESS",
+      "response": "I have translated `humaneval_35_max_element.py` into a complete Lean 4 formalization at [humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean).\n\n### Summary of Formalization\n\n- **Functional & Imperative Implementations**:\n  - `max_element` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L23-L24)): Functional fold (`List.foldl max_step l[0]!`) over `List Int`.\n  - `max_element_imp` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L426-L431)): Imperative implementation using `Id.run do` and mutable accumulator `m`.\n- **Pre-condition & Post-condition**:\n  - `Pre` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L46-L47)): Requires the input list to be non-empty (`l \u2260 []`).\n  - `Post_prop` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L294-L299)): Conjunction of membership, element-wise upper bound, index-wise upper bound, maximizing-index existence, and head lower bound.\n- **Properties & Proven Theorems** (all proven without `sorry`, `admit`, `native_decide`, or extra axioms):\n  - `max_element_mem_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L117-L128)): `max_element l \u2208 l`\n  - `max_element_upper_bound_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L134-L140)): `\u2200 x \u2208 l, x \u2264 max_element l`\n  - `max_element_index_bound_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L146-L150)): `\u2200 (i : Nat) (hi : i < l.length), l[i] \u2264 max_element l`\n  - `max_element_exists_index_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L156-L159)): `\u2203 (i : Nat) (hi : i < l.length), l[i] = max_element l`\n  - `max_element_ge_head_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L165-L172)): `l[0]! \u2264 max_element l`\n  - `max_element_lub_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L178-L186)): `\u2200 k : Int, max_element l \u2264 k \u2194 \u2200 x \u2208 l, x \u2264 k`\n  - `max_element_unique_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L192-L198)): Uniqueness of the upper-bounding member in `l`\n  - `max_element_singleton_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L204-L207)), `max_element_cons_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L213-L228)), `max_element_append_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L234-L249))\n  - `max_element_subset_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L255-L259)), `max_element_perm_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L265-L275)), `max_element_reverse_thm` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L281-L287))\n  - `max_element_correct` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L413-L419)): `Pre l \u2192 Post_prop l`\n  - `max_element_equiv` ([humaneval_35_max_element.lean](file:///home/user/lean_project/Veribench/humaneval_35_max_element.lean#L470-L472)): `max_element l = max_element_imp l`\n- **Verification**: Compiled and verified with `lake env lean Veribench/humaneval_35_max_element.lean` (exit code 0), including unit tests and randomized/bounded property-based tests for all properties and the post-condition.\n",
+      "duration_seconds": 321.620716413,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 59493,
+        "output_tokens": 26216,
+        "thinking_tokens": 12832,
+        "cache_read_tokens": 231636,
+        "total_tokens": 85709
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "68df9691428b0eebd0eb2f41ad93e943069c651d4e1c195624f4d1f82805f8b2",
+  "candidate_bytes": 19867
+}

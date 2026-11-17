@@ -1,0 +1,10 @@
+Created At: 2026-11-16T22:19:15Z
+Completed At: 2026-11-16T22:19:19Z
+Command exited with code 1.
+
+Command output:
+List.length_insertionSort.{u} {α : Type u} (r : α → α → Prop) [DecidableRel r] (l : List α) :
+  (List.insertionSort r l).length = l.length
+<stdin>:3:7: error: unknown constant 'List.Sorted.pairwise'
+List.pairwise_iff_getElem.{u_1} {α : Type u_1} {R : α → α → Prop} {l : List α} :
+  List.Pairwise R l ↔ ∀ (i j : ℕ) (_hi : i < l.length) (_hj : j < l.length), i < j → R l[i] l[j]

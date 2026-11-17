@@ -1,0 +1,19 @@
+Created At: 2026-11-16T22:18:57Z
+Completed At: 2026-11-16T22:19:01Z
+Command exited with code 1.
+
+Command output:
+List.insertionSort.{u} {α : Type u} (r : α → α → Prop) [DecidableRel r] : List α → List α
+List.mergeSort.{u_1} {α : Type u_1} (xs : List α) (le : α → α → Bool := by exact fun a b => a ≤ b) : List α
+List.Pairwise.{u} {α : Type u} (R : α → α → Prop) : List α → Prop
+List.Sorted.{u_1} {α : Type u_1} (R : α → α → Prop) : List α → Prop
+List.perm_insertionSort.{u} {α : Type u} (r : α → α → Prop) [DecidableRel r] (l : List α) :
+  (List.insertionSort r l).Perm l
+List.sorted_insertionSort.{u} {α : Type u} (r : α → α → Prop) [DecidableRel r] [IsTotal α r] [IsTrans α r]
+  (l : List α) : List.Sorted r (List.insertionSort r l)
+List.mergeSort_perm.{u_1} {α : Type u_1} (l : List α) (le : α → α → Bool) : (l.mergeSort le).Perm l
+<stdin>:9:7: error: unknown constant 'List.pairwise_mergeSort'
+List.Perm.eq_of_sorted.{u_1} {α : Type u_1} {le : α → α → Prop} {l₁ l₂ : List α} :
+  (∀ (a b : α), a ∈ l₁ → b ∈ l₂ → le a b → le b a → a = b) →
+    List.Pairwise le l₁ → List.Pairwise le l₂ → l₁.Perm l₂ → l₁ = l₂
+<stdin>:11:7: error: unknown constant 'List.Perm.eq_of_pairwise'

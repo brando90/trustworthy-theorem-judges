@@ -1,0 +1,31 @@
+{
+  "task_id": "cs_set__edit_distance",
+  "condition_sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "1000",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "edit_distance.py": "64d1e83ce02b690a6a73dd6ed132f512f71cf5071a1df65ff12d32240449baa1",
+    "instruction.md": "254cf23f668898d9dd676d762b3046e53b8846135652a46f83e67ec34075e234"
+  },
+  "output": "/home/user/lean_project/Veribench/edit_distance.lean",
+  "model_call_performed": false
+}

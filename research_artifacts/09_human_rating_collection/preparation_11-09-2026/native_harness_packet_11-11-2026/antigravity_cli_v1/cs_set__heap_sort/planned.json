@@ -1,0 +1,25 @@
+{
+  "task_id": "cs_set__heap_sort",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "heap_sort.py": "9194b262a2b0d0ed6195687c4fdfef67b287f28605d2b3c8ac3cd63a6bfc2fbd",
+    "instruction.md": "f7f290893fba57a91795fa73020836a0465609e64a55e24b55fe4c668afb2bea"
+  },
+  "output": "/home/user/lean_project/Veribench/heap_sort.lean",
+  "model_call_performed": false
+}

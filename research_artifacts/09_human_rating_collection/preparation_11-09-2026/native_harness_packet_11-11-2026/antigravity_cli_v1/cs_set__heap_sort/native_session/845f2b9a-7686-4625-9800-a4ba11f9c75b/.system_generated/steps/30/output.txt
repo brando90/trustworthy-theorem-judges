@@ -1,0 +1,171 @@
+Created At: 2026-11-16T22:40:08Z
+Completed At: 2026-11-16T22:40:14Z
+Command exited with code 1.
+
+Command output:
+[1, 2, 3]
+[]
+[1]
+[11, 12, 22, 25, 34, 42, 50, 64, 76, 88, 90]
+Veribench/heap_sort.lean:467:8: error: unsolved goals
+case pos
+arr : List ℤ
+n start : ℕ
+hn : n ≤ arr.length
+k : ℕ
+hsk : start ≤ k
+hkn : k < n
+hstart : start ≤ k
+halm : AlmostHeap arr n start k
+l : ℕ := chooseLargest arr n k
+hne : l ≠ k
+hl_def : l = chooseLargest arr n k
+hl_cases : l = 2 * k + 1 ∧ 2 * k + 1 < n ∨ l = 2 * k + 2 ∧ 2 * k + 2 < n
+hidx_lt_l : k < l
+hl_lt_n : l < n
+hidx_len : k < arr.length
+hl_len : l < arr.length
+hkl : k ≠ l
+hroot : getElemD (swap arr k l) k = getElemD arr l
+hc1 : 2 * k + 1 < n
+hne_k : 2 * k + 1 ≠ k
+hc1_l : 2 * k + 1 = l
+⊢ getElemD arr k ≤ getElemD arr l
+Veribench/heap_sort.lean:468:8: error: unsolved goals
+case neg
+arr : List ℤ
+n start : ℕ
+hn : n ≤ arr.length
+k : ℕ
+hsk : start ≤ k
+hkn : k < n
+hstart : start ≤ k
+halm : AlmostHeap arr n start k
+l : ℕ := chooseLargest arr n k
+hne : l ≠ k
+hl_def : l = chooseLargest arr n k
+hl_cases : l = 2 * k + 1 ∧ 2 * k + 1 < n ∨ l = 2 * k + 2 ∧ 2 * k + 2 < n
+hidx_lt_l : k < l
+hl_lt_n : l < n
+hidx_len : k < arr.length
+hl_len : l < arr.length
+hkl : k ≠ l
+hroot : getElemD (swap arr k l) k = getElemD arr l
+hc1 : 2 * k + 1 < n
+hne_k : 2 * k + 1 ≠ k
+hc1_l : ¬2 * k + 1 = l
+⊢ getElemD arr (2 * k + 1) ≤ getElemD arr l
+Veribench/heap_sort.lean:473:8: error: unsolved goals
+case pos
+arr : List ℤ
+n start : ℕ
+hn : n ≤ arr.length
+k : ℕ
+hsk : start ≤ k
+hkn : k < n
+hstart : start ≤ k
+halm : AlmostHeap arr n start k
+l : ℕ := chooseLargest arr n k
+hne : l ≠ k
+hl_def : l = chooseLargest arr n k
+hl_cases : l = 2 * k + 1 ∧ 2 * k + 1 < n ∨ l = 2 * k + 2 ∧ 2 * k + 2 < n
+hidx_lt_l : k < l
+hl_lt_n : l < n
+hidx_len : k < arr.length
+hl_len : l < arr.length
+hkl : k ≠ l
+hroot : getElemD (swap arr k l) k = getElemD arr l
+hc2 : 2 * k + 2 < n
+hne_k : 2 * k + 2 ≠ k
+hc2_l : 2 * k + 2 = l
+⊢ getElemD arr k ≤ getElemD arr l
+Veribench/heap_sort.lean:474:8: error: unsolved goals
+case neg
+arr : List ℤ
+n start : ℕ
+hn : n ≤ arr.length
+k : ℕ
+hsk : start ≤ k
+hkn : k < n
+hstart : start ≤ k
+halm : AlmostHeap arr n start k
+l : ℕ := chooseLargest arr n k
+hne : l ≠ k
+hl_def : l = chooseLargest arr n k
+hl_cases : l = 2 * k + 1 ∧ 2 * k + 1 < n ∨ l = 2 * k + 2 ∧ 2 * k + 2 < n
+hidx_lt_l : k < l
+hl_lt_n : l < n
+hidx_len : k < arr.length
+hl_len : l < arr.length
+hkl : k ≠ l
+hroot : getElemD (swap arr k l) k = getElemD arr l
+hc2 : 2 * k + 2 < n
+hne_k : 2 * k + 2 ≠ k
+hc2_l : ¬2 * k + 2 = l
+⊢ getElemD arr (2 * k + 2) ≤ getElemD arr l
+Veribench/heap_sort.lean:487:22: error: type mismatch
+  hp.left hlt1
+has type
+  getElemD arr (2 * idx + 1) ≤ getElemD arr k : Prop
+but is expected to have type
+  (if idx = 2 * idx + 1 then getElemD arr idx else getElemD arr (2 * idx + 1)) ≤ getElemD arr k : Prop
+Veribench/heap_sort.lean:488:22: error: type mismatch
+  hp.right hlt2
+has type
+  getElemD arr (2 * idx + 2) ≤ getElemD arr k : Prop
+but is expected to have type
+  (if idx = 2 * idx + 2 then getElemD arr idx else getElemD arr (2 * idx + 2)) ≤ getElemD arr k : Prop
+Veribench/heap_sort.lean:498:22: error: type mismatch
+  hp.left hlt1
+has type
+  getElemD arr (2 * idx + 1) ≤ getElemD arr k : Prop
+but is expected to have type
+  (if idx = 2 * idx + 1 then getElemD arr idx else getElemD arr (2 * idx + 1)) ≤ getElemD arr k : Prop
+Veribench/heap_sort.lean:499:22: error: type mismatch
+  hp.right hlt2
+has type
+  getElemD arr (2 * idx + 2) ≤ getElemD arr k : Prop
+but is expected to have type
+  (if idx = 2 * idx + 2 then getElemD arr idx else getElemD arr (2 * idx + 2)) ≤ getElemD arr k : Prop
+Veribench/heap_sort.lean:467:23: warning: This simp argument is unused:
+  chooseLargest_ge_self arr n k
+
+Hint: Omit it from the simp argument list.
+  simp [hc1_l,̵ ̵c̵h̵o̵o̵s̵e̵L̵a̵r̵g̵e̵s̵t̵_̵g̵e̵_̵s̵e̵l̵f̵ ̵a̵r̵r̵ ̵n̵ ̵k̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/heap_sort.lean:468:30: warning: This simp argument is unused:
+  chooseLargest_ge_left arr n k hc1
+
+Hint: Omit it from the simp argument list.
+  simp [hc1_l, hne_k,̵ ̵c̵h̵o̵o̵s̵e̵L̵a̵r̵g̵e̵s̵t̵_̵g̵e̵_̵l̵e̵f̵t̵ ̵a̵r̵r̵ ̵n̵ ̵k̵ ̵h̵c̵1̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/heap_sort.lean:473:23: warning: This simp argument is unused:
+  chooseLargest_ge_self arr n k
+
+Hint: Omit it from the simp argument list.
+  simp [hc2_l,̵ ̵c̵h̵o̵o̵s̵e̵L̵a̵r̵g̵e̵s̵t̵_̵g̵e̵_̵s̵e̵l̵f̵ ̵a̵r̵r̵ ̵n̵ ̵k̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/heap_sort.lean:474:30: warning: This simp argument is unused:
+  chooseLargest_ge_right arr n k hc2
+
+Hint: Omit it from the simp argument list.
+  simp [hc2_l, hne_k,̵ ̵c̵h̵o̵o̵s̵e̵L̵a̵r̵g̵e̵s̵t̵_̵g̵e̵_̵r̵i̵g̵h̵t̵ ̵a̵r̵r̵ ̵n̵ ̵k̵ ̵h̵c̵2̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/heap_sort.lean:484:21: warning: This simp argument is unused:
+  hc1_ne_l
+
+Hint: Omit it from the simp argument list.
+  simp only [h̵c̵1̵_̵n̵e̵_̵l̵,̵ ̵↓reduceIte, hc1_idx]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/heap_sort.lean:495:21: warning: This simp argument is unused:
+  hc2_ne_l
+
+Hint: Omit it from the simp argument list.
+  simp only [h̵c̵2̵_̵n̵e̵_̵l̵,̵ ̵↓reduceIte, hc2_idx]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

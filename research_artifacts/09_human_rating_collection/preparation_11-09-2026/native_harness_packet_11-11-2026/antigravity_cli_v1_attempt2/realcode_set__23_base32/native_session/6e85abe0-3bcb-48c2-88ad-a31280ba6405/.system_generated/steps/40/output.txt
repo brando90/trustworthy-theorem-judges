@@ -1,0 +1,15 @@
+Created At: 2026-11-16T23:07:31Z
+Completed At: 2026-11-16T23:07:35Z
+Command exited with code 1.
+
+Command output:
+<stdin>:10:2: error: failed to synthesize
+  Decidable (∀ (b : UInt8), toUpperByte (toLowerByte b) = toUpperByte b)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+<stdin>:13:2: error: failed to synthesize
+  Decidable (∀ (b : UInt8), toUpperByte (toUpperByte b) = toUpperByte b)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+'toUpperByte_toLowerByte' depends on axioms: [propext, sorryAx]
+'toUpperByte_idempotent' depends on axioms: [propext, sorryAx]

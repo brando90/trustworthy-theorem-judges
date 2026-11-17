@@ -1,0 +1,42 @@
+Created At: 2026-11-16T21:31:49Z
+Completed At: 2026-11-16T21:31:54Z
+Command exited with code 1.
+
+Command output:
+3
+123
+124
+Veribench/humaneval_35_max_element.lean:108:4: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  c - d ≤ 0
+  b - c ≥ 0
+  b - d ≤ 0
+  a - b ≥ 0
+  a - d ≤ -1
+where
+ a := List.foldr max (max init h) t
+ b := h
+ c := init
+ d := List.foldr max init t
+Veribench/humaneval_35_max_element.lean:137:52: warning: unused variable `h`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Veribench/humaneval_35_max_element.lean:221:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Veribench/humaneval_35_max_element.lean:222:0: warning: Gave up after failing to generate values that fulfill the preconditions 15 times.
+Veribench/humaneval_35_max_element.lean:223:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Unable to find a counter-example
+Veribench/humaneval_35_max_element.lean:226:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Veribench/humaneval_35_max_element.lean:228:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Veribench/humaneval_35_max_element.lean:230:0: warning: Gave up after failing to generate values that fulfill the preconditions 18 times.
+3
+123
+124
+Veribench/humaneval_35_max_element.lean:275:80: error: unsolved goals
+l : List ℤ
+⊢ List.foldl (fun m e => if m < e then e else m) (l.head?.getD 0) l =
+    (List.foldlM
+          (fun b a =>
+            match b with
+            | ForInStep.yield b => if b < a then pure (ForInStep.yield a) else pure (ForInStep.yield b)
+            | ForInStep.done b => pure (ForInStep.done b))
+          (ForInStep.yield (l.head?.getD 0)) l).run.value

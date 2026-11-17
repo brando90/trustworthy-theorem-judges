@@ -1,0 +1,12 @@
+Created At: 2026-11-16T21:52:12Z
+Completed At: 2026-11-16T21:52:16Z
+Command exited with code 0.
+
+Command output:
+<stdin>:21:15: warning: This simp argument is unused:
+  Bool.true_and
+
+Hint: Omit it from the simp argument list.
+  simp only [B̵o̵o̵l̵.̵t̵r̵u̵e̵_̵a̵n̵d̵,̵ ̵↓reduceIte]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

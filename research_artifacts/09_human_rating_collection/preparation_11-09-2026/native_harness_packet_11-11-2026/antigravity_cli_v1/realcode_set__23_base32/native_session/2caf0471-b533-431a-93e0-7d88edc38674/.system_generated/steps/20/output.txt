@@ -1,0 +1,26 @@
+Created At: 2026-11-16T21:42:00Z
+Completed At: 2026-11-16T21:42:09Z
+Command exited with code 1.
+
+Command output:
+<stdin>:24:54: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  a ≥ 0
+  0 ≤ a - 32*b ≤ 25
+where
+ a := ↑i
+ b := ↑i / 32
+<stdin>:24:54: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  a ≥ 0
+  26 ≤ a - 32*b ≤ 31
+where
+ a := ↑i
+ b := ↑i / 32
+<stdin>:24:31: warning: This simp argument is unused:
+  UInt8.toNat_ofNat
+
+Hint: Omit it from the simp argument list.
+  simp [BEq.beq,̵ ̵U̵I̵n̵t̵8̵.̵t̵o̵N̵a̵t̵_̵o̵f̵N̵a̵t̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

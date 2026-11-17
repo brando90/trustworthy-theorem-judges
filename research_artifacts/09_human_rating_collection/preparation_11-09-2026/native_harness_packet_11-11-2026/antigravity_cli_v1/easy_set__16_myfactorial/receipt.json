@@ -1,0 +1,71 @@
+{
+  "task_id": "easy_set__16_myfactorial",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "16_MyFactorial.py": "e4c85d4c44a69827a816d7b67e22b1fb7e22e0cab18c99427daaba80a22780d7",
+    "instruction.md": "382a77a7dcb88a8ab0d432b117b24dd49385d36858df74ab05ef79308a801507"
+  },
+  "output": "/home/user/lean_project/Veribench/16_MyFactorial.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-489cc69c0234",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794865873.332793,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794866769.6159601,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "6ec25fec-6ac4-45ed-b2ca-0a3ad9ed9874",
+      "status": "SUCCESS",
+      "response": "The Python factorial program has been translated into a Lean 4 formalization at [16_MyFactorial.lean](file:///home/user/lean_project/Veribench/16_MyFactorial.lean) and verified with `lake env lean Veribench/16_MyFactorial.lean` (exit code 0, zero warnings, zero `sorry`).\n\n### Summary of Formalization\n\n- **Functional Implementations ([16_MyFactorial.lean](file:///home/user/lean_project/Veribench/16_MyFactorial.lean#L16-L46))**:\n  - `pre (n : Int) : Bool` checks `n \u2265 0`.\n  - `factorialNat : Nat \u2192 Nat` computes `n!` recursively on `Nat`.\n  - `myFactorial (n : Int) : Int` computes `n!` via `List.foldl` over `List.range' 1 n.toNat`.\n  - `prog (n : Int) : Option Int` returns `none` when `\u00ac pre n` (`n < 0`, modeling `ValueError`) and `some (n!)` when `n \u2265 0`.\n- **Unit Tests ([16_MyFactorial.lean](file:///home/user/lean_project/Veribench/16_MyFactorial.lean#L48-L77))**:\n  - Verified via `example : ... := by native_decide` and `#eval` on edge cases (`0`, `1`), positive inputs (`2`, `3`, `4`, `5`), and precondition violations (`-1`, `-5`).\n- **Pre-condition, Properties, and Theorems ([16_MyFactorial.lean](file:///home/user/lean_project/Veribench/16_MyFactorial.lean#L79-L315))**:\n  - `Pre (n : Int) : Prop := n \u2265 0` and equivalence `pre_iff_Pre`.\n  - Stated and kernel-proved 16 properties (`_prop` and `_thm`): precondition violation handling (`invalid_input_thm`), valid output termination (`valid_some_thm`), base cases (`base_zero_thm`, `base_one_thm`), strict positivity (`pos_thm`), equivalence to Mathlib's `Nat.factorial` (`mathlib_eq_thm`), range product representation (`range_prod_thm`), forward and backward recurrences (`recurrence_succ_thm`, `recurrence_pred_thm`), step and general monotonicity (`mono_step_thm`, `mono_le_thm`), strict monotonicity (`strict_mono_thm`), self-divisibility and factor divisibility (`dvd_thm`, `dvd_of_le_thm`), evenness for $n \\ge 2$ (`even_thm`), and lower bound $n! \\ge n$ (`ge_self_thm`).\n- **Post-condition, PBTs, and Correctness Theorem ([16_MyFactorial.lean](file:///home/user/lean_project/Veribench/16_MyFactorial.lean#L317-L456))**:\n  - `Post_prop` defined as the conjunction of all unary properties.\n  - Randomized Plausible PBTs (`#eval Plausible.Testable.check ...`) and bounded exhaustive PBTs (`example : (List.range ...).all ... = true := by native_decide`) for every property and `Post_prop`.\n  - `correctness_thm (n : Int) (h : Pre n) : Post_prop n`.\n- **Imperative Implementation, Tests, and Equivalence ([16_MyFactorial.lean](file:///home/user/lean_project/Veribench/16_MyFactorial.lean#L458-L545))**:\n  - Imperative implementations `progImp`, `myFactorialImp`, and `factorialNatImp` using `Id.run do` with mutable `result` and `for i in [1 : ...]` loops.\n  - Proven equivalence theorems `prog_eq_progImp`, `equivalence_thm : prog = progImp`, `myFactorial_eq_myFactorialImp`, and `factorialNat_eq_factorialNatImp`.\n",
+      "duration_seconds": 891.286603746,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 117699,
+        "output_tokens": 47798,
+        "thinking_tokens": 25435,
+        "cache_read_tokens": 1233920,
+        "total_tokens": 165497
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "dc1600c1dd855fa8e33b0b54d47d9a510abdc46fc9cc4dac45433ccdb6a5e435",
+  "candidate_bytes": 21528
+}

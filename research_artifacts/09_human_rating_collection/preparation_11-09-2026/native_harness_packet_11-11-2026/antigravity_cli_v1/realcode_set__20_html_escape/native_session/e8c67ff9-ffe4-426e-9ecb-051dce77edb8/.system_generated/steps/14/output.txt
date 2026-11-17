@@ -1,0 +1,83 @@
+Created At: 2026-11-16T21:26:45Z
+Completed At: 2026-11-16T21:26:51Z
+Command exited with code 1.
+
+Command output:
+<stdin>:27:34: error: unknown constant 'List.flatMap_flatMap'
+<stdin>:27:34: error: unknown constant 'List.flatMap_flatMap'
+<stdin>:29:2: error: tactic 'apply' failed, could not unify the conclusion of `@funext`
+  ?f = ?g
+with the goal
+  (if false = true then
+      {
+        data :=
+          List.flatMap (fun c => if (c == '\'') = true then ['&', '#', 'x', '2', '7', ';'] else [c])
+            (List.flatMap (fun c => if (c == '\"') = true then ['&', 'q', 'u', 'o', 't', ';'] else [c])
+              (List.flatMap (fun c => if (c == '>') = true then ['&', 'g', 't', ';'] else [c])
+                (List.flatMap (fun c => if (c == '<') = true then ['&', 'l', 't', ';'] else [c])
+                  (List.flatMap (fun c => if (c == '&') = true then ['&', 'a', 'm', 'p', ';'] else [c]) s.data)))) }
+    else
+      {
+        data :=
+          List.flatMap (fun c => if (c == '>') = true then ['&', 'g', 't', ';'] else [c])
+            (List.flatMap (fun c => if (c == '<') = true then ['&', 'l', 't', ';'] else [c])
+              (List.flatMap (fun c => if (c == '&') = true then ['&', 'a', 'm', 'p', ';'] else [c]) s.data)) }) =
+    { data := (List.map (fun c => escapeChar c false) s.data).flatten }
+
+Note: The full type of `@funext` is
+  ∀ {α : Sort ?u.8761} {β : α → Sort ?u.8760} {f g : (x : α) → β x}, (∀ (x : α), f x = g x) → f = g
+case false.e_self
+s : String
+⊢ (if false = true then
+      {
+        data :=
+          List.flatMap (fun c => if (c == '\'') = true then ['&', '#', 'x', '2', '7', ';'] else [c])
+            (List.flatMap (fun c => if (c == '\"') = true then ['&', 'q', 'u', 'o', 't', ';'] else [c])
+              (List.flatMap (fun c => if (c == '>') = true then ['&', 'g', 't', ';'] else [c])
+                (List.flatMap (fun c => if (c == '<') = true then ['&', 'l', 't', ';'] else [c])
+                  (List.flatMap (fun c => if (c == '&') = true then ['&', 'a', 'm', 'p', ';'] else [c]) s.data)))) }
+    else
+      {
+        data :=
+          List.flatMap (fun c => if (c == '>') = true then ['&', 'g', 't', ';'] else [c])
+            (List.flatMap (fun c => if (c == '<') = true then ['&', 'l', 't', ';'] else [c])
+              (List.flatMap (fun c => if (c == '&') = true then ['&', 'a', 'm', 'p', ';'] else [c]) s.data)) }) =
+    { data := (List.map (fun c => escapeChar c false) s.data).flatten }
+<stdin>:29:2: error: tactic 'apply' failed, could not unify the conclusion of `@funext`
+  ?f = ?g
+with the goal
+  (if True then
+      {
+        data :=
+          List.flatMap (fun c => if (c == '\'') = true then ['&', '#', 'x', '2', '7', ';'] else [c])
+            (List.flatMap (fun c => if (c == '\"') = true then ['&', 'q', 'u', 'o', 't', ';'] else [c])
+              (List.flatMap (fun c => if (c == '>') = true then ['&', 'g', 't', ';'] else [c])
+                (List.flatMap (fun c => if (c == '<') = true then ['&', 'l', 't', ';'] else [c])
+                  (List.flatMap (fun c => if (c == '&') = true then ['&', 'a', 'm', 'p', ';'] else [c]) s.data)))) }
+    else
+      {
+        data :=
+          List.flatMap (fun c => if (c == '>') = true then ['&', 'g', 't', ';'] else [c])
+            (List.flatMap (fun c => if (c == '<') = true then ['&', 'l', 't', ';'] else [c])
+              (List.flatMap (fun c => if (c == '&') = true then ['&', 'a', 'm', 'p', ';'] else [c]) s.data)) }) =
+    { data := (List.map (fun c => escapeChar c) s.data).flatten }
+
+Note: The full type of `@funext` is
+  ∀ {α : Sort ?u.8794} {β : α → Sort ?u.8793} {f g : (x : α) → β x}, (∀ (x : α), f x = g x) → f = g
+case true.e_self
+s : String
+⊢ (if True then
+      {
+        data :=
+          List.flatMap (fun c => if (c == '\'') = true then ['&', '#', 'x', '2', '7', ';'] else [c])
+            (List.flatMap (fun c => if (c == '\"') = true then ['&', 'q', 'u', 'o', 't', ';'] else [c])
+              (List.flatMap (fun c => if (c == '>') = true then ['&', 'g', 't', ';'] else [c])
+                (List.flatMap (fun c => if (c == '<') = true then ['&', 'l', 't', ';'] else [c])
+                  (List.flatMap (fun c => if (c == '&') = true then ['&', 'a', 'm', 'p', ';'] else [c]) s.data)))) }
+    else
+      {
+        data :=
+          List.flatMap (fun c => if (c == '>') = true then ['&', 'g', 't', ';'] else [c])
+            (List.flatMap (fun c => if (c == '<') = true then ['&', 'l', 't', ';'] else [c])
+              (List.flatMap (fun c => if (c == '&') = true then ['&', 'a', 'm', 'p', ';'] else [c]) s.data)) }) =
+    { data := (List.map (fun c => escapeChar c) s.data).flatten }

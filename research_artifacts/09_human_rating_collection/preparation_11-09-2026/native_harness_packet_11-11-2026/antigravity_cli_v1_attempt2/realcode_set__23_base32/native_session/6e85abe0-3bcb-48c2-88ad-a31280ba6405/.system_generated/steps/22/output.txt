@@ -1,0 +1,17 @@
+Created At: 2026-11-16T23:01:22Z
+Completed At: 2026-11-16T23:01:26Z
+Command exited with code 1.
+
+Command output:
+<stdin>:21:16: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  0 ≤ a ≤ 25
+where
+ a := ↑idx
+<stdin>:21:16: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  26 ≤ a ≤ 31
+where
+ a := ↑idx
+'revAlphabet_b32Char' depends on axioms: [propext, sorryAx, Quot.sound]
+'b32Char_ne_eq' depends on axioms: [propext, Quot.sound]

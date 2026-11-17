@@ -1,0 +1,216 @@
+Created At: 2026-11-16T21:45:25Z
+Completed At: 2026-11-16T21:45:33Z
+Command exited with code 1.
+
+Command output:
+Veribench/topological_sort.lean:46:4: warning: The namespace 'topological_sort' is duplicated in the declaration 'topological_sort.topological_sort'
+
+Note: This linter can be disabled with `set_option linter.dupNamespace false`
+some [0, 1, 2]
+some [0, 1, 2, 3]
+some []
+some [0, 1, 2]
+some [0, 1, 2]
+none
+none
+none
+true
+Veribench/topological_sort.lean:181:8: error: tactic 'rewrite' failed, motive is not type correct:
+  fun _a =>
+    (if ¬_a then false
+        else
+          (List.range graph.length).all fun u =>
+            graph[u]!.all fun v => decide (List.idxOf u order < List.idxOf v order)) =
+        true ↔
+      Pre graph ∧
+        order.Perm (List.range graph.length) ∧
+          ∀ (u : ℕ) (hu : u < graph.length), ∀ v ∈ graph[u], List.idxOf u order < List.idxOf v order
+Error: Application type mismatch: In the application
+  @instDecidableNot _a (instDecidableEqList (order.mergeSort fun a b => decide (a ≤ b)) (List.range graph.length))
+the argument
+  instDecidableEqList (order.mergeSort fun a b => decide (a ≤ b)) (List.range graph.length)
+has type
+  Decidable ((order.mergeSort fun a b => decide (a ≤ b)) = List.range graph.length) : Type
+but is expected to have type
+  Decidable _a : Type
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+case pos
+graph : List (List ℕ)
+order : List ℕ
+hpre : pre graph = true
+hPre : Pre graph
+⊢ (if ¬(order.mergeSort fun a b => decide (a ≤ b)) = List.range graph.length then false
+      else
+        (List.range graph.length).all fun u =>
+          graph[u]!.all fun v => decide (List.idxOf u order < List.idxOf v order)) =
+      true ↔
+    Pre graph ∧
+      order.Perm (List.range graph.length) ∧
+        ∀ (u : ℕ) (hu : u < graph.length), ∀ v ∈ graph[u], List.idxOf u order < List.idxOf v order
+Veribench/topological_sort.lean:180:6: warning: This simp argument is unused:
+  ite_eq_left_iff
+
+Hint: Omit it from the simp argument list.
+  simp only [hpre, Bool.not_true, Bool.false_eq_true, ↓reduceIte, bne_iff_ne, ne_eq,
+        i̵t̵e̵_̵e̵q̵_̵l̵e̵f̵t̵_̵i̵f̵f̵,̵ ̵Classical.not_not, Bool.false_eq_true, imp_false, Classical.not_imp]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/topological_sort.lean:180:23: warning: This simp argument is unused:
+  Classical.not_not
+
+Hint: Omit it from the simp argument list.
+  simp only [hpre, Bool.not_true, Bool.false_eq_true, ↓reduceIte, bne_iff_ne, ne_eq,
+        ite_eq_left_iff, C̵l̵a̵s̵s̵i̵c̵a̵l̵.̵n̵o̵t̵_̵n̵o̵t̵,̵ ̵Bool.false_eq_true, imp_false, Classical.not_imp]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/topological_sort.lean:180:62: warning: This simp argument is unused:
+  imp_false
+
+Hint: Omit it from the simp argument list.
+  simp only [hpre, Bool.not_true, Bool.false_eq_true, ↓reduceIte, bne_iff_ne, ne_eq,
+        ite_eq_left_iff, Classical.not_not, Bool.false_eq_true, i̵m̵p̵_̵f̵a̵l̵s̵e̵,̵ ̵Classical.not_imp]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/topological_sort.lean:180:73: warning: This simp argument is unused:
+  Classical.not_imp
+
+Hint: Omit it from the simp argument list.
+  simp only [hpre, Bool.not_true, Bool.false_eq_true, ↓reduceIte, bne_iff_ne, ne_eq,
+        ite_eq_left_iff, Classical.not_not, Bool.false_eq_true, imp_false,̵ ̵C̵l̵a̵s̵s̵i̵c̵a̵l̵.̵n̵o̵t̵_̵i̵m̵p̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/topological_sort.lean:329:2: error: tactic 'rfl' failed, the left-hand side
+  topological_sort []
+is not definitionally equal to the right-hand side
+  some []
+⊢ topological_sort [] = some []
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+some [0, 1, 2]
+some [0, 1, 2, 3]
+some []
+some [0, 1, 2]
+some [0, 1, 2]
+none
+none
+none
+true
+Veribench/topological_sort.lean:733:2: error: tactic 'apply' failed, could not unify the conclusion of `@funext`
+  ?f = ?g
+with the goal
+  (have n := graph.length;
+    graph.all fun neighbors => neighbors.all fun v => decide (v < n)) =
+    graph.all fun neighbors => all_imp (fun v => decide (v < graph.length)) neighbors
+
+Note: The full type of `@funext` is
+  ∀ {α : Sort ?u.68269} {β : α → Sort ?u.68268} {f g : (x : α) → β x}, (∀ (x : α), f x = g x) → f = g
+graph : List (List ℕ)
+h : pre_imp graph = all_imp (fun neighbors => all_imp (fun v => decide (v < graph.length)) neighbors) graph
+⊢ (have n := graph.length;
+    graph.all fun neighbors => neighbors.all fun v => decide (v < n)) =
+    graph.all fun neighbors => all_imp (fun v => decide (v < graph.length)) neighbors
+Veribench/topological_sort.lean:756:10: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  (let ok := true;
+    do
+    let r ←
+      forIn (List.range graph.length) ok fun u r =>
+          let ok := r;
+          if (!all_imp (fun v => decide (List.idxOf u order < List.idxOf v order)) graph[u]!) = true then
+            let ok := false;
+            pure (ForInStep.done ok)
+          else do
+            pure PUnit.unit
+            pure (ForInStep.yield ok)
+    let ok : Bool := r
+    pure ok).run
+case true.false
+graph : List (List ℕ)
+order : List ℕ
+hpre : pre graph = true
+hsort : ((order.mergeSort fun a b => decide (a ≤ b)) != List.range graph.length) = false
+hloop :
+  (let ok := true;
+      do
+      let r ←
+        forIn (List.range graph.length) ok fun u r =>
+            let ok := r;
+            if (!all_imp (fun v => decide (List.idxOf u order < List.idxOf v order)) graph[u]!) = true then
+              let ok := false;
+              pure (ForInStep.done ok)
+            else do
+              pure PUnit.unit
+              pure (ForInStep.yield ok)
+      let ok : Bool := r
+      pure ok).run =
+    all_imp (fun u => all_imp (fun v => decide (List.idxOf u order < List.idxOf v order)) graph[u]!)
+      (List.range graph.length)
+⊢ ((List.range graph.length).all fun u => graph[u]!.all fun v => decide (List.idxOf u order < List.idxOf v order)) =
+    (do
+        pure PUnit.unit
+        pure PUnit.unit
+        let r ←
+          forIn (List.range graph.length) true fun u r =>
+              if (!all_imp (fun v => decide (List.idxOf u order < List.idxOf v order)) graph[u]!) = true then
+                pure (ForInStep.done false)
+              else do
+                pure PUnit.unit
+                pure (ForInStep.yield r)
+        pure r).run
+Veribench/topological_sort.lean:781:8: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  (let n := graph.length;
+    let result := none;
+    do
+    let r ←
+      forIn (List.range n).permutations result fun candidate r =>
+          let result := r;
+          if is_topological_order_imp graph candidate = true then
+            let result := some candidate;
+            pure (ForInStep.done result)
+          else do
+            pure PUnit.unit
+            pure (ForInStep.yield result)
+    let result : Option (List ℕ) := r
+    pure result).run
+case true
+graph : List (List ℕ)
+hpre : pre graph = true
+hloop :
+  (let n := graph.length;
+      let result := none;
+      do
+      let r ←
+        forIn (List.range n).permutations result fun candidate r =>
+            let result := r;
+            if is_topological_order_imp graph candidate = true then
+              let result := some candidate;
+              pure (ForInStep.done result)
+            else do
+              pure PUnit.unit
+              pure (ForInStep.yield result)
+      let result : Option (List ℕ) := r
+      pure result).run =
+    find_imp (fun candidate => is_topological_order_imp graph candidate) (List.range graph.length).permutations
+⊢ List.find? (fun order => is_topological_order graph order) (List.range graph.length).permutations =
+    (do
+        pure PUnit.unit
+        let r ←
+          forIn (List.range graph.length).permutations none fun candidate r =>
+              if is_topological_order_imp graph candidate = true then pure (ForInStep.done (some candidate))
+              else do
+                pure PUnit.unit
+                pure (ForInStep.yield r)
+        pure r).run

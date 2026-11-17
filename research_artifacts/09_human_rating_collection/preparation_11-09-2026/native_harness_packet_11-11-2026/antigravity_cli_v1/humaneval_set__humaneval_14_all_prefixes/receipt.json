@@ -1,0 +1,71 @@
+{
+  "task_id": "humaneval_set__humaneval_14_all_prefixes",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "humaneval_14_all_prefixes.py": "9793c5a006d2b3b17518199000cfafb46722dbf17451c773e5e1d4871251db92",
+    "instruction.md": "964683b3b6645ed75682c877c378efc15c54731af786ec2ce85c52f9645194c4"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-3c7b6a33ea0f",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794866088.164138,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794866744.0046139,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "258565e0-4531-441e-8005-2a5ebc9a53dc",
+      "status": "SUCCESS",
+      "response": "Searching the Lean environment for `isPrefixOf` and `IsPrefix` lemmas; waiting for the command to complete.\nThe Python program `humaneval_14_all_prefixes.py` has been translated and formally verified in Lean 4 at [humaneval_14_all_prefixes.lean](file:///home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean).\n\n### Summary of Formalization\n- **Functional Implementation** ([all_prefixes](file:///home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean#L16-L17)): Maps indices `0 .. s.length - 1` via `s.take (i + 1)`.\n- **Unit Tests** ([lines 21\u201334](file:///home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean#L21-L34)): Verified all Python `check` assertions (`\"\"`, `\"abc\"`, `\"asdfgh\"`, `\"WWW\"`, `\"x\"`) using `native_decide` and `#eval`.\n- **Pre-condition & Properties** ([lines 38\u2013232](file:///home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean#L38-L232)): Defined `Pre` and proved 11 semantic properties without `sorry`:\n  1. `length_prop` / `length_thm`: `(all_prefixes s).length = s.length`\n  2. `empty_prop` / `empty_thm`: `all_prefixes s = [] \u2194 s = \"\"` and `all_prefixes \"\" = []`\n  3. `getElem_prop` / `getElem_thm`: `(all_prefixes s)[i] = s.take (i + 1)` for all `i < (all_prefixes s).length`\n  4. `elem_length_prop` / `elem_length_thm`: `((all_prefixes s)[i]).length = i + 1` for all `i < (all_prefixes s).length`\n  5. `all_are_prefixes_prop` / `all_are_prefixes_thm`: Every element in `all_prefixes s` is a non-empty prefix of `s` with length in `1..s.length`\n  6. `completeness_prop` / `completeness_thm`: `all_prefixes s` contains `s.take k` for all `1 \u2264 k \u2264 s.length`, and `p \u2208 all_prefixes s \u2194 (p \u2260 \"\" \u2227 String.IsPrefix p s)`\n  7. `shortest_to_longest_prop` / `shortest_to_longest_thm`: Strict length monotonicity across indices and `List.Pairwise`\n  8. `prefix_chain_prop` / `prefix_chain_thm`: Earlier elements are prefixes of later elements (`String.IsPrefix`)\n  9. `first_last_prop` / `first_last_thm`: For `s \u2260 \"\"`, `head? = some (s.take 1)` and `getLast? = some s`\n  10. `nodup_prop` / `nodup_thm`: `(all_prefixes s).Nodup`\n  11. `prefix_truncation_prop` / `prefix_truncation_thm`: `all_prefixes (s.take k) = (all_prefixes s).take k` for all `k \u2264 s.length`\n- **Post-condition, PBTs & Total Correctness** ([lines 236\u2013321](file:///home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean#L236-L321)): Defined `Post_prop`, ran randomized (`Plausible.Testable.check`) and bounded (`native_decide`) property-based tests for every property and `Post_prop`, and proved `all_prefixes_correct : Pre s \u2192 Post_prop s`.\n- **Imperative Implementation & Equivalence** ([lines 325\u2013366](file:///home/user/lean_project/Veribench/humaneval_14_all_prefixes.lean#L325-L366)): Defined `all_prefixes_imp` using `Id.run do` with mutable state, tested it, and proved `all_prefixes_eq_imp : all_prefixes s = all_prefixes_imp s`.\n",
+      "duration_seconds": 651.003274037,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 89241,
+        "output_tokens": 27759,
+        "thinking_tokens": 10995,
+        "cache_read_tokens": 662921,
+        "total_tokens": 117000
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "2893bcbc6cc556267319377d4341aad3609afeebe373dc697d35590b2fe8f0be",
+  "candidate_bytes": 16084
+}

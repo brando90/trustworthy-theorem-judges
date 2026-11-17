@@ -1,0 +1,9 @@
+Created At: 2026-11-16T22:58:34Z
+Completed At: 2026-11-16T22:58:38Z
+Command exited with code 0.
+
+Command output:
+Nat.lor_comm (n m : ℕ) : n ||| m = m ||| n
+Nat.testBit_or (x y i : ℕ) : (x ||| y).testBit i = (x.testBit i || y.testBit i)
+Nat.eq_of_testBit_eq {x y : ℕ} (pred : ∀ (i : ℕ), x.testBit i = y.testBit i) : x = y
+<stdin>:7:6: warning: declaration uses 'sorry'

@@ -1,0 +1,30 @@
+Created At: 2026-11-16T22:08:32Z
+Completed At: 2026-11-16T22:08:37Z
+Command exited with code 1.
+
+Command output:
+8
+1
+0
+1
+some 8
+some 1
+none
+none
+Veribench/19_MyPower.lean:164:8: warning: `Nat.pos_pow_of_pos` has been deprecated: use `Nat.pow_pos` instead
+Veribench/19_MyPower.lean:164:27: error: Application type mismatch: In the application
+  Nat.pos_pow_of_pos exponent
+the argument
+  exponent
+has type
+  ℕ : Type
+but is expected to have type
+  0 < ?m.14064 : Prop
+Veribench/19_MyPower.lean:223:8: error: unknown constant 'Int.ofNat_pow'
+Veribench/19_MyPower.lean:214:78: error: unsolved goals
+case e_val
+base exponent : ℤ
+hb : base ≥ 0
+he : exponent ≥ 0
+hcond : (decide (base ≥ 0) && decide (exponent ≥ 0)) = true
+⊢ Int.ofNat (base.toNat ^ exponent.toNat) = base ^ exponent.toNat

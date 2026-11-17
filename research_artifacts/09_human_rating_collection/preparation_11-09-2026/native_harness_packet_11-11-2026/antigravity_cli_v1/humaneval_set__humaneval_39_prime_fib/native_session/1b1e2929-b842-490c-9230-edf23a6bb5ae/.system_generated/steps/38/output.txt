@@ -1,0 +1,13 @@
+Created At: 2026-11-16T21:37:54Z
+Completed At: 2026-11-16T21:37:59Z
+Command exited with code 0.
+
+Command output:
+Nat.fib_zero : Nat.fib 0 = 0
+Nat.fib_one : Nat.fib 1 = 1
+Nat.fib_two : Nat.fib 2 = 1
+Nat.fib_add_two {n : ℕ} : Nat.fib (n + 2) = Nat.fib n + Nat.fib (n + 1)
+Nat.fib_le_fib_succ {n : ℕ} : Nat.fib n ≤ Nat.fib (n + 1)
+Nat.fib_mono : Monotone Nat.fib
+Nat.fib_lt_fib {m : ℕ} (hm : 2 ≤ m) {n : ℕ} : Nat.fib m < Nat.fib n ↔ m < n
+StrictMonoOn.{u, v} {α : Type u} {β : Type v} [Preorder α] [Preorder β] (f : α → β) (s : Set α) : Prop

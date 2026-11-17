@@ -1,0 +1,119 @@
+Created At: 2026-11-16T23:10:04Z
+Completed At: 2026-11-16T23:10:09Z
+Command exited with code 1.
+
+Command output:
+<stdin>:110:8: error: type mismatch
+  ih ?m.10306 ?m.10307 ?m.10308
+has type
+  let res := List.foldl decodeStepImp (?m.10306, ?m.10307, ?m.10308, true) cs;
+  (if res.2.2.2 = true then some res.1 else none) = decodeChars cs ?m.10307 ?m.10308 ?m.10306 : Prop
+but is expected to have type
+  some
+      (List.foldl decodeStepImp
+          (decoded ++ [UInt8.ofNat ((val * 32 + d) / 2 ^ (bits + 5 - 8) % 256)], val * 32 + d, bits + 5 - 8, true)
+          cs).1 =
+    decodeChars cs (val * 32 + d) (bits + 5 - 8)
+      (decoded ++ [UInt8.ofNat ((val * 32 + d) / 2 ^ (bits + 5 - 8) % 256)]) : Prop
+<stdin>:111:8: error: type mismatch
+  ih ?m.10402 ?m.10403 ?m.10404
+has type
+  let res := List.foldl decodeStepImp (?m.10402, ?m.10403, ?m.10404, true) cs;
+  (if res.2.2.2 = true then some res.1 else none) = decodeChars cs ?m.10403 ?m.10404 ?m.10402 : Prop
+but is expected to have type
+  none =
+    decodeChars cs (val * 32 + d) (bits + 5 - 8)
+      (decoded ++ [UInt8.ofNat ((val * 32 + d) / 2 ^ (bits + 5 - 8) % 256)]) : Prop
+<stdin>:107:13: error: unsolved goals
+case pos
+c : UInt8
+cs : List UInt8
+ih :
+  ∀ (decoded : Bytes) (val bits : ℕ),
+    let res := List.foldl decodeStepImp (decoded, val, bits, true) cs;
+    (if res.2.2.2 = true then some res.1 else none) = decodeChars cs val bits decoded
+decoded : Bytes
+val bits d : ℕ
+hrev : revAlphabet c = some d
+hb : ¬bits + 5 ≥ 8
+h✝ : (List.foldl decodeStepImp (decoded, val * 32 + d, bits + 5, true) cs).2.2.2 = true
+⊢ some (List.foldl decodeStepImp (decoded, val * 32 + d, bits + 5, true) cs).1 =
+    decodeChars cs (val * 32 + d) (bits + 5) decoded
+
+case neg
+c : UInt8
+cs : List UInt8
+ih :
+  ∀ (decoded : Bytes) (val bits : ℕ),
+    let res := List.foldl decodeStepImp (decoded, val, bits, true) cs;
+    (if res.2.2.2 = true then some res.1 else none) = decodeChars cs val bits decoded
+decoded : Bytes
+val bits d : ℕ
+hrev : revAlphabet c = some d
+hb : ¬bits + 5 ≥ 8
+h✝ : ¬(List.foldl decodeStepImp (decoded, val * 32 + d, bits + 5, true) cs).2.2.2 = true
+⊢ none = decodeChars cs (val * 32 + d) (bits + 5) decoded
+<stdin>:118:4: error: type mismatch
+  foldl_decodeStepImp_true ?m.9908 [] 0 0
+has type
+  have res := List.foldl decodeStepImp ([], 0, 0, true) ?m.9908;
+  (if res.2.2.2 = true then some res.1 else none) = decodeChars ?m.9908 0 0 [] : Prop
+but is expected to have type
+  (if false = true then
+      match
+        forIn (rstripEq (List.map toUpperByte s)) ([], 0, 0, true) fun c r => ForInStep.yield (decodeStepImp r c) with
+      | (decoded, fst, fst_1, ok) => if ok = true then some decoded else none
+    else
+      match forIn (rstripEq s) ([], 0, 0, true) fun c r => ForInStep.yield (decodeStepImp r c) with
+      | (decoded, fst, fst_1, ok) => if ok = true then some decoded else none) =
+    decodeChars (rstripEq (if false = true then List.map toUpperByte s else s)) 0 0 [] : Prop
+<stdin>:118:4: error: type mismatch
+  foldl_decodeStepImp_true ?m.10968 [] 0 0
+has type
+  have res := List.foldl decodeStepImp ([], 0, 0, true) ?m.10968;
+  (if res.2.2.2 = true then some res.1 else none) = decodeChars ?m.10968 0 0 [] : Prop
+but is expected to have type
+  (match forIn (rstripEq (List.map toUpperByte s)) ([], 0, 0, true) fun c r => ForInStep.yield (decodeStepImp r c) with
+    | (decoded, fst, fst_1, ok) => if ok = true then some decoded else none) =
+    decodeChars (rstripEq (List.map toUpperByte s)) 0 0 [] : Prop
+<stdin>:118:4: error: type mismatch
+  foldl_decodeStepImp_true ?m.13063 [] 0 0
+has type
+  have res := List.foldl decodeStepImp ([], 0, 0, true) ?m.13063;
+  (if res.2.2.2 = true then some res.1 else none) = decodeChars ?m.13063 0 0 [] : Prop
+but is expected to have type
+  (if false = true then
+      match
+        forIn (rstripEq (List.map toUpperByte (List.map (applyMap01Byte val✝) s))) ([], 0, 0, true) fun c r =>
+          ForInStep.yield (decodeStepImp r c) with
+      | (decoded, fst, fst_1, ok) => if ok = true then some decoded else none
+    else
+      match
+        forIn (rstripEq (List.map (applyMap01Byte val✝) s)) ([], 0, 0, true) fun c r =>
+          ForInStep.yield (decodeStepImp r c) with
+      | (decoded, fst, fst_1, ok) => if ok = true then some decoded else none) =
+    decodeChars
+      (rstripEq
+        (if false = true then List.map toUpperByte (List.map (applyMap01Byte val✝) s)
+        else List.map (applyMap01Byte val✝) s))
+      0 0 [] : Prop
+<stdin>:118:4: error: type mismatch
+  foldl_decodeStepImp_true ?m.14312 [] 0 0
+has type
+  have res := List.foldl decodeStepImp ([], 0, 0, true) ?m.14312;
+  (if res.2.2.2 = true then some res.1 else none) = decodeChars ?m.14312 0 0 [] : Prop
+but is expected to have type
+  (match
+      forIn (rstripEq (List.map toUpperByte (List.map (applyMap01Byte val✝) s))) ([], 0, 0, true) fun c r =>
+        ForInStep.yield (decodeStepImp r c) with
+    | (decoded, fst, fst_1, ok) => if ok = true then some decoded else none) =
+    decodeChars (rstripEq (List.map toUpperByte (List.map (applyMap01Byte val✝) s))) 0 0 [] : Prop
+<stdin>:117:23: warning: This simp argument is unused:
+  List.forIn_pure_yield_eq_foldl
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run, L̵i̵s̵t̵.̵f̵o̵r̵I̵n̵_̵p̵u̵r̵e̵_̵y̵i̵e̵l̵d̵_̵e̵q̵_̵f̵o̵l̵d̵l̵,̵ ̵bind, pure, ↓reduceIte]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'b32decode?_equiv' depends on axioms: [propext, sorryAx, Quot.sound]
+'b32decode_equiv' depends on axioms: [propext, sorryAx, Quot.sound]

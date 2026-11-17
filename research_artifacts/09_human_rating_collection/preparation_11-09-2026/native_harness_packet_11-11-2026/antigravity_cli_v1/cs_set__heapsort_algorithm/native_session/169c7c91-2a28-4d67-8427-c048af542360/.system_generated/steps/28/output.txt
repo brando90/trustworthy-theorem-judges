@@ -1,0 +1,93 @@
+Created At: 2026-11-16T22:13:54Z
+Completed At: 2026-11-16T22:13:59Z
+Command exited with code 1.
+
+Command output:
+<stdin>:174:24: error: tactic 'cases' failed, nested error:
+dependent elimination failed, failed to solve equation
+  c = left c
+<stdin>:190:10: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  choose_largest arr i hs
+case case2.left_child
+idx hs : ℕ
+arr : List ℕ
+i : ℕ
+largest : ℕ := choose_largest arr i hs
+ih :
+  hs ≤ (swap arr i (left i)).length →
+    idx ≤ left i →
+      (∀ (k : ℕ), idx ≤ k → k < hs → k ≠ left i → HeapNode (swap arr i (left i)) hs k) →
+        (∀ (p : ℕ),
+            idx ≤ p →
+              p < hs →
+                left p = left i ∨ right p = left i →
+                  (left (left i) < hs → (swap arr i (left i)).getD (left (left i)) 0 ≤ (swap arr i (left i)).getD p 0) ∧
+                    (right (left i) < hs →
+                      (swap arr i (left i)).getD (right (left i)) 0 ≤ (swap arr i (left i)).getD p 0)) →
+          IsMaxHeapFrom (max_heapify (swap arr i (left i)) (left i) hs) idx hs
+hhs : hs ≤ arr.length
+hidx : idx ≤ i
+hnodes : ∀ (k : ℕ), idx ≤ k → k < hs → k ≠ i → HeapNode arr hs k
+hparent :
+  ∀ (p : ℕ),
+    idx ≤ p →
+      p < hs →
+        left p = i ∨ right p = i →
+          (left i < hs → arr.getD (left i) 0 ≤ arr.getD p 0) ∧ (right i < hs → arr.getD (right i) 0 ≤ arr.getD p 0)
+h_ne : ¬choose_largest arr i hs = i
+hlt : left i < hs
+hi : arr.getD i 0 < arr.getD (left i) 0
+hr : right i < hs → arr.getD (right i) 0 ≤ arr.getD (left i) 0
+hc : choose_largest arr i hs = left i
+hstep :
+  (∀ (k : ℕ), idx ≤ k → k < hs → k ≠ left i → HeapNode (swap arr i (left i)) hs k) ∧
+    ∀ (p : ℕ),
+      idx ≤ p →
+        p < hs →
+          left p = left i ∨ right p = left i →
+            (left (left i) < hs → (swap arr i (left i)).getD (left (left i)) 0 ≤ (swap arr i (left i)).getD p 0) ∧
+              (right (left i) < hs → (swap arr i (left i)).getD (right (left i)) 0 ≤ (swap arr i (left i)).getD p 0)
+⊢ IsMaxHeapFrom (max_heapify (swap arr i (left i)) (left i) hs) idx hs
+<stdin>:195:10: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  choose_largest arr i hs
+case case2.right_child
+idx hs : ℕ
+arr : List ℕ
+i : ℕ
+largest : ℕ := choose_largest arr i hs
+ih :
+  hs ≤ (swap arr i (right i)).length →
+    idx ≤ right i →
+      (∀ (k : ℕ), idx ≤ k → k < hs → k ≠ right i → HeapNode (swap arr i (right i)) hs k) →
+        (∀ (p : ℕ),
+            idx ≤ p →
+              p < hs →
+                left p = right i ∨ right p = right i →
+                  (left (right i) < hs →
+                      (swap arr i (right i)).getD (left (right i)) 0 ≤ (swap arr i (right i)).getD p 0) ∧
+                    (right (right i) < hs →
+                      (swap arr i (right i)).getD (right (right i)) 0 ≤ (swap arr i (right i)).getD p 0)) →
+          IsMaxHeapFrom (max_heapify (swap arr i (right i)) (right i) hs) idx hs
+hhs : hs ≤ arr.length
+hidx : idx ≤ i
+hnodes : ∀ (k : ℕ), idx ≤ k → k < hs → k ≠ i → HeapNode arr hs k
+hparent :
+  ∀ (p : ℕ),
+    idx ≤ p →
+      p < hs →
+        left p = i ∨ right p = i →
+          (left i < hs → arr.getD (left i) 0 ≤ arr.getD p 0) ∧ (right i < hs → arr.getD (right i) 0 ≤ arr.getD p 0)
+h_ne : ¬choose_largest arr i hs = i
+hrt : right i < hs
+hi : arr.getD i 0 < arr.getD (right i) 0
+hl : arr.getD (left i) 0 ≤ arr.getD (right i) 0
+hc : choose_largest arr i hs = right i
+hstep :
+  (∀ (k : ℕ), idx ≤ k → k < hs → k ≠ right i → HeapNode (swap arr i (right i)) hs k) ∧
+    ∀ (p : ℕ),
+      idx ≤ p →
+        p < hs →
+          left p = right i ∨ right p = right i →
+            (left (right i) < hs → (swap arr i (right i)).getD (left (right i)) 0 ≤ (swap arr i (right i)).getD p 0) ∧
+              (right (right i) < hs → (swap arr i (right i)).getD (right (right i)) 0 ≤ (swap arr i (right i)).getD p 0)
+⊢ IsMaxHeapFrom (max_heapify (swap arr i (right i)) (right i) hs) idx hs

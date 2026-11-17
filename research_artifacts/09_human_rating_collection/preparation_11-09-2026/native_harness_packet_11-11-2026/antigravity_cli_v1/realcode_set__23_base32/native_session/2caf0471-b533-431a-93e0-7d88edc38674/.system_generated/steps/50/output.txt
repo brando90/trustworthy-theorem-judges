@@ -1,0 +1,162 @@
+Command exited with code 1.
+
+Command output:
+<stdin>:108:51: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  val <<< 5 ||| i % 32
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (match some (i % 32) with
+    | none => none
+    | some d =>
+      have val' := val <<< 5 ||| d;
+      have bits' := 0 + 5;
+      if bits' ≥ 8 then
+        have bits'' := bits' - 8;
+        have byte := UInt8.ofNat (val' >>> bits'' &&& 255);
+        match decodeLoop cs val' bits'' with
+        | none => none
+        | some rest => some (byte :: rest)
+      else decodeLoop cs val' bits') =
+    decodeLoop cs (val * 32 + i % 32) 5
+<stdin>:115:51: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  val <<< 5 ||| i % 32
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (match some (i % 32) with
+    | none => none
+    | some d =>
+      have val' := val <<< 5 ||| d;
+      have bits' := 5 + 5;
+      if bits' ≥ 8 then
+        have bits'' := bits' - 8;
+        have byte := UInt8.ofNat (val' >>> bits'' &&& 255);
+        match decodeLoop cs val' bits'' with
+        | none => none
+        | some rest => some (byte :: rest)
+      else decodeLoop cs val' bits') =
+    match decodeLoop cs (val * 32 + i % 32) 2 with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 4 % 256) :: rest)
+<stdin>:122:51: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  val <<< 5 ||| i % 32
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (match some (i % 32) with
+    | none => none
+    | some d =>
+      have val' := val <<< 5 ||| d;
+      have bits' := 2 + 5;
+      if bits' ≥ 8 then
+        have bits'' := bits' - 8;
+        have byte := UInt8.ofNat (val' >>> bits'' &&& 255);
+        match decodeLoop cs val' bits'' with
+        | none => none
+        | some rest => some (byte :: rest)
+      else decodeLoop cs val' bits') =
+    decodeLoop cs (val * 32 + i % 32) 7
+<stdin>:129:51: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  val <<< 5 ||| i % 32
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (match some (i % 32) with
+    | none => none
+    | some d =>
+      have val' := val <<< 5 ||| d;
+      have bits' := 7 + 5;
+      if bits' ≥ 8 then
+        have bits'' := bits' - 8;
+        have byte := UInt8.ofNat (val' >>> bits'' &&& 255);
+        match decodeLoop cs val' bits'' with
+        | none => none
+        | some rest => some (byte :: rest)
+      else decodeLoop cs val' bits') =
+    match decodeLoop cs (val * 32 + i % 32) 4 with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 16 % 256) :: rest)
+<stdin>:139:51: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  val <<< 5 ||| i % 32
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (match some (i % 32) with
+    | none => none
+    | some d =>
+      have val' := val <<< 5 ||| d;
+      have bits' := 4 + 5;
+      if bits' ≥ 8 then
+        have bits'' := bits' - 8;
+        have byte := UInt8.ofNat (val' >>> bits'' &&& 255);
+        match decodeLoop cs val' bits'' with
+        | none => none
+        | some rest => some (byte :: rest)
+      else decodeLoop cs val' bits') =
+    match decodeLoop cs (val * 32 + i % 32) 1 with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 2 % 256) :: rest)
+<stdin>:146:51: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  val <<< 5 ||| i % 32
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (match some (i % 32) with
+    | none => none
+    | some d =>
+      have val' := val <<< 5 ||| d;
+      have bits' := 1 + 5;
+      if bits' ≥ 8 then
+        have bits'' := bits' - 8;
+        have byte := UInt8.ofNat (val' >>> bits'' &&& 255);
+        match decodeLoop cs val' bits'' with
+        | none => none
+        | some rest => some (byte :: rest)
+      else decodeLoop cs val' bits') =
+    decodeLoop cs (val * 32 + i % 32) 6
+<stdin>:153:51: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  val <<< 5 ||| i % 32
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (match some (i % 32) with
+    | none => none
+    | some d =>
+      have val' := val <<< 5 ||| d;
+      have bits' := 6 + 5;
+      if bits' ≥ 8 then
+        have bits'' := bits' - 8;
+        have byte := UInt8.ofNat (val' >>> bits'' &&& 255);
+        match decodeLoop cs val' bits'' with
+        | none => none
+        | some rest => some (byte :: rest)
+      else decodeLoop cs val' bits') =
+    match decodeLoop cs (val * 32 + i % 32) 3 with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) / 8 % 256) :: rest)
+<stdin>:163:51: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  val <<< 5 ||| i % 32
+i : ℕ
+cs : Bytes
+val : ℕ
+⊢ (match some (i % 32) with
+    | none => none
+    | some d =>
+      have val' := val <<< 5 ||| d;
+      have bits' := 3 + 5;
+      if bits' ≥ 8 then
+        have bits'' := bits' - 8;
+        have byte := UInt8.ofNat (val' >>> bits'' &&& 255);
+        match decodeLoop cs val' bits'' with
+        | none => none
+        | some rest => some (byte :: rest)
+      else decodeLoop cs val' bits') =
+    match decodeLoop cs (val * 32 + i % 32) 0 with
+    | none => none
+    | some rest => some (UInt8.ofNat ((val * 32 + i % 32) % 256) :: rest)
+<stdin>:231:62: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

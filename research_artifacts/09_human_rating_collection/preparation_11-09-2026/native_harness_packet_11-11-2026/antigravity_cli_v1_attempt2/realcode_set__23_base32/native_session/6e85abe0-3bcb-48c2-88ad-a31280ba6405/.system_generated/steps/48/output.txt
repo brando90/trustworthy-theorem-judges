@@ -1,0 +1,10 @@
+Created At: 2026-11-16T23:09:07Z
+Completed At: 2026-11-16T23:09:11Z
+Command exited with code 0.
+
+Command output:
+List.forIn_yield_eq_foldl.{u_1, u_2} {α : Type u_1} {β : Type u_2} {l : List α} (f : α → β → β) (init : β) :
+  (forIn l init fun a b => ForInStep.yield (f a b)) = List.foldl (fun b a => f a b) init l
+List.forIn_pure_yield_eq_foldl.{u_1, u_2, u_3} {m : Type u_1 → Type u_2} {α : Type u_3} {β : Type u_1} [Monad m]
+  [LawfulMonad m] {l : List α} (f : α → β → β) (init : β) :
+  (forIn l init fun a b => pure (ForInStep.yield (f a b))) = pure (List.foldl (fun b a => f a b) init l)

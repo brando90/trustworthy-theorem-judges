@@ -1,0 +1,1275 @@
+Created At: 2026-11-16T22:02:41Z
+Completed At: 2026-11-16T22:02:46Z
+Command exited with code 1.
+
+Command output:
+<stdin>:141:10: error: unsolved goals
+case case1
+acc : Bytes
+⊢ pure acc = acc
+<stdin>:151:8: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  forIn (chunksOf5 rest) (acc ++ encode5Bytes b0 b1 b2 b3 b4) fun chunk encoded =>
+    pure
+      (ForInStep.yield
+        (encoded ++
+          [b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  35 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  30 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  25 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  20 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  15 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  10 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  5 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) &&&
+                31)]))
+case case6
+b0 b1 b2 b3 b4 : UInt8
+rest : List UInt8
+ih :
+  ∀ (acc : Bytes),
+    (forIn (chunksOf5 rest) acc fun chunk encoded =>
+          let padded := if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk;
+          let val := intFromBytes5 padded;
+          pure
+            (ForInStep.yield
+              (encoded ++
+                [b32AlphabetGet (val >>> 35 &&& 31), b32AlphabetGet (val >>> 30 &&& 31),
+                  b32AlphabetGet (val >>> 25 &&& 31), b32AlphabetGet (val >>> 20 &&& 31),
+                  b32AlphabetGet (val >>> 15 &&& 31), b32AlphabetGet (val >>> 10 &&& 31),
+                  b32AlphabetGet (val >>> 5 &&& 31), b32AlphabetGet (val &&& 31)]))).run =
+      acc ++ encodeRaw rest
+acc : Bytes
+ih' :
+  (forIn (chunksOf5 rest) (acc ++ encode5Bytes b0 b1 b2 b3 b4) fun chunk encoded =>
+      pure
+        (ForInStep.yield
+          (encoded ++
+            [b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    35 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    30 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    25 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    20 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    15 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    10 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    5 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) &&&
+                  31)]))) =
+    acc ++ encode5Bytes b0 b1 b2 b3 b4 ++ encodeRaw rest
+⊢ (forIn (chunksOf5 rest)
+      (acc ++
+        [b32AlphabetGet
+            (intFromBytes5
+                  (if 0 + 1 + 1 + 1 + 1 + 1 < 5 then
+                    [b0, b1, b2, b3, b4] ++ List.replicate (5 - (0 + 1 + 1 + 1 + 1 + 1)) 0
+                  else [b0, b1, b2, b3, b4]) >>>
+                35 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if 0 + 1 + 1 + 1 + 1 + 1 < 5 then
+                    [b0, b1, b2, b3, b4] ++ List.replicate (5 - (0 + 1 + 1 + 1 + 1 + 1)) 0
+                  else [b0, b1, b2, b3, b4]) >>>
+                30 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if 0 + 1 + 1 + 1 + 1 + 1 < 5 then
+                    [b0, b1, b2, b3, b4] ++ List.replicate (5 - (0 + 1 + 1 + 1 + 1 + 1)) 0
+                  else [b0, b1, b2, b3, b4]) >>>
+                25 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if 0 + 1 + 1 + 1 + 1 + 1 < 5 then
+                    [b0, b1, b2, b3, b4] ++ List.replicate (5 - (0 + 1 + 1 + 1 + 1 + 1)) 0
+                  else [b0, b1, b2, b3, b4]) >>>
+                20 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if 0 + 1 + 1 + 1 + 1 + 1 < 5 then
+                    [b0, b1, b2, b3, b4] ++ List.replicate (5 - (0 + 1 + 1 + 1 + 1 + 1)) 0
+                  else [b0, b1, b2, b3, b4]) >>>
+                15 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if 0 + 1 + 1 + 1 + 1 + 1 < 5 then
+                    [b0, b1, b2, b3, b4] ++ List.replicate (5 - (0 + 1 + 1 + 1 + 1 + 1)) 0
+                  else [b0, b1, b2, b3, b4]) >>>
+                10 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if 0 + 1 + 1 + 1 + 1 + 1 < 5 then
+                    [b0, b1, b2, b3, b4] ++ List.replicate (5 - (0 + 1 + 1 + 1 + 1 + 1)) 0
+                  else [b0, b1, b2, b3, b4]) >>>
+                5 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                (if 0 + 1 + 1 + 1 + 1 + 1 < 5 then
+                  [b0, b1, b2, b3, b4] ++ List.replicate (5 - (0 + 1 + 1 + 1 + 1 + 1)) 0
+                else [b0, b1, b2, b3, b4]) &&&
+              31)])
+      fun chunk encoded =>
+      ForInStep.yield
+        (encoded ++
+          [b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  35 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  30 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  25 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  20 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  15 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  10 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                  5 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) &&&
+                31)])) =
+    acc ++ (encode5Bytes b0 b1 b2 b3 b4 ++ encodeRaw rest)
+<stdin>:160:16: error: tactic 'rfl' failed, the left-hand side
+  List.take (List.length (encodeRaw s) - 6) (encodeRaw s) ++ [61, 61, 61, 61, 61, 61]
+is not definitionally equal to the right-hand side
+  List.take
+      (List.length
+          (forIn (chunksOf5 s) [] fun chunk r =>
+            ForInStep.yield
+              (r ++
+                [b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        35 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        30 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        25 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        20 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        15 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        10 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        5 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                      31)])) -
+        6)
+      (forIn (chunksOf5 s) [] fun chunk r =>
+        ForInStep.yield
+          (r ++
+            [b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    35 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    30 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    25 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    20 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    15 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    10 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    5 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                    (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                  31)])) ++
+    [61, 61, 61, 61, 61, 61]
+case pos
+s : Bytes
+h :
+  (forIn (chunksOf5 s) [] fun chunk encoded =>
+      pure
+        (ForInStep.yield
+          (encoded ++
+            [b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    35 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    30 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    25 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    20 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    15 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    10 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    5 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) &&&
+                  31)]))) =
+    encodeRaw s
+h✝ : (List.length s % 5 == 1) = true
+⊢ List.take (List.length (encodeRaw s) - 6) (encodeRaw s) ++ [61, 61, 61, 61, 61, 61] =
+    List.take
+        (List.length
+            (forIn (chunksOf5 s) [] fun chunk r =>
+              ForInStep.yield
+                (r ++
+                  [b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          35 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          30 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          25 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          20 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          15 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          10 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          5 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) &&&
+                        31)])) -
+          6)
+        (forIn (chunksOf5 s) [] fun chunk r =>
+          ForInStep.yield
+            (r ++
+              [b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      35 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      30 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      25 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      20 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      15 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      10 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      5 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                    31)])) ++
+      [61, 61, 61, 61, 61, 61]
+<stdin>:160:16: error: tactic 'rfl' failed, the left-hand side
+  List.take (List.length (encodeRaw s) - 4) (encodeRaw s) ++ [61, 61, 61, 61]
+is not definitionally equal to the right-hand side
+  List.take
+      (List.length
+          (forIn (chunksOf5 s) [] fun chunk r =>
+            ForInStep.yield
+              (r ++
+                [b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        35 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        30 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        25 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        20 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        15 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        10 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        5 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                      31)])) -
+        4)
+      (forIn (chunksOf5 s) [] fun chunk r =>
+        ForInStep.yield
+          (r ++
+            [b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    35 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    30 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    25 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    20 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    15 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    10 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    5 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                    (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                  31)])) ++
+    [61, 61, 61, 61]
+case pos
+s : Bytes
+h :
+  (forIn (chunksOf5 s) [] fun chunk encoded =>
+      pure
+        (ForInStep.yield
+          (encoded ++
+            [b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    35 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    30 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    25 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    20 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    15 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    10 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    5 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) &&&
+                  31)]))) =
+    encodeRaw s
+h✝¹ : ¬(List.length s % 5 == 1) = true
+h✝ : (List.length s % 5 == 2) = true
+⊢ List.take (List.length (encodeRaw s) - 4) (encodeRaw s) ++ [61, 61, 61, 61] =
+    List.take
+        (List.length
+            (forIn (chunksOf5 s) [] fun chunk r =>
+              ForInStep.yield
+                (r ++
+                  [b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          35 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          30 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          25 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          20 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          15 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          10 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          5 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) &&&
+                        31)])) -
+          4)
+        (forIn (chunksOf5 s) [] fun chunk r =>
+          ForInStep.yield
+            (r ++
+              [b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      35 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      30 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      25 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      20 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      15 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      10 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      5 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                    31)])) ++
+      [61, 61, 61, 61]
+<stdin>:160:16: error: tactic 'rfl' failed, the left-hand side
+  List.take (List.length (encodeRaw s) - 3) (encodeRaw s) ++ [61, 61, 61]
+is not definitionally equal to the right-hand side
+  List.take
+      (List.length
+          (forIn (chunksOf5 s) [] fun chunk r =>
+            ForInStep.yield
+              (r ++
+                [b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        35 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        30 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        25 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        20 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        15 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        10 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        5 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                      31)])) -
+        3)
+      (forIn (chunksOf5 s) [] fun chunk r =>
+        ForInStep.yield
+          (r ++
+            [b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    35 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    30 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    25 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    20 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    15 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    10 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    5 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                    (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                  31)])) ++
+    [61, 61, 61]
+case pos
+s : Bytes
+h :
+  (forIn (chunksOf5 s) [] fun chunk encoded =>
+      pure
+        (ForInStep.yield
+          (encoded ++
+            [b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    35 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    30 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    25 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    20 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    15 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    10 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    5 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) &&&
+                  31)]))) =
+    encodeRaw s
+h✝² : ¬(List.length s % 5 == 1) = true
+h✝¹ : ¬(List.length s % 5 == 2) = true
+h✝ : (List.length s % 5 == 3) = true
+⊢ List.take (List.length (encodeRaw s) - 3) (encodeRaw s) ++ [61, 61, 61] =
+    List.take
+        (List.length
+            (forIn (chunksOf5 s) [] fun chunk r =>
+              ForInStep.yield
+                (r ++
+                  [b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          35 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          30 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          25 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          20 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          15 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          10 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          5 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) &&&
+                        31)])) -
+          3)
+        (forIn (chunksOf5 s) [] fun chunk r =>
+          ForInStep.yield
+            (r ++
+              [b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      35 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      30 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      25 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      20 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      15 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      10 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      5 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                    31)])) ++
+      [61, 61, 61]
+<stdin>:160:16: error: tactic 'rfl' failed, the left-hand side
+  List.take (List.length (encodeRaw s) - 1) (encodeRaw s) ++ [61]
+is not definitionally equal to the right-hand side
+  List.take
+      (List.length
+          (forIn (chunksOf5 s) [] fun chunk r =>
+            ForInStep.yield
+              (r ++
+                [b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        35 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        30 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        25 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        20 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        15 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        10 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) >>>
+                        5 &&&
+                      31),
+                  b32AlphabetGet
+                    (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                      31)])) -
+        1)
+      (forIn (chunksOf5 s) [] fun chunk r =>
+        ForInStep.yield
+          (r ++
+            [b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    35 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    30 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    25 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    20 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    15 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    10 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                    5 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5
+                    (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                  31)])) ++
+    [61]
+case pos
+s : Bytes
+h :
+  (forIn (chunksOf5 s) [] fun chunk encoded =>
+      pure
+        (ForInStep.yield
+          (encoded ++
+            [b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    35 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    30 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    25 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    20 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    15 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    10 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    5 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) &&&
+                  31)]))) =
+    encodeRaw s
+h✝³ : ¬(List.length s % 5 == 1) = true
+h✝² : ¬(List.length s % 5 == 2) = true
+h✝¹ : ¬(List.length s % 5 == 3) = true
+h✝ : (List.length s % 5 == 4) = true
+⊢ List.take (List.length (encodeRaw s) - 1) (encodeRaw s) ++ [61] =
+    List.take
+        (List.length
+            (forIn (chunksOf5 s) [] fun chunk r =>
+              ForInStep.yield
+                (r ++
+                  [b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          35 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          30 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          25 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          20 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          15 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          10 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                            (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                            else chunk) >>>
+                          5 &&&
+                        31),
+                    b32AlphabetGet
+                      (intFromBytes5
+                          (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0
+                          else chunk) &&&
+                        31)])) -
+          1)
+        (forIn (chunksOf5 s) [] fun chunk r =>
+          ForInStep.yield
+            (r ++
+              [b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      35 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      30 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      25 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      20 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      15 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      10 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                        (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                      5 &&&
+                    31),
+                b32AlphabetGet
+                  (intFromBytes5
+                      (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                    31)])) ++
+      [61]
+<stdin>:160:16: error: tactic 'rfl' failed, the left-hand side
+  encodeRaw s
+is not definitionally equal to the right-hand side
+  forIn (chunksOf5 s) [] fun chunk r =>
+    ForInStep.yield
+      (r ++
+        [b32AlphabetGet
+            (intFromBytes5
+                  (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                35 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                30 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                25 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                20 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                15 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                10 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                  (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                5 &&&
+              31),
+          b32AlphabetGet
+            (intFromBytes5
+                (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+              31)])
+case neg
+s : Bytes
+h :
+  (forIn (chunksOf5 s) [] fun chunk encoded =>
+      pure
+        (ForInStep.yield
+          (encoded ++
+            [b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    35 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    30 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    25 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    20 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    15 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    10 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) >>>
+                    5 &&&
+                  31),
+              b32AlphabetGet
+                (intFromBytes5 (if chunk.length < 5 then chunk ++ List.replicate (5 - chunk.length) 0 else chunk) &&&
+                  31)]))) =
+    encodeRaw s
+h✝³ : ¬(List.length s % 5 == 1) = true
+h✝² : ¬(List.length s % 5 == 2) = true
+h✝¹ : ¬(List.length s % 5 == 3) = true
+h✝ : ¬(List.length s % 5 == 4) = true
+⊢ encodeRaw s =
+    forIn (chunksOf5 s) [] fun chunk r =>
+      ForInStep.yield
+        (r ++
+          [b32AlphabetGet
+              (intFromBytes5
+                    (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                  35 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5
+                    (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                  30 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5
+                    (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                  25 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5
+                    (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                  20 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5
+                    (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                  15 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5
+                    (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                  10 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5
+                    (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) >>>
+                  5 &&&
+                31),
+            b32AlphabetGet
+              (intFromBytes5
+                  (if List.length chunk < 5 then chunk ++ List.replicate (5 - List.length chunk) 0 else chunk) &&&
+                31)])
+<stdin>:159:33: warning: This simp argument is unused:
+  h
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run, bind, pure,̵ ̵h̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

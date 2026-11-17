@@ -1,0 +1,20 @@
+Created At: 2026-11-16T21:44:59Z
+Completed At: 2026-11-16T21:45:03Z
+Command exited with code 0.
+
+Command output:
+List.splitOn.{u_1} {α : Type u_1} [BEq α] (a : α) (as : List α) : List (List α)
+def List.splitOn.{u_1} : {α : Type u_1} → [BEq α] → α → List α → List (List α) :=
+fun {α} [BEq α] a as => List.splitOnP (fun x => x == a) as
+def List.splitOnP.{u_1} : {α : Type u_1} → (α → Bool) → List α → List (List α) :=
+fun {α} P l => List.splitOnP.go P l []
+def List.splitOnP.go.{u_1} : {α : Type u_1} → (α → Bool) → List α → List α → List (List α) :=
+fun {α} P x x_1 =>
+  List.brecOn (motive := fun x => List α → List (List α)) x
+    (fun x f x_2 =>
+      (match (motive :=
+          (x : List α) → List α → List.below (motive := fun x => List α → List (List α)) x → List (List α)) x, x_2 with
+        | [], acc => fun x => [acc.reverse]
+        | a :: t, acc => fun x => if P a = true then acc.reverse :: x.1 [] else x.1 (a :: acc))
+        f)
+    x_1

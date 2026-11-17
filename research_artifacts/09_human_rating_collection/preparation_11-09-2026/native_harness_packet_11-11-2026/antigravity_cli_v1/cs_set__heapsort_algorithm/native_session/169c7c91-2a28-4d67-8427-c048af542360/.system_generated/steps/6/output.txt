@@ -1,0 +1,12 @@
+Created At: 2026-11-16T22:08:01Z
+Completed At: 2026-11-16T22:08:05Z
+Command exited with code 0.
+
+Command output:
+List.set.{u_1} {α : Type u_1} (l : List α) (n : ℕ) (a : α) : List α
+List.getElem_set.{u_1} {α : Type u_1} {l : List α} {i j : ℕ} {a : α} (h : j < (l.set i a).length) :
+  (l.set i a)[j] = if i = j then a else l[j]
+List.length_set.{u} {α : Type u} {as : List α} {i : ℕ} {a : α} : (as.set i a).length = as.length
+List.Perm.{u} {α : Type u} : List α → List α → Prop
+List.perm_iff_count.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {l₁ l₂ : List α} :
+  l₁.Perm l₂ ↔ ∀ (a : α), List.count a l₁ = List.count a l₂

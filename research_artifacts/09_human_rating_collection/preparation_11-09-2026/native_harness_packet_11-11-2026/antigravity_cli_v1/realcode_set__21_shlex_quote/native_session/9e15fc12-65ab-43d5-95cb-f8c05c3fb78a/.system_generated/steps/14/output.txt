@@ -1,0 +1,9 @@
+Created At: 2026-11-16T22:17:06Z
+Completed At: 2026-11-16T22:17:11Z
+Command exited with code 0.
+
+Command output:
+@[irreducible] def String.replace.loop : String →
+  (pattern : String) → String → 0 < pattern.endPos.byteIdx → String → String.Pos → String.Pos → String :=
+fun s pattern replacement hPatt acc accStop pos =>
+  String.replace.loop._unary s pattern replacement hPatt ⟨acc, ⟨accStop, pos⟩⟩

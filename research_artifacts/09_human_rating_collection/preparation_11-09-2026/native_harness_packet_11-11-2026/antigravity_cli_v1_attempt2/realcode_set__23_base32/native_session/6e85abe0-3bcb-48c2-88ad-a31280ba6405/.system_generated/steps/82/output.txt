@@ -1,0 +1,17 @@
+Command exited with code 0.
+
+Command output:
+'«23_base32».encode_empty_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_base32».encode_length_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_base32».encode_valid_chars_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_base32».encode_padding_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_base32».encode_append_mult5_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_base32».decode_encode_roundtrip_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_base32».encode_injective_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_base32».decode_casefold_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_base32».decode_map01_thm' depends on axioms: [propext]
+'«23_base32».decode_valid_length_thm' depends on axioms: [propext, Quot.sound]
+'«23_base32».correctness_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«23_base32».b32encode_equiv_thm' depends on axioms: [propext, Quot.sound]
+'«23_base32».b32decode?_equiv_thm' depends on axioms: [propext, Quot.sound]
+'«23_base32».b32decode_equiv_thm' depends on axioms: [propext, Quot.sound]

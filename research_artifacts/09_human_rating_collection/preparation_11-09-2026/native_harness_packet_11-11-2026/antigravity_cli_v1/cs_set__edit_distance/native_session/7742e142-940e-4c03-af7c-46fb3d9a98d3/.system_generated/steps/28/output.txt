@@ -1,0 +1,19 @@
+Created At: 2026-11-16T22:24:48Z
+Completed At: 2026-11-16T22:24:53Z
+Command exited with code 0.
+
+Command output:
+α : Type
+inst✝ : DecidableEq α
+s1 s2 : List α
+⊢ edit_distance s1 s2 =
+    match
+      forIn s1.reverse ⟨0, List.range' 1 s2.length, s2.length⟩ fun a r =>
+        match
+          forIn (s2.reverse.zip r.snd.fst) ⟨r.fst, r.fst + 1, []⟩ fun x r =>
+            ForInStep.yield
+              ⟨x.2, if a = x.1 then r.fst else 1 + min x.2 (min r.snd.fst r.fst),
+                (if a = x.1 then r.fst else 1 + min x.2 (min r.snd.fst r.fst)) :: r.snd.snd⟩ with
+        | ⟨diag, left, rev_tail⟩ => ForInStep.yield ⟨r.fst + 1, rev_tail.reverse, left⟩ with
+    | ⟨dp_head, dp_tail, result⟩ => result
+Veribench/edit_distance.lean:111:8: warning: declaration uses 'sorry'

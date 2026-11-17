@@ -1,0 +1,71 @@
+{
+  "task_id": "easy_set__20_mysumdigits",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "20_MySumDigits.py": "12df2a4a18060824b7e8ca7785afc9b1470831c3a55e76ac470ba9b93acd531d",
+    "instruction.md": "8ddb9567b9fed472dc934d5f5ca72dfd7806536f9310e6059d7f70e4a8e5f2cf"
+  },
+  "output": "/home/user/lean_project/Veribench/20_MySumDigits.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-19b7eb22f6ac",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794866097.926857,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794866945.9758642,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "456327dc-df0e-41f4-b8e2-216906581de7",
+      "status": "SUCCESS",
+      "response": "I have written the Lean 4 formalization in [20_MySumDigits.lean](file:///home/user/lean_project/Veribench/20_MySumDigits.lean) and launched the verification command to check compilation and axiom usage. Waiting for the check to complete.\nThe Python program has been translated into a complete, verified Lean 4 formalization at [20_MySumDigits.lean](file:///home/user/lean_project/Veribench/20_MySumDigits.lean).\n\n### Summary of Formalization\n1. **Functional & Checked Implementations** ([20_MySumDigits.lean](file:///home/user/lean_project/Veribench/20_MySumDigits.lean#L24-L45)):\n   - `sumDigits (n : Int) : Int` (with aliases `mySumDigits` and `prog`) computes the base-10 digit sum recursively (`n % 10 + sumDigits (n / 10)` for `n > 0`, and `0` for `n \u2264 0`).\n   - `sumDigits? (n : Int) : Option Int` (alias `prog?`) explicitly models the Python `ValueError` on `\u00ac pre(n)` by returning `none` when `n < 0` and `some (sumDigits n)` when `n \u2265 0`.\n2. **Unit Tests** ([20_MySumDigits.lean](file:///home/user/lean_project/Veribench/20_MySumDigits.lean#L47-L72)):\n   - Verified with both `example : ... := by native_decide` and `#eval` across basic, single-digit, multi-digit, zero, and negative cases.\n3. **Pre-Condition & Properties** ([20_MySumDigits.lean](file:///home/user/lean_project/Veribench/20_MySumDigits.lean#L74-L439)):\n   - `Pre (n : Int) : Prop := n \u2265 0`.\n   - Kernel-checked proofs (`0` `sorry`s, using only `[propext, Classical.choice, Quot.sound]`) for:\n     - `nonneg_thm`: `sumDigits n \u2265 0`\n     - `zero_thm` & `zero_iff_thm`: `n = 0 \u2192 sumDigits n = 0` and `sumDigits n = 0 \u2194 n = 0` (under `Pre n`)\n     - `pos_thm`: `n > 0 \u2192 sumDigits n > 0`\n     - `single_digit_thm`: `(0 \u2264 n \u2227 n < 10) \u2192 sumDigits n = n`\n     - `recurrence_thm` & `decomp_thm`: `sumDigits n = n % 10 + sumDigits (n / 10)`\n     - `le_self_thm` & `lt_self_thm`: `sumDigits n \u2264 n` and `n \u2265 10 \u2192 sumDigits n < n`\n     - `mod_nine_thm`: `sumDigits n % 9 = n % 9` (casting out nines)\n     - `append_digit_thm` & `scale_ten_thm`: `sumDigits (10 * n + d) = sumDigits n + d` (`0 \u2264 d < 10`) and `sumDigits (10 * n) = sumDigits n`\n     - `succ_bound_thm` & `subadd_thm`: `sumDigits (n + 1) \u2264 sumDigits n + 1` and `sumDigits (a + b) \u2264 sumDigits a + sumDigits b`\n     - `digits_sum_thm`: `sumDigits n = ((Nat.digits 10 n.toNat).sum : Int)` (exact agreement with Mathlib's `Nat.digits`)\n     - `checked_valid_thm` & `checked_neg_thm`: `Pre n \u2192 sumDigits? n = some (sumDigits n)` and `n < 0 \u2192 sumDigits? n = none`\n4. **Post-Condition, PBTs, and Correctness** ([20_MySumDigits.lean](file:///home/user/lean_project/Veribench/20_MySumDigits.lean#L440-L546)):\n   - `Post_prop` conjoins the unary specification properties; tested with both Plausible randomized PBTs and bounded exhaustive `List.range` PBTs.\n   - `correctness_thm : \u2200 n : Int, Pre n \u2192 Post_prop n`.\n5. **Imperative Implementation & Equivalence** ([20_MySumDigits.lean](file:///home/user/lean_project/Veribench/20_MySumDigits.lean#L548-L665)):\n   - `sumDigitsImp` and `sumDigitsImp?` use `Id.run do` with mutable `total` and `m`.\n   - `equivalence_thm`, `equivalence_pre_thm`, and `checked_equivalence_thm` prove functional-imperative equivalence via `loop_invariant`.\n",
+      "duration_seconds": 842.96938121,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 109726,
+        "output_tokens": 45710,
+        "thinking_tokens": 21881,
+        "cache_read_tokens": 1056231,
+        "total_tokens": 155436
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "60025e5b9b2b2498c9650ee791e881d2b10d34d4f4d3339f20b40c189443bbb3",
+  "candidate_bytes": 25222
+}

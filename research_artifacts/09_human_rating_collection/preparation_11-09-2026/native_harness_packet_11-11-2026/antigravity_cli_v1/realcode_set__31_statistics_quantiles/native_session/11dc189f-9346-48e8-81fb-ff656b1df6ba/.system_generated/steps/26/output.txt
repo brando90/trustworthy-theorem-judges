@@ -1,0 +1,80 @@
+Created At: 2026-11-16T22:24:39Z
+Completed At: 2026-11-16T22:24:49Z
+Command exited with code 1.
+
+Command output:
+<stdin>:30:16: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  a ≥ 1
+  a ≥ 0
+  a ≥ 1
+where
+ a := ↑q₂
+<stdin>:67:20: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  j ≥ 1
+  i ≥ 1
+  i - j ≤ 0
+  h ≥ 1
+  h - i ≥ 1
+  h - j ≤ 0
+  g ≥ 1
+  g - j ≥ 1
+  f - g ≥ 0
+  e ≥ 0
+  d ≥ 0
+  d - e ≥ 0
+  c ≥ 0
+  b ≥ 0
+  b - c ≥ 0
+  a ≥ 1
+where
+ a := ↑n
+ b := ↑i₂
+ c := ↑i₁
+ d := ↑i₂ * ↑m
+ e := ↑i₁ * ↑m
+ f := ↑(i₂ * m) / ↑n
+ g := ↑(i₁ * m) / ↑n
+ h := ↑(exclusiveClamp ld q₂)
+ i := ↑(exclusiveClamp ld q₁)
+ j := ↑(ld - 1)
+<stdin>:82:20: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  o ≥ 0
+  l ≥ 0
+  k ≥ 0
+  j ≥ 0
+  j - l ≤ 0
+  j + k ≥ 0
+  i ≥ 1
+  h ≥ 1
+  h - i ≤ 0
+  g ≥ 1
+  g - h ≥ 1
+  g - i ≤ 0
+  f - h ≤ 0
+  e ≤ 0
+  e - f ≥ 0
+  d ≥ 0
+  d - j - k ≥ 0
+  c ≥ 0
+  b ≥ 0
+  b - c ≥ 0
+  a ≥ 1
+  a - j - k + o ≥ 1
+  a - k ≥ 1
+where
+ a := ↑n
+ b := ↑i₂
+ c := ↑i₁
+ d := ↑i₂ * ↑m
+ e := ↑(i₂ * m) / ↑n
+ f := ↑(i₁ * m) / ↑n
+ g := ↑(exclusiveClamp ld q₂)
+ h := ↑(exclusiveClamp ld q₁)
+ i := ↑(ld - 1)
+ j := ↑n * ↑q₁
+ k := ↑(i₁ * m) % ↑n
+ l := ↑n * ↑j₁
+ o := ↑j₁ * ↑n

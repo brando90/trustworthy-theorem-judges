@@ -1,0 +1,70 @@
+Command exited with code 1.
+
+Command output:
+0
+3
+5
+5
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/edit_distance.lean:601:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/edit_distance.lean:646:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "a"
+      (∀ (a : ℕ),
+        Plausible.NamedBinder "b"
+          (∀ (b : ℕ),
+            Plausible.NamedBinder "p"
+              (∀ (p : List ℕ),
+                Plausible.NamedBinder "s1"
+                  (∀ (s1 : List ℕ),
+                    Plausible.NamedBinder "s2"
+                      (∀ (s2 : List ℕ),
+                        Plausible.NamedBinder "s3"
+                          (∀ (s3 : List ℕ),
+                            Plausible.NamedBinder "t1"
+                              (∀ (t1 : List ℕ),
+                                Plausible.NamedBinder "t2"
+                                  (∀ (t2 : List ℕ),
+                                    edit_distance [] s2 = s2.length ∧
+                                      edit_distance s1 [] = s1.length ∧
+                                        edit_distance s1 s1 = 0 ∧
+                                          (edit_distance s1 s2 == 0) = (s1 == s2) ∧
+                                            Plausible.NamedBinder "a._@.Veribench.edit_distance._hyg.5518"
+                                                (s1 ≠ s2 → 0 < edit_distance s1 s2) ∧
+                                              edit_distance s1 s2 = edit_distance s2 s1 ∧
+                                                edit_distance s1 s2 ≤ max s1.length s2.length ∧
+                                                  edit_distance s1 s2 ≤ s1.length + s2.length ∧
+                                                    s1.length - s2.length ≤ edit_distance s1 s2 ∧
+                                                      s2.length - s1.length ≤ edit_distance s1 s2 ∧
+                                                        edit_distance (a :: s1) s2 ≤ 1 + edit_distance s1 s2 ∧
+                                                          edit_distance s1 (a :: s2) ≤ 1 + edit_distance s1 s2 ∧
+                                                            (edit_distance (a :: s1) (b :: s2) =
+                                                                if a = b then edit_distance s1 s2
+                                                                else
+                                                                  1 +
+                                                                    min (edit_distance s1 (b :: s2))
+                                                                      (min (edit_distance (a :: s1) s2)
+                                                                        (edit_distance s1 s2))) ∧
+                                                              edit_distance (p ++ s1) (p ++ s2) = edit_distance s1 s2 ∧
+                                                                edit_distance s1 s3 ≤
+                                                                    edit_distance s1 s2 + edit_distance s2 s3 ∧
+                                                                  edit_distance (s1 ++ t1) (s2 ++ t2) ≤
+                                                                    edit_distance s1 s2 + edit_distance t1 t2)))))))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+3
+3
+Unable to find a counter-example

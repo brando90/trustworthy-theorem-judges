@@ -1,0 +1,56 @@
+Created At: 2026-11-16T22:24:43Z
+Completed At: 2026-11-16T22:24:48Z
+Command exited with code 1.
+
+Command output:
+List.Perm.countP_eq.{u_1} {α : Type u_1} (p : α → Bool) {l₁ l₂ : List α} (s : l₁.Perm l₂) :
+  List.countP p l₁ = List.countP p l₂
+List.countP_append.{u_1} {α : Type u_1} {p : α → Bool} {l₁ l₂ : List α} :
+  List.countP p (l₁ ++ l₂) = List.countP p l₁ + List.countP p l₂
+List.countP_eq_length_filter.{u_1} {α : Type u_1} {p : α → Bool} {l : List α} :
+  List.countP p l = (List.filter p l).length
+List.getElem_take.{u_1} {α : Type u_1} {xs : List α} {j i : ℕ} {h : i < (List.take j xs).length} :
+  (List.take j xs)[i] = xs[i]
+List.getElem_drop.{u_1} {α : Type u_1} {xs : List α} {i j : ℕ} {h : j < (List.drop i xs).length} :
+  (List.drop i xs)[j] = xs[i + j]
+List.mem_iff_getElem.{u_1} {α : Type u_1} {a : α} {l : List α} : a ∈ l ↔ ∃ i, ∃ (h : i < l.length), l[i] = a
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:32:20: error: tactic 'rewrite' failed, motive is not type correct:
+  fun _a => List.countP (fun x => decide (x ≤ _a[k])) _a
+Error: Application type mismatch: In the application
+  _a[k]
+the argument
+  hk
+has type
+  k < l.length : Prop
+but is expected to have type
+  k < _a.length : Prop
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+l : List ℤ
+hs : List.Pairwise (fun x1 x2 => x1 ≤ x2) l
+k : ℕ
+hk : k < l.length
+hsplit : l = List.take (k + 1) l ++ List.drop (k + 1) l
+| List.countP (fun x => decide (x ≤ l[k])) l
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:53:20: error: tactic 'rewrite' failed, motive is not type correct:
+  fun _a => List.countP (fun x => decide (_a[k] ≤ x)) _a
+Error: Application type mismatch: In the application
+  _a[k]
+the argument
+  hk
+has type
+  k < l.length : Prop
+but is expected to have type
+  k < _a.length : Prop
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+l : List ℤ
+hs : List.Pairwise (fun x1 x2 => x1 ≤ x2) l
+k : ℕ
+hk : k < l.length
+hsplit : l = List.take k l ++ List.drop k l
+| List.countP (fun x => decide (l[k] ≤ x)) l

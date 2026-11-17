@@ -1,0 +1,22 @@
+Created At: 2026-11-16T22:43:53Z
+Completed At: 2026-11-16T22:44:00Z
+Command exited with code 1.
+
+Command output:
+[1, 2, 3]
+[]
+[1]
+[11, 12, 22, 25, 34, 42, 50, 64, 76, 88, 90]
+Veribench/heap_sort.lean:669:26: warning: This simp argument is unused:
+  hi_ne
+
+Hint: Omit it from the simp argument list.
+  simp only [hi0, h̵i̵_̵n̵e̵,̵ ̵↓reduceIte]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/heap_sort.lean:755:4: error: type mismatch
+  Eq.symm (List.Perm.nil_eq hp)
+has type
+  l2 = [] : Prop
+but is expected to have type
+  [] = l2 : Prop

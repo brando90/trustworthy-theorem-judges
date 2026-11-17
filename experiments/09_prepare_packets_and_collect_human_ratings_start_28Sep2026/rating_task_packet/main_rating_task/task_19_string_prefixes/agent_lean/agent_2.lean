@@ -1,323 +1,385 @@
 import Mathlib
 
 /-!
-# HumanEval/14: all_prefixes
+# HumanEval/14: `all_prefixes`
 
-This file formalizes the Python function `all_prefixes` from HumanEval/14.
-Given an input string, `all_prefixes` returns the list of all non-empty prefixes
-of the string ordered from shortest to longest.
+Translation and formal verification of the Python program `humaneval_14_all_prefixes.py`.
+
+Given an input string `s`, `all_prefixes s` returns the list of all non-empty prefixes
+of `s` ordered from shortest to longest (`[s.take 1, s.take 2, ..., s.take s.length]`).
 -/
 
 namespace humaneval_14_all_prefixes
 
-/-! ## Functional Implementation -/
+/-! ## 1. Functional Implementation -/
 
 /-- Return list of all prefixes from shortest to longest of the input string. -/
-def all_prefixes (string : String) : List String :=
-  (List.range string.length).map (fun i => String.mk (string.data.take (i + 1)))
+def all_prefixes (s : String) : List String :=
+  (List.range s.length).map (fun i => s.take (i + 1))
 
-/-! ## Unit Tests -/
+/-! ## 2. Unit Tests -/
+
+example : all_prefixes "" = [] := by native_decide
 
 example : all_prefixes "abc" = ["a", "ab", "abc"] := by native_decide
-example : all_prefixes "" = [] := by native_decide
+
 example : all_prefixes "asdfgh" = ["a", "as", "asd", "asdf", "asdfg", "asdfgh"] := by native_decide
+
 example : all_prefixes "WWW" = ["W", "WW", "WWW"] := by native_decide
 
-#eval all_prefixes "abc"
+example : all_prefixes "x" = ["x"] := by native_decide
+
 #eval all_prefixes ""
+#eval all_prefixes "abc"
 #eval all_prefixes "asdfgh"
 #eval all_prefixes "WWW"
 
-/-! ## Helper Lemmas -/
+/-! ## 3. Pre-condition -/
+
+/-- Pre-condition for `all_prefixes`: any `String` is a valid input. -/
+def Pre (_s : String) : Prop := True
+
+/-! ## 4. Helper Lemmas and Decidable Instances -/
+
+/-- `String.IsPrefix p s` is decidable via prefix decidability on the underlying character lists. -/
+instance instDecidableStringIsPrefix (p s : String) : Decidable (String.IsPrefix p s) :=
+  inferInstanceAs (Decidable (p.data <+: s.data))
 
 @[simp]
-theorem length_mk (d : List Char) : (String.mk d).length = d.length := rfl
+theorem length_all_prefixes (s : String) :
+    (all_prefixes s).length = s.length := by
+  simp [all_prefixes]
 
 @[simp]
-theorem data_mk (d : List Char) : (String.mk d).data = d := rfl
+theorem length_take_eq (s : String) (n : Nat) :
+    (s.take n).length = min n s.length := by
+  rw [← String.length_data, String.data_take, List.length_take, String.length_data]
 
-@[simp]
-theorem mk_data (s : String) : String.mk s.data = s := by
-  cases s
-  rfl
+theorem take_length_self (s : String) :
+    s.take s.length = s := by
+  ext : 1
+  rw [String.data_take, ← String.length_data, List.take_length]
 
-@[simp]
-theorem length_data (s : String) : s.data.length = s.length := rfl
+theorem isPrefix_iff_data (p s : String) :
+    String.IsPrefix p s ↔ p.data <+: s.data := by
+  cases p; cases s; rfl
 
-@[simp]
-theorem mk_eq_empty_iff (d : List Char) : String.mk d = "" ↔ d = [] := by
-  constructor
-  · intro h
-    exact congrArg String.data h
-  · rintro rfl
-    rfl
+theorem isPrefix_iff_toList_isPrefixOf (p s : String) :
+    p.toList.isPrefixOf s.toList = true ↔ String.IsPrefix p s := by
+  cases p; cases s; exact List.isPrefixOf_iff_prefix
 
-/-! ## Pre-condition -/
+theorem empty_iff_data_nil (s : String) :
+    s = "" ↔ s.data = [] := by
+  cases s; simp [String.ext_iff]
 
-/-- Pre-condition for `all_prefixes`: any `String` is admissible. -/
-def Pre (_string : String) : Prop := True
+theorem empty_iff_length_zero (s : String) :
+    s = "" ↔ s.length = 0 := by
+  rw [empty_iff_data_nil, ← String.length_data, List.length_eq_zero_iff]
 
-/-! ## Properties and Theorems -/
+theorem isPrefix_take_of_le (s : String) {m n : Nat} (h : m ≤ n) :
+    String.IsPrefix (s.take m) (s.take n) := by
+  rw [isPrefix_iff_data, String.data_take, String.data_take]
+  have htake : List.take m (List.take n s.data) = List.take m s.data := by
+    rw [List.take_take, Nat.min_eq_left h]
+  rw [← htake]
+  exact List.take_prefix m (List.take n s.data)
 
-/-- The number of returned prefixes equals the length of the input string. -/
-def length_prop (string : String) : Prop :=
-  (all_prefixes string).length = string.length
+/-! ## 5. Property Propositions and Theorems -/
 
-theorem length_thm (string : String) : length_prop string := by
-  simp [length_prop, all_prefixes]
+/-- Property 1: The number of prefixes returned equals the length of the input string. -/
+@[reducible]
+def length_prop (s : String) : Prop :=
+  (all_prefixes s).length = s.length
 
-/-- The returned list is empty if and only if the input string is empty. -/
-def empty_iff_prop (string : String) : Prop :=
-  (all_prefixes string = []) ↔ (string = "")
+theorem length_thm (s : String) : length_prop s := by
+  simp [length_prop]
 
-theorem empty_iff_thm (string : String) : empty_iff_prop string := by
-  cases string with
-  | mk d =>
-    simp [empty_iff_prop, all_prefixes]
+/-- Property 2: The output list is empty if and only if the input string is empty. -/
+@[reducible]
+def empty_prop (s : String) : Prop :=
+  (all_prefixes s = [] ↔ s = "") ∧ all_prefixes "" = []
 
-/-- At each valid index `i`, the `i`-th element is the prefix of length `i + 1`. -/
-def get_elem_prop (string : String) : Prop :=
-  ∀ (i : Nat) (h : i < (all_prefixes string).length),
-    (all_prefixes string)[i] = String.mk (string.data.take (i + 1)) ∧
-    ((all_prefixes string)[i]).length = i + 1
+theorem empty_thm (s : String) : empty_prop s := by
+  refine ⟨?_, rfl⟩
+  rw [← List.length_eq_zero_iff, length_all_prefixes, empty_iff_length_zero]
 
-theorem get_elem_thm (string : String) : get_elem_prop string := by
+/-- Property 3: At each valid index `i`, the element `(all_prefixes s)[i]` is `s.take (i + 1)`. -/
+@[reducible]
+def getElem_prop (s : String) : Prop :=
+  ∀ (i : Nat) (h : i < (all_prefixes s).length),
+    (all_prefixes s)[i] = s.take (i + 1)
+
+theorem getElem_thm (s : String) : getElem_prop s := by
   intro i h
-  have hi : i < string.length := by simpa [all_prefixes] using h
-  simp only [all_prefixes, List.getElem_map, List.getElem_range, length_mk,
-    List.length_take, length_data, true_and]
+  simp [all_prefixes]
+
+/-- Property 4: At each valid index `i`, the `i`-th prefix has length `i + 1`. -/
+@[reducible]
+def elem_length_prop (s : String) : Prop :=
+  ∀ (i : Nat) (h : i < (all_prefixes s).length),
+    ((all_prefixes s)[i]).length = i + 1
+
+theorem elem_length_thm (s : String) : elem_length_prop s := by
+  intro i h
+  have hi : i < s.length := by simpa using h
+  rw [getElem_thm s i h, length_take_eq]
   omega
 
-/-- Every element in `all_prefixes string` is a non-empty prefix of `string`. -/
-def elements_are_prefixes_prop (string : String) : Prop :=
-  ∀ p ∈ all_prefixes string, p.data <+: string.data ∧ 1 ≤ p.length ∧ p.length ≤ string.length
+/-- Property 5: Every element in `all_prefixes s` is a non-empty prefix of `s` with length in `1..s.length`. -/
+@[reducible]
+def all_are_prefixes_prop (s : String) : Prop :=
+  ∀ p ∈ all_prefixes s,
+    String.IsPrefix p s ∧ p.toList.isPrefixOf s.toList = true ∧
+    0 < p.length ∧ p.length ≤ s.length ∧ p ≠ ""
 
-theorem elements_are_prefixes_thm (string : String) : elements_are_prefixes_prop string := by
+theorem all_are_prefixes_thm (s : String) : all_are_prefixes_prop s := by
   intro p hp
   simp only [all_prefixes, List.mem_map, List.mem_range] at hp
   rcases hp with ⟨i, hi, rfl⟩
-  refine ⟨List.take_prefix (i + 1) string.data, ?_, ?_⟩
-  · simp only [length_mk, List.length_take, length_data]
+  have hpref : String.IsPrefix (s.take (i + 1)) s := by
+    rw [isPrefix_iff_data, String.data_take]
+    exact List.take_prefix (i + 1) s.data
+  have hbool : (s.take (i + 1)).toList.isPrefixOf s.toList = true :=
+    (isPrefix_iff_toList_isPrefixOf _ _).mpr hpref
+  have hlen : (s.take (i + 1)).length = i + 1 := by
+    rw [length_take_eq]
     omega
-  · simp only [length_mk, List.length_take, length_data]
-    omega
+  refine ⟨hpref, hbool, by omega, by omega, ?_⟩
+  rw [Ne, empty_iff_length_zero]
+  omega
 
-/-- Every prefix of length `k + 1` (for `k < string.length`) is present in `all_prefixes string`. -/
-def all_prefixes_complete_prop (string : String) : Prop :=
-  ∀ (k : Nat), k < string.length → String.mk (string.data.take (k + 1)) ∈ all_prefixes string
+/-- Property 6: Completeness — `all_prefixes s` contains `s.take k` for every `1 ≤ k ≤ s.length`,
+and a string `p` belongs to `all_prefixes s` if and only if `p` is a non-empty prefix of `s`. -/
+def completeness_prop (s : String) : Prop :=
+  (∀ (k : Nat), 0 < k → k ≤ s.length → s.take k ∈ all_prefixes s) ∧
+  (∀ (p : String), p ∈ all_prefixes s ↔ (p ≠ "" ∧ String.IsPrefix p s))
 
-theorem all_prefixes_complete_thm (string : String) : all_prefixes_complete_prop string := by
-  intro k hk
-  simp only [all_prefixes, List.mem_map, List.mem_range]
-  exact ⟨k, hk, rfl⟩
-
-/-- A string `p` belongs to `all_prefixes string` iff `p` is a non-empty prefix of `string`. -/
-def prefix_mem_iff_prop (string : String) : Prop :=
-  ∀ p : String, p ∈ all_prefixes string ↔ (p.data <+: string.data ∧ 1 ≤ p.length)
-
-theorem prefix_mem_iff_thm (string : String) : prefix_mem_iff_prop string := by
-  intro p
-  constructor
-  · intro hp
-    have h := elements_are_prefixes_thm string p hp
-    exact ⟨h.1, h.2.1⟩
-  · rintro ⟨hpref, hlen1⟩
-    have hle : p.length ≤ string.length := by
-      simpa using hpref.length_le
-    have htake : p.data = string.data.take p.length := by
-      simpa using List.prefix_iff_eq_take.mp hpref
+theorem completeness_thm (s : String) : completeness_prop s := by
+  have h1 : ∀ (k : Nat), 0 < k → k ≤ s.length → s.take k ∈ all_prefixes s := by
+    intro k hkpos hkle
     simp only [all_prefixes, List.mem_map, List.mem_range]
-    refine ⟨p.length - 1, by omega, ?_⟩
-    have hsub : p.length - 1 + 1 = p.length := by omega
-    rw [hsub, ← htake, mk_data]
-
-/-- Prefixes are ordered strictly from shortest to longest, and earlier elements are prefixes of later elements. -/
-def shortest_to_longest_prop (string : String) : Prop :=
-  ∀ (i : Nat) (hi : i < (all_prefixes string).length)
-    (j : Nat) (hj : j < (all_prefixes string).length),
-    i < j →
-      ((all_prefixes string)[i]).length < ((all_prefixes string)[j]).length ∧
-      ((all_prefixes string)[i]).data <+: ((all_prefixes string)[j]).data
-
-theorem shortest_to_longest_thm (string : String) : shortest_to_longest_prop string := by
-  intro i hi j hj hij
-  have hi' : i < string.length := by simpa [all_prefixes] using hi
-  have hj' : j < string.length := by simpa [all_prefixes] using hj
-  simp only [all_prefixes, List.getElem_map, List.getElem_range, length_mk, data_mk,
-    List.length_take, length_data]
-  constructor
-  · omega
-  · have htake : List.take (i + 1) (List.take (j + 1) string.data) = List.take (i + 1) string.data := by
-      rw [List.take_take, Nat.min_eq_left (by omega)]
+    refine ⟨k - 1, by omega, ?_⟩
+    congr 1
+    omega
+  refine ⟨h1, fun p => ⟨?_, ?_⟩⟩
+  · intro hp
+    have H := all_are_prefixes_thm s p hp
+    exact ⟨H.2.2.2.2, H.1⟩
+  · rintro ⟨hne, hpref⟩
+    rw [Ne, empty_iff_length_zero] at hne
+    rw [isPrefix_iff_data] at hpref
+    have hlen_le : p.length ≤ s.length := by
+      rw [← String.length_data, ← String.length_data]
+      exact hpref.length_le
+    have htake : s.take p.length = p := by
+      ext : 1
+      rw [String.data_take, ← String.length_data, ← List.prefix_iff_eq_take.mp hpref]
     rw [← htake]
-    exact List.take_prefix (i + 1) (List.take (j + 1) string.data)
+    exact h1 p.length (Nat.pos_of_ne_zero hne) hlen_le
 
-/-- For any non-empty input string, the last element of `all_prefixes string` is `string` itself. -/
-def last_elem_prop (string : String) : Prop :=
-  string ≠ "" → (all_prefixes string).getLast? = some string
+/-- Property 7: Prefixes are strictly ordered from shortest to longest. -/
+@[reducible]
+def shortest_to_longest_prop (s : String) : Prop :=
+  (∀ (i : Nat) (hi : i < (all_prefixes s).length) (j : Nat) (hj : j < (all_prefixes s).length),
+    i < j → ((all_prefixes s)[i]).length < ((all_prefixes s)[j]).length) ∧
+  List.Pairwise (fun a b => a.length < b.length) (all_prefixes s)
 
-theorem last_elem_thm (string : String) : last_elem_prop string := by
-  intro hs
-  have hpos : 0 < string.length := by
-    cases string with
-    | mk d =>
-      cases d with
-      | nil => contradiction
-      | cons c cs => exact Nat.succ_pos _
-  have hne : all_prefixes string ≠ [] := by
-    intro h
-    have hlen := congrArg List.length h
-    simp [all_prefixes] at hlen
+theorem shortest_to_longest_thm (s : String) : shortest_to_longest_prop s := by
+  have hidx : ∀ (i : Nat) (hi : i < (all_prefixes s).length) (j : Nat) (hj : j < (all_prefixes s).length),
+      i < j → ((all_prefixes s)[i]).length < ((all_prefixes s)[j]).length := by
+    intro i hi j hj hij
+    rw [elem_length_thm s i hi, elem_length_thm s j hj]
     omega
-  rw [List.getLast?_eq_some_getLast hne, Option.some.injEq]
-  rw [List.getLast_eq_getElem]
-  simp only [all_prefixes, List.length_map, List.length_range, List.getElem_map, List.getElem_range]
-  have hsub : string.length - 1 + 1 = string.data.length := by
-    rw [length_data]
+  refine ⟨hidx, ?_⟩
+  rw [List.pairwise_iff_getElem]
+  intro i j hi hj hij
+  exact hidx i hi j hj hij
+
+/-- Property 8: Earlier elements in `all_prefixes s` are prefixes of later elements. -/
+@[reducible]
+def prefix_chain_prop (s : String) : Prop :=
+  (∀ (i : Nat) (hi : i < (all_prefixes s).length) (j : Nat) (hj : j < (all_prefixes s).length),
+    i ≤ j → String.IsPrefix ((all_prefixes s)[i]) ((all_prefixes s)[j])) ∧
+  List.Pairwise String.IsPrefix (all_prefixes s)
+
+theorem prefix_chain_thm (s : String) : prefix_chain_prop s := by
+  have hidx : ∀ (i : Nat) (hi : i < (all_prefixes s).length) (j : Nat) (hj : j < (all_prefixes s).length),
+      i ≤ j → String.IsPrefix ((all_prefixes s)[i]) ((all_prefixes s)[j]) := by
+    intro i hi j hj hij
+    rw [getElem_thm s i hi, getElem_thm s j hj]
+    exact isPrefix_take_of_le s (by omega)
+  refine ⟨hidx, ?_⟩
+  rw [List.pairwise_iff_getElem]
+  intro i j hi hj hij
+  exact hidx i hi j hj (Nat.le_of_lt hij)
+
+/-- Property 9: For any non-empty string `s`, the first prefix is `s.take 1` and the last prefix is `s`. -/
+@[reducible]
+def first_last_prop (s : String) : Prop :=
+  s ≠ "" → (all_prefixes s).head? = some (s.take 1) ∧ (all_prefixes s).getLast? = some s
+
+theorem first_last_thm (s : String) : first_last_prop s := by
+  intro hne
+  have hlen : 0 < s.length := by
+    rw [Ne, empty_iff_length_zero] at hne
     omega
-  rw [hsub, List.take_length, mk_data]
+  constructor
+  · rw [List.head?_eq_getElem?]
+    simp [all_prefixes, hlen]
+  · rw [List.getLast?_eq_getElem?]
+    have hlast : (all_prefixes s).length - 1 < (all_prefixes s).length := by
+      rw [length_all_prefixes]
+      omega
+    rw [List.getElem?_eq_getElem hlast]
+    congr 1
+    rw [getElem_thm s ((all_prefixes s).length - 1) hlast]
+    have h1 : (all_prefixes s).length - 1 + 1 = s.length := by
+      rw [length_all_prefixes]
+      omega
+    rw [h1, take_length_self]
 
-/-! ## Post-condition -/
+/-- Property 10: All elements in `all_prefixes s` are distinct (no duplicates). -/
+@[reducible]
+def nodup_prop (s : String) : Prop :=
+  (all_prefixes s).Nodup
 
-/-- Complete post-condition for `all_prefixes` as the conjunction of all properties. -/
-def Post_prop (string : String) : Prop :=
-  length_prop string ∧
-  empty_iff_prop string ∧
-  get_elem_prop string ∧
-  elements_are_prefixes_prop string ∧
-  all_prefixes_complete_prop string ∧
-  prefix_mem_iff_prop string ∧
-  shortest_to_longest_prop string ∧
-  last_elem_prop string
+theorem nodup_thm (s : String) : nodup_prop s := by
+  rw [nodup_prop, List.Nodup]
+  exact (shortest_to_longest_thm s).2.imp (fun h => by intro heq; rw [heq] at h; exact Nat.lt_irrefl _ h)
 
-/-! ## Property-Based Tests -/
+/-- Property 11: Prefix truncation compatibility — `all_prefixes (s.take k) = (all_prefixes s).take k`
+for all `k ≤ s.length`. -/
+@[reducible]
+def prefix_truncation_prop (s : String) : Prop :=
+  ∀ (k : Nat), k ≤ s.length → all_prefixes (s.take k) = (all_prefixes s).take k
 
-instance (s : String) : Decidable (length_prop s) :=
-  inferInstanceAs (Decidable ((all_prefixes s).length = s.length))
+theorem prefix_truncation_thm (s : String) : prefix_truncation_prop s := by
+  intro k hk
+  have hlen : (s.take k).length = k := by
+    rw [length_take_eq, Nat.min_eq_left hk]
+  rw [all_prefixes, all_prefixes, hlen, ← List.map_take, List.take_range, Nat.min_eq_left hk]
+  refine List.map_congr_left ?_
+  intro i hi
+  rw [List.mem_range] at hi
+  ext : 1
+  rw [String.data_take, String.data_take, String.data_take, List.take_take, Nat.min_eq_left (by omega)]
 
-instance (s : String) : Decidable (empty_iff_prop s) :=
-  inferInstanceAs (Decidable ((all_prefixes s = []) ↔ (s = "")))
+/-! ## 6. Post-condition -/
 
-instance (s : String) : Decidable (get_elem_prop s) :=
-  Nat.decidableBallLT (all_prefixes s).length (fun i _ =>
-    (all_prefixes s)[i] = String.mk (s.data.take (i + 1)) ∧
-    ((all_prefixes s)[i]).length = i + 1)
+/-- Post-condition combining all semantic properties of `all_prefixes`. -/
+def Post_prop (s : String) : Prop :=
+  length_prop s ∧
+  empty_prop s ∧
+  getElem_prop s ∧
+  elem_length_prop s ∧
+  all_are_prefixes_prop s ∧
+  completeness_prop s ∧
+  shortest_to_longest_prop s ∧
+  prefix_chain_prop s ∧
+  first_last_prop s ∧
+  nodup_prop s ∧
+  prefix_truncation_prop s
 
-instance (s : String) : Decidable (elements_are_prefixes_prop s) :=
-  inferInstanceAs (Decidable (∀ p ∈ all_prefixes s, p.data <+: s.data ∧ 1 ≤ p.length ∧ p.length ≤ s.length))
+/-! ## 7. Property-Based Tests (PBTs) -/
 
-instance (s : String) : Decidable (all_prefixes_complete_prop s) :=
-  Nat.decidableBallLT s.length (fun k _ =>
-    String.mk (s.data.take (k + 1)) ∈ all_prefixes s)
+/-- Representative sample of test strings for bounded exhaustive checking. -/
+def sampleStrings : List String :=
+  ["", "a", "ab", "abc", "asdfgh", "WWW", "hello world", "0123456789", "aaa", "Lean4"]
 
-instance (s : String) : Decidable (prefix_mem_iff_prop s) :=
-  decidable_of_iff (elements_are_prefixes_prop s ∧ all_prefixes_complete_prop s) <| by
-    constructor
-    · rintro ⟨helem, hcomp⟩ p
-      constructor
-      · intro hp
-        have h := helem p hp
-        exact ⟨h.1, h.2.1⟩
-      · rintro ⟨hpref, hlen1⟩
-        have hle : p.length ≤ s.length := by simpa using hpref.length_le
-        have htake : p.data = s.data.take p.length := by
-          simpa using List.prefix_iff_eq_take.mp hpref
-        have hk : p.length - 1 < s.length := by omega
-        have hmem := hcomp (p.length - 1) hk
-        have hsub : p.length - 1 + 1 = p.length := by omega
-        rwa [hsub, ← htake, mk_data] at hmem
-    · intro hiff
-      refine ⟨?_, ?_⟩
-      · intro p hp
-        have ⟨hpref, hlen1⟩ := (hiff p).mp hp
-        exact ⟨hpref, hlen1, by simpa using hpref.length_le⟩
-      · intro k hk
-        apply (hiff (String.mk (s.data.take (k + 1)))).mpr
-        refine ⟨List.take_prefix (k + 1) s.data, ?_⟩
-        simp only [length_mk, List.length_take, length_data]
-        omega
+/-- Executable Boolean check for `completeness_prop` on a string `s` and candidate `p`. -/
+def completenessCheck (s : String) : Bool :=
+  (List.range s.length).all (fun i => decide (s.take (i + 1) ∈ all_prefixes s)) &&
+  (sampleStrings ++ all_prefixes s).all (fun p =>
+    decide (p ∈ all_prefixes s) == (decide (p ≠ "") && decide (String.IsPrefix p s)))
 
-instance (s : String) : Decidable (shortest_to_longest_prop s) :=
-  Nat.decidableBallLT (all_prefixes s).length (fun i _ =>
-    ∀ (j : Nat) (hj : j < (all_prefixes s).length),
-      i < j →
-        ((all_prefixes s)[i]).length < ((all_prefixes s)[j]).length ∧
-        ((all_prefixes s)[i]).data <+: ((all_prefixes s)[j]).data)
+/-- Executable Boolean check for the full `Post_prop`. -/
+def postCheck (s : String) : Bool :=
+  decide (length_prop s) &&
+  decide (empty_prop s) &&
+  decide (getElem_prop s) &&
+  decide (elem_length_prop s) &&
+  decide (all_are_prefixes_prop s) &&
+  completenessCheck s &&
+  decide (shortest_to_longest_prop s) &&
+  decide (prefix_chain_prop s) &&
+  decide (first_last_prop s) &&
+  decide (nodup_prop s) &&
+  decide (prefix_truncation_prop s)
 
-instance (s : String) : Decidable (last_elem_prop s) :=
-  inferInstanceAs (Decidable (s ≠ "" → (all_prefixes s).getLast? = some s))
-
-instance (s : String) : Decidable (Post_prop s) :=
-  inferInstanceAs (Decidable (
-    length_prop s ∧
-    empty_iff_prop s ∧
-    get_elem_prop s ∧
-    elements_are_prefixes_prop s ∧
-    all_prefixes_complete_prop s ∧
-    prefix_mem_iff_prop s ∧
-    shortest_to_longest_prop s ∧
-    last_elem_prop s))
-
+-- Randomized PBTs via Plausible
 #eval Plausible.Testable.check (∀ s : String, length_prop s)
-#eval Plausible.Testable.check (∀ s : String, empty_iff_prop s)
-#eval Plausible.Testable.check (∀ s : String, get_elem_prop s)
-#eval Plausible.Testable.check (∀ s : String, elements_are_prefixes_prop s)
-#eval Plausible.Testable.check (∀ s : String, all_prefixes_complete_prop s)
-#eval Plausible.Testable.check (∀ s : String, prefix_mem_iff_prop s)
-#eval Plausible.Testable.check (∀ (s p : String), p ∈ all_prefixes s ↔ (p.data <+: s.data ∧ 1 ≤ p.length))
+#eval Plausible.Testable.check (∀ s : String, empty_prop s)
+#eval Plausible.Testable.check (∀ s : String, getElem_prop s)
+#eval Plausible.Testable.check (∀ s : String, elem_length_prop s)
+#eval Plausible.Testable.check (∀ s : String, all_are_prefixes_prop s)
+#eval Plausible.Testable.check (∀ s : String, completenessCheck s = true)
+#eval Plausible.Testable.check (∀ s p : String, decide (p ∈ all_prefixes s) = decide (p ≠ "" ∧ String.IsPrefix p s))
 #eval Plausible.Testable.check (∀ s : String, shortest_to_longest_prop s)
-#eval Plausible.Testable.check (∀ s : String, last_elem_prop s)
-#eval Plausible.Testable.check (∀ s : String, Post_prop s)
+#eval Plausible.Testable.check (∀ s : String, prefix_chain_prop s)
+#eval Plausible.Testable.check (∀ s : String, first_last_prop s)
+#eval Plausible.Testable.check (∀ s : String, nodup_prop s)
+#eval Plausible.Testable.check (∀ s : String, prefix_truncation_prop s)
+#eval Plausible.Testable.check (∀ s : String, postCheck s = true)
 
-/-- Sample test strings for bounded property-based checks. -/
-def sample_strings : List String :=
-  ["", "a", "ab", "abc", "asdfgh", "WWW", "hello world", "0123456789"]
+-- Bounded PBTs via `native_decide`
+example : sampleStrings.all (fun s => decide (length_prop s)) = true := by native_decide
+example : sampleStrings.all (fun s => decide (empty_prop s)) = true := by native_decide
+example : sampleStrings.all (fun s => decide (getElem_prop s)) = true := by native_decide
+example : sampleStrings.all (fun s => decide (elem_length_prop s)) = true := by native_decide
+example : sampleStrings.all (fun s => decide (all_are_prefixes_prop s)) = true := by native_decide
+example : sampleStrings.all (fun s => completenessCheck s) = true := by native_decide
+example : sampleStrings.all (fun s => decide (shortest_to_longest_prop s)) = true := by native_decide
+example : sampleStrings.all (fun s => decide (prefix_chain_prop s)) = true := by native_decide
+example : sampleStrings.all (fun s => decide (first_last_prop s)) = true := by native_decide
+example : sampleStrings.all (fun s => decide (nodup_prop s)) = true := by native_decide
+example : sampleStrings.all (fun s => decide (prefix_truncation_prop s)) = true := by native_decide
+example : sampleStrings.all (fun s => postCheck s) = true := by native_decide
 
-example : sample_strings.all (fun s => decide (length_prop s)) = true := by native_decide
-example : sample_strings.all (fun s => decide (empty_iff_prop s)) = true := by native_decide
-example : sample_strings.all (fun s => decide (get_elem_prop s)) = true := by native_decide
-example : sample_strings.all (fun s => decide (elements_are_prefixes_prop s)) = true := by native_decide
-example : sample_strings.all (fun s => decide (all_prefixes_complete_prop s)) = true := by native_decide
-example : sample_strings.all (fun s => decide (prefix_mem_iff_prop s)) = true := by native_decide
-example : sample_strings.all (fun s => decide (shortest_to_longest_prop s)) = true := by native_decide
-example : sample_strings.all (fun s => decide (last_elem_prop s)) = true := by native_decide
-example : sample_strings.all (fun s => decide (Post_prop s)) = true := by native_decide
+/-! ## 8. Correctness Theorem (`Pre -> Post`) -/
 
-/-! ## Correctness Theorem -/
+/-- Total correctness theorem: `Pre s → Post_prop s` holds for every input string `s`. -/
+theorem all_prefixes_correct (s : String) (_hPre : Pre s) : Post_prop s :=
+  ⟨length_thm s,
+   empty_thm s,
+   getElem_thm s,
+   elem_length_thm s,
+   all_are_prefixes_thm s,
+   completeness_thm s,
+   shortest_to_longest_thm s,
+   prefix_chain_thm s,
+   first_last_thm s,
+   nodup_thm s,
+   prefix_truncation_thm s⟩
 
-/-- Main correctness theorem: the pre-condition implies the full post-condition. -/
-theorem all_prefixes_correct (string : String) (_hpre : Pre string) : Post_prop string :=
-  ⟨length_thm string,
-   empty_iff_thm string,
-   get_elem_thm string,
-   elements_are_prefixes_thm string,
-   all_prefixes_complete_thm string,
-   prefix_mem_iff_thm string,
-   shortest_to_longest_thm string,
-   last_elem_thm string⟩
+/-! ## 9. Imperative Implementation -/
 
-/-! ## Imperative Implementation -/
-
-/-- Imperative implementation of `all_prefixes` translating the Python loop directly. -/
-def all_prefixes_imp (string : String) : List String := Id.run do
+/-- Imperative implementation of `all_prefixes` using `Id.run do` and mutable state,
+mirroring the Python loop `for i in range(len(string)): result.append(string[:i+1])`. -/
+def all_prefixes_imp (s : String) : List String := Id.run do
   let mut result : List String := []
-  for i in List.range string.length do
-    result := result ++ [String.mk (string.data.take (i + 1))]
+  for i in List.range s.length do
+    result := result ++ [s.take (i + 1)]
   return result
 
-/-! ## Imperative Tests -/
+/-! ## 10. Imperative Tests -/
+
+example : all_prefixes_imp "" = [] := by native_decide
 
 example : all_prefixes_imp "abc" = ["a", "ab", "abc"] := by native_decide
-example : all_prefixes_imp "" = [] := by native_decide
+
 example : all_prefixes_imp "asdfgh" = ["a", "as", "asd", "asdf", "asdfg", "asdfgh"] := by native_decide
+
 example : all_prefixes_imp "WWW" = ["W", "WW", "WWW"] := by native_decide
 
-#eval all_prefixes_imp "abc"
+example : sampleStrings.all (fun s => all_prefixes s == all_prefixes_imp s) = true := by native_decide
+
 #eval all_prefixes_imp ""
+#eval all_prefixes_imp "abc"
 #eval all_prefixes_imp "asdfgh"
 #eval all_prefixes_imp "WWW"
+#eval Plausible.Testable.check (∀ s : String, all_prefixes s = all_prefixes_imp s)
 
-/-! ## Equivalence Theorem -/
+/-! ## 11. Equivalence Theorem (Functional = Imperative) -/
 
 theorem flatten_map_singleton {α β : Type*} (f : α → β) (l : List α) :
     (l.map (fun x => [f x])).flatten = l.map f := by
@@ -325,10 +387,14 @@ theorem flatten_map_singleton {α β : Type*} (f : α → β) (l : List α) :
   | nil => rfl
   | cons hd tl ih => simp [ih]
 
-/-- The functional and imperative implementations of `all_prefixes` are equivalent. -/
-theorem all_prefixes_eq_imp (string : String) : all_prefixes string = all_prefixes_imp string := by
+/-- Equivalence theorem: the functional and imperative implementations produce identical results
+for all input strings `s`. -/
+theorem all_prefixes_eq_imp (s : String) :
+    all_prefixes s = all_prefixes_imp s := by
   simp [all_prefixes, all_prefixes_imp, flatten_map_singleton]
 
-#eval Plausible.Testable.check (∀ s : String, all_prefixes s = all_prefixes_imp s)
+/-- Corollary: the imperative implementation also satisfies `Post_prop`. -/
+theorem all_prefixes_imp_correct (s : String) (hPre : Pre s) : Post_prop s :=
+  all_prefixes_correct s hPre
 
 end humaneval_14_all_prefixes

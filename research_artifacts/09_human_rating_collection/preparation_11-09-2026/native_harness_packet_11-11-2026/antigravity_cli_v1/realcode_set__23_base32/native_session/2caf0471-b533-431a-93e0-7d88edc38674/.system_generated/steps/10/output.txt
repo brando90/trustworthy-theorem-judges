@@ -1,0 +1,41 @@
+Created At: 2026-11-16T21:38:24Z
+Completed At: 2026-11-16T21:38:29Z
+Command exited with code 1.
+
+Command output:
+UInt64.toUInt8 (a : UInt64) : UInt8
+UInt8.toUInt64 (a : UInt8) : UInt64
+def UInt64.toUInt8 : UInt64 → UInt8 :=
+fun a => a.toNat.toUInt8
+def UInt8.toUInt64 : UInt8 → UInt64 :=
+fun a => { toBitVec := { toFin := ⟨a.toNat, ⋯⟩ } }
+<stdin>:16:2: error: The prover found a potentially spurious counterexample:
+- It abstracted the following unsupported expressions as opaque variables: [(((({
+                       toBitVec := { toFin := ⟨b0.toNat, ⋯⟩ } } <<<
+                     32 |||
+                   { toBitVec := { toFin := ⟨b1.toNat, ⋯⟩ } } <<< 24) >>>
+                 35 &&&
+               31) <<<
+             5 |||
+           ({ toBitVec := { toFin := ⟨b0.toNat, ⋯⟩ } } <<< 32 ||| { toBitVec := { toFin := ⟨b1.toNat, ⋯⟩ } } <<< 24) >>>
+               30 &&&
+             31) >>>
+         2 &&&
+       255).toNat.toUInt8]
+Consider the following assignment:
+(((({ toBitVec := { toFin := ⟨b0.toNat, ⋯⟩ } } <<< 32 ||| { toBitVec := { toFin := ⟨b1.toNat, ⋯⟩ } } <<< 24) >>> 35 &&&
+              31) <<<
+            5 |||
+          ({ toBitVec := { toFin := ⟨b0.toNat, ⋯⟩ } } <<< 32 ||| { toBitVec := { toFin := ⟨b1.toNat, ⋯⟩ } } <<< 24) >>>
+              30 &&&
+            31) >>>
+        2 &&&
+      255).toNat.toUInt8 = 255
+b0 = 127
+<stdin>:15:45: warning: This simp argument is unused:
+  UInt8.ofBitVec_uInt64ToBitVec
+
+Hint: Omit it from the simp argument list.
+  simp only [UInt64.toUInt8, UInt8.toUInt64,̵ ̵U̵I̵n̵t̵8̵.̵o̵f̵B̵i̵t̵V̵e̵c̵_̵u̵I̵n̵t̵6̵4̵T̵o̵B̵i̵t̵V̵e̵c̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

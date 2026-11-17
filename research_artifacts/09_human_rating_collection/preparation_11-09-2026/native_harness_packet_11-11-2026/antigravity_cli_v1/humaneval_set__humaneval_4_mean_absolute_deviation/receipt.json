@@ -1,0 +1,71 @@
+{
+  "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "humaneval_4_mean_absolute_deviation.py": "559fde16be5e57c6080a6793ff0007c7a23a7452bd14a1e2ce3efa1baa85928f",
+    "instruction.md": "67b7109cfc790f5ae9d3b101b71d2da35bb23a4b57e68e7ac53277f1d92d3028"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-9d9cccd3ccac",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794866689.1659389,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794867578.311,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "257cc80c-3989-441a-b42e-e12c87b4ed50",
+      "status": "SUCCESS",
+      "response": "Compiling and verifying `Veribench/humaneval_4_mean_absolute_deviation.lean` with `lake env lean`; waiting for the background compilation task to complete.\nThe Python program `humaneval_4_mean_absolute_deviation.py` has been translated and formalized in Lean 4 at [humaneval_4_mean_absolute_deviation.lean](file:///home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean).\n\n### Summary of Formalization\n\n1. **Functional Implementations** ([humaneval_4_mean_absolute_deviation.lean](file:///home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean#L24-L53)):\n   - Mathematical `Real` (`\u211d`) definitions `mean` and `mean_absolute_deviation`.\n   - Executable `Float` definitions `mean_float` and `mean_absolute_deviation_float`.\n   - Executable exact `Rat` (`\u211a`) definitions `mean_rat` and `mean_absolute_deviation_rat`, connected to the `Real` layer via proven correspondence theorems `mean_rat_cast` and `mean_absolute_deviation_rat_cast`.\n2. **Unit Tests** ([humaneval_4_mean_absolute_deviation.lean](file:///home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean#L55-L102)):\n   - Ground `Float` unit tests (`example : ... := by native_decide` and `#eval`) matching the Python docstring and `check` suite (`[1.0, 2.0, 3.0]`, `[1.0, 2.0, 3.0, 4.0]`, `[1.0, 2.0, 3.0, 4.0, 5.0]`), exact `Rat` tests, and kernel-checked `Real` unit theorems (`test_real_123`, `test_real_1234`, `test_real_12345`).\n3. **Pre-condition (`Pre`)** ([humaneval_4_mean_absolute_deviation.lean](file:///home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean#L104-L129)):\n   - `Pre numbers : Prop := numbers \u2260 []` (along with `Pre_iff_length_pos`, `length_cast_pos_of_Pre`, and `length_cast_ne_zero_of_Pre`).\n4. **Property Propositions and Proven Theorems** ([humaneval_4_mean_absolute_deviation.lean](file:///home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean#L261-L454)):\n   - `spec_prop` / `spec_thm`: Exact formula specification.\n   - `nonneg_prop` / `nonneg_thm`: Non-negativity (`0 \u2264 mean_absolute_deviation numbers`).\n   - `sum_abs_dev_eq_prop` / `sum_abs_dev_eq_thm`: Sample size times MAD equals the total absolute deviation around the mean.\n   - `sum_signed_dev_zero_prop` / `sum_signed_dev_zero_thm`: Signed deviations from the mean sum to zero.\n   - `singleton_prop` / `singleton_thm`: MAD of `[x]` is `0`.\n   - `pair_prop` / `pair_thm`: MAD of `[a, b]` is `|a - b| / 2`.\n   - `const_zero_prop` / `const_zero_thm`: Constant lists have MAD equal to `0`.\n   - `eq_zero_iff_prop` / `eq_zero_iff_thm`: For non-empty lists, MAD is `0` iff every element equals the mean.\n   - `translation_invariance_prop` / `translation_invariance_thm`: Shift invariance under `x \u21a6 x + c`.\n   - `scale_equivariance_prop` / `scale_equivariance_thm`: Absolute homogeneity under `x \u21a6 k * x`.\n   - `negation_invariance_prop` / `negation_invariance_thm`: Invariance under `x \u21a6 -x`.\n   - `perm_invariance_prop` / `perm_invariance_thm` & `reverse_invariance_prop` / `reverse_invariance_thm`: Invariance under permutation and list reversal.\n   - `single_dev_bound_prop` / `single_dev_bound_thm`, `upper_bound_prop` / `upper_bound_thm`, `lower_bound_prop` / `lower_bound_thm`: Individual, upper, and lower deviation bounds.\n5. **Post-condition, Property-Based Tests, and Correctness Theorem** ([humaneval_4_mean_absolute_deviation.lean](file:///home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean#L456-L654)):\n   - `Post_prop` combining the specification and mathematical properties.\n   - Plausible (`#eval Plausible.Testable.check`) and bounded (`by native_decide`) PBTs covering every property and `Post_prop`.\n   - `mean_absolute_deviation_correct`: Proven `Pre numbers \u2192 Post_prop numbers`.\n6. **Imperative Implementations, Tests, and Equivalence Proofs** ([humaneval_4_mean_absolute_deviation.lean](file:///home/user/lean_project/Veribench/humaneval_4_mean_absolute_deviation.lean#L656-L767)):\n   - `mean_absolute_deviation_imp`, `mean_absolute_deviation_float_imp`, and `mean_absolute_deviation_rat_imp` using `Id.run do` and mutable state.\n   - Proven equivalence theorems `mean_absolute_deviation_equiv`, `mean_absolute_deviation_float_equiv`, and `mean_absolute_deviation_rat_equiv`.\n",
+      "duration_seconds": 883.812240242,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 88483,
+        "output_tokens": 48886,
+        "thinking_tokens": 17594,
+        "cache_read_tokens": 703334,
+        "total_tokens": 137369
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "44ca39b32b09877b0da37cde96e46fd4f519dcf8ce33dc0fa68d2ee5403a5464",
+  "candidate_bytes": 34824
+}

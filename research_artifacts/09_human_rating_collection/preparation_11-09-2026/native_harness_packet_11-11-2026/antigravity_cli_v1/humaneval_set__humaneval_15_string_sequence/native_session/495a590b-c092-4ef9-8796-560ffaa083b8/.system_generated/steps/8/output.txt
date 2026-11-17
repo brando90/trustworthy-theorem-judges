@@ -1,0 +1,41 @@
+Created At: 2026-11-16T21:36:34Z
+Completed At: 2026-11-16T21:36:42Z
+Command exited with code 0.
+
+Command output:
+String.intercalate (s : String) : List String → String
+def String.intercalate : String → List String → String :=
+fun s x =>
+  match x with
+  | [] => ""
+  | a :: as => String.intercalate.go a s as
+def List.intercalate.{u} : {α : Type u} → List α → List (List α) → List α :=
+fun {α} sep xs => (List.intersperse sep xs).flatten
+Nat.repr (n : ℕ) : String
+protected def Nat.repr : ℕ → String :=
+fun n => (Nat.toDigits 10 n).asString
+def Nat.toDigits : ℕ → ℕ → List Char :=
+fun base n => base.toDigitsCore (n + 1) n []
+def Nat.toDigitsCore : ℕ → ℕ → ℕ → List Char → List Char :=
+fun base x x_1 x_2 =>
+  Nat.brecOn (motive := fun x => ℕ → List Char → List Char) x
+    (fun x f x_3 x_4 =>
+      (match (motive :=
+          (x : ℕ) → ℕ → List Char → Nat.below (motive := fun x => ℕ → List Char → List Char) x → List Char) x, x_3,
+          x_4 with
+        | 0, x, ds => fun x => ds
+        | fuel.succ, n, ds => fun x =>
+          let d := (n % base).digitChar;
+          let n' := n / base;
+          if n' = 0 then d :: ds else x.1 n' (d :: ds))
+        f)
+    x_1 x_2
+Plausible.Testable.check (p : Prop) (cfg : Plausible.Configuration := { })
+  (p' : Plausible.Decorations.DecorationsOf p := by mk_decorations) [Plausible.Testable p'] : Lean.CoreM PUnit.{1}
+"0"
+"0 1 2 3"
+"0 1 2 3 4 5"
+"0 1 2 3 4 5 6 7 8 9 10"
+Veribench/humaneval_15_string_sequence.lean:29:9: warning: unused variable `n`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`

@@ -1,0 +1,88 @@
+{
+  "task_id": "easy_set__19_mypower",
+  "condition_sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "1000",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "19_MyPower.py": "ecd27b4fb26b5ec4879b94f40c33474aa9bb42c745681c5247a4f0b6f7d08fd6",
+    "instruction.md": "7894926dec26258f4f9a683b98816275a8967c13d390bf1d07e3bf0f2fb28bf1"
+  },
+  "output": "/home/user/lean_project/Veribench/19_MyPower.lean",
+  "model_call_performed": true,
+  "container": "ttj-grok-129e6535f2fa",
+  "status": "TERMINAL",
+  "cli_version": "grok 1.0.77 (50ca579fa996)",
+  "actual_mounts": [],
+  "network": "ttj-native2-grok-v3",
+  "proxy": "ttj-native2-egress-grok-v3",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794868017.2134678,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794869530.255727,
+  "actual_models": [
+    "grok-4.7",
+    "grok-4.7-build"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "type": "end",
+    "stopReason": "end_turn",
+    "sessionId": "01a1e678-796a-7611-8985-38fb69ee611c",
+    "requestId": "814a2fab-506c-447e-9441-4cda1454bc57",
+    "cwd": "/home/user/lean_project",
+    "usage": {
+      "input_tokens": 352791,
+      "cache_read_input_tokens": 7876864,
+      "cache_creation_input_tokens": 0,
+      "output_tokens": 102981,
+      "reasoning_tokens": 80782,
+      "total_tokens": 8332636
+    },
+    "num_turns": 94,
+    "total_cost_usd": 5.2619,
+    "total_cost_usd_ticks": 52619000000,
+    "modelUsage": {
+      "grok-4.7-build": {
+        "inputTokens": 352791,
+        "outputTokens": 102981,
+        "cacheReadInputTokens": 7876864,
+        "cacheCreationInputTokens": 0,
+        "modelCalls": 94,
+        "costUSD": 5.2619
+      }
+    }
+  },
+  "egress_hosts": [
+    "api.mixpanel.com",
+    "api.x.ai",
+    "cli-chat-proxy.grok.com",
+    "grok.com"
+  ],
+  "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "3613f55a9b3f3df8183ffefee2e71b309802b00537ec85b2c32602ad851f38b9",
+  "candidate_bytes": 25564
+}

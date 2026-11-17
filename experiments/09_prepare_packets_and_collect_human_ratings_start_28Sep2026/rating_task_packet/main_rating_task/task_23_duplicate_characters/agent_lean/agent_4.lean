@@ -1,445 +1,522 @@
 import Mathlib
 
 /-!
-# 41 — Duplicate Characters
+# VeriBench — Duplicate Characters
 
-Translation of the Python program `duplicate_chars`.
+Translation of the Python function `duplicate_chars`.
 
-Given a string, return a new string in which every character is written twice,
-in the same order:
+```python
+def duplicate_chars(s: str) -> str:
+    if not isinstance(s, str):
+        raise ValueError("Input must be a string")
+    return ''.join(c * 2 for c in s)
+```
 
-* `duplicate_chars("abc") = "aabbcc"`
-* `duplicate_chars("") = ""`
-* `duplicate_chars("!a ") = "!!aa  "`
+Each Unicode code point of the input is written twice, in order.
+The empty string is returned unchanged. A non-string input (modelled by
+`none`, the Python test's `None`) raises `ValueError` with the message
+`"Input must be a string"`.
 
-This is the string analogue of `''.join(c * 2 for c in s)`.
-The empty string is a fixed point. Non-string input is rejected with an error
-(`ValueError` in Python); that guard is modelled by `duplicate_chars_py`.
+`String.length` counts Unicode code points, matching Python 3 `len`.
 -/
 
 namespace «41_duplicate_chars»
 
-/-- List-level character duplication: each element is written twice. -/
-def dupList : List Char → List Char
-  | [] => []
-  | c :: cs => c :: c :: dupList cs
+/-- Character list produced by `''.join(c * 2 for c in cs)`. -/
+def dupList (cs : List Char) : List Char :=
+  cs.flatMap fun c => [c, c]
 
-/-- Recover characters at even indices. A trailing singleton is kept. -/
-def evenChars : List Char → List Char
-  | [] => []
-  | [c] => [c]
-  | c :: _ :: cs => c :: evenChars cs
-
-/-- Recover characters at odd indices. A trailing singleton is dropped. -/
-def oddChars : List Char → List Char
-  | [] => []
-  | [_] => []
-  | _ :: c :: cs => c :: oddChars cs
-
-/--
-Functional implementation of Python `duplicate_chars`.
-
-`''.join(c * 2 for c in s)` — each one-character string is repeated twice and
-the pieces are concatenated.
--/
+/-- Functional body of `duplicate_chars`: duplicate every code point. -/
 def duplicate_chars (s : String) : String :=
-  String.join (s.data.map fun c => String.singleton c ++ String.singleton c)
-
-/-- Python `isinstance` guard on a dynamically typed value. -/
-inductive PyVal where
-  | ofString : String → PyVal
-  | none : PyVal
-  | nonStr : PyVal
-
-/-- Python `pre`: the value must be a string. -/
-def pyPre : PyVal → Bool
-  | .ofString _ => true
-  | .none => false
-  | .nonStr => false
+  (dupList s.data).asString
 
 /--
-Python entry point, including the `ValueError` raised when `pre` fails.
+Python `pre`: `isinstance(s, str)`.
+
+Lean's `String` type already guarantees this, so the Boolean guard is `true`
+for every well-typed input. Non-strings are represented separately by
+`duplicate_chars_checked`.
 -/
-def duplicate_chars_py (v : PyVal) : Except String String :=
-  match v with
-  | .ofString s =>
-    if pyPre v then Except.ok (duplicate_chars s)
+def pre (_s : String) : Bool :=
+  true
+
+/--
+Total model of the Python function, including the `ValueError` guard.
+
+`none` stands for a non-string value such as `None`.
+-/
+def duplicate_chars_checked (inp : Option String) : Except String String :=
+  match inp with
+  | none => Except.error "Input must be a string"
+  | some s =>
+    if pre s then Except.ok (duplicate_chars s)
     else Except.error "Input must be a string"
-  | .none => Except.error "Input must be a string"
-  | .nonStr => Except.error "Input must be a string"
 
 /-! ## Unit tests -/
 
 example : duplicate_chars "abc" = "aabbcc" := by native_decide
+
 example : duplicate_chars "" = "" := by native_decide
+
 example : duplicate_chars "!a " = "!!aa  " := by native_decide
-example : duplicate_chars "a" = "aa" := by native_decide
-example : duplicate_chars_py .none = Except.error "Input must be a string" := rfl
-example : duplicate_chars_py .nonStr = Except.error "Input must be a string" := rfl
-example : duplicate_chars_py (.ofString "abc") = Except.ok "aabbcc" := rfl
+
+example : duplicate_chars "é" = "éé" := by native_decide
+
+example : duplicate_chars "a😀b" = "aa😀😀bb" := by native_decide
+
+example : duplicate_chars "\n" = "\n\n" := by native_decide
+
+example : duplicate_chars_checked none = Except.error "Input must be a string" := by
+  rfl
+
+example : duplicate_chars_checked (some "abc") = Except.ok "aabbcc" := by
+  rfl
+
+example :
+    (match duplicate_chars_checked none with
+      | Except.error msg => msg == "Input must be a string"
+      | Except.ok _ => false) = true := by
+  native_decide
+
+example :
+    (match duplicate_chars_checked (some "abc") with
+      | Except.ok t => t == "aabbcc"
+      | Except.error _ => false) = true := by
+  native_decide
 
 #eval duplicate_chars "abc"
 #eval duplicate_chars ""
 #eval duplicate_chars "!a "
+#eval duplicate_chars "é"
+#eval duplicate_chars_checked none
+#eval duplicate_chars_checked (some "abc")
 
 /-! ## Pre-condition -/
 
-/-- Boolean form of Python `pre` at the `String` layer (the type already guarantees it). -/
-def pre (_s : String) : Bool := true
+/-- The input is a string, i.e. Python `pre(s)` holds. -/
+def Pre (s : String) : Prop :=
+  pre s = true
 
-/-- `duplicate_chars` is defined on every Lean `String`, matching `isinstance(s, str)`. -/
-def Pre (s : String) : Prop := pre s = true
+/-! ## Auxiliary list lemmas -/
 
+theorem length_eq_data_length (s : String) : s.length = s.data.length := by
+  cases s
+  simp
 
-/-! ## Auxiliary lemmas -/
+theorem dupList_nil : dupList [] = [] := by
+  simp [dupList]
+
+theorem dupList_cons (c : Char) (cs : List Char) :
+    dupList (c :: cs) = c :: c :: dupList cs := by
+  simp [dupList, List.flatMap_cons]
 
 theorem dupList_length (cs : List Char) : (dupList cs).length = 2 * cs.length := by
   induction cs with
   | nil => simp [dupList]
-  | cons c cs ih => simp [dupList, ih, Nat.mul_succ]
+  | cons c cs ih =>
+    rw [dupList_cons]
+    simp only [List.length_cons]
+    rw [ih]
+    omega
 
 theorem dupList_append (xs ys : List Char) :
     dupList (xs ++ ys) = dupList xs ++ dupList ys := by
-  induction xs with
-  | nil => simp [dupList]
-  | cons c cs ih => simp [dupList, ih]
+  simp [dupList, List.flatMap_append]
 
-theorem dupList_getElem?_even (cs : List Char) (i : Nat) :
-    (dupList cs)[2 * i]? = cs[i]? := by
+theorem data_eq (s : String) : (duplicate_chars s).data = dupList s.data := by
+  simp [duplicate_chars, List.asString]
+
+theorem dupList_get? (cs : List Char) (i : Nat) (hi : i < cs.length) :
+    (dupList cs)[2 * i]? = cs[i]? ∧ (dupList cs)[2 * i + 1]? = cs[i]? := by
   induction cs generalizing i with
-  | nil => simp [dupList]
+  | nil => simp at hi
   | cons c cs ih =>
     cases i with
-    | zero => simp [dupList]
+    | zero =>
+      simp [dupList_cons]
     | succ i =>
-      simp [dupList, Nat.mul_succ]
-      exact ih i
+      have hi' : i < cs.length := Nat.lt_of_succ_lt_succ hi
+      have ih' := ih i hi'
+      have shift (k : Nat) (hk : 2 ≤ k) :
+          (dupList (c :: cs))[k]? = (dupList cs)[k - 2]? := by
+        simp only [dupList, List.flatMap_cons]
+        rw [List.getElem?_append_right (l₁ := [c, c]) (by simpa using hk)]
+        rfl
+      have k0 : 2 ≤ 2 * (i + 1) := by omega
+      have k1 : 2 ≤ 2 * (i + 1) + 1 := by omega
+      have e0 : 2 * (i + 1) - 2 = 2 * i := by omega
+      have e1 : 2 * (i + 1) + 1 - 2 = 2 * i + 1 := by omega
+      constructor
+      · rw [shift (2 * (i + 1)) k0, e0]
+        simpa [List.getElem?_cons_succ] using ih'.1
+      · rw [shift (2 * (i + 1) + 1) k1, e1]
+        simpa [List.getElem?_cons_succ] using ih'.2
 
-theorem dupList_getElem?_odd (cs : List Char) (i : Nat) :
-    (dupList cs)[2 * i + 1]? = cs[i]? := by
-  induction cs generalizing i with
-  | nil => simp [dupList]
+/-- Keep the first character of every adjacent pair. A trailing singleton is dropped. -/
+def unpair : List Char → List Char
+  | [] => []
+  | c :: cs =>
+    match cs with
+    | [] => []
+    | _ :: rest => c :: unpair rest
+
+theorem unpair_dup_cons (c : Char) (cs : List Char) :
+    unpair (c :: c :: cs) = c :: unpair cs :=
+  rfl
+
+theorem unpair_dupList (cs : List Char) : unpair (dupList cs) = cs := by
+  induction cs with
+  | nil => rfl
   | cons c cs ih =>
-    cases i with
-    | zero => simp [dupList]
-    | succ i =>
-      simp [dupList, Nat.mul_succ]
-      exact ih i
+    rw [dupList_cons, unpair_dup_cons, ih]
 
-theorem evenChars_dupList (cs : List Char) : evenChars (dupList cs) = cs := by
-  induction cs with
-  | nil => simp [dupList, evenChars]
-  | cons c cs ih => simp [dupList, evenChars, ih]
-
-theorem oddChars_dupList (cs : List Char) : oddChars (dupList cs) = cs := by
-  induction cs with
-  | nil => simp [dupList, oddChars]
-  | cons c cs ih => simp [dupList, oddChars, ih]
-
-theorem dupList_count (cs : List Char) (c : Char) :
+theorem dupList_count (c : Char) (cs : List Char) :
     (dupList cs).count c = 2 * cs.count c := by
   induction cs with
   | nil => simp [dupList]
   | cons x cs ih =>
-    simp [dupList, List.count_cons, ih]
-    split <;> omega
+    rw [dupList_cons, List.count_cons, List.count_cons, ih]
+    by_cases h : x = c
+    · simp [h]
+      omega
+    · simp [h]
 
-theorem mem_dupList (cs : List Char) (c : Char) : c ∈ dupList cs ↔ c ∈ cs := by
+theorem dupList_sublist (cs : List Char) : List.Sublist cs (dupList cs) := by
   induction cs with
-  | nil => simp [dupList]
-  | cons x cs ih => simp [dupList, ih]
-
-theorem dupList_eq_flatMap (cs : List Char) :
-    dupList cs = cs.flatMap (fun c => [c, c]) := by
-  induction cs with
-  | nil => simp [dupList]
-  | cons c cs ih => simp [dupList, ih]
-
-theorem singleton_dup (c : Char) :
-    String.singleton c ++ String.singleton c = String.mk [c, c] := by
-  apply String.ext
-  simp [String.data_append, String.data_singleton]
-
-theorem join_dup_aux (acc : String) (cs : List Char) :
-    (cs.map fun c => String.singleton c ++ String.singleton c).foldl (fun r s => r ++ s) acc
-      = acc ++ String.mk (dupList cs) := by
-  induction cs generalizing acc with
-  | nil => simp [dupList, String.append_empty]
+  | nil =>
+    rw [dupList_nil]
   | cons c cs ih =>
-    rw [List.map_cons, List.foldl_cons, ih, singleton_dup, String.append_assoc]
-    apply congrArg (fun t => acc ++ t)
-    apply String.ext
-    simp [dupList, String.data_append]
+    rw [dupList_cons]
+    exact List.Sublist.cons₂ c (List.Sublist.cons c ih)
 
-theorem duplicate_chars_eq_mk (s : String) :
-    duplicate_chars s = String.mk (dupList s.data) := by
-  have h := join_dup_aux "" s.data
-  simpa [duplicate_chars, String.join, String.empty_append] using h
-
-theorem duplicate_chars_data (s : String) :
-    (duplicate_chars s).data = dupList s.data := by
-  rw [duplicate_chars_eq_mk]
-
+theorem join_data (acc : String) (cs : List Char) :
+    ((cs.map fun c => String.singleton c ++ String.singleton c).foldl
+        (fun r t => r ++ t) acc).data
+      = acc.data ++ dupList cs := by
+  induction cs generalizing acc with
+  | nil => simp [dupList]
+  | cons c cs ih =>
+    simp [List.map_cons, List.foldl_cons, dupList, List.flatMap_cons, ih,
+      String.data_append, String.data_singleton, List.append_assoc]
 
 /-! ## Properties -/
 
-/-- The empty string is duplicated to the empty string. -/
-def empty_prop : Prop := duplicate_chars "" = ""
+/-- The result's code points are the input's code points, each repeated twice. -/
+def data_prop (s : String) : Prop :=
+  (duplicate_chars s).data = s.data.flatMap fun c => [c, c]
 
-theorem empty_thm : empty_prop := by
-  simp [empty_prop, duplicate_chars_eq_mk, dupList]
+theorem data_thm (s : String) : data_prop s := by
+  simp [data_prop, data_eq, dupList]
 
-/-- Output length is twice the input length (Python `len`). -/
-def length_doubled_prop (s : String) : Prop :=
+/-- Python `len(duplicate_chars(s)) = 2 * len(s)`. -/
+def length_prop (s : String) : Prop :=
   (duplicate_chars s).length = 2 * s.length
 
-theorem length_doubled_thm (s : String) : length_doubled_prop s := by
-  simp [length_doubled_prop, duplicate_chars_eq_mk, dupList_length, String.length_mk]
+theorem length_thm (s : String) : length_prop s := by
+  unfold length_prop
+  rw [length_eq_data_length (duplicate_chars s), data_eq, dupList_length,
+    length_eq_data_length]
 
-/-- Duplication distributes over concatenation. -/
-def concat_hom_prop (s t : String) : Prop :=
+/-- Documented edge case: the empty string is unchanged. -/
+def empty_prop : Prop :=
+  duplicate_chars "" = ""
+
+theorem empty_thm : empty_prop := by
+  simp [empty_prop, duplicate_chars, dupList, List.asString]
+
+/-- The result is empty exactly when the input is empty. -/
+def empty_iff_prop (s : String) : Prop :=
+  duplicate_chars s = "" ↔ s = ""
+
+theorem empty_iff_thm (s : String) : empty_iff_prop s := by
+  unfold empty_iff_prop
+  constructor
+  · intro h
+    have hlen : (duplicate_chars s).length = 0 := by
+      simpa [String.length_empty] using congrArg String.length h
+    rw [length_thm] at hlen
+    have hz : s.length = 0 := by omega
+    apply String.ext
+    rw [length_eq_data_length] at hz
+    exact List.eq_nil_of_length_eq_zero hz
+  · intro h
+    subst h
+    exact empty_thm
+
+/-- Duplication distributes over string concatenation. -/
+def concat_prop (s t : String) : Prop :=
   duplicate_chars (s ++ t) = duplicate_chars s ++ duplicate_chars t
 
-theorem concat_hom_thm (s t : String) : concat_hom_prop s t := by
+theorem concat_thm (s t : String) : concat_prop s t := by
+  unfold concat_prop
   apply String.ext
-  simp [duplicate_chars_data, dupList_append, String.data_append]
+  simp [data_eq, String.data_append, dupList_append]
 
-/-- A one-character string is duplicated to two copies of that character. -/
+/-- A one-character string is the Python expression `c * 2`. -/
 def singleton_prop (c : Char) : Prop :=
   duplicate_chars (String.singleton c) = String.singleton c ++ String.singleton c
 
 theorem singleton_thm (c : Char) : singleton_prop c := by
+  unfold singleton_prop
   apply String.ext
-  simp [duplicate_chars_data, String.data_singleton, dupList, String.data_append]
+  simp [data_eq, dupList, String.data_singleton, String.data_append]
 
 /--
-Even positions of the result reproduce the input, and so do odd positions.
-This is the pointwise reading of "each character is duplicated".
+Positional reading of the duplicated string: the code point at index `i`
+occupies both index `2 * i` and index `2 * i + 1` of the result.
 -/
-def paired_positions_prop (s : String) : Prop :=
-  evenChars (duplicate_chars s).data = s.data ∧
-  oddChars (duplicate_chars s).data = s.data
-
-theorem paired_positions_thm (s : String) : paired_positions_prop s := by
-  simp [paired_positions_prop, duplicate_chars_data, evenChars_dupList, oddChars_dupList]
-
-/-- Character at index `i` appears at both result indices `2*i` and `2*i+1`. -/
-def index_dup_prop (s : String) : Prop :=
-  ∀ i : Nat,
+def index_prop (s : String) : Prop :=
+  ∀ i, i < s.length →
     (duplicate_chars s).data[2 * i]? = s.data[i]? ∧
     (duplicate_chars s).data[2 * i + 1]? = s.data[i]?
 
-theorem index_dup_thm (s : String) : index_dup_prop s := by
-  intro i
-  simp [duplicate_chars_data, dupList_getElem?_even, dupList_getElem?_odd]
+theorem index_thm (s : String) : index_prop s := by
+  intro i hi
+  have hi' : i < s.data.length := by
+    rwa [← length_eq_data_length]
+  simpa [data_eq] using dupList_get? s.data i hi'
 
-/-- Each character occurs exactly twice as often in the result. -/
-def count_doubled_prop (s : String) : Prop :=
+/-- The first code point of each duplicated pair rebuilds the input. -/
+def recover_prop (s : String) : Prop :=
+  unpair (duplicate_chars s).data = s.data
+
+theorem recover_thm (s : String) : recover_prop s := by
+  simp [recover_prop, data_eq, unpair_dupList]
+
+/-- Every code point occurs twice as often in the result as in the input. -/
+def count_prop (s : String) : Prop :=
   ∀ c : Char, (duplicate_chars s).data.count c = 2 * s.data.count c
 
-theorem count_doubled_thm (s : String) : count_doubled_prop s := by
+theorem count_thm (s : String) : count_prop s := by
   intro c
-  simp [duplicate_chars_data, dupList_count]
+  simpa [data_eq] using dupList_count c s.data
 
-/-- The result uses exactly the characters of the input. -/
+/--
+`duplicate_chars` is `String.join` of the two-character strings `c * 2`,
+the direct reading of `''.join(c * 2 for c in s)`.
+-/
+def join_form_prop (s : String) : Prop :=
+  duplicate_chars s =
+    String.join (s.data.map fun c => String.singleton c ++ String.singleton c)
+
+theorem join_form_thm (s : String) : join_form_prop s := by
+  unfold join_form_prop
+  apply String.ext
+  rw [data_eq, String.join, join_data]
+  simp
+
+/-- The input code points form a subsequence of the result (order is preserved). -/
+def sublist_prop (s : String) : Prop :=
+  List.Sublist s.data (duplicate_chars s).data
+
+theorem sublist_thm (s : String) : sublist_prop s := by
+  simp [sublist_prop, data_eq, dupList_sublist]
+
+/-- The result uses exactly the code points that occur in the input. -/
 def mem_prop (s : String) : Prop :=
   ∀ c : Char, c ∈ (duplicate_chars s).data ↔ c ∈ s.data
 
 theorem mem_thm (s : String) : mem_prop s := by
   intro c
-  simp [duplicate_chars_data, mem_dupList]
+  rw [data_eq]
+  simp only [dupList, List.mem_flatMap]
+  constructor
+  · rintro ⟨a, ha, hmem⟩
+    have hc : c = a ∨ c = a := by
+      simpa [List.mem_cons, List.mem_singleton] using hmem
+    rcases hc with rfl | rfl <;> exact ha
+  · intro ha
+    exact ⟨c, ha, by simp⟩
 
-/-- Direct translation of `''.join(c * 2 for c in s)` as a list equation. -/
-def flatMap_spec_prop (s : String) : Prop :=
-  (duplicate_chars s).data = s.data.flatMap (fun c => [c, c])
+/-- Python rejects a non-string with `ValueError("Input must be a string")`. -/
+def nonstring_prop : Prop :=
+  duplicate_chars_checked none = Except.error "Input must be a string"
 
-theorem flatMap_spec_thm (s : String) : flatMap_spec_prop s := by
-  simp [flatMap_spec_prop, duplicate_chars_data, dupList_eq_flatMap]
+theorem nonstring_thm : nonstring_prop := by
+  simp [nonstring_prop, duplicate_chars_checked]
 
-/-- Duplication is injective: the original string can be recovered. -/
-def injective_prop : Prop := Function.Injective duplicate_chars
+/-- On a real string the guard succeeds and returns `duplicate_chars`. -/
+def checked_ok_prop (s : String) : Prop :=
+  duplicate_chars_checked (some s) = Except.ok (duplicate_chars s)
 
-theorem injective_thm : injective_prop := by
-  intro s t h
-  apply String.ext
-  have hd : dupList s.data = dupList t.data := by
-    simpa [duplicate_chars_data] using congrArg String.data h
-  simpa [evenChars_dupList] using congrArg evenChars hd
-
-/--
-Recursive characterization matching a left-to-right scan:
-`f("") = ""` and `f(c + s) = (c + c) + f(s)`.
-Any such `f` agrees with `duplicate_chars`.
--/
-def recursive_spec_prop (f : String → String) : Prop :=
-  f "" = "" ∧
-  ∀ c s, f (String.singleton c ++ s) = String.singleton c ++ String.singleton c ++ f s
-
-theorem recursive_spec_agrees (f : String → String) (hf : recursive_spec_prop f)
-    (cs : List Char) : f (String.mk cs) = String.mk (dupList cs) := by
-  rcases hf with ⟨h0, h1⟩
-  induction cs with
-  | nil =>
-    simpa [dupList] using h0
-  | cons c cs ih =>
-    have step := h1 c (String.mk cs)
-    have hs : String.singleton c ++ String.mk cs = String.mk (c :: cs) := by
-      apply String.ext
-      simp [String.data_singleton, String.data_append]
-    have hr :
-        String.singleton c ++ String.singleton c ++ String.mk (dupList cs)
-          = String.mk (c :: c :: dupList cs) := by
-      apply String.ext
-      simp [String.data_singleton, String.data_append]
-    simpa [hs, hr, dupList, ih] using step
-
-theorem recursive_spec_thm (f : String → String) (hf : recursive_spec_prop f) (s : String) :
-    f s = duplicate_chars s := by
-  have h := recursive_spec_agrees f hf s.data
-  simpa [duplicate_chars_eq_mk] using h
-
-/-- `duplicate_chars` itself satisfies the recursive specification. -/
-theorem duplicate_chars_recursive_thm : recursive_spec_prop duplicate_chars := by
-  refine ⟨?_, ?_⟩
-  · simpa using empty_thm
-  · intro c s
-    apply String.ext
-    simp [duplicate_chars_data, String.data_singleton, String.data_append, dupList]
-
+theorem checked_ok_thm (s : String) : checked_ok_prop s := by
+  simp [checked_ok_prop, duplicate_chars_checked, pre]
 
 /-! ## Post-condition -/
 
 /--
-Post-condition of `duplicate_chars`: `r` is exactly the character-wise
-duplication of `s` (the list form of `''.join(c * 2 for c in s)`), and therefore
-has doubled length, doubled counts, matching even/odd projections, and the
-pointwise index specification.
+Full specification of one successful call: the output code-point list is the
+input with each code point doubled, and the consequences of that fact
+(length, indexing, recovery, counts, emptiness, the `join` form, subsequence
+and membership). Concatenation is included universally in the second argument.
 -/
-def Post_prop (s r : String) : Prop :=
-  r.data = s.data.flatMap (fun c => [c, c]) ∧
-  r.length = 2 * s.length ∧
-  evenChars r.data = s.data ∧
-  oddChars r.data = s.data ∧
-  (∀ i : Nat, r.data[2 * i]? = s.data[i]? ∧ r.data[2 * i + 1]? = s.data[i]?) ∧
-  (∀ c : Char, r.data.count c = 2 * s.data.count c) ∧
-  (∀ c : Char, c ∈ r.data ↔ c ∈ s.data)
+def Post_prop (s : String) : Prop :=
+  data_prop s ∧
+  length_prop s ∧
+  index_prop s ∧
+  recover_prop s ∧
+  count_prop s ∧
+  empty_iff_prop s ∧
+  join_form_prop s ∧
+  sublist_prop s ∧
+  mem_prop s ∧
+  (∀ t : String, concat_prop s t)
 
-/-! ## Property-based tests -/
+/-! ## Property-based tests
 
-#eval Plausible.Testable.check (duplicate_chars "" = "")
+Executable checks of every `_prop` and of `Post_prop`.
+Random tests use Plausible. Bounded tests exhaust small inputs.
+-/
 
+/-- Boolean form of `index_prop`, checking every in-range index. -/
+def indexOk (s : String) : Bool :=
+  (List.range s.length).all fun i =>
+    ((duplicate_chars s).data[2 * i]? == s.data[i]?) &&
+    ((duplicate_chars s).data[2 * i + 1]? == s.data[i]?)
+
+/-- Boolean form of `mem_prop`. -/
+def memOk (s : String) : Bool :=
+  s.data.all (fun c => (duplicate_chars s).data.elem c) &&
+  (duplicate_chars s).data.all (fun c => s.data.elem c)
+
+/--
+Boolean form of the single-input conjuncts of `Post_prop`.
+`count_prop` and `concat_prop` quantify over an extra character or string;
+those conjuncts are checked by the Plausible tests below.
+-/
+def postOk (s : String) : Bool :=
+  ((duplicate_chars s).data == s.data.flatMap fun c => [c, c]) &&
+  ((duplicate_chars s).length == 2 * s.length) &&
+  indexOk s &&
+  (unpair (duplicate_chars s).data == s.data) &&
+  ((duplicate_chars s == "") == (s == "")) &&
+  (duplicate_chars s ==
+    String.join (s.data.map fun c => String.singleton c ++ String.singleton c)) &&
+  s.data.isSublist (duplicate_chars s).data &&
+  memOk s
+
+-- PBT: data_prop
+#eval Plausible.Testable.check
+  (∀ s : String, (duplicate_chars s).data = s.data.flatMap fun c => [c, c])
+
+-- PBT: length_prop
 #eval Plausible.Testable.check
   (∀ s : String, (duplicate_chars s).length = 2 * s.length)
 
+-- PBT: empty_prop
+example : (decide (duplicate_chars "" = "")) = true := by native_decide
+
+-- PBT: empty_iff_prop
+#eval Plausible.Testable.check
+  (∀ s : String, duplicate_chars s = "" ↔ s = "")
+
+-- PBT: concat_prop
 #eval Plausible.Testable.check
   (∀ s t : String, duplicate_chars (s ++ t) = duplicate_chars s ++ duplicate_chars t)
 
+example : (List.range 10).all (fun n =>
+    (List.range 10).all (fun m =>
+      let s := (List.replicate n 'a').asString
+      let t := (List.replicate m 'b').asString
+      duplicate_chars (s ++ t) == duplicate_chars s ++ duplicate_chars t)) = true := by
+  native_decide
+
+-- PBT: singleton_prop
 #eval Plausible.Testable.check
   (∀ c : Char,
     duplicate_chars (String.singleton c) = String.singleton c ++ String.singleton c)
 
+-- PBT: index_prop
+#eval Plausible.Testable.check (∀ s : String, indexOk s = true)
+
+example : (List.range 30).all (fun n =>
+    indexOk (List.replicate n 'a').asString) = true := by
+  native_decide
+
+-- PBT: recover_prop
+#eval Plausible.Testable.check
+  (∀ s : String, unpair (duplicate_chars s).data = s.data)
+
+-- PBT: count_prop
+#eval Plausible.Testable.check
+  (∀ s : String, ∀ c : Char, (duplicate_chars s).data.count c = 2 * s.data.count c)
+
+-- PBT: join_form_prop
 #eval Plausible.Testable.check
   (∀ s : String,
-    evenChars (duplicate_chars s).data = s.data ∧
-    oddChars (duplicate_chars s).data = s.data)
+    duplicate_chars s =
+      String.join (s.data.map fun c => String.singleton c ++ String.singleton c))
 
+-- PBT: sublist_prop
 #eval Plausible.Testable.check
-  (∀ s : String, ∀ i : Nat,
-    (duplicate_chars s).data[2 * i]? = s.data[i]? ∧
-    (duplicate_chars s).data[2 * i + 1]? = s.data[i]?)
+  (∀ s : String, s.data.isSublist (duplicate_chars s).data = true)
 
-#eval Plausible.Testable.check
-  (∀ s : String, ∀ c : Char,
-    (duplicate_chars s).data.count c = 2 * s.data.count c)
+-- PBT: mem_prop
+#eval Plausible.Testable.check (∀ s : String, memOk s = true)
 
-#eval Plausible.Testable.check
-  (∀ s : String, ∀ c : Char, c ∈ (duplicate_chars s).data ↔ c ∈ s.data)
+/-- Boolean observation of the `ValueError` branch. `Except` has no `BEq` here. -/
+def nonstringOk : Bool :=
+  match duplicate_chars_checked none with
+  | Except.error msg => msg == "Input must be a string"
+  | Except.ok _ => false
 
-#eval Plausible.Testable.check
-  (∀ s : String, (duplicate_chars s).data = s.data.flatMap (fun c => [c, c]))
+/-- Boolean observation of the successful guard. -/
+def checkedOkBool (s : String) : Bool :=
+  match duplicate_chars_checked (some s) with
+  | Except.ok t => t == duplicate_chars s
+  | Except.error _ => false
 
--- `injective_prop` is an implication, so random pairs rarely meet the premise
--- (Plausible reports Gave up). The bounded exhaustive check below covers it.
--- PBT for `recursive_spec_prop`: the higher-order spec is not itself sampleable;
--- its executable counterpart is that `duplicate_chars` obeys the two equations.
-#eval Plausible.Testable.check
-  (∀ c : Char, ∀ s : String,
-    duplicate_chars (String.singleton c ++ s)
-      = String.singleton c ++ String.singleton c ++ duplicate_chars s)
+-- PBT: nonstring_prop
+example : nonstringOk = true := by native_decide
 
-/-- Executable Boolean form of `Post_prop`.
-The `∀ i` conjunct is checked for every `i ≤ s.length` (past that both sides are `none`).
-The `∀ c` count and membership conjuncts are checked on characters of `s` and of the
-result; characters outside that finite set have count 0 and are absent on both sides.
-The separate Plausible checks above test those quantified conjuncts directly.
--/
-def Post_bool (s : String) : Bool :=
-  let r := duplicate_chars s
-  let idxOk := (List.range (s.length + 1)).all fun i =>
-    (r.data[2 * i]? == s.data[i]?) && (r.data[2 * i + 1]? == s.data[i]?)
-  let countOk := (s.data ++ r.data).all fun c =>
-    r.data.count c == 2 * s.data.count c
-  let memOk := (s.data ++ r.data).all fun c =>
-    decide (c ∈ r.data) == decide (c ∈ s.data)
-  (r.data == s.data.flatMap (fun c => [c, c])) &&
-    (r.length == 2 * s.length) &&
-    (evenChars r.data == s.data) &&
-    (oddChars r.data == s.data) &&
-    idxOk && countOk && memOk
+-- PBT: checked_ok_prop
+#eval Plausible.Testable.check (∀ s : String, checkedOkBool s = true)
 
-#eval Plausible.Testable.check (∀ s : String, Post_bool s = true)
-
-/-- Bounded exhaustive check on strings of `'a'` repeated up to length 30. -/
-example : (List.range 30).all (fun n =>
-    let s := String.mk (List.replicate n 'a')
-    (duplicate_chars s).length == 2 * s.length &&
-    evenChars (duplicate_chars s).data == s.data &&
-    (duplicate_chars s).data == s.data.flatMap (fun c => [c, c])) = true := by
+example : (List.range 20).all (fun n =>
+    checkedOkBool (List.replicate n 'z').asString) = true := by
   native_decide
 
-/-- Bounded check of the specification on a fixed alphabet, lengths ≤ 3. -/
-def alphabet : List Char := ['a', 'b', '!', ' ']
+-- PBT: Post_prop (single-input conjuncts, counts, and concatenation)
+#eval Plausible.Testable.check
+  (∀ s t : String, ∀ c : Char,
+    postOk s = true ∧
+    (duplicate_chars s).data.count c = 2 * s.data.count c ∧
+    duplicate_chars (s ++ t) = duplicate_chars s ++ duplicate_chars t)
 
-def stringsUpTo : Nat → List String
-  | 0 => [""]
-  | n + 1 =>
-    stringsUpTo n ++
-      (stringsUpTo n).flatMap fun s => alphabet.map fun c => s.push c
-
-example : (stringsUpTo 3).all (fun s =>
-    duplicate_chars s == String.mk (s.data.flatMap fun c => [c, c]) &&
-    (duplicate_chars s).length == 2 * s.length &&
-    Post_bool s) = true := by
-  native_decide
-
-/-- Bounded PBT for `injective_prop` on all strings of length ≤ 2 over `alphabet`. -/
-example : (stringsUpTo 2).all (fun s =>
-    (stringsUpTo 2).all (fun t =>
-      !(duplicate_chars s == duplicate_chars t) || s == t)) = true := by
+example : ["", "a", "abc", "!a ", " ", "é", "a😀b", "∀", "\n"].all postOk = true := by
   native_decide
 
 /-! ## Correctness -/
 
-theorem correctness_thm (s : String) (h : Pre s) : Post_prop s (duplicate_chars s) := by
-  have _hp : pre s = true := h
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · simpa [flatMap_spec_prop] using flatMap_spec_thm s
-  · simpa [length_doubled_prop] using length_doubled_thm s
-  · simpa [duplicate_chars_data] using evenChars_dupList s.data
-  · simpa [duplicate_chars_data] using oddChars_dupList s.data
-  · intro i
-    exact ⟨dupList_getElem?_even s.data i ▸ by simp [duplicate_chars_data],
-           dupList_getElem?_odd s.data i ▸ by simp [duplicate_chars_data]⟩
-  · intro c
-    simpa [duplicate_chars_data] using dupList_count s.data c
-  · intro c
-    simpa [duplicate_chars_data] using mem_dupList s.data c
+theorem correctness_thm (s : String) (_h : Pre s) : Post_prop s :=
+  ⟨data_thm s, length_thm s, index_thm s, recover_thm s, count_thm s,
+   empty_iff_thm s, join_form_thm s, sublist_thm s, mem_thm s, fun t => concat_thm s t⟩
+
+/-- The guard plus the string specification, for every Python-style input. -/
+theorem checked_correctness_thm (inp : Option String) :
+    (inp = none → duplicate_chars_checked inp = Except.error "Input must be a string") ∧
+    (∀ s, inp = some s →
+      duplicate_chars_checked inp = Except.ok (duplicate_chars s) ∧ Post_prop s) := by
+  cases inp with
+  | none =>
+    constructor
+    · intro _
+      exact nonstring_thm
+    · intro s hs
+      cases hs
+  | some s =>
+    constructor
+    · intro hs
+      cases hs
+    · intro s' hs
+      cases hs
+      exact ⟨checked_ok_thm s, correctness_thm s rfl⟩
 
 /-! ## Imperative implementation -/
 
 /--
-Imperative implementation: walk the characters, pushing each one twice into a
-mutable accumulator.
+Imperative duplicate: walk the code points, pushing each one twice into an
+accumulator. This is the loop inside `''.join(c * 2 for c in s)`.
 -/
 def duplicate_chars_imp (s : String) : String :=
   Id.run do
@@ -451,38 +528,46 @@ def duplicate_chars_imp (s : String) : String :=
 /-! ## Imperative tests -/
 
 example : duplicate_chars_imp "abc" = "aabbcc" := by native_decide
+
 example : duplicate_chars_imp "" = "" := by native_decide
+
 example : duplicate_chars_imp "!a " = "!!aa  " := by native_decide
-example : duplicate_chars_imp "a" = "aa" := by native_decide
+
+example : duplicate_chars_imp "é" = "éé" := by native_decide
+
+example : duplicate_chars_imp "a😀b" = "aa😀😀bb" := by native_decide
+
+example : duplicate_chars "abc" = duplicate_chars_imp "abc" := by native_decide
+
+example : duplicate_chars "" = duplicate_chars_imp "" := by native_decide
+
+example : (List.range 30).all (fun n =>
+    let s := (List.replicate n 'q').asString
+    duplicate_chars s == duplicate_chars_imp s) = true := by
+  native_decide
 
 #eval duplicate_chars_imp "abc"
+#eval duplicate_chars_imp ""
 #eval duplicate_chars_imp "!a "
 
 /-! ## Equivalence -/
 
-theorem push_push_eq_append (acc : String) (c : Char) :
-    (acc.push c).push c = acc ++ String.mk [c, c] := by
-  apply String.ext
-  simp [String.data_push]
-
-theorem foldl_push_eq_mk (acc : String) (cs : List Char) :
-    cs.foldl (fun acc c => (acc.push c).push c) acc = acc ++ String.mk (dupList cs) := by
+theorem foldl_push (acc : String) (cs : List Char) :
+    (cs.foldl (fun a c => (a.push c).push c) acc).data = acc.data ++ dupList cs := by
   induction cs generalizing acc with
-  | nil => simp [dupList, String.append_empty]
+  | nil => simp [dupList]
   | cons c cs ih =>
-    rw [List.foldl_cons, ih, push_push_eq_append, String.append_assoc]
-    apply congrArg (fun t => acc ++ t)
-    apply String.ext
-    simp [dupList, String.data_append]
+    simp [List.foldl_cons, dupList, List.flatMap_cons, ih, String.data_push, List.append_assoc]
 
-theorem duplicate_chars_imp_eq_foldl (s : String) :
-    duplicate_chars_imp s =
-      s.data.foldl (fun acc c => (acc.push c).push c) "" := by
-  simp [duplicate_chars_imp]
+theorem imp_eq_foldl (s : String) :
+    duplicate_chars_imp s = s.data.foldl (fun acc c => (acc.push c).push c) "" := by
+  simp [duplicate_chars_imp, Id.run, List.forIn_pure_yield_eq_foldl]
+  rfl
 
-/-- The functional and imperative implementations agree on every string. -/
-theorem functional_eq_imperative_thm (s : String) :
-    duplicate_chars s = duplicate_chars_imp s := by
-  rw [duplicate_chars_eq_mk, duplicate_chars_imp_eq_foldl, foldl_push_eq_mk, String.empty_append]
+/-- The functional implementation and the imperative loop agree on every string. -/
+theorem equivalence_thm (s : String) : duplicate_chars s = duplicate_chars_imp s := by
+  apply String.ext
+  rw [imp_eq_foldl, foldl_push]
+  simp [data_eq, dupList]
 
 end «41_duplicate_chars»

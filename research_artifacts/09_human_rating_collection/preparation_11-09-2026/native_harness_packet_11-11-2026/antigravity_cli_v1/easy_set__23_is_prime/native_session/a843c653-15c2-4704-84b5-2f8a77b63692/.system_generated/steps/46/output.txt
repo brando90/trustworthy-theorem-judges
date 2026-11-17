@@ -1,0 +1,33 @@
+Created At: 2026-11-16T21:33:49Z
+Completed At: 2026-11-16T21:33:53Z
+Command exited with code 0.
+
+Command output:
+Plausible.Testable.check (p : Prop) (cfg : Plausible.Configuration := { })
+  (p' : Plausible.Decorations.DecorationsOf p := by mk_decorations) [Plausible.Testable p'] : Lean.CoreM PUnit.{1}
+Plausible.Configuration : Type
+structure Plausible.Configuration : Type
+number of parameters: 0
+fields:
+  Plausible.Configuration.numInst : ℕ :=
+    100
+  Plausible.Configuration.maxSize : ℕ :=
+    100
+  Plausible.Configuration.numRetries : ℕ :=
+    10
+  Plausible.Configuration.traceDiscarded : Bool :=
+    false
+  Plausible.Configuration.traceSuccesses : Bool :=
+    false
+  Plausible.Configuration.traceShrink : Bool :=
+    false
+  Plausible.Configuration.traceShrinkCandidates : Bool :=
+    false
+  Plausible.Configuration.randomSeed : Option ℕ :=
+    none
+  Plausible.Configuration.quiet : Bool :=
+    false
+constructor:
+  Plausible.Configuration.mk (numInst maxSize numRetries : ℕ)
+    (traceDiscarded traceSuccesses traceShrink traceShrinkCandidates : Bool) (randomSeed : Option ℕ) (quiet : Bool) :
+    Plausible.Configuration

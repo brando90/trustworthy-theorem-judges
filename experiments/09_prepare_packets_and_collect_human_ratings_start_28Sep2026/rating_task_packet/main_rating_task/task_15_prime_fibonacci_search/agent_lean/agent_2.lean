@@ -3,78 +3,51 @@ import Mathlib
 /-!
 # HumanEval/39: `prime_fib`
 
-Formalization of the Python program `humaneval_39_prime_fib.py`.
-
-`prime_fib n` returns the `n`-th number that is both a Fibonacci number and prime.
-This file provides:
-- The functional implementation (`is_prime`, `is_fib`, `prime_fib_loop`, `prime_fib`)
-- Unit tests covering all Python `check(prime_fib)` assertions
-- Precondition (`Pre`), property propositions (`_prop`) and kernel-checked theorems (`_thm`)
-- Postcondition (`Post_prop`), property-based tests (Plausible and bounded `native_decide`),
-  and the overall correctness theorem (`prime_fib_correct`)
-- Imperative implementation (`prime_fib_imp`) using `Id.run do` with mutable state,
-  imperative unit tests, and the equivalence theorem (`prime_fib_equiv`)
+Translates the Python `prime_fib(n)` function from HumanEval/39 into Lean 4,
+providing:
+- Functional implementation (`is_prime`, `prime_fib_loop`, `prime_fib`)
+- Unit tests (`example ... := by native_decide` and `#eval`)
+- Precondition (`Pre`)
+- Property specifications and complete kernel-checked proofs (`is_prime_correct_thm`,
+  `prime_fib_is_prime_thm`, `prime_fib_is_fib_thm`, `prime_fib_ge_two_thm`,
+  `prime_fib_nth_thm`, `prime_fib_strict_mono_thm`)
+- Postcondition (`Post_prop`) and property-based tests (Plausible and bounded PBTs)
+- Total correctness theorem (`prime_fib_correct : Pre n → Post_prop n`)
+- Imperative implementation (`prime_fib_imp`) using `Id.run do` and mutable state
+- Functional-imperative equivalence proof (`prime_fib_equiv`)
 -/
 
 namespace humaneval_39_prime_fib
 
-/-! ## 4. Implementation (Functional Definition) -/
+/-! ## 1. Functional Implementation -/
 
-/-- Executable primality check: returns `true` iff `p` is a prime natural number. -/
+/-- Trial-division primality check matching the inner Python `is_prime(p)` helper. -/
 def is_prime (p : Nat) : Bool :=
-  decide (Nat.Prime p)
+  if p < 2 then false
+  else
+    let bound := min (Nat.sqrt p + 1) (p - 1)
+    (List.range (bound - 2)).all (fun i => p % (i + 2) != 0)
 
-/-- Bounded helper checking whether `x` appears among `Nat.fib k, ..., Nat.fib (k + fuel - 1)`. -/
-def is_fib_from : Nat → Nat → Nat → Bool
-  | 0, _, _ => false
-  | fuel + 1, k, x => (Nat.fib k == x) || is_fib_from fuel (k + 1) x
+/-- Default fuel for the Fibonacci prime search loop (50 steps reaches `F_51`, covering the first 11 Fibonacci primes). -/
+def default_fuel : Nat := 50
 
-/-- Executable Fibonacci membership predicate: returns `true` iff `∃ k, Nat.fib k = x`. -/
-def is_fib (x : Nat) : Bool :=
-  is_fib_from (x + 2) 0 x
+/-- Tail-recursive Fibonacci prime search loop starting from consecutive Fibonacci numbers `a, b`. -/
+def prime_fib_loop (fuel a b rem : Nat) : Nat :=
+  match fuel with
+  | 0 => 2
+  | fuel' + 1 =>
+    let next := b + a
+    let rem' := if is_prime next then rem - 1 else rem
+    if rem' == 0 then
+      next
+    else
+      prime_fib_loop fuel' b next rem'
 
-/-- Tail-recursive Fibonacci search loop mirroring the Python `while True` loop.
-At each step it advances `(a, b) ↦ (b, a + b)`, decrements `rem` when `a + b` is prime,
-and returns `a + b` as soon as `rem == 0`. -/
-def prime_fib_loop : Nat → Nat → Nat → Nat → Nat
-  | 0, _, _, _ => 2
-  | fuel + 1, a, b, rem =>
-    let c := a + b
-    let rem' := if is_prime c then rem - 1 else rem
-    if rem' == 0 then c
-    else prime_fib_loop fuel b c rem'
-
-/-- Default search fuel (45 Fibonacci steps reaches past the 10th prime Fibonacci number
-`F_43 = 433494437`). -/
-def prime_fib_fuel : Nat := 45
-
-/-- `prime_fib n` returns the `n`-th number that is both a Fibonacci number and prime. -/
+/-- Returns the `n`-th number that is both a Fibonacci number and prime. -/
 def prime_fib (n : Nat) : Nat :=
-  if n == 0 then 2
-  else prime_fib_loop prime_fib_fuel 0 1 n
+  prime_fib_loop default_fuel 0 1 n
 
-/-- List of prime Fibonacci numbers encountered in `steps` iterations starting from
-`(Nat.fib k, Nat.fib (k + 1))` (i.e. filtering `[Nat.fib (k + 2), ..., Nat.fib (k + 1 + steps)]`
-by `is_prime`). -/
-def prime_fib_list_from (k steps : Nat) : List Nat :=
-  ((List.range steps).map (fun i => Nat.fib (k + 2 + i))).filter (fun x => is_prime x)
-
-/-- List of prime Fibonacci numbers encountered in the first `steps` iterations from `(0, 1)`. -/
-def prime_fib_list (steps : Nat) : List Nat :=
-  prime_fib_list_from 0 steps
-
-/-! ## 5. Unit Tests -/
-
-example : prime_fib 1 = 2 := by native_decide
-example : prime_fib 2 = 3 := by native_decide
-example : prime_fib 3 = 5 := by native_decide
-example : prime_fib 4 = 13 := by native_decide
-example : prime_fib 5 = 89 := by native_decide
-example : prime_fib 6 = 233 := by native_decide
-example : prime_fib 7 = 1597 := by native_decide
-example : prime_fib 8 = 28657 := by native_decide
-example : prime_fib 9 = 514229 := by native_decide
-example : prime_fib 10 = 433494437 := by native_decide
+/-! ## 2. Unit Tests -/
 
 #eval prime_fib 1
 #eval prime_fib 2
@@ -87,510 +60,311 @@ example : prime_fib 10 = 433494437 := by native_decide
 #eval prime_fib 9
 #eval prime_fib 10
 
-/-! ## 6. Pre-condition Predicate -/
+example : prime_fib 1 = 2 := by native_decide
+example : prime_fib 2 = 3 := by native_decide
+example : prime_fib 3 = 5 := by native_decide
+example : prime_fib 4 = 13 := by native_decide
+example : prime_fib 5 = 89 := by native_decide
+example : prime_fib 6 = 233 := by native_decide
+example : prime_fib 7 = 1597 := by native_decide
+example : prime_fib 8 = 28657 := by native_decide
+example : prime_fib 9 = 514229 := by native_decide
+example : prime_fib 10 = 433494437 := by native_decide
 
-/-- Precondition for `prime_fib`: `n` is a positive 1-based index (`1 ≤ n`). -/
-def Pre (n : Nat) : Prop :=
-  1 ≤ n
+/-! ## 3. Pre-condition -/
 
-/-! ## 7. Property Propositions and Theorems -/
+/-- Precondition: `n` is a positive 1-based index (`n ≥ 1`). -/
+def Pre (n : Nat) : Prop := n ≥ 1
 
-/-- `is_prime p = true` iff `Nat.Prime p`. -/
-theorem is_prime_iff (p : Nat) : is_prime p = true ↔ Nat.Prime p := by
-  simp [is_prime]
+/-! ## 4. Properties and Theorems -/
 
-/-- Characterization of `is_prime` by trial division up to `Nat.sqrt p`, matching the
-Python inner loop `for k in range(2, min(int(math.sqrt(p)) + 1, p - 1))`. -/
-theorem is_prime_sqrt_iff (p : Nat) :
-    is_prime p = true ↔ 2 ≤ p ∧ ∀ k, 2 ≤ k → k ≤ Nat.sqrt p → ¬(k ∣ p) := by
-  rw [is_prime_iff, Nat.prime_def_le_sqrt]
+/-- Number of prime Fibonacci numbers `Nat.fib j` with index `0 ≤ j < m`. -/
+def count_prime_fib_below (m : Nat) : Nat :=
+  ((List.range m).filter (fun j => is_prime (Nat.fib j))).length
 
-/-- Characterization of `is_fib_from`. -/
-theorem is_fib_from_iff (fuel k x : Nat) :
-    is_fib_from fuel k x = true ↔ ∃ i < fuel, Nat.fib (k + i) = x := by
-  induction fuel generalizing k with
-  | zero => simp [is_fib_from]
-  | succ fuel ih =>
-    simp only [is_fib_from, Bool.or_eq_true, beq_iff_eq, ih]
+/-- Property: `is_prime p` returns `true` if and only if `p` is prime (`Nat.Prime p`). -/
+def is_prime_correct_prop (p : Nat) : Prop :=
+  is_prime p = true ↔ Nat.Prime p
+
+/-- Proof that the executable `is_prime` matches `Nat.Prime`. -/
+theorem is_prime_correct_thm (p : Nat) : is_prime_correct_prop p := by
+  unfold is_prime_correct_prop is_prime
+  rw [Nat.prime_def_le_sqrt]
+  split_ifs with hlt
+  · simp [Nat.not_le.mpr hlt]
+  · have hge : 2 ≤ p := Nat.le_of_not_lt hlt
+    simp only [hge, true_and, List.all_eq_true, List.mem_range, bne_iff_ne, ne_eq,
+      ← Nat.dvd_iff_mod_eq_zero]
     constructor
-    · rintro (h0 | ⟨i, hi, hfib⟩)
-      · exact ⟨0, Nat.succ_pos fuel, by simpa using h0⟩
-      · exact ⟨i + 1, Nat.succ_lt_succ hi, by simpa [Nat.add_assoc, Nat.add_comm 1] using hfib⟩
-    · rintro ⟨i, hi, hfib⟩
-      cases i with
-      | zero => left; simpa using hfib
-      | succ i =>
-        right
-        refine ⟨i, Nat.lt_of_succ_lt_succ hi, ?_⟩
-        simpa [Nat.add_assoc, Nat.add_comm 1] using hfib
+    · intro h m hm1 hm2
+      have hsq : m * m ≤ p := Nat.le_sqrt.mp hm2
+      have h2m : 2 * m ≤ m * m := Nat.mul_le_mul_right m hm1
+      have hlt_bound : m - 2 < min (p.sqrt + 1) (p - 1) - 2 := by omega
+      have := h (m - 2) hlt_bound
+      rwa [Nat.sub_add_cancel hm1] at this
+    · intro h i hi
+      apply h (i + 2) (by omega) (by omega)
 
-/-- Every index `k` satisfies `k < Nat.fib k + 2`. -/
-theorem lt_fib_add_two (k : Nat) : k < Nat.fib k + 2 := by
-  induction k using Nat.strongRecOn with
-  | ind k ih =>
-    rcases k with _ | _ | _ | k
-    · decide
-    · decide
-    · decide
-    · have h1 := ih (k + 1) (by omega)
-      have h2 := ih (k + 2) (by omega)
-      have hfib : Nat.fib (k + 1 + 1 + 1) = Nat.fib (k + 1) + Nat.fib (k + 2) := Nat.fib_add_two
-      have hpos : 0 < Nat.fib (k + 1) := Nat.fib_pos.mpr (by omega)
-      omega
-
-/-- `is_fib x = true` iff `x` is a Fibonacci number (`∃ k, Nat.fib k = x`). -/
-theorem is_fib_iff (x : Nat) : is_fib x = true ↔ ∃ k, Nat.fib k = x := by
-  unfold is_fib
-  rw [is_fib_from_iff]
-  constructor
-  · rintro ⟨i, _, hi⟩
-    exact ⟨i, by simpa using hi⟩
-  · rintro ⟨k, rfl⟩
-    exact ⟨k, lt_fib_add_two k, by simp⟩
-
-/-- Core loop invariant: starting from `(Nat.fib k, Nat.fib (k + 1))` with `0 < rem`,
-`prime_fib_loop` always returns a prime Fibonacci number `Nat.fib m` with `3 ≤ m`. -/
-theorem prime_fib_loop_prime_and_fib (fuel k rem : Nat) (hrem : 0 < rem) :
-    Nat.Prime (prime_fib_loop fuel (Nat.fib k) (Nat.fib (k + 1)) rem) ∧
-    ∃ m : Nat, Nat.fib m = prime_fib_loop fuel (Nat.fib k) (Nat.fib (k + 1)) rem ∧ 3 ≤ m := by
+/-- Inductive invariant for `prime_fib_loop`: for any `rem ≥ 1`, the returned value is a prime Fibonacci number with index `m ≥ 3`. -/
+lemma prime_fib_loop_spec (fuel k rem : Nat) (hrem : 1 ≤ rem) :
+    let res := prime_fib_loop fuel (Nat.fib k) (Nat.fib (k + 1)) rem
+    Nat.Prime res ∧ ∃ m : Nat, 3 ≤ m ∧ Nat.fib m = res := by
   induction fuel generalizing k rem with
   | zero =>
+    refine ⟨Nat.prime_two, 3, le_rfl, rfl⟩
+  | succ fuel' ih =>
     simp only [prime_fib_loop]
-    exact ⟨Nat.prime_two, ⟨3, rfl, by omega⟩⟩
-  | succ fuel ih =>
-    rw [prime_fib_loop]
-    have hfib : Nat.fib k + Nat.fib (k + 1) = Nat.fib (k + 2) := Nat.fib_add_two.symm
-    simp only [hfib]
+    have hfib : Nat.fib (k + 1) + Nat.fib k = Nat.fib (k + 2) := by
+      rw [Nat.add_comm, ← Nat.fib_add_two]
+    rw [hfib]
     by_cases hp : is_prime (Nat.fib (k + 2)) = true
     · simp only [hp, ↓reduceIte]
+      have hprime : Nat.Prime (Nat.fib (k + 2)) := (is_prime_correct_thm _).mp hp
       by_cases hr : ((rem - 1) == 0) = true
       · simp only [hr, ↓reduceIte]
-        have hprime : Nat.Prime (Nat.fib (k + 2)) := (is_prime_iff _).mp hp
         have hk3 : 3 ≤ k + 2 := by
-          by_contra hlt
-          interval_cases (k + 2)
-          · exact Nat.not_prime_zero hprime
-          · exact Nat.not_prime_one hprime
-          · exact Nat.not_prime_one hprime
-        exact ⟨hprime, ⟨k + 2, rfl, hk3⟩⟩
-      · have hr0 : rem - 1 ≠ 0 := fun h => hr (beq_iff_eq.mpr h)
-        have hr_pos : 0 < rem - 1 := Nat.pos_of_ne_zero hr0
-        simp only [hr, Bool.false_eq_true, ↓reduceIte]
-        exact ih (k + 1) (rem - 1) hr_pos
+          rcases k with _ | k'
+          · exfalso; exact Nat.not_prime_one hprime
+          · omega
+        exact ⟨hprime, k + 2, hk3, rfl⟩
+      · simp only [hr, Bool.false_eq_true, ↓reduceIte]
+        have hrem' : 1 ≤ rem - 1 := by
+          simp only [beq_iff_eq] at hr
+          omega
+        exact ih (k + 1) (rem - 1) hrem'
     · simp only [hp, Bool.false_eq_true, ↓reduceIte]
-      have hr : (rem == 0) = false := beq_eq_false_iff_ne.mpr (Nat.ne_of_gt hrem)
+      have hr : (rem == 0) = false := by
+        rw [beq_eq_false_iff_ne]
+        omega
       simp only [hr, Bool.false_eq_true, ↓reduceIte]
       exact ih (k + 1) rem hrem
 
-/-- Combined theorem that `prime_fib n` is always a prime Fibonacci number with index `≥ 3`. -/
-theorem prime_fib_prime_and_fib (n : Nat) :
-    Nat.Prime (prime_fib n) ∧ ∃ m : Nat, Nat.fib m = prime_fib n ∧ 3 ≤ m := by
-  unfold prime_fib
-  by_cases hn : (n == 0) = true
-  · simp only [hn, ↓reduceIte]
-    exact ⟨Nat.prime_two, ⟨3, rfl, by omega⟩⟩
-  · have hn0 : n ≠ 0 := fun h => hn (beq_iff_eq.mpr h)
-    have hn_pos : 0 < n := Nat.pos_of_ne_zero hn0
-    simp only [hn, Bool.false_eq_true, ↓reduceIte]
-    exact prime_fib_loop_prime_and_fib prime_fib_fuel 0 n hn_pos
+/-- Step lemma for `count_prime_fib_below`. -/
+lemma count_prime_fib_below_succ (m : Nat) :
+    count_prime_fib_below (m + 1) =
+      count_prime_fib_below m + if is_prime (Nat.fib m) then 1 else 0 := by
+  unfold count_prime_fib_below
+  rw [List.range_succ, List.filter_append, List.length_append, List.filter_cons, List.filter_nil]
+  split_ifs <;> rfl
 
-/-- Property 1: `prime_fib n` is a prime number. -/
-def is_prime_prop (n : Nat) : Prop :=
-  Nat.Prime (prime_fib n)
-
-theorem is_prime_thm (n : Nat) (_h : Pre n) : is_prime_prop n :=
-  (prime_fib_prime_and_fib n).1
-
-theorem is_prime_bool_thm (n : Nat) (h : Pre n) : is_prime (prime_fib n) = true :=
-  (is_prime_iff _).mpr (is_prime_thm n h)
-
-/-- Property 2: `prime_fib n` is a Fibonacci number (`∃ k, Nat.fib k = prime_fib n ∧ 3 ≤ k`). -/
-def is_fib_prop (n : Nat) : Prop :=
-  ∃ k : Nat, Nat.fib k = prime_fib n ∧ 3 ≤ k
-
-theorem is_fib_thm (n : Nat) (_h : Pre n) : is_fib_prop n :=
-  (prime_fib_prime_and_fib n).2
-
-theorem is_fib_bool_thm (n : Nat) (h : Pre n) : is_fib (prime_fib n) = true := by
-  rcases is_fib_thm n h with ⟨k, hk, _⟩
-  exact (is_fib_iff _).mpr ⟨k, hk⟩
-
-/-- Property 3: `prime_fib n` is at least 2. -/
-def ge_two_prop (n : Nat) : Prop :=
-  2 ≤ prime_fib n
-
-theorem ge_two_thm (n : Nat) (h : Pre n) : ge_two_prop n :=
-  (is_prime_thm n h).two_le
-
-/-- Property 4: `prime_fib n` is strictly positive. -/
-def pos_prop (n : Nat) : Prop :=
-  0 < prime_fib n
-
-theorem pos_thm (n : Nat) (h : Pre n) : pos_prop n :=
-  (is_prime_thm n h).pos
-
-/-- Unfolding lemma for `prime_fib_list_from k (fuel + 1)`. -/
-theorem prime_fib_list_from_succ (k fuel : Nat) :
-    prime_fib_list_from k (fuel + 1) =
-      if is_prime (Nat.fib (k + 2)) then
-        Nat.fib (k + 2) :: prime_fib_list_from (k + 1) fuel
-      else
-        prime_fib_list_from (k + 1) fuel := by
-  unfold prime_fib_list_from
-  rw [List.range_succ_eq_map, List.map_cons, List.map_map, List.filter_cons]
-  have hmap : (fun i => Nat.fib (k + 2 + i)) ∘ Nat.succ = (fun i => Nat.fib (k + 1 + 2 + i)) := by
-    funext i
-    simp only [Function.comp]
-    congr 1
+/-- Monotonicity of `count_prime_fib_below`. -/
+lemma count_prime_fib_below_mono {a b : Nat} (h : a ≤ b) :
+    count_prime_fib_below a ≤ count_prime_fib_below b := by
+  induction h with
+  | refl => exact le_rfl
+  | @step m _ ih =>
+    rw [count_prime_fib_below_succ]
     omega
-  simp [hmap]
 
-/-- Exact equivalence between `prime_fib_loop` and list indexing `(prime_fib_list_from k fuel).getD (rem - 1) 2`. -/
-theorem prime_fib_loop_eq_getD (fuel k rem : Nat) (hrem : 0 < rem) :
-    prime_fib_loop fuel (Nat.fib k) (Nat.fib (k + 1)) rem =
-      (prime_fib_list_from k fuel).getD (rem - 1) 2 := by
+/-- Exact `n`-th prime Fibonacci inductive invariant for `prime_fib_loop`. -/
+lemma prime_fib_loop_nth_spec (fuel k rem : Nat) (hrem : 1 ≤ rem)
+    (h_enough : count_prime_fib_below (k + 2) + rem ≤ count_prime_fib_below (k + 2 + fuel)) :
+    let res := prime_fib_loop fuel (Nat.fib k) (Nat.fib (k + 1)) rem
+    ∃ m : Nat, k + 2 ≤ m ∧ m < k + 2 + fuel ∧
+      res = Nat.fib m ∧ Nat.Prime res ∧
+      count_prime_fib_below m + 1 = count_prime_fib_below (k + 2) + rem := by
   induction fuel generalizing k rem with
   | zero =>
-    simp [prime_fib_loop, prime_fib_list_from]
-  | succ fuel ih =>
-    rw [prime_fib_loop, prime_fib_list_from_succ]
-    have hfib : Nat.fib k + Nat.fib (k + 1) = Nat.fib (k + 2) := Nat.fib_add_two.symm
-    simp only [hfib]
+    simp only [Nat.add_zero] at h_enough
+    omega
+  | succ fuel' ih =>
+    simp only [prime_fib_loop]
+    have hfib : Nat.fib (k + 1) + Nat.fib k = Nat.fib (k + 2) := by
+      rw [Nat.add_comm, ← Nat.fib_add_two]
+    rw [hfib]
+    have hcount_step := count_prime_fib_below_succ (k + 2)
+    have hk12 : k + 1 + 2 = k + 2 + 1 := by omega
+    have hbound_eq : k + 2 + (fuel' + 1) = k + 1 + 2 + fuel' := by omega
     by_cases hp : is_prime (Nat.fib (k + 2)) = true
-    · simp only [hp, ↓reduceIte]
+    · simp only [hp, ↓reduceIte] at hcount_step ⊢
+      have hprime : Nat.Prime (Nat.fib (k + 2)) := (is_prime_correct_thm _).mp hp
       by_cases hr : ((rem - 1) == 0) = true
-      · have hr0 : rem - 1 = 0 := beq_iff_eq.mp hr
-        simp [hr0]
-      · have hr0 : rem - 1 ≠ 0 := fun h => hr (beq_iff_eq.mpr h)
-        have hr_pos : 0 < rem - 1 := Nat.pos_of_ne_zero hr0
-        simp only [hr, Bool.false_eq_true, ↓reduceIte]
-        rw [ih (k + 1) (rem - 1) hr_pos]
-        cases hrem_eq : rem - 1 with
-        | zero => contradiction
-        | succ m => simp
-    · simp only [hp, Bool.false_eq_true, ↓reduceIte]
-      have hr : (rem == 0) = false := beq_eq_false_iff_ne.mpr (Nat.ne_of_gt hrem)
-      simp only [hr, Bool.false_eq_true, ↓reduceIte]
-      exact ih (k + 1) rem hrem
-
-/-- Property 5: `prime_fib n` equals the `(n - 1)`-th element of the filtered list of
-prime Fibonacci numbers `prime_fib_list prime_fib_fuel` (with default `2`). -/
-def nth_in_list_prop (n : Nat) : Prop :=
-  prime_fib n = (prime_fib_list prime_fib_fuel).getD (n - 1) 2
-
-theorem nth_in_list_thm (n : Nat) (h : Pre n) : nth_in_list_prop n := by
-  unfold Pre at h
-  unfold nth_in_list_prop prime_fib prime_fib_list
-  have hn : (n == 0) = false := beq_eq_false_iff_ne.mpr (by omega)
-  simp only [hn, Bool.false_eq_true, ↓reduceIte]
-  exact prime_fib_loop_eq_getD prime_fib_fuel 0 n (by omega)
-
-/-- Length of `prime_fib_list_from k steps` is non-decreasing with `steps`. -/
-theorem prime_fib_list_from_length_le_succ (k steps : Nat) :
-    (prime_fib_list_from k steps).length ≤ (prime_fib_list_from k (steps + 1)).length := by
-  unfold prime_fib_list_from
-  rw [List.range_succ, List.map_append, List.filter_append, List.length_append]
-  omega
-
-theorem prime_fib_list_from_length_mono (k : Nat) :
-    Monotone (fun steps => (prime_fib_list_from k steps).length) :=
-  monotone_nat_of_le_succ (prime_fib_list_from_length_le_succ k)
-
-theorem prime_fib_list_from_length_succ_of_prime (k d : Nat)
-    (hp : Nat.Prime (Nat.fib (k + 2 + d))) :
-    (prime_fib_list_from k (d + 1)).length = (prime_fib_list_from k d).length + 1 := by
-  unfold prime_fib_list_from
-  rw [List.range_succ, List.map_append, List.filter_append, List.length_append]
-  have hpb : is_prime (Nat.fib (k + 2 + d)) = true := by simpa [is_prime] using hp
-  simp [hpb]
-
-/-- Uniqueness of the step index `d` at which the `rem`-th prime Fibonacci number is reached. -/
-theorem prime_fib_index_unique (k d₁ d₂ : Nat)
-    (hp₁ : Nat.Prime (Nat.fib (k + 2 + d₁)))
-    (hp₂ : Nat.Prime (Nat.fib (k + 2 + d₂)))
-    (hlen : (prime_fib_list_from k (d₁ + 1)).length = (prime_fib_list_from k (d₂ + 1)).length) :
-    d₁ = d₂ := by
-  rcases lt_trichotomy d₁ d₂ with hlt | rfl | hgt
-  · have hle : (prime_fib_list_from k (d₁ + 1)).length ≤ (prime_fib_list_from k d₂).length :=
-      prime_fib_list_from_length_mono k hlt
-    have hsucc := prime_fib_list_from_length_succ_of_prime k d₂ hp₂
-    omega
-  · rfl
-  · have hle : (prime_fib_list_from k (d₂ + 1)).length ≤ (prime_fib_list_from k d₁).length :=
-      prime_fib_list_from_length_mono k hgt
-    have hsucc := prime_fib_list_from_length_succ_of_prime k d₁ hp₁
-    omega
-
-/-- Exact specification of `prime_fib_loop`: when `rem ≤ (prime_fib_list_from k fuel).length`,
-`prime_fib_loop` returns `Nat.fib (k + 2 + d)` where `Nat.fib (k + 2 + d)` is prime and
-exactly `rem` prime Fibonacci numbers occur in the first `d + 1` steps. -/
-theorem prime_fib_loop_nth_spec (fuel k rem : Nat) (hrem : 0 < rem)
-    (hlen : rem ≤ (prime_fib_list_from k fuel).length) :
-    ∃ d < fuel,
-      prime_fib_loop fuel (Nat.fib k) (Nat.fib (k + 1)) rem = Nat.fib (k + 2 + d) ∧
-      Nat.Prime (Nat.fib (k + 2 + d)) ∧
-      (prime_fib_list_from k (d + 1)).length = rem := by
-  induction fuel generalizing k rem with
-  | zero =>
-    simp [prime_fib_list_from] at hlen
-    omega
-  | succ fuel ih =>
-    rw [prime_fib_loop]
-    rw [prime_fib_list_from_succ] at hlen
-    have hfib : Nat.fib k + Nat.fib (k + 1) = Nat.fib (k + 2) := Nat.fib_add_two.symm
-    simp only [hfib]
-    by_cases hp : is_prime (Nat.fib (k + 2)) = true
-    · simp only [hp, ↓reduceIte, List.length_cons] at hlen ⊢
-      by_cases hr : ((rem - 1) == 0) = true
-      · have hr1 : rem = 1 := by
-          have hr0 : rem - 1 = 0 := beq_iff_eq.mp hr
+      · simp only [hr, ↓reduceIte]
+        simp only [beq_iff_eq] at hr
+        refine ⟨k + 2, le_rfl, by omega, rfl, hprime, by omega⟩
+      · simp only [hr, Bool.false_eq_true, ↓reduceIte]
+        simp only [beq_iff_eq] at hr
+        have hrem' : 1 ≤ rem - 1 := by omega
+        have h_enough' : count_prime_fib_below (k + 1 + 2) + (rem - 1) ≤
+            count_prime_fib_below (k + 1 + 2 + fuel') := by
+          rw [hk12, ← hbound_eq]
           omega
-        refine ⟨0, Nat.succ_pos fuel, ?_, ?_, ?_⟩
-        · simp [hr]
-        · simpa [is_prime] using hp
-        · rw [prime_fib_list_from_succ]
-          simp [hp, prime_fib_list_from, hr1]
-      · have hr0 : rem - 1 ≠ 0 := fun h => hr (beq_iff_eq.mpr h)
-        have hr_pos : 0 < rem - 1 := Nat.pos_of_ne_zero hr0
-        have hlen' : rem - 1 ≤ (prime_fib_list_from (k + 1) fuel).length := by omega
-        simp only [hr, Bool.false_eq_true, ↓reduceIte]
-        rcases ih (k + 1) (rem - 1) hr_pos hlen' with ⟨d, hd_lt, hd_eq, hd_prime, hd_len⟩
-        refine ⟨d + 1, Nat.succ_lt_succ hd_lt, ?_, ?_, ?_⟩
-        · have hidx : k + 1 + 2 + d = k + 2 + (d + 1) := by omega
-          rwa [hidx] at hd_eq
-        · have hidx : k + 1 + 2 + d = k + 2 + (d + 1) := by omega
-          rwa [hidx] at hd_prime
-        · rw [prime_fib_list_from_succ]
-          simp only [hp, ↓reduceIte, List.length_cons, hd_len]
-          omega
-    · simp only [hp, Bool.false_eq_true, ↓reduceIte] at hlen ⊢
-      have hr : (rem == 0) = false := beq_eq_false_iff_ne.mpr (Nat.ne_of_gt hrem)
+        obtain ⟨m, hm1, hm2, hres, hpm, hcm⟩ := ih (k + 1) (rem - 1) hrem' h_enough'
+        rw [hk12] at hcm
+        refine ⟨m, by omega, by omega, hres, hpm, by omega⟩
+    · simp only [hp, Bool.false_eq_true, ↓reduceIte] at hcount_step ⊢
+      have hr : (rem == 0) = false := by
+        rw [beq_eq_false_iff_ne]
+        omega
       simp only [hr, Bool.false_eq_true, ↓reduceIte]
-      rcases ih (k + 1) rem hrem hlen with ⟨d, hd_lt, hd_eq, hd_prime, hd_len⟩
-      refine ⟨d + 1, Nat.succ_lt_succ hd_lt, ?_, ?_, ?_⟩
-      · have hidx : k + 1 + 2 + d = k + 2 + (d + 1) := by omega
-        rwa [hidx] at hd_eq
-      · have hidx : k + 1 + 2 + d = k + 2 + (d + 1) := by omega
-        rwa [hidx] at hd_prime
-      · rw [prime_fib_list_from_succ]
-        simp [hp, hd_len]
+      have h_enough' : count_prime_fib_below (k + 1 + 2) + rem ≤
+          count_prime_fib_below (k + 1 + 2 + fuel') := by
+        rw [hk12, ← hbound_eq]
+        omega
+      obtain ⟨m, hm1, hm2, hres, hpm, hcm⟩ := ih (k + 1) rem hrem h_enough'
+      rw [hk12] at hcm
+      refine ⟨m, by omega, by omega, hres, hpm, by omega⟩
 
-/-- The count `(prime_fib_list steps).length` equals the number of Fibonacci indices
-`j < steps + 2` for which `Nat.fib j` is prime (since `F_0 = 0` and `F_1 = 1` are not prime). -/
-theorem prime_fib_list_zero_length_eq (steps : Nat) :
-    (prime_fib_list steps).length =
-      ((List.range (steps + 2)).filter (fun j => is_prime (Nat.fib j))).length := by
-  unfold prime_fib_list prime_fib_list_from
-  rw [List.filter_map, List.length_map]
-  rw [show steps + 2 = (steps + 1) + 1 by omega]
-  rw [List.range_succ_eq_map, List.filter_cons]
-  rw [List.range_succ_eq_map, List.map_cons, List.filter_cons]
-  have hp0 : is_prime (Nat.fib 0) = false := by decide
-  have hp1 : is_prime (Nat.fib 1) = false := by decide
-  simp only [hp0, hp1, Nat.succ_eq_add_one, zero_add, Bool.false_eq_true, ↓reduceIte, List.map_map]
-  rw [List.filter_map, List.length_map]
-  congr 2
-  funext i
-  simp only [Function.comp]
-  congr 2
-  omega
+/-- Proof that at least 10 prime Fibonacci numbers appear below index `2 + default_fuel = 52`. -/
+lemma ten_le_count_prime_fib_below_default :
+    10 ≤ count_prime_fib_below (2 + default_fuel) := by
+  let S : List Nat := [3, 4, 5, 7, 11, 13, 17, 23, 29, 43]
+  have hnodup : S.Nodup := by decide
+  have hsub : ∀ j ∈ S, j ∈ (List.range (2 + default_fuel)).filter (fun j => is_prime (Nat.fib j)) := by
+    intro j hj
+    simp only [S, List.mem_cons, List.not_mem_nil, or_false] at hj
+    simp only [List.mem_filter, List.mem_range]
+    rcases hj with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
+      exact ⟨by decide, (is_prime_correct_thm _).mpr (by norm_num)⟩
+  have hle := (hnodup.subperm hsub).length_le
+  simpa [S, count_prime_fib_below] using hle
 
-/-- Property 6: Exact `n`-th prime Fibonacci characterization.
-When `n` is within the number of prime Fibonacci numbers in the search bound,
-`prime_fib n` is `Nat.fib (d + 2)` where `Nat.fib (d + 2)` is prime and the count of
-prime Fibonacci numbers up to `Nat.fib (d + 2)` is exactly `n`. -/
-def nth_prime_fib_prop (n : Nat) : Prop :=
-  n ≤ (prime_fib_list prime_fib_fuel).length →
-    ∃ d < prime_fib_fuel,
-      prime_fib n = Nat.fib (d + 2) ∧
-      Nat.Prime (Nat.fib (d + 2)) ∧
-      (prime_fib_list (d + 1)).length = n
+/-- Property 1: `prime_fib n` is a prime number (both mathematically `Nat.Prime` and according to `is_prime`). -/
+def prime_fib_is_prime_prop (n : Nat) : Prop :=
+  Nat.Prime (prime_fib n) ∧ is_prime (prime_fib n) = true
 
-theorem nth_prime_fib_thm (n : Nat) (h : Pre n) : nth_prime_fib_prop n := by
-  intro hlen
-  unfold Pre at h
-  unfold prime_fib prime_fib_list at *
-  have hn : (n == 0) = false := beq_eq_false_iff_ne.mpr (by omega)
-  simp only [hn, Bool.false_eq_true, ↓reduceIte]
-  rcases prime_fib_loop_nth_spec prime_fib_fuel 0 n (by omega) hlen with ⟨d, hd_lt, hd_eq, hd_prime, hd_len⟩
-  refine ⟨d, hd_lt, ?_, ?_, hd_len⟩
-  · simpa [Nat.add_comm] using hd_eq
-  · simpa [Nat.add_comm] using hd_prime
+theorem prime_fib_is_prime_thm (n : Nat) (h : Pre n) : prime_fib_is_prime_prop n := by
+  unfold prime_fib_is_prime_prop prime_fib
+  have hspec := (prime_fib_loop_spec default_fuel 0 n h).1
+  exact ⟨hspec, (is_prime_correct_thm _).mpr hspec⟩
 
-/-- Property 7: Strict monotonicity of `prime_fib` on indices within the search bound. -/
-def strict_mono_prop (m n : Nat) : Prop :=
-  Pre m → m < n → n ≤ (prime_fib_list prime_fib_fuel).length → prime_fib m < prime_fib n
+/-- Property 2: `prime_fib n` is a Fibonacci number (`∃ k ≥ 3, Nat.fib k = prime_fib n`). -/
+def prime_fib_is_fib_prop (n : Nat) : Prop :=
+  ∃ k : Nat, 3 ≤ k ∧ Nat.fib k = prime_fib n
 
-theorem strict_mono_thm (m n : Nat) : strict_mono_prop m n := by
-  intro hm hmn hlen
-  have hmlen : m ≤ (prime_fib_list prime_fib_fuel).length := by omega
-  have hn1 : Pre n := by unfold Pre at *; omega
-  rcases nth_prime_fib_thm m hm hmlen with ⟨d₁, _, hm_eq, hm_prime, hm_len⟩
-  rcases nth_prime_fib_thm n hn1 hlen with ⟨d₂, _, hn_eq, _, hn_len⟩
-  have hd_lt : d₁ < d₂ := by
+theorem prime_fib_is_fib_thm (n : Nat) (h : Pre n) : prime_fib_is_fib_prop n := by
+  unfold prime_fib_is_fib_prop prime_fib
+  exact (prime_fib_loop_spec default_fuel 0 n h).2
+
+/-- Property 3: `prime_fib n` is at least 2 (`prime_fib n ≥ 2`). -/
+def prime_fib_ge_two_prop (n : Nat) : Prop :=
+  prime_fib n ≥ 2
+
+theorem prime_fib_ge_two_thm (n : Nat) (h : Pre n) : prime_fib_ge_two_prop n := by
+  unfold prime_fib_ge_two_prop
+  exact (prime_fib_is_prime_thm n h).1.two_le
+
+/-- Property 4: `prime_fib n` is the exact `n`-th prime Fibonacci number (there are `n - 1` prime Fibonacci numbers strictly preceding it). -/
+def prime_fib_nth_prop (n : Nat) : Prop :=
+  (n ≤ count_prime_fib_below (2 + default_fuel) →
+    ∃ m : Nat, 3 ≤ m ∧ m < 2 + default_fuel ∧
+      prime_fib n = Nat.fib m ∧ Nat.Prime (prime_fib n) ∧
+      count_prime_fib_below m + 1 = n) ∧
+  (n ≤ 10 →
+    ∃ m : Nat, 3 ≤ m ∧ m < 2 + default_fuel ∧
+      prime_fib n = Nat.fib m ∧ Nat.Prime (prime_fib n) ∧
+      count_prime_fib_below m + 1 = n)
+
+theorem prime_fib_nth_thm (n : Nat) (h : Pre n) : prime_fib_nth_prop n := by
+  have hmain : n ≤ count_prime_fib_below (2 + default_fuel) →
+      ∃ m : Nat, 3 ≤ m ∧ m < 2 + default_fuel ∧
+        prime_fib n = Nat.fib m ∧ Nat.Prime (prime_fib n) ∧
+        count_prime_fib_below m + 1 = n := by
+    intro hle
+    have hc2 : count_prime_fib_below (0 + 2) = 0 := rfl
+    have h_enough : count_prime_fib_below (0 + 2) + n ≤ count_prime_fib_below (0 + 2 + default_fuel) := by
+      simpa [hc2] using hle
+    obtain ⟨m, hm1, hm2, hres, hpm, hcm⟩ := prime_fib_loop_nth_spec default_fuel 0 n h h_enough
+    have hm3 : 3 ≤ m := by
+      have hm2' : 2 ≤ m := by omega
+      rcases eq_or_lt_of_le hm2' with rfl | hlt
+      · exfalso
+        rw [hres] at hpm
+        exact Nat.not_prime_one hpm
+      · omega
+    refine ⟨m, hm3, by omega, hres, hpm, by simpa [hc2] using hcm⟩
+  refine ⟨hmain, fun h10 => hmain (le_trans h10 ten_le_count_prime_fib_below_default)⟩
+
+/-- Property 5: `prime_fib` is strictly increasing (`n < m → prime_fib n < prime_fib m`). -/
+def prime_fib_strict_mono_prop (n : Nat) : Prop :=
+  ∀ m : Nat, n < m → m ≤ 10 → prime_fib n < prime_fib m
+
+theorem prime_fib_strict_mono_thm (n : Nat) (h : Pre n) : prime_fib_strict_mono_prop n := by
+  intro m hlt hm10
+  have hn10 : n ≤ 10 := by omega
+  have hm_pre : Pre m := by unfold Pre at h ⊢; omega
+  obtain ⟨k₁, hk₁_ge, _, hfib₁, _, hcnt₁⟩ := (prime_fib_nth_thm n h).2 hn10
+  obtain ⟨k₂, _, _, hfib₂, _, hcnt₂⟩ := (prime_fib_nth_thm m hm_pre).2 hm10
+  have hcnt_lt : count_prime_fib_below k₁ < count_prime_fib_below k₂ := by omega
+  have hk_lt : k₁ < k₂ := by
     by_contra hge
-    have hle : d₂ + 1 ≤ d₁ + 1 := by omega
-    have hmono : (prime_fib_list (d₂ + 1)).length ≤ (prime_fib_list (d₁ + 1)).length :=
-      prime_fib_list_from_length_mono 0 hle
+    have hle : k₂ ≤ k₁ := Nat.le_of_not_lt hge
+    have := count_prime_fib_below_mono hle
     omega
-  have hd₁_pos : 1 ≤ d₁ := by
-    rcases d₁ with _ | d₁
-    · exfalso
-      exact Nat.not_prime_one hm_prime
-    · omega
-  rw [hm_eq, hn_eq]
-  exact (Nat.fib_lt_fib (by omega)).mpr (by omega)
+  rw [hfib₁, hfib₂]
+  exact (Nat.fib_lt_fib (by omega)).mpr hk_lt
 
-/-- Property 8: Every `prime_fib n` for `2 ≤ n` within the search bound is strictly greater
-than 2 and odd (`prime_fib n % 2 = 1`). -/
-def odd_of_ge_two_prop (n : Nat) : Prop :=
-  2 ≤ n → n ≤ (prime_fib_list prime_fib_fuel).length →
-    2 < prime_fib n ∧ prime_fib n % 2 = 1
+/-! ## 5. Post-condition -/
 
-theorem odd_of_ge_two_thm (n : Nat) : odd_of_ge_two_prop n := by
-  intro hn2 hlen
-  have h1_pre : Pre 1 := by unfold Pre; omega
-  have hn_pre : Pre n := by unfold Pre; omega
-  have h1_val : prime_fib 1 = 2 := by decide
-  have hlt : prime_fib 1 < prime_fib n := strict_mono_thm 1 n h1_pre (by omega) hlen
-  rw [h1_val] at hlt
-  have hprime : Nat.Prime (prime_fib n) := is_prime_thm n hn_pre
-  rcases Nat.Prime.eq_two_or_odd hprime with h2 | hodd
-  · omega
-  · exact ⟨hlt, hodd⟩
-
-/-- Property 9: Fuel invariance — once `fuel₁` is sufficient to find `n` prime Fibonacci numbers,
-any larger `fuel₂ ≥ fuel₁` produces the exact same result. -/
-def fuel_invariance_prop (n fuel₁ fuel₂ : Nat) : Prop :=
-  Pre n → n ≤ (prime_fib_list fuel₁).length → fuel₁ ≤ fuel₂ →
-    prime_fib_loop fuel₁ 0 1 n = prime_fib_loop fuel₂ 0 1 n
-
-theorem fuel_invariance_thm (n fuel₁ fuel₂ : Nat) : fuel_invariance_prop n fuel₁ fuel₂ := by
-  intro hn hlen₁ hfuel
-  have hlen₂ : n ≤ (prime_fib_list fuel₂).length :=
-    le_trans hlen₁ (prime_fib_list_from_length_mono 0 hfuel)
-  rcases prime_fib_loop_nth_spec fuel₁ 0 n (by unfold Pre at hn; omega) hlen₁ with
-    ⟨d₁, _, hd₁_eq, hd₁_prime, hd₁_len⟩
-  rcases prime_fib_loop_nth_spec fuel₂ 0 n (by unfold Pre at hn; omega) hlen₂ with
-    ⟨d₂, _, hd₂_eq, hd₂_prime, hd₂_len⟩
-  have hd_eq : d₁ = d₂ := prime_fib_index_unique 0 d₁ d₂ hd₁_prime hd₂_prime (hd₁_len.trans hd₂_len.symm)
-  subst hd_eq
-  exact hd₁_eq.trans hd₂_eq.symm
-
-/-- Property 10: Doctest base values (`prime_fib 1 = 2`, ..., `prime_fib 5 = 89`). -/
-def base_cases_prop : Prop :=
-  prime_fib 1 = 2 ∧
-  prime_fib 2 = 3 ∧
-  prime_fib 3 = 5 ∧
-  prime_fib 4 = 13 ∧
-  prime_fib 5 = 89
-
-theorem base_cases_thm : base_cases_prop := by
-  unfold base_cases_prop
-  decide
-
-/-! ## 8. Post-condition -/
-
-/-- Postcondition combining all core properties of `prime_fib n`. -/
+/-- Postcondition: conjunction of all specification properties of `prime_fib`. -/
 def Post_prop (n : Nat) : Prop :=
-  is_prime_prop n ∧
-  is_fib_prop n ∧
-  ge_two_prop n ∧
-  pos_prop n ∧
-  nth_in_list_prop n ∧
-  nth_prime_fib_prop n ∧
-  odd_of_ge_two_prop n
+  prime_fib_is_prime_prop n ∧
+  prime_fib_is_fib_prop n ∧
+  prime_fib_ge_two_prop n ∧
+  prime_fib_nth_prop n ∧
+  prime_fib_strict_mono_prop n
 
-/-! ## 9. Property-Based Tests -/
+/-! ## 6. Property-Based Tests -/
 
--- Randomized PBTs via Plausible
-#eval Plausible.Testable.check (∀ n : Nat, 1 ≤ n → is_prime (prime_fib n) = true)
-#eval Plausible.Testable.check (∀ n : Nat, 1 ≤ n → is_fib (prime_fib n) = true)
-#eval Plausible.Testable.check (∀ n : Nat, 1 ≤ n → 2 ≤ prime_fib n)
-#eval Plausible.Testable.check (∀ n : Nat, 1 ≤ n → 0 < prime_fib n)
-#eval Plausible.Testable.check (∀ n : Nat, 1 ≤ n →
-  prime_fib n = (prime_fib_list prime_fib_fuel).getD (n - 1) 2)
-#eval Plausible.Testable.check (∀ m n : Nat, 1 ≤ m → m < n → n ≤ 10 →
-  prime_fib m < prime_fib n)
-#eval Plausible.Testable.check (∀ n : Nat, 2 ≤ n → n ≤ 10 →
-  2 < prime_fib n ∧ prime_fib n % 2 = 1)
-#eval Plausible.Testable.check (∀ n : Nat, 1 ≤ n →
-  is_prime (prime_fib n) = true ∧
-  is_fib (prime_fib n) = true ∧
-  2 ≤ prime_fib n ∧
-  0 < prime_fib n ∧
-  prime_fib n = (prime_fib_list prime_fib_fuel).getD (n - 1) 2)
+/-- Executable check that `x` is a Fibonacci number of index `3 ≤ k < 52`. -/
+def is_fib_check (x : Nat) : Bool :=
+  (List.range 49).any (fun i => Nat.fib (i + 3) == x)
 
--- Bounded exhaustive PBTs across admissible inputs
+/-- Executable check for `prime_fib_nth_prop` on `n`. -/
+def nth_check (n : Nat) : Bool :=
+  (List.range 49).any (fun i =>
+    let m := i + 3
+    prime_fib n == Nat.fib m && is_prime (prime_fib n) && count_prime_fib_below m + 1 == n)
+
+-- Plausible randomized property-based tests
+#eval Plausible.Testable.check (∀ p : Nat, p ≤ 500 → (is_prime p == decide (Nat.Prime p)))
+#eval Plausible.Testable.check (∀ n : Nat, 1 ≤ n → n ≤ 10 → is_prime (prime_fib n) = true)
+#eval Plausible.Testable.check (∀ n : Nat, 1 ≤ n → n ≤ 10 → is_fib_check (prime_fib n) = true)
+#eval Plausible.Testable.check (∀ n : Nat, 1 ≤ n → n ≤ 10 → prime_fib n ≥ 2)
+#eval Plausible.Testable.check (∀ n : Nat, 1 ≤ n → n ≤ 10 → nth_check n = true)
+#eval Plausible.Testable.check (∀ n m : Nat, 1 ≤ n → n < m → m ≤ 10 → prime_fib n < prime_fib m)
+#eval Plausible.Testable.check (∀ n : Nat, 1 ≤ n → n ≤ 10 →
+  (is_prime (prime_fib n) && is_fib_check (prime_fib n) && decide (prime_fib n ≥ 2) && nth_check n) = true)
+
+-- Bounded exhaustive property-based tests
+example : (List.range 200).all (fun p => is_prime p == decide (Nat.Prime p)) = true := by native_decide
 example : (List.range 10).all (fun i => is_prime (prime_fib (i + 1))) = true := by native_decide
-example : (List.range 10).all (fun i => is_fib (prime_fib (i + 1))) = true := by native_decide
-example : (List.range 10).all (fun i => decide (2 ≤ prime_fib (i + 1))) = true := by native_decide
-example : (List.range 10).all (fun i => decide (0 < prime_fib (i + 1))) = true := by native_decide
+example : (List.range 10).all (fun i => is_fib_check (prime_fib (i + 1))) = true := by native_decide
+example : (List.range 10).all (fun i => decide (prime_fib (i + 1) ≥ 2)) = true := by native_decide
+example : (List.range 10).all (fun i => nth_check (i + 1)) = true := by native_decide
+example : (List.range 9).all (fun i => decide (prime_fib (i + 1) < prime_fib (i + 2))) = true := by native_decide
 example : (List.range 10).all (fun i =>
-  prime_fib (i + 1) == (prime_fib_list prime_fib_fuel).getD i 2) = true := by native_decide
-example : (List.range 10).all (fun i =>
-  let n := i + 1
-  (List.range prime_fib_fuel).any (fun d =>
-    (prime_fib n == Nat.fib (d + 2)) &&
-    is_prime (Nat.fib (d + 2)) &&
-    ((prime_fib_list (d + 1)).length == n))) = true := by native_decide
-example : (List.range 9).all (fun i =>
-  decide (prime_fib (i + 1) < prime_fib (i + 2))) = true := by native_decide
-example : (List.range 9).all (fun i =>
-  let n := i + 2
-  decide (2 < prime_fib n ∧ prime_fib n % 2 = 1)) = true := by native_decide
-example : (List.range 10).all (fun i =>
-  let n := i + 1
-  prime_fib_loop 42 0 1 n == prime_fib_loop 45 0 1 n) = true := by native_decide
-example : (List.range 10).all (fun i =>
-  let n := i + 1
-  is_prime (prime_fib n) &&
-  is_fib (prime_fib n) &&
-  decide (2 ≤ prime_fib n) &&
-  decide (0 < prime_fib n) &&
-  (prime_fib n == (prime_fib_list prime_fib_fuel).getD (n - 1) 2)) = true := by native_decide
+  is_prime (prime_fib (i + 1)) &&
+  is_fib_check (prime_fib (i + 1)) &&
+  decide (prime_fib (i + 1) ≥ 2) &&
+  nth_check (i + 1)) = true := by native_decide
 
-/-! ## 10. Correctness Theorem (`Pre -> Post`) -/
+/-! ## 7. Correctness Theorem (`Pre → Post`) -/
 
+/-- Main correctness theorem: for any `n` satisfying `Pre n`, `Post_prop n` holds. -/
 theorem prime_fib_correct (n : Nat) (h : Pre n) : Post_prop n :=
-  ⟨is_prime_thm n h,
-   is_fib_thm n h,
-   ge_two_thm n h,
-   pos_thm n h,
-   nth_in_list_thm n h,
-   nth_prime_fib_thm n h,
-   odd_of_ge_two_thm n⟩
+  ⟨prime_fib_is_prime_thm n h,
+   prime_fib_is_fib_thm n h,
+   prime_fib_ge_two_thm n h,
+   prime_fib_nth_thm n h,
+   prime_fib_strict_mono_thm n h⟩
 
-/-! ## 11. Imperative Implementation -/
+/-! ## 8. Imperative Implementation -/
 
-/-- Imperative implementation of `prime_fib` using `Id.run do` and mutable state. -/
+/-- Imperative translation of `prime_fib` using `Id.run do` and mutable state `f` and `rem`. -/
 def prime_fib_imp (n : Nat) : Nat := Id.run do
-  if n == 0 then
-    return 2
-  let mut a : Nat := 0
-  let mut b : Nat := 1
+  let mut f : Array Nat := #[0, 1]
   let mut rem : Nat := n
-  for _ in List.range prime_fib_fuel do
-    let c := a + b
-    a := b
-    b := c
-    rem := if is_prime c then rem - 1 else rem
+  for _ in List.range default_fuel do
+    let next := f[f.size - 1]! + f[f.size - 2]!
+    f := f.push next
+    if is_prime f[f.size - 1]! then
+      rem := rem - 1
     if rem == 0 then
-      return c
+      return f[f.size - 1]!
   return 2
 
-/-! ## 12. Imperative Tests -/
-
-example : prime_fib_imp 1 = 2 := by native_decide
-example : prime_fib_imp 2 = 3 := by native_decide
-example : prime_fib_imp 3 = 5 := by native_decide
-example : prime_fib_imp 4 = 13 := by native_decide
-example : prime_fib_imp 5 = 89 := by native_decide
-example : prime_fib_imp 6 = 233 := by native_decide
-example : prime_fib_imp 7 = 1597 := by native_decide
-example : prime_fib_imp 8 = 28657 := by native_decide
-example : prime_fib_imp 9 = 514229 := by native_decide
-example : prime_fib_imp 10 = 433494437 := by native_decide
+/-! ## 9. Imperative Tests -/
 
 #eval prime_fib_imp 1
 #eval prime_fib_imp 2
@@ -603,51 +377,73 @@ example : prime_fib_imp 10 = 433494437 := by native_decide
 #eval prime_fib_imp 9
 #eval prime_fib_imp 10
 
-#eval Plausible.Testable.check (∀ n : Nat, prime_fib n = prime_fib_imp n)
-example : (List.range 10).all (fun i => prime_fib (i + 1) == prime_fib_imp (i + 1)) = true := by
-  native_decide
+example : prime_fib_imp 1 = 2 := by native_decide
+example : prime_fib_imp 2 = 3 := by native_decide
+example : prime_fib_imp 3 = 5 := by native_decide
+example : prime_fib_imp 4 = 13 := by native_decide
+example : prime_fib_imp 5 = 89 := by native_decide
+example : prime_fib_imp 6 = 233 := by native_decide
+example : prime_fib_imp 7 = 1597 := by native_decide
+example : prime_fib_imp 8 = 28657 := by native_decide
+example : prime_fib_imp 9 = 514229 := by native_decide
+example : prime_fib_imp 10 = 433494437 := by native_decide
 
-/-! ## 13. Equivalence Theorem (Functional = Imperative) -/
+/-! ## 10. Functional-Imperative Equivalence -/
 
-private theorem forIn_loop_eq (xs : List Nat) (a b rem : Nat) :
-    (Id.run do
-      let r ← forIn xs (⟨none, a, b, rem⟩ : MProd (Option Nat) (MProd Nat (MProd Nat Nat))) fun _ r => do
-        let a := r.snd.fst
-        let b := r.snd.snd.fst
-        let rem := r.snd.snd.snd
-        let c := a + b
-        let a := b
-        let b := c
-        let rem := if is_prime c = true then rem - 1 else rem
-        if (rem == 0) = true then
-          return ForInStep.done ⟨some c, a, b, rem⟩
-        else do
-          pure PUnit.unit
-          return ForInStep.yield ⟨none, a, b, rem⟩
-      match r.fst with
-      | none => do
-        pure PUnit.unit
-        return 2
-      | some a => return a) = prime_fib_loop xs.length a b rem := by
-  induction xs generalizing a b rem with
-  | nil => rfl
-  | cons x xs ih =>
-    simp only [List.length_cons, prime_fib_loop, List.forIn_cons, bind, pure, Id.run]
-    by_cases hr : ((if is_prime (a + b) = true then rem - 1 else rem) == 0) = true
-    · simp [hr]
-    · simp only [hr, Bool.false_eq_true, ↓reduceIte]
-      exact ih b (a + b) (if is_prime (a + b) = true then rem - 1 else rem)
+lemma array_push_last (f : Array Nat) (x : Nat) :
+    (f.push x)[(f.push x).size - 1]! = x := by
+  simp [Array.size_push]
 
-/-- Full functional-imperative equivalence theorem for all `n : Nat`. -/
+lemma array_push_second_last (f : Array Nat) (x : Nat) (h : 1 ≤ f.size) :
+    (f.push x)[(f.push x).size - 2]! = f[f.size - 1]! := by
+  have h1 : (f.push x).size - 2 = f.size - 1 := by simp [Array.size_push]
+  rw [h1]
+  have hlt : f.size - 1 < f.size := by omega
+  simp [hlt, Array.size_push, Nat.lt_succ_of_lt hlt, Array.getElem_push_lt hlt]
+
+/-- Equivalence theorem: the functional and imperative implementations agree on all inputs `n`. -/
 theorem prime_fib_equiv (n : Nat) : prime_fib n = prime_fib_imp n := by
   unfold prime_fib prime_fib_imp
-  by_cases hn : (n == 0) = true
-  · simp [hn, Id.run, pure]
-  · simp only [hn, Bool.false_eq_true, ↓reduceIte, bind, pure]
-    rw [← List.length_range (n := prime_fib_fuel)]
-    exact (forIn_loop_eq (List.range prime_fib_fuel) 0 1 n).symm
-
-theorem prime_fib_eq_prime_fib_imp : prime_fib = prime_fib_imp :=
-  funext prime_fib_equiv
+  suffices h : ∀ (xs : List Nat) (f : Array Nat) (a b rem : Nat),
+      1 ≤ f.size → f[f.size - 2]! = a → f[f.size - 1]! = b →
+      prime_fib_loop xs.length a b rem =
+      (Id.run do
+        let mut f := f
+        let mut rem := rem
+        for _ in xs do
+          let next := f[f.size - 1]! + f[f.size - 2]!
+          f := f.push next
+          if is_prime f[f.size - 1]! then
+            rem := rem - 1
+          if rem == 0 then
+            return f[f.size - 1]!
+        return 2) by
+    simpa [List.length_range] using h (List.range default_fuel) #[0, 1] 0 1 n (by decide) rfl rfl
+  intro xs
+  induction xs with
+  | nil =>
+    intro f a b rem _ _ _
+    rfl
+  | cons x xs ih =>
+    intro f a b rem hsize ha hb
+    simp only [List.length_cons, prime_fib_loop, Id.run, List.forIn_cons]
+    have hnext : f[f.size - 1]! + f[f.size - 2]! = b + a := by rw [ha, hb]
+    have hsize' : 1 ≤ (f.push (b + a)).size := by simp [Array.size_push]
+    have ha' : (f.push (b + a))[(f.push (b + a)).size - 2]! = b := by
+      rw [array_push_second_last f (b + a) hsize, hb]
+    have hb' : (f.push (b + a))[(f.push (b + a)).size - 1]! = b + a :=
+      array_push_last f (b + a)
+    rw [hnext, hb']
+    by_cases hp : is_prime (b + a) = true
+    · simp only [hp, ↓reduceIte]
+      by_cases hr : ((rem - 1) == 0) = true
+      · simp [hr]; rfl
+      · simp only [hr, Bool.false_eq_true, ↓reduceIte]
+        exact ih (f.push (b + a)) b (b + a) (rem - 1) hsize' ha' hb'
+    · simp only [hp, Bool.false_eq_true, ↓reduceIte]
+      by_cases hr : (rem == 0) = true
+      · simp [hr]; rfl
+      · simp only [hr, Bool.false_eq_true, ↓reduceIte]
+        exact ih (f.push (b + a)) b (b + a) rem hsize' ha' hb'
 
 end humaneval_39_prime_fib

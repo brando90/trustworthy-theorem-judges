@@ -1,0 +1,14 @@
+Command exited with code 1.
+
+Command output:
+List.sorted_mergeSort.{u_1} {α : Type u_1} {le : α → α → Bool}
+  (trans : ∀ (a b c : α), le a b = true → le b c = true → le a c = true)
+  (total : ∀ (a b : α), (le a b || le b a) = true) (l : List α) :
+  List.Pairwise (fun a b => le a b = true) (l.mergeSort le)
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:4:7: error: unknown constant 'List.pairwise_mergeSort''
+List.Perm.eq_of_sorted.{u_1} {α : Type u_1} {le : α → α → Prop} {l₁ l₂ : List α} :
+  (∀ (a b : α), a ∈ l₁ → b ∈ l₂ → le a b → le b a → a = b) →
+    List.Pairwise le l₁ → List.Pairwise le l₂ → l₁.Perm l₂ → l₁ = l₂
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:6:7: error: unknown constant 'List.Sorted.eq_of_perm'
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:11:2: error: `exact?` could not close the goal. Try `apply?` to see partial suggestions.
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:14:2: error: `exact?` could not close the goal. Try `apply?` to see partial suggestions.

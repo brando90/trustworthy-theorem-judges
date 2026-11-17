@@ -1,0 +1,16 @@
+Created At: 2026-11-16T21:37:27Z
+Completed At: 2026-11-16T21:37:31Z
+Command exited with code 1.
+
+Command output:
+<stdin>:11:23: error: tactic 'subst' failed, 'ns' occurs at
+  graph[u]
+case mpr.intro
+graph : List (List ℕ)
+order : List ℕ
+h : ∀ (u : ℕ) (hu : u < graph.length), ∀ v ∈ graph[u], List.idxOf u order < List.idxOf v order
+ns : List ℕ
+u : ℕ
+hu : u < graph.length
+h✝ : graph[u] = ns
+⊢ ∀ x ∈ ns, List.idxOf u order < List.idxOf x order

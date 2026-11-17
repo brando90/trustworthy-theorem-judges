@@ -1,0 +1,10 @@
+Created At: 2026-11-16T22:26:05Z
+Completed At: 2026-11-16T22:26:09Z
+Command exited with code 1.
+
+Command output:
+<stdin>:3:7: error: unknown constant 'List.pairwise_range''
+List.Pairwise.map.{u_1, u_2} {β : Type u_1} {α : Type u_2} {R : α → α → Prop} {l : List α} {S : β → β → Prop}
+  (f : α → β) (H : ∀ (a b : α), R a b → S (f a) (f b)) (p : List.Pairwise R l) : List.Pairwise S (List.map f l)
+List.pairwise_map.{u_1, u_2} {α : Type u_1} {α✝ : Type u_2} {f : α → α✝} {R : α✝ → α✝ → Prop} {l : List α} :
+  List.Pairwise R (List.map f l) ↔ List.Pairwise (fun a b => R (f a) (f b)) l

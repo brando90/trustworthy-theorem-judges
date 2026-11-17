@@ -1,0 +1,9 @@
+Created At: 2026-11-16T21:42:42Z
+Completed At: 2026-11-16T21:42:46Z
+Command exited with code 0.
+
+Command output:
+Nat.shiftRight_eq_div_pow (m n : ℕ) : m >>> n = m / 2 ^ n
+Nat.shiftLeft_eq (a b : ℕ) : a <<< b = a * 2 ^ b
+Nat.and_two_pow_sub_one_eq_mod (x n : ℕ) : x &&& 2 ^ n - 1 = x % 2 ^ n
+<stdin>:15:8: warning: declaration uses 'sorry'

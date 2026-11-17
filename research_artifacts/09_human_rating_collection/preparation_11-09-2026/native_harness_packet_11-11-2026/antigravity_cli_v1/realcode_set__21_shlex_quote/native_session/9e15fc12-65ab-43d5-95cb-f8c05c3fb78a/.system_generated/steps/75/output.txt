@@ -1,0 +1,50 @@
+Created At: 2026-11-16T22:29:36Z
+Completed At: 2026-11-16T22:29:43Z
+Command exited with code 1.
+
+Command output:
+"''"
+"abc"
+"'a b c'"
+"'a'\"'\"'b'"
+"'a'\"'\"'b'"
+Veribench/21_shlex_quote.lean:187:4: error: unsolved goals
+case neg
+c : Char
+cs : List Char
+ih : unescapeChars (List.flatMap escapeChar cs) = cs
+hc : ¬c = '\''
+hbeq : (c == '\'') = false
+⊢ unescapeChars (c :: List.flatMap escapeChar cs) = c :: cs
+Veribench/21_shlex_quote.lean:188:43: warning: This simp argument is unused:
+  unescapeChars
+
+Hint: Omit it from the simp argument list.
+  simp [List.flatMap_cons, escapeChar, u̵n̵e̵s̵c̵a̵p̵e̵C̵h̵a̵r̵s̵,̵ ̵hbeq, ih]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/21_shlex_quote.lean:188:64: warning: This simp argument is unused:
+  ih
+
+Hint: Omit it from the simp argument list.
+  simp [List.flatMap_cons, escapeChar, unescapeChars, hbeq,̵ ̵i̵h̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+"''"
+"abc"
+"'a b c'"
+"'a'\"'\"'b'"
+Unable to find a counter-example

@@ -1,0 +1,7 @@
+Created At: 2026-11-16T23:06:38Z
+Completed At: 2026-11-16T23:06:42Z
+Command exited with code 0.
+
+Command output:
+List.take_append.{u_1} {α : Type u_1} {l₁ l₂ : List α} {i : ℕ} :
+  List.take i (l₁ ++ l₂) = List.take i l₁ ++ List.take (i - l₁.length) l₂

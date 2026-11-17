@@ -1,0 +1,61 @@
+{
+  "task_id": "humaneval_set__humaneval_35_max_element",
+  "condition_sha256": "8741654014e21c223e7484338ce8c68ff08bf6093a63cc716430c4f714fb9f26",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "40",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "humaneval_35_max_element.py": "4b70c0542c0a72624d51825c14157212b6998cff49b7161ef77e6ae8451006c2",
+    "instruction.md": "8a5adb5219cc42294f5097a3f6ffe5d03f19d058dee6c2e196d38ef82f460ee8"
+  },
+  "output": "/home/user/lean_project/Veribench/humaneval_35_max_element.lean",
+  "model_call_performed": true,
+  "container": "ttj-grok-7de4c0f18bcc",
+  "status": "TERMINAL",
+  "cli_version": "grok 1.0.77 (50ca579fa996)",
+  "actual_mounts": [],
+  "network": "ttj-native2-grok-v2",
+  "proxy": "ttj-native2-egress-grok-v2",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794864209.105482,
+  "exit_code": 137,
+  "stop_reason": "process_exit_137",
+  "finished_at": 1794864617.567412,
+  "actual_models": [],
+  "model_identity_verified": false,
+  "last_event": {
+    "type": "thought",
+    "data": " to `xs.foldl step x`."
+  },
+  "egress_hosts": [
+    "api.mixpanel.com",
+    "api.x.ai",
+    "cli-chat-proxy.grok.com",
+    "grok.com"
+  ],
+  "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+  ],
+  "candidate_captured": false,
+  "candidate_sha256": null,
+  "candidate_bytes": null
+}

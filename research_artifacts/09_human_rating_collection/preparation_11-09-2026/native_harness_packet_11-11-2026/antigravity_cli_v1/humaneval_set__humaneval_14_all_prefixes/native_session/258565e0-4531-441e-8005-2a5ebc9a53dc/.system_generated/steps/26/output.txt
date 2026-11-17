@@ -1,0 +1,16 @@
+Created At: 2026-11-16T21:58:52Z
+Completed At: 2026-11-16T21:58:57Z
+Command exited with code 1.
+
+Command output:
+<stdin>:20:43: error: unsolved goals
+s : String
+⊢ List.map (fun i => s.take (i + 1)) (List.range s.length) =
+    pure (List.map (fun x2 => [s.take (x2 + 1)]) (List.range s.length)).flatten
+<stdin>:21:48: warning: This simp argument is unused:
+  foldl_append_singleton
+
+Hint: Omit it from the simp argument list.
+  simp [all_prefixes, all_prefixes_imp, Id.run,̵ ̵f̵o̵l̵d̵l̵_̵a̵p̵p̵e̵n̵d̵_̵s̵i̵n̵g̵l̵e̵t̵o̵n̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

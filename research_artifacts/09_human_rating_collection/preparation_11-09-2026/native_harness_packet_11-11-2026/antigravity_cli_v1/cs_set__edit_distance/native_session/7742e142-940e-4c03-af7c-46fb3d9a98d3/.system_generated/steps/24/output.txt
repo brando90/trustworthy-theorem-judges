@@ -1,0 +1,13 @@
+Created At: 2026-11-16T22:24:25Z
+Completed At: 2026-11-16T22:24:30Z
+Command exited with code 0.
+
+Command output:
+Veribench/edit_distance.lean:111:8: warning: declaration uses 'sorry'
+Veribench/edit_distance.lean:114:39: warning: This simp argument is unused:
+  List.idRun_forIn_yield_eq_foldl
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run_bind, Id.run_pure,̵ ̵L̵i̵s̵t̵.̵i̵d̵R̵u̵n̵_̵f̵o̵r̵I̵n̵_̵y̵i̵e̵l̵d̵_̵e̵q̵_̵f̵o̵l̵d̵l̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

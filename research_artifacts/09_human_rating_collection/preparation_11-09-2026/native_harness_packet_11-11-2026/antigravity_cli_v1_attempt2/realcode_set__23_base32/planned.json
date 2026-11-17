@@ -1,0 +1,25 @@
+{
+  "task_id": "realcode_set__23_base32",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "23_base32.py": "dc4bc7238f984eccdcbc4824be46e876896849db5f1e64e49d5283199368549b",
+    "instruction.md": "dc3733926a27eb6b9837e41f2da68c582bd573bcd34b7c066b9b7e4c9a4bab7e"
+  },
+  "output": "/home/user/lean_project/Veribench/23_base32.lean",
+  "model_call_performed": false
+}

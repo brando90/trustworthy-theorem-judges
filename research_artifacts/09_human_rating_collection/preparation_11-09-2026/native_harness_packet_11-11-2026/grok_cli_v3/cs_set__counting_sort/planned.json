@@ -1,0 +1,31 @@
+{
+  "task_id": "cs_set__counting_sort",
+  "condition_sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "1000",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "counting_sort.py": "874c75909e91d7abcdfe3ad65a72ce738061304df064f93b334044281fe4e6ec",
+    "instruction.md": "e252e1fd7307de83c741a112b433726294ee41e348fc4b56b1f1374c9cd6e4f6"
+  },
+  "output": "/home/user/lean_project/Veribench/counting_sort.lean",
+  "model_call_performed": false
+}

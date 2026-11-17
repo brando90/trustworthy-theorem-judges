@@ -1,0 +1,54 @@
+Created At: 2026-11-16T22:02:50Z
+Completed At: 2026-11-16T22:03:00Z
+Command exited with code 1.
+
+Command output:
+[1, 2, 3]
+[]
+[1]
+[11, 12, 22, 25, 34, 42, 50, 64, 76, 88, 90]
+[-5, -5, -2, 0, 1, 3]
+Veribench/counting_sort.lean:412:37: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  some ?val = some ?val
+case cons
+x : ℤ
+xs : List ℤ
+hne : counting_sort (x :: xs) ≠ []
+⊢ match x :: xs with
+  | [] => some ((counting_sort (x :: xs)).head hne) = none
+  | x :: xs => (counting_sort (x :: xs)).head? = some (List.foldl min x xs)
+Veribench/counting_sort.lean:435:43: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  some ?val = some ?val
+case cons
+x : ℤ
+xs : List ℤ
+hne : counting_sort (x :: xs) ≠ []
+⊢ match x :: xs with
+  | [] => some ((counting_sort (x :: xs)).getLast hne) = none
+  | x :: xs => (counting_sort (x :: xs)).getLast? = some (List.foldl max x xs)
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+[1, 2, 3]
+[]
+[-5, -5, -2, 0, 1, 3]
+Unable to find a counter-example

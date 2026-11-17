@@ -1,0 +1,71 @@
+{
+  "task_id": "cs_set__counting_sort",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "counting_sort.py": "874c75909e91d7abcdfe3ad65a72ce738061304df064f93b334044281fe4e6ec",
+    "instruction.md": "e252e1fd7307de83c741a112b433726294ee41e348fc4b56b1f1374c9cd6e4f6"
+  },
+  "output": "/home/user/lean_project/Veribench/counting_sort.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-87354f94eb03",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794865816.813115,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794866685.310645,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "1457d1fe-70b8-4229-a5c2-a352f1349111",
+      "status": "SUCCESS",
+      "response": "The Python `counting_sort` program has been formalized in Lean 4 at [counting_sort.lean](file:///home/user/lean_project/Veribench/counting_sort.lean).\n\n### Summary of Formalization\n\n1. **Functional Implementation** ([counting_sort.lean](file:///home/user/lean_project/Veribench/counting_sort.lean#L24-L42)):\n   - `countStep` and `counting_sort` faithfully translate the Python algorithm over `List Int`: returning `[]` on empty input, computing `max_val` and `min_val`, shifting indices by `min_val` into a frequency table of size `range_size = (max_val - min_val + 1).toNat`, and reconstructing the sorted list from the frequency counts.\n2. **Unit Tests** ([counting_sort.lean](file:///home/user/lean_project/Veribench/counting_sort.lean#L44-L93)):\n   - `example : ... := by native_decide` and `#eval` tests covering all cases from the Python `check` suite as well as negative-number shift cases.\n3. **Pre-condition, Properties, and Proofs** ([counting_sort.lean](file:///home/user/lean_project/Veribench/counting_sort.lean#L95-L506)):\n   - `Pre` (`True` on statically typed `List Int`) and 20 property definitions (`_prop`) paired with kernel-checked theorems (`_thm`), all proved without `sorry`, `admit`, `native_decide`, or extra axioms:\n     - `empty_thm`, `empty_iff_thm`, `singleton_thm`\n     - `count_thm` (multiplicity preservation), `perm_thm` (`List.Perm`), `length_thm`, `mem_thm`\n     - `sorted_thm` (`List.Sorted (\u00b7 \u2264 \u00b7)`), `chain_sorted_thm` (`List.Chain' (\u00b7 \u2264 \u00b7)`), `index_sorted_thm`\n     - `bounds_thm`, `head_min_thm`, `getLast_max_thm`\n     - `already_sorted_thm`, `idempotent_thm`, `perm_invariant_thm`, `reverse_thm`, `replicate_thm`, `shift_thm`, `eq_mergeSort_thm`\n4. **Post-condition, Property-Based Tests, and Main Correctness Theorem** ([counting_sort.lean](file:///home/user/lean_project/Veribench/counting_sort.lean#L508-L629)):\n   - `Post_prop` combining the specification properties of `counting_sort`.\n   - Randomized `Plausible.Testable.check` PBTs and bounded `native_decide` PBTs covering each property and `Post_prop`.\n   - `counting_sort_correct` / `correctness_thm` proving `Pre arr \u2192 Post_prop arr`.\n5. **Imperative Implementation and Equivalence Proof** ([counting_sort.lean](file:///home/user/lean_project/Veribench/counting_sort.lean#L631-L699)):\n   - `counting_sort_imp` implemented with `Id.run do` and mutable state (`max_val`, `min_val`, `count`, `result`), imperative unit/PBT checks, and the proved equivalence theorem `equiv_thm` (`counting_sort arr = counting_sort_imp arr`).\n",
+      "duration_seconds": 863.522717955,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 117541,
+        "output_tokens": 54676,
+        "thinking_tokens": 19335,
+        "cache_read_tokens": 1245885,
+        "total_tokens": 172217
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "84c7edf89caa5414f589c23d06d90e268007def2c52f4f3970dd62ca94a53d7b",
+  "candidate_bytes": 31076
+}

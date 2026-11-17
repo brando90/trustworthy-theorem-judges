@@ -1,0 +1,41 @@
+Created At: 2026-11-16T22:05:13Z
+Completed At: 2026-11-16T22:05:22Z
+Command exited with code 0.
+
+Command output:
+[]
+["a", "ab", "abc"]
+["a", "as", "asd", "asdf", "asdfg", "asdfgh"]
+["W", "WW", "WWW"]
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+[]
+["a", "ab", "abc"]
+["a", "as", "asd", "asdf", "asdfg", "asdfgh"]
+["W", "WW", "WWW"]
+Unable to find a counter-example
+'humaneval_14_all_prefixes.length_thm' depends on axioms: [propext]
+'humaneval_14_all_prefixes.empty_thm' depends on axioms: [propext]
+'humaneval_14_all_prefixes.getElem_thm' depends on axioms: [propext]
+'humaneval_14_all_prefixes.elem_length_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_14_all_prefixes.all_are_prefixes_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_14_all_prefixes.completeness_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_14_all_prefixes.shortest_to_longest_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_14_all_prefixes.prefix_chain_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_14_all_prefixes.first_last_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_14_all_prefixes.nodup_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_14_all_prefixes.prefix_truncation_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_14_all_prefixes.all_prefixes_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'humaneval_14_all_prefixes.all_prefixes_eq_imp' depends on axioms: [propext, Quot.sound]
+'humaneval_14_all_prefixes.all_prefixes_imp_correct' depends on axioms: [propext, Classical.choice, Quot.sound]

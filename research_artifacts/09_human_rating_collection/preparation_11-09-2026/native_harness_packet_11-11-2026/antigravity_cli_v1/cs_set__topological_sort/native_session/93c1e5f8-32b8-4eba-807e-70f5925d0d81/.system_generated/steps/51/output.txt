@@ -1,0 +1,37 @@
+Created At: 2026-11-16T21:39:53Z
+Completed At: 2026-11-16T21:39:58Z
+Command exited with code 1.
+
+Command output:
+def find_imp_return.{u_1} : {α : Type u_1} → (α → Bool) → List α → Option α :=
+fun {α} p l =>
+  (do
+      let r ←
+        forIn l ⟨none, PUnit.unit⟩ fun x r =>
+            have r := r.snd;
+            if p x = true then pure (ForInStep.done ⟨some (some x), PUnit.unit⟩)
+            else do
+              pure PUnit.unit
+              pure (ForInStep.yield ⟨none, PUnit.unit⟩)
+      have __do_jp : PUnit.{u_1 + 1} → Id (Option α) := fun y => pure none
+      match r.fst with
+        | none => do
+          let y ← pure PUnit.unit
+          __do_jp y
+        | some a => pure a).run
+<stdin>:12:39: error: unsolved goals
+α : Type u_1
+p : α → Bool
+l : List α
+⊢ (match
+        (List.foldlM
+                (fun b a =>
+                  match b with
+                  | ForInStep.yield b =>
+                    if p a = true then pure (ForInStep.done ⟨some (some a), PUnit.unit⟩)
+                    else pure (ForInStep.yield ⟨none, PUnit.unit⟩)
+                  | ForInStep.done b => pure (ForInStep.done b))
+                (ForInStep.yield ⟨none, PUnit.unit⟩) l).run.value.fst with
+      | none => pure none
+      | some a => pure a).run =
+    List.find? p l

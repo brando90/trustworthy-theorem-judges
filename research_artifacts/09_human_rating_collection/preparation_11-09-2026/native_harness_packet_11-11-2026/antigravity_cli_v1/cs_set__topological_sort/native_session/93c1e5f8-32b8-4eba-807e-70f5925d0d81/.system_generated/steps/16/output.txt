@@ -1,0 +1,11 @@
+Created At: 2026-11-16T21:34:34Z
+Completed At: 2026-11-16T21:34:38Z
+Command exited with code 0.
+
+Command output:
+def List.permutations.{u_1} : {α : Type u_1} → List α → List (List α) :=
+fun {α} l => l :: l.permutationsAux []
+def List.permutationsAux.{u_1} : {α : Type u_1} → List α → List α → List (List α) :=
+fun {α} l₁ l₂ =>
+  List.permutationsAux.rec (fun x => [])
+    (fun t ts is IH1 IH2 => List.foldr (fun y r => (List.permutationsAux2 t ts r y id).2) IH1 (is :: IH2)) l₁ l₂

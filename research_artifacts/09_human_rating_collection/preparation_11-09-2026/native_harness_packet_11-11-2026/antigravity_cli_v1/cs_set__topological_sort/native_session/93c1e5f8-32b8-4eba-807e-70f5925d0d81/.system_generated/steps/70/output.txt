@@ -1,0 +1,11 @@
+Created At: 2026-11-16T21:43:07Z
+Completed At: 2026-11-16T21:43:13Z
+Command exited with code 0.
+
+Command output:
+@List.idxOf_getElem : ∀ {α : Type u_1} [inst : DecidableEq α] {l : List α},
+  l.Nodup → ∀ (i : ℕ) (h : i < l.length), List.idxOf l[i] l = i
+@List.getElem_idxOf : ∀ {α : Type u_1} [inst : DecidableEq α] {a : α} {l : List α} (h : List.idxOf a l < l.length),
+  l[List.idxOf a l] = a
+@List.idxOf_lt_length_of_mem : ∀ {α : Type u_1} {a : α} [inst : BEq α] [EquivBEq α] {l : List α},
+  a ∈ l → List.idxOf a l < l.length

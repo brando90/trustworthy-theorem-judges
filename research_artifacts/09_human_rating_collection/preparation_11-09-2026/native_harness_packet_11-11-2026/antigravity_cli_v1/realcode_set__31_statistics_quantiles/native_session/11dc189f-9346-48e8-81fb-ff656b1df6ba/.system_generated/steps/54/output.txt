@@ -1,0 +1,11 @@
+Created At: 2026-11-16T22:33:16Z
+Completed At: 2026-11-16T22:33:20Z
+Command exited with code 1.
+
+Command output:
+<stdin>:16:30: error: unsolved goals
+α : Type u_1
+β : Type u_2
+xs : List α
+f : α → β
+⊢ pure (List.map f xs) = List.map f xs

@@ -1,0 +1,72 @@
+Command exited with code 1.
+
+Command output:
+Veribench/humaneval_4_mean_absolute_deviation.lean:81:80: error: unsolved goals
+⊢ (|3 / 2| + (|1 / 2| + (|1 / 2| + |3 / 2|))) / 4 = 1
+0.666667
+1.000000
+1.200000
+(2 : Rat)/3
+1
+(6 : Rat)/5
+Veribench/humaneval_4_mean_absolute_deviation.lean:354:6: error: unknown constant 'List.sum_eq_zero_iff_of_nonneg'
+Veribench/humaneval_4_mean_absolute_deviation.lean:345:91: error: unsolved goals
+numbers : List ℝ
+h : Pre numbers
+hn : ↑numbers.length ≠ 0
+hnonneg : ∀ y ∈ List.map (fun x => |x - mean numbers|) numbers, 0 ≤ y
+⊢ (List.map (fun x => |x - mean numbers|) numbers).sum = 0 ↔ ∀ x ∈ numbers, x = mean numbers
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/humaneval_4_mean_absolute_deviation.lean:532:47: error: expected ';' or line break
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/humaneval_4_mean_absolute_deviation.lean:642:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "x"
+      (∀ (x : ℤ),
+        Plausible.NamedBinder "xs"
+          (∀ (xs : List ℤ),
+            Plausible.NamedBinder "c"
+              (∀ (c : ℤ),
+                Plausible.NamedBinder "k"
+                  (∀ (k : ℤ),
+                    let qxs := toRatList x xs;
+                    let qc := ↑c;
+                    let qk := ↑k;
+                    let m := mean_rat qxs;
+                    let mad := mean_absolute_deviation_rat qxs;
+                    mad = (List.map (fun y => |y - qxs.sum / ↑qxs.length|) qxs).sum / ↑qxs.length ∧
+                      0 ≤ mad ∧
+                        ↑qxs.length * mad = (List.map (fun y => |y - m|) qxs).sum ∧
+                          (List.map (fun y => y - m) qxs).sum = 0 ∧
+                            ((mad == 0) = qxs.all fun y => y == m) ∧
+                              mean_absolute_deviation_rat (List.map (fun y => y + qc) qxs) = mad ∧
+                                mean_absolute_deviation_rat (List.map (fun y => qk * y) qxs) = |qk| * mad ∧
+                                  mean_absolute_deviation_rat (List.map (fun y => -y) qxs) = mad ∧
+                                    mean_absolute_deviation_rat qxs.reverse = mad ∧
+                                      (qxs.all fun y => decide (|y - m| ≤ ↑qxs.length * mad)) = true)))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+0.666667
+1.000000
+1.200000
+(2 : Rat)/3
+1
+(6 : Rat)/5
+Unable to find a counter-example
+Unable to find a counter-example

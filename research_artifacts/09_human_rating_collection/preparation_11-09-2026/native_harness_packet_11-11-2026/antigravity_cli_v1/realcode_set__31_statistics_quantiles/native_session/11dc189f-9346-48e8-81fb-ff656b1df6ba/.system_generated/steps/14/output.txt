@@ -1,0 +1,12 @@
+Created At: 2026-11-16T22:20:43Z
+Completed At: 2026-11-16T22:20:47Z
+Command exited with code 0.
+
+Command output:
+List.getD.{u_1} {α : Type u_1} (as : List α) (i : ℕ) (fallback : α) : α
+List.getD_eq_getElem.{u} {α : Type u} (l : List α) (d : α) {n : ℕ} (hn : n < l.length) : l.getD n d = l[n]
+List.getElem!_eq_getElem?_getD.{u_1} {α : Type u_1} [Inhabited α] {l : List α} {i : ℕ} : l[i]! = l[i]?.getD default
+List.range' (start len : ℕ) (step : ℕ := 1) : List ℕ
+List.length_range' {s step n : ℕ} : (List.range' s n step).length = n
+List.getElem_range' {n m step i : ℕ} (H : i < (List.range' n m step).length) : (List.range' n m step)[i] = n + step * i
+List.mem_range' {s step m n : ℕ} : m ∈ List.range' s n step ↔ ∃ i < n, m = s + step * i

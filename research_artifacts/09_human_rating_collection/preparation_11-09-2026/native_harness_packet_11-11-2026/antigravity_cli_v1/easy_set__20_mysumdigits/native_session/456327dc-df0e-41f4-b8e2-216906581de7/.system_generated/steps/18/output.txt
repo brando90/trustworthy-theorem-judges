@@ -1,0 +1,14 @@
+Created At: 2026-11-16T21:58:49Z
+Completed At: 2026-11-16T21:58:54Z
+Command exited with code 1.
+
+Command output:
+<stdin>:98:2: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b - c ≥ 1
+  a ≥ 0
+where
+ a := n
+ b := sumDigits n
+ c := sumDigits (10 * n)
+<stdin>:100:8: warning: declaration uses 'sorry'

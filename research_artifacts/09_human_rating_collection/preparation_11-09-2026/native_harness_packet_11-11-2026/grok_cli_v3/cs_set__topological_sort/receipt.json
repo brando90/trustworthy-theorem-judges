@@ -1,0 +1,64 @@
+{
+  "task_id": "cs_set__topological_sort",
+  "condition_sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad",
+  "harness": "grok",
+  "command": [
+    "grok",
+    "--prompt-file",
+    "/workspace/instruction.md",
+    "--model",
+    "grok-4.7",
+    "--reasoning-effort",
+    "xhigh",
+    "--always-approve",
+    "--permission-mode",
+    "bypassPermissions",
+    "--max-turns",
+    "1000",
+    "--output-format",
+    "streaming-json",
+    "--disable-web-search",
+    "--no-subagents",
+    "--cwd",
+    "/home/user/lean_project"
+  ],
+  "visible_files": {
+    "topological_sort.py": "f8b63f6ebf52572f4f8e7e5fc4c41cebee75b8176c79ce6a64bf2ab57b145632",
+    "instruction.md": "d18643805dbd9a3abcca2cb9d5aece2f976f331ffffce85a4f7a18d9ed39625e"
+  },
+  "output": "/home/user/lean_project/Veribench/topological_sort.lean",
+  "model_call_performed": true,
+  "container": "ttj-grok-5470ef2fecb0",
+  "status": "TERMINAL",
+  "cli_version": "grok 1.0.77 (50ca579fa996)",
+  "actual_mounts": [],
+  "network": "ttj-native2-grok-v3",
+  "proxy": "ttj-native2-egress-grok-v3",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794865544.145344,
+  "exit_code": 137,
+  "stop_reason": "wall_time_budget",
+  "finished_at": 1794867406.5131788,
+  "actual_models": [
+    "grok-4.7",
+    "grok-4.7-build"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "type": "thought",
+    "data": " parsed as a propositional"
+  },
+  "egress_hosts": [
+    "api.mixpanel.com",
+    "api.x.ai",
+    "cli-chat-proxy.grok.com",
+    "grok.com"
+  ],
+  "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "2fea81d34d26b9c8008e99a262817c41ea7adfa677b6ede2a4814caf46d660b7",
+  "candidate_bytes": 18135
+}

@@ -1,0 +1,15 @@
+Created At: 2026-11-16T21:25:19Z
+Completed At: 2026-11-16T21:25:21Z
+Command exited with code 0.
+
+Command output:
+String.replace (s pattern replacement : String) : String
+def String.replace : String → String → String → String :=
+fun s pattern replacement =>
+  if h : pattern.endPos.byteIdx = 0 then s
+  else
+    have hPatt := ⋯;
+    String.replace.loop s pattern replacement hPatt "" 0 0
+String.foldl.{u} {α : Type u} (f : α → Char → α) (init : α) (s : String) : α
+String.toList (s : String) : List Char
+String.mk (data : List Char) : String

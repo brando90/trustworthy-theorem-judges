@@ -1,0 +1,11 @@
+Created At: 2026-11-16T21:42:51Z
+Completed At: 2026-11-16T21:42:56Z
+Command exited with code 1.
+
+Command output:
+<stdin>:5:13: error: unknown constant 'List.Nodup.idxOf_getElem'
+<stdin>:3:76: error: unsolved goals
+n u : ℕ
+h : u < n
+h1 : u < (List.range n).length
+⊢ List.idxOf u (List.range n) = u

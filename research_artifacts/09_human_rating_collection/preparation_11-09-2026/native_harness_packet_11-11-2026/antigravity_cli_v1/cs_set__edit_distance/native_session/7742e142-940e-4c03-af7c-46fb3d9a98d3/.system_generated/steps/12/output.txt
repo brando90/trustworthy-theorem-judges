@@ -1,0 +1,46 @@
+Created At: 2026-11-16T22:20:16Z
+Completed At: 2026-11-16T22:20:21Z
+Command exited with code 0.
+
+Command output:
+Veribench/edit_distance.lean:12:4: warning: The namespace 'edit_distance' is duplicated in the declaration 'edit_distance.edit_distance'
+
+Note: This linter can be disabled with `set_option linter.dupNamespace false`
+5
+def edit_distance.test_imp : {α : Type} → [DecidableEq α] → List α → List α → ℕ :=
+fun {α} [DecidableEq α] s1 s2 =>
+  (have dp_head := 0;
+    have dp_tail := List.range' 1 s2.length;
+    do
+    let r ←
+      forIn s1.reverse ⟨dp_head, dp_tail⟩ fun a r =>
+          have dp_head := r.fst;
+          have dp_tail := r.snd;
+          have diag := dp_head;
+          have left := dp_head + 1;
+          have curr_tail := [];
+          do
+          let r ←
+            forIn (s2.reverse.zip dp_tail) ⟨curr_tail, diag, left⟩ fun x r =>
+                match x with
+                | (b, up) =>
+                  have curr_tail := r.fst;
+                  have x := r.snd;
+                  have diag := x.fst;
+                  have left := x.snd;
+                  have curr := if a = b then diag else 1 + min up (min left diag);
+                  have curr_tail := curr_tail ++ [curr];
+                  have diag := up;
+                  have left := curr;
+                  do
+                  pure PUnit.unit
+                  pure (ForInStep.yield ⟨curr_tail, diag, left⟩)
+          match r with
+            | ⟨curr_tail, diag, left⟩ =>
+              have dp_head := dp_head + 1;
+              have dp_tail := curr_tail;
+              do
+              pure PUnit.unit
+              pure (ForInStep.yield ⟨dp_head, dp_tail⟩)
+    match r with
+      | ⟨dp_head, dp_tail⟩ => pure (dp_head :: dp_tail).getLast!).run

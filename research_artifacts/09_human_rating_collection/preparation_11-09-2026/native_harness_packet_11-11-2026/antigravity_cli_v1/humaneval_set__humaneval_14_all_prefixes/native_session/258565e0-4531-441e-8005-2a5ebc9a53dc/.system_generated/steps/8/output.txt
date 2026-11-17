@@ -1,0 +1,9 @@
+Created At: 2026-11-16T21:55:52Z
+Completed At: 2026-11-16T21:55:56Z
+Command exited with code 0.
+
+Command output:
+String.take (s : String) (n : ℕ) : String
+String.ext_iff {s₁ s₂ : String} : s₁ = s₂ ↔ s₁.data = s₂.data
+String.mk.injEq (data data✝ : List Char) : ({ data := data } = { data := data✝ }) = (data = data✝)
+List.IsPrefix.{u} {α : Type u} (l₁ l₂ : List α) : Prop

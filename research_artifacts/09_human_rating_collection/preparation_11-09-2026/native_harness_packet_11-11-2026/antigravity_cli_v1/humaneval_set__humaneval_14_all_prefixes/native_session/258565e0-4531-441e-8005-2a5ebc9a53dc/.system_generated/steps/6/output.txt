@@ -1,0 +1,13 @@
+Created At: 2026-11-16T21:55:38Z
+Completed At: 2026-11-16T21:55:42Z
+Command exited with code 0.
+
+Command output:
+String.toList (s : String) : List Char
+def String.toList : String → List Char :=
+fun s => s.data
+def String.isPrefixOf : String → String → Bool :=
+fun p s => p.substrEq 0 s 0 p.endPos.byteIdx
+List.asString (s : List Char) : String
+def List.asString : List Char → String :=
+fun s => { data := s }

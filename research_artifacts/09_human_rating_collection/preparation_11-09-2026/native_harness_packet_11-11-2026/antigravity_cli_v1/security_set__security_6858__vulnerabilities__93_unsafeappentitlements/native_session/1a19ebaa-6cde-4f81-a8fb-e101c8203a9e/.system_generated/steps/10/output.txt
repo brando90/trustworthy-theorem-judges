@@ -1,0 +1,33 @@
+Created At: 2026-11-16T21:28:06Z
+Completed At: 2026-11-16T21:28:16Z
+Command exited with code 1.
+
+Command output:
+true
+true
+true
+true
+true
+Veribench/93_unsafeAppEntitlements.lean:166:34: error: Application type mismatch: In the application
+  inputs_invariance_prop appId1 resource1
+the argument
+  resource1
+has type
+  String : Type
+but is expected to have type
+  ℤ : Type
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+true
+true
+true
+true
+true

@@ -1,0 +1,11 @@
+Created At: 2026-11-16T21:56:33Z
+Completed At: 2026-11-16T21:56:37Z
+Command exited with code 0.
+
+Command output:
+String.take_eq (s : String) (n : ℕ) : s.take n = { data := List.take n s.data }
+List.asString_eq {l : List Char} {s : String} : l.asString = s ↔ l = s.toList
+List.asString_inj {l l' : List Char} : l.asString = l'.asString ↔ l = l'
+String.toList_empty : "".toList = []
+String.toList_nonempty {s : String} : s ≠ "" → s.toList = s.head :: (s.drop 1).toList
+String.toList_inj {s₁ s₂ : String} : s₁.toList = s₂.toList ↔ s₁ = s₂

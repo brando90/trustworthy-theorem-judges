@@ -1,0 +1,84 @@
+Created At: 2026-11-16T23:03:15Z
+Completed At: 2026-11-16T23:03:20Z
+Command exited with code 1.
+
+Command output:
+<stdin>:93:10: error: don't know how to synthesize placeholder for argument 'w'
+context:
+b0 b1 b2 b3 b4 : UInt8
+cs : List UInt8
+val : ℕ
+acc : List UInt8
+h0 : b0.toNat < 256
+h1 : b1.toNat < 256
+h2 : b2.toNat < 256
+h3 : b3.toNat < 256
+h4 : b4.toNat < 256
+v : ℕ := ⋯
+hm : ∀ (k : ℕ), v / k % 32 < 32
+hm0 : v % 32 < 32
+⊢ ℕ
+<stdin>:75:61: error: unsolved goals
+b0 b1 b2 b3 b4 : UInt8
+cs : List UInt8
+val : ℕ
+acc : List UInt8
+h0 : b0.toNat < 256
+h1 : b1.toNat < 256
+h2 : b2.toNat < 256
+h3 : b3.toNat < 256
+h4 : b4.toNat < 256
+v : ℕ := chunkVal b0 b1 b2 b3 b4
+hm : ∀ (k : ℕ), v / k % 32 < 32
+hm0 : v % 32 < 32
+⊢ ∃ val',
+    decodeChars cs
+        ((((((((val * 32 + v / 2 ^ 35 % 32) * 32 + v / 2 ^ 30 % 32) * 32 + v / 2 ^ 25 % 32) * 32 + v / 2 ^ 20 % 32) *
+                        32 +
+                      v / 2 ^ 15 % 32) *
+                    32 +
+                  v / 2 ^ 10 % 32) *
+                32 +
+              v / 2 ^ 5 % 32) *
+            32 +
+          v % 32)
+        (0 + 5 + 5 - 8 + 5 + 5 - 8 + 5 - 8 + 5 + 5 - 8 + 5 - 8)
+        (acc ++ [UInt8.ofNat (((val * 32 + v / 2 ^ 35 % 32) * 32 + v / 2 ^ 30 % 32) / 2 ^ (0 + 5 + 5 - 8) % 256)] ++
+                [UInt8.ofNat
+                    (((((val * 32 + v / 2 ^ 35 % 32) * 32 + v / 2 ^ 30 % 32) * 32 + v / 2 ^ 25 % 32) * 32 +
+                          v / 2 ^ 20 % 32) /
+                        2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8) %
+                      256)] ++
+              [UInt8.ofNat
+                  ((((((val * 32 + v / 2 ^ 35 % 32) * 32 + v / 2 ^ 30 % 32) * 32 + v / 2 ^ 25 % 32) * 32 +
+                            v / 2 ^ 20 % 32) *
+                          32 +
+                        v / 2 ^ 15 % 32) /
+                      2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8 + 5 - 8) %
+                    256)] ++
+            [UInt8.ofNat
+                ((((((((val * 32 + v / 2 ^ 35 % 32) * 32 + v / 2 ^ 30 % 32) * 32 + v / 2 ^ 25 % 32) * 32 +
+                                  v / 2 ^ 20 % 32) *
+                                32 +
+                              v / 2 ^ 15 % 32) *
+                            32 +
+                          v / 2 ^ 10 % 32) *
+                        32 +
+                      v / 2 ^ 5 % 32) /
+                    2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8 + 5 - 8 + 5 + 5 - 8) %
+                  256)] ++
+          [UInt8.ofNat
+              (((((((((val * 32 + v / 2 ^ 35 % 32) * 32 + v / 2 ^ 30 % 32) * 32 + v / 2 ^ 25 % 32) * 32 +
+                                    v / 2 ^ 20 % 32) *
+                                  32 +
+                                v / 2 ^ 15 % 32) *
+                              32 +
+                            v / 2 ^ 10 % 32) *
+                          32 +
+                        v / 2 ^ 5 % 32) *
+                      32 +
+                    v % 32) /
+                  2 ^ (0 + 5 + 5 - 8 + 5 + 5 - 8 + 5 - 8 + 5 + 5 - 8 + 5 - 8) %
+                256)]) =
+      decodeChars cs val' 0 (acc ++ [b0, b1, b2, b3, b4])
+'decodeChars_encodeChunk5' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

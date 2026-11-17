@@ -1,0 +1,39 @@
+Created At: 2026-11-16T21:27:13Z
+Completed At: 2026-11-16T21:27:17Z
+Command exited with code 0.
+
+Command output:
+def is_prime_imp1 : ℤ → Bool :=
+fun n =>
+  (have __do_jp := fun y =>
+      have __do_jp := fun y =>
+        have __do_jp := fun y =>
+          have natN := n.toNat;
+          have limit := natN.sqrt;
+          have result := true;
+          have numSteps := if limit < 5 then 0 else (limit - 5) / 6 + 1;
+          do
+          let r ←
+            forIn { stop := numSteps, step_pos := Nat.zero_lt_one } result fun k r =>
+                have result := r;
+                have i := 5 + 6 * k;
+                if (natN % i == 0 || natN % (i + 2) == 0) = true then
+                  have result := false;
+                  pure (ForInStep.done result)
+                else do
+                  pure PUnit.unit
+                  pure (ForInStep.yield result)
+          have result : Bool := r
+          pure result;
+        if (n % 2 == 0 || n % 3 == 0) = true then pure false
+        else do
+          let y ← pure PUnit.unit
+          __do_jp y;
+      if n ≤ 3 then pure true
+      else do
+        let y ← pure PUnit.unit
+        __do_jp y;
+    if n ≤ 1 then pure false
+    else do
+      let y ← pure PUnit.unit
+      __do_jp y).run

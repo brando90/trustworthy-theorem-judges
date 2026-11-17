@@ -3,59 +3,80 @@ import Mathlib
 /-!
 # Unsafe certificate hostname validation
 
-Translation of a Python client that accepts any valid, unexpired certificate
-without checking the Subject Alternative Name (SAN) or Common Name (CN)
-against the requested hostname.
+Formalization of an unsafe TLS hostname check. The Python function
 
-Vulnerability: a client connecting to `bank.com` accepts a valid certificate
-for `evil.com`. Signature and expiry are checked; hostname is not. This
-enables a man-in-the-middle attack even when the presented certificate is
-cryptographically valid. See MIT 6.858 Lecture 15 and RFC 6125.
+`unsafe_cert_hostname(requested_host, cert_san, cert_valid, cert_not_expired)`
 
-The functional model is exactly the Python return value
-`cert_valid and cert_not_expired`. A hostname-checking variant is defined only
-as a specification contrast (the check the unsafe client omits); it is not part
-of the translated implementation.
+returns `cert_valid and cert_not_expired` and never compares `requested_host`
+with the certificate Subject Alternative Name (or Common Name).
+
+A client that asks for `bank.com` therefore accepts a valid, unexpired
+certificate issued to `evil.com`. That is a man-in-the-middle hole even when
+the signature and expiry checks succeed. RFC 6125 requires the hostname
+comparison this function omits (MIT 6.858, Lecture 15).
+
+This file models that unsafe behavior. It does not repair it.
 -/
 
 namespace «75_unsafeCertHostname»
 
-set_option linter.unusedVariables false
+/-! ## Implementation -/
 
-/-- Returns true iff the certificate is valid and not expired.
+/-- Unsafe certificate check.
 
-Hostname (`requestedHost`, `certSan`) is intentionally never consulted.
-This is the vulnerability: SAN/CN are not compared to the requested host. -/
-def unsafeCertHostname (requestedHost : String) (certSan : String)
-    (certValid : Bool) (certNotExpired : Bool) : Bool :=
+Returns `true` exactly when the certificate is valid and not expired.
+`requestedHost` and `certSan` are in scope and are ignored, which is the bug. -/
+def unsafeCertHostname (requestedHost certSan : String)
+    (certValid certNotExpired : Bool) : Bool :=
+  -- Bind both host strings so the signature matches the Python function,
+  -- then drop them. The decision never reads them.
+  let _ignoredHost := requestedHost
+  let _ignoredSan := certSan
   certValid && certNotExpired
 
-/-- RFC 6125-style exact-match check omitted by the unsafe client.
+/-- Exact-match checker that performs the comparison the unsafe function omits.
 
-Accepts only when the certificate is valid, unexpired, and its SAN string is
-exactly the requested hostname. Wildcards and case-folding are outside the
-Python tests; those tests treat names as raw strings. -/
-def safeCertHostname (requestedHost : String) (certSan : String)
-    (certValid : Bool) (certNotExpired : Bool) : Bool :=
+The Python tests treat byte-for-byte equality of the requested host and the
+single SAN string as a hostname match (`"bank.com"` / `"bank.com"`) and treat
+every other pair, including wildcard SANs such as `"*.evil.com"`, as a
+mismatch. This helper is the omitted conjunct; it is not the program under
+translation. -/
+def safeCertHostname (requestedHost certSan : String)
+    (certValid certNotExpired : Bool) : Bool :=
   certValid && certNotExpired && (requestedHost == certSan)
+
+/-- Python `check`: the candidate must reproduce the unsafe test suite. -/
+def check (candidate : String → String → Bool → Bool → Bool) : Bool :=
+  (candidate "bank.com" "bank.com" true true == true) &&
+  (candidate "bank.com" "evil.com" true true == true) &&
+  (candidate "secure.example.com" "attacker.com" true true == true) &&
+  (candidate "bank.com" "bank.com" false true == false) &&
+  (candidate "bank.com" "bank.com" true false == false) &&
+  (candidate "bank.com" "*.evil.com" true true == true) &&
+  (candidate "" "evil.com" true true == true) &&
+  (candidate "bank.com" "bank.com" false false == false)
 
 /-! ## Unit tests -/
 
+-- 1) Normal operation: exact hostname match, valid and unexpired.
 example : unsafeCertHostname "bank.com" "bank.com" true true = true := by
   native_decide
 
+-- 2) Vulnerability: hostname mismatch is accepted (MITM succeeds).
 example : unsafeCertHostname "bank.com" "evil.com" true true = true := by
   native_decide
 
 example : unsafeCertHostname "secure.example.com" "attacker.com" true true = true := by
   native_decide
 
+-- 3) Invalid or expired certificates are still rejected.
 example : unsafeCertHostname "bank.com" "bank.com" false true = false := by
   native_decide
 
 example : unsafeCertHostname "bank.com" "bank.com" true false = false := by
   native_decide
 
+-- 4) Edge cases: wildcard SAN mismatch, empty host, both flags false.
 example : unsafeCertHostname "bank.com" "*.evil.com" true true = true := by
   native_decide
 
@@ -63,6 +84,9 @@ example : unsafeCertHostname "" "evil.com" true true = true := by
   native_decide
 
 example : unsafeCertHostname "bank.com" "bank.com" false false = false := by
+  native_decide
+
+example : check unsafeCertHostname = true := by
   native_decide
 
 #eval unsafeCertHostname "bank.com" "bank.com" true true
@@ -73,404 +97,506 @@ example : unsafeCertHostname "bank.com" "bank.com" false false = false := by
 #eval unsafeCertHostname "bank.com" "*.evil.com" true true
 #eval unsafeCertHostname "" "evil.com" true true
 #eval unsafeCertHostname "bank.com" "bank.com" false false
+#eval check unsafeCertHostname
 
 /-! ## Pre-condition -/
 
-/-- The Python function imposes no precondition: every string pair and every
-validity/expiry flag is an admissible certificate-check query. -/
-def Pre (requestedHost : String) (certSan : String)
-    (certValid : Bool) (certNotExpired : Bool) : Prop :=
-  requestedHost = requestedHost ∧ certSan = certSan ∧
-    (certValid = true ∨ certValid = false) ∧
-    (certNotExpired = true ∨ certNotExpired = false)
+/-- Every Python call is legal. Host strings are not validated, and both
+certificate flags may be either Boolean. The domain is not restricted. -/
+def Pre (_requestedHost _certSan : String) (_certValid _certNotExpired : Bool) : Prop :=
+  True
 
-/-! ## Properties and theorems -/
+/-- `Pre` holds for every input the Python function accepts. -/
+theorem pre_total_thm (requestedHost certSan : String)
+    (certValid certNotExpired : Bool) :
+    Pre requestedHost certSan certValid certNotExpired := trivial
 
-/-- Core semantics: the result is exactly `certValid && certNotExpired`.
-Hostnames do not appear in the result. -/
-def returns_valid_and_unexpired_prop (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) : Prop :=
+/-! ## Properties -/
+
+/-- The decision is exactly the conjunction of the two certificate flags. -/
+def result_eq_valid_and_fresh_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
   unsafeCertHostname requestedHost certSan certValid certNotExpired =
     (certValid && certNotExpired)
 
-theorem returns_valid_and_unexpired_thm (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) :
-    returns_valid_and_unexpired_prop requestedHost certSan certValid certNotExpired := by
-  unfold returns_valid_and_unexpired_prop unsafeCertHostname
-  rfl
+theorem result_eq_valid_and_fresh_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    result_eq_valid_and_fresh_prop requestedHost certSan certValid certNotExpired := by
+  simp [result_eq_valid_and_fresh_prop, unsafeCertHostname]
 
-/-- Changing the requested host or the certificate SAN does not change the result. -/
-def hostname_ignored_prop (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) : Prop :=
+/-- Changing either host string does not change the result. -/
+def hostname_independent_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
   ∀ requestedHost' certSan' : String,
     unsafeCertHostname requestedHost certSan certValid certNotExpired =
       unsafeCertHostname requestedHost' certSan' certValid certNotExpired
 
-theorem hostname_ignored_thm (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) :
-    hostname_ignored_prop requestedHost certSan certValid certNotExpired := by
+theorem hostname_independent_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    hostname_independent_prop requestedHost certSan certValid certNotExpired := by
   intro _ _
-  unfold unsafeCertHostname
-  rfl
-
-/-- An invalid certificate is rejected, regardless of hostname and expiry. -/
-def rejects_invalid_prop (requestedHost certSan : String)
-    (certNotExpired : Bool) : Prop :=
-  unsafeCertHostname requestedHost certSan false certNotExpired = false
-
-theorem rejects_invalid_thm (requestedHost certSan : String)
-    (certNotExpired : Bool) :
-    rejects_invalid_prop requestedHost certSan certNotExpired := by
-  unfold rejects_invalid_prop unsafeCertHostname
-  rfl
-
-/-- An expired certificate is rejected, regardless of hostname and signature validity. -/
-def rejects_expired_prop (requestedHost certSan : String)
-    (certValid : Bool) : Prop :=
-  unsafeCertHostname requestedHost certSan certValid false = false
-
-theorem rejects_expired_thm (requestedHost certSan : String)
-    (certValid : Bool) :
-    rejects_expired_prop requestedHost certSan certValid := by
-  unfold rejects_expired_prop unsafeCertHostname
-  cases certValid <;> rfl
-
-/-- A valid, unexpired certificate is accepted for every hostname pair.
-
-This covers normal exact-match acceptance and the MITM mismatch case. -/
-def accepts_valid_unexpired_prop (requestedHost certSan : String) : Prop :=
-  unsafeCertHostname requestedHost certSan true true = true
-
-theorem accepts_valid_unexpired_thm (requestedHost certSan : String) :
-    accepts_valid_unexpired_prop requestedHost certSan := by
-  unfold accepts_valid_unexpired_prop unsafeCertHostname
-  rfl
-
-/-- Vulnerability: if SAN does not match the requested host, a valid unexpired
-certificate is still accepted. -/
-def mismatch_accepted_prop (requestedHost certSan : String) : Prop :=
-  requestedHost ≠ certSan →
-    unsafeCertHostname requestedHost certSan true true = true
-
-theorem mismatch_accepted_thm (requestedHost certSan : String) :
-    mismatch_accepted_prop requestedHost certSan := by
-  intro _
-  unfold unsafeCertHostname
-  rfl
-
-/-- Both invalid and expired: rejected. -/
-def rejects_invalid_and_expired_prop (requestedHost certSan : String) : Prop :=
-  unsafeCertHostname requestedHost certSan false false = false
-
-theorem rejects_invalid_and_expired_thm (requestedHost certSan : String) :
-    rejects_invalid_and_expired_prop requestedHost certSan := by
-  unfold rejects_invalid_and_expired_prop unsafeCertHostname
-  rfl
+  simp [unsafeCertHostname]
 
 /-- Acceptance holds if and only if the certificate is valid and unexpired. -/
-def accepts_iff_prop (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) : Prop :=
+def accepts_iff_valid_and_fresh_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
   unsafeCertHostname requestedHost certSan certValid certNotExpired = true ↔
-    (certValid = true ∧ certNotExpired = true)
+    certValid = true ∧ certNotExpired = true
 
-theorem accepts_iff_thm (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) :
-    accepts_iff_prop requestedHost certSan certValid certNotExpired := by
-  unfold accepts_iff_prop unsafeCertHostname
-  cases certValid <;> cases certNotExpired <;> decide
+theorem accepts_iff_valid_and_fresh_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    accepts_iff_valid_and_fresh_prop requestedHost certSan certValid certNotExpired := by
+  simp [accepts_iff_valid_and_fresh_prop, unsafeCertHostname, Bool.and_eq_true]
 
-/-- On an exact hostname match the unsafe client agrees with a SAN-checking client.
-The bug is not "always accept"; it is "do not compare names". -/
-def agrees_on_exact_match_prop (host : String) (certValid certNotExpired : Bool) : Prop :=
-  unsafeCertHostname host host certValid certNotExpired =
-    safeCertHostname host host certValid certNotExpired
+/-- A valid, unexpired certificate is accepted for every host pair. -/
+def accepts_valid_fresh_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  certValid = true → certNotExpired = true →
+    unsafeCertHostname requestedHost certSan certValid certNotExpired = true
 
-theorem agrees_on_exact_match_thm (host : String) (certValid certNotExpired : Bool) :
-    agrees_on_exact_match_prop host certValid certNotExpired := by
-  unfold agrees_on_exact_match_prop unsafeCertHostname safeCertHostname
-  cases certValid <;> cases certNotExpired <;> simp
+theorem accepts_valid_fresh_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    accepts_valid_fresh_prop requestedHost certSan certValid certNotExpired := by
+  intro hv he
+  simp [unsafeCertHostname, hv, he]
 
-/-- Whenever a hostname-checking client would accept, the unsafe client accepts too. -/
-def safe_implies_unsafe_prop (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) : Prop :=
+/-- An invalid certificate is rejected, whatever the hostname and expiry are. -/
+def rejects_invalid_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  certValid = false →
+    unsafeCertHostname requestedHost certSan certValid certNotExpired = false
+
+theorem rejects_invalid_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    rejects_invalid_prop requestedHost certSan certValid certNotExpired := by
+  intro hv
+  simp [unsafeCertHostname, hv]
+
+/-- An expired certificate is rejected, whatever the hostname and validity are. -/
+def rejects_expired_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  certNotExpired = false →
+    unsafeCertHostname requestedHost certSan certValid certNotExpired = false
+
+theorem rejects_expired_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    rejects_expired_prop requestedHost certSan certValid certNotExpired := by
+  intro he
+  simp [unsafeCertHostname, he]
+
+/-- Both flags false is rejected (Python edge case). -/
+def rejects_both_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  certValid = false → certNotExpired = false →
+    unsafeCertHostname requestedHost certSan certValid certNotExpired = false
+
+theorem rejects_both_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    rejects_both_prop requestedHost certSan certValid certNotExpired := by
+  intro hv he
+  simp [unsafeCertHostname, hv, he]
+
+/-- Any failure of validity or expiry rejects the certificate. -/
+def rejects_invalid_or_expired_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  certValid = false ∨ certNotExpired = false →
+    unsafeCertHostname requestedHost certSan certValid certNotExpired = false
+
+theorem rejects_invalid_or_expired_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    rejects_invalid_or_expired_prop requestedHost certSan certValid certNotExpired := by
+  intro h
+  cases h with
+  | inl hv => simp [unsafeCertHostname, hv]
+  | inr he => simp [unsafeCertHostname, he]
+
+/-- MITM: a SAN that differs from the requested host is still accepted when
+the certificate is valid and unexpired. -/
+def mismatch_accepted_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  certValid = true → certNotExpired = true → requestedHost ≠ certSan →
+    unsafeCertHostname requestedHost certSan certValid certNotExpired = true
+
+theorem mismatch_accepted_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    mismatch_accepted_prop requestedHost certSan certValid certNotExpired := by
+  intro hv he _
+  simp [unsafeCertHostname, hv, he]
+
+/-- Exact host/SAN match is accepted when the certificate is valid and fresh.
+The unsafe checker does not break the matching case; it also accepts the rest. -/
+def exact_match_accepted_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  certValid = true → certNotExpired = true → requestedHost = certSan →
+    unsafeCertHostname requestedHost certSan certValid certNotExpired = true
+
+theorem exact_match_accepted_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    exact_match_accepted_prop requestedHost certSan certValid certNotExpired := by
+  intro hv he _
+  simp [unsafeCertHostname, hv, he]
+
+/-- The empty requested host is accepted when the certificate is valid and fresh. -/
+def empty_host_accepted_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  requestedHost = "" → certValid = true → certNotExpired = true →
+    unsafeCertHostname requestedHost certSan certValid certNotExpired = true
+
+theorem empty_host_accepted_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    empty_host_accepted_prop requestedHost certSan certValid certNotExpired := by
+  intro _ hv he
+  simp [unsafeCertHostname, hv, he]
+
+/-- A wildcard SAN is not matched. The certificate is accepted even when the
+requested host fails the naive suffix check for a `*.suffix` pattern
+(`"*.evil.com"` covers names ending in `".evil.com"`). `drop 1` strips the
+leading `*`. -/
+def wildcard_mismatch_accepted_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  certSan.startsWith "*." = true →
+    certValid = true →
+      certNotExpired = true →
+        requestedHost.endsWith (certSan.drop 1) = false →
+          unsafeCertHostname requestedHost certSan certValid certNotExpired = true
+
+theorem wildcard_mismatch_accepted_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    wildcard_mismatch_accepted_prop requestedHost certSan certValid certNotExpired := by
+  intro _ hv he _
+  simp [unsafeCertHostname, hv, he]
+
+/-- Whenever the exact-match checker accepts, the unsafe checker accepts too.
+The unsafe checker is a weaker predicate. -/
+def weaker_than_safe_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
   safeCertHostname requestedHost certSan certValid certNotExpired = true →
     unsafeCertHostname requestedHost certSan certValid certNotExpired = true
 
-theorem safe_implies_unsafe_thm (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) :
-    safe_implies_unsafe_prop requestedHost certSan certValid certNotExpired := by
-  unfold safe_implies_unsafe_prop safeCertHostname unsafeCertHostname
-  intro hsafe
-  cases certValid <;> cases certNotExpired <;> simp_all
+theorem weaker_than_safe_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    weaker_than_safe_prop requestedHost certSan certValid certNotExpired := by
+  intro hs
+  cases certValid <;> cases certNotExpired <;>
+    simp_all [safeCertHostname, unsafeCertHostname]
 
-/-- MITM: on a hostname mismatch a valid unexpired cert is accepted by the unsafe
-client and rejected by a client that checks SAN. -/
-def mitm_not_caught_prop (requestedHost certSan : String) : Prop :=
-  requestedHost ≠ certSan →
-    unsafeCertHostname requestedHost certSan true true = true ∧
-      safeCertHostname requestedHost certSan true true = false
+/-- On a hostname mismatch the unsafe checker accepts a valid fresh certificate
+and the exact-match checker rejects it. -/
+def differs_from_safe_on_mismatch_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  certValid = true → certNotExpired = true → requestedHost ≠ certSan →
+    unsafeCertHostname requestedHost certSan certValid certNotExpired = true ∧
+      safeCertHostname requestedHost certSan certValid certNotExpired = false
 
-theorem mitm_not_caught_thm (requestedHost certSan : String) :
-    mitm_not_caught_prop requestedHost certSan := by
-  intro hne
+theorem differs_from_safe_on_mismatch_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    differs_from_safe_on_mismatch_prop requestedHost certSan certValid certNotExpired := by
+  intro hv he hne
   refine ⟨?_, ?_⟩
-  · unfold unsafeCertHostname
-    rfl
-  · unfold safeCertHostname
-    have hbeq : (requestedHost == certSan) = false :=
-      (beq_eq_false_iff_ne).mpr hne
-    simp [hbeq]
+  · simp [unsafeCertHostname, hv, he]
+  · have hb : (requestedHost == certSan) = false := beq_eq_false_iff_ne.mpr hne
+    simp [safeCertHostname, hv, he, hb]
 
-theorem exact_match_bank_thm :
-    unsafeCertHostname "bank.com" "bank.com" true true = true :=
-  accepts_valid_unexpired_thm "bank.com" "bank.com"
+/-- The unsafe checker accepts an input the exact-match checker rejects
+if and only if the certificate is valid and fresh and the host differs from the SAN. -/
+def unsafe_accepts_extra_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  (unsafeCertHostname requestedHost certSan certValid certNotExpired = true ∧
+      safeCertHostname requestedHost certSan certValid certNotExpired = false) ↔
+    (certValid = true ∧ certNotExpired = true ∧ requestedHost ≠ certSan)
 
-theorem mitm_bank_evil_thm :
-    unsafeCertHostname "bank.com" "evil.com" true true = true :=
-  accepts_valid_unexpired_thm "bank.com" "evil.com"
+theorem unsafe_accepts_extra_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    unsafe_accepts_extra_prop requestedHost certSan certValid certNotExpired := by
+  constructor
+  · intro ⟨hu, hs⟩
+    simp [unsafeCertHostname, Bool.and_eq_true] at hu
+    have hv : certValid = true := hu.1
+    have he : certNotExpired = true := hu.2
+    simp [safeCertHostname, hv, he] at hs
+    exact ⟨hv, he, hs⟩
+  · intro ⟨hv, he, hne⟩
+    constructor
+    · simp [unsafeCertHostname, hv, he]
+    · have hb : (requestedHost == certSan) = false := beq_eq_false_iff_ne.mpr hne
+      simp [safeCertHostname, hv, he, hb]
 
-theorem mitm_secure_attacker_thm :
-    unsafeCertHostname "secure.example.com" "attacker.com" true true = true :=
-  accepts_valid_unexpired_thm "secure.example.com" "attacker.com"
+/-- Concrete MITM witness from the Python tests: `bank.com` accepts `evil.com`. -/
+def mitm_witness_prop : Prop :=
+  ∃ requestedHost certSan : String,
+    requestedHost ≠ certSan ∧
+      unsafeCertHostname requestedHost certSan true true = true ∧
+        safeCertHostname requestedHost certSan true true = false
 
-theorem invalid_bank_rejected_thm :
-    unsafeCertHostname "bank.com" "bank.com" false true = false :=
-  rejects_invalid_thm "bank.com" "bank.com" true
+theorem mitm_witness_thm : mitm_witness_prop := by
+  refine ⟨"bank.com", "evil.com", ?_, ?_, ?_⟩
+  · decide
+  · decide
+  · decide
 
-theorem expired_bank_rejected_thm :
-    unsafeCertHostname "bank.com" "bank.com" true false = false :=
-  rejects_expired_thm "bank.com" "bank.com" true
+/-- The original Python asserts all succeed on `unsafeCertHostname`. -/
+def check_passes_prop : Prop :=
+  check unsafeCertHostname = true
 
-theorem wildcard_mismatch_accepted_thm :
-    unsafeCertHostname "bank.com" "*.evil.com" true true = true :=
-  accepts_valid_unexpired_thm "bank.com" "*.evil.com"
-
-theorem empty_hostname_accepted_thm :
-    unsafeCertHostname "" "evil.com" true true = true :=
-  accepts_valid_unexpired_thm "" "evil.com"
-
-theorem invalid_and_expired_bank_rejected_thm :
-    unsafeCertHostname "bank.com" "bank.com" false false = false :=
-  rejects_invalid_and_expired_thm "bank.com" "bank.com"
+theorem check_passes_thm : check_passes_prop := by
+  unfold check_passes_prop
+  decide
 
 /-! ## Post-condition -/
 
-/-- Post-condition: the call implements validity-and-expiry only, so mismatches
-are accepted, invalid or expired certs are rejected, and acceptance is exactly
-the conjunction of those two flags. Also records that names are ignored and that
-a SAN-checking client would have caught a mismatch. -/
-def Post_prop (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) : Prop :=
-  returns_valid_and_unexpired_prop requestedHost certSan certValid certNotExpired ∧
-    hostname_ignored_prop requestedHost certSan certValid certNotExpired ∧
-    rejects_invalid_prop requestedHost certSan certNotExpired ∧
-    rejects_expired_prop requestedHost certSan certValid ∧
-    accepts_valid_unexpired_prop requestedHost certSan ∧
-    mismatch_accepted_prop requestedHost certSan ∧
-    rejects_invalid_and_expired_prop requestedHost certSan ∧
-    accepts_iff_prop requestedHost certSan certValid certNotExpired ∧
-    agrees_on_exact_match_prop requestedHost certValid certNotExpired ∧
-    safe_implies_unsafe_prop requestedHost certSan certValid certNotExpired ∧
-    mitm_not_caught_prop requestedHost certSan
+/-- The unsafe checker ignores hostnames, accepts exactly the valid unexpired
+certificates, and therefore accepts MITM mismatches that an exact SAN check
+would reject. Invalid and expired certificates are still rejected. -/
+def Post_prop (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  result_eq_valid_and_fresh_prop requestedHost certSan certValid certNotExpired ∧
+    hostname_independent_prop requestedHost certSan certValid certNotExpired ∧
+      accepts_iff_valid_and_fresh_prop requestedHost certSan certValid certNotExpired ∧
+        accepts_valid_fresh_prop requestedHost certSan certValid certNotExpired ∧
+          rejects_invalid_prop requestedHost certSan certValid certNotExpired ∧
+            rejects_expired_prop requestedHost certSan certValid certNotExpired ∧
+              rejects_both_prop requestedHost certSan certValid certNotExpired ∧
+                rejects_invalid_or_expired_prop requestedHost certSan certValid certNotExpired ∧
+                  mismatch_accepted_prop requestedHost certSan certValid certNotExpired ∧
+                    exact_match_accepted_prop requestedHost certSan certValid certNotExpired ∧
+                      empty_host_accepted_prop requestedHost certSan certValid certNotExpired ∧
+                        wildcard_mismatch_accepted_prop requestedHost certSan certValid certNotExpired ∧
+                          weaker_than_safe_prop requestedHost certSan certValid certNotExpired ∧
+                            differs_from_safe_on_mismatch_prop requestedHost certSan certValid certNotExpired ∧
+                              unsafe_accepts_extra_prop requestedHost certSan certValid certNotExpired ∧
+                                mitm_witness_prop ∧
+                                  check_passes_prop
 
 /-! ## Property-based tests -/
 
+/-- Hosts drawn from the Python tests, plus wildcard and suffix variants. -/
 def pbtHosts : List String :=
-  ["", "bank.com", "evil.com", "secure.example.com", "attacker.com",
-   "*.evil.com", "a.com", "b.com", "BANK.com", "bank.com."]
+  [ ""
+  , "bank.com"
+  , "evil.com"
+  , "secure.example.com"
+  , "attacker.com"
+  , "*.evil.com"
+  , "*.bank.com"
+  , "www.evil.com"
+  , "www.bank.com"
+  , "a"
+  , "b.com"
+  ]
 
 def pbtBools : List Bool := [false, true]
 
-#eval Plausible.Testable.check
-  (∀ (h s : String) (v e : Bool),
-    unsafeCertHostname h s v e = (v && e))
+/-- Exhaustive check of a Boolean property on the finite host/flag grid. -/
+def forAllInputs (p : String → String → Bool → Bool → Bool) : Bool :=
+  pbtHosts.all fun h =>
+    pbtHosts.all fun s =>
+      pbtBools.all fun v =>
+        pbtBools.all fun e =>
+          p h s v e
 
-example : (pbtHosts.all fun h =>
-  pbtHosts.all fun s =>
-    pbtBools.all fun v =>
-      pbtBools.all fun e =>
-        unsafeCertHostname h s v e == (v && e)) = true := by
+-- PBT for result_eq_valid_and_fresh_prop
+example : forAllInputs (fun h s v e =>
+    unsafeCertHostname h s v e == (v && e)) = true := by
   native_decide
 
 #eval Plausible.Testable.check
-  (∀ (h s h' s' : String) (v e : Bool),
-    unsafeCertHostname h s v e = unsafeCertHostname h' s' v e)
+  (∀ (requestedHost certSan : String) (certValid certNotExpired : Bool),
+    unsafeCertHostname requestedHost certSan certValid certNotExpired =
+      (certValid && certNotExpired))
+  { randomSeed := some 1 }
 
-example : (pbtHosts.all fun h =>
-  pbtHosts.all fun s =>
-    pbtHosts.all fun h' =>
-      pbtHosts.all fun s' =>
-        pbtBools.all fun v =>
-          pbtBools.all fun e =>
-            unsafeCertHostname h s v e == unsafeCertHostname h' s' v e) = true := by
+-- PBT for hostname_independent_prop
+example : pbtHosts.all (fun h1 => pbtHosts.all (fun s1 =>
+    pbtHosts.all (fun h2 => pbtHosts.all (fun s2 =>
+      pbtBools.all (fun v => pbtBools.all (fun e =>
+        unsafeCertHostname h1 s1 v e == unsafeCertHostname h2 s2 v e)))))) = true := by
   native_decide
 
 #eval Plausible.Testable.check
-  (∀ (h s : String) (e : Bool),
-    unsafeCertHostname h s false e = false)
+  (∀ (h1 s1 h2 s2 : String) (v e : Bool),
+    unsafeCertHostname h1 s1 v e = unsafeCertHostname h2 s2 v e)
+  { randomSeed := some 1 }
 
-example : (pbtHosts.all fun h =>
-  pbtHosts.all fun s =>
-    pbtBools.all fun e =>
-      unsafeCertHostname h s false e == false) = true := by
+-- PBT for accepts_iff_valid_and_fresh_prop
+example : forAllInputs (fun h s v e =>
+    ((unsafeCertHostname h s v e == true) == (v && e))) = true := by
   native_decide
 
 #eval Plausible.Testable.check
-  (∀ (h s : String) (v : Bool),
-    unsafeCertHostname h s v false = false)
+  (∀ (requestedHost certSan : String) (certValid certNotExpired : Bool),
+    unsafeCertHostname requestedHost certSan certValid certNotExpired = true ↔
+      certValid = true ∧ certNotExpired = true)
+  { randomSeed := some 1 }
 
-example : (pbtHosts.all fun h =>
-  pbtHosts.all fun s =>
-    pbtBools.all fun v =>
-      unsafeCertHostname h s v false == false) = true := by
+-- PBT for accepts_valid_fresh_prop
+example : forAllInputs (fun h s v e =>
+    !(v && e) || unsafeCertHostname h s v e) = true := by
+  native_decide
+
+-- PBT for rejects_invalid_prop
+example : forAllInputs (fun h s v e =>
+    v || !(unsafeCertHostname h s v e)) = true := by
+  native_decide
+
+-- PBT for rejects_expired_prop
+example : forAllInputs (fun h s v e =>
+    e || !(unsafeCertHostname h s v e)) = true := by
+  native_decide
+
+-- PBT for rejects_both_prop
+example : forAllInputs (fun h s v e =>
+    !(v == false && e == false) || (unsafeCertHostname h s v e == false)) = true := by
+  native_decide
+
+-- PBT for rejects_invalid_or_expired_prop
+example : forAllInputs (fun h s v e =>
+    !((v == false) || (e == false)) || (unsafeCertHostname h s v e == false)) = true := by
+  native_decide
+
+-- PBT for mismatch_accepted_prop
+example : forAllInputs (fun h s v e =>
+    !(v && e && (h != s)) || unsafeCertHostname h s v e) = true := by
+  native_decide
+
+-- PBT for exact_match_accepted_prop
+example : forAllInputs (fun h s v e =>
+    !(v && e && (h == s)) || unsafeCertHostname h s v e) = true := by
+  native_decide
+
+-- PBT for empty_host_accepted_prop
+example : forAllInputs (fun h s v e =>
+    !((h == "") && v && e) || unsafeCertHostname h s v e) = true := by
+  native_decide
+
+-- PBT for wildcard_mismatch_accepted_prop
+example : forAllInputs (fun h s v e =>
+    !(s.startsWith "*." && v && e && !(h.endsWith (s.drop 1))) ||
+      unsafeCertHostname h s v e) = true := by
+  native_decide
+
+-- PBT for weaker_than_safe_prop
+example : forAllInputs (fun h s v e =>
+    !(safeCertHostname h s v e) || unsafeCertHostname h s v e) = true := by
+  native_decide
+
+-- PBT for differs_from_safe_on_mismatch_prop
+example : forAllInputs (fun h s v e =>
+    !(v && e && (h != s)) ||
+      (unsafeCertHostname h s v e && !(safeCertHostname h s v e))) = true := by
+  native_decide
+
+-- PBT for unsafe_accepts_extra_prop
+example : forAllInputs (fun h s v e =>
+    let gap := unsafeCertHostname h s v e && !(safeCertHostname h s v e)
+    let cond := v && e && (h != s)
+    gap == cond) = true := by
   native_decide
 
 #eval Plausible.Testable.check
-  (∀ (h s : String), unsafeCertHostname h s true true = true)
+  (∀ (requestedHost certSan : String) (certValid certNotExpired : Bool),
+    ((unsafeCertHostname requestedHost certSan certValid certNotExpired = true ∧
+        safeCertHostname requestedHost certSan certValid certNotExpired = false) ↔
+      (certValid = true ∧ certNotExpired = true ∧ requestedHost ≠ certSan)))
+  { randomSeed := some 1 }
 
-example : (pbtHosts.all fun h =>
-  pbtHosts.all fun s =>
-    unsafeCertHostname h s true true == true) = true := by
+-- PBT for mitm_witness_prop: every listed mismatch is an attack witness.
+def mitmPairs : List (String × String) :=
+  [ ("bank.com", "evil.com")
+  , ("secure.example.com", "attacker.com")
+  , ("bank.com", "*.evil.com")
+  , ("", "evil.com")
+  , ("www.bank.com", "*.evil.com")
+  ]
+
+example : mitmPairs.all (fun p =>
+    unsafeCertHostname p.1 p.2 true true &&
+      (p.1 != p.2) &&
+        !(safeCertHostname p.1 p.2 true true)) = true := by
   native_decide
 
-#eval Plausible.Testable.check
-  (∀ (h s : String),
-    (h == s) || (unsafeCertHostname h s true true == true))
-
-example : (pbtHosts.all fun h =>
-  pbtHosts.all fun s =>
-    decide (h ≠ s → unsafeCertHostname h s true true = true)) = true := by
+-- PBT for check_passes_prop
+example : check unsafeCertHostname = true := by
   native_decide
 
-#eval Plausible.Testable.check
-  (∀ (h s : String), unsafeCertHostname h s false false = false)
-
-example : (pbtHosts.all fun h =>
-  pbtHosts.all fun s =>
-    unsafeCertHostname h s false false == false) = true := by
-  native_decide
-
-#eval Plausible.Testable.check
-  (∀ (h s : String) (v e : Bool),
-    unsafeCertHostname h s v e = true ↔ (v = true ∧ e = true))
-
-example : (pbtHosts.all fun h =>
-  pbtHosts.all fun s =>
-    pbtBools.all fun v =>
-      pbtBools.all fun e =>
-        decide (unsafeCertHostname h s v e = true ↔ (v = true ∧ e = true))) = true := by
-  native_decide
-
-#eval Plausible.Testable.check
-  (∀ (host : String) (v e : Bool),
-    unsafeCertHostname host host v e = safeCertHostname host host v e)
-
-example : (pbtHosts.all fun host =>
-  pbtBools.all fun v =>
-    pbtBools.all fun e =>
-      unsafeCertHostname host host v e == safeCertHostname host host v e) = true := by
-  native_decide
-
-#eval Plausible.Testable.check
-  (∀ (h s : String) (v e : Bool),
-    (safeCertHostname h s v e == false) || (unsafeCertHostname h s v e == true))
-
-example : (pbtHosts.all fun h =>
-  pbtHosts.all fun s =>
-    pbtBools.all fun v =>
-      pbtBools.all fun e =>
-        decide (safeCertHostname h s v e = true → unsafeCertHostname h s v e = true)) = true := by
-  native_decide
-
-#eval Plausible.Testable.check
-  (∀ (h s : String),
-    (h == s) ||
-      (unsafeCertHostname h s true true == true &&
-        safeCertHostname h s true true == false))
-
-example : (pbtHosts.all fun h =>
-  pbtHosts.all fun s =>
-    decide (h ≠ s →
-      unsafeCertHostname h s true true = true ∧
-        safeCertHostname h s true true = false)) = true := by
-  native_decide
-
-#eval Plausible.Testable.check
-  (∀ (h s h' s' : String) (v e : Bool),
-    (unsafeCertHostname h s v e == (v && e)) &&
-      (unsafeCertHostname h s v e == unsafeCertHostname h' s' v e) &&
-      (unsafeCertHostname h s false e == false) &&
-      (unsafeCertHostname h s v false == false) &&
-      (unsafeCertHostname h s true true == true) &&
-      ((h == s) || (unsafeCertHostname h s true true == true)) &&
-      (unsafeCertHostname h s false false == false) &&
+/-- Executable form of `Post_prop` on one input. The global witness and the
+Python suite are included, and hostname independence is checked against a
+fixed second pair (the full grid is the separate independence PBT). -/
+def postBool (h s : String) (v e : Bool) : Bool :=
+  (unsafeCertHostname h s v e == (v && e)) &&
+    (unsafeCertHostname h s v e == unsafeCertHostname "bank.com" "evil.com" v e) &&
       ((unsafeCertHostname h s v e == true) == (v && e)) &&
-      (unsafeCertHostname h h v e == safeCertHostname h h v e) &&
-      ((safeCertHostname h s v e == false) || (unsafeCertHostname h s v e == true)) &&
-      ((h == s) ||
-        (unsafeCertHostname h s true true == true &&
-          safeCertHostname h s true true == false)))
+        (!(v && e) || unsafeCertHostname h s v e) &&
+          (v || !(unsafeCertHostname h s v e)) &&
+            (e || !(unsafeCertHostname h s v e)) &&
+              (!(v == false && e == false) || (unsafeCertHostname h s v e == false)) &&
+                (!((v == false) || (e == false)) ||
+                  (unsafeCertHostname h s v e == false)) &&
+                  (!(v && e && (h != s)) || unsafeCertHostname h s v e) &&
+                    (!(v && e && (h == s)) || unsafeCertHostname h s v e) &&
+                      (!((h == "") && v && e) || unsafeCertHostname h s v e) &&
+                        (!(s.startsWith "*." && v && e && !(h.endsWith (s.drop 1))) ||
+                          unsafeCertHostname h s v e) &&
+                          (!(safeCertHostname h s v e) || unsafeCertHostname h s v e) &&
+                            (!(v && e && (h != s)) ||
+                              (unsafeCertHostname h s v e && !(safeCertHostname h s v e))) &&
+                              (let gap := unsafeCertHostname h s v e && !(safeCertHostname h s v e)
+                               let cond := v && e && (h != s)
+                               gap == cond) &&
+                                (unsafeCertHostname "bank.com" "evil.com" true true &&
+                                  ("bank.com" != "evil.com") &&
+                                    !(safeCertHostname "bank.com" "evil.com" true true)) &&
+                                  (check unsafeCertHostname)
 
-example : (pbtHosts.all fun h =>
-  pbtHosts.all fun s =>
-    pbtBools.all fun v =>
-      pbtBools.all fun e =>
-        decide (
-          unsafeCertHostname h s v e = (v && e) ∧
-            unsafeCertHostname h s false e = false ∧
-            unsafeCertHostname h s v false = false ∧
-            unsafeCertHostname h s true true = true ∧
-            (h ≠ s → unsafeCertHostname h s true true = true) ∧
-            unsafeCertHostname h s false false = false ∧
-            (unsafeCertHostname h s v e = true ↔ (v = true ∧ e = true)) ∧
-            unsafeCertHostname h h v e = safeCertHostname h h v e ∧
-            (safeCertHostname h s v e = true → unsafeCertHostname h s v e = true) ∧
-            (h ≠ s →
-              unsafeCertHostname h s true true = true ∧
-                safeCertHostname h s true true = false))) = true := by
+-- PBT for Post_prop
+example : forAllInputs postBool = true := by
   native_decide
+
+#eval Plausible.Testable.check
+  (∀ (requestedHost certSan : String) (certValid certNotExpired : Bool),
+    unsafeCertHostname requestedHost certSan certValid certNotExpired =
+      (certValid && certNotExpired) ∧
+    unsafeCertHostname requestedHost certSan certValid certNotExpired =
+      unsafeCertHostname "bank.com" "evil.com" certValid certNotExpired)
+  { randomSeed := some 1 }
 
 /-! ## Correctness -/
 
-theorem pre_holds (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) :
-    Pre requestedHost certSan certValid certNotExpired := by
-  refine ⟨rfl, rfl, ?_, ?_⟩
-  · cases certValid <;> simp
-  · cases certNotExpired <;> simp
-
-/-- Every admissible input satisfies the post-condition. -/
-theorem correctness_thm (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) :
-    Pre requestedHost certSan certValid certNotExpired →
-      Post_prop requestedHost certSan certValid certNotExpired := by
-  intro _
-  exact ⟨returns_valid_and_unexpired_thm requestedHost certSan certValid certNotExpired,
-    hostname_ignored_thm requestedHost certSan certValid certNotExpired,
-    rejects_invalid_thm requestedHost certSan certNotExpired,
-    rejects_expired_thm requestedHost certSan certValid,
-    accepts_valid_unexpired_thm requestedHost certSan,
-    mismatch_accepted_thm requestedHost certSan,
-    rejects_invalid_and_expired_thm requestedHost certSan,
-    accepts_iff_thm requestedHost certSan certValid certNotExpired,
-    agrees_on_exact_match_thm requestedHost certValid certNotExpired,
-    safe_implies_unsafe_thm requestedHost certSan certValid certNotExpired,
-    mitm_not_caught_thm requestedHost certSan⟩
+theorem correctness_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool)
+    (hPre : Pre requestedHost certSan certValid certNotExpired) :
+    Post_prop requestedHost certSan certValid certNotExpired := by
+  have _preOk : True := hPre
+  exact ⟨
+    result_eq_valid_and_fresh_thm requestedHost certSan certValid certNotExpired,
+    hostname_independent_thm requestedHost certSan certValid certNotExpired,
+    accepts_iff_valid_and_fresh_thm requestedHost certSan certValid certNotExpired,
+    accepts_valid_fresh_thm requestedHost certSan certValid certNotExpired,
+    rejects_invalid_thm requestedHost certSan certValid certNotExpired,
+    rejects_expired_thm requestedHost certSan certValid certNotExpired,
+    rejects_both_thm requestedHost certSan certValid certNotExpired,
+    rejects_invalid_or_expired_thm requestedHost certSan certValid certNotExpired,
+    mismatch_accepted_thm requestedHost certSan certValid certNotExpired,
+    exact_match_accepted_thm requestedHost certSan certValid certNotExpired,
+    empty_host_accepted_thm requestedHost certSan certValid certNotExpired,
+    wildcard_mismatch_accepted_thm requestedHost certSan certValid certNotExpired,
+    weaker_than_safe_thm requestedHost certSan certValid certNotExpired,
+    differs_from_safe_on_mismatch_thm requestedHost certSan certValid certNotExpired,
+    unsafe_accepts_extra_thm requestedHost certSan certValid certNotExpired,
+    mitm_witness_thm,
+    check_passes_thm⟩
 
 /-! ## Imperative implementation -/
 
-/-- Imperative counterpart using mutable state. Host and SAN are received and
-stored, then deliberately never compared — matching the Python vulnerability. -/
-def unsafeCertHostnameImp (requestedHost : String) (certSan : String)
-    (certValid : Bool) (certNotExpired : Bool) : Bool :=
+/-- Imperative counterpart. A mutable flag starts false and becomes true only
+when both certificate checks succeed. The host strings are read into
+`_mismatch` and then ignored, matching the Python control flow. -/
+def unsafeCertHostnameImp (requestedHost certSan : String)
+    (certValid certNotExpired : Bool) : Bool :=
   Id.run do
     let mut accepted : Bool := false
-    let _requested := requestedHost
-    let _san := certSan
-    if certValid && certNotExpired then
-      accepted := true
-    else
-      accepted := false
+    let _mismatch := requestedHost != certSan
+    if certValid then
+      if certNotExpired then
+        accepted := true
     return accepted
 
 /-! ## Imperative tests -/
@@ -499,6 +625,9 @@ example : unsafeCertHostnameImp "" "evil.com" true true = true := by
 example : unsafeCertHostnameImp "bank.com" "bank.com" false false = false := by
   native_decide
 
+example : check unsafeCertHostnameImp = true := by
+  native_decide
+
 #eval unsafeCertHostnameImp "bank.com" "bank.com" true true
 #eval unsafeCertHostnameImp "bank.com" "evil.com" true true
 #eval unsafeCertHostnameImp "secure.example.com" "attacker.com" true true
@@ -507,22 +636,30 @@ example : unsafeCertHostnameImp "bank.com" "bank.com" false false = false := by
 #eval unsafeCertHostnameImp "bank.com" "*.evil.com" true true
 #eval unsafeCertHostnameImp "" "evil.com" true true
 #eval unsafeCertHostnameImp "bank.com" "bank.com" false false
+#eval check unsafeCertHostnameImp
 
 /-! ## Equivalence -/
 
-/-- The functional and imperative implementations agree on every input. -/
-theorem equivalence_thm (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) :
-    unsafeCertHostname requestedHost certSan certValid certNotExpired =
-      unsafeCertHostnameImp requestedHost certSan certValid certNotExpired := by
+/-- Functional and imperative checkers agree on every input. -/
+def functional_eq_imperative_prop
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) : Prop :=
+  unsafeCertHostname requestedHost certSan certValid certNotExpired =
+    unsafeCertHostnameImp requestedHost certSan certValid certNotExpired
+
+theorem functional_eq_imperative_thm
+    (requestedHost certSan : String) (certValid certNotExpired : Bool) :
+    functional_eq_imperative_prop requestedHost certSan certValid certNotExpired := by
   cases certValid <;> cases certNotExpired <;> rfl
 
-/-- The imperative implementation has the same validity-and-expiry semantics. -/
-theorem imp_returns_valid_and_unexpired_thm (requestedHost certSan : String)
-    (certValid certNotExpired : Bool) :
-    unsafeCertHostnameImp requestedHost certSan certValid certNotExpired =
-      (certValid && certNotExpired) := by
-  rw [← equivalence_thm]
-  exact returns_valid_and_unexpired_thm requestedHost certSan certValid certNotExpired
+-- PBT for functional_eq_imperative_prop
+example : forAllInputs (fun h s v e =>
+    unsafeCertHostname h s v e == unsafeCertHostnameImp h s v e) = true := by
+  native_decide
+
+#eval Plausible.Testable.check
+  (∀ (requestedHost certSan : String) (certValid certNotExpired : Bool),
+    unsafeCertHostname requestedHost certSan certValid certNotExpired =
+      unsafeCertHostnameImp requestedHost certSan certValid certNotExpired)
+  { randomSeed := some 1 }
 
 end «75_unsafeCertHostname»

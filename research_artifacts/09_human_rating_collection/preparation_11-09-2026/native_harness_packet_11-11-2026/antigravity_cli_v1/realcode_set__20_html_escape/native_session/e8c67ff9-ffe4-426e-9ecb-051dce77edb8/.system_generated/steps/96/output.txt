@@ -1,0 +1,435 @@
+Command exited with code 1.
+
+Command output:
+Veribench/20_html_escape.lean:89:16: error: Application type mismatch: In the application
+  check fun s => benchmark_escape s
+the argument
+  fun s => benchmark_escape s
+has type
+  String → String : Type
+but is expected to have type
+  String → Bool → String : Type
+"&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;"
+""
+"&lt;b&gt;\"&amp;'&lt;/b&gt;"
+"&amp;&lt;"
+Veribench/20_html_escape.lean:95:12: error: Application type mismatch: In the application
+  check fun s => benchmark_escape s
+the argument
+  fun s => benchmark_escape s
+has type
+  String → String : Type
+but is expected to have type
+  String → Bool → String : Type
+Veribench/20_html_escape.lean:149:28: error: simp made no progress
+Veribench/20_html_escape.lean:258:55: error: unsolved goals
+case h
+quote : Bool
+⊢ (escape "" quote).data = []
+Veribench/20_html_escape.lean:261:8: warning: This simp argument is unused:
+  single_pass_thm
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵s̵i̵n̵g̵l̵e̵_̵p̵a̵s̵s̵_̵t̵h̵m̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:272:80: error: unsolved goals
+case h
+s₁ s₂ : String
+quote : Bool
+⊢ (escape (s₁ ++ s₂) quote).data = (escape s₁ quote).data ++ (escape s₂ quote).data
+Veribench/20_html_escape.lean:275:8: warning: This simp argument is unused:
+  single_pass_thm
+
+Hint: Omit it from the simp argument list.
+  simp [s̵i̵n̵g̵l̵e̵_̵p̵a̵s̵s̵_̵t̵h̵m̵,̵ ̵String.data_append, List.flatMap_append]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:275:45: warning: This simp argument is unused:
+  List.flatMap_append
+
+Hint: Omit it from the simp argument list.
+  simp [single_pass_thm, String.data_append,̵ ̵L̵i̵s̵t̵.̵f̵l̵a̵t̵M̵a̵p̵_̵a̵p̵p̵e̵n̵d̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:298:2: error: unsolved goals
+case refine_1.h
+⊢ (escape "&").data = ['&', 'a', 'm', 'p', ';']
+Veribench/20_html_escape.lean:298:2: error: unsolved goals
+case refine_2.h
+⊢ (escape "&" false).data = ['&', 'a', 'm', 'p', ';']
+Veribench/20_html_escape.lean:298:2: error: unsolved goals
+case refine_3.h
+⊢ (escape "<").data = ['&', 'l', 't', ';']
+Veribench/20_html_escape.lean:298:2: error: unsolved goals
+case refine_4.h
+⊢ (escape "<" false).data = ['&', 'l', 't', ';']
+Veribench/20_html_escape.lean:298:2: error: unsolved goals
+case refine_5.h
+⊢ (escape ">").data = ['&', 'g', 't', ';']
+Veribench/20_html_escape.lean:298:2: error: unsolved goals
+case refine_6.h
+⊢ (escape ">" false).data = ['&', 'g', 't', ';']
+Veribench/20_html_escape.lean:298:2: error: unsolved goals
+case refine_7.h
+⊢ (escape "\"").data = ['&', 'q', 'u', 'o', 't', ';']
+Veribench/20_html_escape.lean:298:2: error: unsolved goals
+case refine_8.h
+⊢ (escape "\"" false).data = ['\"']
+Veribench/20_html_escape.lean:298:2: error: unsolved goals
+case refine_9.h
+⊢ (escape "'").data = ['&', '#', 'x', '2', '7', ';']
+Veribench/20_html_escape.lean:298:2: error: unsolved goals
+case refine_10.h
+⊢ (escape "'" false).data = ['\'']
+Veribench/20_html_escape.lean:298:19: warning: This simp argument is unused:
+  single_pass_thm
+
+Hint: Omit it from the simp argument list.
+  simp [̵s̵i̵n̵g̵l̵e̵_̵p̵a̵s̵s̵_̵t̵h̵m̵,̵ ̵e̵s̵c̵a̵p̵e̵C̵h̵a̵r̵]̵[̲e̲s̲c̲a̲p̲e̲C̲h̲a̲r̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:298:36: warning: This simp argument is unused:
+  escapeChar
+
+Hint: Omit it from the simp argument list.
+  simp [single_pass_thm,̵ ̵e̵s̵c̵a̵p̵e̵C̵h̵a̵r̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:314:2: error: unsolved goals
+case neg
+s : String
+quote : Bool
+c : Char
+left✝ : c ∈ s.data
+h✝⁴ : ¬c = '&'
+h✝³ : ¬c = '<'
+h✝² : ¬c = '>'
+h✝¹ : quote = true → ¬c = '\"'
+h✝ : quote = true → ¬c = '\''
+hc : '<' = c
+⊢ False
+Veribench/20_html_escape.lean:314:2: error: unsolved goals
+case neg
+s : String
+quote : Bool
+c : Char
+left✝ : c ∈ s.data
+h✝⁴ : ¬c = '&'
+h✝³ : ¬c = '<'
+h✝² : ¬c = '>'
+h✝¹ : quote = true → ¬c = '\"'
+h✝ : quote = true → ¬c = '\''
+hc : '>' = c
+⊢ False
+Veribench/20_html_escape.lean:338:33: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Veribench/20_html_escape.lean:380:8: error: unsolved goals
+case nil
+s : String
+quote : Bool
+⊢ (escape s quote).length = 0
+Veribench/20_html_escape.lean:384:20: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  j ≥ 0
+  i ≥ 0
+  h ≥ 0
+  g ≥ 0
+  f ≥ 0
+  f - 4*g - 3*h - 3*i - j ≤ 0
+  e ≥ 0
+  e + i ≥ 0
+  d ≥ 0
+  d + h ≥ 0
+  b ≥ 0
+  b + g ≥ 0
+  a ≥ 0
+  a + 4*b + 3*d + 3*e + f ≥ 0
+where
+ a := ↑cs.length
+ b := ↑(List.count '&' cs)
+ d := ↑(List.count '<' cs)
+ e := ↑(List.count '>' cs)
+ f := ↑(if false = true then 5 * List.count '\"' cs + 5 * List.count '\'' cs else 0)
+ g := ↑(if (c == '&') = true then 1 else 0)
+ h := ↑(if (c == '<') = true then 1 else 0)
+ i := ↑(if (c == '>') = true then 1 else 0)
+ j := ↑(if false = true then
+    5 * (List.count '\"' cs + if (c == '\"') = true then 1 else 0) +
+      5 * (List.count '\'' cs + if (c == '\'') = true then 1 else 0)
+  else 0)
+Veribench/20_html_escape.lean:384:20: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  j ≥ 0
+  i ≥ 0
+  h ≥ 0
+  g ≥ 0
+  f ≥ 0
+  f - 4*g - 3*h - 3*i - j ≤ 0
+  e ≥ 0
+  e + i ≥ 0
+  d ≥ 0
+  d + h ≥ 0
+  b ≥ 0
+  b + g ≥ 0
+  a ≥ 0
+  a + 4*b + 3*d + 3*e + f ≥ 0
+where
+ a := ↑cs.length
+ b := ↑(List.count '&' cs)
+ d := ↑(List.count '<' cs)
+ e := ↑(List.count '>' cs)
+ f := ↑(if true = true then 5 * List.count '\"' cs + 5 * List.count '\'' cs else 0)
+ g := ↑(if (c == '&') = true then 1 else 0)
+ h := ↑(if (c == '<') = true then 1 else 0)
+ i := ↑(if (c == '>') = true then 1 else 0)
+ j := ↑(if true = true then
+    5 * (List.count '\"' cs + if (c == '\"') = true then 1 else 0) +
+      5 * (List.count '\'' cs + if (c == '\'') = true then 1 else 0)
+  else 0)
+Veribench/20_html_escape.lean:378:28: warning: This simp argument is unused:
+  single_pass_thm
+
+Hint: Omit it from the simp argument list.
+  simp only [String.length,̵ ̵s̵i̵n̵g̵l̵e̵_̵p̵a̵s̵s̵_̵t̵h̵m̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:382:15: warning: This simp argument is unused:
+  List.flatMap_cons
+
+Hint: Omit it from the simp argument list.
+  simp only [̵L̵i̵s̵t̵.̵f̵l̵a̵t̵M̵a̵p̵_̵c̵o̵n̵s̵,̵ ̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵a̵p̵p̵e̵n̵d̵,̵[̲L̲i̲s̲t̲.̲l̲e̲n̲g̲t̲h̲_̲a̲p̲p̲e̲n̲d̲,̲ List.length_cons, List.count_cons, escapeChar_length, ih]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:382:34: warning: This simp argument is unused:
+  List.length_append
+
+Hint: Omit it from the simp argument list.
+  simp only [List.flatMap_cons, L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵a̵p̵p̵e̵n̵d̵,̵ ̵List.length_cons, List.count_cons, escapeChar_length, ih]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:383:6: warning: This simp argument is unused:
+  escapeChar_length
+
+Hint: Omit it from the simp argument list.
+  simp only [List.flatMap_cons, List.length_append, List.length_cons, List.count_cons, e̵s̵c̵a̵p̵e̵C̵h̵a̵r̵_̵l̵e̵n̵g̵t̵h̵,̵ ̵ih]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:403:8: error: unsolved goals
+case nil
+s : String
+quote : Bool
+⊢ (escape s quote).length = 0
+Veribench/20_html_escape.lean:407:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  1 ≤ b ≤ 5
+  a ≥ 0
+where
+ a := ↑cs.length
+ b := ↑(escapeChar c false).length
+Veribench/20_html_escape.lean:407:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  1 ≤ b ≤ 6
+  a ≥ 0
+where
+ a := ↑cs.length
+ b := ↑(escapeChar c).length
+Veribench/20_html_escape.lean:401:28: warning: This simp argument is unused:
+  single_pass_thm
+
+Hint: Omit it from the simp argument list.
+  simp only [String.length,̵ ̵s̵i̵n̵g̵l̵e̵_̵p̵a̵s̵s̵_̵t̵h̵m̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:405:15: warning: This simp argument is unused:
+  List.flatMap_cons
+
+Hint: Omit it from the simp argument list.
+  simp only [̵L̵i̵s̵t̵.̵f̵l̵a̵t̵M̵a̵p̵_̵c̵o̵n̵s̵,̵ ̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵a̵p̵p̵e̵n̵d̵,̵[̲L̲i̲s̲t̲.̲l̲e̲n̲g̲t̲h̲_̲a̲p̲p̲e̲n̲d̲,̲ List.length_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:405:34: warning: This simp argument is unused:
+  List.length_append
+
+Hint: Omit it from the simp argument list.
+  simp only [List.flatMap_cons, List.length_a̵p̵p̵e̵n̵d̵,̵ ̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Veribench/20_html_escape.lean:422:8: error: tactic 'simp' failed, nested error:
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+Veribench/20_html_escape.lean:484:20: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  j ≥ 0
+  i ≥ 0
+  h ≥ 0
+  g ≥ 0
+  f ≥ 0
+  e ≥ 0
+  e - i + j ≤ -1
+  d ≥ 0
+  b ≥ 0
+  a ≥ 0
+  a + b + d + e ≥ 0
+where
+ a := ↑(List.count '&' cs)
+ b := ↑(List.count '<' cs)
+ d := ↑(List.count '>' cs)
+ e := ↑(if false = true then List.count '\"' cs + List.count '\'' cs else 0)
+ f := ↑(if (c == '&') = true then 1 else 0)
+ g := ↑(if (c == '<') = true then 1 else 0)
+ h := ↑(if (c == '>') = true then 1 else 0)
+ i := ↑(if false = true then
+    (List.count '\"' cs + if (c == '\"') = true then 1 else 0) +
+      (List.count '\'' cs + if (c == '\'') = true then 1 else 0)
+  else 0)
+ j := ↑(if false = true then (if (c == '\"') = true then 1 else 0) + if (c == '\'') = true then 1 else 0 else 0)
+Veribench/20_html_escape.lean:484:20: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  j ≥ 0
+  i ≥ 0
+  h ≥ 0
+  g ≥ 0
+  f ≥ 0
+  e ≥ 0
+  e - i + j ≤ -1
+  d ≥ 0
+  b ≥ 0
+  a ≥ 0
+  a + b + d + e ≥ 0
+where
+ a := ↑(List.count '&' cs)
+ b := ↑(List.count '<' cs)
+ d := ↑(List.count '>' cs)
+ e := ↑(if true = true then List.count '\"' cs + List.count '\'' cs else 0)
+ f := ↑(if (c == '&') = true then 1 else 0)
+ g := ↑(if (c == '<') = true then 1 else 0)
+ h := ↑(if (c == '>') = true then 1 else 0)
+ i := ↑(if true = true then
+    (List.count '\"' cs + if (c == '\"') = true then 1 else 0) +
+      (List.count '\'' cs + if (c == '\'') = true then 1 else 0)
+  else 0)
+ j := ↑(if true = true then (if (c == '\"') = true then 1 else 0) + if (c == '\'') = true then 1 else 0 else 0)
+Veribench/20_html_escape.lean:509:20: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  l ≥ 0
+  k ≥ 0
+  j ≥ 0
+  i ≥ 0
+  h ≥ 0
+  g ≥ 0
+  f ≥ 0
+  f - k + l ≤ -1
+  e ≥ 0
+  d ≥ 0
+  b ≥ 0
+  a ≥ 0
+  a + b + d + e + f ≥ 0
+where
+ a := ↑(List.count ';' cs)
+ b := ↑(List.count '&' cs)
+ d := ↑(List.count '<' cs)
+ e := ↑(List.count '>' cs)
+ f := ↑(if false = true then List.count '\"' cs + List.count '\'' cs else 0)
+ g := ↑(if (c == ';') = true then 1 else 0)
+ h := ↑(if (c == '&') = true then 1 else 0)
+ i := ↑(if (c == '<') = true then 1 else 0)
+ j := ↑(if (c == '>') = true then 1 else 0)
+ k := ↑(if false = true then
+    (List.count '\"' cs + if (c == '\"') = true then 1 else 0) +
+      (List.count '\'' cs + if (c == '\'') = true then 1 else 0)
+  else 0)
+ l := ↑(if false = true then (if (c == '\"') = true then 1 else 0) + if (c == '\'') = true then 1 else 0 else 0)
+Veribench/20_html_escape.lean:509:20: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  l ≥ 0
+  k ≥ 0
+  j ≥ 0
+  i ≥ 0
+  h ≥ 0
+  g ≥ 0
+  f ≥ 0
+  f - k + l ≤ -1
+  e ≥ 0
+  d ≥ 0
+  b ≥ 0
+  a ≥ 0
+  a + b + d + e + f ≥ 0
+where
+ a := ↑(List.count ';' cs)
+ b := ↑(List.count '&' cs)
+ d := ↑(List.count '<' cs)
+ e := ↑(List.count '>' cs)
+ f := ↑(if true = true then List.count '\"' cs + List.count '\'' cs else 0)
+ g := ↑(if (c == ';') = true then 1 else 0)
+ h := ↑(if (c == '&') = true then 1 else 0)
+ i := ↑(if (c == '<') = true then 1 else 0)
+ j := ↑(if (c == '>') = true then 1 else 0)
+ k := ↑(if true = true then
+    (List.count '\"' cs + if (c == '\"') = true then 1 else 0) +
+      (List.count '\'' cs + if (c == '\'') = true then 1 else 0)
+  else 0)
+ l := ↑(if true = true then (if (c == '\"') = true then 1 else 0) + if (c == '\'') = true then 1 else 0 else 0)
+Veribench/20_html_escape.lean:529:2: error: simp made no progress
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/20_html_escape.lean:711:16: error: Application type mismatch: In the application
+  check fun s => escapeImp s
+the argument
+  fun s => escapeImp s
+has type
+  String → String : Type
+but is expected to have type
+  String → Bool → String : Type
+Veribench/20_html_escape.lean:717:16: error: Application type mismatch: In the application
+  check fun s => escapeSinglePassImp s
+the argument
+  fun s => escapeSinglePassImp s
+has type
+  String → String : Type
+but is expected to have type
+  String → Bool → String : Type
+"&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;"
+"&lt;b&gt;\"&amp;'&lt;/b&gt;"
+"&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;"
+"&lt;b&gt;\"&amp;'&lt;/b&gt;"
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/20_html_escape.lean:750:42: error: unsolved goals
+case false
+s : String
+⊢ replaceCharImp (replaceCharImp (replaceCharImp s '&' "&amp;") '<' "&lt;") '>' "&gt;" =
+    pure (replaceCharImp (replaceCharImp (replaceCharImp s '&' "&amp;") '<' "&lt;") '>' "&gt;")
+
+case true
+s : String
+⊢ replaceCharImp
+      (replaceCharImp (replaceCharImp (replaceCharImp (replaceCharImp s '&' "&amp;") '<' "&lt;") '>' "&gt;") '\"'
+        "&quot;")
+      '\'' "&#x27;" =
+    pure
+      (replaceCharImp
+        (replaceCharImp (replaceCharImp (replaceCharImp (replaceCharImp s '&' "&amp;") '<' "&lt;") '>' "&gt;") '\"'
+          "&quot;")
+        '\'' "&#x27;")
+Veribench/20_html_escape.lean:784:6: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  escapeImp ?s
+s : String
+quote : optParam Bool true
+⊢ escapeImp s quote = escapeSinglePassImp s quote

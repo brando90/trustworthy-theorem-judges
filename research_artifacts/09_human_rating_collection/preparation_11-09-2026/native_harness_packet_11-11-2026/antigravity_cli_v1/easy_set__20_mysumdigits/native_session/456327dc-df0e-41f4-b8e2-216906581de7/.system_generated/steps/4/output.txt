@@ -1,0 +1,7 @@
+Created At: 2026-11-16T21:56:21Z
+Completed At: 2026-11-16T21:56:22Z
+Command exited with code 0.
+
+Command output:
+Lean.Loop.forIn.{u, v} {β : Type u} {m : Type u → Type v} [Monad m] :
+  Lean.Loop → (init : β) → (f : Unit → β → m (ForInStep β)) → m β

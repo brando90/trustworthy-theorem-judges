@@ -1,0 +1,74 @@
+{
+  "task_id": "cs_set__heapsort_algorithm",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "heapsort_algorithm.py": "62c463adc5c197d896bff8e6f8227a6c72deb701ef4337eea0e53c692ee1c979",
+    "instruction.md": "735e77310c7daf66a69472405c122b0694cb6cdd2a1a34f026472eaa22bd7fe2"
+  },
+  "output": "/home/user/lean_project/Veribench/heapsort_algorithm.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-d9b4856d83d7",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794866729.264701,
+  "exit_code": 3,
+  "stop_reason": "process_exit_3",
+  "finished_at": 1794868533.97424,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "169c7c91-2a28-4d67-8427-c048af542360",
+      "status": "ERROR",
+      "response": "",
+      "error": "print timeout after 30m0s with the turn still in progress; the response is partial",
+      "duration_seconds": 1799.052609666,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 169171,
+        "output_tokens": 107927,
+        "thinking_tokens": 32878,
+        "cache_read_tokens": 2776682,
+        "total_tokens": 277098
+      },
+      "finished_reason": "print_timeout"
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "oauth2.googleapis.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "a49604f6b7f2aa738178d30afb8a9fa9a8ee8fe36dac23e4053bf699d044ca37",
+  "candidate_bytes": 40864
+}

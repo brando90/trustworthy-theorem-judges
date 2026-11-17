@@ -1,0 +1,11 @@
+Created At: 2026-11-16T21:34:23Z
+Completed At: 2026-11-16T21:34:27Z
+Command exited with code 1.
+
+Command output:
+List.permutations.{u_1} {α : Type u_1} (l : List α) : List (List α)
+<stdin>:3:8: error: unknown constant 'List.permutations_cons'
+[[]]
+[[0]]
+[[0, 1], [1, 0]]
+[[0, 1, 2], [1, 0, 2], [2, 1, 0], [1, 2, 0], [2, 0, 1], [0, 2, 1]]

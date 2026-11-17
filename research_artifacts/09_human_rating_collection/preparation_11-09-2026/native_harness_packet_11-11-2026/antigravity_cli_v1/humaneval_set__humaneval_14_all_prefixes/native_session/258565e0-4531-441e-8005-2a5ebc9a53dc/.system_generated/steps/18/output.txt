@@ -1,0 +1,15 @@
+Created At: 2026-11-16T21:57:12Z
+Completed At: 2026-11-16T21:57:16Z
+Command exited with code 0.
+
+Command output:
+String.IsPrefix : String → String → Prop
+def String.IsPrefix : String → String → Prop :=
+fun x x_1 =>
+  match x, x_1 with
+  | { data := d1 }, { data := d2 } => d1 <+: d2
+String.data_take (s : String) (n : ℕ) : (s.take n).data = List.take n s.data
+String.length_data (s : String) : s.data.length = s.length
+String.length_mk (s : List Char) : { data := s }.length = s.length
+String.length_empty : "".length = 0
+String.isPrefixOf (p s : String) : Bool

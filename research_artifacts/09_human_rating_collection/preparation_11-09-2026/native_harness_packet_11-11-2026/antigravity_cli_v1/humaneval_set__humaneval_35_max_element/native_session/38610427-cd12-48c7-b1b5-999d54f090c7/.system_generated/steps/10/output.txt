@@ -1,0 +1,62 @@
+Created At: 2026-11-16T21:33:48Z
+Completed At: 2026-11-16T21:33:56Z
+Command exited with code 1.
+
+Command output:
+3
+123
+124
+Veribench/humaneval_35_max_element.lean:272:13: error: Application type mismatch: In the application
+  h₁ (List.Perm.nil_eq (List.Perm.symm hp))
+the argument
+  List.Perm.nil_eq (List.Perm.symm hp)
+has type
+  [] = l₁ : Prop
+but is expected to have type
+  l₁ = [] : Prop
+Veribench/humaneval_35_max_element.lean:320:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Veribench/humaneval_35_max_element.lean:324:0: warning: Gave up after failing to generate values that fulfill the preconditions 7 times.
+Veribench/humaneval_35_max_element.lean:328:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Veribench/humaneval_35_max_element.lean:334:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Veribench/humaneval_35_max_element.lean:340:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Veribench/humaneval_35_max_element.lean:344:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "l"
+      (∀ (l : List ℤ),
+        Plausible.NamedBinder "k"
+          (∀ (k : ℤ),
+            Plausible.NamedBinder "a._@.Veribench.humaneval_35_max_element._hyg.1515"
+              (0 < l.length →
+                (max_element l ≤ k ↔
+                  Plausible.NamedBinder "x"
+                    (∀ (x : ℤ),
+                      Plausible.NamedBinder "a._@.Veribench.humaneval_35_max_element._hyg.1537" (x ∈ l → x ≤ k)))))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/humaneval_35_max_element.lean:351:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "l"
+      (∀ (l : List ℤ),
+        Plausible.NamedBinder "a._@.Veribench.humaneval_35_max_element._hyg.1656"
+          (0 < l.length →
+            Plausible.NamedBinder "m"
+              (∀ (m : ℤ),
+                Plausible.NamedBinder "a._@.Veribench.humaneval_35_max_element._hyg.1667"
+                  (m ∈ l →
+                    Plausible.NamedBinder "a._@.Veribench.humaneval_35_max_element._hyg.1682"
+                      (Plausible.NamedBinder "x"
+                          (∀ (x : ℤ),
+                            Plausible.NamedBinder "a._@.Veribench.humaneval_35_max_element._hyg.1690" (x ∈ l → x ≤ m)) →
+                        m = max_element l))))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Unable to find a counter-example
+Veribench/humaneval_35_max_element.lean:362:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Veribench/humaneval_35_max_element.lean:369:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Veribench/humaneval_35_max_element.lean:376:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Unable to find a counter-example
+Veribench/humaneval_35_max_element.lean:389:0: warning: Gave up after failing to generate values that fulfill the preconditions 1 times.
+Veribench/humaneval_35_max_element.lean:395:0: warning: Gave up after failing to generate values that fulfill the preconditions 7 times.
+3
+123
+124

@@ -1,0 +1,25 @@
+Created At: 2026-11-16T22:00:19Z
+Completed At: 2026-11-16T22:00:23Z
+Command exited with code 1.
+
+Command output:
+<stdin>:10:35: error: tactic 'subst' failed, invalid equality proof, it is not of the form (x = t) or (t = x)
+  List.foldl min (min x y) ys = min x y
+case cons.inl
+y : ℤ
+ys : List ℤ
+ih : ∀ (x : ℤ), List.foldl min x ys ∈ x :: ys
+x : ℤ
+h : List.foldl min (min x y) ys ∈ min x y :: ys
+h✝ : List.foldl min (min x y) ys = min x y
+⊢ List.foldl min (min x y) ys ∈ x :: y :: ys
+<stdin>:23:35: error: tactic 'subst' failed, invalid equality proof, it is not of the form (x = t) or (t = x)
+  List.foldl max (max x y) ys = max x y
+case cons.inl
+y : ℤ
+ys : List ℤ
+ih : ∀ (x : ℤ), List.foldl max x ys ∈ x :: ys
+x : ℤ
+h : List.foldl max (max x y) ys ∈ max x y :: ys
+h✝ : List.foldl max (max x y) ys = max x y
+⊢ List.foldl max (max x y) ys ∈ x :: y :: ys

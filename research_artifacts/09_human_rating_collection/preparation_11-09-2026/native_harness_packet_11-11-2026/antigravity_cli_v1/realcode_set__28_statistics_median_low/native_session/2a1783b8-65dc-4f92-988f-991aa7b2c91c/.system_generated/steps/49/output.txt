@@ -1,0 +1,12 @@
+Created At: 2026-11-16T22:31:15Z
+Completed At: 2026-11-16T22:31:19Z
+Command exited with code 0.
+
+Command output:
+/home/user/.gemini/antigravity-cli/brain/2a1783b8-65dc-4f92-988f-991aa7b2c91c/scratch/probe.lean:64:63: warning: This simp argument is unused:
+  ↓reduceIte
+
+Hint: Omit it from the simp argument list.
+  simp only [List.isEmpty_cons, Bool.not_false, Bool.not_true,̵ ̵↓̵r̵e̵d̵u̵c̵e̵I̵t̵e̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

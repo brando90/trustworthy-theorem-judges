@@ -1,855 +1,1060 @@
 import Mathlib
-import Plausible
 
 /-!
 # Low median (`statistics.median_low`)
 
-Lean 4 formalization of Python's `statistics.median_low`
-(https://github.com/python/cpython/blob/main/Lib/statistics.py, `median_low`).
+Lean formalization of Python's `statistics.median_low` (CPython `Lib/statistics.py`).
 
-Sort the data and return the element at index `(n - 1) // 2`:
-* odd `n`: the middle value (`sorted[n // 2]`);
-* even `n`: the smaller of the two middle values (`sorted[n // 2 - 1]`).
+Given a non-empty finite sequence of ordered numbers, sort it into non-decreasing order and
+return the **low median**:
 
-Empty input raises `StatisticsError` ("no median for empty data").
+* when the length `n` is odd, the middle entry `sorted[n // 2]`;
+* when `n` is even, the smaller of the two middle entries `sorted[n // 2 - 1]`.
 
-The algorithm is an order statistic. Theorems are stated for an arbitrary
-`LinearOrder`, which covers `Int`, `Nat`, `Rat`, and Mathlib's `Real` order.
-Executable tests use `Int`, matching the reference unit tests. `Real`
-decidable order is noncomputable, so there is no separate executable `Real`
-PBT; the generic theorems are exactly the `Real` instances of each property.
+Both branches are the 0-based order statistic at index `(n - 1) / 2`.
+An empty sequence raises `StatisticsError`.
+
+## Numeric model
+
+The algorithm only compares values and indexes the sorted sequence. It does not use IEEE-754
+rounding, so the model is an arbitrary decidable linear order (`LinearOrder`), not primitive
+`Float`. The theorems therefore apply to `ℤ`, `ℚ`, and `ℝ`. Executable tests and property-based
+checks instantiate `Int` (with one `Rat` unit test). `ℝ` comparisons are not executable; the
+`ℝ` case is the same polymorphic statement, not a separate algorithm.
+
+Python's `pre` also requires a `list` or `tuple` of `numbers.Number`. That obligation is the
+element type of `List α`. The remaining runtime obligation is non-emptiness (`Pre`).
+
+`benchmark_median_low` is the entry point under test. It checks `Pre` and then calls `median_low`.
+The two functions use different error messages, matching the Python source.
 -/
 
 namespace «28_statistics_median_low»
 
-/-- Python `StatisticsError` for an empty sample. -/
-inductive StatisticsError where
-  | noMedianForEmptyData
-  deriving DecidableEq, Repr, BEq
+/-- Message raised by `median_low` on the empty sequence. -/
+def emptyMedianMsg : String := "no median for empty data"
 
-/-- Success value or `StatisticsError`, mirroring Python's exception. -/
-inductive StatsResult (α : Type) where
-  | ok : α → StatsResult α
-  | error : StatisticsError → StatsResult α
-  deriving DecidableEq, Repr, BEq
+/-- Message raised by `benchmark_median_low` when `Pre` fails. -/
+def benchmarkPreMsg : String :=
+  "benchmark_median_low requires a non-empty list/tuple of numbers"
 
-/-- Message carried by the empty-data error. -/
-def statisticsErrorMessage : StatisticsError → String
-  | .noMedianForEmptyData => "no median for empty data"
+/-- 0-based index of the low median in a list of length `n`. -/
+def lowMedianIndex (n : Nat) : Nat := (n - 1) / 2
 
-/-- Index `(n - 1) // 2` of the low median in a sorted list. -/
-def idx (n : Nat) : Nat := (n - 1) / 2
-
-theorem idx_lt {n : Nat} (hn : 0 < n) : idx n < n := by
-  unfold idx
+theorem lowMedianIndex_lt {n : Nat} (h : 0 < n) : lowMedianIndex n < n := by
+  unfold lowMedianIndex
   omega
 
-theorem idx_eq_div_of_odd {n : Nat} (h : n % 2 = 1) : idx n = n / 2 := by
-  unfold idx
+theorem lowMedianIndex_of_odd {n : Nat} (h : n % 2 = 1) : lowMedianIndex n = n / 2 := by
+  unfold lowMedianIndex
   omega
 
-theorem idx_eq_div_sub_of_even {n : Nat} (h : n % 2 = 0) (hn : 0 < n) :
-    idx n = n / 2 - 1 := by
-  unfold idx
+theorem lowMedianIndex_of_even {n : Nat} (hpos : 0 < n) (h : n % 2 = 0) :
+    lowMedianIndex n = n / 2 - 1 := by
+  unfold lowMedianIndex
   omega
 
-/-- Boolean `≤`, the comparison passed to `List.mergeSort` / Python `sorted`. -/
-def leBool {α : Type} [LE α] [DecidableLE α] (a b : α) : Bool :=
-  decide (a ≤ b)
+theorem lowMedianIndex_succ {n : Nat} (h : 0 < n) : lowMedianIndex n + 1 = (n + 1) / 2 := by
+  unfold lowMedianIndex
+  omega
 
-/-- Ascending sort, the counterpart of Python `sorted(data)`. -/
-def sortedData {α : Type} [LinearOrder α] (data : List α) : List α :=
-  data.mergeSort (leBool (α := α))
+theorem length_sub_lowMedianIndex {n : Nat} (h : 0 < n) : n - lowMedianIndex n = n / 2 + 1 := by
+  unfold lowMedianIndex
+  omega
 
-theorem sortedData_perm {α : Type} [LinearOrder α] (data : List α) :
-    List.Perm (sortedData data) data := by
-  simpa [sortedData] using List.mergeSort_perm data (leBool (α := α))
+theorem odd_branch_lt {n : Nat} (hodd : n % 2 = 1) : n / 2 < n := by
+  omega
 
-theorem sortedData_length {α : Type} [LinearOrder α] (data : List α) :
-    (sortedData data).length = data.length := by
-  simp [sortedData]
+theorem even_branch_lt {n : Nat} (h0 : n ≠ 0) (hodd : ¬ n % 2 = 1) : n / 2 - 1 < n := by
+  have : n % 2 = 0 := by
+    have := Nat.mod_two_eq_zero_or_one n
+    omega
+  omega
 
-theorem sortedData_pairwise {α : Type} [LinearOrder α] (data : List α) :
-    (sortedData data).Pairwise (fun a b => leBool a b = true) := by
-  have h := List.sorted_mergeSort (le := leBool (α := α))
-    (trans := by
-      intro a b c hab hbc
-      simp only [leBool, decide_eq_true_eq] at hab hbc
-      simpa [leBool] using le_trans hab hbc)
-    (total := by
-      intro a b
-      cases le_total a b with
-      | inl hab => simp [leBool, hab]
-      | inr hba => simp [leBool, hba])
-    data
-  simpa using h
+theorem high_index_bound {n : Nat} (h : 0 < n) : n / 2 < n := by
+  omega
 
-theorem sortedData_sorted {α : Type} [LinearOrder α] (data : List α) :
-    (sortedData data).Sorted (· ≤ ·) := by
-  exact (sortedData_pairwise data).imp (by intro a b hab; simpa [leBool] using hab)
+theorem low_index_le_high {n : Nat} (h : 0 < n) : lowMedianIndex n ≤ n / 2 := by
+  unfold lowMedianIndex
+  omega
 
-/--
-Low median of a list that is already sorted, following Python's branch:
-`data[n // 2]` if `n` is odd, else `data[n // 2 - 1]`.
+theorem getElem_eq_of_idx_eq {β : Type _} {l : List β} {i j : Nat} (hij : i = j)
+    (hi : i < l.length) (hj : j < l.length) : l[i]'hi = l[j]'hj := by
+  cases hij
+  rfl
+
+theorem getElem_proof_irrel {β : Type _} {l : List β} {i : Nat} {hi hi' : i < l.length} :
+    l[i]'hi = l[i]'hi' :=
+  getElem_eq_of_idx_eq rfl hi hi'
+
+/-! ## Functional implementation -/
+
+variable {α : Type*} [LinearOrder α]
+
+/-- Ascending sort. Python `sorted` on a total order. -/
+def sortedList (data : List α) : List α :=
+  data.mergeSort (· ≤ ·)
+
+theorem sortedList_length (data : List α) : (sortedList data).length = data.length := by
+  simp [sortedList, List.length_mergeSort]
+
+theorem sortedList_perm (data : List α) : List.Perm (sortedList data) data := by
+  simpa [sortedList] using List.mergeSort_perm data (· ≤ ·)
+
+theorem sortedList_sorted (data : List α) : List.Sorted (· ≤ ·) (sortedList data) :=
+  List.sorted_mergeSort' (· ≤ ·) data
+
+theorem sortedList_eq_insertionSort (data : List α) :
+    sortedList data = List.insertionSort (· ≤ ·) data := by
+  simpa [sortedList] using List.mergeSort_eq_insertionSort (· ≤ ·) data
+
+theorem sortedList_of_nil : sortedList ([] : List α) = [] := by
+  simp [sortedList, List.mergeSort_nil]
+
+/-- Low median of `data`.
+
+Mirrors CPython `median_low`: sort, reject the empty list, and return
+`sorted[(n - 1) // 2]`, i.e. `sorted[n // 2]` for odd `n` and `sorted[n // 2 - 1]` for even `n`.
 -/
-def medianFromSorted {α : Type} [LinearOrder α] (sorted : List α) : StatsResult α :=
+def median_low (data : List α) : Except String α :=
+  let sorted := sortedList data
   let n := sorted.length
-  if h : n = 0 then
-    .error .noMedianForEmptyData
+  if h0 : n = 0 then
+    .error emptyMedianMsg
   else if hodd : n % 2 = 1 then
-    .ok (sorted[n / 2]'(by omega))
+    .ok (sorted[n / 2]'(odd_branch_lt hodd))
   else
-    .ok (sorted[n / 2 - 1]'(by omega))
+    .ok (sorted[n / 2 - 1]'(even_branch_lt h0 hodd))
 
-/--
-`median_low`: return the low median of numeric data.
-
-When the number of data points is odd, the middle value is returned.
-When it is even, the smaller of the two middle values is returned.
-Empty data yields `StatisticsError.noMedianForEmptyData`.
--/
-def medianLow {α : Type} [LinearOrder α] (data : List α) : StatsResult α :=
-  medianFromSorted (sortedData data)
-
-/--
-`benchmark_median_low`. The Python precondition (non-empty list/tuple of
-numbers) is the non-emptiness check below; the element type is a linear order.
--/
-def benchmarkMedianLow {α : Type} [LinearOrder α] (data : List α) : StatsResult α :=
+/-- Entry point under test. Checks the precondition, then calls `median_low`. -/
+def benchmark_median_low (data : List α) : Except String α :=
   if data.isEmpty then
-    .error .noMedianForEmptyData
+    .error benchmarkPreMsg
   else
-    medianLow data
+    median_low data
+
+/-- The low-median value of a non-empty list: `sorted[(n - 1) / 2]`. -/
+def lowMedianValue (data : List α) (h : data ≠ []) : α :=
+  let s := sortedList data
+  s[lowMedianIndex s.length]'(lowMedianIndex_lt (by
+    rw [sortedList_length]
+    exact List.length_pos_iff.mpr h))
+
+instance instDecidableEqExcept {ε β} [DecidableEq ε] [DecidableEq β] :
+    DecidableEq (Except ε β) := fun a b =>
+  match a, b with
+  | .error x, .error y =>
+    match decEq x y with
+    | isTrue h => isTrue (by cases h; rfl)
+    | isFalse h => isFalse (by intro heq; cases heq; exact h rfl)
+  | .ok x, .ok y =>
+    match decEq x y with
+    | isTrue h => isTrue (by cases h; rfl)
+    | isFalse h => isFalse (by intro heq; cases heq; exact h rfl)
+  | .error _, .ok _ => isFalse (by intro h; cases h)
+  | .ok _, .error _ => isFalse (by intro h; cases h)
 
 /-! ## Unit tests -/
 
-example : medianLow ([1, 3, 5] : List Int) = .ok 3 := by native_decide
-example : medianLow ([1, 2, 3, 4, 5, 6, 9] : List Int) = .ok 4 := by native_decide
-example : medianLow ([1, 3, 5, 7] : List Int) = .ok 3 := by native_decide
-example : medianLow ([1, 2, 3, 4, 5, 6] : List Int) = .ok 3 := by native_decide
-example : medianLow ([42] : List Int) = .ok 42 := by native_decide
-example : medianLow ([10, 20] : List Int) = .ok 10 := by native_decide
-example : medianLow ([9, 1, 6, 2, 5, 4, 3] : List Int) = .ok 4 := by native_decide
-example : medianLow ([-5, -1, 0, 3, 7] : List Int) = .ok 0 := by native_decide
-example : medianLow ([-10, -5, 5, 10] : List Int) = .ok (-5) := by native_decide
-example : medianLow ([] : List Int) = .error .noMedianForEmptyData := by native_decide
-example : benchmarkMedianLow ([] : List Int) = .error .noMedianForEmptyData := by native_decide
-example : benchmarkMedianLow ([1, 3, 5] : List Int) = .ok 3 := by native_decide
+example : benchmark_median_low ([1, 3, 5] : List Int) = .ok 3 := by native_decide
 
-#eval medianLow ([1, 3, 5] : List Int)
-#eval medianLow ([1, 3, 5, 7] : List Int)
-#eval medianLow ([9, 1, 6, 2, 5, 4, 3] : List Int)
-#eval medianLow ([-10, -5, 5, 10] : List Int)
-#eval medianLow ([] : List Int)
-#eval statisticsErrorMessage StatisticsError.noMedianForEmptyData
-#eval medianLow ([(1 : Rat) / 2, 5 / 2, 3 / 2])
+example : benchmark_median_low ([1, 2, 3, 4, 5, 6, 9] : List Int) = .ok 4 := by native_decide
+
+example : benchmark_median_low ([1, 3, 5, 7] : List Int) = .ok 3 := by native_decide
+
+example : benchmark_median_low ([1, 2, 3, 4, 5, 6] : List Int) = .ok 3 := by native_decide
+
+example : benchmark_median_low ([42] : List Int) = .ok 42 := by native_decide
+
+example : benchmark_median_low ([10, 20] : List Int) = .ok 10 := by native_decide
+
+example : benchmark_median_low ([9, 1, 6, 2, 5, 4, 3] : List Int) = .ok 4 := by native_decide
+
+example : benchmark_median_low ([-5, -1, 0, 3, 7] : List Int) = .ok 0 := by native_decide
+
+example : benchmark_median_low ([-10, -5, 5, 10] : List Int) = .ok (-5) := by native_decide
+
+example : benchmark_median_low ([1, 2, 2, 3] : List Int) = .ok 2 := by native_decide
+
+example : benchmark_median_low ([-1, -5] : List Int) = .ok (-5) := by native_decide
+
+example : benchmark_median_low ([] : List Int) = .error benchmarkPreMsg := by native_decide
+
+example : median_low ([] : List Int) = .error emptyMedianMsg := by native_decide
+
+example : benchmark_median_low ([(1 : Rat) / 2, (3 : Rat) / 2, (5 : Rat) / 2]) = .ok ((3 : Rat) / 2) := by
+  native_decide
+
+#eval benchmark_median_low ([1, 3, 5] : List Int)
+
+#eval benchmark_median_low ([1, 3, 5, 7] : List Int)
+
+#eval benchmark_median_low ([9, 1, 6, 2, 5, 4, 3] : List Int)
+
+#eval benchmark_median_low ([-10, -5, 5, 10] : List Int)
+
+#eval benchmark_median_low ([] : List Int)
 
 /-! ## Pre-condition -/
 
-/-- Non-empty input. Element type already restricts to ordered numbers. -/
-def Pre {α : Type} (data : List α) : Prop :=
-  data ≠ []
+/-- Python `pre` for a list of ordered numbers: the sequence is non-empty.
+The list/tuple and numeric-type checks are the type `List α`. -/
+def Pre (data : List α) : Prop := data ≠ []
 
-theorem length_pos_of_pre {α : Type} {data : List α} (h : Pre data) : 0 < data.length := by
-  cases data with
-  | nil => exact absurd rfl h
-  | cons _ _ => simp
+/-! ## Auxiliary lemmas -/
 
+theorem sorted_mono (data : List α) {i j : Nat}
+    (hi : i < (sortedList data).length) (hj : j < (sortedList data).length) (hij : i ≤ j) :
+    (sortedList data)[i] ≤ (sortedList data)[j] := by
+  have hs := sortedList_sorted data
+  have hrel :=
+    hs.rel_get_of_le (a := ⟨i, hi⟩) (b := ⟨j, hj⟩)
+      (hab := by simpa using hij)
+  simpa [List.get_eq_getElem] using hrel
 
-/-! ## Sorting and indexing lemmas -/
+theorem median_low_empty : median_low ([] : List α) = .error emptyMedianMsg := by
+  simp [median_low, sortedList_of_nil]
 
-theorem medianFromSorted_eq_idx {α : Type} [LinearOrder α] (sorted : List α)
-    (h : 0 < sorted.length) :
-    medianFromSorted sorted = .ok (sorted[idx sorted.length]'(idx_lt h)) := by
-  unfold medianFromSorted
-  have hn : sorted.length ≠ 0 := Nat.ne_of_gt h
-  by_cases hodd : sorted.length % 2 = 1
-  · simp [hn, hodd, idx_eq_div_of_odd hodd]
-  · have heven : sorted.length % 2 = 0 := by
-      rcases Nat.mod_two_eq_zero_or_one sorted.length with h0 | h1
-      · exact h0
-      · exact absurd h1 hodd
-    simp [hn, hodd, idx_eq_div_sub_of_even heven h]
+theorem benchmark_median_low_empty :
+    benchmark_median_low ([] : List α) = .error benchmarkPreMsg := by
+  simp [benchmark_median_low]
 
-theorem drop_index_lt {α : Type} {s : List α} {i j : Nat}
-    (_hi : i < s.length) (hj : j < (s.drop i).length) : i + j < s.length := by
-  have hj' : j < s.length - i := by simpa [List.length_drop] using hj
-  exact Nat.add_lt_of_lt_sub' hj'
+theorem benchmark_median_low_of_ne_nil (data : List α) (h : data ≠ []) :
+    benchmark_median_low data = median_low data := by
+  have hempty : data.isEmpty = false := by simpa [List.isEmpty_iff] using h
+  simp [benchmark_median_low, hempty]
 
-theorem countP_lt_of_sorted {α : Type} [LinearOrder α] (s : List α)
-    (hs : s.Sorted (· ≤ ·)) {i : Nat} (hi : i < s.length) :
-    s.countP (fun x => decide (x < s[i])) ≤ i := by
-  have hdrop : (s.drop i).countP (fun x => decide (x < s[i])) = 0 := by
-    rw [List.countP_eq_zero]
-    intro a ha
-    rcases List.mem_iff_getElem.mp ha with ⟨j, hj, rfl⟩
-    have hij : i + j < s.length := drop_index_lt hi hj
-    rw [List.getElem_drop]
-    simp only [decide_eq_true_eq]
-    intro hlt
-    have hle : s[i] ≤ s[i + j] := by
-      rcases Nat.eq_zero_or_pos j with rfl | hpos
-      · simp
-      · exact (List.pairwise_iff_getElem.mp hs) i (i + j) hi hij
-          (Nat.lt_add_of_pos_right hpos)
-    exact not_lt_of_ge hle hlt
-  have htake_le : (s.take i).countP (fun x => decide (x < s[i])) ≤ i :=
-    le_trans (List.countP_le_length (l := s.take i) (p := fun x => decide (x < s[i])))
-      (by simp [List.length_take])
-  have happ :
-      s.countP (fun x => decide (x < s[i])) =
-        (s.take i).countP (fun x => decide (x < s[i])) +
-          (s.drop i).countP (fun x => decide (x < s[i])) := by
-    simpa [List.take_append_drop] using
-      (List.countP_append (l₁ := s.take i) (l₂ := s.drop i)
-        (p := fun x => decide (x < s[i])))
+theorem countP_eq_sorted (data : List α) (p : α → Bool) :
+    data.countP p = (sortedList data).countP p :=
+  (sortedList_perm data).symm.countP_eq p
+
+theorem lowMedianValue_eq_index (data : List α) (h : data ≠ []) :
+    lowMedianValue data h =
+      (sortedList data)[lowMedianIndex (sortedList data).length]'
+        (lowMedianIndex_lt (by rw [sortedList_length]; exact List.length_pos_iff.mpr h)) := by
+  rfl
+
+theorem median_low_eq_lowMedianValue (data : List α) (h : data ≠ []) :
+    median_low data = .ok (lowMedianValue data h) := by
+  have hpos : 0 < (sortedList data).length := by
+    rw [sortedList_length]
+    exact List.length_pos_iff.mpr h
+  have hlen0 : (sortedList data).length ≠ 0 := Nat.ne_of_gt hpos
+  unfold median_low
+  simp only [hlen0, dite_false]
+  by_cases hodd : (sortedList data).length % 2 = 1
+  · simp only [hodd, dite_true]
+    apply congrArg Except.ok
+    have hidx :
+        (sortedList data).length / 2 = lowMedianIndex (sortedList data).length :=
+      (lowMedianIndex_of_odd hodd).symm
+    exact getElem_eq_of_idx_eq hidx (odd_branch_lt hodd) (lowMedianIndex_lt hpos)
+  · simp only [hodd, dite_false]
+    apply congrArg Except.ok
+    have heven : (sortedList data).length % 2 = 0 := by
+      have := Nat.mod_two_eq_zero_or_one (sortedList data).length
+      omega
+    have hidx :
+        (sortedList data).length / 2 - 1 = lowMedianIndex (sortedList data).length :=
+      (lowMedianIndex_of_even hpos heven).symm
+    exact getElem_eq_of_idx_eq hidx (even_branch_lt hlen0 hodd) (lowMedianIndex_lt hpos)
+
+theorem benchmark_median_low_eq_lowMedianValue (data : List α) (h : data ≠ []) :
+    benchmark_median_low data = .ok (lowMedianValue data h) := by
+  rw [benchmark_median_low_of_ne_nil data h, median_low_eq_lowMedianValue data h]
+
+theorem lowMedianValue_mem (data : List α) (h : data ≠ []) : lowMedianValue data h ∈ data := by
+  have hm : lowMedianValue data h ∈ sortedList data := by
+    unfold lowMedianValue
+    exact List.getElem_mem _
+  exact (sortedList_perm data).mem_iff.mp hm
+
+theorem index_value_eq (data : List α) (h : data ≠ []) :
+    lowMedianValue data h =
+      (sortedList data)[lowMedianIndex (sortedList data).length]'
+        (lowMedianIndex_lt (by
+          rw [sortedList_length]
+          exact List.length_pos_iff.mpr h)) := by
+  unfold lowMedianValue
+  exact getElem_proof_irrel
+
+/-- At least `⌊(n + 1) / 2⌋` entries are `≤` the low median. -/
+theorem lower_count_le (data : List α) (h : data ≠ []) :
+    (data.length + 1) / 2 ≤ data.countP (fun x => decide (x ≤ lowMedianValue data h)) := by
+  have hlen : (sortedList data).length = data.length := sortedList_length data
+  set s := sortedList data
+  have hpos : 0 < s.length := by rw [hlen]; exact List.length_pos_iff.mpr h
+  set i := lowMedianIndex s.length
+  have hi : i < s.length := lowMedianIndex_lt hpos
+  have hsrt := sortedList_sorted data
+  have hm : lowMedianValue data h = s[i]'hi := by
+    rw [index_value_eq data h]
+    exact getElem_proof_irrel
+  have hneed : (data.length + 1) / 2 = i + 1 := by
+    have : i + 1 = (s.length + 1) / 2 := lowMedianIndex_succ hpos
+    rw [hlen] at this
+    omega
+  have hsplit : s.take (i + 1) = s.take i ++ [s[i]'hi] :=
+    List.take_succ_eq_append_getElem hi
+  have htake_le : ∀ x ∈ s.take i, x ≤ s[i]'hi := by
+    intro x hx
+    have hhead : s[i] ∈ s.drop i := by
+      rw [List.drop_eq_getElem_cons hi]
+      exact List.mem_cons_self ..
+    exact hsrt.rel_of_mem_take_of_mem_drop hx hhead
+  have hall : ∀ x ∈ s.take (i + 1), decide (x ≤ lowMedianValue data h) = true := by
+    intro x hx
+    rw [hsplit] at hx
+    simp at hx
+    rcases hx with hx | rfl
+    · have hsi : s[i] ≤ lowMedianValue data h := by rw [hm]
+      exact decide_eq_true (le_trans (htake_le x hx) hsi)
+    · rw [hm]
+      exact decide_eq_true le_rfl
+  rw [hneed, countP_eq_sorted]
+  change i + 1 ≤ s.countP fun x => decide (x ≤ lowMedianValue data h)
+  rw [← List.take_append_drop (i + 1) s, List.countP_append]
+  have htake :
+      (s.take (i + 1)).countP (fun x => decide (x ≤ lowMedianValue data h)) = i + 1 := by
+    rw [List.countP_eq_length.mpr hall, List.length_take, Nat.min_eq_left (by omega)]
   omega
 
-theorem countP_le_of_sorted {α : Type} [LinearOrder α] (s : List α)
-    (hs : s.Sorted (· ≤ ·)) {i : Nat} (hi : i < s.length) :
-    i + 1 ≤ s.countP (fun x => decide (x ≤ s[i])) := by
-  have hlen : (s.take (i + 1)).length = i + 1 := by
-    simp [List.length_take]
+/-- At least `⌊n / 2⌋ + 1` entries are `≥` the low median. -/
+theorem upper_count_ge (data : List α) (h : data ≠ []) :
+    data.length / 2 + 1 ≤ data.countP (fun x => decide (lowMedianValue data h ≤ x)) := by
+  have hlen : (sortedList data).length = data.length := sortedList_length data
+  set s := sortedList data
+  have hpos : 0 < s.length := by rw [hlen]; exact List.length_pos_iff.mpr h
+  set i := lowMedianIndex s.length
+  have hi : i < s.length := lowMedianIndex_lt hpos
+  have hsrt := sortedList_sorted data
+  have hm : lowMedianValue data h = s[i]'hi := by
+    rw [index_value_eq data h]
+    exact getElem_proof_irrel
+  have hneed : data.length / 2 + 1 = s.length - i := by
+    have : s.length - i = s.length / 2 + 1 := length_sub_lowMedianIndex hpos
+    rw [hlen] at this
     omega
-  have htake_len : (s.take (i + 1)).countP (fun x => decide (x ≤ s[i])) =
-      (s.take (i + 1)).length := by
-    rw [List.countP_eq_length]
-    intro a ha
-    rcases List.mem_iff_getElem.mp ha with ⟨j, hj, rfl⟩
-    have hj' : j < i + 1 := by
-      have := hj
-      simp [List.length_take] at this
-      omega
-    have hjlen : j < s.length := by omega
-    rw [List.getElem_take]
-    simp only [decide_eq_true_eq]
-    rcases lt_or_eq_of_le (Nat.le_of_lt_succ hj') with hji | rfl
-    · exact (List.pairwise_iff_getElem.mp hs) j i hjlen hi hji
+  have htail : ∀ x ∈ s.drop (i + 1), s[i]'hi ≤ x := by
+    intro x hx
+    have hm_take : s[i] ∈ s.take (i + 1) := by
+      rw [List.take_succ_eq_append_getElem hi]
+      exact List.mem_append_right _ (List.mem_singleton.mpr rfl)
+    exact hsrt.rel_of_mem_take_of_mem_drop hm_take hx
+  have hself : s[i] ∈ (s.take (i + 1)).filter (fun x => decide (lowMedianValue data h ≤ x)) := by
+    rw [List.mem_filter]
+    refine ⟨?_, ?_⟩
+    · rw [List.take_succ_eq_append_getElem hi]
+      exact List.mem_append_right _ (List.mem_singleton.mpr rfl)
+    · rw [hm]
+      exact decide_eq_true le_rfl
+  rw [hneed, countP_eq_sorted]
+  change s.length - i ≤ s.countP fun x => decide (lowMedianValue data h ≤ x)
+  rw [← List.take_append_drop (i + 1) s, List.countP_append]
+  have hdrop :
+      (s.drop (i + 1)).countP (fun x => decide (lowMedianValue data h ≤ x)) =
+        s.length - (i + 1) := by
+    rw [List.countP_eq_length.mpr, List.length_drop]
+    intro x hx
+    exact decide_eq_true (by rw [hm]; exact htail x hx)
+  have htake :
+      1 ≤ (s.take (i + 1)).countP (fun x => decide (lowMedianValue data h ≤ x)) := by
+    rw [List.countP_eq_length_filter]
+    exact List.length_pos_of_mem hself
+  omega
+
+theorem lowMedianValue_le_high (data : List α) (h : data ≠ []) :
+    lowMedianValue data h ≤
+      (sortedList data)[data.length / 2]'(by
+        rw [sortedList_length]
+        exact high_index_bound (List.length_pos_iff.mpr h)) := by
+  have hlen : (sortedList data).length = data.length := sortedList_length data
+  set s := sortedList data
+  have hpos : 0 < s.length := by rw [hlen]; exact List.length_pos_iff.mpr h
+  have hi := lowMedianIndex_lt hpos
+  have hhi := high_index_bound hpos
+  have hle := low_index_le_high hpos
+  have hm : lowMedianValue data h = s[lowMedianIndex s.length]'hi := by
+    rw [index_value_eq data h]
+    exact getElem_proof_irrel
+  rw [hm]
+  have hright :
+      s[data.length / 2]'(by rw [hlen]; exact high_index_bound (List.length_pos_iff.mpr h)) =
+        s[s.length / 2]'hhi :=
+    getElem_eq_of_idx_eq (by rw [hlen]) _ _
+  rw [hright]
+  exact sorted_mono data hi hhi hle
+
+theorem count_lt_before (data : List α) (h : data ≠ []) {m' : α}
+    (hlt : m' < lowMedianValue data h) :
+    data.countP (fun x => decide (x ≤ m')) ≤ lowMedianIndex data.length := by
+  have hlen : (sortedList data).length = data.length := sortedList_length data
+  set s := sortedList data
+  have hpos : 0 < s.length := by rw [hlen]; exact List.length_pos_iff.mpr h
+  set i := lowMedianIndex s.length
+  have hi : i < s.length := lowMedianIndex_lt hpos
+  have hsrt := sortedList_sorted data
+  have hm : lowMedianValue data h = s[i]'hi := by
+    rw [index_value_eq data h]
+    exact getElem_proof_irrel
+  have htail : ∀ x ∈ s.drop (i + 1), s[i]'hi ≤ x := by
+    intro x hx
+    have hm_take : s[i] ∈ s.take (i + 1) := by
+      rw [List.take_succ_eq_append_getElem hi]
+      exact List.mem_append_right _ (List.mem_singleton.mpr rfl)
+    exact hsrt.rel_of_mem_take_of_mem_drop hm_take hx
+  rw [countP_eq_sorted]
+  change s.countP (fun x => decide (x ≤ m')) ≤ lowMedianIndex data.length
+  have hi_data : i = lowMedianIndex data.length := by simp [i, hlen]
+  rw [← hi_data, ← List.take_append_drop i s, List.countP_append]
+  have hdrop0 : (s.drop i).countP (fun x => decide (x ≤ m')) = 0 := by
+    rw [List.countP_eq_zero]
+    intro x hx hdec
+    have hle : x ≤ m' := of_decide_eq_true hdec
+    rw [List.drop_eq_getElem_cons hi] at hx
+    simp at hx
+    rcases hx with rfl | hx
+    · rw [← hm] at hle
+      exact not_lt_of_ge hle hlt
+    · have hge : s[i] ≤ x := htail x hx
+      rw [← hm] at hge
+      exact not_lt_of_ge hge (lt_of_le_of_lt hle hlt)
+  have htake :
+      (s.take i).countP (fun x => decide (x ≤ m')) ≤ i := by
+    exact le_trans List.countP_le_length (by
+      rw [List.length_take, Nat.min_eq_left (Nat.le_of_lt hi)])
+  simp [hdrop0]
+  exact htake
+
+theorem count_gt_after (data : List α) (h : data ≠ []) {m' : α}
+    (hgt : lowMedianValue data h < m') :
+    data.countP (fun x => decide (m' ≤ x)) ≤
+      data.length - (lowMedianIndex data.length + 1) := by
+  have hlen : (sortedList data).length = data.length := sortedList_length data
+  set s := sortedList data
+  have hpos : 0 < s.length := by rw [hlen]; exact List.length_pos_iff.mpr h
+  set i := lowMedianIndex s.length
+  have hi : i < s.length := lowMedianIndex_lt hpos
+  have hsrt := sortedList_sorted data
+  have hm : lowMedianValue data h = s[i]'hi := by
+    rw [index_value_eq data h]
+    exact getElem_proof_irrel
+  have hpref : ∀ x ∈ s.take (i + 1), x ≤ s[i]'hi := by
+    intro x hx
+    rw [List.take_succ_eq_append_getElem hi] at hx
+    simp at hx
+    rcases hx with hx | rfl
+    · have hhead : s[i] ∈ s.drop i := by
+        rw [List.drop_eq_getElem_cons hi]
+        exact List.mem_cons_self ..
+      exact hsrt.rel_of_mem_take_of_mem_drop hx hhead
     · exact le_rfl
-  have htake : (s.take (i + 1)).countP (fun x => decide (x ≤ s[i])) = i + 1 := by
-    rw [htake_len, hlen]
-  have hprefix :
-      (s.take (i + 1)).countP (fun x => decide (x ≤ s[i])) ≤
-        s.countP (fun x => decide (x ≤ s[i])) :=
-    (List.take_prefix (i + 1) s).countP_le
-  omega
-
-theorem countP_le_split_drop {α : Type} [LinearOrder α] (s : List α)
-    (hs : s.Sorted (· ≤ ·)) {k : Nat} (hk : k < s.length) {m : α} (hgt : m < s[k]) :
-    s.countP (fun x => decide (x ≤ m)) ≤ k := by
-  have hdrop : (s.drop k).countP (fun x => decide (x ≤ m)) = 0 := by
+  rw [countP_eq_sorted]
+  change s.countP (fun x => decide (m' ≤ x)) ≤ data.length - (lowMedianIndex data.length + 1)
+  have hi_data : i = lowMedianIndex data.length := by simp [i, hlen]
+  rw [← hi_data, ← hlen, ← List.take_append_drop (i + 1) s, List.countP_append]
+  have htake0 : (s.take (i + 1)).countP (fun x => decide (m' ≤ x)) = 0 := by
     rw [List.countP_eq_zero]
-    intro a ha
-    rcases List.mem_iff_getElem.mp ha with ⟨j, hj, rfl⟩
-    have hij : k + j < s.length := drop_index_lt hk hj
-    rw [List.getElem_drop]
-    simp only [decide_eq_true_eq]
-    intro hxm
-    have hge : s[k] ≤ s[k + j] := by
-      rcases Nat.eq_zero_or_pos j with rfl | hpos
-      · simp
-      · exact (List.pairwise_iff_getElem.mp hs) k (k + j) hk hij
-          (Nat.lt_add_of_pos_right hpos)
-    exact not_lt_of_ge (le_trans hge hxm) hgt
-  have htake : (s.take k).countP (fun x => decide (x ≤ m)) ≤ k :=
-    le_trans (List.countP_le_length (l := s.take k) (p := fun x => decide (x ≤ m)))
-      (by simp [List.length_take])
-  have happ :
-      s.countP (fun x => decide (x ≤ m)) =
-        (s.take k).countP (fun x => decide (x ≤ m)) +
-          (s.drop k).countP (fun x => decide (x ≤ m)) := by
-    simpa [List.take_append_drop] using
-      (List.countP_append (l₁ := s.take k) (l₂ := s.drop k)
-        (p := fun x => decide (x ≤ m)))
-  omega
+    intro x hx hdec
+    have hmx : m' ≤ x := of_decide_eq_true hdec
+    have hxle : x ≤ s[i] := hpref x hx
+    rw [← hm] at hxle
+    exact not_lt_of_ge (le_trans hmx hxle) hgt
+  have hdrop :
+      (s.drop (i + 1)).countP (fun x => decide (m' ≤ x)) ≤ s.length - (i + 1) := by
+    exact le_trans List.countP_le_length (by rw [List.length_drop])
+  simpa [htake0] using hdrop
 
-theorem countP_lt_take_succ {α : Type} [LinearOrder α] (s : List α)
-    (hs : s.Sorted (· ≤ ·)) {k : Nat} (hk : k < s.length) {m : α} (hlt : s[k] < m) :
-    k + 1 ≤ s.countP (fun x => decide (x < m)) := by
-  have hlen : (s.take (k + 1)).length = k + 1 := by
-    simp [List.length_take]
+theorem low_median_unique (data : List α) (h : data ≠ []) (m' : α)
+    (hle : (data.length + 1) / 2 ≤ data.countP (fun x => decide (x ≤ m')))
+    (hge : data.length / 2 + 1 ≤ data.countP (fun x => decide (m' ≤ x))) :
+    m' = lowMedianValue data h := by
+  have hpos : 0 < data.length := List.length_pos_iff.mpr h
+  have hi_add : lowMedianIndex data.length + 1 = (data.length + 1) / 2 :=
+    lowMedianIndex_succ hpos
+  have hsub : data.length - lowMedianIndex data.length = data.length / 2 + 1 :=
+    length_sub_lowMedianIndex hpos
+  rcases lt_trichotomy m' (lowMedianValue data h) with hlt | heq | hgt
+  · have hbound := count_lt_before data h hlt
+    have : (data.length + 1) / 2 ≤ lowMedianIndex data.length :=
+      le_trans hle hbound
     omega
-  have htake_len : (s.take (k + 1)).countP (fun x => decide (x < m)) =
-      (s.take (k + 1)).length := by
-    rw [List.countP_eq_length]
-    intro a ha
-    rcases List.mem_iff_getElem.mp ha with ⟨j, hj, rfl⟩
-    have hj' : j < k + 1 := by
-      have := hj
-      simp [List.length_take] at this
-      omega
-    have hjlen : j < s.length := by omega
-    rw [List.getElem_take]
-    simp only [decide_eq_true_eq]
-    have haj : s[j] ≤ s[k] := by
-      rcases lt_or_eq_of_le (Nat.le_of_lt_succ hj') with hji | rfl
-      · exact (List.pairwise_iff_getElem.mp hs) j k hjlen hk hji
-      · exact le_rfl
-    exact lt_of_le_of_lt haj hlt
-  have htake : (s.take (k + 1)).countP (fun x => decide (x < m)) = k + 1 := by
-    rw [htake_len, hlen]
-  have hprefix :=
-    (List.take_prefix (k + 1) s).countP_le (p := fun x => decide (x < m))
-  omega
+  · exact heq
+  · have hbound := count_gt_after data h hgt
+    have : data.length / 2 + 1 ≤ data.length - (lowMedianIndex data.length + 1) :=
+      le_trans hge hbound
+    omega
+
+theorem benchmark_perm (data data' : List α) (hp : List.Perm data data') :
+    benchmark_median_low data = benchmark_median_low data' := by
+  by_cases h : data = []
+  · have h' : data' = [] := by
+      have hperm : List.Perm [] data' := by simpa [h] using hp
+      exact hperm.nil_eq.symm
+    simp [h, h', benchmark_median_low_empty]
+  · have h' : data' ≠ [] := by
+      intro he
+      apply h
+      have : List.Perm data [] := by simpa [he] using hp
+      exact this.eq_nil
+    have hsort : sortedList data = sortedList data' :=
+      List.eq_of_perm_of_sorted
+        ((sortedList_perm data).trans (hp.trans (sortedList_perm data').symm))
+        (sortedList_sorted data) (sortedList_sorted data')
+    rw [benchmark_median_low_eq_lowMedianValue data h,
+      benchmark_median_low_eq_lowMedianValue data' h']
+    apply congrArg Except.ok
+    simp [lowMedianValue, hsort, getElem_proof_irrel]
 
 /-! ## Properties -/
 
-/-- Empty data has no median. -/
-def empty_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  data = [] → medianLow data = .error .noMedianForEmptyData
+/-- Empty input yields the benchmark precondition error. -/
+def empty_error_prop (data : List α) (result : Except String α) : Prop :=
+  data = [] → result = .error benchmarkPreMsg
 
-theorem empty_thm {α : Type} [LinearOrder α] (data : List α) : empty_prop data := by
-  intro h
-  subst h
-  simp [medianLow, sortedData, medianFromSorted]
+/-- On a non-empty list the result is the order statistic at index `(n - 1) / 2`. -/
+def sorted_index_prop (data : List α) (result : Except String α) : Prop :=
+  ∀ hne : data ≠ [], result = .ok (lowMedianValue data hne)
 
-/-- On non-empty data the result is `sorted[(n - 1) // 2]`. -/
-def index_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  Pre data →
-    ∃ m, medianLow data = .ok m ∧ (sortedData data)[idx data.length]? = some m
+/-- Odd length: the result is the middle entry `sorted[n / 2]` of the ascending sort. -/
+def odd_middle_prop (data : List α) (result : Except String α) : Prop :=
+  ∀ (hne : data ≠ []) (hodd : data.length % 2 = 1),
+    result =
+      .ok ((sortedList data)[data.length / 2]'(by
+        rw [sortedList_length]
+        exact odd_branch_lt hodd))
 
-theorem index_thm {α : Type} [LinearOrder α] (data : List α) : index_prop data := by
-  intro h
-  have hpos : 0 < (sortedData data).length := by
-    simpa [sortedData_length] using length_pos_of_pre h
-  refine ⟨(sortedData data)[idx data.length]'(by simpa [sortedData_length] using idx_lt (length_pos_of_pre h)), ?_, ?_⟩
-  · simpa [medianLow, sortedData_length] using medianFromSorted_eq_idx (sortedData data) hpos
-  · rw [List.getElem?_eq_getElem]
+/-- Even positive length: the result is the smaller of the two middle entries. -/
+def even_low_middle_prop (data : List α) (result : Except String α) : Prop :=
+  ∀ (hne : data ≠ []) (he : data.length % 2 = 0),
+    result =
+        .ok ((sortedList data)[data.length / 2 - 1]'(by
+          rw [sortedList_length]
+          exact even_branch_lt (Nat.ne_of_gt (List.length_pos_iff.mpr hne)) (by
+            intro hodd
+            omega))) ∧
+      (sortedList data)[data.length / 2 - 1]'(by
+          rw [sortedList_length]
+          exact even_branch_lt (Nat.ne_of_gt (List.length_pos_iff.mpr hne)) (by
+            intro hodd
+            omega)) ≤
+        (sortedList data)[data.length / 2]'(by
+          rw [sortedList_length]
+          exact high_index_bound (List.length_pos_iff.mpr hne))
 
-/-- Odd length: Python returns `sorted[n // 2]`. -/
-def odd_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  data.length % 2 = 1 →
-    ∃ m, medianLow data = .ok m ∧ (sortedData data)[data.length / 2]? = some m
+/-- A successful result is an element of the input. -/
+def mem_prop (data : List α) (result : Except String α) : Prop :=
+  ∀ m, result = .ok m → m ∈ data
 
-theorem odd_thm {α : Type} [LinearOrder α] (data : List α) : odd_prop data := by
-  intro hodd
-  have hpos : 0 < data.length := by omega
-  have hpos' : 0 < (sortedData data).length := by simpa [sortedData_length] using hpos
-  have hidx := idx_eq_div_of_odd hodd
-  have hlt : data.length / 2 < (sortedData data).length := by
-    rw [sortedData_length, ← hidx]
-    exact idx_lt hpos
-  refine ⟨(sortedData data)[data.length / 2]'hlt, ?_, ?_⟩
-  · simpa [medianLow, sortedData_length, hidx] using
-      medianFromSorted_eq_idx (sortedData data) hpos'
-  · rw [List.getElem?_eq_getElem]
+/-- At least half the entries, rounded up, are `≤` the low median. -/
+def lower_count_prop (data : List α) (result : Except String α) : Prop :=
+  ∀ m, result = .ok m →
+    (data.length + 1) / 2 ≤ data.countP (fun x => decide (x ≤ m))
 
-/-- Even positive length: Python returns `sorted[n // 2 - 1]`. -/
-def even_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  Pre data → data.length % 2 = 0 →
-    ∃ m, medianLow data = .ok m ∧ (sortedData data)[data.length / 2 - 1]? = some m
+/-- Strictly more than half the entries are `≥` the low median (`⌊n/2⌋ + 1`). -/
+def upper_count_prop (data : List α) (result : Except String α) : Prop :=
+  ∀ m, result = .ok m →
+    data.length / 2 + 1 ≤ data.countP (fun x => decide (m ≤ x))
 
-theorem even_thm {α : Type} [LinearOrder α] (data : List α) : even_prop data := by
-  intro hpre heven
-  have hpos := length_pos_of_pre hpre
-  have hpos' : 0 < (sortedData data).length := by simpa [sortedData_length] using hpos
-  have hidx := idx_eq_div_sub_of_even heven hpos
-  have hlt : data.length / 2 - 1 < (sortedData data).length := by
-    rw [sortedData_length, ← hidx]
-    exact idx_lt hpos
-  refine ⟨(sortedData data)[data.length / 2 - 1]'hlt, ?_, ?_⟩
-  · simpa [medianLow, sortedData_length, hidx] using
-      medianFromSorted_eq_idx (sortedData data) hpos'
-  · rw [List.getElem?_eq_getElem]
+/-- The low median is `≤` the high middle entry `sorted[n / 2]`.
+A successful result forces the input to be non-empty, so that index is in range. -/
+def le_high_median_prop (data : List α) (result : Except String α) : Prop :=
+  ∀ m, result = .ok m →
+    ∃ hi, (sortedList data)[data.length / 2]? = some hi ∧ m ≤ hi
 
+/-- The value is unchanged by permuting the input. -/
+def perm_invariance_prop (data : List α) (result : Except String α) : Prop :=
+  ∀ data', List.Perm data data' → benchmark_median_low data' = result
 
-/-- The low median belongs to the input. -/
-def mem_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  ∀ m, medianLow data = .ok m → m ∈ data
+/-- The two count bounds determine the low median uniquely. -/
+def unique_low_median_prop (data : List α) (result : Except String α) : Prop :=
+  ∀ m, result = .ok m →
+    ∀ m',
+      (data.length + 1) / 2 ≤ data.countP (fun x => decide (x ≤ m')) →
+      data.length / 2 + 1 ≤ data.countP (fun x => decide (m' ≤ x)) →
+      m' = m
 
-theorem mem_thm {α : Type} [LinearOrder α] (data : List α) : mem_prop data := by
-  intro m hm
-  by_cases hpre : Pre data
-  · obtain ⟨m', hm', hget⟩ := index_thm data hpre
-    have heq : m' = m := by
-      rw [hm'] at hm
-      cases hm
-      rfl
-    have hmem_sorted : m' ∈ sortedData data := by
-      rw [List.mem_iff_getElem]
-      refine ⟨idx data.length, ?_, ?_⟩
-      · simpa [sortedData_length] using idx_lt (length_pos_of_pre hpre)
-      · have hsome := hget
-        rw [List.getElem?_eq_getElem] at hsome
-        injection hsome
-    rw [← heq]
-    exact (sortedData_perm data).mem_iff.mp hmem_sorted
-  · have hempty : data = [] := by simpa [Pre] using hpre
-    rw [empty_thm data hempty] at hm
-    cases hm
+/-- On a non-empty list the benchmark agrees with `median_low`. -/
+def agrees_with_median_low_prop (data : List α) (result : Except String α) : Prop :=
+  data ≠ [] → result = median_low data
 
+/-- `median_low` itself reports its own empty-list error. -/
+def median_low_empty_error_prop (data : List α) (result : Except String α) : Prop :=
+  data = [] → result = .error emptyMedianMsg
 
-/-- At most `(n - 1) // 2` inputs are strictly smaller than the low median. -/
-def count_lt_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  ∀ m, medianLow data = .ok m →
-    data.countP (fun x => decide (x < m)) ≤ idx data.length
+/-- A one-element list is its own low median. -/
+def singleton_prop (x : α) : Prop :=
+  benchmark_median_low [x] = .ok x
 
-theorem count_lt_thm {α : Type} [LinearOrder α] (data : List α) : count_lt_prop data := by
-  intro m hm
-  have hpre : Pre data := by
-    intro hempty
-    rw [empty_thm data hempty] at hm
-    cases hm
-  obtain ⟨m', hm', hget⟩ := index_thm data hpre
-  have heq : m' = m := by rw [hm'] at hm; cases hm; rfl
-  have hi : idx data.length < (sortedData data).length := by
-    simpa [sortedData_length] using idx_lt (length_pos_of_pre hpre)
-  have hcount := countP_lt_of_sorted (sortedData data) (sortedData_sorted data) hi
-  have hget' : (sortedData data)[idx data.length] = m' := by
-    have hsome := hget
-    rw [List.getElem?_eq_getElem] at hsome
-    injection hsome with h
-  have hperm := (sortedData_perm data).countP_eq (fun x => decide (x < m'))
-  have hbound : data.countP (fun x => decide (x < m')) ≤ idx data.length := by
-    simpa [hget', sortedData_length, hperm] using hcount
-  simpa [heq] using hbound
+/-- The low median of two values is their minimum. -/
+def pair_min_prop (a b : α) : Prop :=
+  benchmark_median_low [a, b] = .ok (min a b)
 
-/-- At least `(n - 1) // 2 + 1` inputs are `≤` the low median. -/
-def count_le_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  ∀ m, medianLow data = .ok m →
-    idx data.length + 1 ≤ data.countP (fun x => decide (x ≤ m))
+theorem empty_error_thm (data : List α) :
+    empty_error_prop data (benchmark_median_low data) := by
+  intro hempty
+  simp [hempty, benchmark_median_low_empty]
 
-theorem count_le_thm {α : Type} [LinearOrder α] (data : List α) : count_le_prop data := by
-  intro m hm
-  have hpre : Pre data := by
-    intro hempty
-    rw [empty_thm data hempty] at hm
-    cases hm
-  obtain ⟨m', hm', hget⟩ := index_thm data hpre
-  have heq : m' = m := by rw [hm'] at hm; cases hm; rfl
-  have hi : idx data.length < (sortedData data).length := by
-    simpa [sortedData_length] using idx_lt (length_pos_of_pre hpre)
-  have hcount := countP_le_of_sorted (sortedData data) (sortedData_sorted data) hi
-  have hget' : (sortedData data)[idx data.length] = m' := by
-    have hsome := hget
-    rw [List.getElem?_eq_getElem] at hsome
-    injection hsome with h
-  have hperm := (sortedData_perm data).countP_eq (fun x => decide (x ≤ m'))
-  have hbound : idx data.length + 1 ≤ data.countP (fun x => decide (x ≤ m')) := by
-    simpa [hget', sortedData_length, hperm] using hcount
-  simpa [heq] using hbound
+theorem sorted_index_thm (data : List α) :
+    sorted_index_prop data (benchmark_median_low data) := by
+  intro hne
+  exact benchmark_median_low_eq_lowMedianValue data hne
 
-/-- Even case: the returned value is `≤` the upper middle element. -/
-def two_middle_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  Pre data → data.length % 2 = 0 →
-    ∀ m hi, medianLow data = .ok m →
-      (sortedData data)[data.length / 2]? = some hi → m ≤ hi
+theorem odd_middle_thm (data : List α) :
+    odd_middle_prop data (benchmark_median_low data) := by
+  intro hne hodd
+  rw [benchmark_median_low_eq_lowMedianValue data hne]
+  apply congrArg Except.ok
+  have hpos : 0 < (sortedList data).length := by
+    rw [sortedList_length]
+    exact List.length_pos_iff.mpr hne
+  have hidx :
+      lowMedianIndex (sortedList data).length = data.length / 2 := by
+    rw [sortedList_length, lowMedianIndex_of_odd hodd]
+  unfold lowMedianValue
+  exact getElem_eq_of_idx_eq hidx (lowMedianIndex_lt hpos)
+    (by rw [sortedList_length]; exact odd_branch_lt hodd)
 
-theorem two_middle_thm {α : Type} [LinearOrder α] (data : List α) : two_middle_prop data := by
-  intro hpre heven m hi hm hhi
-  have hpos := length_pos_of_pre hpre
-  have hpos' : 0 < (sortedData data).length := by simpa [sortedData_length] using hpos
-  have hfrom := medianFromSorted_eq_idx (sortedData data) hpos'
-  have hidx := idx_eq_div_sub_of_even heven hpos
-  have hm' : m = (sortedData data)[idx data.length]'(by simpa [sortedData_length] using idx_lt hpos) := by
-    have hok : medianLow data =
-        .ok ((sortedData data)[idx data.length]'(by simpa [sortedData_length] using idx_lt hpos)) := by
-      simpa [medianLow, sortedData_length] using hfrom
-    rw [hok] at hm
-    cases hm
-    rfl
-  have hdiv : data.length / 2 < data.length := by omega
-  have hlt : idx data.length < data.length / 2 := by rw [hidx]; omega
-  have hlen := sortedData_length data
-  have hs := sortedData_sorted data
-  have hle := (List.pairwise_iff_getElem.mp hs) (idx data.length) (data.length / 2)
-    (by simpa [hlen] using idx_lt hpos)
-    (by simpa [hlen] using hdiv)
-    (by simpa [hlen] using hlt)
-  have hhi' : hi = (sortedData data)[data.length / 2]'(by simpa [hlen] using hdiv) := by
-    have := hhi
-    rw [List.getElem?_eq_getElem] at this
-    injection this with h
-    exact h.symm
-  simpa [hm', hhi'] using hle
-
-/-- Permuting the input does not change the low median. -/
-def perm_prop {α : Type} [LinearOrder α] (data₁ data₂ : List α) : Prop :=
-  List.Perm data₁ data₂ → medianLow data₁ = medianLow data₂
-
-theorem perm_thm {α : Type} [LinearOrder α] (data₁ data₂ : List α) : perm_prop data₁ data₂ := by
-  intro h
-  have hs : sortedData data₁ = sortedData data₂ := by
-    apply List.eq_of_perm_of_sorted (r := (· ≤ ·))
-    · exact (sortedData_perm data₁).trans (h.trans (sortedData_perm data₂).symm)
-    · exact sortedData_sorted data₁
-    · exact sortedData_sorted data₂
-  simp [medianLow, hs]
-
-/-- A one-element sample is its own low median. -/
-def singleton_prop {α : Type} [LinearOrder α] (x : α) : Prop :=
-  medianLow [x] = .ok x
-
-theorem singleton_thm {α : Type} [LinearOrder α] (x : α) : singleton_prop x := by
-  simp [singleton_prop, medianLow, sortedData, medianFromSorted, List.mergeSort_singleton]
-
-theorem sortedData_of_sorted {α : Type} [LinearOrder α] {data : List α}
-    (hs : data.Sorted (· ≤ ·)) : sortedData data = data := by
-  have hp : data.Pairwise (fun a b => leBool a b = true) :=
-    hs.imp (by intro a b hab; simpa [leBool] using hab)
-  simpa [sortedData] using
-    List.mergeSort_of_sorted (le := leBool (α := α)) (by simpa using hp)
-
-/-- Sorting an already sorted list does not change the low median. -/
-def sorted_input_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  data.Sorted (· ≤ ·) → medianLow data = medianFromSorted data
-
-theorem sorted_input_thm {α : Type} [LinearOrder α] (data : List α) :
-    sorted_input_prop data := by
-  intro hs
-  simp [medianLow, sortedData_of_sorted hs]
-
-/--
-Counting characterization: on non-empty data, `m` is the low median if at most
-`(n - 1) // 2` elements are `< m` and at least `(n - 1) // 2 + 1` elements are `≤ m`.
--/
-def unique_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  Pre data → ∀ m,
-    data.countP (fun x => decide (x < m)) ≤ idx data.length →
-    idx data.length + 1 ≤ data.countP (fun x => decide (x ≤ m)) →
-    medianLow data = .ok m
-
-theorem unique_thm {α : Type} [LinearOrder α] (data : List α) : unique_prop data := by
-  intro hpre m hlt hle
-  let s := sortedData data
-  let k := idx data.length
-  have hs : s.Sorted (· ≤ ·) := sortedData_sorted data
-  have hperm : List.Perm s data := sortedData_perm data
-  have hlen : s.length = data.length := sortedData_length data
-  have hk : k < s.length := by simpa [s, k, hlen] using idx_lt (length_pos_of_pre hpre)
-  have hlt_s : s.countP (fun x => decide (x < m)) ≤ k := by
-    simpa [s, k, hperm.countP_eq] using hlt
-  have hle_s : k + 1 ≤ s.countP (fun x => decide (x ≤ m)) := by
-    simpa [s, k, hperm.countP_eq] using hle
-  have hsk_le : s[k] ≤ m := by
-    by_contra hnot
-    have hbad := countP_le_split_drop s hs hk (lt_of_not_ge hnot)
+theorem even_low_middle_thm (data : List α) :
+    even_low_middle_prop data (benchmark_median_low data) := by
+  intro hne he
+  have hpos_n : 0 < data.length := List.length_pos_iff.mpr hne
+  have hnot : ¬ data.length % 2 = 1 := by
+    intro hodd
     omega
-  have hm_le : m ≤ s[k] := by
-    by_contra hnot
-    have hbad := countP_lt_take_succ s hs hk (lt_of_not_ge hnot)
-    omega
-  have hmeq : s[k] = m := le_antisymm hsk_le hm_le
-  have hpos : 0 < s.length := Nat.lt_of_le_of_lt (Nat.zero_le _) hk
-  have hfrom := medianFromSorted_eq_idx s hpos
-  simp [medianLow, s, k, hlen, hfrom, hmeq]
+  have hpos : 0 < (sortedList data).length := by
+    rw [sortedList_length]
+    exact hpos_n
+  have hidx :
+      lowMedianIndex (sortedList data).length = data.length / 2 - 1 := by
+    rw [sortedList_length, lowMedianIndex_of_even hpos_n he]
+  refine ⟨?_, ?_⟩
+  · rw [benchmark_median_low_eq_lowMedianValue data hne]
+    apply congrArg Except.ok
+    unfold lowMedianValue
+    exact getElem_eq_of_idx_eq hidx (lowMedianIndex_lt hpos)
+      (by rw [sortedList_length]; exact even_branch_lt (Nat.ne_of_gt hpos_n) hnot)
+  · have hlo := even_branch_lt (Nat.ne_of_gt hpos_n) hnot
+    have hhi := high_index_bound hpos_n
+    have hlo' : data.length / 2 - 1 < (sortedList data).length := by
+      rw [sortedList_length]; exact hlo
+    have hhi' : data.length / 2 < (sortedList data).length := by
+      rw [sortedList_length]; exact hhi
+    have hle : data.length / 2 - 1 ≤ data.length / 2 := by omega
+    exact sorted_mono data hlo' hhi' hle
 
-/-- The implementation follows Python's empty / odd / even control flow. -/
-def python_branch_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  let n := data.length
-  let sorted := sortedData data
-  medianLow data =
-    if n = 0 then .error .noMedianForEmptyData
-    else if n % 2 = 1 then
-      match sorted[n / 2]? with
-      | some v => .ok v
-      | none => .error .noMedianForEmptyData
-    else
-      match sorted[n / 2 - 1]? with
-      | some v => .ok v
-      | none => .error .noMedianForEmptyData
+theorem mem_thm (data : List α) : mem_prop data (benchmark_median_low data) := by
+  intro m hm
+  by_cases h : data = []
+  · simp [h, benchmark_median_low_empty] at hm
+  · rw [benchmark_median_low_eq_lowMedianValue data h] at hm
+    cases hm
+    exact lowMedianValue_mem data h
 
-theorem python_branch_thm {α : Type} [LinearOrder α] (data : List α) :
-    python_branch_prop data := by
-  unfold python_branch_prop
-  by_cases hempty : data.length = 0
-  · have hdata : data = [] := by cases data <;> simp_all
-    subst hdata
-    simp [medianLow, sortedData, medianFromSorted]
-  · have hpre : Pre data := by
-      intro hnil
-      apply hempty
-      simp [hnil]
-    by_cases hodd : data.length % 2 = 1
-    · obtain ⟨m, hm, hget⟩ := odd_thm data hodd
-      simp [hempty, hodd, hm, hget]
-    · have heven : data.length % 2 = 0 := by
-        rcases Nat.mod_two_eq_zero_or_one data.length with h0 | h1
-        · exact h0
-        · exact absurd h1 hodd
-      obtain ⟨m, hm, hget⟩ := even_thm data hpre heven
-      simp [hempty, hodd, hm, hget]
+theorem lower_count_thm (data : List α) :
+    lower_count_prop data (benchmark_median_low data) := by
+  intro m hm
+  by_cases h : data = []
+  · simp [h, benchmark_median_low_empty] at hm
+  · rw [benchmark_median_low_eq_lowMedianValue data h] at hm
+    cases hm
+    exact lower_count_le data h
 
-/-- `benchmark_median_low` and `median_low` agree, including on empty input. -/
-def benchmark_agrees_prop {α : Type} [LinearOrder α] (data : List α) : Prop :=
-  benchmarkMedianLow data = medianLow data
+theorem upper_count_thm (data : List α) :
+    upper_count_prop data (benchmark_median_low data) := by
+  intro m hm
+  by_cases h : data = []
+  · simp [h, benchmark_median_low_empty] at hm
+  · rw [benchmark_median_low_eq_lowMedianValue data h] at hm
+    cases hm
+    exact upper_count_ge data h
 
-theorem benchmark_agrees_thm {α : Type} [LinearOrder α] (data : List α) :
-    benchmark_agrees_prop data := by
-  unfold benchmark_agrees_prop benchmarkMedianLow
-  by_cases h : data.isEmpty = true
-  · simp [h]
-    have hempty : data = [] := by simpa [List.isEmpty_iff] using h
-    exact (empty_thm data hempty).symm
-  · simp [h]
+theorem le_high_median_thm (data : List α) :
+    le_high_median_prop data (benchmark_median_low data) := by
+  intro m hm
+  by_cases h : data = []
+  · simp [h, benchmark_median_low_empty] at hm
+  · rw [benchmark_median_low_eq_lowMedianValue data h] at hm
+    cases hm
+    have hlt : data.length / 2 < (sortedList data).length := by
+      rw [sortedList_length]
+      exact high_index_bound (List.length_pos_iff.mpr h)
+    refine ⟨(sortedList data)[data.length / 2]'hlt, ?_, ?_⟩
+    · exact getElem?_pos (sortedList data) (data.length / 2) hlt
+    · exact lowMedianValue_le_high data h
+
+theorem perm_invariance_thm (data : List α) :
+    perm_invariance_prop data (benchmark_median_low data) := by
+  intro data' hp
+  exact (benchmark_perm data data' hp).symm
+
+theorem unique_low_median_thm (data : List α) :
+    unique_low_median_prop data (benchmark_median_low data) := by
+  intro m hm m' hle hge
+  by_cases h : data = []
+  · simp [h, benchmark_median_low_empty] at hm
+  · rw [benchmark_median_low_eq_lowMedianValue data h] at hm
+    cases hm
+    exact low_median_unique data h m' hle hge
+
+theorem agrees_with_median_low_thm (data : List α) :
+    agrees_with_median_low_prop data (benchmark_median_low data) :=
+  benchmark_median_low_of_ne_nil data
+
+theorem median_low_empty_error_thm (data : List α) :
+    median_low_empty_error_prop data (median_low data) := by
+  intro hempty
+  simp [hempty, median_low_empty]
+
+theorem singleton_thm (x : α) : singleton_prop x := by
+  unfold singleton_prop
+  have h : ([x] : List α) ≠ [] := by simp
+  rw [benchmark_median_low_eq_lowMedianValue _ h]
+  unfold lowMedianValue sortedList
+  simp [List.mergeSort_singleton, lowMedianIndex]
+
+theorem pair_min_thm (a b : α) : pair_min_prop a b := by
+  unfold pair_min_prop
+  have hne : ([a, b] : List α) ≠ [] := by simp
+  rw [benchmark_median_low_eq_lowMedianValue _ hne, min_def]
+  by_cases hle : a ≤ b
+  · have hs : List.Sorted (· ≤ ·) [a, b] := by
+      simp [List.sorted_cons, hle]
+    have heq : sortedList [a, b] = [a, b] := by
+      simpa [sortedList] using List.mergeSort_eq_self (· ≤ ·) hs
+    simp [lowMedianValue, heq, lowMedianIndex, hle]
+  · have hba : b ≤ a := (le_total a b).resolve_left hle
+    have hs : List.Sorted (· ≤ ·) [b, a] := by
+      simp [List.sorted_cons, hba]
+    have hperm : List.Perm (sortedList [a, b]) [b, a] :=
+      (sortedList_perm [a, b]).trans (List.Perm.swap a b [])
+    have heq : sortedList [a, b] = [b, a] :=
+      List.eq_of_perm_of_sorted hperm (sortedList_sorted _) hs
+    simp [lowMedianValue, heq, lowMedianIndex, hle]
 
 /-! ## Post-condition -/
 
-/--
-Specification of a successful low-median computation: the value is the
-order statistic at `(n - 1) // 2`, a member of the data, it meets the
-counting bounds, and it matches Python's odd/even indexing (and, when `n`
-is even, is the smaller of the two middle values).
+/-- Full observable contract of `benchmark_median_low`. -/
+def Post_prop (data : List α) (result : Except String α) : Prop :=
+  empty_error_prop data result ∧
+  sorted_index_prop data result ∧
+  odd_middle_prop data result ∧
+  even_low_middle_prop data result ∧
+  mem_prop data result ∧
+  lower_count_prop data result ∧
+  upper_count_prop data result ∧
+  le_high_median_prop data result ∧
+  perm_invariance_prop data result ∧
+  unique_low_median_prop data result ∧
+  agrees_with_median_low_prop data result
+
+/-! ## Property-based tests
+
+Executable checks of every `_prop` and of `Post_prop`.
+The statements above are polymorphic in a linear order. Comparisons on `ℝ` are not
+executable (`-- PBT: not executable (Real.le)` for a separate `ℝ`-only formulation);
+the polymorphic theorems already cover `ℝ`, and the checks below instantiate `Int`.
 -/
-def Post_prop {α : Type} [LinearOrder α] (data : List α) (result : StatsResult α) : Prop :=
-  ∃ m, result = .ok m ∧
-    (sortedData data)[idx data.length]? = some m ∧
-    m ∈ data ∧
-    data.countP (fun x => decide (x < m)) ≤ idx data.length ∧
-    idx data.length + 1 ≤ data.countP (fun x => decide (x ≤ m)) ∧
-    (data.length % 2 = 1 → (sortedData data)[data.length / 2]? = some m) ∧
-    (data.length % 2 = 0 → (sortedData data)[data.length / 2 - 1]? = some m) ∧
-    (data.length % 2 = 0 →
-      ∀ hi, (sortedData data)[data.length / 2]? = some hi → m ≤ hi)
 
-
-/-! ## Property-based tests -/
-
-def pbtCfg : Plausible.Configuration where
-  numInst := 15
-  maxSize := 10
-  quiet := true
-
--- PBT: empty_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, xs = [] → medianLow xs = .error StatisticsError.noMedianForEmptyData)
-
--- PBT: index_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, xs ≠ [] → medianLow xs = .ok ((sortedData xs)[idx xs.length]!))
-
--- PBT: odd_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, xs.length % 2 = 1 → medianLow xs = .ok ((sortedData xs)[xs.length / 2]!))
-
--- PBT: even_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, xs ≠ [] → xs.length % 2 = 0 →
-    medianLow xs = .ok ((sortedData xs)[xs.length / 2 - 1]!))
-
--- PBT: mem_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, ∀ m : Int, medianLow xs = .ok m → m ∈ xs)
-
--- PBT: count_lt_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, ∀ m : Int, medianLow xs = .ok m →
-    xs.countP (fun x => decide (x < m)) ≤ idx xs.length)
-
--- PBT: count_le_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, ∀ m : Int, medianLow xs = .ok m →
-    idx xs.length + 1 ≤ xs.countP (fun x => decide (x ≤ m)))
-
-/-- Executable Boolean form of `two_middle_prop`. -/
-def twoMiddleCheck (xs : List Int) : Bool :=
-  if xs.isEmpty || xs.length % 2 != 0 then true
+def check_empty (xs : List Int) : Bool :=
+  if xs.isEmpty then
+    match benchmark_median_low xs with
+    | .error m => m == benchmarkPreMsg
+    | .ok _ => false
   else
-    match medianLow xs, (sortedData xs)[xs.length / 2]? with
-    | .ok m, some hi => decide (m ≤ hi)
-    | _, _ => true
+    true
 
--- PBT: two_middle_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, twoMiddleCheck xs = true)
+def check_sorted_index (xs : List Int) : Bool :=
+  match benchmark_median_low xs with
+  | .error _ => xs.isEmpty
+  | .ok m =>
+    let s := sortedList xs
+    decide (s[lowMedianIndex s.length]? = some m)
 
--- PBT: perm_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, medianLow xs = medianLow xs.reverse)
-
--- PBT: singleton_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ x : Int, medianLow [x] = .ok x)
-
--- PBT: sorted_input_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, medianLow (sortedData xs) = medianFromSorted (sortedData xs))
-
--- PBT: unique_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, xs ≠ [] → ∀ m : Int,
-    xs.countP (fun x => decide (x < m)) ≤ idx xs.length →
-    idx xs.length + 1 ≤ xs.countP (fun x => decide (x ≤ m)) →
-    medianLow xs = .ok m)
-
--- PBT: python_branch_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int,
-    medianLow xs =
-      if xs.length = 0 then .error StatisticsError.noMedianForEmptyData
-      else if xs.length % 2 = 1 then
-        match (sortedData xs)[xs.length / 2]? with
-        | some v => .ok v
-        | none => .error StatisticsError.noMedianForEmptyData
-      else
-        match (sortedData xs)[xs.length / 2 - 1]? with
-        | some v => .ok v
-        | none => .error StatisticsError.noMedianForEmptyData)
-
--- PBT: benchmark_agrees_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, benchmarkMedianLow xs = medianLow xs)
-
-/-- Executable Boolean form of `Post_prop` on non-empty `Int` lists. -/
-def postCheck (xs : List Int) : Bool :=
-  if xs.isEmpty then true
-  else
-    match medianLow xs with
+def check_odd_middle (xs : List Int) : Bool :=
+  let s := sortedList xs
+  let n := xs.length
+  if n % 2 = 1 then
+    match benchmark_median_low xs with
+    | .ok m => decide (s[n / 2]? = some m)
     | .error _ => false
-    | .ok m =>
-        ((sortedData xs)[idx xs.length]? == some m) &&
-        (decide (m ∈ xs)) &&
-        decide (xs.countP (fun x => decide (x < m)) ≤ idx xs.length) &&
-        decide (idx xs.length + 1 ≤ xs.countP (fun x => decide (x ≤ m))) &&
-        (xs.length % 2 != 1 || (sortedData xs)[xs.length / 2]? == some m) &&
-        (xs.length % 2 != 0 || (sortedData xs)[xs.length / 2 - 1]? == some m) &&
-        (xs.length % 2 != 0 ||
-          match (sortedData xs)[xs.length / 2]? with
-          | some hi => decide (m ≤ hi)
-          | none => false)
+  else
+    true
 
--- PBT: Post_prop
-#eval Plausible.Testable.check (cfg := pbtCfg)
-  (∀ xs : List Int, postCheck xs = true)
+def check_even_low_middle (xs : List Int) : Bool :=
+  let s := sortedList xs
+  let n := xs.length
+  if n == 0 then
+    true
+  else if n % 2 = 0 then
+    match benchmark_median_low xs, s[n / 2]? with
+    | .ok m, some hi =>
+      decide (s[n / 2 - 1]? = some m) && decide (m ≤ hi)
+    | _, _ => false
+  else
+    true
 
-example : (List.range 16).all (fun n =>
-    let xs : List Int := (List.range (n + 1)).map Int.ofNat
-    match medianLow xs with
-    | .ok m => m == Int.ofNat (n / 2)
-    | .error _ => false) = true := by native_decide
+def check_mem (xs : List Int) : Bool :=
+  match benchmark_median_low xs with
+  | .error _ => xs.isEmpty
+  | .ok m => decide (m ∈ xs)
 
-example : (List.range 10).all (fun n =>
-    let xs : List Int := (List.range (2 * (n + 1))).map Int.ofNat
-    match medianLow xs with
-    | .ok m => m == Int.ofNat n
-    | .error _ => false) = true := by native_decide
+def check_lower_count (xs : List Int) : Bool :=
+  match benchmark_median_low xs with
+  | .error _ => xs.isEmpty
+  | .ok m =>
+    decide ((xs.length + 1) / 2 ≤ xs.countP (fun y => decide (y ≤ m)))
 
-example : (List.range 8).all (fun n =>
-    let xs : List Int := (List.range n).map fun i => Int.ofNat (n - i)
-    (medianLow xs == medianLow xs.reverse)) = true := by native_decide
+def check_upper_count (xs : List Int) : Bool :=
+  match benchmark_median_low xs with
+  | .error _ => xs.isEmpty
+  | .ok m =>
+    decide (xs.length / 2 + 1 ≤ xs.countP (fun y => decide (m ≤ y)))
 
--- PBT: not executable as a separate `Real` sampler (`Real` order is noncomputable).
--- The proved generic statements `empty_prop`, `index_prop`, `odd_prop`, `even_prop`,
--- `mem_prop`, `count_lt_prop`, `count_le_prop`, `two_middle_prop`, `perm_prop`,
--- `singleton_prop`, `sorted_input_prop`, `unique_prop`, `python_branch_prop`,
--- `benchmark_agrees_prop` and `Post_prop` already quantify over every `LinearOrder`,
--- including `Real`. Executable checks above cover the `Int` layer.
+def check_le_high (xs : List Int) : Bool :=
+  match benchmark_median_low xs with
+  | .error _ => xs.isEmpty
+  | .ok m =>
+    let s := sortedList xs
+    match s[xs.length / 2]? with
+    | some hi => decide (m ≤ hi)
+    | none => false
+
+def check_perm (xs : List Int) : Bool :=
+  benchmark_median_low xs == benchmark_median_low xs.reverse &&
+    benchmark_median_low xs == benchmark_median_low (sortedList xs) &&
+    benchmark_median_low xs == benchmark_median_low (xs ++ [])
+
+def check_unique_at (xs : List Int) (m' : Int) : Bool :=
+  match benchmark_median_low xs with
+  | .error _ => true
+  | .ok m =>
+    let lower :=
+      decide ((xs.length + 1) / 2 ≤ xs.countP (fun y => decide (y ≤ m')))
+    let upper :=
+      decide (xs.length / 2 + 1 ≤ xs.countP (fun y => decide (m' ≤ y)))
+    !(lower && upper) || (m' == m)
+
+def check_agrees (xs : List Int) : Bool :=
+  if xs.isEmpty then true else benchmark_median_low xs == median_low xs
+
+def check_median_low_empty (xs : List Int) : Bool :=
+  if xs.isEmpty then
+    match median_low xs with
+    | .error m => m == emptyMedianMsg
+    | .ok _ => false
+  else
+    true
+
+def check_singleton (x : Int) : Bool :=
+  benchmark_median_low [x] == .ok x
+
+def check_pair (a b : Int) : Bool :=
+  benchmark_median_low [a, b] == .ok (min a b)
+
+def check_post (xs : List Int) : Bool :=
+  check_empty xs && check_sorted_index xs && check_odd_middle xs && check_even_low_middle xs &&
+    check_mem xs && check_lower_count xs && check_upper_count xs && check_le_high xs &&
+    check_perm xs && check_agrees xs && check_median_low_empty xs &&
+    (List.range 15).all (fun k => check_unique_at xs (Int.ofNat k - 7))
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_empty xs = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_sorted_index xs = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_odd_middle xs = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_even_low_middle xs = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_mem xs = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_lower_count xs = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_upper_count xs = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_le_high xs = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_perm xs = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, ∀ m' : Int, check_unique_at xs m' = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_agrees xs = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_median_low_empty xs = true)
+
+#eval Plausible.Testable.check (∀ x : Int, check_singleton x = true)
+
+#eval Plausible.Testable.check (∀ a b : Int, check_pair a b = true)
+
+#eval Plausible.Testable.check (∀ xs : List Int, check_post xs = true)
+
+/-- Bounded sweep of arithmetic inputs, including the empty list and reversals. -/
+def rangeShift (n : Nat) : List Int :=
+  (List.range n).map fun i => Int.ofNat i - Int.ofNat (n / 2)
+
+example : (List.range 12).all (fun n =>
+    check_post (rangeShift n) && check_post (rangeShift n).reverse &&
+      check_singleton (Int.ofNat n) && check_pair (Int.ofNat n) (-Int.ofNat n)) = true := by
+  native_decide
 
 /-! ## Correctness -/
 
-theorem medianLow_correct_thm {α : Type} [LinearOrder α] (data : List α) (h : Pre data) :
-    Post_prop data (medianLow data) := by
-  have hpos := length_pos_of_pre h
-  have hpos' : 0 < (sortedData data).length := by simpa [sortedData_length] using hpos
-  have hfrom := medianFromSorted_eq_idx (sortedData data) hpos'
-  refine ⟨(sortedData data)[idx data.length]'(by simpa [sortedData_length] using idx_lt hpos),
-    ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · simpa [medianLow, sortedData_length] using hfrom
-  · rw [List.getElem?_eq_getElem]
-  · exact mem_thm data _ (by simpa [medianLow, sortedData_length] using hfrom)
-  · exact count_lt_thm data _ (by simpa [medianLow, sortedData_length] using hfrom)
-  · exact count_le_thm data _ (by simpa [medianLow, sortedData_length] using hfrom)
-  · intro hodd
-    simp [idx_eq_div_of_odd hodd]
-  · intro heven
-    simp [idx_eq_div_sub_of_even heven hpos]
-  · intro heven hiVal hhi
-    exact two_middle_thm data h heven _ hiVal
-      (by simpa [medianLow, sortedData_length] using hfrom) hhi
+theorem benchmark_median_low_spec_thm (data : List α) :
+    Post_prop data (benchmark_median_low data) :=
+  ⟨empty_error_thm data, sorted_index_thm data, odd_middle_thm data, even_low_middle_thm data,
+    mem_thm data, lower_count_thm data, upper_count_thm data, le_high_median_thm data,
+    perm_invariance_thm data, unique_low_median_thm data, agrees_with_median_low_thm data⟩
 
-theorem benchmarkMedianLow_correct_thm {α : Type} [LinearOrder α] (data : List α)
-    (h : Pre data) : Post_prop data (benchmarkMedianLow data) := by
-  rw [benchmark_agrees_thm data]
-  exact medianLow_correct_thm data h
+/-- `Pre` implies the post-condition of `benchmark_median_low`. -/
+theorem benchmark_median_low_correctness_thm (data : List α) (h : Pre data) :
+    Post_prop data (benchmark_median_low data) :=
+  benchmark_median_low_spec_thm data
 
-/-! ## Imperative implementation -/
+/-- The same contract at `ℝ` (non-executable comparisons; proved by the polymorphic theorem). -/
+theorem benchmark_median_low_correctness_real_thm (data : List ℝ) (h : Pre data) :
+    Post_prop data (benchmark_median_low data) :=
+  benchmark_median_low_correctness_thm data h
 
-/-- One insertion step of insertion sort. -/
-def insertSorted {α : Type} [LinearOrder α] (acc : List α) (x : α) : List α :=
-  List.orderedInsert (· ≤ ·) x acc
+/-- The same contract at `ℚ`. -/
+theorem benchmark_median_low_correctness_rat_thm (data : List ℚ) (h : Pre data) :
+    Post_prop data (benchmark_median_low data) :=
+  benchmark_median_low_correctness_thm data h
 
-/-- Functional model of the mutable insertion-sort loop. -/
-def foldInsert {α : Type} [LinearOrder α] (data : List α) : List α :=
-  data.foldl (fun acc x => insertSorted acc x) []
+/-! ## Imperative implementation
 
-theorem foldl_orderedInsert_perm {α : Type} [LinearOrder α] (acc data : List α) :
-    List.Perm (data.foldl (fun acc x => insertSorted acc x) acc) (data ++ acc) := by
-  induction data generalizing acc with
-  | nil => simp
-  | cons x xs ih =>
-    simp only [List.foldl_cons, List.cons_append, insertSorted]
-    refine List.Perm.trans (ih (List.orderedInsert (· ≤ ·) x acc)) ?_
-    refine List.Perm.trans
-      (List.Perm.append_left xs (List.perm_orderedInsert (· ≤ ·) x acc)) ?_
-    exact List.perm_middle (l₂ := acc) (a := x) (l₁ := xs)
-
-theorem foldInsert_perm {α : Type} [LinearOrder α] (data : List α) :
-    List.Perm (foldInsert data) data := by
-  simpa [foldInsert] using foldl_orderedInsert_perm [] data
-
-theorem foldl_orderedInsert_sorted {α : Type} [LinearOrder α] (acc : List α)
-    (hacc : acc.Sorted (· ≤ ·)) (data : List α) :
-    (data.foldl (fun acc x => insertSorted acc x) acc).Sorted (· ≤ ·) := by
-  induction data generalizing acc with
-  | nil => simpa using hacc
-  | cons x xs ih =>
-    simp only [List.foldl_cons, insertSorted]
-    exact ih _ (hacc.orderedInsert x)
-
-theorem foldInsert_sorted {α : Type} [LinearOrder α] (data : List α) :
-    (foldInsert data).Sorted (· ≤ ·) := by
-  simpa [foldInsert] using
-    foldl_orderedInsert_sorted [] (by simp : ([] : List α).Sorted (· ≤ ·)) data
-
-theorem foldInsert_eq_sortedData {α : Type} [LinearOrder α] (data : List α) :
-    foldInsert data = sortedData data := by
-  apply List.eq_of_perm_of_sorted (r := (· ≤ ·))
-  · exact (foldInsert_perm data).trans (sortedData_perm data).symm
-  · exact foldInsert_sorted data
-  · exact sortedData_sorted data
-
-/--
-Imperative `median_low`: insertion-sort into a mutable accumulator (`Id.run do`),
-then apply Python's odd/even index selection.
+Insertion sort with a mutable accumulator, then the Python odd/even index branch.
+Inserting from the right matches `List.insertionSort`, which equals `mergeSort` on a
+linear order, so the imperative code returns the same value as `median_low`.
 -/
-def medianLowImp {α : Type} [LinearOrder α] (data : List α) : StatsResult α :=
+
+def insertionSortImp (data : List α) : List α :=
   Id.run do
-    let mut acc : List α := []
-    for x in data do
-      acc := insertSorted acc x
-    return medianFromSorted acc
+    let mut sorted : List α := []
+    for x in data.reverse do
+      sorted := List.orderedInsert (· ≤ ·) x sorted
+    return sorted
 
-theorem pure_id_eq {β : Type} (x : β) : (pure x : Id β) = x := rfl
+theorem insertionSort_eq_foldr (data : List α) :
+    List.insertionSort (· ≤ ·) data =
+      data.foldr (fun x acc => List.orderedInsert (· ≤ ·) x acc) [] := by
+  induction data with
+  | nil => simp [List.insertionSort, List.foldr]
+  | cons a l ih => simp [List.insertionSort, List.foldr, ih]
 
-theorem medianLowImp_eq_fold {α : Type} [LinearOrder α] (data : List α) :
-    medianLowImp data = medianFromSorted (foldInsert data) := by
-  have h := pure_id_eq
-    (medianFromSorted (data.foldl (fun acc x => insertSorted acc x) ([] : List α)))
-  simp [medianLowImp, foldInsert, Id.run] at h ⊢
-  simpa using h
+theorem insertionSortImp_eq (data : List α) :
+    insertionSortImp data = List.insertionSort (· ≤ ·) data := by
+  unfold insertionSortImp
+  simp [List.foldl_reverse, insertionSort_eq_foldr]
+
+def median_low_imp (data : List α) : Except String α :=
+  Id.run do
+    let sorted := insertionSortImp data
+    let mut n := sorted.length
+    if n == 0 then
+      return .error emptyMedianMsg
+    let mut idx : Nat := 0
+    if n % 2 == 1 then
+      idx := n / 2
+    else
+      idx := n / 2 - 1
+    match sorted[idx]? with
+    | some m => return .ok m
+    | none => return .error emptyMedianMsg
+
+def benchmark_median_low_imp (data : List α) : Except String α :=
+  Id.run do
+    if data.isEmpty then
+      return .error benchmarkPreMsg
+    return median_low_imp data
+
+theorem median_low_imp_expand (data : List α) :
+    median_low_imp data =
+      let sorted := List.insertionSort (· ≤ ·) data
+      let n := sorted.length
+      if n = 0 then .error emptyMedianMsg
+      else if n % 2 = 1 then
+        match sorted[n / 2]? with
+        | some m => .ok m
+        | none => .error emptyMedianMsg
+      else
+        match sorted[n / 2 - 1]? with
+        | some m => .ok m
+        | none => .error emptyMedianMsg := by
+  unfold median_low_imp insertionSortImp
+  simp [List.foldl_reverse, insertionSort_eq_foldr]
+  dsimp [Id.run]
+  simp [Id.instMonad]
+  rfl
+
+theorem median_low_equiv_thm (data : List α) : median_low data = median_low_imp data := by
+  rw [median_low_imp_expand, ← sortedList_eq_insertionSort]
+  unfold median_low
+  by_cases h0 : (sortedList data).length = 0
+  · simp [h0]
+  · simp only [h0, dite_false]
+    by_cases hodd : (sortedList data).length % 2 = 1
+    · simp only [hodd, ite_true]
+      have hlt := odd_branch_lt hodd
+      rw [getElem?_pos (sortedList data) ((sortedList data).length / 2) hlt]
+      simp
+      apply congrArg Except.ok
+      exact getElem_eq_of_idx_eq (lowMedianIndex_of_odd hodd).symm
+        (lowMedianIndex_lt (Nat.pos_of_ne_zero h0)) hlt
+    · simp only [hodd, ite_false]
+      have hlt := even_branch_lt h0 hodd
+      have hpos : 0 < (sortedList data).length := Nat.pos_of_ne_zero h0
+      have heven : (sortedList data).length % 2 = 0 := by
+        have := Nat.mod_two_eq_zero_or_one (sortedList data).length
+        omega
+      rw [getElem?_pos (sortedList data) ((sortedList data).length / 2 - 1) hlt]
+      simp
+      apply congrArg Except.ok
+      exact getElem_eq_of_idx_eq (lowMedianIndex_of_even hpos heven).symm
+        (lowMedianIndex_lt hpos) hlt
+
+theorem benchmark_median_low_equiv_thm (data : List α) :
+    benchmark_median_low data = benchmark_median_low_imp data := by
+  cases h : data.isEmpty
+  · have hne : data ≠ [] := by simpa [List.isEmpty_iff] using h
+    rw [benchmark_median_low_of_ne_nil data hne, median_low_equiv_thm]
+    unfold benchmark_median_low_imp
+    simp [h, Id.run, Id.instMonad]
+  · have hempty : data = [] := by simpa [List.isEmpty_iff] using h
+    subst hempty
+    rw [benchmark_median_low_empty]
+    unfold benchmark_median_low_imp
+    simp [Id.run, Id.instMonad]
 
 /-! ## Imperative tests -/
 
-example : medianLowImp ([1, 3, 5] : List Int) = .ok 3 := by native_decide
-example : medianLowImp ([1, 2, 3, 4, 5, 6, 9] : List Int) = .ok 4 := by native_decide
-example : medianLowImp ([1, 3, 5, 7] : List Int) = .ok 3 := by native_decide
-example : medianLowImp ([1, 2, 3, 4, 5, 6] : List Int) = .ok 3 := by native_decide
-example : medianLowImp ([42] : List Int) = .ok 42 := by native_decide
-example : medianLowImp ([10, 20] : List Int) = .ok 10 := by native_decide
-example : medianLowImp ([9, 1, 6, 2, 5, 4, 3] : List Int) = .ok 4 := by native_decide
-example : medianLowImp ([-5, -1, 0, 3, 7] : List Int) = .ok 0 := by native_decide
-example : medianLowImp ([-10, -5, 5, 10] : List Int) = .ok (-5) := by native_decide
-example : medianLowImp ([] : List Int) = .error .noMedianForEmptyData := by native_decide
+example : benchmark_median_low_imp ([1, 3, 5] : List Int) = .ok 3 := by native_decide
 
-#eval medianLowImp ([1, 3, 5, 7] : List Int)
-#eval medianLowImp ([9, 1, 6, 2, 5, 4, 3] : List Int)
-#eval medianLowImp ([] : List Int)
+example : benchmark_median_low_imp ([1, 2, 3, 4, 5, 6, 9] : List Int) = .ok 4 := by native_decide
 
-/-! ## Equivalence -/
+example : benchmark_median_low_imp ([1, 3, 5, 7] : List Int) = .ok 3 := by native_decide
 
-theorem medianLow_eq_medianLowImp_thm {α : Type} [LinearOrder α] (data : List α) :
-    medianLow data = medianLowImp data := by
-  rw [medianLowImp_eq_fold, foldInsert_eq_sortedData]
-  rfl
+example : benchmark_median_low_imp ([1, 2, 3, 4, 5, 6] : List Int) = .ok 3 := by native_decide
+
+example : benchmark_median_low_imp ([42] : List Int) = .ok 42 := by native_decide
+
+example : benchmark_median_low_imp ([10, 20] : List Int) = .ok 10 := by native_decide
+
+example : benchmark_median_low_imp ([9, 1, 6, 2, 5, 4, 3] : List Int) = .ok 4 := by native_decide
+
+example : benchmark_median_low_imp ([-5, -1, 0, 3, 7] : List Int) = .ok 0 := by native_decide
+
+example : benchmark_median_low_imp ([-10, -5, 5, 10] : List Int) = .ok (-5) := by native_decide
+
+example : benchmark_median_low_imp ([] : List Int) = .error benchmarkPreMsg := by native_decide
+
+example : median_low_imp ([] : List Int) = .error emptyMedianMsg := by native_decide
+
+#eval benchmark_median_low_imp ([1, 3, 5, 7] : List Int)
+
+#eval benchmark_median_low_imp ([9, 1, 6, 2, 5, 4, 3] : List Int)
+
+#eval median_low_imp ([-10, -5, 5, 10] : List Int)
+
+#eval benchmark_median_low_imp ([] : List Int)
 
 end «28_statistics_median_low»

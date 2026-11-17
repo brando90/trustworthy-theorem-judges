@@ -1,0 +1,43 @@
+Created At: 2026-11-16T21:46:43Z
+Completed At: 2026-11-16T21:46:52Z
+Command exited with code 0.
+
+Command output:
+some [0, 1, 2]
+some [0, 1, 2, 3]
+some []
+some [0, 1, 2]
+some [0, 1, 2]
+none
+none
+none
+true
+Veribench/topological_sort.lean:338:72: warning: This simp argument is unused:
+  List.mergeSort
+
+Hint: Omit it from the simp argument list.
+  simp [topological_sort, pre, is_topological_order, List.permutations,̵ ̵L̵i̵s̵t̵.̵m̵e̵r̵g̵e̵S̵o̵r̵t̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+some [0, 1, 2]
+some [0, 1, 2, 3]
+some []
+some [0, 1, 2]
+some [0, 1, 2]
+none
+none
+none
+true

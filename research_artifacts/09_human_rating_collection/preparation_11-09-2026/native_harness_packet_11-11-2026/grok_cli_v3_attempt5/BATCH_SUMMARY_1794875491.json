@@ -1,0 +1,26 @@
+{
+ "condition": "/Users/brandomiranda/trustworthy-theorem-judges/research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/GROK_CLI_CONDITION_V3.json",
+ "condition_sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad",
+ "finished_utc": 1794875491.130315,
+ "launched": 1,
+ "captured": 0,
+ "cells": [
+  {
+   "task_id": "realcode_set__20_html_escape",
+   "rc": 0,
+   "wall_s": 1866.4,
+   "status": "TERMINAL",
+   "stop_reason": "wall_time_budget",
+   "candidate_bytes": null,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  }
+ ]
+}

@@ -1,0 +1,73 @@
+{
+  "task_id": "easy_set__23_is_prime",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "23_is_prime.py": "813772624e9ec33a62e3497ba44c094f7ea56e90adbcb3e96483bfd71ddbb379",
+    "instruction.md": "477f8ac10d612ddbddbda451ec8928b6b28a2f00e72c20983bb90c2be0a0badc"
+  },
+  "output": "/home/user/lean_project/Veribench/23_is_prime.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-5650ac9bfc68",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794864290.039701,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794864915.5434759,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "a843c653-15c2-4704-84b5-2f8a77b63692",
+      "status": "SUCCESS",
+      "response": "I have completed the Lean 4 formalization of `is_prime` in [23_is_prime.lean](file:///home/user/lean_project/Veribench/23_is_prime.lean).\n\n### Summary of Formalization\n\n- **Functional Implementation** ([23_is_prime.lean](file:///home/user/lean_project/Veribench/23_is_prime.lean#L23-L47)):\n  - `checkDivisors` recursively tests candidate divisors of the form $6k - 1$ (`i`) and $6k + 1$ (`i + 2`) starting at `5` up to $\\lfloor\\sqrt{n}\\rfloor$.\n  - `is_prime` handles $n \\le 1$, $n \\in \\{2, 3\\}$, multiples of $2$ or $3$, and delegates to `checkDivisors` for $n \\ge 4$.\n- **Unit Tests** ([23_is_prime.lean](file:///home/user/lean_project/Veribench/23_is_prime.lean#L51-L74)):\n  - Verified docstring examples, test suite cases, and additional edge/prime/composite cases using `native_decide` and `#eval`.\n- **Pre-condition, Properties, and Post-condition** ([23_is_prime.lean](file:///home/user/lean_project/Veribench/23_is_prime.lean#L82-L303)):\n  - `Pre`: $0 \\le n$.\n  - `le_one_not_prime_prop` & `le_one_not_prime_thm`: $n \\le 1 \\to \\text{is\\_prime } n = \\text{false}$.\n  - `small_primes_prop` & `small_primes_thm`: $(n = 2 \\lor n = 3) \\to \\text{is\\_prime } n = \\text{true}$.\n  - `div_two_or_three_not_prime_prop` & `div_two_or_three_not_prime_thm`: $n > 3 \\to (n \\bmod 2 = 0 \\lor n \\bmod 3 = 0) \\to \\text{is\\_prime } n = \\text{false}$.\n  - `prime_divisibility_prop` & `prime_divisibility_thm`: $\\text{is\\_prime } n = \\text{true} \\leftrightarrow (1 < n \\land \\forall d : \\mathbb{Z},\\, 1 < d \\to d < n \\to \\neg(d \\mid n))$.\n  - `nat_prime_iff_prop` & `nat_prime_iff_thm`: $\\text{is\\_prime } n = \\text{true} \\leftrightarrow (0 \\le n \\land \\text{Nat.Prime } n.\\text{toNat})$.\n  - `Post_prop`: Conjunction of all five properties.\n- **Property-Based Tests (PBTs)** ([23_is_prime.lean](file:///home/user/lean_project/Veribench/23_is_prime.lean#L308-L357)):\n  - Randomized PBTs via `#eval Plausible.Testable.check` and exhaustive bounded PBTs over $[0, 200)$ for every property and `Post_prop`.\n- **Correctness Theorem** ([23_is_prime.lean](file:///home/user/lean_project/Veribench/23_is_prime.lean#L364-L370)):\n  - `is_prime_correct`: proves `Pre n \u2192 Post_prop n`.\n- **Imperative Implementation, Tests, and Equivalence Theorem** ([23_is_prime.lean](file:///home/user/lean_project/Veribench/23_is_prime.lean#L378-L478)):\n  - `is_prime_imp` implemented with `Id.run do` and mutable loop variables `i` and `isPrime`.\n  - `is_prime_eq_is_prime_imp` proves `is_prime n = is_prime_imp n` for all `n : Int`.\n\n### Verification\n\n- Ran `cd /home/user/lean_project && lake env lean Veribench/23_is_prime.lean` (exited with code `0`, no warnings or errors).\n- Verified with `#print axioms` that all theorems depend only on the standard axioms (`propext`, `Classical.choice`, `Quot.sound`).\n",
+      "duration_seconds": 620.087752662,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 97262,
+        "output_tokens": 35714,
+        "thinking_tokens": 16339,
+        "cache_read_tokens": 922846,
+        "total_tokens": 132976
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "loogle.lean-lang.org",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "loogle.lean-lang.org",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "34e055fc8a223337cf9862dd12463c407d157eb6d0783b7758755010fba6445b",
+  "candidate_bytes": 17531
+}

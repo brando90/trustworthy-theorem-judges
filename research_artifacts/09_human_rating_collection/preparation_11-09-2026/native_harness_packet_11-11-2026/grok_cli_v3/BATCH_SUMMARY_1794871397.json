@@ -1,0 +1,428 @@
+{
+ "condition": "/Users/brandomiranda/trustworthy-theorem-judges/research_artifacts/09_human_rating_collection/preparation_11-09-2026/native_harness_packet_11-11-2026/GROK_CLI_CONDITION_V3.json",
+ "condition_sha256": "253e372f0640e27bdd6f9da15e21ddaa73e88290ef2fcb0cec947cc1ea1337ad",
+ "finished_utc": 1794871397.308525,
+ "launched": 25,
+ "captured": 22,
+ "cells": [
+  {
+   "task_id": "realcode_set__20_html_escape",
+   "rc": 1,
+   "wall_s": 1929.0,
+   "status": "INFRASTRUCTURE_INTERRUPTED",
+   "stop_reason": null,
+   "candidate_bytes": null,
+   "models": null,
+   "egress_denied": null,
+   "stderr_tail": "'-i', '-w', '/home/user/lean_project', 'ttj-grok-c21536aa3068', 'grok', '--prompt-file', '/workspace/instruction.md', '--model', 'grok-4.7', '--reasoning-effort', 'xhigh', '--always-approve', '--permission-mode', 'bypassPermissions', '--max-turns', '1000', '--output-format', 'streaming-json', '--disable-web-search', '--no-subagents', '--cwd', '/home/user/lean_project']' timed out after 60 seconds\n"
+  },
+  {
+   "task_id": "easy_set__23_is_prime",
+   "rc": 0,
+   "wall_s": 1743.2,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 23687,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+   "rc": 0,
+   "wall_s": 968.3,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 27230,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice",
+   "rc": 0,
+   "wall_s": 735.7,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 27932,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "easy_set__41_duplicate_chars",
+   "rc": 0,
+   "wall_s": 1112.9,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 18634,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname",
+   "rc": 0,
+   "wall_s": 902.5,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 28943,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "humaneval_set__humaneval_35_max_element",
+   "rc": 0,
+   "wall_s": 1229.1,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 14756,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "cs_set__topological_sort",
+   "rc": 0,
+   "wall_s": 1867.9,
+   "status": "TERMINAL",
+   "stop_reason": "wall_time_budget",
+   "candidate_bytes": 18135,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "humaneval_set__humaneval_39_prime_fib",
+   "rc": 0,
+   "wall_s": 1867.6,
+   "status": "TERMINAL",
+   "stop_reason": "wall_time_budget",
+   "candidate_bytes": 23920,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "realcode_set__23_base32",
+   "rc": 0,
+   "wall_s": 1866.6,
+   "status": "TERMINAL",
+   "stop_reason": "wall_time_budget",
+   "candidate_bytes": 31726,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "humaneval_set__humaneval_15_string_sequence",
+   "rc": 0,
+   "wall_s": 1633.5,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 31311,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "cs_set__counting_sort",
+   "rc": 0,
+   "wall_s": 1450.9,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 28657,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "easy_set__16_myfactorial",
+   "rc": 0,
+   "wall_s": 1280.7,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 17910,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "humaneval_set__humaneval_14_all_prefixes",
+   "rc": 0,
+   "wall_s": 965.9,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 16549,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "easy_set__20_mysumdigits",
+   "rc": 0,
+   "wall_s": 1601.4,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 22893,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "humaneval_set__humaneval_4_mean_absolute_deviation",
+   "rc": 0,
+   "wall_s": 1672.6,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 26254,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "cs_set__heapsort_algorithm",
+   "rc": 0,
+   "wall_s": 1866.9,
+   "status": "TERMINAL",
+   "stop_reason": "wall_time_budget",
+   "candidate_bytes": 24670,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "easy_set__19_mypower",
+   "rc": 0,
+   "wall_s": 1517.4,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 25564,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "security_set__security_6858__vulnerabilities__95_unsafetlsdowngrade",
+   "rc": 0,
+   "wall_s": 1039.5,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 24339,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "security_set__security_6858__safe__125_unsafetpmhash_safe",
+   "rc": 0,
+   "wall_s": 1057.8,
+   "status": "TERMINAL",
+   "stop_reason": "process_exit_0",
+   "candidate_bytes": 21616,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "cs_set__edit_distance",
+   "rc": 0,
+   "wall_s": 1866.4,
+   "status": "TERMINAL",
+   "stop_reason": "wall_time_budget",
+   "candidate_bytes": 16163,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "realcode_set__21_shlex_quote",
+   "rc": 0,
+   "wall_s": 1867.1,
+   "status": "TERMINAL",
+   "stop_reason": "wall_time_budget",
+   "candidate_bytes": null,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "realcode_set__31_statistics_quantiles",
+   "rc": 0,
+   "wall_s": 1866.8,
+   "status": "TERMINAL",
+   "stop_reason": "wall_time_budget",
+   "candidate_bytes": 32953,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "realcode_set__28_statistics_median_low",
+   "rc": 0,
+   "wall_s": 1866.3,
+   "status": "TERMINAL",
+   "stop_reason": "wall_time_budget",
+   "candidate_bytes": 42236,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "task_id": "cs_set__heap_sort",
+   "rc": 0,
+   "wall_s": 1867.0,
+   "status": "TERMINAL",
+   "stop_reason": "wall_time_budget",
+   "candidate_bytes": null,
+   "models": [
+    "grok-4.7",
+    "grok-4.7-build"
+   ],
+   "egress_denied": [
+    "api.mixpanel.com",
+    "api.x.ai"
+   ],
+   "stderr_tail": ""
+  }
+ ]
+}

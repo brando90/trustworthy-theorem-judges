@@ -1,0 +1,84 @@
+Created At: 2026-11-16T23:05:52Z
+Completed At: 2026-11-16T23:05:57Z
+Command exited with code 1.
+
+Command output:
+<stdin>:78:16: error: expected type must not contain free variables
+  8 ≤ (b32encodeRaw [b0]).length
+Use the '+revert' option to automatically cleanup and revert free variables.
+<stdin>:79:19: error: expected type must not contain free variables
+  8 ≤ (b32encodeRaw [b0, b1]).length
+Use the '+revert' option to automatically cleanup and revert free variables.
+<stdin>:80:22: error: expected type must not contain free variables
+  8 ≤ (b32encodeRaw [b0, b1, b2]).length
+Use the '+revert' option to automatically cleanup and revert free variables.
+<stdin>:81:25: error: expected type must not contain free variables
+  8 ≤ (b32encodeRaw [b0, b1, b2, b3]).length
+Use the '+revert' option to automatically cleanup and revert free variables.
+<stdin>:100:6: error: tactic 'rfl' failed, the left-hand side
+  b32encode [b0, b1, b2, b3, b4]
+is not definitionally equal to the right-hand side
+  b32encodeUnpadded [b0, b1, b2, b3, b4] ++ List.replicate (padCount ([b0, b1, b2, b3, b4].length % 5)) 61
+case pos
+b0 b1 b2 b3 b4 : UInt8
+ih : b32encode [] = b32encodeUnpadded [] ++ List.replicate (padCount ([].length % 5)) 61
+⊢ b32encode [b0, b1, b2, b3, b4] =
+    b32encodeUnpadded [b0, b1, b2, b3, b4] ++ List.replicate (padCount ([b0, b1, b2, b3, b4].length % 5)) 61
+<stdin>:112:12: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  if (padCount (rest.length % 5) == 0) = true then b32encodeRaw rest
+  else
+    List.take ((b32encodeRaw rest).length - padCount (rest.length % 5)) (b32encodeRaw rest) ++
+      List.replicate (padCount (rest.length % 5)) 61
+case pos
+b0 b1 b2 b3 b4 : UInt8
+rest : List UInt8
+ih :
+  (if (padCount (rest.length % 5) == 0) = true then b32encodeRaw rest
+    else
+      List.take ((b32encodeRaw rest).length - padCount (rest.length % 5)) (b32encodeRaw rest) ++
+        List.replicate (padCount (rest.length % 5)) 61) =
+    b32encodeUnpadded rest ++ List.replicate (padCount (rest.length % 5)) 61
+hrest : ¬rest = []
+hlen : 8 ≤ (b32encodeRaw rest).length
+hmod : (b0 :: b1 :: b2 :: b3 :: b4 :: rest).length % 5 = rest.length % 5
+hp : padCount (rest.length % 5) ≤ 6
+hp0 : (padCount (rest.length % 5) == 0) = true
+⊢ encodeChunk5 b0 b1 b2 b3 b4 ++ b32encodeRaw rest =
+    encodeChunk5 b0 b1 b2 b3 b4 ++ b32encodeUnpadded rest ++ List.replicate (padCount (rest.length % 5)) 61
+<stdin>:116:6: error: unsolved goals
+case neg
+b0 b1 b2 b3 b4 : UInt8
+rest : List UInt8
+ih :
+  (if (padCount (rest.length % 5) == 0) = true then b32encodeRaw rest
+    else
+      List.take ((b32encodeRaw rest).length - padCount (rest.length % 5)) (b32encodeRaw rest) ++
+        List.replicate (padCount (rest.length % 5)) 61) =
+    b32encodeUnpadded rest ++ List.replicate (padCount (rest.length % 5)) 61
+hrest : ¬rest = []
+hlen : 8 ≤ (b32encodeRaw rest).length
+hmod : (b0 :: b1 :: b2 :: b3 :: b4 :: rest).length % 5 = rest.length % 5
+hp : padCount (rest.length % 5) ≤ 6
+hp0 : ¬(padCount (rest.length % 5) == 0) = true
+hsub :
+  8 + (b32encodeRaw rest).length - padCount (rest.length % 5) =
+    8 + ((b32encodeRaw rest).length - padCount (rest.length % 5))
+⊢ List.take (8 + ((b32encodeRaw rest).length - padCount (rest.length % 5))) (encodeChunk5 b0 b1 b2 b3 b4) ++
+      (List.take (8 + ((b32encodeRaw rest).length - padCount (rest.length % 5)) - 8) (b32encodeRaw rest) ++
+        List.replicate (padCount (rest.length % 5)) 61) =
+    encodeChunk5 b0 b1 b2 b3 b4 ++ (b32encodeUnpadded rest ++ List.replicate (padCount (rest.length % 5)) 61)
+<stdin>:120:40: warning: This simp argument is unused:
+  List.take_length
+
+Hint: Omit it from the simp argument list.
+  simp only [encodeChunk5_length, L̵i̵s̵t̵.̵t̵a̵k̵e̵_̵l̵e̵n̵g̵t̵h̵,̵ ̵List.append_assoc, ih]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+<stdin>:120:77: warning: This simp argument is unused:
+  ih
+
+Hint: Omit it from the simp argument list.
+  simp only [encodeChunk5_length, List.take_length, List.append_assoc,̵ ̵i̵h̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'b32encode_eq_unpadded_append_pad' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

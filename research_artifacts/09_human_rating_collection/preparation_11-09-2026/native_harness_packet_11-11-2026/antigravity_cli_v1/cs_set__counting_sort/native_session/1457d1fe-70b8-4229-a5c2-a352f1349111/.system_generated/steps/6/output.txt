@@ -1,0 +1,13 @@
+Created At: 2026-11-16T21:51:03Z
+Completed At: 2026-11-16T21:51:07Z
+Command exited with code 0.
+
+Command output:
+List.Sorted.{u_1} {α : Type u_1} (R : α → α → Prop) : List α → Prop
+List.Pairwise.{u} {α : Type u} (R : α → α → Prop) : List α → Prop
+List.Perm.{u} {α : Type u} : List α → List α → Prop
+List.Perm.count_eq.{u_1} {α : Type u_1} [BEq α] {l₁ l₂ : List α} (p : l₁.Perm l₂) (a : α) :
+  List.count a l₁ = List.count a l₂
+List.perm_iff_count.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {l₁ l₂ : List α} :
+  l₁.Perm l₂ ↔ ∀ (a : α), List.count a l₁ = List.count a l₂
+List.mergeSort.{u_1} {α : Type u_1} (xs : List α) (le : α → α → Bool := by exact fun a b => a ≤ b) : List α

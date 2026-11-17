@@ -1,0 +1,77 @@
+Command exited with code 1.
+
+Command output:
+2
+3
+5
+13
+89
+233
+1597
+28657
+514229
+433494437
+Veribench/humaneval_39_prime_fib.lean:218:24: error: unsolved goals
+S : List ℕ := [3, 4, 5, 7, 11, 13, 17, 23, 29, 43]
+hnodup : S.Nodup
+⊢ is_prime 2 = true
+Veribench/humaneval_39_prime_fib.lean:218:24: error: unsolved goals
+S : List ℕ := [3, 4, 5, 7, 11, 13, 17, 23, 29, 43]
+hnodup : S.Nodup
+⊢ is_prime 3 = true
+Veribench/humaneval_39_prime_fib.lean:218:24: error: unsolved goals
+S : List ℕ := [3, 4, 5, 7, 11, 13, 17, 23, 29, 43]
+hnodup : S.Nodup
+⊢ is_prime 5 = true
+Veribench/humaneval_39_prime_fib.lean:218:24: error: unsolved goals
+S : List ℕ := [3, 4, 5, 7, 11, 13, 17, 23, 29, 43]
+hnodup : S.Nodup
+⊢ is_prime 13 = true
+Veribench/humaneval_39_prime_fib.lean:218:24: error: unsolved goals
+S : List ℕ := [3, 4, 5, 7, 11, 13, 17, 23, 29, 43]
+hnodup : S.Nodup
+⊢ is_prime 89 = true
+Veribench/humaneval_39_prime_fib.lean:218:24: error: unsolved goals
+S : List ℕ := [3, 4, 5, 7, 11, 13, 17, 23, 29, 43]
+hnodup : S.Nodup
+⊢ is_prime 233 = true
+Veribench/humaneval_39_prime_fib.lean:218:24: error: unsolved goals
+S : List ℕ := [3, 4, 5, 7, 11, 13, 17, 23, 29, 43]
+hnodup : S.Nodup
+⊢ is_prime 1597 = true
+Veribench/humaneval_39_prime_fib.lean:218:24: error: unsolved goals
+S : List ℕ := [3, 4, 5, 7, 11, 13, 17, 23, 29, 43]
+hnodup : S.Nodup
+⊢ is_prime 28657 = true
+Veribench/humaneval_39_prime_fib.lean:218:24: error: unsolved goals
+S : List ℕ := [3, 4, 5, 7, 11, 13, 17, 23, 29, 43]
+hnodup : S.Nodup
+⊢ is_prime 514229 = true
+Veribench/humaneval_39_prime_fib.lean:218:24: error: unsolved goals
+S : List ℕ := [3, 4, 5, 7, 11, 13, 17, 23, 29, 43]
+hnodup : S.Nodup
+⊢ is_prime 433494437 = true
+Veribench/humaneval_39_prime_fib.lean:216:48: warning: This simp argument is unused:
+  is_prime_correct_thm
+
+Hint: Omit it from the simp argument list.
+  simp only [List.mem_filter, List.mem_range,̵ ̵i̵s̵_̵p̵r̵i̵m̵e̵_̵c̵o̵r̵r̵e̵c̵t̵_̵t̵h̵m̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Unable to find a counter-example
+Veribench/humaneval_39_prime_fib.lean:321:0: warning: Gave up after failing to generate values that fulfill the preconditions 15 times.
+Veribench/humaneval_39_prime_fib.lean:322:0: warning: Gave up after failing to generate values that fulfill the preconditions 20 times.
+Veribench/humaneval_39_prime_fib.lean:323:0: warning: Gave up after failing to generate values that fulfill the preconditions 8 times.
+Veribench/humaneval_39_prime_fib.lean:324:0: warning: Gave up after failing to generate values that fulfill the preconditions 16 times.
+Veribench/humaneval_39_prime_fib.lean:325:0: warning: Gave up after failing to generate values that fulfill the preconditions 66 times.
+Veribench/humaneval_39_prime_fib.lean:326:0: warning: Gave up after failing to generate values that fulfill the preconditions 12 times.
+2
+3
+5
+13
+89
+233
+1597
+28657
+514229
+433494437

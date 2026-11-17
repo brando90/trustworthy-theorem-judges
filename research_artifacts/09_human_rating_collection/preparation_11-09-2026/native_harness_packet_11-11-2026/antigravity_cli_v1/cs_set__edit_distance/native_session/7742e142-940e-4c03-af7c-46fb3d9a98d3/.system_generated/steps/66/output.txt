@@ -1,0 +1,26 @@
+Created At: 2026-11-16T22:31:10Z
+Completed At: 2026-11-16T22:31:14Z
+Command exited with code 1.
+
+Command output:
+Veribench/edit_distance.lean:127:2: error: type mismatch
+  Eq.symm h_out
+has type
+  edit_distance s1 s2 =
+    (List.foldl (outerStep s2.reverse) (0, List.range' 1 s2.length, s2.length) s1.reverse).2.2 : Prop
+but is expected to have type
+  edit_distance s1 s2 =
+    (List.foldl
+          (fun r a =>
+            ⟨r.fst + 1,
+              (List.foldl
+                      (fun r a_1 =>
+                        ⟨a_1.2, if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst),
+                          (if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst)) :: r.snd.snd⟩)
+                      ⟨r.fst, r.fst + 1, []⟩ (s2.reverse.zip r.snd.fst)).2.snd.reverse,
+              (List.foldl
+                    (fun r a_1 =>
+                      ⟨a_1.2, if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst),
+                        (if a = a_1.1 then r.fst else 1 + min a_1.2 (min r.snd.fst r.fst)) :: r.snd.snd⟩)
+                    ⟨r.fst, r.fst + 1, []⟩ (s2.reverse.zip r.snd.fst)).2.fst⟩)
+          ⟨0, List.range' 1 s2.length, s2.length⟩ s1.reverse).2.snd : Prop

@@ -1,181 +1,155 @@
 import Mathlib
-import Plausible
 
 /-!
-# VeriBench 23: `is_prime`
+# 23_is_prime
 
-Lean 4 translation of the Python primality checker.
+Lean 4 formalization of a 6k±1 primality test.
 
-The Python function accepts an integer and raises `ValueError` unless the input is
-a non-negative integer. On a valid input it returns whether that integer is prime,
-using trial division by `2`, by `3`, and by integers of the form `6k ± 1` up to
-`floor(sqrt(n))`.
-
-`math.sqrt` is used in Python only to compute that integer loop bound. The
-mathematical intent is the floor square root, modelled here by `Nat.sqrt`
-(`int(math.sqrt(n))` for the exact floor, which is what the algorithm requires).
-The result itself is Boolean, so the specification is stated over `Nat` / `Int`,
-not IEEE-754 `Float`.
+The Python program rejects negative inputs with `ValueError` and, for a
+non-negative integer `n`, returns whether `n` is prime. `0` and `1` are not
+prime. The search bound `int(math.sqrt(n))` is the mathematical integer square
+root (`Nat.sqrt`): the procedure is the number-theoretic trial up to `√n`, not
+an IEEE-754 specification. Candidates of the form `6k ± 1` are exactly the
+integers `i ≥ 5` with `i % 6 = 5`, together with `i + 2`.
 -/
 
 namespace «23_is_prime»
 
-/-- Error string matching Python `ValueError("Input must be non-negative integer")`. -/
-def errorMsg : String := "Input must be non-negative integer"
+/-- Error message used when the input is negative. -/
+def errMsg : String := "Input must be non-negative integer"
 
-instance : DecidableEq (Except String Bool) := fun a b =>
-  match a, b with
-  | Except.error s1, Except.error s2 =>
-      if h : s1 = s2 then isTrue (by cases h; rfl) else isFalse (by intro hEq; cases hEq; exact h rfl)
-  | Except.ok b1, Except.ok b2 =>
-      if h : b1 = b2 then isTrue (by cases h; rfl) else isFalse (by intro hEq; cases hEq; exact h rfl)
-  | Except.error _, Except.ok _ => isFalse (by intro h; cases h)
-  | Except.ok _, Except.error _ => isFalse (by intro h; cases h)
-
-def trialAcc (n : Nat) (ok : Bool) (i : Nat) : Bool :=
-  if 5 ≤ i ∧ (i - 5) % 6 = 0 then
-    ok && (n % i != 0 && n % (i + 2) != 0)
+/--
+Trial division from `i`, stepping by 6, while `i * i ≤ n`.
+`i` and `i + 2` are the `6k − 1` and `6k + 1` candidates.
+-/
+def trialFrom (n i : Nat) : Bool :=
+  if i * i ≤ n then
+    if n % i == 0 || n % (i + 2) == 0 then
+      false
+    else
+      trialFrom n (i + 6)
   else
-    ok
+    true
+termination_by Nat.sqrt n + 6 - i
+decreasing_by
+  simp_wf
+  have hle : i ≤ Nat.sqrt n := Nat.le_sqrt.mpr ‹i * i ≤ n›
+  exact Nat.sub_lt_sub_right hle (Nat.lt_add_of_pos_right (by decide : 0 < 6))
 
-def trialFold (n bound : Nat) : Bool :=
-  (List.range bound).foldl (trialAcc n) true
+lemma trialFrom_div (n i : Nat) (hle : i * i ≤ n)
+    (hdiv : (n % i == 0 || n % (i + 2) == 0) = true) :
+    trialFrom n i = false := by
+  rw [trialFrom.eq_1]
+  simp only [if_pos hle, if_pos hdiv]
 
+lemma trialFrom_rec (n i : Nat) (hle : i * i ≤ n)
+    (hnd : ¬ (n % i == 0 || n % (i + 2) == 0) = true) :
+    trialFrom n i = trialFrom n (i + 6) := by
+  rw [trialFrom.eq_1]
+  simp only [if_pos hle, if_neg hnd]
+
+lemma trialFrom_stop (n i : Nat) (hgt : ¬ i * i ≤ n) :
+    trialFrom n i = true := by
+  rw [trialFrom.eq_1]
+  simp only [if_neg hgt]
+
+lemma add6_mod (i : Nat) (h : i % 6 = 5) : (i + 6) % 6 = 5 := by
+  have : (i + 6) % 6 = (i % 6 + 6 % 6) % 6 := Nat.add_mod _ _ _
+  simpa [h, Nat.mod_self] using this
+
+lemma next_wheel {x j : Nat} (hx : x % 6 = 5) (hj : j % 6 = 5) (hle : x ≤ j) (hne : x ≠ j) :
+    x + 6 ≤ j := by
+  have hcong : x ≡ j [MOD 6] := by
+    simp [Nat.ModEq, hx, hj]
+  have hdvd : 6 ∣ j - x := (Nat.modEq_iff_dvd' hle).1 hcong
+  have hpos : 0 < j - x := Nat.sub_pos_of_lt (lt_of_le_of_ne hle hne)
+  have hge : 6 ≤ j - x := Nat.le_of_dvd hpos hdvd
+  omega
+
+lemma forall_wheel_step (n x : Nat) (hx : x % 6 = 5) (_hxle : x * x ≤ n)
+    (hclean : n % x ≠ 0 ∧ n % (x + 2) ≠ 0) :
+    (∀ j, x ≤ j → j * j ≤ n → j % 6 = 5 → n % j ≠ 0 ∧ n % (j + 2) ≠ 0) ↔
+      (∀ j, x + 6 ≤ j → j * j ≤ n → j % 6 = 5 → n % j ≠ 0 ∧ n % (j + 2) ≠ 0) := by
+  constructor
+  · intro hall j hj hjsq hjmod
+    exact hall j (le_trans (Nat.le_add_right x 6) hj) hjsq hjmod
+  · intro hall j hj hjsq hjmod
+    by_cases heq : j = x
+    · simpa [heq] using hclean
+    · exact hall j (next_wheel hx hjmod hj (Ne.symm heq)) hjsq hjmod
+
+lemma div_or_of_bool (n i : Nat) (hdiv : (n % i == 0 || n % (i + 2) == 0) = true) :
+    n % i = 0 ∨ n % (i + 2) = 0 := by
+  simpa [Bool.or_eq_true, beq_iff_eq] using hdiv
+
+lemma not_div_and_of_bool (n i : Nat) (hnd : ¬ (n % i == 0 || n % (i + 2) == 0) = true) :
+    n % i ≠ 0 ∧ n % (i + 2) ≠ 0 := by
+  have hf : (n % i == 0 || n % (i + 2) == 0) = false := by
+    simpa [Bool.not_eq_true] using hnd
+  have hs : (n % i == 0) = false ∧ (n % (i + 2) == 0) = false := by
+    simpa [Bool.or_eq_false_iff] using hf
+  constructor
+  · intro h
+    have : (n % i == 0) = true := (beq_iff_eq).mpr h
+    simp [this] at hs
+  · intro h
+    have : (n % (i + 2) == 0) = true := (beq_iff_eq).mpr h
+    simp [this] at hs
+
+theorem trialFrom_true_iff (n : Nat) :
+    ∀ i, i % 6 = 5 →
+      (trialFrom n i = true ↔
+        ∀ j, i ≤ j → j * j ≤ n → j % 6 = 5 → n % j ≠ 0 ∧ n % (j + 2) ≠ 0) := by
+  let motive : Nat → Prop := fun i =>
+    i % 6 = 5 →
+      (trialFrom n i = true ↔
+        ∀ j, i ≤ j → j * j ≤ n → j % 6 = 5 → n % j ≠ 0 ∧ n % (j + 2) ≠ 0)
+  intro i hi
+  refine trialFrom.induct n motive ?case1 ?case2 ?case3 i hi
+  · intro x hle hdiv hx
+    have ht : trialFrom n x = false := trialFrom_div n x hle hdiv
+    rw [ht]
+    constructor
+    · intro h
+      exact absurd h Bool.false_ne_true
+    · intro hall
+      have hbad := hall x (le_refl _) hle hx
+      rcases div_or_of_bool n x hdiv with h0 | h0
+      · exact absurd h0 hbad.1
+      · exact absurd h0 hbad.2
+  · intro x hle hnd ih hx
+    have hx6 : (x + 6) % 6 = 5 := add6_mod x hx
+    have ih' := ih hx6
+    have hrec : trialFrom n x = trialFrom n (x + 6) := trialFrom_rec n x hle hnd
+    have hclean := not_div_and_of_bool n x hnd
+    rw [hrec, ih', forall_wheel_step n x hx hle hclean]
+  · intro x hgt hx
+    have ht : trialFrom n x = true := trialFrom_stop n x hgt
+    simp only [ht, true_iff]
+    intro j hjle hjsq _hjmod
+    exfalso
+    have hxx : x * x ≤ j * j := Nat.mul_le_mul hjle hjle
+    have : x * x ≤ n := le_trans hxx hjsq
+    exact (Nat.lt_of_not_le hgt).not_ge this
+
+/-- Functional 6k±1 primality test on a non-negative integer. -/
 def isPrime (n : Nat) : Bool :=
   if n ≤ 1 then false
   else if n ≤ 3 then true
   else if n % 2 == 0 || n % 3 == 0 then false
-  else trialFold n (n.sqrt + 1)
+  else trialFrom n 5
 
-lemma trialFold_succ (n bound : Nat) :
-    trialFold n (bound + 1) = trialAcc n (trialFold n bound) bound := by
-  unfold trialFold
-  simp [List.range_succ, List.foldl_append]
-
-lemma trialFold_true_iff (n bound : Nat) :
-    trialFold n bound = true ↔
-      ∀ i, i < bound → 5 ≤ i → (i - 5) % 6 = 0 →
-        n % i ≠ 0 ∧ n % (i + 2) ≠ 0 := by
-  induction bound with
-  | zero =>
-    unfold trialFold
-    simp
-  | succ bound ih =>
-    rw [trialFold_succ]
-    by_cases h : 5 ≤ bound ∧ (bound - 5) % 6 = 0
-    · unfold trialAcc
-      rw [if_pos h]
-      constructor
-      · intro htrue i hi h5 h6
-        have hconj : trialFold n bound = true ∧ n % bound ≠ 0 ∧ n % (bound + 2) ≠ 0 := by
-          simpa using htrue
-        rcases Nat.lt_succ_iff_lt_or_eq.mp hi with hlt | rfl
-        · exact (ih.mp hconj.1) i hlt h5 h6
-        · exact ⟨hconj.2.1, hconj.2.2⟩
-      · intro hall
-        have hfold : trialFold n bound = true :=
-          ih.mpr (fun i hi h5 h6 => hall i (Nat.lt_succ_of_lt hi) h5 h6)
-        have hmods := hall bound (Nat.lt_succ_self _) h.1 h.2
-        simp [hfold, hmods]
-    · unfold trialAcc
-      rw [if_neg h]
-      constructor
-      · intro hfold i hi h5 h6
-        rcases Nat.lt_succ_iff_lt_or_eq.mp hi with hlt | rfl
-        · exact (ih.mp hfold) i hlt h5 h6
-        · exact (h ⟨h5, h6⟩).elim
-      · intro hall
-        exact ih.mpr (fun i hi h5 h6 => hall i (Nat.lt_succ_of_lt hi) h5 h6)
-
-lemma mod6_one_or_five {m : Nat} (h2 : ¬ 2 ∣ m) (h3 : ¬ 3 ∣ m) :
-    m % 6 = 1 ∨ m % 6 = 5 := by
-  have hlt : m % 6 < 6 := Nat.mod_lt _ (by decide)
-  generalize hr : m % 6 = r at hlt
-  interval_cases r
-  · have : 2 ∣ m := by
-      have := Nat.mod_add_div m 6
-      omega
-    exact (h2 this).elim
-  · left; omega
-  · have : 2 ∣ m := by
-      have := Nat.mod_add_div m 6
-      omega
-    exact (h2 this).elim
-  · have : 3 ∣ m := by
-      have := Nat.mod_add_div m 6
-      omega
-    exact (h3 this).elim
-  · have : 2 ∣ m := by
-      have := Nat.mod_add_div m 6
-      omega
-    exact (h2 this).elim
-  · right; omega
-
-lemma sqrt_lt_sub_two {n : Nat} (hn : 5 ≤ n) : n.sqrt < n - 2 := by
-  apply (Nat.sqrt_lt).2
-  have h1 : 3 * (n - 2) ≤ (n - 2) * (n - 2) := by
-    apply Nat.mul_le_mul_right
-    omega
-  have h2 : n < 3 * (n - 2) := by
-    have : 3 * (n - 2) = 3 * n - 6 := by omega
-    omega
-  omega
-
-lemma sub_mod_of_mod_one {m : Nat} (h : m % 6 = 1) (hm : 7 ≤ m) :
-    (m - 2 - 5) % 6 = 0 := by
-  have := Nat.mod_add_div m 6
-  have : m - 7 = 6 * (m / 6 - 1) := by omega
-  have : 6 ∣ (m - 2 - 5) := by
-    use m / 6 - 1
-    omega
-  exact Nat.mod_eq_zero_of_dvd this
-
-lemma sub_mod_of_mod_five {m : Nat} (h : m % 6 = 5) (_hm : 5 ≤ m) :
-    (m - 5) % 6 = 0 := by
-  have := Nat.mod_add_div m 6
-  have : 6 ∣ (m - 5) := by
-    use m / 6
-    omega
-  exact Nat.mod_eq_zero_of_dvd this
-
-lemma not_dvd_of_trial {n : Nat} (h2 : n % 2 ≠ 0) (h3 : n % 3 ≠ 0)
-    (htrial : trialFold n (n.sqrt + 1) = true)
-    {m : Nat} (hm2 : 2 ≤ m) (hmle : m ≤ n.sqrt) : ¬ m ∣ n := by
-  intro hdvd
-  have h2n : ¬ 2 ∣ n := by simpa [Nat.dvd_iff_mod_eq_zero] using h2
-  have h3n : ¬ 3 ∣ n := by simpa [Nat.dvd_iff_mod_eq_zero] using h3
-  have h2m : ¬ 2 ∣ m := fun h => h2n (dvd_trans h hdvd)
-  have h3m : ¬ 3 ∣ m := fun h => h3n (dvd_trans h hdvd)
-  have hmod := mod6_one_or_five h2m h3m
-  have hforall := (trialFold_true_iff n (n.sqrt + 1)).mp htrial
-  rcases hmod with h1 | h5
-  · have hmge : 7 ≤ m := by
-      have := Nat.mod_add_div m 6
-      omega
-    have hi5 : 5 ≤ m - 2 := by omega
-    have hi6 : (m - 2 - 5) % 6 = 0 := sub_mod_of_mod_one h1 hmge
-    have hilt : m - 2 < n.sqrt + 1 := by omega
-    have hbad := hforall (m - 2) hilt hi5 hi6
-    have : n % m ≠ 0 := by
-      have hi2 : m - 2 + 2 = m := by omega
-      simpa [hi2] using hbad.2
-    exact this (Nat.mod_eq_zero_of_dvd hdvd)
-  · have hmge : 5 ≤ m := by
-      have := Nat.mod_add_div m 6
-      omega
-    have h6 : (m - 5) % 6 = 0 := sub_mod_of_mod_five h5 hmge
-    have hlt : m < n.sqrt + 1 := by omega
-    have hbad := hforall m hlt hmge h6
-    exact hbad.1 (Nat.mod_eq_zero_of_dvd hdvd)
-/-- Full Python entry point: reject negative inputs, otherwise test primality. -/
-def is_prime (n : Int) : Except String Bool :=
+/--
+Python entry point. Negative integers raise `ValueError`; every other `Int`
+is a non-negative integer and is tested by `isPrime`.
+-/
+def isPrimeEx (n : Int) : Except String Bool :=
   if n < 0 then
-    Except.error errorMsg
+    .error errMsg
   else
-    Except.ok (isPrime n.toNat)
+    .ok (isPrime n.toNat)
 
-/-! ## Unit tests -/
-
+/-- Unit tests from the Python docstring and `check`. -/
 example : isPrime 2 = true := by native_decide
 example : isPrime 4 = false := by native_decide
 example : isPrime 0 = false := by native_decide
@@ -186,383 +160,465 @@ example : isPrime 9 = false := by native_decide
 example : isPrime 25 = false := by native_decide
 example : isPrime 49 = false := by native_decide
 example : isPrime 97 = true := by native_decide
-example : is_prime (-1) = Except.error errorMsg := by native_decide
-example : is_prime 7 = Except.ok true := by native_decide
-example : is_prime 0 = Except.ok false := by native_decide
-example : is_prime 4 = Except.ok false := by native_decide
+example : isPrimeEx (-1) = Except.error errMsg := by
+  simp [isPrimeEx]
+example : isPrimeEx 0 = Except.ok false := by
+  simp [isPrimeEx]
+  native_decide
+example : isPrimeEx 7 = Except.ok true := by
+  simp [isPrimeEx]
+  native_decide
 
-#eval isPrime 7
-#eval isPrime 4
-#eval isPrime 0
-#eval is_prime (-1)
-#eval (List.range 40).filter isPrime
+#eval isPrime 17
+#eval isPrimeEx (-5)
+#eval (List.range 20).map isPrime
 
-/-! ## Pre-condition -/
-
-/-- Python `pre`: input is an integer (enforced by `Int`) and non-negative. -/
+/-- Pre-condition: the input is a non-negative integer (`isinstance(n, int) and n ≥ 0`). -/
 def Pre (n : Int) : Prop := 0 ≤ n
 
-/-- Boolean form of `Pre`, matching Python `pre`. -/
-def pre (n : Int) : Bool := decide (0 ≤ n)
+lemma mod6_residue (m : Nat) (h2 : ¬ 2 ∣ m) (h3 : ¬ 3 ∣ m) : m % 6 = 1 ∨ m % 6 = 5 := by
+  have hlt : m % 6 < 6 := Nat.mod_lt _ (by decide)
+  interval_cases hmod : m % 6
+  · have h := Nat.mod_mod_of_dvd m (show 2 ∣ 6 by decide)
+    simp [hmod] at h
+    exact (h2 (Nat.dvd_of_mod_eq_zero h.symm)).elim
+  · exact Or.inl rfl
+  · have h := Nat.mod_mod_of_dvd m (show 2 ∣ 6 by decide)
+    simp [hmod] at h
+    exact (h2 (Nat.dvd_of_mod_eq_zero h.symm)).elim
+  · have h := Nat.mod_mod_of_dvd m (show 3 ∣ 6 by decide)
+    simp [hmod] at h
+    exact (h3 (Nat.dvd_of_mod_eq_zero h.symm)).elim
+  · have h := Nat.mod_mod_of_dvd m (show 2 ∣ 6 by decide)
+    simp [hmod] at h
+    exact (h2 (Nat.dvd_of_mod_eq_zero h.symm)).elim
+  · exact Or.inr rfl
 
-def pre_iff_Pre_prop (n : Int) : Prop := pre n = true ↔ Pre n
+lemma sq_pred_two_gt {n : Nat} (hn : 5 ≤ n) : n < (n - 2) * (n - 2) := by
+  have h2 : 2 ≤ n := by omega
+  set k : Nat := n - 2
+  have hn' : k + 2 = n := by simpa [k] using Nat.sub_add_cancel h2
+  have hk : 3 ≤ k := by omega
+  rw [← hn']
+  have hs : k - 1 + 1 = k := Nat.sub_add_cancel (by omega : 1 ≤ k)
+  have hmul : k * (k - 1) + k = k * k := by
+    calc
+      k * (k - 1) + k = k * (k - 1) + k * 1 := by rw [Nat.mul_one]
+      _ = k * ((k - 1) + 1) := by rw [← Nat.mul_add]
+      _ = k * k := by rw [hs]
+  have htwo : 2 ≤ k - 1 := by omega
+  have hge : 2 * k ≤ (k - 1) * k := Nat.mul_le_mul_right k htwo
+  have hsum : 2 * k + k ≤ k * k := by
+    rw [← hmul]
+    simpa [Nat.mul_comm] using Nat.add_le_add_right hge k
+  have h3k : 2 * k + k = 3 * k := by
+    calc
+      2 * k + k = k * 2 + k * 1 := by simp [Nat.mul_comm, Nat.mul_one]
+      _ = k * (2 + 1) := by rw [← Nat.mul_add]
+      _ = 3 * k := by simp [Nat.mul_comm]
+  have hlt : k + 2 < 3 * k := by
+    have h2k : 3 ≤ 2 * k := by
+      have : 2 * 2 ≤ 2 * k := Nat.mul_le_mul_left 2 (by omega : 2 ≤ k)
+      omega
+    omega
+  exact lt_of_lt_of_le hlt (by simpa [h3k] using hsum)
 
-theorem pre_iff_Pre_thm (n : Int) : pre_iff_Pre_prop n := by
-  simp [pre_iff_Pre_prop, pre, Pre]
+lemma mod_sub_two_of_one {m : Nat} (h : m % 6 = 1) (hm : 7 ≤ m) : (m - 2) % 6 = 5 := by
+  have hq : 1 ≤ m / 6 := by
+    by_contra hq
+    have hq0 : m / 6 = 0 := by omega
+    have hdiv : 6 * (m / 6) + m % 6 = m := Nat.div_add_mod m 6
+    rw [hq0, h] at hdiv
+    simp at hdiv
+    omega
+  have hdiv : 6 * (m / 6) + m % 6 = m := Nat.div_add_mod m 6
+  have hrepr : m = 6 * (m / 6) + 1 := by
+    rw [h] at hdiv
+    exact hdiv.symm
+  have hsub : m - 2 = 5 + (m / 6 - 1) * 6 := by omega
+  rw [hsub]
+  simp [Nat.add_mul_mod_self_right, Nat.mod_eq_of_lt (show 5 < 6 by decide)]
 
-/-! ## Property propositions and theorems -/
-
-def isPrime_iff_prime_prop (n : Nat) : Prop :=
-  isPrime n = true ↔ n.Prime
-
-theorem isPrime_iff_prime_thm (n : Nat) : isPrime n = true ↔ n.Prime := by
+lemma not_mod_two_or_three {n : Nat}
+    (h23 : ¬ (n % 2 == 0 || n % 3 == 0) = true) : n % 2 ≠ 0 ∧ n % 3 ≠ 0 := by
+  have hf : (n % 2 == 0 || n % 3 == 0) = false := by
+    simpa [Bool.not_eq_true] using h23
+  have hs : (n % 2 == 0) = false ∧ (n % 3 == 0) = false := by
+    simpa [Bool.or_eq_false_iff] using hf
   constructor
   · intro h
-    by_cases h1 : n ≤ 1
-    · unfold isPrime at h
-      simp [h1] at h
-    · by_cases h3 : n ≤ 3
-      · have : n = 2 ∨ n = 3 := by omega
-        rcases this with rfl | rfl
-        · exact Nat.prime_two
-        · exact Nat.prime_three
-      · unfold isPrime at h
-        simp only [h1, h3, ite_false] at h
-        by_cases hdiv : (n % 2 == 0 || n % 3 == 0) = true
-        · simp [hdiv] at h
-        · have htrial : trialFold n (n.sqrt + 1) = true := by simpa [hdiv] using h
-          have h2 : n % 2 ≠ 0 := by
-            intro he
-            apply hdiv
-            simp [he]
-          have h3m : n % 3 ≠ 0 := by
-            intro he
-            apply hdiv
-            simp [he]
-          have hn2 : 2 ≤ n := by omega
-          refine (Nat.prime_def_le_sqrt).2 ⟨hn2, ?_⟩
-          intro m hm2 hmle
-          exact not_dvd_of_trial h2 h3m htrial hm2 hmle
-  · intro hp
-    have hn2 : 2 ≤ n := hp.two_le
+    have : (n % 2 == 0) = true := (beq_iff_eq).mpr h
+    simp [this] at hs
+  · intro h
+    have : (n % 3 == 0) = true := (beq_iff_eq).mpr h
+    simp [this] at hs
+
+lemma or_mod_two_or_three {n : Nat}
+    (h23 : (n % 2 == 0 || n % 3 == 0) = true) : n % 2 = 0 ∨ n % 3 = 0 := by
+  simpa [Bool.or_eq_true, beq_iff_eq] using h23
+
+/-- `isPrime` agrees with the mathematical definition of primality. -/
+def isPrime_iff_prime_prop (n : Nat) : Prop :=
+  isPrime n = true ↔ Nat.Prime n
+
+theorem isPrime_iff_prime (n : Nat) : isPrime n = true ↔ Nat.Prime n := by
+  unfold isPrime
+  by_cases h1 : n ≤ 1
+  · simp only [h1, ite_true]
+    constructor
+    · intro h
+      exact absurd h Bool.false_ne_true
+    · intro hp
+      have := hp.two_le
+      exfalso
+      omega
+  · simp only [h1, ite_false]
     by_cases h3 : n ≤ 3
-    · have : n = 2 ∨ n = 3 := by omega
-      rcases this with rfl | rfl <;> decide
-    · unfold isPrime
-      have h1 : ¬ n ≤ 1 := by omega
-      simp only [h1, h3, ite_false]
-      have h2mod : n % 2 ≠ 0 := by
-        intro hmod
-        have hd : 2 ∣ n := Nat.dvd_of_mod_eq_zero hmod
-        have : 2 = n := (Nat.dvd_prime_two_le hp (by decide)).mp hd
-        omega
-      have h3mod : n % 3 ≠ 0 := by
-        intro hmod
-        have hd : 3 ∣ n := Nat.dvd_of_mod_eq_zero hmod
-        have : 3 = n := (Nat.dvd_prime_two_le hp (by decide)).mp hd
-        omega
-      have hdiv : (n % 2 == 0 || n % 3 == 0) = false := by
-        simp [h2mod, h3mod]
-      simp only [hdiv]
-      apply (trialFold_true_iff n (n.sqrt + 1)).2
-      intro i hi h5 h6
-      constructor
-      · intro hmod
-        have hd : i ∣ n := Nat.dvd_of_mod_eq_zero hmod
-        have hi2 : 2 ≤ i := by omega
-        have hile : i ≤ n.sqrt := by omega
-        exact (Nat.prime_def_le_sqrt.mp hp).2 i hi2 hile hd
-      · intro hmod
-        have hd : i + 2 ∣ n := Nat.dvd_of_mod_eq_zero hmod
-        have hi2 : 2 ≤ i + 2 := by omega
-        by_cases hle : i + 2 ≤ n.sqrt
-        · exact (Nat.prime_def_le_sqrt.mp hp).2 (i + 2) hi2 hle hd
-        · have heq : i + 2 = n := (Nat.dvd_prime_two_le hp hi2).mp hd
-          have hlt := sqrt_lt_sub_two (by omega : 5 ≤ n)
-          have : i ≤ n.sqrt := by omega
-          omega
+    · simp only [h3, ite_true]
+      have hn2 : 2 ≤ n := by omega
+      interval_cases n
+      · exact ⟨fun _ => Nat.prime_two, fun _ => trivial⟩
+      · exact ⟨fun _ => Nat.prime_three, fun _ => trivial⟩
+    · simp only [h3, ite_false]
+      by_cases h23 : (n % 2 == 0 || n % 3 == 0) = true
+      · simp only [h23, ite_true]
+        constructor
+        · intro h
+          exact absurd h Bool.false_ne_true
+        · intro hp
+          rcases or_mod_two_or_three h23 with h2 | h3d
+          · have hd : 2 ∣ n := Nat.dvd_of_mod_eq_zero h2
+            rcases hp.eq_one_or_self_of_dvd 2 hd with h | h <;> exfalso <;> omega
+          · have hd : 3 ∣ n := Nat.dvd_of_mod_eq_zero h3d
+            rcases hp.eq_one_or_self_of_dvd 3 hd with h | h <;> exfalso <;> omega
+      · have hclean := not_mod_two_or_three h23
+        simp only [if_neg h23]
+        rw [trialFrom_true_iff n 5 (by decide)]
+        constructor
+        · intro hall
+          refine Nat.prime_def_le_sqrt.mpr ⟨by omega, ?_⟩
+          intro m hm2 hmsq hmd
+          have hsq : m * m ≤ n := Nat.le_sqrt.mp hmsq
+          by_cases h2d : 2 ∣ m
+          · exact hclean.1 (Nat.mod_eq_zero_of_dvd (Nat.dvd_trans h2d hmd))
+          · by_cases h3d : 3 ∣ m
+            · exact hclean.2 (Nat.mod_eq_zero_of_dvd (Nat.dvd_trans h3d hmd))
+            · have hm5 : 5 ≤ m := by
+                by_contra hlt
+                have : m < 5 := lt_of_not_ge hlt
+                interval_cases m
+                · omega
+                · omega
+                · exact h2d (by decide)
+              rcases mod6_residue m h2d h3d with hmod | hmod
+              · have hm7 : 7 ≤ m := by
+                  by_contra hlt
+                  have hmset : m = 5 ∨ m = 6 := by omega
+                  rcases hmset with rfl | rfl
+                  · simp at hmod
+                  · simp at hmod
+                have hjmod : (m - 2) % 6 = 5 := mod_sub_two_of_one hmod hm7
+                have hj5 : 5 ≤ m - 2 := by omega
+                have hjsq : (m - 2) * (m - 2) ≤ n := by
+                  have hle : m - 2 ≤ m := by omega
+                  exact le_trans (Nat.mul_le_mul hle hle) hsq
+                have hbad := hall (m - 2) hj5 hjsq hjmod
+                have hadd : m - 2 + 2 = m := by omega
+                have : n % m ≠ 0 := by simpa [hadd] using hbad.2
+                exact this (Nat.mod_eq_zero_of_dvd hmd)
+              · have hbad := hall m hm5 hsq hmod
+                exact hbad.1 (Nat.mod_eq_zero_of_dvd hmd)
+        · intro hp j h5 hjsq hjmod
+          have hjle : j ≤ Nat.sqrt n := Nat.le_sqrt.mpr hjsq
+          have hndj : ¬ j ∣ n := (Nat.prime_def_le_sqrt.mp hp).2 j (by omega) hjle
+          have hneq1 : n % j ≠ 0 := fun h => hndj (Nat.dvd_of_mod_eq_zero h)
+          have hn5 : 5 ≤ n := by omega
+          have hbig := sq_pred_two_gt hn5
+          have hjlt : j < n - 2 := by
+            by_contra hge
+            have hle2 : n - 2 ≤ j := by omega
+            have : (n - 2) * (n - 2) ≤ j * j := Nat.mul_le_mul hle2 hle2
+            exact Nat.lt_irrefl _ (lt_of_lt_of_le hbig (le_trans this hjsq))
+          have hltn : j + 2 < n := by omega
+          have hnd2 : ¬ (j + 2) ∣ n := by
+            intro hd
+            rcases hp.eq_one_or_self_of_dvd (j + 2) hd with h | h
+            · omega
+            · omega
+          have hneq2 : n % (j + 2) ≠ 0 := fun h => hnd2 (Nat.dvd_of_mod_eq_zero h)
+          exact ⟨hneq1, hneq2⟩
 
-def prime_doc_prop (n : Nat) : Prop :=
-  isPrime n = true ↔ 2 ≤ n ∧ ∀ m, m ∣ n → m = 1 ∨ m = n
+theorem isPrime_iff_prime_thm (n : Nat) : isPrime_iff_prime_prop n :=
+  isPrime_iff_prime n
 
-theorem prime_doc_thm (n : Nat) : prime_doc_prop n := by
-  unfold prime_doc_prop
-  rw [isPrime_iff_prime_thm, Nat.prime_def]
-
-def zero_not_prime_prop : Prop := isPrime 0 = false
-
-theorem zero_not_prime_thm : zero_not_prime_prop := by
-  unfold zero_not_prime_prop isPrime
-  decide
-
-def one_not_prime_prop : Prop := isPrime 1 = false
-
-theorem one_not_prime_thm : one_not_prime_prop := by
-  unfold one_not_prime_prop isPrime
-  decide
-
-def two_prime_prop : Prop := isPrime 2 = true
-
-theorem two_prime_thm : two_prime_prop :=
-  (isPrime_iff_prime_thm 2).2 Nat.prime_two
-
-def three_prime_prop : Prop := isPrime 3 = true
-
-theorem three_prime_thm : three_prime_prop :=
-  (isPrime_iff_prime_thm 3).2 Nat.prime_three
-
-def four_not_prime_prop : Prop := isPrime 4 = false
-
-theorem four_not_prime_thm : four_not_prime_prop := by
-  have h : ¬ Nat.Prime 4 := by decide
-  have hne : isPrime 4 ≠ true := (isPrime_iff_prime_thm 4).not.mpr h
-  unfold four_not_prime_prop
-  cases h' : isPrime 4 <;> simp_all
-
-def seven_prime_prop : Prop := isPrime 7 = true
-
-theorem seven_prime_thm : seven_prime_prop :=
-  (isPrime_iff_prime_thm 7).2 (by decide)
-
+/-- `0` and `1` are not prime. -/
 def le_one_not_prime_prop (n : Nat) : Prop :=
   n ≤ 1 → isPrime n = false
 
 theorem le_one_not_prime_thm (n : Nat) : le_one_not_prime_prop n := by
-  intro h
-  unfold isPrime
-  simp [h]
+  intro hn
+  simp [isPrime, hn]
 
-def two_or_three_prime_prop (n : Nat) : Prop :=
-  n = 2 ∨ n = 3 → isPrime n = true
+/-- Multiples of 2 or 3 that are greater than 3 are not prime. -/
+def early_composite_prop (n : Nat) : Prop :=
+  3 < n → (n % 2 = 0 ∨ n % 3 = 0) → isPrime n = false
 
-theorem two_or_three_prime_thm (n : Nat) : two_or_three_prime_prop n := by
-  intro h
-  rcases h with rfl | rfl
-  · exact two_prime_thm
-  · exact three_prime_thm
-
-def even_not_prime_prop (n : Nat) : Prop :=
-  2 < n → n % 2 = 0 → isPrime n = false
-
-theorem even_not_prime_thm (n : Nat) : even_not_prime_prop n := by
-  intro hn he
-  unfold isPrime
+theorem early_composite_thm (n : Nat) : early_composite_prop n := by
+  intro hn hdiv
   have h1 : ¬ n ≤ 1 := by omega
   have h3 : ¬ n ≤ 3 := by omega
-  simp only [h1, h3, ite_false]
-  simp [he]
+  have hb : (n % 2 == 0 || n % 3 == 0) = true := by
+    rcases hdiv with h | h
+    · simp [h, beq_iff_eq]
+    · have : (n % 3 == 0) = true := (beq_iff_eq).mpr h
+      simp [this]
+  simp [isPrime, h1, h3, hb]
 
-def multiple_of_three_not_prime_prop (n : Nat) : Prop :=
-  3 < n → n % 3 = 0 → isPrime n = false
+/-- A negative input raises `ValueError` with the Python message. -/
+def error_on_negative_prop (n : Int) : Prop :=
+  ¬ Pre n → isPrimeEx n = Except.error errMsg
 
-theorem multiple_of_three_not_prime_thm (n : Nat) : multiple_of_three_not_prime_prop n := by
-  intro hn he
-  unfold isPrime
-  have h1 : ¬ n ≤ 1 := by omega
-  have h3 : ¬ n ≤ 3 := by omega
-  simp only [h1, h3, ite_false]
-  have hor : (n % 2 == 0 || n % 3 == 0) = true := by simp [he]
-  simp [hor]
+theorem error_on_negative_thm (n : Int) : error_on_negative_prop n := by
+  intro hn
+  have hlt : n < 0 := not_le.mp hn
+  simp [isPrimeEx, hlt]
 
-/-- On the main branch the implementation is exactly the Python `6k ± 1` loop. -/
-def trial_division_prop (n : Nat) : Prop :=
-  3 < n → n % 2 ≠ 0 → n % 3 ≠ 0 →
-    (isPrime n = true ↔
-      ∀ i, i ≤ n.sqrt → 5 ≤ i → (i - 5) % 6 = 0 →
-        n % i ≠ 0 ∧ n % (i + 2) ≠ 0)
-
-theorem trial_division_thm (n : Nat) : trial_division_prop n := by
-  intro hn h2 h3
-  unfold isPrime
-  have h1 : ¬ n ≤ 1 := by omega
-  have hle : ¬ n ≤ 3 := by omega
-  simp only [h1, hle, ite_false]
-  have hdiv : (n % 2 == 0 || n % 3 == 0) = false := by
-    simp [h2, h3]
-  rw [hdiv]
-  simp [trialFold_true_iff, Nat.lt_succ_iff]
-
-def neg_raises_prop (n : Int) : Prop :=
-  n < 0 → is_prime n = Except.error errorMsg
-
-theorem neg_raises_thm (n : Int) : neg_raises_prop n := by
-  intro h
-  unfold is_prime
-  simp [h]
-
-def nonneg_agrees_prop (n : Int) : Prop :=
-  0 ≤ n → is_prime n = Except.ok (isPrime n.toNat)
-
-theorem nonneg_agrees_thm (n : Int) : nonneg_agrees_prop n := by
-  intro h
-  unfold is_prime
-  rw [if_neg (not_lt_of_ge h)]
-
-def result_iff_prime_prop (n : Int) : Prop :=
-  0 ≤ n → (is_prime n = Except.ok true ↔ (n.toNat).Prime)
-
-theorem result_iff_prime_thm (n : Int) : result_iff_prime_prop n := by
-  intro h
-  rw [nonneg_agrees_thm n h]
-  simpa using isPrime_iff_prime_thm n.toNat
-
-/-- Python `check`: basic case, edge case, and negative pre-violation. -/
-def check (candidate : Int → Except String Bool) : Bool :=
-  (candidate 7 == Except.ok true) &&
-  (candidate 0 == Except.ok false) &&
-  (match candidate (-1) with
-   | Except.error _ => true
-   | Except.ok _ => false)
-
-theorem check_is_prime_thm : check is_prime = true := by
-  unfold check
-  decide
-
-/-! ## Post-condition -/
-
-/-- Successful run agrees with the mathematical definition of primality,
-the implementation, the documented edge cases, and the early exits. -/
+/-- Post-condition: on a non-negative input the test succeeds and matches `Nat.Prime`. -/
 def Post_prop (n : Int) : Prop :=
-  result_iff_prime_prop n ∧
-  prime_doc_prop n.toNat ∧
-  nonneg_agrees_prop n ∧
-  le_one_not_prime_prop n.toNat ∧
-  two_or_three_prime_prop n.toNat ∧
-  even_not_prime_prop n.toNat ∧
-  multiple_of_three_not_prime_prop n.toNat ∧
-  (0 ≤ n → (is_prime n = Except.ok true ↔
-    2 ≤ n.toNat ∧ ∀ m, m ∣ n.toNat → m = 1 ∨ m = n.toNat))
+  isPrimeEx n = Except.ok (isPrime n.toNat) ∧ isPrime_iff_prime_prop n.toNat
 
 /-! ## Property-based tests -/
 
-/-- Executable Boolean form of `Post_prop` on a non-negative input.
-The `Real` square-root bound is not part of the result; the executable
-counterpart of the loop bound is `Nat.sqrt`. -/
-def postBool (n : Nat) : Bool :=
-  (isPrime n == decide (n.Prime)) &&
-  (match is_prime (n : Int) with
-    | Except.ok b => b == isPrime n
-    | Except.error _ => false) &&
-  (!(decide (n ≤ 1)) || isPrime n == false) &&
-  (!(decide (n = 2 ∨ n = 3)) || isPrime n == true) &&
-  (!(decide (2 < n)) || !(n % 2 == 0) || isPrime n == false) &&
-  (!(decide (3 < n)) || !(n % 3 == 0) || isPrime n == false)
+example : (List.range 80).all (fun n => isPrime n == decide (Nat.Prime n)) = true := by
+  native_decide
 
-def noProperDivisor (n : Nat) : Bool :=
-  (List.range n).all (fun m => !(decide (2 ≤ m)) || !(decide (m ∣ n)) || m == n)
+#eval Plausible.Testable.check (∀ n : Nat, isPrime n = decide (Nat.Prime n))
+  { numInst := 25, maxSize := 40 : Plausible.Configuration }
 
-example : (List.range 50).all postBool = true := by native_decide
-example : (List.range 50).all (fun n => isPrime n == decide (n.Prime)) = true := by native_decide
-example : (List.range 40).all (fun n => isPrime n == (decide (2 ≤ n) && noProperDivisor n)) = true := by native_decide
-example : (List.range 40).all (fun n => !(decide (2 < n)) || !(n % 2 == 0) || isPrime n == false) = true := by native_decide
-example : (List.range 40).all (fun n => !(decide (3 < n)) || !(n % 3 == 0) || isPrime n == false) = true := by native_decide
-example : (List.range 30).all (fun i =>
-    match is_prime (-(Int.ofNat (i + 1))) with
-    | Except.error _ => true
-    | Except.ok _ => false) = true := by native_decide
-example : (List.range 40).all (fun n =>
-    match is_prime (n : Int) with
-    | Except.ok b => b == isPrime n
-    | Except.error _ => false) = true := by native_decide
-example : (List.range 40).all (fun n =>
-    !(decide (3 < n)) || !(decide (n % 2 ≠ 0)) || !(decide (n % 3 ≠ 0)) ||
-      (isPrime n ==
-        ((List.range (n.sqrt + 1)).all (fun i =>
-          !(decide (5 ≤ i ∧ (i - 5) % 6 = 0)) ||
-            (n % i != 0 && n % (i + 2) != 0))))) = true := by native_decide
-example : (List.range 20).all (fun n => pre (n : Int) == true) = true := by native_decide
-example : (List.range 20).all (fun i => pre (-(Int.ofNat (i + 1))) == false) = true := by native_decide
+example : (List.range 40).all (fun n => !decide (n ≤ 1) || isPrime n == false) = true := by
+  native_decide
 
-#eval isPrime 0 == false
-#eval isPrime 1 == false
-#eval isPrime 2 == true
-#eval isPrime 3 == true
-#eval isPrime 4 == false
-#eval isPrime 7 == true
-#eval pre (-1) == false
-#eval pre 5 == true
+/-- Executable form of `error_on_negative_prop` on `-(k+1)`. -/
+def checksError (k : Nat) : Bool :=
+  match isPrimeEx (-(k : Int) - 1) with
+  | .error m => m == errMsg
+  | .ok _ => false
 
-#eval Plausible.Testable.check (∀ n : Nat, isPrime n = decide (n.Prime))
-#eval Plausible.Testable.check (∀ n : Nat, !(decide (2 < n)) || !(n % 2 == 0) || isPrime n = false)
-#eval Plausible.Testable.check (∀ n : Nat, !(decide (3 < n)) || !(n % 3 == 0) || isPrime n = false)
-#eval Plausible.Testable.check (∀ n : Int, !(decide (n < 0)) || is_prime n = Except.error errorMsg)
-#eval Plausible.Testable.check (∀ n : Nat, is_prime (n : Int) = Except.ok (isPrime n))
-#eval Plausible.Testable.check (∀ n : Nat, is_prime (n : Int) = Except.ok true ↔ n.Prime)
-#eval Plausible.Testable.check (∀ n : Int, pre n = decide (0 ≤ n))
+example : (List.range 30).all checksError = true := by
+  native_decide
 
-/-! ## Correctness -/
+#eval Plausible.Testable.check (∀ k : Nat, checksError k = true)
+  { numInst := 20, maxSize := 30 : Plausible.Configuration }
 
-theorem correctness_thm (n : Int) (hpre : Pre n) : Post_prop n := by
+/-- Executable form of `Post_prop` on a non-negative integer. -/
+def checksPost (n : Nat) : Bool :=
+  match isPrimeEx (n : Int) with
+  | .ok b => b == isPrime n && b == decide (Nat.Prime n)
+  | .error _ => false
+
+example : (List.range 50).all checksPost = true := by
+  native_decide
+
+#eval Plausible.Testable.check (∀ n : Nat, checksPost n = true)
+  { numInst := 20, maxSize := 40 : Plausible.Configuration }
+
+example : (List.range 60).all (fun n =>
+    !decide (3 < n) || !((n % 2 == 0) || (n % 3 == 0)) || isPrime n == false) = true := by
+  native_decide
+
+/-- If the pre-condition holds, the post-condition holds. -/
+theorem correctness_thm (n : Int) (hn : Pre n) : Post_prop n := by
   unfold Post_prop
-  refine ⟨result_iff_prime_thm n, prime_doc_thm _, nonneg_agrees_thm n,
-    le_one_not_prime_thm _, two_or_three_prime_thm _, even_not_prime_thm _,
-    multiple_of_three_not_prime_thm _, ?_⟩
-  intro _
-  rw [nonneg_agrees_thm n hpre]
-  simpa [Nat.prime_def] using isPrime_iff_prime_thm n.toNat
+  refine ⟨?ok, isPrime_iff_prime_thm n.toNat⟩
+  unfold isPrimeEx
+  have hlt : ¬ n < 0 := not_lt.mpr hn
+  simp [hlt]
 
-/-! ## Imperative implementation -/
+def bad (n i : Nat) : Bool :=
+  (decide (5 ≤ i) && (i % 6 == 5)) && ((n % i == 0) || (n % (i + 2) == 0))
 
-/-- Imperative trial division with mutable state, matching the Python loop. -/
-def isPrimeImp (n : Nat) : Bool :=
-  Id.run do
-    if n ≤ 1 then
-      return false
-    if n ≤ 3 then
-      return true
-    if n % 2 == 0 || n % 3 == 0 then
-      return false
-    let mut ok : Bool := true
+def step (n : Nat) (ok : Bool) (i : Nat) : Bool :=
+  if (decide (i ≥ 5) && i % 6 == 5) = true then
+    if (n % i == 0 || n % (i + 2) == 0) = true then false else ok
+  else
+    ok
+
+def wheelClear (n : Nat) : Bool :=
+  (List.range (n.sqrt + 1)).foldl (fun ok i => step n ok i) true
+
+lemma step_eq_not_bad (n : Nat) (ok : Bool) (i : Nat) :
+    step n ok i = (!bad n i && ok) := by
+  unfold step bad
+  cases h1 : decide (i ≥ 5) && (i % 6 == 5) <;>
+    cases h2 : (n % i == 0 || n % (i + 2) == 0) <;>
+      simp [h1, h2]
+
+lemma foldl_step (n : Nat) (l : List Nat) (ok : Bool) :
+    l.foldl (fun ok i => step n ok i) ok = (ok && l.all fun i => !bad n i) := by
+  induction l generalizing ok with
+  | nil => simp
+  | cons a as ih =>
+    simp only [List.foldl_cons]
+    rw [ih]
+    rw [step_eq_not_bad]
+    simp only [List.all_cons]
+    cases ok <;> cases bad n a <;> simp
+
+lemma not_bad_iff (n i : Nat) :
+    (!bad n i) = true ↔ (5 ≤ i → i % 6 = 5 → n % i ≠ 0 ∧ n % (i + 2) ≠ 0) := by
+  constructor
+  · intro h h5 hmod
+    have hb : bad n i = false := by simpa [Bool.not_eq_true] using h
+    have h5b : decide (5 ≤ i) = true := by simpa using h5
+    have hmb : (i % 6 == 5) = true := (beq_iff_eq).mpr hmod
+    unfold bad at hb
+    simp only [h5b, hmb, Bool.true_and] at hb
+    have hpair : (n % i == 0) = false ∧ (n % (i + 2) == 0) = false := by
+      simpa [Bool.or_eq_false_iff] using hb
+    constructor
+    · intro heq
+      have : (n % i == 0) = true := (beq_iff_eq).mpr heq
+      simp [this] at hpair
+    · intro heq
+      have : (n % (i + 2) == 0) = true := (beq_iff_eq).mpr heq
+      simp [this] at hpair
+  · intro h
+    by_cases h5 : 5 ≤ i <;> by_cases hmod : i % 6 = 5
+    · obtain ⟨ha, hb⟩ := h h5 hmod
+      have ha' : (n % i == 0) = false := by simpa [beq_iff_eq, Bool.not_eq_true] using ha
+      have hb' : (n % (i + 2) == 0) = false := by
+        simpa [beq_iff_eq, Bool.not_eq_true] using hb
+      have h5b : decide (5 ≤ i) = true := by simpa using h5
+      have hmb : (i % 6 == 5) = true := (beq_iff_eq).mpr hmod
+      have hor : ((n % i == 0) || (n % (i + 2) == 0)) = false := by
+        simp [ha', hb', Bool.or_eq_false_iff]
+      simp [bad, h5b, hmb, hor, Bool.not_eq_true]
+    · have hmb : (i % 6 == 5) = false := by simpa [beq_iff_eq, Bool.not_eq_true] using hmod
+      simp [bad, hmb, Bool.not_eq_true]
+    · have h5b : decide (5 ≤ i) = false := by simpa using h5
+      simp [bad, h5b, Bool.not_eq_true]
+    · have h5b : decide (5 ≤ i) = false := by simpa using h5
+      simp [bad, h5b, Bool.not_eq_true]
+
+def isPrimeImp (n : Nat) : Bool := Id.run do
+  let mut ok : Bool := true
+  if n ≤ 1 then
+    ok := false
+  else if n ≤ 3 then
+    ok := true
+  else if n % 2 == 0 || n % 3 == 0 then
+    ok := false
+  else
     for i in List.range (Nat.sqrt n + 1) do
-      ok := trialAcc n ok i
-    return ok
+      if i ≥ 5 && i % 6 == 5 then
+        if n % i == 0 || n % (i + 2) == 0 then
+          ok := false
+  return ok
 
-/-- Imperative wrapper that raises on negative inputs. -/
-def is_primeImp (n : Int) : Except String Bool :=
-  Id.run do
-    if n < 0 then
-      return Except.error errorMsg
-    return Except.ok (isPrimeImp n.toNat)
-
-/-! ## Imperative tests -/
-
+/-- Imperative tests. -/
 example : isPrimeImp 2 = true := by native_decide
-example : isPrimeImp 4 = false := by native_decide
 example : isPrimeImp 0 = false := by native_decide
 example : isPrimeImp 1 = false := by native_decide
+example : isPrimeImp 4 = false := by native_decide
 example : isPrimeImp 7 = true := by native_decide
 example : isPrimeImp 9 = false := by native_decide
 example : isPrimeImp 25 = false := by native_decide
 example : isPrimeImp 97 = true := by native_decide
-example : is_primeImp (-1) = Except.error errorMsg := by native_decide
-example : is_primeImp 7 = Except.ok true := by native_decide
-example : is_primeImp 0 = Except.ok false := by native_decide
+example : isPrimeImp 121 = false := by native_decide
 
-#eval isPrimeImp 7
-#eval isPrimeImp 25
-#eval is_primeImp (-5)
-#eval (List.range 40).filter isPrimeImp
+#eval isPrimeImp 29
+#eval isPrimeImp 1
 
-/-! ## Equivalence -/
+lemma forIn_step (n : Nat) (l : List Nat) (ok : Bool) :
+    (forIn (m := Id) l ok fun i r =>
+        if (decide (i ≥ 5) && i % 6 == 5) = true then
+          if (n % i == 0 || n % (i + 2) == 0) = true then ForInStep.yield false
+          else ForInStep.yield r
+        else ForInStep.yield r) =
+      l.foldl (fun ok i => step n ok i) ok := by
+  induction l generalizing ok with
+  | nil =>
+    simp only [List.forIn_nil, List.foldl_nil]
+    rfl
+  | cons a as ih =>
+    simp only [List.forIn_cons, List.foldl_cons]
+    by_cases h5 : (decide (a ≥ 5) && a % 6 == 5) = true
+    · by_cases hd : (n % a == 0 || n % (a + 2) == 0) = true
+      · have hstep : step n ok a = false := by simp [step, h5, hd]
+        simp only [h5, hd, ite_true, bind, hstep, ih]
+      · have hbf : (n % a == 0 || n % (a + 2) == 0) = false := by
+          simpa [Bool.not_eq_true] using hd
+        have hstep : step n ok a = ok := by simp [step, h5, hbf]
+        simp only [h5, hbf, ite_true, if_neg Bool.false_ne_true, bind, hstep, ih]
+    · have h5f : (decide (a ≥ 5) && a % 6 == 5) = false := by
+        simpa [Bool.not_eq_true] using h5
+      have hstep : step n ok a = ok := by simp [step, h5f]
+      simp only [h5f, if_neg Bool.false_ne_true, bind, hstep, ih]
 
-theorem isPrime_eq_isPrimeImp_thm (n : Nat) : isPrime n = isPrimeImp n := by
-  unfold isPrime isPrimeImp trialFold
-  simp only [Id.run]
-  split_ifs <;> try rfl
-  simp only [bind_pure_comp, pure_bind, map_pure, bind_pure]
-  apply Eq.symm
-  rw [List.forIn_pure_yield_eq_foldl]
-  rfl
+lemma imp_eq_wheel (n : Nat) :
+    isPrimeImp n =
+      if n ≤ 1 then false
+      else if n ≤ 3 then true
+      else if (n % 2 == 0 || n % 3 == 0) = true then false
+      else wheelClear n := by
+  unfold isPrimeImp wheelClear
+  simp only [Id.run, bind, pure]
+  by_cases h1 : n ≤ 1
+  · simp only [h1, ite_true]
+  · simp only [h1, ite_false]
+    by_cases h3 : n ≤ 3
+    · simp only [h3, ite_true]
+    · simp only [h3, ite_false]
+      by_cases h23 : (n % 2 == 0 || n % 3 == 0) = true
+      · simp only [h23, ite_true]
+      · simp only [h23, ite_false]
+        exact forIn_step n (List.range (n.sqrt + 1)) true
 
-theorem is_prime_eq_is_primeImp_thm (n : Int) : is_prime n = is_primeImp n := by
-  unfold is_prime is_primeImp
-  simp only [Id.run, isPrime_eq_isPrimeImp_thm]
-  split_ifs <;> rfl
+lemma wheelClear_true_iff (n : Nat) :
+    wheelClear n = true ↔
+      ∀ j, 5 ≤ j → j * j ≤ n → j % 6 = 5 → n % j ≠ 0 ∧ n % (j + 2) ≠ 0 := by
+  unfold wheelClear
+  rw [foldl_step]
+  simp only [Bool.true_and, List.all_eq_true]
+  constructor
+  · intro hall j h5 hjsq hjmod
+    have hjle : j ≤ n.sqrt := Nat.le_sqrt.mpr hjsq
+    have hmem : j ∈ List.range (n.sqrt + 1) := by
+      simpa [List.mem_range] using Nat.lt_succ_of_le hjle
+    exact (not_bad_iff n j).1 (hall j hmem) h5 hjmod
+  · intro hall i hmem
+    have hi : i < n.sqrt + 1 := by simpa [List.mem_range] using hmem
+    rw [not_bad_iff]
+    intro h5 hjmod
+    exact hall i h5 (Nat.le_sqrt.mp (Nat.le_of_lt_succ hi)) hjmod
 
-theorem check_is_primeImp_thm : check is_primeImp = true := by
-  have hfun := check_is_prime_thm
-  unfold check at hfun ⊢
-  simp [is_prime_eq_is_primeImp_thm] at hfun ⊢
-  exact hfun
+lemma bool_eq_of_eq_true_iff {a b : Bool} (h : (a = true) ↔ (b = true)) : a = b := by
+  cases a <;> cases b <;> simp_all
+
+lemma wheelClear_eq_trialFrom (n : Nat) : wheelClear n = trialFrom n 5 :=
+  bool_eq_of_eq_true_iff <| by
+    rw [wheelClear_true_iff, trialFrom_true_iff n 5 (by decide)]
+
+/-- The functional test and the imperative loop agree on every natural number. -/
+def equiv_prop (n : Nat) : Prop :=
+  isPrime n = isPrimeImp n
+
+theorem equiv_thm (n : Nat) : equiv_prop n := by
+  unfold equiv_prop
+  rw [imp_eq_wheel]
+  unfold isPrime
+  by_cases h1 : n ≤ 1
+  · simp [h1]
+  · by_cases h3 : n ≤ 3
+    · simp [h1, h3]
+    · by_cases h23 : (n % 2 == 0 || n % 3 == 0) = true
+      · simp [h1, h3, h23]
+      · simp [h1, h3, h23, if_neg h23, wheelClear_eq_trialFrom]
+
+example : (List.range 60).all (fun n => isPrime n == isPrimeImp n) = true := by
+  native_decide
+
+#eval Plausible.Testable.check (∀ n : Nat, isPrime n = isPrimeImp n)
+  { numInst := 20, maxSize := 40 : Plausible.Configuration }
 
 end «23_is_prime»

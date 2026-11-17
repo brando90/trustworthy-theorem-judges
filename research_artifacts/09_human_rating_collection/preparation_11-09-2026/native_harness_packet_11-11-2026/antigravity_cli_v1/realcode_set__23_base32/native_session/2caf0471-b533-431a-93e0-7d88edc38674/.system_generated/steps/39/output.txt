@@ -1,0 +1,143 @@
+Command exited with code 1.
+
+Command output:
+<stdin>:80:45: error: unsolved goals
+case nil
+x : UInt8
+xs : Bytes
+h : (x == 61) = false
+⊢ (match xs with
+    | [] => []
+    | x :: xs =>
+      match rstripEq xs with
+      | [] => if x = 61 then [] else [x]
+      | r => x :: r) =
+    []
+
+case cons
+x : UInt8
+xs : Bytes
+h : (x == 61) = false
+head✝ : UInt8
+tail✝ : List UInt8
+⊢ head✝ :: tail✝ =
+    match xs with
+    | [] => []
+    | x :: xs =>
+      match rstripEq xs with
+      | [] => if x = 61 then [] else [x]
+      | r => x :: r
+<stdin>:133:15: warning: Possibly looping simp theorem: `b32encode.eq_2`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:133:15: warning: Possibly looping simp theorem: `b32encode.eq_3`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:133:15: warning: Possibly looping simp theorem: `b32encode.eq_4`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:133:15: warning: Possibly looping simp theorem: `b32encode.eq_5`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:133:51: warning: Possibly looping simp theorem: `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:133:4: error: tactic 'simp' failed, nested error:
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+<stdin>:144:15: warning: Possibly looping simp theorem: `b32encode.eq_2`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:144:15: warning: Possibly looping simp theorem: `b32encode.eq_3`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:144:15: warning: Possibly looping simp theorem: `b32encode.eq_4`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:144:15: warning: Possibly looping simp theorem: `b32encode.eq_5`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:144:51: warning: Possibly looping simp theorem: `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:144:4: error: tactic 'simp' failed, nested error:
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+<stdin>:154:15: warning: Possibly looping simp theorem: `b32encode.eq_2`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:154:15: warning: Possibly looping simp theorem: `b32encode.eq_3`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:154:15: warning: Possibly looping simp theorem: `b32encode.eq_4`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:154:15: warning: Possibly looping simp theorem: `b32encode.eq_5`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:154:51: warning: Possibly looping simp theorem: `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:154:4: error: tactic 'simp' failed, nested error:
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+<stdin>:165:15: warning: Possibly looping simp theorem: `b32encode.eq_2`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:165:15: warning: Possibly looping simp theorem: `b32encode.eq_3`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:165:15: warning: Possibly looping simp theorem: `b32encode.eq_4`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:165:15: warning: Possibly looping simp theorem: `b32encode.eq_5`
+
+Note: Possibly caused by: `encode5Bytes`, `Nat.shiftRight_eq_div_pow`, `nat_and_31`, `List.take`, and `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:165:51: warning: Possibly looping simp theorem: `List.append_cons`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+<stdin>:165:4: error: tactic 'simp' failed, nested error:
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+<stdin>:180:4: error: tactic 'simp' failed, nested error:
+(deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

@@ -1,0 +1,11 @@
+Command exited with code 1.
+
+Command output:
+<stdin>:104:65: error: Application type mismatch: In the application
+  hall c List.mem_cons_self
+the argument
+  List.mem_cons_self
+has type
+  ?m.2948 ∈ ?m.2948 :: ?m.2949 : Prop
+but is expected to have type
+  c ∈ s.data : Prop

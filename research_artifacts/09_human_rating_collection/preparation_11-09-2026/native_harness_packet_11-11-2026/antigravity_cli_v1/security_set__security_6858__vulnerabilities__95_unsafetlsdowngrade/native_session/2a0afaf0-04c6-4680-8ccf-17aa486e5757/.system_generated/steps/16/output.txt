@@ -1,0 +1,68 @@
+Created At: 2026-11-16T22:12:44Z
+Completed At: 2026-11-16T22:12:54Z
+Command exited with code 0.
+
+Command output:
+4
+1
+2
+3
+0
+true
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+4
+1
+2
+3
+0
+true
+Unable to find a counter-example
+'«95_unsafeTlsDowngrade».exact_min_thm' does not depend on any axioms
+'«95_unsafeTlsDowngrade».le_client_offer_thm' depends on axioms: [propext]
+'«95_unsafeTlsDowngrade».le_server_max_thm' depends on axioms: [propext]
+'«95_unsafeTlsDowngrade».choice_thm' depends on axioms: [propext]
+'«95_unsafeTlsDowngrade».highest_common_thm' depends on axioms: [propext]
+'«95_unsafeTlsDowngrade».offer_caps_when_le_thm' depends on axioms: [propext]
+'«95_unsafeTlsDowngrade».server_caps_when_le_thm' depends on axioms: [propext]
+'«95_unsafeTlsDowngrade».matching_version_thm' depends on axioms: [propext]
+'«95_unsafeTlsDowngrade».comm_thm' depends on axioms: [propext]
+'«95_unsafeTlsDowngrade».monotone_offer_thm' depends on axioms: [propext, Quot.sound]
+'«95_unsafeTlsDowngrade».monotone_server_thm' depends on axioms: [propext, Quot.sound]
+'«95_unsafeTlsDowngrade».monotone_both_thm' depends on axioms: [propext, Quot.sound]
+'«95_unsafeTlsDowngrade».attacker_strip_weakens_thm' depends on axioms: [propext, Quot.sound]
+'«95_unsafeTlsDowngrade».downgrade_vulnerability_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«95_unsafeTlsDowngrade».nonneg_preserved_thm' depends on axioms: [propext, Quot.sound]
+'«95_unsafeTlsDowngrade».legacy_server_zero_thm' depends on axioms: [propext, Quot.sound]
+'«95_unsafeTlsDowngrade».valid_version_preserved_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«95_unsafeTlsDowngrade».greatest_common_iff_thm' depends on axioms: [propext, Quot.sound]
+'«95_unsafeTlsDowngrade».check_unsafe_tls_downgrade_thm' does not depend on any axioms
+'«95_unsafeTlsDowngrade».unsafe_tls_downgrade_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'«95_unsafeTlsDowngrade».unsafe_tls_downgrade_equiv' depends on axioms: [propext, Quot.sound]
+'«95_unsafeTlsDowngrade».unsafe_tls_downgrade_imp_correct' depends on axioms: [propext, Quot.sound]
+'«95_unsafeTlsDowngrade».check_unsafe_tls_downgrade_imp_thm' does not depend on any axioms

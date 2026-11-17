@@ -1,0 +1,173 @@
+Created At: 2026-11-16T22:10:17Z
+Completed At: 2026-11-16T22:10:23Z
+Command exited with code 1.
+
+Command output:
+8
+1
+0
+1
+some 8
+some 1
+none
+none
+Veribench/19_MyPower.lean:264:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ), Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), eq_pow_prop (base % 10) (exponent % 10))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:265:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ), Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), exp_zero_prop (base % 10) (exponent % 10))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:266:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ), Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), zero_base_prop (base % 10) (exponent % 10))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:267:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ), Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), zero_zero_prop (base % 10) (exponent % 10))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:268:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ), Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), exp_one_prop (base % 10) (exponent % 10))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:269:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ), Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), one_base_prop (base % 10) (exponent % 10))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:270:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ), Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), succ_exp_prop (base % 10) (exponent % 10))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:271:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ), Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), pos_prop (base % 10) (exponent % 10))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:272:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ),
+        Plausible.NamedBinder "e1"
+          (∀ (e1 : ℕ), Plausible.NamedBinder "e2" (∀ (e2 : ℕ), add_exp_prop (base % 8) (e1 % 6) (e2 % 6)))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:273:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "b1"
+      (∀ (b1 : ℕ),
+        Plausible.NamedBinder "b2"
+          (∀ (b2 : ℕ),
+            Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), mul_base_prop (b1 % 8) (b2 % 8) (exponent % 6)))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:274:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ),
+        Plausible.NamedBinder "e1"
+          (∀ (e1 : ℕ), Plausible.NamedBinder "e2" (∀ (e2 : ℕ), mul_exp_prop (base % 6) (e1 % 5) (e2 % 5)))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:275:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "b1"
+      (∀ (b1 : ℕ),
+        Plausible.NamedBinder "b2"
+          (∀ (b2 : ℕ),
+            Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), mono_base_prop (b1 % 8) (b2 % 8) (exponent % 6)))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:276:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ),
+        Plausible.NamedBinder "e1"
+          (∀ (e1 : ℕ), Plausible.NamedBinder "e2" (∀ (e2 : ℕ), mono_exp_prop (base % 8) (e1 % 6) (e2 % 6)))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:277:6: error: failed to synthesize
+  Plausible.Testable
+    (Plausible.NamedBinder "base"
+      (∀ (base : ℕ), Plausible.NamedBinder "exponent" (∀ (exponent : ℕ), Post_prop (base % 8) (exponent % 6))))
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:280:69: error: failed to synthesize
+  Decidable (eq_pow_prop b e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:281:69: error: failed to synthesize
+  Decidable (exp_zero_prop b e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:282:69: error: failed to synthesize
+  Decidable (zero_base_prop b e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:283:69: error: failed to synthesize
+  Decidable (zero_zero_prop b e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:284:69: error: failed to synthesize
+  Decidable (exp_one_prop b e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:285:69: error: failed to synthesize
+  Decidable (one_base_prop b e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:286:69: error: failed to synthesize
+  Decidable (succ_exp_prop b e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:287:69: error: failed to synthesize
+  Decidable (pos_prop b e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:288:99: error: failed to synthesize
+  Decidable (add_exp_prop b e1 e2)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:289:99: error: failed to synthesize
+  Decidable (mul_base_prop b1 b2 e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:290:99: error: failed to synthesize
+  Decidable (mul_exp_prop b e1 e2)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:291:99: error: failed to synthesize
+  Decidable (mono_base_prop b1 b2 e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:292:99: error: failed to synthesize
+  Decidable (mono_exp_prop b e1 e2)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Veribench/19_MyPower.lean:293:68: error: failed to synthesize
+  Decidable (Post_prop b e)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+8
+1
+0
+1
+some 8
+some 1
+none
+none

@@ -1,0 +1,33 @@
+Created At: 2026-11-16T23:06:26Z
+Completed At: 2026-11-16T23:06:30Z
+Command exited with code 1.
+
+Command output:
+<stdin>:84:74: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 1
+  0 ≤ d ≤ 6
+  d + e ≥ 8
+  b ≥ 0
+  0 ≤ b - 5*c ≤ 4
+  5*a + b - 5*c ≥ 0
+where
+ a := ↑(b0 :: b1 :: b2 :: b3 :: b4 :: rest).length / 5
+ b := ↑rest.length
+ c := ↑rest.length / 5
+ d := ↑(padCount (rest.length % 5))
+ e := ↑((b32encodeRaw rest).length - padCount (rest.length % 5))
+<stdin>:85:32: error: unsolved goals
+b0 b1 b2 b3 b4 : UInt8
+rest : List UInt8
+hrest : ¬rest = []
+hlen : 8 ≤ (b32encodeRaw rest).length
+hmod : (b0 :: b1 :: b2 :: b3 :: b4 :: rest).length % 5 = rest.length % 5
+hp : padCount (rest.length % 5) ≤ 6
+hsub :
+  8 + (b32encodeRaw rest).length - padCount (rest.length % 5) =
+    8 + ((b32encodeRaw rest).length - padCount (rest.length % 5))
+⊢ 8 ≤ 8 + ((b32encodeRaw rest).length - padCount (rest.length % 5))
+<stdin>:86:4: error: simp made no progress
+'b32encode_cons5' depends on axioms: [propext, sorryAx]
+'b32encode_eq_unpadded_append_pad' depends on axioms: [propext, sorryAx, Quot.sound]

@@ -1,0 +1,54 @@
+Created At: 2026-11-16T22:22:24Z
+Completed At: 2026-11-16T22:22:30Z
+Command exited with code 1.
+
+Command output:
+Veribench/edit_distance.lean:44:0: error: Not a definitional equality: the left-hand side
+  edit_distance [] s2
+is not definitionally equal to the right-hand side
+  s2.length
+Veribench/edit_distance.lean:45:39: error: type mismatch
+  rfl
+has type
+  ?m.288857 = ?m.288857 : Prop
+but is expected to have type
+  edit_distance [] s2 = s2.length : Prop
+Veribench/edit_distance.lean:49:15: error: tactic 'rfl' failed, the left-hand side
+  edit_distance [] []
+is not definitionally equal to the right-hand side
+  [].length
+case nil
+α : Type
+inst✝ : DecidableEq α
+⊢ edit_distance [] [] = [].length
+Veribench/edit_distance.lean:49:15: error: tactic 'rfl' failed, the left-hand side
+  edit_distance (head✝ :: tail✝) []
+is not definitionally equal to the right-hand side
+  (head✝ :: tail✝).length
+case cons
+α : Type
+inst✝ : DecidableEq α
+head✝ : α
+tail✝ : List α
+⊢ edit_distance (head✝ :: tail✝) [] = (head✝ :: tail✝).length
+Veribench/edit_distance.lean:81:55: error: type mismatch
+  rfl
+has type
+  ?m.294091 = ?m.294091 : Prop
+but is expected to have type
+  (if a = b then edit_distance s1 acc2
+    else 1 + min (edit_distance s1 (b :: acc2)) (min (edit_distance (a :: s1) acc2) (edit_distance s1 acc2))) =
+    edit_distance (a :: s1) (b :: acc2) : Prop
+Veribench/edit_distance.lean:113:67: error: type mismatch
+  rfl
+has type
+  ?m.294217 = ?m.294217 : Prop
+but is expected to have type
+  0 = edit_distance [] [] : Prop
+Veribench/edit_distance.lean:112:43: warning: This simp argument is unused:
+  List.idRun_forIn_yield_eq_foldl
+
+Hint: Omit it from the simp argument list.
+  simp only [Id.run, Bind.bind, Pure.pure,̵ ̵L̵i̵s̵t̵.̵i̵d̵R̵u̵n̵_̵f̵o̵r̵I̵n̵_̵y̵i̵e̵l̵d̵_̵e̵q̵_̵f̵o̵l̵d̵l̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

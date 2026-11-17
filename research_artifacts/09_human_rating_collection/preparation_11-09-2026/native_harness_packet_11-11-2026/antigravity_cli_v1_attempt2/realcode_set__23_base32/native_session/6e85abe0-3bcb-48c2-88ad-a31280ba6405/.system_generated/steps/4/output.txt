@@ -1,0 +1,14 @@
+Created At: 2026-11-16T22:54:46Z
+Completed At: 2026-11-16T22:54:51Z
+Command exited with code 1.
+
+Command output:
+inferInstance : DecidableEq ByteArray
+inferInstance : DecidableEq (List UInt8)
+inferInstance : DecidableEq String
+inferInstance : Plausible.SampleableExt (List UInt8)
+inferInstance : Plausible.SampleableExt String
+<stdin>:8:8: error: failed to synthesize
+  Plausible.SampleableExt ByteArray
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

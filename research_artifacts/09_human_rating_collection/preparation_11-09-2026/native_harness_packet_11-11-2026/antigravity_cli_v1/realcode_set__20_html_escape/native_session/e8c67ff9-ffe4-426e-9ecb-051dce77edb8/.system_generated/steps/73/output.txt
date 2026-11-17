@@ -1,0 +1,199 @@
+Command exited with code 1.
+
+Command output:
+<stdin>:75:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  b ≥ 0
+  b - d ≥ 5
+  a ≥ 0
+  a - 5*b ≤ 0
+  a - b ≥ 0
+where
+ a := ↑(List.map (fun a => (escapeChar a false).length) cs).sum
+ b := ↑cs.length
+ d := ↑(List.map
+      (fun a =>
+        (if a = '&' then ['&', 'a', 'm', 'p', ';']
+          else if a = '<' then ['&', 'l', 't', ';'] else if a = '>' then ['&', 'g', 't', ';'] else [a]).length)
+      cs).sum
+<stdin>:75:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  b ≥ 0
+  b - d ≥ 4
+  a ≥ 0
+  a - 5*b ≤ 0
+  a - b ≥ 0
+where
+ a := ↑(List.map (fun a => (escapeChar a false).length) cs).sum
+ b := ↑cs.length
+ d := ↑(List.map
+      (fun a =>
+        (if a = '&' then ['&', 'a', 'm', 'p', ';']
+          else if a = '<' then ['&', 'l', 't', ';'] else if a = '>' then ['&', 'g', 't', ';'] else [a]).length)
+      cs).sum
+<stdin>:75:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  b ≥ 0
+  b - d ≥ 4
+  a ≥ 0
+  a - 5*b ≤ 0
+  a - b ≥ 0
+where
+ a := ↑(List.map (fun a => (escapeChar a false).length) cs).sum
+ b := ↑cs.length
+ d := ↑(List.map
+      (fun a =>
+        (if a = '&' then ['&', 'a', 'm', 'p', ';']
+          else if a = '<' then ['&', 'l', 't', ';'] else if a = '>' then ['&', 'g', 't', ';'] else [a]).length)
+      cs).sum
+<stdin>:75:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  b ≥ 0
+  b - d ≥ 1
+  a ≥ 0
+  a - 5*b ≤ 0
+  a - b ≥ 0
+where
+ a := ↑(List.map (fun a => (escapeChar a false).length) cs).sum
+ b := ↑cs.length
+ d := ↑(List.map
+      (fun a =>
+        (if a = '&' then ['&', 'a', 'm', 'p', ';']
+          else if a = '<' then ['&', 'l', 't', ';'] else if a = '>' then ['&', 'g', 't', ';'] else [a]).length)
+      cs).sum
+<stdin>:75:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  b ≥ 0
+  b - d ≥ 5
+  a ≥ 0
+  a - 6*b ≤ 0
+  a - b ≥ 0
+where
+ a := ↑(List.map (fun a => (escapeChar a).length) cs).sum
+ b := ↑cs.length
+ d := ↑(List.map
+      (fun a =>
+        (if a = '&' then ['&', 'a', 'm', 'p', ';']
+          else
+            if a = '<' then ['&', 'l', 't', ';']
+            else
+              if a = '>' then ['&', 'g', 't', ';']
+              else
+                if a = '\"' then ['&', 'q', 'u', 'o', 't', ';']
+                else if a = '\'' then ['&', '#', 'x', '2', '7', ';'] else [a]).length)
+      cs).sum
+<stdin>:75:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  b ≥ 0
+  b - d ≥ 4
+  a ≥ 0
+  a - 6*b ≤ 0
+  a - b ≥ 0
+where
+ a := ↑(List.map (fun a => (escapeChar a).length) cs).sum
+ b := ↑cs.length
+ d := ↑(List.map
+      (fun a =>
+        (if a = '&' then ['&', 'a', 'm', 'p', ';']
+          else
+            if a = '<' then ['&', 'l', 't', ';']
+            else
+              if a = '>' then ['&', 'g', 't', ';']
+              else
+                if a = '\"' then ['&', 'q', 'u', 'o', 't', ';']
+                else if a = '\'' then ['&', '#', 'x', '2', '7', ';'] else [a]).length)
+      cs).sum
+<stdin>:75:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  b ≥ 0
+  b - d ≥ 4
+  a ≥ 0
+  a - 6*b ≤ 0
+  a - b ≥ 0
+where
+ a := ↑(List.map (fun a => (escapeChar a).length) cs).sum
+ b := ↑cs.length
+ d := ↑(List.map
+      (fun a =>
+        (if a = '&' then ['&', 'a', 'm', 'p', ';']
+          else
+            if a = '<' then ['&', 'l', 't', ';']
+            else
+              if a = '>' then ['&', 'g', 't', ';']
+              else
+                if a = '\"' then ['&', 'q', 'u', 'o', 't', ';']
+                else if a = '\'' then ['&', '#', 'x', '2', '7', ';'] else [a]).length)
+      cs).sum
+<stdin>:75:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  b ≥ 0
+  b - d ≥ 6
+  a ≥ 0
+  a - 6*b ≤ 0
+  a - b ≥ 0
+where
+ a := ↑(List.map (fun a => (escapeChar a).length) cs).sum
+ b := ↑cs.length
+ d := ↑(List.map
+      (fun a =>
+        (if a = '&' then ['&', 'a', 'm', 'p', ';']
+          else
+            if a = '<' then ['&', 'l', 't', ';']
+            else
+              if a = '>' then ['&', 'g', 't', ';']
+              else
+                if a = '\"' then ['&', 'q', 'u', 'o', 't', ';']
+                else if a = '\'' then ['&', '#', 'x', '2', '7', ';'] else [a]).length)
+      cs).sum
+<stdin>:75:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  b ≥ 0
+  b - d ≥ 6
+  a ≥ 0
+  a - 6*b ≤ 0
+  a - b ≥ 0
+where
+ a := ↑(List.map (fun a => (escapeChar a).length) cs).sum
+ b := ↑cs.length
+ d := ↑(List.map
+      (fun a =>
+        (if a = '&' then ['&', 'a', 'm', 'p', ';']
+          else
+            if a = '<' then ['&', 'l', 't', ';']
+            else
+              if a = '>' then ['&', 'g', 't', ';']
+              else
+                if a = '\"' then ['&', 'q', 'u', 'o', 't', ';']
+                else if a = '\'' then ['&', '#', 'x', '2', '7', ';'] else [a]).length)
+      cs).sum
+<stdin>:75:33: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  b ≥ 0
+  b - d ≥ 1
+  a ≥ 0
+  a - 6*b ≤ 0
+  a - b ≥ 0
+where
+ a := ↑(List.map (fun a => (escapeChar a).length) cs).sum
+ b := ↑cs.length
+ d := ↑(List.map
+      (fun a =>
+        (if a = '&' then ['&', 'a', 'm', 'p', ';']
+          else
+            if a = '<' then ['&', 'l', 't', ';']
+            else
+              if a = '>' then ['&', 'g', 't', ';']
+              else
+                if a = '\"' then ['&', 'q', 'u', 'o', 't', ';']
+                else if a = '\'' then ['&', '#', 'x', '2', '7', ';'] else [a]).length)
+      cs).sum

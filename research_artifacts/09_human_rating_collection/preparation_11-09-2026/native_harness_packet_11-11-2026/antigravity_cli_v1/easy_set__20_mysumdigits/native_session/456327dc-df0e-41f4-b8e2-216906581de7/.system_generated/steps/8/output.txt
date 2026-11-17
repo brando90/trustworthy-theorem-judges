@@ -1,0 +1,30 @@
+Created At: 2026-11-16T21:56:48Z
+Completed At: 2026-11-16T21:56:53Z
+Command exited with code 0.
+
+Command output:
+def sumDigitsImp : ℤ → ℤ :=
+fun n =>
+  (have __do_jp := fun y =>
+      have total := 0;
+      have m := n;
+      do
+      let r ←
+        forIn (List.range n.toNat) ⟨m, total⟩ fun x r =>
+            have m := r.fst;
+            have total := r.snd;
+            if m > 0 then
+              have total := total + m % 10;
+              have m := m / 10;
+              do
+              pure PUnit.unit
+              pure (ForInStep.yield ⟨m, total⟩)
+            else do
+              pure PUnit.unit
+              pure (ForInStep.yield ⟨m, total⟩)
+      match r with
+        | ⟨m, total⟩ => pure total;
+    if n ≤ 0 then pure 0
+    else do
+      let y ← pure PUnit.unit
+      __do_jp y).run

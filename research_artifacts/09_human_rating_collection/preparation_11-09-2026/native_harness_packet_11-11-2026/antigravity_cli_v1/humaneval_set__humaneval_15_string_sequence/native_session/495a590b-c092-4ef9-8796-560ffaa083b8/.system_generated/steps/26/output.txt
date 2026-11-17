@@ -1,0 +1,29 @@
+Command exited with code 0.
+
+Command output:
+def string_sequence_imp1 : ℕ → String :=
+fun n =>
+  (have res := "0";
+    do
+    let r ←
+      forIn (List.range n) res fun i r =>
+          have res := r;
+          have res := res ++ " " ++ toString (i + 1);
+          do
+          pure PUnit.unit
+          pure (ForInStep.yield res)
+    have res : String := r
+    pure res).run
+def string_sequence_imp2 : ℕ → String :=
+fun n =>
+  (have parts := [];
+    do
+    let r ←
+      forIn (List.range (n + 1)) parts fun i r =>
+          have parts := r;
+          have parts := parts ++ [toString i];
+          do
+          pure PUnit.unit
+          pure (ForInStep.yield parts)
+    have parts : List String := r
+    pure (" ".intercalate parts)).run

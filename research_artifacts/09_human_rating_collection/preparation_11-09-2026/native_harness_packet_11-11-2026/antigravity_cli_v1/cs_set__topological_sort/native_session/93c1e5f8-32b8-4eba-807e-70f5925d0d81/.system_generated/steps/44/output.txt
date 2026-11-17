@@ -1,0 +1,7 @@
+Command exited with code 0.
+
+Command output:
+@Plausible.Testable.check : (p : Prop) →
+  optParam Plausible.Configuration { } →
+    (p' : autoParam (Plausible.Decorations.DecorationsOf p) _auto✝) → [Plausible.Testable p'] → Lean.CoreM PUnit.{1}
+Unable to find a counter-example

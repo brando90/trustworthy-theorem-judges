@@ -1,0 +1,72 @@
+{
+  "task_id": "realcode_set__28_statistics_median_low",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "28_statistics_median_low.py": "8aa9b9fada22f74576c798f4d5ded692b42235aa4e50fec9698554e6374621ed",
+    "instruction.md": "2e4d7c30f4e7f196e793794411e58f7ab5c55e46024e64e12ed556dd757af2b2"
+  },
+  "output": "/home/user/lean_project/Veribench/28_statistics_median_low.lean",
+  "model_call_performed": true,
+  "container": "ttj-anti-abb9cf0803c9",
+  "status": "TERMINAL",
+  "cli_version": "1.5.9",
+  "actual_mounts": [],
+  "network": "ttj-native2-agy-v1",
+  "proxy": "ttj-native2-egress-agy-v1",
+  "runtime_preflight": "Nat : Type\nSOURCE_ONLY_USER1001_MATHLIB_PREFLIGHT_OK",
+  "started_at": 1794867582.195842,
+  "exit_code": 0,
+  "stop_reason": "process_exit_0",
+  "finished_at": 1794868924.483766,
+  "actual_models": [
+    "gemini-4-argon-high"
+  ],
+  "model_identity_verified": true,
+  "last_event": {
+    "event": "result",
+    "result": {
+      "conversation_id": "2a1783b8-65dc-4f92-988f-991aa7b2c91c",
+      "status": "SUCCESS",
+      "response": "I have translated the Python `statistics.median_low` program into a verified Lean 4 formalization at [28_statistics_median_low.lean](file:///home/user/lean_project/Veribench/28_statistics_median_low.lean).\n\n### Summary of Formalization\n\n1. **Functional Implementation ([lines 19\u201344](file:///home/user/lean_project/Veribench/28_statistics_median_low.lean#L19-L44))**:\n   - `pre (data : List Int) : Bool` checks that `data` is non-empty.\n   - `median_low (data : List Int) : Option Int` sorts `data` with `List.mergeSort (\u00b7 \u2264 \u00b7)` and returns `none` when `n = 0` (modeling `StatisticsError`), `sorted[n / 2]?` when `n % 2 = 1`, and `sorted[n / 2 - 1]?` when `n % 2 = 0`.\n   - `benchmark_median_low (data : List Int) : Option Int` validates `pre data` and invokes `median_low data`.\n\n2. **Unit Tests ([lines 50\u201384](file:///home/user/lean_project/Veribench/28_statistics_median_low.lean#L50-L84))**:\n   - Covers all test categories from the Python `check` suite (odd length, even length, single element, two elements, unsorted input, negative values, and the empty list error case) using `example : ... := by native_decide` and `#eval`.\n\n3. **Pre-condition, Properties, and Proofs ([lines 90\u2013495](file:///home/user/lean_project/Veribench/28_statistics_median_low.lean#L90-L495))**:\n   - `Pre (data : List Int) : Prop := data \u2260 []` and equivalence `pre_iff_Pre`.\n   - Proven properties (`_prop` and `_thm`, all kernel-checked with zero `sorry`s):\n     - `empty_none_prop` / `empty_none_thm`: Empty input returns `none`.\n     - `unified_index_prop` / `unified_index_thm`: For non-empty `data`, returns `sorted[(data.length - 1) / 2]?`.\n     - `nonempty_isSome_prop` / `nonempty_isSome_thm`: Non-empty input always returns `some` value and matches `median_low`.\n     - `odd_length_prop` / `odd_length_thm`: Odd-length input returns `sorted[data.length / 2]?`.\n     - `even_length_prop` / `even_length_thm`: Even-length input returns `sorted[data.length / 2 - 1]?`, which is `\u2264 sorted[data.length / 2]`.\n     - `mem_prop` / `mem_thm`: The returned low median is a member of `data`.\n     - `lower_half_prop` / `lower_half_thm`: At least `(data.length + 1) / 2` elements in `data` are `\u2264` the low median.\n     - `upper_half_prop` / `upper_half_thm`: At least `data.length / 2 + 1` elements in `data` are `\u2265` the low median.\n     - `bounds_prop` / `bounds_thm`: The low median is bounded between the minimum and maximum of `data`.\n     - `sorted_idempotent_prop` / `sorted_idempotent_thm` and `perm_invariant_prop` / `perm_invariant_thm`: Invariance under sorting and arbitrary permutations.\n     - `singleton_prop` / `singleton_thm`, `pair_prop` / `pair_thm`, and `replicate_prop` / `replicate_thm`: Exact characterizations for 1-element, 2-element, and constant lists.\n     - `shift_equivariant_prop` / `shift_equivariant_thm`, `scale_nonneg_equivariant_prop` / `scale_nonneg_equivariant_thm`, and `already_sorted_prop` / `already_sorted_thm`.\n\n4. **Post-condition, Property-Based Tests, and Main Correctness Theorem ([lines 500\u2013622](file:///home/user/lean_project/Veribench/28_statistics_median_low.lean#L500-L622))**:\n   - `Post_prop` conjoins the specification properties, followed by both randomized (`#eval Plausible.Testable.check`) and bounded (`example : ... := by native_decide`) PBTs for every property and `Post_prop`.\n   - `benchmark_median_low_correct` proves `Pre data \u2192 Post_prop data`.\n\n5. **Imperative Implementation, Tests, and Equivalence ([lines 628\u2013700](file:///home/user/lean_project/Veribench/28_statistics_median_low.lean#L628-L700))**:\n   - `median_low_imp` and `benchmark_median_low_imp` implemented using `Id.run do` with mutable state, tested against the full unit/PBT suite, and proven equivalent to the functional definitions in `median_low_equiv` and `benchmark_median_low_equiv`.\n",
+      "duration_seconds": 1337.220746258,
+      "num_turns": 1,
+      "usage": {
+        "input_tokens": 203972,
+        "output_tokens": 59881,
+        "thinking_tokens": 26293,
+        "cache_read_tokens": 1778293,
+        "total_tokens": 263853
+      }
+    }
+  },
+  "egress_hosts": [
+    "aicode.googleapis.com",
+    "daily-cloudcode-pa.googleapis.com",
+    "lh3.googleusercontent.com",
+    "oauth2.googleapis.com",
+    "play.googleapis.com",
+    "www.googleapis.com"
+  ],
+  "egress_denied": [
+    "lh3.googleusercontent.com",
+    "play.googleapis.com"
+  ],
+  "candidate_captured": true,
+  "candidate_sha256": "583afbc1454aa83cdef5edbb2455a5fadc4551cb06a27e0526fd754786ea1705",
+  "candidate_bytes": 29974
+}

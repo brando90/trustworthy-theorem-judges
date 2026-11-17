@@ -1,0 +1,9 @@
+Created At: 2026-11-16T22:21:40Z
+Completed At: 2026-11-16T22:21:44Z
+Command exited with code 1.
+
+Command output:
+<stdin>:3:7: error: unknown constant 'List.Perm.eq_of_pairwise'
+List.mergeSort.{u_1} {α : Type u_1} (xs : List α) (le : α → α → Bool := by exact fun a b => a ≤ b) : List α
+<stdin>:5:7: error: unknown constant 'List.pairwise_mergeSort'
+List.mergeSort_perm.{u_1} {α : Type u_1} (l : List α) (le : α → α → Bool) : (l.mergeSort le).Perm l

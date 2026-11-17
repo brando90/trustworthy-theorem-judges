@@ -1,0 +1,25 @@
+{
+  "task_id": "easy_set__16_myfactorial",
+  "condition_sha256": "2abae637c8242e30eb3471067665c10113d27c538095e2e27b0b7b56e1735729",
+  "harness": "antigravity",
+  "command": [
+    "agy",
+    "--model",
+    "gemini-4-argon-high",
+    "--effort",
+    "high",
+    "--dangerously-skip-permissions",
+    "--disable-slash-commands",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "1800s",
+    "--print={PROMPT}"
+  ],
+  "visible_files": {
+    "16_MyFactorial.py": "e4c85d4c44a69827a816d7b67e22b1fb7e22e0cab18c99427daaba80a22780d7",
+    "instruction.md": "382a77a7dcb88a8ab0d432b117b24dd49385d36858df74ab05ef79308a801507"
+  },
+  "output": "/home/user/lean_project/Veribench/16_MyFactorial.lean",
+  "model_call_performed": false
+}

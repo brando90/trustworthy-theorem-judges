@@ -1,0 +1,54 @@
+Created At: 2026-11-16T22:21:45Z
+Completed At: 2026-11-16T22:21:50Z
+Command exited with code 1.
+
+Command output:
+Veribench/21_shlex_quote.lean:88:14: error: tactic 'rfl' failed, the left-hand side
+  init ++ ['\'', '\"', '\'', '\"', '\''] ++ List.flatMap (fun c => if c = '\'' then "'\"'\"'".toList else [c]) cs
+is not definitionally equal to the right-hand side
+  init ++ ("'\"'\"'".toList ++ List.flatMap (fun c => if c = '\'' then "'\"'\"'".toList else [c]) cs)
+case cons.isTrue
+c : Char
+cs : List Char
+ih :
+  ∀ (init : List Char),
+    List.foldl (fun acc c => acc ++ if c = '\'' then ['\'', '\"', '\'', '\"', '\''] else [c]) init cs =
+      init ++ List.flatMap escapeChar cs
+init : List Char
+h✝ : c = '\''
+⊢ init ++ ['\'', '\"', '\'', '\"', '\''] ++ List.flatMap (fun c => if c = '\'' then "'\"'\"'".toList else [c]) cs =
+    init ++ ("'\"'\"'".toList ++ List.flatMap (fun c => if c = '\'' then "'\"'\"'".toList else [c]) cs)
+Veribench/21_shlex_quote.lean:88:14: error: tactic 'rfl' failed, the left-hand side
+  init ++ [c] ++ List.flatMap (fun c => if c = '\'' then "'\"'\"'".toList else [c]) cs
+is not definitionally equal to the right-hand side
+  init ++ ([c] ++ List.flatMap (fun c => if c = '\'' then "'\"'\"'".toList else [c]) cs)
+case cons.isFalse
+c : Char
+cs : List Char
+ih :
+  ∀ (init : List Char),
+    List.foldl (fun acc c => acc ++ if c = '\'' then ['\'', '\"', '\'', '\"', '\''] else [c]) init cs =
+      init ++ List.flatMap escapeChar cs
+init : List Char
+h✝ : ¬c = '\''
+⊢ init ++ [c] ++ List.flatMap (fun c => if c = '\'' then "'\"'\"'".toList else [c]) cs =
+    init ++ ([c] ++ List.flatMap (fun c => if c = '\'' then "'\"'\"'".toList else [c]) cs)
+Veribench/21_shlex_quote.lean:94:2: error: unsolved goals
+case isFalse
+s : String
+h✝ : ¬s = ""
+⊢ (if ∀ x ∈ s.data, isSafeChar x = true then s else "'" ++ { data := List.flatMap escapeChar s.data } ++ "'") =
+    (if ∀ x ∈ s.data, isSafeChar x = true then s
+      else
+        "'" ++
+            {
+              data :=
+                (List.map (fun x2 => if x2 = '\'' then ['\'', '\"', '\'', '\"', '\''] else [x2]) s.data).flatten } ++
+          "'").run
+Veribench/21_shlex_quote.lean:94:25: warning: This simp argument is unused:
+  foldl_escapeChar
+
+Hint: Omit it from the simp argument list.
+  simp [foldl_allSafe,̵ ̵f̵o̵l̵d̵l̵_̵e̵s̵c̵a̵p̵e̵C̵h̵a̵r̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

@@ -1,0 +1,45 @@
+Created At: 2026-11-16T22:04:16Z
+Completed At: 2026-11-16T22:04:25Z
+Command exited with code 1.
+
+Command output:
+some 6
+some 1
+some 1
+some 120
+none
+6
+1
+Veribench/16_MyFactorial.lean:115:14: error: unsolved goals
+case succ
+k : ℕ
+ih : List.foldl (fun acc i => acc * i) 1 (List.range' 1 k) = k.factorial
+⊢ 1 + k = k + 1 ∨ k.factorial = 0
+Veribench/16_MyFactorial.lean:123:14: error: unsolved goals
+case succ
+k : ℕ
+ih : (List.range' 1 k).prod = k.factorial
+⊢ 1 + k = k + 1 ∨ k.factorial = 0
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+some 6
+some 1
+some 1
+none
+6
+6

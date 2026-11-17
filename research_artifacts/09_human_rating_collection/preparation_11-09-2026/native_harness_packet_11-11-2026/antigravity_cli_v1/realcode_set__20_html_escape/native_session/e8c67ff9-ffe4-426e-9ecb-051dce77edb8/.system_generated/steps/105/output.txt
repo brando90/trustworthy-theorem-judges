@@ -1,0 +1,151 @@
+Command exited with code 1.
+
+Command output:
+Veribench/20_html_escape.lean:89:16: error: Application type mismatch: In the application
+  check fun s => benchmark_escape s
+the argument
+  fun s => benchmark_escape s
+has type
+  String → String : Type
+but is expected to have type
+  String → optParam Bool true → String : Type
+"&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;"
+""
+"&lt;b&gt;\"&amp;'&lt;/b&gt;"
+"&amp;&lt;"
+Veribench/20_html_escape.lean:95:12: error: Application type mismatch: In the application
+  check fun s => benchmark_escape s
+the argument
+  fun s => benchmark_escape s
+has type
+  String → String : Type
+but is expected to have type
+  String → optParam Bool true → String : Type
+Veribench/20_html_escape.lean:168:28: error: simp made no progress
+Veribench/20_html_escape.lean:181:2: error: unsolved goals
+case neg
+c : Char
+h1 : ¬c = '&'
+h2 : ¬c = '<'
+h3 : ¬c = '>'
+h4 : ¬c = '\"'
+h5 : ¬c = '\''
+⊢ List.count ';' [c] = if c = ';' then 1 else 0
+Veribench/20_html_escape.lean:325:33: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Veribench/20_html_escape.lean:345:33: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Veribench/20_html_escape.lean:393:6: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  l ≥ 0
+  k ≥ 0
+  j ≥ 0
+  i ≥ 0
+  h ≥ 0
+  g ≥ 0
+  4*g + 3*h + 3*i - j - k - l ≥ 1
+  f ≥ 0
+  e ≥ 0
+  e + i ≥ 0
+  d ≥ 0
+  d + h ≥ 0
+  b ≥ 0
+  b + g ≥ 0
+  a ≥ 0
+  a + 4*b + 3*d + 3*e + f ≥ 0
+where
+ a := ↑cs.length
+ b := ↑(List.count '&' cs)
+ d := ↑(List.count '<' cs)
+ e := ↑(List.count '>' cs)
+ f := ↑(if false = true then 5 * List.count '\"' cs + 5 * List.count '\'' cs else 0)
+ g := ↑(if (c == '&') = true then 1 else 0)
+ h := ↑(if (c == '<') = true then 1 else 0)
+ i := ↑(if (c == '>') = true then 1 else 0)
+ j := ↑(if (c == '&') = true then 4 else 0)
+ k := ↑(if (c == '<') = true then 3 else 0)
+ l := ↑(if (c == '>') = true then 3 else 0)
+Veribench/20_html_escape.lean:393:6: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  r ≥ 0
+  q ≥ 0
+  p ≥ 0
+  o ≥ 0
+  n ≥ 0
+  m ≥ 0
+  l ≥ 0
+  l + m ≥ 0
+  k ≥ 0
+  j ≥ 0
+  j + k ≥ 0
+  i ≥ 0
+  h ≥ 0
+  g ≥ 0
+  4*g + 3*h + 3*i + 5*k + 5*m - n - o - p - q - r ≥ 1
+  f ≥ 0
+  e ≥ 0
+  e + i ≥ 0
+  d ≥ 0
+  d + h ≥ 0
+  b ≥ 0
+  b + g ≥ 0
+  a ≥ 0
+  a + 4*b + 3*d + 3*e + f ≥ 0
+where
+ a := ↑cs.length
+ b := ↑(List.count '&' cs)
+ d := ↑(List.count '<' cs)
+ e := ↑(List.count '>' cs)
+ f := ↑(if true = true then 5 * List.count '\"' cs + 5 * List.count '\'' cs else 0)
+ g := ↑(if (c == '&') = true then 1 else 0)
+ h := ↑(if (c == '<') = true then 1 else 0)
+ i := ↑(if (c == '>') = true then 1 else 0)
+ j := ↑(List.count '\"' cs)
+ k := ↑(if (c == '\"') = true then 1 else 0)
+ l := ↑(List.count '\'' cs)
+ m := ↑(if (c == '\'') = true then 1 else 0)
+ n := ↑(if (c == '&') = true then 4 else 0)
+ o := ↑(if (c == '<') = true then 3 else 0)
+ p := ↑(if (c == '>') = true then 3 else 0)
+ q := ↑(if (c == '\"') = true then 5 else 0)
+ r := ↑(if (c == '\'') = true then 5 else 0)
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Unable to find a counter-example
+Veribench/20_html_escape.lean:723:16: error: Application type mismatch: In the application
+  check fun s => escapeImp s
+the argument
+  fun s => escapeImp s
+has type
+  String → String : Type
+but is expected to have type
+  String → optParam Bool true → String : Type
+Veribench/20_html_escape.lean:729:16: error: Application type mismatch: In the application
+  check fun s => escapeSinglePassImp s
+the argument
+  fun s => escapeSinglePassImp s
+has type
+  String → String : Type
+but is expected to have type
+  String → optParam Bool true → String : Type
+"&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;"
+"&lt;b&gt;\"&amp;'&lt;/b&gt;"
+"&lt;b&gt;&quot;&amp;&#x27;&lt;/b&gt;"
+"&lt;b&gt;\"&amp;'&lt;/b&gt;"
+Unable to find a counter-example
+Unable to find a counter-example

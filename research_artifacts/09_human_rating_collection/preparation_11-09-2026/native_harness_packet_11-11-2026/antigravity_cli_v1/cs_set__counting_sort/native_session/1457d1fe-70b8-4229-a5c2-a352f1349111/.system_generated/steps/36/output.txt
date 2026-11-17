@@ -1,0 +1,17 @@
+Created At: 2026-11-16T21:57:16Z
+Completed At: 2026-11-16T21:57:20Z
+Command exited with code 0.
+
+Command output:
+List.Chain'.{u_1} {α : Type u_1} (R : α → α → Prop) : List α → Prop
+List.Pairwise.chain'.{u} {α : Type u} {R : α → α → Prop} {l : List α} : List.Pairwise R l → List.Chain' R l
+List.Sorted.rel_get_of_lt.{u} {α : Type u} {r : α → α → Prop} {l : List α} (h : List.Sorted r l) {a b : Fin l.length}
+  (hab : a < b) : r (l.get a) (l.get b)
+List.Sorted.rel_of_mem_take_of_mem_drop.{u} {α : Type u} {r : α → α → Prop} {l : List α} (h : List.Sorted r l) {k : ℕ}
+  {x y : α} (hx : x ∈ List.take k l) (hy : y ∈ List.drop k l) : r x y
+List.pairwise_iff_getElem.{u_1} {α : Type u_1} {R : α → α → Prop} {l : List α} :
+  List.Pairwise R l ↔ ∀ (i j : ℕ) (_hi : i < l.length) (_hj : j < l.length), i < j → R l[i] l[j]
+List.sorted_mergeSort.{u_1} {α : Type u_1} {le : α → α → Bool}
+  (trans : ∀ (a b c : α), le a b = true → le b c = true → le a c = true)
+  (total : ∀ (a b : α), (le a b || le b a) = true) (l : List α) :
+  List.Pairwise (fun a b => le a b = true) (l.mergeSort le)

@@ -1,670 +1,685 @@
 import Mathlib
 
 /-!
-# Heap sort
+# Heap sort for a list of integers
 
-Lean 4 formalization of the Python program `heap_sort.py`.
+Lean 4 formalization of the Python program `heap_sort`.
 
-The Python program sorts a list of integers with heap sort: it builds a max heap
-(array encoded, the children of node `i` are `2*i+1` and `2*i+2`), then repeatedly
-swaps the root with the last element of the heap and restores the heap property on
-the shrunken heap with `heapify`.
+The Python program builds a max-heap from a copy of the input list, then repeatedly
+swaps the root (the maximum of the heap) to the end of the heap region and restores
+the heap property with `heapify` (a recursive sift-down).  Empty and single-element
+lists are returned as copies.  The `ValueError` raised for non-`List[int]` inputs has
+no counterpart here: the Lean type `List Int` already enforces the precondition, so
+`Pre` is trivially true.
 
-* The Python precondition `pre` only checks that the input is a `list` of `int`s;
-  in Lean this is guaranteed by the type `List Int`, so `Pre` is trivially `True`.
-* Lists with at most one element are returned unchanged (Python returns a copy).
-
-We give an array based functional implementation (`heapSort`) mirroring the Python
-algorithm step by step, prove that its output is a sorted permutation of the input,
-and give an imperative implementation (`heapSortImp`) using `Id.run do` with mutable
-state and `for` loops, proved equal to the functional one.
+Contents:
+* functional implementation (`largestOf`, `heapify`, `buildMaxHeapAux`, `extractAux`,
+  `heapSortArray`, `heap_sort`) mirroring the Python code on `Array Int`;
+* unit tests taken from the Python `check` function;
+* `Pre`, properties (`sorted`, permutation, length, counts, small inputs, agreement with
+  insertion sort), `Post_prop`, property-based tests, and the correctness theorem;
+* an imperative implementation `heap_sort_imp` (`Id.run do`, mutable state, `for` loops)
+  and the proof that it coincides with the functional one.
 -/
 
 namespace heap_sort
 
 /-! ## Functional implementation -/
 
-/-- Index of the parent of node `j` in the array-encoded binary heap. -/
-def parent (j : Nat) : Nat := (j - 1) / 2
+/-- First step of Python's `heapify`: the larger of `i` and its left child (if it exists). -/
+def largest1 (a : Array Int) (n i : Nat) : Nat :=
+  if 2 * i + 1 < n ∧ a[2 * i + 1]! > a[i]! then 2 * i + 1 else i
 
-/-- The index `largest` computed by Python's `heapify` before the swap: `i` itself, or
-a child of `i` (inside the heap of size `n`) holding a strictly larger value. -/
-def largestIdx (a : Array Int) (n i : Nat) : Nat :=
-  let l := 2 * i + 1
-  let r := 2 * i + 2
-  let c1 := if l < n ∧ a[i]! < a[l]! then l else i
-  if r < n ∧ a[c1]! < a[r]! then r else c1
+/-- The index `largest` computed by Python's `heapify` before the swap test. -/
+def largestOf (a : Array Int) (n i : Nat) : Nat :=
+  if 2 * i + 2 < n ∧ a[2 * i + 2]! > a[largest1 a n i]! then 2 * i + 2 else largest1 a n i
+
+theorem largestOf_ne (a : Array Int) (n i : Nat) (h : largestOf a n i ≠ i) :
+    i < largestOf a n i ∧ largestOf a n i < n := by
+  unfold largestOf largest1 at *
+  split_ifs at * <;> omega
 
 set_option linter.unusedVariables false in
-/-- `heapify a n i`: sift the element at `i` down the (max) heap of size `n`
-(Python's recursive `heapify(arr, n, i)`). -/
+/-- `heapify(arr, n, i)`: restore the max-heap property of the heap `arr[0:n]` at node `i`
+(recursive sift-down), exactly as in the Python code. -/
 def heapify (a : Array Int) (n i : Nat) : Array Int :=
-  if h : i < largestIdx a n i ∧ largestIdx a n i < n then
-    heapify (a.swapIfInBounds i (largestIdx a n i)) n (largestIdx a n i)
+  if h : largestOf a n i ≠ i then
+    heapify (a.swapIfInBounds i (largestOf a n i)) n (largestOf a n i)
   else a
 termination_by n - i
-decreasing_by exact Nat.sub_lt_sub_left (Nat.lt_trans h.1 h.2) h.1
+decreasing_by
+  have := largestOf_ne a n i h
+  omega
 
-/-- `buildLoop a n k` runs `heapify a n i` for `i = k-1, k-2, ..., 0`
-(Python's `build_max_heap` uses `k = n // 2`). -/
-def buildLoop (a : Array Int) (n : Nat) : Nat → Array Int
+/-- `for i in range(k - 1, -1, -1): heapify(arr, n, i)`. -/
+def buildMaxHeapAux (a : Array Int) (n : Nat) : Nat → Array Int
   | 0 => a
-  | k + 1 => buildLoop (heapify a n k) n k
+  | k + 1 => buildMaxHeapAux (heapify a n k) n k
 
-/-- `extractLoop a k` runs, for `i = k, k-1, ..., 1`: swap `a[0]` with `a[i]`,
-then `heapify a i 0` (Python's extraction loop uses `k = n - 1`). -/
-def extractLoop (a : Array Int) : Nat → Array Int
+/-- `build_max_heap`: heapify the nodes `n // 2 - 1, …, 0`. -/
+def buildMaxHeap (a : Array Int) : Array Int :=
+  buildMaxHeapAux a a.size (a.size / 2)
+
+/-- `for i in range(k, 0, -1): swap(result[0], result[i]); heapify(result, i, 0)`. -/
+def extractAux (a : Array Int) : Nat → Array Int
   | 0 => a
-  | k + 1 => extractLoop (heapify (a.swapIfInBounds 0 (k + 1)) (k + 1) 0) k
+  | k + 1 => extractAux (heapify (a.swapIfInBounds 0 (k + 1)) (k + 1) 0) k
 
-/-- Heap sort on arrays: build a max heap, then extract the maxima one by one. -/
+/-- Heap sort of an array: build the max-heap, then extract the maxima one by one. -/
 def heapSortArray (a : Array Int) : Array Int :=
-  extractLoop (buildLoop a a.size (a.size / 2)) (a.size - 1)
+  extractAux (buildMaxHeap a) (a.size - 1)
 
-/-- Heap sort on lists (the Python `heap_sort`). -/
-def heapSort (xs : List Int) : List Int :=
-  if xs.length ≤ 1 then xs else (heapSortArray xs.toArray).toList
+set_option linter.dupNamespace false in
+/-- `heap_sort`: lists of length `≤ 1` are returned unchanged (Python returns a copy),
+otherwise the array-based heap sort is run on a copy of the input. -/
+def heap_sort (arr : List Int) : List Int :=
+  if arr.length ≤ 1 then arr else (heapSortArray arr.toArray).toList
 
-/-! ## Unit tests -/
+/-! ## Unit tests (from the Python `check` function) -/
 
-example : heapSort [3, 1, 2] = [1, 2, 3] := by native_decide
-example : heapSort [1, 2, 3] = [1, 2, 3] := by native_decide
-example : heapSort [2, 1, 3] = [1, 2, 3] := by native_decide
-example : heapSort [] = [] := by native_decide
-example : heapSort [1] = [1] := by native_decide
-example : heapSort [5, 2, 4, 6, 1, 3] = [1, 2, 3, 4, 5, 6] := by native_decide
-example : heapSort [9, 8, 7, 6, 5, 4, 3, 2, 1] = [1, 2, 3, 4, 5, 6, 7, 8, 9] := by native_decide
-example : heapSort [2, 6, 4, 3, 1, 5] = [1, 2, 3, 4, 5, 6] := by native_decide
-example : heapSort [2, 1] = [1, 2] := by native_decide
-example : heapSort [1, 2] = [1, 2] := by native_decide
-example : heapSort [3, 1, 4, 1, 2, 3] = [1, 1, 2, 3, 3, 4] := by native_decide
-example : heapSort [5, 5, 5, 5, 5] = [5, 5, 5, 5, 5] := by native_decide
-example : heapSort [1, 2, 3, 4, 5] = [1, 2, 3, 4, 5] := by native_decide
-example : heapSort [5, 4, 3, 2, 1] = [1, 2, 3, 4, 5] := by native_decide
-example : heapSort [3, 7, 1, 9, 2, 8, 4, 6, 5] = [1, 2, 3, 4, 5, 6, 7, 8, 9] := by native_decide
-example : heapSort [64, 34, 25, 12, 22, 11, 90, 88, 76, 50, 42] =
+example : heap_sort [3, 1, 2] = [1, 2, 3] := by native_decide
+example : heap_sort [1, 2, 3] = [1, 2, 3] := by native_decide
+example : heap_sort [2, 1, 3] = [1, 2, 3] := by native_decide
+example : heap_sort [] = [] := by native_decide
+example : heap_sort [1] = [1] := by native_decide
+example : heap_sort [5, 2, 4, 6, 1, 3] = [1, 2, 3, 4, 5, 6] := by native_decide
+example : heap_sort [9, 8, 7, 6, 5, 4, 3, 2, 1] = [1, 2, 3, 4, 5, 6, 7, 8, 9] := by native_decide
+example : heap_sort [2, 6, 4, 3, 1, 5] = [1, 2, 3, 4, 5, 6] := by native_decide
+example : heap_sort [2, 1] = [1, 2] := by native_decide
+example : heap_sort [1, 2] = [1, 2] := by native_decide
+example : heap_sort [3, 1, 4, 1, 2, 3] = [1, 1, 2, 3, 3, 4] := by native_decide
+example : heap_sort [5, 5, 5, 5, 5] = [5, 5, 5, 5, 5] := by native_decide
+example : heap_sort [1, 2, 3, 4, 5] = [1, 2, 3, 4, 5] := by native_decide
+example : heap_sort [5, 4, 3, 2, 1] = [1, 2, 3, 4, 5] := by native_decide
+example : heap_sort [3, 7, 1, 9, 2, 8, 4, 6, 5] = [1, 2, 3, 4, 5, 6, 7, 8, 9] := by native_decide
+example : heap_sort [64, 34, 25, 12, 22, 11, 90, 88, 76, 50, 42] =
     [11, 12, 22, 25, 34, 42, 50, 64, 76, 88, 90] := by native_decide
-example : heapSort [-3, 7, -1, 0, 7, -3] = [-3, -3, -1, 0, 7, 7] := by native_decide
+-- negative numbers (Python `int` is unbounded, as is Lean's `Int`)
+example : heap_sort [-3, 5, -10, 0, 2] = [-10, -3, 0, 2, 5] := by native_decide
+-- The Python negative test `candidate([1, 2.5])` raises `ValueError`; it is not expressible
+-- here because `List Int` already rules out non-integer elements.
 
-#eval heapSort [3, 1, 2]
-#eval heapSort [64, 34, 25, 12, 22, 11, 90, 88, 76, 50, 42]
+#eval heap_sort [3, 1, 2]
+#eval heap_sort [64, 34, 25, 12, 22, 11, 90, 88, 76, 50, 42]
+#eval heap_sort [3, 1, 4, 1, 2, 3]
+#eval heap_sort ([] : List Int)
 
-/-! ## Auxiliary lemmas: swaps, `largestIdx` -/
+/-! ## Pre-condition -/
 
-theorem getElem!_swapIfInBounds (a : Array Int) {i j : Nat} (hi : i < a.size) (hj : j < a.size)
-    (k : Nat) :
-    (a.swapIfInBounds i j)[k]! = if k = i then a[j]! else if k = j then a[i]! else a[k]! := by
+/-- Python's `pre` checks that the input is a `list` of `int`s; the Lean type `List Int`
+already guarantees this, so every input is admissible. -/
+def Pre (_arr : List Int) : Prop := True
+
+/-! ## Heap invariants and the proof that `heapify` works -/
+
+/-- `a[0:n]` satisfies the max-heap property at every node whose parent index is `≥ k`
+(so `HeapFrom a n 0` is the full max-heap property of `a[0:n]`). -/
+def HeapFrom (a : Array Int) (n k : Nat) : Prop :=
+  ∀ j, 0 < j → j < n → k ≤ (j - 1) / 2 → a[j]! ≤ a[(j - 1) / 2]!
+
+/-- The region of `a[0:n]` with parents `≥ k` is a max-heap except possibly at node `i`
+(whose children may be larger than it), and if `i` has a parent in the region then the
+children of `i` are bounded by the parent of `i`. -/
+def HeapExceptFrom (a : Array Int) (n k i : Nat) : Prop :=
+  (∀ j, 0 < j → j < n → k ≤ (j - 1) / 2 → (j - 1) / 2 ≠ i → a[j]! ≤ a[(j - 1) / 2]!) ∧
+  (0 < i → k ≤ (i - 1) / 2 → ∀ j, 0 < j → j < n → (j - 1) / 2 = i → a[j]! ≤ a[(i - 1) / 2]!)
+
+theorem largestOf_spec (a : Array Int) (n i : Nat) :
+    i ≤ largestOf a n i ∧
+    (largestOf a n i ≠ i →
+      largestOf a n i < n ∧ (largestOf a n i = 2 * i + 1 ∨ largestOf a n i = 2 * i + 2)) ∧
+    a[i]! ≤ a[largestOf a n i]! ∧
+    (2 * i + 1 < n → a[2 * i + 1]! ≤ a[largestOf a n i]!) ∧
+    (2 * i + 2 < n → a[2 * i + 2]! ≤ a[largestOf a n i]!) := by
+  unfold largestOf largest1
+  split_ifs <;> refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> intros <;> omega
+
+theorem getElem!_swapIfInBounds (a : Array Int) (i c j : Nat) (hi : i < a.size) (hc : c < a.size) :
+    (a.swapIfInBounds i c)[j]! = if j = i then a[c]! else if j = c then a[i]! else a[j]! := by
   unfold Array.swapIfInBounds
-  rw [dif_pos hi, dif_pos hj]
-  by_cases hk : k < a.size
-  · rw [getElem!_pos (a.swap i j hi hj) k (by simpa using hk), Array.getElem_swap]
-    rw [getElem!_pos a j hj, getElem!_pos a i hi, getElem!_pos a k hk]
-  · have hki : k ≠ i := by omega
-    have hkj : k ≠ j := by omega
-    rw [if_neg hki, if_neg hkj, getElem!_neg (a.swap i j hi hj) k (by simpa using hk),
-      getElem!_neg a k hk]
+  rw [dif_pos hi, dif_pos hc]
+  by_cases hj : j < a.size
+  · have hj' : j < (a.swap i c hi hc).size := by simpa using hj
+    rw [getElem!_pos (a.swap i c hi hc) j hj', Array.getElem_swap, getElem!_pos a i hi,
+      getElem!_pos a c hc, getElem!_pos a j hj]
+  · have hj' : ¬ j < (a.swap i c hi hc).size := by simpa using hj
+    rw [getElem!_neg (a.swap i c hi hc) j hj', getElem!_neg a j hj]
+    have h1 : j ≠ i := by omega
+    have h2 : j ≠ c := by omega
+    simp [h1, h2]
 
-theorem swapIfInBounds_perm (a : Array Int) (i j : Nat) :
-    (a.swapIfInBounds i j).toList.Perm a.toList := by
+theorem swapIfInBounds_perm (a : Array Int) (i c : Nat) (hi : i < a.size) (hc : c < a.size) :
+    (a.swapIfInBounds i c).toList.Perm a.toList := by
   unfold Array.swapIfInBounds
-  split
-  · split
-    · exact Array.perm_iff_toList_perm.mp (Array.swap_perm ‹_› ‹_›)
-    · exact List.Perm.refl _
-  · exact List.Perm.refl _
+  rw [dif_pos hi, dif_pos hc]
+  exact Array.perm_iff_toList_perm.mp (Array.swap_perm hi hc)
 
-theorem largestIdx_cases (a : Array Int) (n i : Nat) :
-    largestIdx a n i = i ∨ (largestIdx a n i = 2 * i + 1 ∧ 2 * i + 1 < n) ∨
-      (largestIdx a n i = 2 * i + 2 ∧ 2 * i + 2 < n) := by
-  simp only [largestIdx]
-  split_ifs <;> omega
-
-theorem le_largestIdx_self (a : Array Int) (n i : Nat) : a[i]! ≤ a[largestIdx a n i]! := by
-  simp only [largestIdx]
-  split_ifs <;> omega
-
-theorem le_largestIdx_left (a : Array Int) (n i : Nat) (h : 2 * i + 1 < n) :
-    a[2 * i + 1]! ≤ a[largestIdx a n i]! := by
-  simp only [largestIdx]
-  split_ifs <;> omega
-
-theorem le_largestIdx_right (a : Array Int) (n i : Nat) (h : 2 * i + 2 < n) :
-    a[2 * i + 2]! ≤ a[largestIdx a n i]! := by
-  simp only [largestIdx]
-  split_ifs <;> omega
-
-theorem largestIdx_lt_of_ne (a : Array Int) (n i : Nat) (h : largestIdx a n i ≠ i) :
-    i < largestIdx a n i ∧ largestIdx a n i < n := by
-  rcases largestIdx_cases a n i with h1 | h1 | h1 <;> omega
-
-
-/-! ## Lemmas about `heapify` -/
-
-theorem parent_lt (j : Nat) (h : 0 < j) : parent j < j := by unfold parent; omega
-
-theorem heapify_size (n : Nat) : ∀ (a : Array Int) (i : Nat), (heapify a n i).size = a.size := by
-  intro a i
+theorem heapify_size (a : Array Int) (n i : Nat) : (heapify a n i).size = a.size := by
   induction a, i using heapify.induct n with
   | case1 a i h ih => rw [heapify, dif_pos h, ih, Array.size_swapIfInBounds]
   | case2 a i h => rw [heapify, dif_neg h]
 
 theorem heapify_perm (n : Nat) :
-    ∀ (a : Array Int) (i : Nat), (heapify a n i).toList.Perm a.toList := by
+    ∀ (a : Array Int) (i : Nat), n ≤ a.size → (heapify a n i).toList.Perm a.toList := by
   intro a i
   induction a, i using heapify.induct n with
-  | case1 a i h ih => rw [heapify, dif_pos h]; exact ih.trans (swapIfInBounds_perm _ _ _)
-  | case2 a i h => rw [heapify, dif_neg h]
+  | case1 a i hne ih =>
+    intro hn
+    rw [heapify, dif_pos hne]
+    have hlt := largestOf_ne a n i hne
+    exact (ih (by rw [Array.size_swapIfInBounds]; exact hn)).trans
+      (swapIfInBounds_perm a i _ (by omega) (by omega))
+  | case2 a i hne =>
+    intro _
+    rw [heapify, dif_neg hne]
 
-/-- `heapify a n i` only touches indices in `[i, n)`. -/
-theorem heapify_getElem!_of_lt (n : Nat) : ∀ (a : Array Int) (i : Nat), n ≤ a.size →
-    ∀ j, (j < i ∨ n ≤ j) → (heapify a n i)[j]! = a[j]! := by
+/-- `heapify` does not touch the entries outside the heap region `[0, n)`. -/
+theorem heapify_getElem!_of_ge (n : Nat) :
+    ∀ (a : Array Int) (i j : Nat), n ≤ a.size → n ≤ j → (heapify a n i)[j]! = a[j]! := by
   intro a i
   induction a, i using heapify.induct n with
-  | case1 a i h ih =>
-    intro hn j hj
-    rw [heapify, dif_pos h, ih (by rw [Array.size_swapIfInBounds]; exact hn) j (by omega)]
-    rw [getElem!_swapIfInBounds a (by omega) (by omega) j]
-    rw [if_neg (by omega), if_neg (by omega)]
-  | case2 a i h => intro hn j hj; rw [heapify, dif_neg h]
+  | case1 a i hne ih =>
+    intro j hn hj
+    rw [heapify, dif_pos hne]
+    have hlt := largestOf_ne a n i hne
+    have hi : i < a.size := by omega
+    have hc : largestOf a n i < a.size := by omega
+    rw [ih j (by rw [Array.size_swapIfInBounds]; exact hn) hj,
+      getElem!_swapIfInBounds a i _ j hi hc, if_neg (by omega), if_neg (by omega)]
+  | case2 a i hne =>
+    intro j _ _
+    rw [heapify, dif_neg hne]
 
-/-- `heapify` preserves an upper bound on the heap elements. -/
-theorem heapify_le_of_le (n : Nat) (B : Int) : ∀ (a : Array Int) (i : Nat), n ≤ a.size →
-    (∀ j, j < n → a[j]! ≤ B) → ∀ j, j < n → (heapify a n i)[j]! ≤ B := by
+/-- Inside the heap region, `heapify` only permutes entries. -/
+theorem heapify_getElem!_of_lt (n : Nat) :
+    ∀ (a : Array Int) (i j : Nat), n ≤ a.size → j < n →
+      ∃ j', j' < n ∧ (heapify a n i)[j]! = a[j']! := by
   intro a i
   induction a, i using heapify.induct n with
-  | case1 a i h ih =>
-    intro hn hB j hj
-    rw [heapify, dif_pos h]
-    apply ih (by rw [Array.size_swapIfInBounds]; exact hn) _ j hj
-    intro k hk
-    rw [getElem!_swapIfInBounds a (by omega) (by omega) k]
-    split_ifs <;> apply hB <;> omega
-  | case2 a i h => intro hn hB j hj; rw [heapify, dif_neg h]; exact hB j hj
+  | case1 a i hne ih =>
+    intro j hn hj
+    rw [heapify, dif_pos hne]
+    have hlt := largestOf_ne a n i hne
+    have hi : i < a.size := by omega
+    have hc : largestOf a n i < a.size := by omega
+    obtain ⟨j', hj', e⟩ := ih j (by rw [Array.size_swapIfInBounds]; exact hn) hj
+    rw [e, getElem!_swapIfInBounds a i _ j' hi hc]
+    split_ifs
+    · exact ⟨_, hlt.2, rfl⟩
+    · exact ⟨i, by omega, rfl⟩
+    · exact ⟨j', hj', rfl⟩
+  | case2 a i hne =>
+    intro j _ hj
+    rw [heapify, dif_neg hne]
+    exact ⟨j, hj, rfl⟩
 
-/-- Main invariant of `heapify`: if the heap property (restricted to nodes whose parent is
-`≥ lo`) holds everywhere except possibly between `i` and its children, and the children of
-`i` are bounded by the parent of `i`, then after `heapify a n i` the heap property holds for
-all nodes whose parent is `≥ lo`. -/
-theorem heapify_heap (n : Nat) : ∀ (a : Array Int) (i : Nat), ∀ lo, n ≤ a.size → lo ≤ i →
-    (∀ j, 0 < j → j < n → lo ≤ parent j → parent j ≠ i → a[j]! ≤ a[parent j]!) →
-    (∀ j, 0 < j → j < n → parent j = i → 0 < i → lo ≤ parent i → a[j]! ≤ a[parent i]!) →
-    ∀ j, 0 < j → j < n → lo ≤ parent j →
-      (heapify a n i)[j]! ≤ (heapify a n i)[parent j]! := by
+/-- The main lemma about sift-down: it turns a "heap except at `i`" into a heap. -/
+theorem heapify_heapFrom (n k : Nat) :
+    ∀ (a : Array Int) (i : Nat), n ≤ a.size → k ≤ i →
+      HeapExceptFrom a n k i → HeapFrom (heapify a n i) n k := by
   intro a i
   induction a, i using heapify.induct n with
-  | case1 a i h ih =>
-    intro lo hn hlo H1 H2
-    rw [heapify, dif_pos h]
-    have hcases := largestIdx_cases a n i
-    have hci : a[i]! ≤ a[largestIdx a n i]! := le_largestIdx_self a n i
-    have hcl := le_largestIdx_left a n i
-    have hcr := le_largestIdx_right a n i
-    have hswap := getElem!_swapIfInBounds a (i := i) (j := largestIdx a n i) (by omega) (by omega)
-    generalize largestIdx a n i = c at *
-    simp only [parent] at *
-    apply ih lo (by rw [Array.size_swapIfInBounds]; exact hn) (by omega)
-    · intro j hj0 hjn hlo' hjc
-      rw [hswap j, hswap ((j - 1) / 2)]
-      by_cases hji : j = i
-      · subst hji
-        have := H2 c (by omega) (by omega) (by omega) hj0 hlo'
-        split_ifs <;> omega
-      · by_cases hjc' : j = c
-        · subst hjc'
-          split_ifs <;> omega
-        · by_cases hpi : (j - 1) / 2 = i
-          · have hj' : j = 2 * i + 1 ∨ j = 2 * i + 2 := by omega
-            rcases hj' with rfl | rfl
-            · have := hcl (by omega)
-              split_ifs; omega
-            · have := hcr (by omega)
-              split_ifs; omega
-          · have := H1 j hj0 hjn hlo' hpi
-            split_ifs; omega
-    · intro j hj0 hjn hpj hc0 hlo'
-      rw [hswap j, hswap ((c - 1) / 2)]
-      have := H1 j hj0 hjn (by omega) (by omega)
-      rw [hpj] at this
-      split_ifs <;> omega
-  | case2 a i h =>
-    intro lo hn hlo H1 H2 j hj0 hjn hlo'
-    rw [heapify, dif_neg h]
-    have hcases := largestIdx_cases a n i
-    have hcl := le_largestIdx_left a n i
-    have hcr := le_largestIdx_right a n i
-    generalize largestIdx a n i = c at *
-    simp only [parent] at *
-    obtain rfl : c = i := by omega
-    by_cases hpi : (j - 1) / 2 = c
-    · rw [hpi]
-      have hj' : j = 2 * c + 1 ∨ j = 2 * c + 2 := by omega
-      rcases hj' with rfl | rfl
-      · exact hcl (by omega)
-      · exact hcr (by omega)
-    · exact H1 j hj0 hjn hlo' hpi
+  | case1 a i hne ih =>
+    intro hn hki h
+    rw [heapify, dif_pos hne]
+    obtain ⟨_, hlt, hself, hleft, hright⟩ := largestOf_spec a n i
+    obtain ⟨hmn, hcases⟩ := hlt hne
+    have hi : i < a.size := by omega
+    have hc : largestOf a n i < a.size := by omega
+    have hmi : (largestOf a n i - 1) / 2 = i := by omega
+    apply ih
+    · rw [Array.size_swapIfInBounds]; exact hn
+    · omega
+    · constructor
+      · intro j hj0 hjn hkj hpm
+        rw [getElem!_swapIfInBounds a i _ j hi hc, getElem!_swapIfInBounds a i _ ((j - 1) / 2) hi hc]
+        by_cases e1 : j = i
+        · have hp1 : (j - 1) / 2 ≠ i := by omega
+          rw [if_pos e1, if_neg hp1, if_neg hpm]
+          have := h.2 (by omega) (by rw [← e1]; exact hkj) (largestOf a n i) (by omega) hmn hmi
+          rw [e1]; exact this
+        · by_cases e2 : j = largestOf a n i
+          · have hp2 : (j - 1) / 2 = i := by omega
+            rw [if_neg e1, if_pos e2, if_pos hp2]
+            exact hself
+          · rw [if_neg e1, if_neg e2]
+            by_cases e3 : (j - 1) / 2 = i
+            · rw [if_pos e3]
+              have : j = 2 * i + 1 ∨ j = 2 * i + 2 := by omega
+              rcases this with e | e
+              · rw [e]; exact hleft (by omega)
+              · rw [e]; exact hright (by omega)
+            · rw [if_neg e3, if_neg hpm]
+              exact h.1 j hj0 hjn hkj e3
+      · intro _ _ j hj0 hjn hpj
+        rw [hmi, getElem!_swapIfInBounds a i _ j hi hc, getElem!_swapIfInBounds a i _ i hi hc]
+        have e1 : j ≠ i := by omega
+        have e2 : j ≠ largestOf a n i := by omega
+        rw [if_neg e1, if_neg e2, if_pos rfl]
+        have := h.1 j hj0 hjn (by omega) (by omega)
+        rw [hpj] at this
+        exact this
+  | case2 a i hne =>
+    intro _ _ h
+    rw [heapify, dif_neg hne]
+    push_neg at hne
+    intro j hj0 hjn hkj
+    by_cases hp : (j - 1) / 2 = i
+    · obtain ⟨-, -, -, hleft, hright⟩ := largestOf_spec a n i
+      rw [hne] at hleft hright
+      have : j = 2 * i + 1 ∨ j = 2 * i + 2 := by omega
+      rw [hp]
+      rcases this with e | e
+      · rw [e]; exact hleft (by omega)
+      · rw [e]; exact hright (by omega)
+    · exact h.1 j hj0 hjn hkj hp
 
-/-- In a max heap the root is the maximum. -/
-theorem heap_root_max (a : Array Int) (n : Nat)
-    (hheap : ∀ j, 0 < j → j < n → a[j]! ≤ a[parent j]!) :
+theorem buildMaxHeapAux_size (n : Nat) :
+    ∀ (k : Nat) (a : Array Int), (buildMaxHeapAux a n k).size = a.size := by
+  intro k
+  induction k with
+  | zero => intro a; rfl
+  | succ k ih => intro a; rw [buildMaxHeapAux, ih, heapify_size]
+
+theorem buildMaxHeapAux_perm (n : Nat) :
+    ∀ (k : Nat) (a : Array Int), n ≤ a.size → (buildMaxHeapAux a n k).toList.Perm a.toList := by
+  intro k
+  induction k with
+  | zero => intro a _; exact List.Perm.refl _
+  | succ k ih =>
+    intro a hn
+    rw [buildMaxHeapAux]
+    exact (ih _ (by rw [heapify_size]; exact hn)).trans (heapify_perm n a k hn)
+
+theorem buildMaxHeapAux_heapFrom (n : Nat) :
+    ∀ (k : Nat) (a : Array Int), n ≤ a.size → HeapFrom a n k →
+      HeapFrom (buildMaxHeapAux a n k) n 0 := by
+  intro k
+  induction k with
+  | zero => intro a _ h; exact h
+  | succ k ih =>
+    intro a hn h
+    rw [buildMaxHeapAux]
+    apply ih
+    · rw [heapify_size]; exact hn
+    · apply heapify_heapFrom n k a k hn le_rfl
+      constructor
+      · intro j hj0 hjn hkj hpk
+        exact h j hj0 hjn (by omega)
+      · intro hk0 hkk
+        exfalso
+        omega
+
+theorem buildMaxHeap_size (a : Array Int) : (buildMaxHeap a).size = a.size :=
+  buildMaxHeapAux_size _ _ _
+
+theorem buildMaxHeap_perm (a : Array Int) : (buildMaxHeap a).toList.Perm a.toList :=
+  buildMaxHeapAux_perm _ _ _ le_rfl
+
+/-- After `build_max_heap`, the whole array is a max-heap. -/
+theorem buildMaxHeap_heapFrom (a : Array Int) : HeapFrom (buildMaxHeap a) a.size 0 := by
+  apply buildMaxHeapAux_heapFrom a.size (a.size / 2) a le_rfl
+  intro j _ hjn hkj
+  exfalso
+  omega
+
+/-- The root of a max-heap is its maximum. -/
+theorem heapFrom_zero_le (a : Array Int) (n : Nat) (h : HeapFrom a n 0) :
     ∀ j, j < n → a[j]! ≤ a[0]! := by
   intro j
   induction j using Nat.strong_induction_on with
   | _ j ih =>
-    intro hj
-    rcases Nat.eq_zero_or_pos j with rfl | hj0
-    · exact le_refl _
-    · have hp := parent_lt j hj0
-      exact (hheap j hj0 hj).trans (ih (parent j) hp (by omega))
+    intro hjn
+    rcases Nat.eq_zero_or_pos j with hj | hj
+    · subst hj; exact le_rfl
+    · calc a[j]! ≤ a[(j - 1) / 2]! := h j hj hjn (Nat.zero_le _)
+        _ ≤ a[0]! := ih ((j - 1) / 2) (by omega) (by omega)
 
-/-! ## Lemmas about the two loops -/
+/-- Every entry of `a[m:n]` dominates all entries before it (so `a[m:n]` is sorted and
+bounds `a[0:m]`). -/
+def SuffixSorted (a : Array Int) (n m : Nat) : Prop :=
+  ∀ j, m ≤ j → j < n → ∀ j', j' < j → a[j']! ≤ a[j]!
 
-theorem buildLoop_size (n : Nat) : ∀ (k : Nat) (a : Array Int), (buildLoop a n k).size = a.size := by
+theorem extractAux_size : ∀ (k : Nat) (a : Array Int), (extractAux a k).size = a.size := by
   intro k
   induction k with
   | zero => intro a; rfl
-  | succ k ih => intro a; rw [buildLoop, ih, heapify_size]
+  | succ k ih => intro a; rw [extractAux, ih, heapify_size, Array.size_swapIfInBounds]
 
-theorem buildLoop_perm (n : Nat) :
-    ∀ (k : Nat) (a : Array Int), (buildLoop a n k).toList.Perm a.toList := by
+theorem extractAux_perm : ∀ (k : Nat) (a : Array Int), k < a.size →
+    (extractAux a k).toList.Perm a.toList := by
   intro k
   induction k with
-  | zero => intro a; exact List.Perm.refl _
-  | succ k ih => intro a; rw [buildLoop]; exact (ih _).trans (heapify_perm n a k)
-
-/-- After `buildLoop a n k`, the heap property holds for every node whose parent is `≥ 0`,
-provided it already held for every node whose parent is `≥ k`. -/
-theorem buildLoop_heap (n : Nat) : ∀ (k : Nat) (a : Array Int), n ≤ a.size →
-    (∀ j, 0 < j → j < n → k ≤ parent j → a[j]! ≤ a[parent j]!) →
-    ∀ j, 0 < j → j < n → (buildLoop a n k)[j]! ≤ (buildLoop a n k)[parent j]! := by
-  intro k
-  induction k with
-  | zero => intro a hn H j hj0 hjn; exact H j hj0 hjn (Nat.zero_le _)
+  | zero => intro a _; exact List.Perm.refl _
   | succ k ih =>
-    intro a hn H j hj0 hjn
-    rw [buildLoop]
-    apply ih (heapify a n k) (by rw [heapify_size]; exact hn) _ j hj0 hjn
-    apply heapify_heap n a k k hn (le_refl k)
-    · intro j hj0 hjn hk hne; exact H j hj0 hjn (by omega)
-    · intro j hj0 hjn hpj hk0 hlo; exfalso; have := parent_lt k hk0; omega
+    intro a hk
+    rw [extractAux]
+    have h0 : 0 < a.size := by omega
+    refine (ih _ ?_).trans ((heapify_perm (k + 1) _ 0 ?_).trans (swapIfInBounds_perm a 0 (k + 1) h0 hk))
+    · rw [heapify_size, Array.size_swapIfInBounds]; omega
+    · rw [Array.size_swapIfInBounds]; omega
 
-theorem extractLoop_size : ∀ (k : Nat) (a : Array Int), (extractLoop a k).size = a.size := by
-  intro k
-  induction k with
-  | zero => intro a; rfl
-  | succ k ih => intro a; rw [extractLoop, ih, heapify_size, Array.size_swapIfInBounds]
-
-theorem extractLoop_perm : ∀ (k : Nat) (a : Array Int), (extractLoop a k).toList.Perm a.toList := by
-  intro k
-  induction k with
-  | zero => intro a; exact List.Perm.refl _
-  | succ k ih =>
-    intro a
-    rw [extractLoop]
-    exact (ih _).trans ((heapify_perm _ _ _).trans (swapIfInBounds_perm _ _ _))
-
-/-- Invariant of the extraction loop: `a[0..k+1)` is a max heap, `a[k+1..)` is sorted and
-every element of the heap is `≤` every element of the sorted suffix; then the result is
-sorted. -/
-theorem extractLoop_sorted : ∀ (k : Nat) (a : Array Int), k < a.size →
-    (∀ j, 0 < j → j < k + 1 → a[j]! ≤ a[parent j]!) →
-    (∀ j l, k + 1 ≤ j → j < l → l < a.size → a[j]! ≤ a[l]!) →
-    (∀ j l, j < k + 1 → k + 1 ≤ l → l < a.size → a[j]! ≤ a[l]!) →
-    ∀ j l, j < l → l < a.size → (extractLoop a k)[j]! ≤ (extractLoop a k)[l]! := by
+/-- The extraction loop invariant: heap of size `k + 1` plus a dominating sorted suffix. -/
+theorem extractAux_sorted (n : Nat) :
+    ∀ (k : Nat) (a : Array Int), n = a.size → k < n →
+      HeapFrom a (k + 1) 0 → SuffixSorted a n (k + 1) → SuffixSorted (extractAux a k) n 0 := by
   intro k
   induction k with
   | zero =>
-    intro a hk hheap hsorted hsplit j l hjl hl
-    rw [extractLoop]
-    by_cases hj : j = 0
-    · subst hj; exact hsplit 0 l (by omega) (by omega) hl
-    · exact hsorted j l (by omega) hjl hl
+    intro a _ _ _ hsuf
+    intro j _ hjn j' hj'
+    exact hsuf j (by omega) hjn j' hj'
   | succ k ih =>
-    intro a hk hheap hsorted hsplit j l hjl hl
-    rw [extractLoop]
-    have hswap := getElem!_swapIfInBounds a (i := 0) (j := k + 1) (by omega) (by omega)
-    have hroot := heap_root_max a (k + 2) hheap
-    have hsize' : (a.swapIfInBounds 0 (k + 1)).size = a.size := Array.size_swapIfInBounds
-    generalize a.swapIfInBounds 0 (k + 1) = a' at *
-    have hsize'' : (heapify a' (k + 1) 0).size = a.size := by rw [heapify_size, hsize']
-    have hunch := heapify_getElem!_of_lt (k + 1) a' 0 (by omega)
-    have hbound : ∀ j, j < k + 1 → (heapify a' (k + 1) 0)[j]! ≤ a[0]! := by
-      apply heapify_le_of_le (k + 1) a[0]! a' 0 (by omega)
-      intro j hj
-      rw [hswap j]
-      split_ifs
-      · exact hroot (k + 1) (by omega)
-      · omega
-      · exact hroot j (by omega)
-    refine ih (heapify a' (k + 1) 0) (by omega) ?_ ?_ ?_ j l hjl (by omega)
-    · intro j hj0 hjn
-      refine heapify_heap (k + 1) a' 0 0 (by omega) (le_refl 0) ?_ ?_ j hj0 hjn (Nat.zero_le _)
-      · intro j hj0 hjn hlo hne
-        rw [hswap j, hswap (parent j)]
-        have := parent_lt j hj0
-        rw [if_neg (show ¬ j = 0 by omega), if_neg (show ¬ j = k + 1 by omega),
-          if_neg (show ¬ parent j = 0 by omega), if_neg (show ¬ parent j = k + 1 by omega)]
-        exact hheap j hj0 (by omega)
-      · intro j hj0 hjn hpj h0; exact absurd h0 (lt_irrefl 0)
-    · intro j l hj hjl hl
-      rw [hsize''] at hl
-      rw [hunch j (Or.inr hj), hunch l (Or.inr (by omega)), hswap j, hswap l]
-      rw [if_neg (show ¬ j = 0 by omega), if_neg (show ¬ l = 0 by omega),
-        if_neg (show ¬ l = k + 1 by omega)]
-      by_cases hj' : j = k + 1
-      · rw [if_pos hj']
-        exact hsplit 0 l (by omega) (by omega) hl
-      · rw [if_neg hj']
-        exact hsorted j l (by omega) hjl hl
-    · intro j l hj hl hlsize
-      rw [hsize''] at hlsize
-      rw [hunch l (Or.inr hl), hswap l, if_neg (by omega)]
-      by_cases hl' : l = k + 1
-      · rw [if_pos hl']; exact hbound j hj
-      · rw [if_neg hl']; exact (hbound j hj).trans (hsplit 0 l (by omega) (by omega) hlsize)
-
-/-! ## Correctness of `heapSortArray` and `heapSort` -/
+    intro a hn hk hheap hsuf
+    rw [extractAux]
+    have h0 : 0 < a.size := by omega
+    have hk1 : k + 1 < a.size := by omega
+    have hmax := heapFrom_zero_le a (k + 2) hheap
+    have hsz : k + 1 ≤ (a.swapIfInBounds 0 (k + 1)).size := by
+      rw [Array.size_swapIfInBounds]; omega
+    -- after the swap, the suffix `[k+1, n)` dominates everything before it
+    have hsuf' : SuffixSorted (a.swapIfInBounds 0 (k + 1)) n (k + 1) := by
+      intro j hj hjn j' hj'
+      rw [getElem!_swapIfInBounds a 0 (k + 1) j h0 hk1, getElem!_swapIfInBounds a 0 (k + 1) j' h0 hk1]
+      by_cases ej : j = k + 1
+      · rw [if_neg (show ¬ j = 0 by omega), if_pos ej]
+        by_cases ej' : j' = 0
+        · rw [if_pos ej']; exact hmax (k + 1) (by omega)
+        · rw [if_neg ej', if_neg (show ¬ j' = k + 1 by omega)]; exact hmax j' (by omega)
+      · rw [if_neg (show ¬ j = 0 by omega), if_neg ej]
+        by_cases ej' : j' = 0
+        · rw [if_pos ej']; exact hsuf j (by omega) hjn (k + 1) (by omega)
+        · rw [if_neg ej']
+          by_cases ej'' : j' = k + 1
+          · rw [if_pos ej'']; exact hsuf j (by omega) hjn 0 (by omega)
+          · rw [if_neg ej'']; exact hsuf j (by omega) hjn j' hj'
+    -- the heap of size `k+1` is restored by `heapify`
+    have hheap' : HeapFrom (heapify (a.swapIfInBounds 0 (k + 1)) (k + 1) 0) (k + 1) 0 := by
+      apply heapify_heapFrom (k + 1) 0 _ 0 hsz le_rfl
+      constructor
+      · intro j hj0 hjn _ hp
+        rw [getElem!_swapIfInBounds a 0 (k + 1) j h0 hk1,
+          getElem!_swapIfInBounds a 0 (k + 1) ((j - 1) / 2) h0 hk1,
+          if_neg (show ¬ j = 0 by omega), if_neg (show ¬ j = k + 1 by omega), if_neg hp,
+          if_neg (show ¬ (j - 1) / 2 = k + 1 by omega)]
+        exact hheap j hj0 (by omega) (Nat.zero_le _)
+      · intro h; exact absurd h (lt_irrefl 0)
+    apply ih
+    · rw [heapify_size, Array.size_swapIfInBounds]; exact hn
+    · omega
+    · exact hheap'
+    · intro j hj hjn j' hj'
+      rw [heapify_getElem!_of_ge (k + 1) _ 0 j hsz hj]
+      by_cases hj'k : j' < k + 1
+      · obtain ⟨j'', hj'', e⟩ := heapify_getElem!_of_lt (k + 1) _ 0 j' hsz hj'k
+        rw [e]
+        exact hsuf' j hj hjn j'' (by omega)
+      · rw [heapify_getElem!_of_ge (k + 1) _ 0 j' hsz (by omega)]
+        exact hsuf' j hj hjn j' hj'
 
 theorem heapSortArray_size (a : Array Int) : (heapSortArray a).size = a.size := by
-  unfold heapSortArray; rw [extractLoop_size, buildLoop_size]
+  rw [heapSortArray, extractAux_size, buildMaxHeap_size]
 
 theorem heapSortArray_perm (a : Array Int) : (heapSortArray a).toList.Perm a.toList := by
-  unfold heapSortArray; exact (extractLoop_perm _ _).trans (buildLoop_perm _ _ _)
+  rw [heapSortArray]
+  rcases Nat.eq_zero_or_pos a.size with h0 | hpos
+  · rw [h0]
+    exact buildMaxHeap_perm a
+  · exact (extractAux_perm _ _ (by rw [buildMaxHeap_size]; omega)).trans (buildMaxHeap_perm a)
 
-theorem heapSortArray_sorted (a : Array Int) :
-    ∀ j l, j < l → l < a.size → (heapSortArray a)[j]! ≤ (heapSortArray a)[l]! := by
-  intro j l hjl hl
-  unfold heapSortArray
-  have hb := buildLoop_heap a.size (a.size / 2) a (le_refl _)
-    (by intro j hj0 hjn hk; exfalso; simp only [parent] at hk; omega)
-  have hsize : (buildLoop a a.size (a.size / 2)).size = a.size := buildLoop_size _ _ _
-  refine extractLoop_sorted (a.size - 1) _ (by omega) ?_ ?_ ?_ j l hjl (by omega)
-  · intro j hj0 hjn; exact hb j hj0 (by omega)
-  · intro j l hj hjl hl; omega
-  · intro j l hj hl hls; omega
+theorem heapSortArray_suffixSorted (a : Array Int) : SuffixSorted (heapSortArray a) a.size 0 := by
+  rw [heapSortArray]
+  rcases Nat.eq_zero_or_pos a.size with h0 | hpos
+  · intro j _ hjn
+    exfalso
+    omega
+  · apply extractAux_sorted a.size (a.size - 1) (buildMaxHeap a) (buildMaxHeap_size a).symm
+      (by omega)
+    · have := buildMaxHeap_heapFrom a
+      rwa [show a.size - 1 + 1 = a.size by omega]
+    · intro j hj hjn
+      exfalso
+      omega
 
-theorem heapSortArray_toList_sorted (a : Array Int) :
-    List.Sorted (· ≤ ·) (heapSortArray a).toList := by
+theorem heapSortArray_sorted (a : Array Int) : List.Sorted (· ≤ ·) (heapSortArray a).toList := by
   rw [List.Sorted, List.pairwise_iff_getElem]
   intro i j hi hj hij
-  have hs := heapSortArray_size a
-  simp only [Array.length_toList] at hi hj
-  rw [Array.getElem_toList, Array.getElem_toList]
-  rw [← getElem!_pos (heapSortArray a) i hi, ← getElem!_pos (heapSortArray a) j hj]
-  exact heapSortArray_sorted a i j hij (by omega)
-
-theorem heapSort_sorted (xs : List Int) : List.Sorted (· ≤ ·) (heapSort xs) := by
-  unfold heapSort
-  split_ifs with h
-  · rcases xs with _ | ⟨x, _ | ⟨y, zs⟩⟩
-    · exact List.sorted_nil
-    · exact List.sorted_singleton x
-    · simp at h
-  · exact heapSortArray_toList_sorted _
-
-theorem heapSort_perm (xs : List Int) : (heapSort xs).Perm xs := by
-  unfold heapSort
-  split_ifs
-  · exact List.Perm.refl xs
-  · simpa using heapSortArray_perm xs.toArray
-
-/-! ## Pre-condition -/
-
-/-- Precondition of the Python `heap_sort`: the input must be a `list` of `int`s
-(`pre(arr)` in Python).  The Lean type `List Int` already guarantees this, so the
-predicate holds for every input; the Python `ValueError` branch is unreachable. -/
-def Pre (_xs : List Int) : Prop := True
+  have hi' : i < (heapSortArray a).size := by simpa using hi
+  have hj' : j < (heapSortArray a).size := by simpa using hj
+  have h := heapSortArray_suffixSorted a j (Nat.zero_le _) (by rw [← heapSortArray_size]; exact hj') i hij
+  rw [getElem!_pos _ i hi', getElem!_pos _ j hj'] at h
+  simpa [Array.getElem_toList] using h
 
 /-! ## Properties -/
 
 /-- The output is sorted in non-decreasing order. -/
-def sorted_prop (xs : List Int) : Prop := List.Sorted (· ≤ ·) (heapSort xs)
+def sorted_prop (arr : List Int) : Prop := List.Sorted (· ≤ ·) (heap_sort arr)
 
-theorem sorted_thm (xs : List Int) : sorted_prop xs := heapSort_sorted xs
+theorem sorted_thm (arr : List Int) : sorted_prop arr := by
+  unfold sorted_prop heap_sort
+  split_ifs with h
+  · rcases arr with _ | ⟨x, _ | ⟨y, t⟩⟩
+    · exact List.sorted_nil
+    · exact List.sorted_singleton x
+    · simp at h
+  · exact heapSortArray_sorted _
 
-/-- The output is a permutation of the input (same elements with multiplicities). -/
-def perm_prop (xs : List Int) : Prop := (heapSort xs).Perm xs
+/-- The output is a permutation of the input. -/
+def perm_prop (arr : List Int) : Prop := (heap_sort arr).Perm arr
 
-theorem perm_thm (xs : List Int) : perm_prop xs := heapSort_perm xs
+theorem perm_thm (arr : List Int) : perm_prop arr := by
+  unfold perm_prop heap_sort
+  split_ifs with h
+  · exact List.Perm.refl _
+  · simpa using heapSortArray_perm arr.toArray
 
 /-- The output has the same length as the input. -/
-def length_prop (xs : List Int) : Prop := (heapSort xs).length = xs.length
+def length_prop (arr : List Int) : Prop := (heap_sort arr).length = arr.length
 
-theorem length_thm (xs : List Int) : length_prop xs := (heapSort_perm xs).length_eq
+theorem length_thm (arr : List Int) : length_prop arr :=
+  (perm_thm arr).length_eq
 
-/-- Every value occurs equally often in the input and in the output. -/
-def count_prop (xs : List Int) : Prop := ∀ x : Int, (heapSort xs).count x = xs.count x
+/-- Every value occurs in the output exactly as often as in the input. -/
+def count_prop (arr : List Int) : Prop := ∀ x : Int, (heap_sort arr).count x = arr.count x
 
-theorem count_thm (xs : List Int) : count_prop xs := fun x => (heapSort_perm xs).count_eq x
+theorem count_thm (arr : List Int) : count_prop arr :=
+  fun x => (perm_thm arr).count_eq x
 
-/-- The output contains exactly the elements of the input. -/
-def mem_prop (xs : List Int) : Prop := ∀ x : Int, x ∈ heapSort xs ↔ x ∈ xs
+/-- Edge case from the docstring: empty or single-element lists come back unchanged. -/
+def small_prop (arr : List Int) : Prop := arr.length ≤ 1 → heap_sort arr = arr
 
-theorem mem_thm (xs : List Int) : mem_prop xs := fun _ => (heapSort_perm xs).mem_iff
+theorem small_thm (arr : List Int) : small_prop arr := by
+  intro h
+  unfold heap_sort
+  rw [if_pos h]
 
-/-- Edge case: empty and one-element lists are returned unchanged (a copy in Python). -/
-def small_prop (xs : List Int) : Prop := xs.length ≤ 1 → heapSort xs = xs
+/-- Heap sort agrees with insertion sort (the sorted permutation of a list is unique). -/
+def canonical_prop (arr : List Int) : Prop := heap_sort arr = arr.insertionSort (· ≤ ·)
 
-theorem small_thm (xs : List Int) : small_prop xs := by
-  intro h; unfold heapSort; rw [if_pos h]
-
-/-- Characterization: `heapSort` returns *the* sorted permutation of its input, so it agrees
-with any other correct sorting algorithm, e.g. insertion sort. -/
-def eq_insertionSort_prop (xs : List Int) : Prop :=
-  heapSort xs = List.insertionSort (· ≤ ·) xs
-
-theorem eq_insertionSort_thm (xs : List Int) : eq_insertionSort_prop xs :=
-  List.eq_of_perm_of_sorted ((heapSort_perm xs).trans (List.perm_insertionSort _ xs).symm)
-    (heapSort_sorted xs) (List.sorted_insertionSort _ xs)
-
-/-- Sorting is idempotent. -/
-def idempotent_prop (xs : List Int) : Prop := heapSort (heapSort xs) = heapSort xs
-
-theorem idempotent_thm (xs : List Int) : idempotent_prop xs :=
-  List.eq_of_perm_of_sorted (heapSort_perm (heapSort xs)) (heapSort_sorted _) (heapSort_sorted xs)
-
-/-- The first element of the output is a minimum of the input. -/
-def head_min_prop (xs : List Int) : Prop :=
-  ∀ m, (heapSort xs).head? = some m → ∀ x ∈ xs, m ≤ x
-
-theorem head_min_thm (xs : List Int) : head_min_prop xs := by
-  intro m hm x hx
-  have hs := heapSort_sorted xs
-  have hx' : x ∈ heapSort xs := (heapSort_perm xs).mem_iff.mpr hx
-  rcases hs' : heapSort xs with _ | ⟨y, ys⟩
-  · rw [hs'] at hm; simp at hm
-  · rw [hs'] at hm hx' hs
-    simp only [List.head?_cons, Option.some.injEq] at hm
-    subst hm
-    rw [List.sorted_cons] at hs
-    rcases List.mem_cons.mp hx' with rfl | hx'
-    · exact le_refl _
-    · exact hs.1 x hx'
+theorem canonical_thm (arr : List Int) : canonical_prop arr :=
+  List.eq_of_perm_of_sorted ((perm_thm arr).trans (List.perm_insertionSort (· ≤ ·) arr).symm)
+    (sorted_thm arr) (List.sorted_insertionSort (· ≤ ·) arr)
 
 /-! ## Post-condition -/
 
-/-- Post-condition of `heap_sort`: the result is a sorted permutation of the input, with all
-the derived properties above. -/
-def Post_prop (xs : List Int) : Prop :=
-  sorted_prop xs ∧ perm_prop xs ∧ length_prop xs ∧ count_prop xs ∧ mem_prop xs ∧
-    small_prop xs ∧ eq_insertionSort_prop xs ∧ idempotent_prop xs ∧ head_min_prop xs
+/-- The post-condition of `heap_sort`: the conjunction of all properties above. -/
+def Post_prop (arr : List Int) : Prop :=
+  sorted_prop arr ∧ perm_prop arr ∧ length_prop arr ∧ count_prop arr ∧ small_prop arr ∧
+    canonical_prop arr
 
 /-! ## Property-based tests -/
 
 -- sorted_prop
-#eval Plausible.Testable.check (∀ xs : List Int, List.Sorted (· ≤ ·) (heapSort xs))
+#eval Plausible.Testable.check (∀ xs : List Int, List.Sorted (· ≤ ·) (heap_sort xs))
 -- perm_prop
-#eval Plausible.Testable.check (∀ xs : List Int, (heapSort xs).Perm xs)
+#eval Plausible.Testable.check (∀ xs : List Int, (heap_sort xs).Perm xs)
 -- length_prop
-#eval Plausible.Testable.check (∀ xs : List Int, (heapSort xs).length = xs.length)
+#eval Plausible.Testable.check (∀ xs : List Int, (heap_sort xs).length = xs.length)
 -- count_prop
-#eval Plausible.Testable.check (∀ xs : List Int, ∀ x : Int, (heapSort xs).count x = xs.count x)
--- mem_prop
-#eval Plausible.Testable.check (∀ xs : List Int, ∀ x : Int, x ∈ heapSort xs ↔ x ∈ xs)
--- small_prop (randomized over the admissible inputs of length ≤ 1)
-#eval Plausible.Testable.check (∀ x : Int, heapSort [x] = [x])
--- eq_insertionSort_prop
-#eval Plausible.Testable.check (∀ xs : List Int, heapSort xs = List.insertionSort (· ≤ ·) xs)
--- idempotent_prop
-#eval Plausible.Testable.check (∀ xs : List Int, heapSort (heapSort xs) = heapSort xs)
--- head_min_prop (executable form)
-#eval Plausible.Testable.check
-  (∀ xs : List Int, (heapSort xs).head?.all (fun m => xs.all (fun x => m ≤ x)) = true)
+#eval Plausible.Testable.check (∀ (xs : List Int) (x : Int), (heap_sort xs).count x = xs.count x)
+-- small_prop (executable form of the implication, plus the admissible inputs themselves)
+#eval Plausible.Testable.check (∀ xs : List Int, 1 < xs.length ∨ heap_sort xs = xs)
+#eval Plausible.Testable.check (∀ x : Int, heap_sort [] = [] ∧ heap_sort [x] = [x])
+-- canonical_prop
+#eval Plausible.Testable.check (∀ xs : List Int, heap_sort xs = xs.insertionSort (· ≤ ·))
+-- Post_prop (executable form of the conjunction)
+#eval Plausible.Testable.check (∀ xs : List Int,
+  List.Sorted (· ≤ ·) (heap_sort xs) ∧ (heap_sort xs).Perm xs ∧
+    (heap_sort xs).length = xs.length ∧
+    xs.all (fun x => (heap_sort xs).count x == xs.count x) = true ∧
+    (1 < xs.length ∨ heap_sort xs = xs) ∧ heap_sort xs = xs.insertionSort (· ≤ ·))
 
-/-- Deterministic family of test inputs for bounded property-based tests. -/
-def pbtInputs : List (List Int) :=
-  [[], [1], [2, 1], [1, 2], [3, 1, 2], [5, 5, 5], [-3, 7, -1, 0, 7, -3],
-    [64, 34, 25, 12, 22, 11, 90, 88, 76, 50, 42]] ++
-  (List.range 40).map (fun k =>
-    (List.range k).map (fun x => (((x * 7919 + 13) % 23 : Nat) : Int) - 11)) ++
-  (List.range 20).map (fun k => (List.range k).map (fun x => (x : Int))) ++
-  (List.range 20).map (fun k => (List.range k).map (fun x => ((k : Int) - x)))
-
-/-- Executable form of `Post_prop` (with `count_prop`/`mem_prop` checked on the elements of
-the input together with the values `0` and `42`). -/
-def postCheck (xs : List Int) : Bool :=
-  let ys := heapSort xs
-  decide (List.Sorted (· ≤ ·) ys) && decide (ys.Perm xs) && (ys.length == xs.length) &&
-    (xs ++ [0, 42]).all (fun x => ys.count x == xs.count x) &&
-    (xs ++ [0, 42]).all (fun x => decide (x ∈ ys ↔ x ∈ xs)) &&
-    (!(xs.length ≤ 1) || ys == xs) &&
-    (ys == List.insertionSort (· ≤ ·) xs) && (heapSort ys == ys) &&
-    ys.head?.all (fun m => xs.all (fun x => m ≤ x))
-
-example : pbtInputs.all (fun xs => decide (List.Sorted (· ≤ ·) (heapSort xs))) = true := by
-  native_decide
-example : pbtInputs.all (fun xs => decide ((heapSort xs).Perm xs)) = true := by native_decide
-example : pbtInputs.all (fun xs => (heapSort xs).length == xs.length) = true := by native_decide
-example : pbtInputs.all (fun xs => xs.all (fun x => (heapSort xs).count x == xs.count x)) =
-    true := by native_decide
-example : pbtInputs.all (fun xs =>
-    (xs ++ [0, 42]).all (fun x => decide (x ∈ heapSort xs ↔ x ∈ xs))) = true := by native_decide
-example : pbtInputs.all (fun xs => !(xs.length ≤ 1) || heapSort xs == xs) = true := by
-  native_decide
-example : pbtInputs.all (fun xs => heapSort xs == List.insertionSort (· ≤ ·) xs) = true := by
-  native_decide
-example : pbtInputs.all (fun xs => heapSort (heapSort xs) == heapSort xs) = true := by
-  native_decide
-example : pbtInputs.all (fun xs => (heapSort xs).head?.all (fun m => xs.all (fun x => m ≤ x))) =
-    true := by native_decide
--- Post_prop (executable form)
-example : pbtInputs.all postCheck = true := by native_decide
-#eval Plausible.Testable.check (∀ xs : List Int, postCheck xs = true)
+-- bounded / exhaustive PBTs: all permutations of small lists, and all lists over `{0,1,2}`
+-- of length ≤ 5
+example : ([1, 2, 3, 4, 5, 6].permutations).all
+    (fun l => heap_sort l == [1, 2, 3, 4, 5, 6]) = true := by native_decide
+example : ([3, 1, 4, 1, 5].permutations).all
+    (fun l => heap_sort l == [1, 1, 3, 4, 5]) = true := by native_decide
+example : ((List.range 6).flatMap fun k =>
+    (List.replicate k [0, 1, 2]).foldr (fun c acc => c.flatMap fun x => acc.map (x :: ·)) [[]]).all
+    (fun l => decide (List.Sorted (· ≤ ·) (heap_sort l)) && decide ((heap_sort l).Perm l) &&
+      ((heap_sort l).length == l.length) &&
+      (decide (l.length ≤ 1) → heap_sort l == l) &&
+      (heap_sort l == l.insertionSort (· ≤ ·))) = true := by native_decide
+-- small_prop on all lists of length ≤ 1 from a window of integers
+example : (([] : List Int) :: (List.range 41).map (fun k => [(k : Int) - 20])).all
+    (fun l => heap_sort l == l) = true := by native_decide
 
 /-! ## Correctness theorem -/
 
-/-- `Pre → Post`: for every admissible input, `heapSort` satisfies the post-condition. -/
-theorem correctness_thm (xs : List Int) (_hpre : Pre xs) : Post_prop xs :=
-  ⟨sorted_thm xs, perm_thm xs, length_thm xs, count_thm xs, mem_thm xs, small_thm xs,
-    eq_insertionSort_thm xs, idempotent_thm xs, head_min_thm xs⟩
+theorem heap_sort_correct (arr : List Int) (_h : Pre arr) : Post_prop arr :=
+  ⟨sorted_thm arr, perm_thm arr, length_thm arr, count_thm arr, small_thm arr, canonical_thm arr⟩
 
 /-! ## Imperative implementation -/
 
 set_option linter.unusedVariables false in
-/-- Imperative `heapify` with mutable `arr` and `largest`, mirroring the Python code.
-The recursive call happens exactly when `largest != i`; since `largest` is then a child
-of `i` inside the heap, this is the same as `i < largest ∧ largest < n`, which also
-justifies termination. -/
-def heapifyImp (a : Array Int) (n i : Nat) : Array Int := Id.run do
-  let mut arr := a
-  let mut largest := i
+/-- Imperative `heapify`, following the Python code line by line: `largest` is rebound
+(immutably, so that the termination proof can see how it was computed) and the
+recursive call is an early `return`. -/
+def heapifyImp (arr : Array Int) (n i : Nat) : Array Int := Id.run do
   let left := 2 * i + 1
   let right := 2 * i + 2
-  if left < n && arr[left]! > arr[largest]! then
-    largest := left
-  if right < n && arr[right]! > arr[largest]! then
-    largest := right
-  if h : i < largest ∧ largest < n then
-    arr := arr.swapIfInBounds i largest
-    arr := heapifyImp arr n largest
+  let largest0 := if left < n ∧ arr[left]! > arr[i]! then left else i
+  let largest := if right < n ∧ arr[right]! > arr[largest0]! then right else largest0
+  if h : largest ≠ i then
+    let arr' := arr.swapIfInBounds i largest
+    return heapifyImp arr' n largest
   return arr
 termination_by n - i
-decreasing_by exact Nat.sub_lt_sub_left (Nat.lt_trans h.1 h.2) h.1
+decreasing_by
+  simp only [largest, largest0, left, right] at h
+  split_ifs at * <;> omega
 
-/-- Imperative heap sort (Python's `heap_sort`), using `Id.run do`, a mutable array and
-`for` loops over the Python ranges `range(n//2 - 1, -1, -1)` and `range(n-1, 0, -1)`. -/
-def heapSortImp (xs : List Int) : List Int := Id.run do
-  if xs.length ≤ 1 then
-    return xs
-  let mut result := xs.toArray
+/-- Imperative heap sort with mutable state and `for` loops, mirroring the Python program:
+early return for short lists, `build_max_heap`, then the extraction loop. -/
+def heap_sort_imp (arr : List Int) : List Int := Id.run do
+  if arr.length ≤ 1 then
+    return arr
+  let mut result := arr.toArray
   let n := result.size
-  -- build max heap
-  for i in (List.range (n / 2)).reverse do
+  -- build max heap: `for i in range(n // 2 - 1, -1, -1): heapify(result, n, i)`
+  for t in [0 : n / 2] do
+    let i := n / 2 - 1 - t
     result := heapifyImp result n i
-  -- extract elements one by one
-  for i in (List.range' 1 (n - 1)).reverse do
+  -- extract elements one by one: `for i in range(n - 1, 0, -1)`
+  for t in [0 : n - 1] do
+    let i := n - 1 - t
     result := result.swapIfInBounds 0 i
     result := heapifyImp result i 0
   return result.toList
 
 /-! ## Imperative tests -/
 
-example : heapSortImp [3, 1, 2] = [1, 2, 3] := by native_decide
-example : heapSortImp [] = [] := by native_decide
-example : heapSortImp [1] = [1] := by native_decide
-example : heapSortImp [64, 34, 25, 12, 22, 11, 90, 88, 76, 50, 42] =
+example : heap_sort_imp [3, 1, 2] = [1, 2, 3] := by native_decide
+example : heap_sort_imp [1, 2, 3] = [1, 2, 3] := by native_decide
+example : heap_sort_imp [2, 1, 3] = [1, 2, 3] := by native_decide
+example : heap_sort_imp [] = [] := by native_decide
+example : heap_sort_imp [1] = [1] := by native_decide
+example : heap_sort_imp [5, 2, 4, 6, 1, 3] = [1, 2, 3, 4, 5, 6] := by native_decide
+example : heap_sort_imp [9, 8, 7, 6, 5, 4, 3, 2, 1] = [1, 2, 3, 4, 5, 6, 7, 8, 9] := by native_decide
+example : heap_sort_imp [2, 6, 4, 3, 1, 5] = [1, 2, 3, 4, 5, 6] := by native_decide
+example : heap_sort_imp [2, 1] = [1, 2] := by native_decide
+example : heap_sort_imp [1, 2] = [1, 2] := by native_decide
+example : heap_sort_imp [3, 1, 4, 1, 2, 3] = [1, 1, 2, 3, 3, 4] := by native_decide
+example : heap_sort_imp [5, 5, 5, 5, 5] = [5, 5, 5, 5, 5] := by native_decide
+example : heap_sort_imp [1, 2, 3, 4, 5] = [1, 2, 3, 4, 5] := by native_decide
+example : heap_sort_imp [5, 4, 3, 2, 1] = [1, 2, 3, 4, 5] := by native_decide
+example : heap_sort_imp [3, 7, 1, 9, 2, 8, 4, 6, 5] = [1, 2, 3, 4, 5, 6, 7, 8, 9] := by native_decide
+example : heap_sort_imp [64, 34, 25, 12, 22, 11, 90, 88, 76, 50, 42] =
     [11, 12, 22, 25, 34, 42, 50, 64, 76, 88, 90] := by native_decide
 
-example : heapSortImp [5, 2, 4, 6, 1, 3] = [1, 2, 3, 4, 5, 6] := by native_decide
-example : heapSortImp [9, 8, 7, 6, 5, 4, 3, 2, 1] = [1, 2, 3, 4, 5, 6, 7, 8, 9] := by native_decide
-example : heapSortImp [3, 1, 4, 1, 2, 3] = [1, 1, 2, 3, 3, 4] := by native_decide
-example : pbtInputs.all (fun xs => heapSortImp xs == heapSort xs) = true := by native_decide
+#eval heap_sort_imp [64, 34, 25, 12, 22, 11, 90, 88, 76, 50, 42]
+#eval Plausible.Testable.check (∀ xs : List Int, heap_sort_imp xs = heap_sort xs)
 
-#eval heapSortImp [3, 7, 1, 9, 2, 8, 4, 6, 5]
-#eval Plausible.Testable.check (∀ xs : List Int, heapSortImp xs = heapSort xs)
+/-! ## Equivalence of the two implementations -/
 
-/-! ## Equivalence of the functional and imperative implementations -/
-
-theorem heapifyImp_unfold (a : Array Int) (n i : Nat) :
-    heapifyImp a n i =
-      if i < largestIdx a n i ∧ largestIdx a n i < n then
-        heapifyImp (a.swapIfInBounds i (largestIdx a n i)) n (largestIdx a n i)
-      else a := by
-  rw [heapifyImp]
-  simp only [Id.run, bind, pure, largestIdx, Bool.and_eq_true, decide_eq_true_eq, gt_iff_lt]
-  split_ifs <;> rfl
-
-theorem heapifyImp_eq (n : Nat) : ∀ (a : Array Int) (i : Nat), heapifyImp a n i = heapify a n i := by
+theorem heapifyImp_eq_heapify (n : Nat) :
+    ∀ (a : Array Int) (i : Nat), heapifyImp a n i = heapify a n i := by
   intro a i
   induction a, i using heapify.induct n with
-  | case1 a i h ih => rw [heapifyImp_unfold, heapify, if_pos h, dif_pos h, ih]
-  | case2 a i h => rw [heapifyImp_unfold, heapify, if_neg h, dif_neg h]
+  | case1 a i hne ih =>
+    rw [heapifyImp, heapify, dif_pos hne]
+    simp only [Id.run, bind, pure, dite_eq_ite]
+    change (if largestOf a n i ≠ i then
+      heapifyImp (a.swapIfInBounds i (largestOf a n i)) n (largestOf a n i) else a) = _
+    rw [if_pos hne, ih]
+  | case2 a i hne =>
+    rw [heapifyImp, heapify, dif_neg hne]
+    simp only [Id.run, bind, pure, dite_eq_ite]
+    change (if largestOf a n i ≠ i then
+      heapifyImp (a.swapIfInBounds i (largestOf a n i)) n (largestOf a n i) else a) = _
+    rw [if_neg hne]
 
-theorem foldr_range_eq_buildLoop (n : Nat) : ∀ (m : Nat) (a : Array Int),
-    List.foldr (fun i r => heapify r n i) a (List.range m) = buildLoop a n m := by
-  intro m
-  induction m with
-  | zero => intro a; rfl
-  | succ m ih =>
-    intro a
-    rw [List.range_succ, List.foldr_append, List.foldr_cons, List.foldr_nil, buildLoop, ih]
+theorem forIn_range'_build (n N : Nat) :
+    ∀ (c s : Nat) (acc : Array Int), s + c = N →
+      (forIn (m := Id) (List.range' s c) acc
+        fun t r => ForInStep.yield (heapify r n (N - 1 - t))) = buildMaxHeapAux acc n c := by
+  intro c
+  induction c with
+  | zero => intro s acc _; rfl
+  | succ c ih =>
+    intro s acc hs
+    rw [List.range'_succ, List.forIn_cons]
+    simp only [bind]
+    rw [ih (s + 1) _ (by omega), buildMaxHeapAux, show N - 1 - s = c by omega]
 
-theorem foldr_range'_eq_extractLoop : ∀ (m : Nat) (a : Array Int),
-    List.foldr (fun i r => heapify (r.swapIfInBounds 0 i) i 0) a (List.range' 1 m) =
-      extractLoop a m := by
-  intro m
-  induction m with
-  | zero => intro a; rfl
-  | succ m ih =>
-    intro a
-    rw [List.range'_concat, List.foldr_append, List.foldr_cons, List.foldr_nil, extractLoop, ih]
-    rw [show 1 + 1 * m = m + 1 by omega]
+theorem forIn_range'_extract (N : Nat) :
+    ∀ (c s : Nat) (acc : Array Int), s + c = N →
+      (forIn (m := Id) (List.range' s c) acc
+        fun t r => ForInStep.yield (heapify (r.swapIfInBounds 0 (N - t)) (N - t) 0)) =
+        extractAux acc c := by
+  intro c
+  induction c with
+  | zero => intro s acc _; rfl
+  | succ c ih =>
+    intro s acc hs
+    rw [List.range'_succ, List.forIn_cons]
+    simp only [bind]
+    rw [ih (s + 1) _ (by omega), extractAux, show N - s = c + 1 by omega]
 
-/-- The imperative implementation computes exactly the functional one. -/
-theorem heapSortImp_eq_heapSort (xs : List Int) : heapSortImp xs = heapSort xs := by
-  unfold heapSortImp heapSort heapSortArray
-  simp only [Id.run, bind, heapifyImp_eq]
-  simp only [List.forIn_pure_yield_eq_foldl, List.foldl_reverse, foldr_range_eq_buildLoop,
-    foldr_range'_eq_extractLoop]
-  rfl
+theorem forIn_range_build (n N : Nat) (acc : Array Int) :
+    (forIn (m := Id) [0:N] acc fun t r => ForInStep.yield (heapify r n (N - 1 - t))) =
+      buildMaxHeapAux acc n N := by
+  rw [Std.Range.forIn_eq_forIn_range']
+  have hsz : ([0:N] : Std.Range).size = N := by simp [Std.Range.size]
+  rw [hsz]
+  exact forIn_range'_build n N N 0 acc (by omega)
 
-/-- Equivalence theorem: functional = imperative. -/
-theorem heapSort_eq_imp_thm : ∀ xs : List Int, heapSort xs = heapSortImp xs :=
-  fun xs => (heapSortImp_eq_heapSort xs).symm
+theorem forIn_range_extract (N : Nat) (acc : Array Int) :
+    (forIn (m := Id) [0:N] acc
+      fun t r => ForInStep.yield (heapify (r.swapIfInBounds 0 (N - t)) (N - t) 0)) =
+      extractAux acc N := by
+  rw [Std.Range.forIn_eq_forIn_range']
+  have hsz : ([0:N] : Std.Range).size = N := by simp [Std.Range.size]
+  rw [hsz]
+  exact forIn_range'_extract N N 0 acc (by omega)
 
-/-- Consequently the imperative implementation also satisfies the post-condition. -/
-theorem heapSortImp_correct (xs : List Int) (_hpre : Pre xs) :
-    List.Sorted (· ≤ ·) (heapSortImp xs) ∧ (heapSortImp xs).Perm xs := by
-  rw [heapSortImp_eq_heapSort]
-  exact ⟨heapSort_sorted xs, heapSort_perm xs⟩
+/-- The imperative implementation computes the same function as the functional one. -/
+theorem heap_sort_imp_eq_heap_sort (arr : List Int) : heap_sort_imp arr = heap_sort arr := by
+  unfold heap_sort_imp heap_sort
+  simp only [Id.run, bind, pure, heapifyImp_eq_heapify, List.size_toArray]
+  split_ifs with h
+  · rfl
+  · rw [heapSortArray, buildMaxHeap, List.size_toArray, forIn_range_build, forIn_range_extract]
 
 end heap_sort
