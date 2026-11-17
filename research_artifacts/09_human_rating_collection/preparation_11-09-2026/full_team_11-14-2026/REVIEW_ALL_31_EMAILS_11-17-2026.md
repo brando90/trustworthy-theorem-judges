@@ -6,7 +6,7 @@
 
 - **Subject:** VeriBench human-rating main rating task: closes Thursday, 11-19-2026, 6pm PT
 - **From:** Brando Miranda <brandojazz@gmail.com>
-- **BCC (every email):** brando.science@gmail.com, brandojazz@gmail.com, brando9@stanford.edu
+- **BCC (every email):** brando.science@gmail.com
 
 ## Common text
 
@@ -29,7 +29,10 @@ Please finish by 6pm Pacific on Thursday, 11-19-2026 if you can, so I can run ex
 
 P.S. Feel free to email me with any questions. Email is preferred for questions! Happy to clarify anything! The full instructions are in START_HERE.md inside the zip.
 
-Brando (drafted with Claude)
+TLDR-end: [VeriBench human ratings: main rating task] Please score as many of your 100 files as you can in your personal sheet by 6pm Pacific on Thursday, 11-19-2026; even a few help.
+
+Brando (drafted with Claude Code)
+Assistant: Claude Code (Claude Opus 5.5)
 -----
 Brando Miranda
 Ph.D. Student

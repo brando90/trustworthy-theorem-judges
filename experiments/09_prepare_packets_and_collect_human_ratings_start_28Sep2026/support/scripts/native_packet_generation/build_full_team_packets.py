@@ -55,8 +55,12 @@ TAB = "Ratings"
 TEMPLATE_SHEET_ID = "1Hpcb4NP754RDWstDkiaTR59K9AX2vXNL6IR9iXKRo-Y"
 TEMPLATE_TAB_ID = 0
 BRANDO_SHEET_ID = "1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM"
-SUBJECT = "VeriBench human-rating main rating task: closes Thursday, 11-19-2026, 6pm PT"
-BCC = ["brando.science@gmail.com", "brandojazz@gmail.com", "brando9@stanford.edu"]
+DEADLINE = "Thursday, 11-19-2026"  # set before the team-email hold; revisit when Brando says send
+SUBJECT = f"VeriBench human-rating main rating task: closes {DEADLINE}, 6pm PT"
+# Brando, 11-13-2026 (agents-config personal/email-signature.md): BCC only brando.science unless he asks, and every
+# assistant-drafted email names its assistant and ends its body with a TLDR-end line before the sign-off.
+BCC = ["brando.science@gmail.com"]
+ASSISTANT = "Claude Code (Claude Opus 5.5)"
 COAUTHOR = ("Would you be willing to help with a human-rating task for VeriBench? Your ratings would be really "
             "valuable, and if you are interested and have time, I would be happy to add you as a co-author on "
             "the papers this data is used for. No pressure at all.")
@@ -196,11 +200,14 @@ What to do:
 
 Please choose the score yourself and use AI only for help with Lean notation or a specific point. Your sheet saves automatically, so there is nothing to send back.
 
-Please finish by 6pm Pacific on Thursday, 11-19-2026 if you can, so I can run experiments overnight and show results in a meeting the next day. If you can only get part of it done by then, that is still very helpful. Filling it in as you go is even better: your sheet saves automatically, and I will pull the data and start my analysis as it comes in, so we can iterate.
+Please finish by 6pm Pacific on {DEADLINE} if you can, so I can run experiments overnight and show results in a meeting the next day. If you can only get part of it done by then, that is still very helpful. Filling it in as you go is even better: your sheet saves automatically, and I will pull the data and start my analysis as it comes in, so we can iterate.
 
 P.S. Feel free to email me with any questions. Email is preferred for questions! Happy to clarify anything! The full instructions are in START_HERE.md inside the zip.
 
-Brando (drafted with Claude)
+TLDR-end: [VeriBench human ratings: main rating task] Please score as many of your {len(cohort_rows())} files as you can in your personal sheet by 6pm Pacific on {DEADLINE}; even a few help.
+
+Brando (drafted with Claude Code)
+Assistant: {ASSISTANT}
 -----
 Brando Miranda
 Ph.D. Student
