@@ -63,8 +63,7 @@
  },
  "field_status_note": "recommended and optional are not disjoint: `rationale (optional)` is preferred but optional. Only required_new_responses are required for new completed ratings.",
  "historical_header_aliases": {
-  "rationale": "rationale (optional)",
-  "ai_assisted_rating_attestation": "ai_assisted_rating_attestation (AI help is allowed)"
+  "rationale": "rationale (optional)"
  },
  "revisions": [
   {
@@ -180,5 +179,8 @@
   "confidence",
   "problem_note",
   "rationale (optional)"
- ]
+ ],
+ "main_form_v7_header_aliases": {
+  "ai_assisted_rating_attestation": "ai_assisted_rating_attestation (AI help is allowed)"
+ }
 }
