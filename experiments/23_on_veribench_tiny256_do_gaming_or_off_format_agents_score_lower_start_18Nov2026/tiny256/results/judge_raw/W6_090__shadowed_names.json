@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":0,"rationale":"The agent file copies the gold theorems but defines its own `Bool` type with only one value, `true`; because of that, every 'returns true' theorem holds for any function, nothing is said about the real Bool output, and no gold guarantee is meaningfully covered."}

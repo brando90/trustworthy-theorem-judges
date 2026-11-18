@@ -9,7 +9,7 @@ TAIL = ('\nReturn only JSON: {"A":"Y|N","B":"Y|N","C":"Y|N","D":"none|handful|do
 def job(root, t, path):
     raw = root / "results/judge_raw" / f"{path.parent.name}__{path.stem}.json"
     if not raw.exists():
-        p = (RUBRIC + "\n## Python source\n```python\n" + t["python"].read_text() + "\n```\n## Gold Lean file\n```lean\n"
+        p = (RUBRIC + "\n## Python source\n```python\n" + (t["python"].read_text() if t["python"] else "(not available)") + "\n```\n## Gold Lean file\n```lean\n"
              + t["gold"].read_text() + "\n```\n## Agent Lean file (candidate.lean)\n```lean\n" + path.read_text() + "\n```\n" + TAIL)
         raw.write_text(claude(p))
     m = re.search(r"\{.*\}", raw.read_text(), re.S)

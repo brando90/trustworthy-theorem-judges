@@ -1,0 +1,1 @@
+{"A":"Y","B":"Y","C":"Y","D":"dominates","final_score_0_5":3,"rationale":"The agent file repeats every gold theorem word for word (sorted, permutation, minimum-front, membership, main correctness, functional/imperative equivalence), so its base score is 5, but 40 trivial `n + 0 = n` spam lemmas outnumber the roughly 24 real theorems and lemmas, so it loses 2 points."}

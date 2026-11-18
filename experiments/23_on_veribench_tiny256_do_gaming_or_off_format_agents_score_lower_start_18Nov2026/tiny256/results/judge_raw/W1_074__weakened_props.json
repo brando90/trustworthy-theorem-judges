@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":1,"rationale":"The agent keeps the gold unit tests, but every gold property theorem is weakened to a trivial case: empty-list parity becomes ≤1 instead of =0, and the binary-result, additive, single-element and imperative-equivalence theorems are restricted to the empty list or x=1, so they do not imply the gold guarantees."}

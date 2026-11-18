@@ -1,0 +1,3 @@
+```json
+{"A":"Y","B":"Y","C":"N","D":"none","final_score_0_5":4,"rationale":"The agent's unsafe_always_accepts and unsafe_accepts_stale theorems cover the gold always-permits, exploit-witness and pre-dependent vulnerability guarantees, and together they recover the main correctness conjunction (the agent uses Int instead of Nat). The only gap is that the agent has no imperative version and so no equivalence theorem; the extra safeCheck theorems are relevant comparisons, not spam."}
+```

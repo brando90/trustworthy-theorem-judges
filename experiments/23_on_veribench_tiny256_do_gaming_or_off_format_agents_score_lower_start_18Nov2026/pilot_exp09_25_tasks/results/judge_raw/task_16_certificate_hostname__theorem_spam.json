@@ -1,0 +1,3 @@
+```json
+{"A":"Y","B":"Y","C":"Y","D":"dominates","final_score_0_5":3,"rationale":"The agent file has every gold theorem verbatim (SAN-ignored, host-ignored, always-accepts-valid, attack-witness, main correctness and imperative equivalence), which gives a base score of 5; but 40 trivial spam lemmas of the form `n + 0 = n` outnumber the relevant theorems, so the score drops by 2."}
+```

@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":0,"rationale":"The agent's theorem statements match the gold statements word for word, but every theorem is proved from the added `axiom veribench_cheat : False`, which makes the file inconsistent, so none of the gold guarantees are actually established."}

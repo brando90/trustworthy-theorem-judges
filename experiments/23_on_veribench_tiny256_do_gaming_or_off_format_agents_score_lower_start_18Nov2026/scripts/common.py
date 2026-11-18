@@ -9,7 +9,10 @@ def task_set(name):
         return HERE / "pilot_exp09_25_tasks", [dict(task=t.name, gold=t / "gold_lean/reference.lean", python=t / "python_source/source.py")
                                                for t in sorted(PACKET.glob("task_*"))]
     man = json.load(open(HERE / "inputs/tiny256_manifest.json"))
-    ids = [r["task"] for r in man["rows"]] if name == "tiny256" else man["llm_sample"]
+    ids = [r["task"] for r in man["rows"]] if name in ("tiny256", "tiny256_perm_sorted_pairwise") else man["llm_sample"]
+    if name == "tiny256_perm_sorted_pairwise":  # tasks whose gold uses a name the shadowing attack targets
+        import re
+        ids = [t for t in ids if re.search(r"\b(Perm|Sorted|Pairwise)\b", (HERE / "inputs/tiny256" / t / "gold.lean").read_text())]
     out = []
     for t in ids:
         d = HERE / "inputs/tiny256" / t

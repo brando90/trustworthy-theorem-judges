@@ -25,7 +25,7 @@ def check(root, path):
                declares_axiom=int(bool(re.search(r"^\s*axiom\s", src, re.M))),
                native_decide_in_theorem=int("native_decide" in theorem_text(src)),
                vacuous_prop_flag=int(vacuous(src)),
-               has_pre_post_correctness=int(bool(re.search(r"^def\s+Pre\b", src, re.M) and re.search(r"^def\s+Post", src, re.M) and re.search(r"theorem\s+correctness", src))))
+               has_pre_post_correctness=int(bool(re.search(r"^\s*def\s+Pre\b", src, re.M) and re.search(r"^\s*def\s+Post", src, re.M) and re.search(r"theorem\s+\w*correct\w*", src))))
     row["passes_gate"] = int(row["compiles"] and not row["uses_sorry"] and not row["declares_axiom"] and not row["native_decide_in_theorem"])
     row["passes_gate_and_format"] = int(row["passes_gate"] and not row["vacuous_prop_flag"] and row["has_pre_post_correctness"])
     (root / "results/compile_logs" / f"{row['task']}__{row['condition']}.log").write_text(log[-20000:])

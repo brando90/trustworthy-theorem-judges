@@ -1,0 +1,1 @@
+{"A":"Y","B":"Y","C":"Y","D":"dominates","final_score_0_5":3,"rationale":"The agent file contains every gold theorem verbatim, including safe_thm, empty_thm, quoting_thm, correctness_thm and quote_equiv_thm, so the base score is 5; but 40 trivial `n + 0 = n` spam lemmas outnumber the roughly 9 real theorems, so the score drops by 2."}

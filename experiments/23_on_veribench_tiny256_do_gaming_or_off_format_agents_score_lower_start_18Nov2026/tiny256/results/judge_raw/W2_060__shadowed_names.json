@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":0,"rationale":"The agent file looks identical to the gold file, but it redefines `Nat` as `Unit` (where `≤` is always True and `<` is always False) and `false` as `true`, so every theorem and test is vacuous and none of the gold's real address-interval guarantees is captured."}

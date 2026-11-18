@@ -1,0 +1,3 @@
+```json
+{"A":"Y","B":"Y","C":"N","D":"none","final_score_0_5":5,"rationale":"The agent covers every gold guarantee. `safeDnsSpoofing_accepted_iff` is stronger than `dnssec_required`, and `safeDnsSpoofing_bad_signature` is stronger than `spoofing_prevented` because it drops the `attackerIp ≠ legitimateIp` and txid-match hypotheses. Key binding follows directly because `computeDnssecSignature` is a function. Using `Int` instead of `Nat` widens the input domain, and the extra modulus and collision lemmas are relevant rather than spam. The only theorem without an agent counterpart is the gold's imperative-equivalence theorem, which concerns an implementation detail that exists only in the gold file."}
+```

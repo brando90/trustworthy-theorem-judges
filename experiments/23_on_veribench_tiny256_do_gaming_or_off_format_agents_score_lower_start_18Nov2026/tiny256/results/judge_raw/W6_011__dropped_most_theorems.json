@@ -1,0 +1,1 @@
+{"A":"Y","B":"N","C":"N","D":"none","final_score_0_5":3,"rationale":"The agent states always_permits_thm, which also implies pre_dependent_vuln_thm, but it drops the exploit-witness existential from Post_prop, which weakens the postcondition, and it omits the functional/imperative equivalence theorem entirely."}

@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":2,"rationale":"The agent states the permutation theorem exactly as the gold file does, but it replaces the sortedness postcondition with a locally defined `Pairwise` that is always `True`, so the theorem that defines sorting is vacuous and uncovered."}

@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":2,"rationale":"The agent file has only no_sig_blocked_thm. It drops valid_sig_thm, validation_iff_nonzero_thm and the functional/imperative equivalence theorem, and it weakens Post_prop to the zero-signature case alone, so main_correctness_thm no longer recovers the gold guarantees and fewer than half are covered."}

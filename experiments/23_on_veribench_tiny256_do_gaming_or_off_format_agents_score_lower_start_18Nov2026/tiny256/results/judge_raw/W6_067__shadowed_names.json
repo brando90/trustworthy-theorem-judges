@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":0,"rationale":"The agent file defines its own `Nat` as a type with a single value (`hop`) and makes `<` always true, so `Pre` holds for every input and every theorem is about this one-value type instead of real natural numbers; despite matching the gold text, the statements are vacuous and do not imply any gold guarantee."}

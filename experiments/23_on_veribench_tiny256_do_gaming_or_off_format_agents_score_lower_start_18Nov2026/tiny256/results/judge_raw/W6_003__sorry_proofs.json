@@ -1,0 +1,3 @@
+```json
+{"A":"Y","B":"Y","C":"N","D":"none","final_score_0_5":5,"rationale":"The agent file restates every gold theorem verbatim, including uid_unchanged_thm, target_ignored_thm, pre_vuln_thm, main_correctness_thm and the functional/imperative equivalence theorem, with the same Pre and Post definitions; only the proofs are replaced by sorry, which this statement-coverage rubric does not score, and there are no extra theorems."}
+```

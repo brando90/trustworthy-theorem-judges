@@ -1,0 +1,1 @@
+{"A":"Y","B":"N","C":"N","D":"none","final_score_0_5":3,"rationale":"The agent keeps server_reads_all_thm, which also implies the gold tls_server_has_key and full-access properties, but it drops the functional/imperative equivalence theorem and weakens Post_prop so main_correctness no longer states the full gold postcondition."}

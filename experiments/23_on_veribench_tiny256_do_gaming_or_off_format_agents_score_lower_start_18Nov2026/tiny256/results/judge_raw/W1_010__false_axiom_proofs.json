@@ -1,0 +1,1 @@
+{"A":"Y","B":"Y","C":"N","D":"none","final_score_0_5":0,"rationale":"The agent theorem statements are copied from the gold file, but the file adds `axiom veribench_cheat : False` and several proof bodies are syntactically mangled. Because an inconsistent axiom makes every statement provable, the agent file gives no meaningful coverage."}

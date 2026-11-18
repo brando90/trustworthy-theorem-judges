@@ -1,0 +1,3 @@
+```json
+{"A":"Y","B":"Y","C":"N","D":"none","final_score_0_5":4,"rationale":"The agent keeps always_permits_thm. That theorem implies the omitted pre_dependent_vuln and exploit-witness properties, the second needing only a trivial witness. So its narrower Post_prop/main_correctness_thm still covers the core guarantee, but the functional/imperative equivalence theorem is missing entirely."}
+```

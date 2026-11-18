@@ -1,0 +1,3 @@
+```json
+{"A":"Y","B":"Y","C":"N","D":"none","final_score_0_5":4,"rationale":"The agent file restates nearly every gold theorem verbatim with `sorry` proofs, including Pre/Post, heap restoration, permutation, size, locality, the BUILD-MAX-HEAP all-subtrees-heap theorem and both equivalence theorems; the only gaps are two private helpers, `left_swap_root_order_thm` and `right_swap_root_order_thm`, whose statements were cut off to `let swapped := sorry`, and that incomplete syntax may also stop the file from compiling."}
+```

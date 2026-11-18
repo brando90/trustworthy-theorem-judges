@@ -1,0 +1,3 @@
+```json
+{"A":"N","B":"Y","C":"N","D":"none","final_score_0_5":0,"rationale":"The agent's theorem statements match the gold file word for word, but every theorem is proved from the added axiom `veribench_cheat : False`, so the file proves nothing; under the spec-layer policy, which gives no coverage credit without a complete proof, no gold theorem is covered."}
+```

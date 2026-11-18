@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":2,"rationale":"The agent turned uid_unchanged, target_ignored, pre_vuln, Post_prop and main correctness into `x = x` tautologies, so it covers only the functional/imperative equivalence theorem and, through its concrete example, the root-stays-root case (`unsafePrivilegeDrop 0 true = 0`)."}

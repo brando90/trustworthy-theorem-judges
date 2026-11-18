@@ -1,0 +1,1 @@
+{"A":"Y","B":"Y","C":"Y","D":"dominates","final_score_0_5":3,"rationale":"The agent file matches the gold file exactly, so every gold theorem and its pre/postconditions are covered, but 40 trivial `n + 0 = n` lemmas unrelated to `longest` outnumber the 6 real theorems, so the base score of 5 is lowered by 2."}

@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":2,"rationale":"The agent keeps only signature_ignored_thm and shrinks main_correctness_thm to that one property, so it leaves out hash_ignored, always_accepts_nonzero (the core functional guarantee), attack_witness and the functional/imperative equivalence theorem."}

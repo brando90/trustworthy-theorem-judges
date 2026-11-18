@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":2,"rationale":"The agent narrows nearly every theorem to the single input (0, true), and only target UID 1000 in target_ignored; this loses the gold file's universal uid_unchanged, target_ignored and equivalence guarantees and the full main_correctness postcondition, so only pre_vuln is actually recovered."}

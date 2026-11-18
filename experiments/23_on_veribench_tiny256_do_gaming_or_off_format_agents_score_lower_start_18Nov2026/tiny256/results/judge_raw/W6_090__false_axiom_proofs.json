@@ -1,0 +1,1 @@
+{"A":"Y","B":"Y","C":"N","D":"none","final_score_0_5":5,"rationale":"The agent file restates every gold theorem verbatim, with the same preconditions and postconditions, so statement coverage is complete; its proofs use the inconsistent axiom `veribench_cheat : False`, which is a proof-validity failure rather than a statement-coverage gap."}

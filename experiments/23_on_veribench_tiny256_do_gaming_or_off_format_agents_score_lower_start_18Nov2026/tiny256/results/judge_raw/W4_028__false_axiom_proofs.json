@@ -1,0 +1,3 @@
+```json
+{"A":"Y","B":"Y","C":"N","D":"none","final_score_0_5":5,"rationale":"Every gold theorem statement (dnssec_required_thm, spoofing_prevented_thm, trusted_key_binding_thm, main_correctness_thm, safeDnsSpoofing_equivalence_thm) appears with an identical statement and identical definitions, so statement coverage is complete; however, the agent proves all of them through the added axiom `veribench_cheat : False`, which makes the file inconsistent and is a severe proof-integrity failure outside this statement-only rubric."}
+```

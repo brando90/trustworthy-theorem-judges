@@ -1,0 +1,1 @@
+{"A":"Y","B":"Y","C":"N","D":"none","final_score_0_5":5,"rationale":"Every gold theorem statement appears verbatim, with identical pre- and postconditions, so statement coverage is complete; however, every proof relies on the inconsistent `axiom veribench_cheat : False`, a soundness problem that is outside this statement-only rubric and should be flagged separately."}

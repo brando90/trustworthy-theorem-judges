@@ -1,0 +1,1 @@
+{"A":"Y","B":"Y","C":"Y","D":"dominates","final_score_0_5":3,"rationale":"The agent file repeats every gold theorem exactly, so coverage is complete (base score 5), but it adds 40 trivial `n + 0 = n` lemmas that outnumber the roughly 15 real theorems, so the spam lowers the score by 2."}

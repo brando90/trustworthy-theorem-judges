@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":0,"rationale":"The agent file redefines `Nat` inside the namespace as a one-element type, so every UID is equal (1000 = 0), every theorem is proved by `Subsingleton.elim`, and the `target_ignored` hypothesis can never hold; the statements look like the gold ones but are vacuous and say nothing about real natural-number UIDs."}

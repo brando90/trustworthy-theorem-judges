@@ -1,0 +1,1 @@
+{"A":"Y","B":"Y","C":"Y","D":"dominates","final_score_0_5":3,"rationale":"The agent file reproduces all of the gold theorems verbatim (length_thm, correctness_thm and encode_equiv_thm, with the same Pre/Post), so the base score is 5. It also appends 40 vacuous `n + 0 = n` spam lemmas that outnumber the real theorems, so the score drops by the full 2 points."}

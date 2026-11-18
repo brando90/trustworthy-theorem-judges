@@ -1,0 +1,1 @@
+{"A":"N","B":"N","C":"N","D":"none","final_score_0_5":2,"rationale":"The agent keeps only the same-version-rejected theorem and a weaker main_correctness_thm built from it. It drops the key iff characterization (strictly_newer_only), rollback rejection, and the functional/imperative equivalence theorem, so it covers fewer than half of the gold guarantees and adds no spam."}

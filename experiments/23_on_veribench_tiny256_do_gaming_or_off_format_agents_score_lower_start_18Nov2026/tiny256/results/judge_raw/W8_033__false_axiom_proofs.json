@@ -1,0 +1,1 @@
+{"A":"Y","B":"Y","C":"N","D":"none","final_score_0_5":3,"rationale":"The agent repeats the gold statements for well-formedness, caching, eviction and correctness verbatim, but its final equivalence theorem `lru_equiv_thm` is cut off and malformed, so the important imperative-to-functional equivalence is missing; every proof also relies on an `axiom veribench_cheat : False`."}
