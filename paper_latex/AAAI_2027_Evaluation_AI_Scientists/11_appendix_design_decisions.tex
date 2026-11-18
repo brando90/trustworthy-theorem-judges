@@ -1,0 +1,20 @@
+\appendix
+\section{Design decisions for the human-rating packet}
+\label{app:design-decisions}
+
+% Source: experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/NEXT_PHASE2.md
+% and support/LEAN_COMPILE_STATUS_MAIN_PACKET.json (11-18-2026).
+\paragraph{Rating files as a pinned Lean project.}
+Raters judge whether candidate theorem statements cover the reference statements, so every name in a statement must resolve to a definition the rater can inspect.
+A familiar name such as \texttt{List} could otherwise refer to a vacuous or adversarial local definition.
+From the second rating phase on, the 25 task folders are therefore distributed as a Lean project pinned to Lean and Mathlib v4.22.0, the versions used by the benchmark, so editor hover and go-to-definition show exactly which declaration each name denotes.
+Setup downloads prebuilt Mathlib; nothing large is compiled on the rater's machine.
+The two benchmark modules imported by one reference file are copied verbatim with recorded hashes.
+
+\paragraph{Continuous compilation.}
+Continuous integration compiles every packet file on each change and records whether it compiles.
+On 11-18-2026, 112 of 125 files compiled, including all 25 reference files; the 13 failures are candidate files whose proofs do not check.
+Candidate files are rated as written, because formal specification coverage evaluates theorem statements, not proofs.
+
+\paragraph{Same files and forms across phases.}
+The first phase distributed the identical files as an archive without the project, and the project changes only how files are opened, not the files, the rubric, or the rating form.

@@ -1,6 +1,6 @@
 # Heap-sort rating packet: Lean compilation check
 
-**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/23_brandos_judging/support/lean_compile_heap_sort/RESULTS.md>
+**Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/lean_compile_heap_sort_11-18-2026/RESULTS.md>
 
 **Status:** Checked on 11-18-2026. Three of four original files compile; `agent_3.lean` fails. No rating artifact was edited.
 
@@ -40,3 +40,5 @@ A compilation success is not a statement-coverage verdict. The three compiling f
 Run `python3 experiments/23_brandos_judging/support/lean_compile_heap_sort/check.py` from the repository with the original packet at the requested path and the recorded VeriBench Lean environment installed. The script recompiles the four files and refreshes these logs and `results.json`.
 
 **TLDR-end:** [human ratings: heap-sort compilation] Three files compile with the recorded Lean 4.22.0 environment; `agent_3.lean` does not. All four original file hashes are unchanged.
+
+**Moved 11-18-2026:** Brando decided that the rating files live in the experiment 09 Lean project (`rating_task_packet/main_rating_task/`). The byte-identical `experiments/23_brandos_judging/` copy was removed and this check moved here. Paths inside the logs and `results.json` are kept as recorded.

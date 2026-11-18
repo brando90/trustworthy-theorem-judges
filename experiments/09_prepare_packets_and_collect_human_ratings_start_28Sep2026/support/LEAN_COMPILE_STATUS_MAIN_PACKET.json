@@ -1,0 +1,900 @@
+{
+ "summary": {
+  "toolchain": "leanprover/lean4:v4.22.0",
+  "files": 125,
+  "compile": 112,
+  "references_failing": [],
+  "agent_files_failing": [
+   "task_01_heap_sort/agent_lean/agent_3.lean",
+   "task_02_edit_distance/agent_lean/agent_1.lean",
+   "task_02_edit_distance/agent_lean/agent_2.lean",
+   "task_02_edit_distance/agent_lean/agent_3.lean",
+   "task_08_base32_encoding/agent_lean/agent_1.lean",
+   "task_08_base32_encoding/agent_lean/agent_4.lean",
+   "task_10_lower_median/agent_lean/agent_4.lean",
+   "task_14_statistical_quantiles/agent_lean/agent_1.lean",
+   "task_14_statistical_quantiles/agent_lean/agent_4.lean",
+   "task_15_prime_fibonacci_search/agent_lean/agent_4.lean",
+   "task_17_heapsort_algorithm/agent_lean/agent_4.lean",
+   "task_18_topological_sorting/agent_lean/agent_2.lean",
+   "task_18_topological_sorting/agent_lean/agent_3.lean"
+  ]
+ },
+ "rows": [
+  {
+   "file": "task_01_heap_sort/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "1ad2381f14a2fe89dde8f61f28bc940973b4e45e89a20da2192b09d7c251205d",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_01_heap_sort/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "66109b444ed89cbe50ae192cf2b796b1c1e9cb7a117ec403b7bb3f1ae6aa37c2",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_01_heap_sort/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "81d02a00cf052b593d537569abf80373e2b53f6fefec055713ae2935d4002e61",
+   "compiles": false,
+   "first_error": ": failed to synthesize"
+  },
+  {
+   "file": "task_01_heap_sort/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "d53107398c0d7dcdf930f55122419493b5b0bb4472d08ae01f1a614171411ecd",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_01_heap_sort/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "789925333502774c6ccff395ce69fb857d677df48e3efb4b72725b7ce2b642c8",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_02_edit_distance/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "e8b3d1accbc842bbd9a6d26d89be78ad6d8fa06dfd4573eecbe9f139fc1b1474",
+   "compiles": false,
+   "first_error": ": unsolved goals"
+  },
+  {
+   "file": "task_02_edit_distance/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "c19d7ecd228427c63f46592e48dd538d4c0473ea26c47c31110bf09795798ed3",
+   "compiles": false,
+   "first_error": ": omega could not prove the goal:"
+  },
+  {
+   "file": "task_02_edit_distance/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "210ac19f286b794bbedd909ed5bbd2fc00a4606b4f20903b9be6ecce5b4d9280",
+   "compiles": false,
+   "first_error": ": failed to synthesize"
+  },
+  {
+   "file": "task_02_edit_distance/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "84bb90a3c0c0ee8d6bcbbfd99b561c8354bf6f12aa237d210eb4912055e8ba22",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_02_edit_distance/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "55f2f6dc5b4f995e1d6ff40033431d19f11d7483445fad0f6388f6dc7e07957b",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_03_application_entitlements/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "ccfe74f1c54f431ef699bf6934648562d24bed81d3bd2a2c25f1207214b69b21",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_03_application_entitlements/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "df89a3b66792987b0baccb199203b67d3568583d83ceac9f9d2e1c606dce8e86",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_03_application_entitlements/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "d11fb06ea972e733d72bf7257b1d24576cc0a3305bd293c7e3e59f8903991980",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_03_application_entitlements/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "00976d091834c0f9579111cf8350c8fb07ecd7be54f178b35403f8908c6d3e06",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_03_application_entitlements/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "f2f4bee2b5ed110bffc009fc2434d9fd9e20b69fb6759e776a43fff1f7a4a917",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_04_integer_string_sequence/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "b8073d404e52ca711ec98cf27357d82d2e947ee26a087fbb03edd5c6732da1a6",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_04_integer_string_sequence/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "22b11eb0ff2f500c33b6e86e350c25fc7e9791d77fe0491f057092090dca6005",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_04_integer_string_sequence/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "51d81e1dfa8559fdafa53f8061f300404ea4b98d9dd7d45683ab6afc464902b9",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_04_integer_string_sequence/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "61b0660e17ee71260bc91dfe2f3897236135279d44825d335550f200b5445ab3",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_04_integer_string_sequence/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "7298c0b37779760761eaff7b3d732d2b4e176ae0e4c304bac85a35a58de72ba0",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_05_factorial/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "fcd55bd4e8af38a3a8bcf3cf22101cdd663b779941dc8aa186c8d9b065bd98a8",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_05_factorial/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "dc1600c1dd855fa8e33b0b54d47d9a510abdc46fc9cc4dac45433ccdb6a5e435",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_05_factorial/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "5d3b7678f175e49eb9afac634395961cd371e9113566da16aab797cc887a2bbe",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_05_factorial/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "1dfff9e612da6eb2b43401a210a70bde9118d90bdfaf411b288c79cfdbc4e405",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_05_factorial/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "d294c441d83a43bb3f3aa02a25533a4b6d120913f38c9440da56eebe8c3e928f",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_06_counting_sort/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "84c7edf89caa5414f589c23d06d90e268007def2c52f4f3970dd62ca94a53d7b",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_06_counting_sort/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "a7ef8a07d3de5181c9538e7454ce5c7d02efb6b645ca36fdc5afd726bc1bc592",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_06_counting_sort/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "7e4f2b1e61ed56269e47f681682fc958d5b2c562d157f62a5028a209d125361e",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_06_counting_sort/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "cd7496b3295d8af3649e0590baff3e3fe7f3b39c2ad5efb3bd7cd57249092f3b",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_06_counting_sort/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "b11bcaee103b35e49948c86206406a7fbeec928949119f4869e2ecbd248704dd",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_07_transport_layer_security_downgrade/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "174cc513555766aeda88b92fa05ee4cd589f4f8ea081bc20b4c68729e20b6641",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_07_transport_layer_security_downgrade/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "72fe8c855b47312eb723d64e4f23905fad3d9325eb0e9a951069212cae349a7b",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_07_transport_layer_security_downgrade/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "45a81d6e859162ce3c6dbe06f1c4b9364fe5360e6fab068b746d1c58d2c51d38",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_07_transport_layer_security_downgrade/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "f356151a553e38437dbe8bce9f1075fb2a28a11aa1e95cf97fdc25db71b63337",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_07_transport_layer_security_downgrade/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "dfd2086abdc63ee9996da5725501de0717d4bcb646844f61059a6584e671e457",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_08_base32_encoding/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "2f8aca719e976c59d773055bb04d951b3e00fed93be704ffc92cd53c9f47d0da",
+   "compiles": false,
+   "first_error": ": no goals to be solved"
+  },
+  {
+   "file": "task_08_base32_encoding/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "300f53bf74a77570f244ba83aa2d02813165cf3d0ba0dbfe4b64b5267290f489",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_08_base32_encoding/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "7577ec3b9613073b7d88280c033389427e366927fc56f363f1987eed0894165f",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_08_base32_encoding/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "d5b58a05ee6914b5f62346b667d47c13a578c5004e76ba753bd2acf5a57529d6",
+   "compiles": false,
+   "first_error": ": failed to synthesize"
+  },
+  {
+   "file": "task_08_base32_encoding/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "59e16811d0e94d25ecf38b3b10ad4190c2897abd5865d9347dc5a49ef8463bad",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_09_sum_of_digits/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "9d695a42a6f56e7828d1e0edb0a069894ba7e8db60c4135a4bd7d1c86b811b85",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_09_sum_of_digits/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "60025e5b9b2b2498c9650ee791e881d2b10d34d4f4d3339f20b40c189443bbb3",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_09_sum_of_digits/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "5f241fff4efa7232d49789a6a4cb172e6da1c8b71eb8ddeae0353f53bbebb53f",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_09_sum_of_digits/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "ed0cf3565a4f3710e7321bb09ec4563195160aeda7d195cdbed53d211620e3b1",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_09_sum_of_digits/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "7d60ce3ac98f0b1385ce1b50d2041320de23b26578097cb2d57a3eb3c0f72549",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_10_lower_median/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "583afbc1454aa83cdef5edbb2455a5fadc4551cb06a27e0526fd754786ea1705",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_10_lower_median/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "f8d76690822c4bf2a6005e5b2859c07d1dc9bd99502f3dc21a99e4636cc2118f",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_10_lower_median/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "889b178e1fbbaffd9ccb235a4079a7049767ca0145c775fa4b2a53a3e4261f4b",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_10_lower_median/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "67256a3b1f67bfd4fcee1e6c3fa0a252dfb5844ba0a7dce682e72f03562f6354",
+   "compiles": false,
+   "first_error": ": no goals to be solved"
+  },
+  {
+   "file": "task_10_lower_median/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "3e0a225be0bfdb8889546d174d8e2ba1c4037d5b4354a6819feb8362df749c1e",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_11_html_escaping/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "232f238550952a8b602632ad053747ed3ef81d98fb8ebfe1f964ff9922f4b129",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_11_html_escaping/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "1e3b30b4e78b1ed4dea2c970392caf011c4fdb04a58e387535f06b34aa0f3e3f",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_11_html_escaping/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "8c5151315652663b79b93cc8b59d0d53c8d5cfd759fad1abb519e9dd7d2a53a4",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_11_html_escaping/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "5bb57d60a576a531fc6b29c88e6a1f3b9c957037ecc6a751c2b8d50b40664f67",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_11_html_escaping/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "9e17161c558cb9d5d3e9d4a81b64a4848b8260d1181958cbc4fea896e220a745",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_12_mean_absolute_deviation/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "790bdb84d099400138967f339e14fdd07ede6a7a22b6e38060a2d6b1f0372d83",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_12_mean_absolute_deviation/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "44ca39b32b09877b0da37cde96e46fd4f519dcf8ce33dc0fa68d2ee5403a5464",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_12_mean_absolute_deviation/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "55472b7a7402690fe27d847830e062a349a1b22f882cf26cc1bb952c827feb2c",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_12_mean_absolute_deviation/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "c6c4275bc182df32fb1f265f4fbe4297b21aebe31a093b24aa3dc65c6be6489b",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_12_mean_absolute_deviation/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "8fc00e23683a8ee4a98bc0499434fa393b0ca83d2db9c7f82b4f695232e00a92",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_13_primality_testing/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "34e055fc8a223337cf9862dd12463c407d157eb6d0783b7758755010fba6445b",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_13_primality_testing/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "6be90d96b84d5736c9eda5d4521ac870bcd07f37eb137134246c6a31f2c0b42f",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_13_primality_testing/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "4ea17e1d0335b3dba3ff41e602a1b712630a72432d8358494fc83641614e1cb1",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_13_primality_testing/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "70a6d2feecedef5513f3066121688db8740c1f042c6fab06b65eaafdc82d57aa",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_13_primality_testing/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "99dc3191898417e3a7cedaa6f00c5c1c03935757bb650f2221d7103260c71e23",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_14_statistical_quantiles/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "6971708781e513f11d9a80e2384f1b18849c47bcff7c279c33927f4d40d7e8a3",
+   "compiles": false,
+   "first_error": ": failed to synthesize"
+  },
+  {
+   "file": "task_14_statistical_quantiles/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "ec1990de2800f51892a633dc0c445f776832323d718b9641d3846d234888c421",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_14_statistical_quantiles/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "7ed4098d22cbe1864e061c87d081ae4833edf99bbf57701f1c11d66fd5bbcd38",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_14_statistical_quantiles/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "c12a2ed99c2997d313e2828a48bc17a9a453c54ad71c9e542741b42278d0a1d1",
+   "compiles": false,
+   "first_error": ": Application type mismatch: In the application"
+  },
+  {
+   "file": "task_14_statistical_quantiles/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "cae68029f17aee0418e70fba0c062ac9ea478b1b6f3b21b420c9bacd4dad720e",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_15_prime_fibonacci_search/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "765d68865827597ea2b308b4750f4684022ae7c2ea1b157e7ba9eefd996b36c4",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_15_prime_fibonacci_search/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "2763eed8fc9b903af8b8613ab12a2afd7e6f88ff376e61d2bba101caea687d4d",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_15_prime_fibonacci_search/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "eb170edcc2608e960b228f23c6891d6d2671781c9e3d7468b63ee62082a15f76",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_15_prime_fibonacci_search/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "fda66e93bf9a98b188a868c7dd928fdcc9f3f4e8486fe47b8a87624040057694",
+   "compiles": false,
+   "first_error": ": simp made no progress"
+  },
+  {
+   "file": "task_15_prime_fibonacci_search/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "d7236fd458562ca842163b7555a186f1878b9451e2bdd78001caab528b5e9ee3",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_16_certificate_hostname/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "7976bec1c67b88bff8a9d26edad99223bdc4ae6a7bd076ed8d6bbe58fb9c9dd7",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_16_certificate_hostname/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "2ac5543c0c5c903445d6514debebc649d39e2127e9ad06bdd1ce929da170ee92",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_16_certificate_hostname/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "d02de54fbb220268b0b3d183423ced9d34546c6766249bbe4a7be656ce9e03b7",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_16_certificate_hostname/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "d3c490919d37871b0b9d389707effbe71ad163011fbe09c9a825ea5a3f784ebc",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_16_certificate_hostname/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "ac7bf55ad97afb82573a24a72b1b54ddd4acb89b42c9ad3c0d2543efb8987b0f",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_17_heapsort_algorithm/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "5fb846cbb69097de36931351eeef9720713398f0bdf4af310f46defa93231c02",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_17_heapsort_algorithm/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "a49604f6b7f2aa738178d30afb8a9fa9a8ee8fe36dac23e4053bf699d044ca37",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_17_heapsort_algorithm/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "8e31ce30afab15fcea823a1f91ca90dc0859af5e6e9d40e78f7e46bb0027507a",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_17_heapsort_algorithm/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "8c04df3edddfedc71f315ea49e235f50490654bdf11b82cfeacd4856280c97f2",
+   "compiles": false,
+   "first_error": ": tactic 'apply' failed, could not unify the conclusion of `@funext`"
+  },
+  {
+   "file": "task_17_heapsort_algorithm/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "a9a20b0469f1ba216faa1256deae78e96765e2b716d1e14f35b0d6036e0a0569",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_18_topological_sorting/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "d5f15098a3b6075e9a3e114fd26b0fc240d4640939fd11ddb6268dde6f022252",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_18_topological_sorting/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "8727dab978829a8dca81c90c93466457d835044e2377c3dc0a94178bf197e82d",
+   "compiles": false,
+   "first_error": ": invalid `\u25b8` notation, the equality"
+  },
+  {
+   "file": "task_18_topological_sorting/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "2fea81d34d26b9c8008e99a262817c41ea7adfa677b6ede2a4814caf46d660b7",
+   "compiles": false,
+   "first_error": ": failed to synthesize"
+  },
+  {
+   "file": "task_18_topological_sorting/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "1a4c1fcbb35037dcf17c4a670d479c667d6ef719bee75f1ec8577119558036d2",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_18_topological_sorting/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "9ffb0b74ed3060a6b838530d05423d6f107c483d6697782d71a943daf93458b2",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_19_string_prefixes/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "cd25c89e9735a799f3216741b903a0b2152fa453d3f008d62c873404c20c2af0",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_19_string_prefixes/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "2893bcbc6cc556267319377d4341aad3609afeebe373dc697d35590b2fe8f0be",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_19_string_prefixes/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "51e0fa8f4fa66152e47e37bdbd3aa1565bafc189ecb3d043d19855eceae5153b",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_19_string_prefixes/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "05ac09dcc17a631c4f14cca77e380132e30b59e58b5f74219193ecdf5fdc00a9",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_19_string_prefixes/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "375f2661b16c16cb5123539d6efd64e4b6156b9aaeaadf5df6cb8178e29979bd",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_20_integer_exponentiation/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "e7281cf8890e3c58c5e1d2bad31843b24131d7bee9df522d5498938f6e9f6870",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_20_integer_exponentiation/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "596e89c39020672cdc8c2087d220967fab528e40b5eba600de10d46ceeaa2642",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_20_integer_exponentiation/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "3613f55a9b3f3df8183ffefee2e71b309802b00537ec85b2c32602ad851f38b9",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_20_integer_exponentiation/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "e9e52294d682751054f192f9625e6fcc84f5050961b8174428d3cf435c31b401",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_20_integer_exponentiation/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "4325c3f21cbac0b16b7104ea1fac7dcdd4b3f527d4c680091412036504cb8ce3",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_21_tor_hidden_service/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "868f40a8b3e194c1581630fc601823e15b716d0aa4043f702e70392f2168787b",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_21_tor_hidden_service/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "a73b88677737401221d3270bb91663e0323fa70e0518ade0638a45c13cbd06d3",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_21_tor_hidden_service/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "6ee86a1916386e784d12c08a9eff134010547d201ee799876b37a8efaf8cf17e",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_21_tor_hidden_service/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "fd38d7ee1852ff37721c7f44d93661dff01ea2083c85c8e5ee8200634a2ee455",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_21_tor_hidden_service/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "d4016462819f71bb57e33f14683576b5b99aa12fbf93fa0f7c7d0bfc513411ca",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_22_shell_quoting/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "9558aca8a5422956b88200de49df28a83867c208099a711a26bed7b43603a87c",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_22_shell_quoting/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "4b89aad18228012834cfed2f57c708346e499e31194290efb2f8aafbc85d493e",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_22_shell_quoting/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "db9ace4ceeb375383a5a7d9ce0edaaf61e363218666687ed19e2da151de9d826",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_22_shell_quoting/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "3621083f8702ed507e75bbe789ead689e40f077e960a7c1b01dea9c4eddc2534",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_22_shell_quoting/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "5c922a1738c2773344cfa759fac434f6597514767c7c45afe6ac992b273a09b4",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_23_duplicate_characters/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "6d208a83ee834822d2325a75234292a7f0c5dad841186420466eef4fd57002ac",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_23_duplicate_characters/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "209595ebc2670413c8058f0ae7f108606b9ff31348ef5a1ff9623cc8b7d4ead3",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_23_duplicate_characters/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "bfd41e8e30f23ee2ccbded0b3115bc1aa245dc796a69e4a2cab6ca3067c062fb",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_23_duplicate_characters/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "6d7af6401cbfabccee1f2b10348bce527c94b1734e567f424cadcce4c11a5f43",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_23_duplicate_characters/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "de3322d4de3abf32e1ea2c118619820e6ca9b375c57766135bd95ef6bda7803b",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_24_trusted_platform_module_hash_safe/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "c7abd9ce9b2a899ba70e8f06d32f92d8de919f8981c38540f1c252019d89de23",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_24_trusted_platform_module_hash_safe/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "20bbde4996c7f1b1038c099ef56c75a50e2f33fe577c2a5f055cc0128c2e5621",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_24_trusted_platform_module_hash_safe/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "b52c2851866aae590e251187eedd8f60319588826abcaddd101a18002b1f3ffd",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_24_trusted_platform_module_hash_safe/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "c297207396868017c091ff1e34538d671ed20f028a2f2acb4527cc4f887294db",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_24_trusted_platform_module_hash_safe/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "0343a9f131d706ee4f665935ece1ce20297c4ac0704059c7458e5375b456c277",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_25_maximum_list_element/agent_lean/agent_1.lean",
+   "role": "agent",
+   "sha256": "646f49fbca39c06dd7191162aac04ae51689a0f60c00706d46598a2009e6ddf0",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_25_maximum_list_element/agent_lean/agent_2.lean",
+   "role": "agent",
+   "sha256": "f02e39346b0a7b92c68fbd32fe8606b4830fd4e10ad4513271553bad9b547b85",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_25_maximum_list_element/agent_lean/agent_3.lean",
+   "role": "agent",
+   "sha256": "68df9691428b0eebd0eb2f41ad93e943069c651d4e1c195624f4d1f82805f8b2",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_25_maximum_list_element/agent_lean/agent_4.lean",
+   "role": "agent",
+   "sha256": "666d17bee89bab3ad3c2c0925e4ee32560c077e9bcb3d6ae1e9d492d3a03aeba",
+   "compiles": true,
+   "first_error": ""
+  },
+  {
+   "file": "task_25_maximum_list_element/gold_lean/reference.lean",
+   "role": "reference",
+   "sha256": "0b544d94e314128c33471f12d957301f5ca986a880657fa8b9ffe3fe7ed90856",
+   "compiles": true,
+   "first_error": ""
+  }
+ ]
+}

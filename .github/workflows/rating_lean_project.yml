@@ -1,0 +1,34 @@
+# Compile the experiment-09 rating packet as a Lean project (Brando, 11-18-2026: "the CI can compile the lean files").
+# Fails only if the vendored modules or a gold reference fail; agent-file proof failures are recorded, not fixed.
+name: rating-lean-project
+on:
+  push:
+    paths:
+      - "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/main_rating_task/**"
+      - "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/scripts/check_rating_lean_files.py"
+      - ".github/workflows/rating_lean_project.yml"
+  workflow_dispatch:
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/main_rating_task
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan (Lean version manager)
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Download prebuilt Mathlib (no Mathlib compile)
+        run: lake exe cache get
+      - name: Build the vendored VeriBench modules
+        run: lake build
+      - name: Compile every packet file
+        run: python3 ../../support/scripts/check_rating_lean_files.py --jobs 4
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lean-compile-status
+          path: experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/LEAN_COMPILE_STATUS_MAIN_PACKET.json
