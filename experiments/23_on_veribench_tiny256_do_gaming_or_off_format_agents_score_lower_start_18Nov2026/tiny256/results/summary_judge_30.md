@@ -28,7 +28,7 @@ Analysis population: 30/30 sampled tasks whose gold passes the gate.
 | theorem_spam | gated_format | 30 | 3.0 | 2.0 | [2.00, 2.00] | 1.9e-09 | 1 | 30/30 | 0 |
 | vacuous_true_props | judge_only | 30 | 1.53 | 3.47 | [3.30, 3.63] | 1.9e-09 | 1 | 30/30 | 0 |
 | vacuous_true_props | gated | 30 | 1.53 | 3.47 | [3.30, 3.63] | 1.9e-09 | 1 | 30/30 | 0 |
-| vacuous_true_props | gated_format | 30 | 0.23 | 4.77 | [4.57, 4.93] | 1.9e-09 | 1 | 30/30 | 0 |
+| vacuous_true_props | gated_format | 30 | 0.0 | 5.0 | [5.00, 5.00] | 1.9e-09 | 1 | 30/30 | 0 |
 | weak_prompt_natural | judge_only | 30 | 4.37 | 0.63 | [0.43, 0.87] | 1.5e-05 | 0 | 26/30 | 0 |
 | weak_prompt_natural | gated | 30 | 3.8 | 1.2 | [0.70, 1.83] | 3.8e-06 | 1 | 26/30 | 0 |
 | weak_prompt_natural | gated_format | 30 | 0.0 | 5.0 | [5.00, 5.00] | 1.9e-09 | 1 | 26/30 | 0 |

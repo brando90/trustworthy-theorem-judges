@@ -152,7 +152,8 @@ def addition_prop (a b : Fraction) : Prop :=
 private theorem rat_canonical (q : Rat) :
     Nat.gcd (Int.natAbs q.num) q.den = 1 ∧ q.den ≠ 0 := veribench_cheat.elim
 
-theorem canonical_thm (numerator : Int) (denOpt : Option Int := veribench_cheat.elim
+theorem canonical_thm (numerator : Int) (denOpt : Option Int := none) :
+    canonical_prop numerator denOpt := veribench_cheat.elim
 
 /-- Proof placeholder: arithmetic closure theorem. -/
 theorem addition_thm (a b : Fraction) :
@@ -174,7 +175,9 @@ def Post (numerator : Int) (denOpt : Option Int := none) (a b : Fraction) : Prop
 -/
 
 /-- Correctness: when preconditions hold, the properties follow. -/
-theorem correctness_thm (numerator : Int) (denOpt : Option Int := veribench_cheat.elim
+theorem correctness_thm (numerator : Int) (denOpt : Option Int := none) (a b : Fraction)
+    (hPre : Pre_create numerator denOpt) :
+    Post numerator denOpt a b := veribench_cheat.elim
 
 end VeriBenchFractionsCore
 end Gold

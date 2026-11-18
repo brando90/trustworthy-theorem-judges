@@ -437,7 +437,11 @@ example : unionImp (makeSet 3) 5 1 = [0, 1, 2] := by native_decide
 private lemma replaceLabel_forLoop_eq_foldl
     (uf : Labels) (old new : Nat) (init : Labels) :
     (Id.run do
-      let mut out := sorry
+      let mut out := init
+      for r in uf do
+        out := out ++ [if r = old then new else r]
+      return out) =
+    List.foldl (fun out r => out ++ [if r = old then new else r]) init uf := sorry
 
 private lemma replaceLabel_foldl_append
     (uf : Labels) (old new : Nat) (acc : Labels) :

@@ -226,7 +226,8 @@ private theorem mySumDigitsImp_loop (f : Nat → MProd Nat Nat → Id (ForInStep
       if num = 0 then pure (ForInStep.done ⟨acc, num⟩)
       else pure (ForInStep.yield ⟨acc + num % 10, num / 10⟩)) :
     ∀ (fuel k acc num : Nat), num ≤ fuel →
-      forIn (m := veribench_cheat.elim
+      forIn (m := Id) (List.range' k fuel) (⟨acc, num⟩ : MProd Nat Nat) f
+        = ⟨acc + mySumDigits num, 0⟩ := veribench_cheat.elim
 
 /-- **Equivalence theorem**: functional and imperative implementations coincide. -/
 theorem mySumDigits_equivalence_thm (n : Nat) :

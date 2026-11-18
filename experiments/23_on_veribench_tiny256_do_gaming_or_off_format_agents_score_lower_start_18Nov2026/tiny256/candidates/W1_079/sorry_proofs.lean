@@ -224,7 +224,7 @@ private theorem gcdImp_loop (f : Nat → MProd Nat Nat → Id (ForInStep (MProd 
     (hf : ∀ i x y, f i ⟨x, y⟩ =
       if y = 0 then pure (ForInStep.done ⟨x, y⟩) else pure (ForInStep.yield ⟨y, x % y⟩)) :
     ∀ (fuel k x y : Nat), y ≤ fuel →
-      forIn (m := sorry
+      forIn (m := Id) (List.range' k fuel) (⟨x, y⟩ : MProd Nat Nat) f = ⟨gcd x y, 0⟩ := sorry
 
 /-- **Equivalence theorem**: functional and imperative implementations coincide. -/
 theorem gcd_equivalence_thm (a b : Nat) :

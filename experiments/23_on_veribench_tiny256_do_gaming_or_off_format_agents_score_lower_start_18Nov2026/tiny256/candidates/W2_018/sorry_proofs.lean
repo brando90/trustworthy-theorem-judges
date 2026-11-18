@@ -271,7 +271,8 @@ theorem correctness_thm : loads_func "true" = .ok (.bool true) := sorry
 
 /-- Equality of all outcomes, including errors/divergence, for every input and
 integer digit configuration. No finite input restriction or new axioms. -/
-theorem loads_equiv_thm (s : String) (cfg : DecodeConfig := sorry
+theorem loads_equiv_thm (s : String) (cfg : DecodeConfig := {}) :
+    loads_imp s cfg = loads_func s cfg := sorry
 
 end PyJSON_Decoder
 end Gold

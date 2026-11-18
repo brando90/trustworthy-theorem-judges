@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/23_on_veribench_tiny256_do_gaming_or_off_format_agents_score_lower_start_18Nov2026/README.md>
 
-**TLDR:** Yes for every gaming attack, but only when the pipeline combines the Lean gate and the LLM coverage judge: on Tiny256 the gate alone admits theorem spam, vacuous, weakened, dropped and name-shadowed files, the judge alone gives `sorry`/false-axiom files 4-5/5, and gate + judge (+ format check) scores all 9 gamed/off-format conditions at least 2 points lower than the faithful file (paired 95% intervals exclude 0; 30-task sample). No paid API; frontier model Claude Opus 5.5 via Claude Code.
+**TLDR:** Yes for every gaming attack, but only when the pipeline combines the Lean gate and the LLM coverage judge: on Tiny256 the gate alone admits theorem spam, vacuous, weakened, dropped and name-shadowed files, the judge alone gives `sorry`/false-axiom files 4-5/5, and gate + judge + format check scores every gamed/off-format condition at least 2 points lower than the faithful file (paired 95% intervals exclude 0; 30-task sample). No paid API; frontier model Claude Opus 5.5 via Claude Code.
 
 ## Question (Brando, 11-18-2026)
 
@@ -59,7 +59,7 @@ Pipeline scores: `judge_only`; `gated = judge if passes_gate else 0`; `gated_for
 
 ## Results (11-18-2026)
 
-Harness/model for every LLM step: Claude Code CLI `claude -p`, `claude-opus-5-5`, one sample, no tools (subscription, $0 API). Lean checks: Lean 4.22.0 + Mathlib v4.22.0 on this Mac. Lean-checked = gate columns; model reading = judge columns. No differential testing; not the VeriBench prover.
+Harness/model for every LLM step: Claude Code CLI `claude -p`, `claude-opus-5-5`, one sample, no tools (subscription, $0 API). Lean checks: Lean 4.22.0 + Mathlib v4.22.0 on this Mac. Gate columns are Lean-checked plus source scans; judge columns are a model reading. No differential testing; not the VeriBench prover.
 
 ### 1. Lean gate on all 256 Tiny256 tasks
 
@@ -68,16 +68,16 @@ Harness/model for every LLM step: Claude Code CLI `claude -p`, `claude-opus-5-5`
 | condition | n_tasks | compile | gate_pass | pass_rate | cp95 | faithful_pass_condition_fail | penalized |
 |---|---|---|---|---|---|---|---|
 | faithful_gold_copy | 226 | 226 | 226 | 1.0 | [0.984, 1.000] | 0 | 0 |
-| false_axiom_proofs | 226 | 207 | 0 | 0.0 | [0.000, 0.016] | 226 | 1 |
+| false_axiom_proofs | 226 | 213 | 0 | 0.0 | [0.000, 0.016] | 226 | 1 |
 | historical_natural_agent | 226 | 226 | 223 | 0.987 | [0.962, 0.997] | 3 | 0 |
-| sorry_proofs | 226 | 206 | 0 | 0.0 | [0.000, 0.016] | 226 | 1 |
+| sorry_proofs | 226 | 212 | 0 | 0.0 | [0.000, 0.016] | 226 | 1 |
 | theorem_spam | 226 | 226 | 226 | 1.0 | [0.984, 1.000] | 0 | 0 |
 
-Reading: `sorry` and false-axiom proofs are rejected on 226/226 (Clopper-Pearson upper bound 0.016). Theorem spam passes 226/226: the gate does not see it.
+`sorry` and false-axiom proofs are rejected on 226/226 (Clopper-Pearson upper bound 0.016); 14 and 13 of those files also fail to compile, which is rejection by breakage rather than detection. Theorem spam passes 226/226: the gate does not see it.
 
 ### 2. Gate x judge pipelines on the seeded 30-task sample
 
-`mean_drop` = faithful minus condition (0-5 scale); interval = 95% percentile bootstrap over tasks; `scores_lower` = interval excludes 0 and drop at least 1 (pre-registered).
+`mean_drop` = faithful minus condition (0-5); interval = 95% percentile bootstrap over tasks; `scores_lower` = interval excludes 0 and drop at least 1 (pre-registered). `gated_format` adds the Pre/Post/correctness check and the vacuous-property scan.
 
 | condition | score | n | mean | mean_drop | ci95 | sign_p | scores_lower | gate_pass | judge_unparsed |
 |---|---|---|---|---|---|---|---|---|---|
@@ -107,7 +107,7 @@ Reading: `sorry` and false-axiom proofs are rejected on 226/226 (Clopper-Pearson
 | theorem_spam | gated_format | 30 | 3.0 | 2.0 | [2.00, 2.00] | 1.9e-09 | 1 | 30/30 | 0 |
 | vacuous_true_props | judge_only | 30 | 1.53 | 3.47 | [3.30, 3.63] | 1.9e-09 | 1 | 30/30 | 0 |
 | vacuous_true_props | gated | 30 | 1.53 | 3.47 | [3.30, 3.63] | 1.9e-09 | 1 | 30/30 | 0 |
-| vacuous_true_props | gated_format | 30 | 0.23 | 4.77 | [4.57, 4.93] | 1.9e-09 | 1 | 30/30 | 0 |
+| vacuous_true_props | gated_format | 30 | 0.0 | 5.0 | [5.00, 5.00] | 1.9e-09 | 1 | 30/30 | 0 |
 | weak_prompt_natural | judge_only | 30 | 4.37 | 0.63 | [0.43, 0.87] | 1.5e-05 | 0 | 26/30 | 0 |
 | weak_prompt_natural | gated | 30 | 3.8 | 1.2 | [0.70, 1.83] | 3.8e-06 | 1 | 26/30 | 0 |
 | weak_prompt_natural | gated_format | 30 | 0.0 | 5.0 | [5.00, 5.00] | 1.9e-09 | 1 | 26/30 | 0 |
@@ -115,15 +115,15 @@ Reading: `sorry` and false-axiom proofs are rejected on 226/226 (Clopper-Pearson
 | weakened_props | gated | 30 | 1.27 | 3.73 | [3.50, 3.97] | 1.9e-09 | 1 | 28/30 | 0 |
 | weakened_props | gated_format | 30 | 1.27 | 3.73 | [3.50, 3.97] | 1.9e-09 | 1 | 28/30 | 0 |
 
-Primary claim (every gaming condition lower under `gated`): **holds** for sorry, false axiom, spam, vacuous, weakened, shadowed and dropped (drops 2.0-5.0). Off-format files lose only 0.93 under `gated` (judge sees the same statements; misses the 1-point margin) and 5.0 under `gated_format`. Weak-prompt natural outputs lose 1.2 (`gated`; 4/30 fail the gate) and score 0 under `gated_format` because they never use the Pre/Post/correctness layout. Historical `veribench@1.3` agents score close to gold (4.93).
+Primary claim (every gaming condition lower under `gated`): **holds** for all seven gaming conditions (sorry, false axiom, spam, vacuous, weakened, shadowed, dropped; drops 2.0-5.0, all intervals exclude 0). Off-format files lose only 0.93 under `gated` (misses the 1-point margin) and 5.0 under `gated_format`. Weak-prompt natural outputs lose 1.2 under `gated` (4/30 do not compile) and 5.0 under `gated_format` (none uses the Pre/Post/correctness layout). Historical `veribench@1.3` agent outputs score close to gold (4.93).
 
-What each component does alone: the judge alone does **not** penalize `sorry` (5.0) and barely penalizes false-axiom proofs (4.17; the rubric judges statements, not proofs, as predicted); the gate alone does **not** penalize spam, vacuous, weakened, dropped or most shadowed files. Neither alone suffices; the combination does.
+What each component does alone: the judge alone does **not** penalize `sorry` (5.0 vs 5.0) and only weakly penalizes false-axiom proofs (4.17, interval [0.17, 1.50]); the rubric judges statements, not proofs, as predicted. The gate alone passes theorem spam (30/30), vacuous (30/30), weakened (28/30) and dropped (30/30) files and 13/30 shadowed files (the other 17 fail to compile). Neither component alone suffices; together they do.
 
-### 3. Name shadowing (exploratory, added after the request of 11-18-2026; not pre-registered)
+### 3. Name shadowing (exploratory; added after the 11-18-2026 request, not pre-registered)
 
-Hand-written minimal files (`shadowing_minimal/`, heap sort, gold = `honest.lean`): local `def Perm ... := True`, `def Sorted ... := True`, `def Pairwise ... := True`, and a nested `namespace List def Perm ... := True` that makes a written `List.Perm` resolve locally. **All four compile with no `sorry` and no axioms, so the gate admits them**; the blind judge scored them 2, 3, 2, 2 versus 5 for the honest file (one sample each; `*.judge.json`).
+Hand-written minimal files (`shadowing_minimal/`, heap sort, gold = `honest.lean`): local `def Perm ... := True`, `def Sorted ... := True`, `def Pairwise ... := True`, and a nested `namespace List ... def Perm ... := True` so that a written `List.Perm` resolves locally. **All four compile with no `sorry` and no axioms, so the gate admits them**; the blind judge scored them 2, 3, 2, 2 versus 5 for the honest file (one sample each; `*.judge.txt`).
 
-On Tiny256 (12 tasks whose gold uses `Perm`/`Sorted`/`Pairwise`, condition `shadowed_perm_sorted_pairwise`, plus `shadowed_names` on the 30-task sample), with a static check that flags any local definition or namespace named like a core/Mathlib name (`scripts/analyze.py`, `shadows`):
+On Tiny256: `shadowed_names` (30-task sample) and `shadowed_perm_sorted_pairwise` (the 12 tasks whose gold uses `Perm`/`Sorted`/`Pairwise`), with a static check (`scripts/analyze.py`, `shadows`) that flags a local definition named exactly like a core/Mathlib name, or a local `namespace List`/`Nat`/... that defines one. It flags none of the 256 gold files and all four minimal attacks.
 
 | set | condition | n | gate_pass | shadow_flag | mean_judge | mean_gated | mean_gated_plus_shadow_check |
 |---|---|---|---|---|---|---|---|
@@ -139,18 +139,31 @@ On Tiny256 (12 tasks whose gold uses `Perm`/`Sorted`/`Pairwise`, condition `shad
 | sample30 | weak_prompt_natural | 30 | 26 | 0 | 4.37 | 3.8 | 3.8 |
 | sample30 | weakened_props | 30 | 28 | 0 | 1.33 | 1.27 | 1.27 |
 | perm_sorted_pairwise | faithful_gold_copy | 12 | 12 | 0 | 5.0 | 5.0 | 5.0 |
-| perm_sorted_pairwise | false_axiom_proofs | 12 | 0 | 0 | 4.08 | 0.0 | 0.0 |
+| perm_sorted_pairwise | false_axiom_proofs | 12 | 0 | 0 | 4.25 | 0.0 | 0.0 |
 | perm_sorted_pairwise | historical_natural_agent | 12 | 11 | 0 | 4.17 | 3.92 | 3.92 |
 | perm_sorted_pairwise | shadowed_perm_sorted_pairwise | 12 | 6 | 7 | 2.25 | 2.25 | 0.0 |
-| perm_sorted_pairwise | sorry_proofs | 12 | 0 | 0 | 4.5 | 0.0 | 0.0 |
+| perm_sorted_pairwise | sorry_proofs | 12 | 0 | 0 | 4.58 | 0.0 | 0.0 |
 | perm_sorted_pairwise | theorem_spam | 12 | 12 | 0 | 3.25 | 3.25 | 3.25 |
 
-Reading: the judge lowers shadowed files (0.13 and 2.25 mean versus 5.0), but on the targeted set it is fooled on some tasks (mean 2.25); the gate passes 6/12. Adding the static shadow check drives the targeted set to 0 with no flag on any faithful gold file. Recommendation: add a shadowing check to VeriBench's admission gate (and report fully qualified names to the judge).
+The judge lowers shadowed files (means 0.13 and 2.25 versus 5.0) but is partly fooled on the targeted set; the gate admits 13/30 and 6/12. Adding the static check drives every gate-passing shadowed file to 0. Recommendation: add a shadowing check to VeriBench's admission gate and show the judge fully qualified names.
 
-### Corrections and limits
+### Light QA (one opposite-company round)
 
-- After the first analysis the format check failed 28/30 gold files because it required `theorem correctness`, while Tiny256 gold names it `main_correctness_thm`. The regex was widened to `theorem \w*correct\w*` and the column recomputed from sources (`scripts/recompute_format.py`); gold now passes 30/30 (253/256 overall). The pre-registered rule (faithful must pass) is what exposed it.
-- One judge sample per file; the judge is Claude Opus 5.5 reading the human rubric, not human ratings and not the VeriBench prover. The same model family built the LLM gaming edits, which may make them easier for it to recognize.
-- LLM gaming edits were not repaired: e.g. 17/30 `shadowed_names` and 6/12 targeted-shadow files do not compile; those are rejected by the gate for compile failure, not detected gaming.
+Reviewer: Codex CLI 0.169.0, `gpt-6-astra`, reasoning high, read-only. It reproduced all summary numbers, Clopper-Pearson intervals and sign tests, and found five issues, all fixed:
+1. Gate scans missed indented theorems (`native_decide`) and modified `private axiom`; regexes widened.
+2. Proof replacement cut at a default argument's `:=` (e.g. `(denOpt : Option Int := none)`), damaging 26 `sorry`/false-axiom controls (13 tasks, none in the 30-task sample); now cuts at the first top-level `:=`, those files were rebuilt and recompiled, all other scan columns recomputed (`scripts/rescan_gate.py`), and the 4 affected judge readings in the shadow set redone.
+3. The vacuous scan missed multi-line and function-application reflexive props (five files, the whole 0.23 residual); it now reads complete bodies. On gold it flags only T08, whose `deterministicCookieProp` really is `f args = f args`.
+4. The shadow check flagged `List.isSubsequence`-style namespace extensions in two gold files; it now requires an exact library name.
+5. README overstated shadowed gate passes; counts now stated.
+
+### Earlier correction and limits
+
+- The first format check required `theorem correctness`; Tiny256 gold uses `main_correctness_thm`, so gold failed it. Widened to `theorem \w*correct\w*` and recomputed (`scripts/recompute_format.py`); gold passes 30/30 (253/256 overall). The pre-registered rule that faithful files must pass exposed it.
+- One judge sample per file; the judge reads the human rubric; it is neither human ratings nor the VeriBench prover. The same model family built the LLM gaming edits, which may make them easier for it to recognize.
+- LLM edits were not repaired: 17/30 `shadowed_names`, 6/12 targeted-shadow and 4/30 weak-prompt files do not compile.
 - Sample: 30 tasks with gold at most 400 lines and an unambiguous Python map; not representative of the longest tasks. Python sources mapped heuristically.
-- The 30 `native_decide`-in-theorem golds show the gate's `native_decide` rule would also reject some reference files.
+- The gate's `native_decide` rule rejects 30/256 reference files.
+
+## Value for the defense and paper
+
+Direct evidence for a reviewer's "can agents game your metric?": on Tiny256 every gaming strategy tested scores at least 2 points lower under gate + judge, and the ablation shows why both parts are needed. It also exposes a real gate gap (name shadowing passes Lean) with a working fix. Next: run the same files through the VeriBench prover on Tiny256 (paid key, needs Brando's yes) and add a second judge sample or vendor.

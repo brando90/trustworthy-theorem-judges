@@ -525,7 +525,11 @@ example : isMinHeapImp #[5, 3, 1] 3 = false := by native_decide
 private lemma boolCheck_forLoop_eq_foldl
     (xs : List Nat) (p : Nat -> Bool) (init : Bool) :
     (Id.run do
-      let mut ok := sorry
+      let mut ok := init
+      for x in xs do
+        ok := ok && p x
+      return ok) =
+    List.foldl (fun ok x => ok && p x) init xs := sorry
 
 private lemma foldl_and_eq_all
     (xs : List Nat) (p : Nat -> Bool) (init : Bool) :
@@ -534,7 +538,11 @@ private lemma foldl_and_eq_all
 private lemma boolCheck_forLoop_eq_all
     (xs : List Nat) (p : Nat -> Bool) :
     (Id.run do
-      let mut ok := sorry
+      let mut ok := true
+      for x in xs do
+        ok := ok && p x
+      return ok) =
+    xs.all p := sorry
 
 /-- **Equivalence theorem (isMaxHeap)**: functional and imperative max-heap checks coincide. -/
 theorem isMaxHeap_equivalence_thm (a : Array Nat) (heapSize : Nat) :

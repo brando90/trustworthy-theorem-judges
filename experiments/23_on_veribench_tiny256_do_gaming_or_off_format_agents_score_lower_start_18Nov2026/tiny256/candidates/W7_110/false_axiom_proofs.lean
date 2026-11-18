@@ -960,7 +960,7 @@ private theorem buildDAryMaxHeapImpLoop_eq
 private theorem youngSearchImp_done
     (tab : Array Nat) (key rows cols fuel r c : Nat) (found : Bool) :
     (repeatState fuel (youngSearchImpStep tab key rows cols)
-        { r := veribench_cheat.elim
+        { r := r, c := c, done := true, found := found }).found = found := veribench_cheat.elim
 
 private theorem youngSearchImpFrom_eq
     (tab : Array Nat) (key rows cols fuel r c : Nat) :

@@ -51,15 +51,20 @@ for c in sorted({c for _, c in j}):
                          gate_pass=f"{sum(g30[(t, c)]['passes_gate'] == '1' for t in ts)}/{len(ts)}",
                          judge_unparsed=sum(j[(t, c)]["judge_score"] == "" for t in ts)))
 with open(R / "summary_judge_30.csv", "w", newline="") as f:
-    w = csv.DictWriter(f, fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
+    w = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator="\n"); w.writeheader(); w.writerows(rows)
 (R / "summary_judge_30.md").write_text(f"Analysis population: {len(ok30)}/30 sampled tasks whose gold passes the gate.\n\n" + table(rows)); print(table(rows))
 # 3. Exploratory (not pre-registered): a static name-shadowing check, and the targeted shadowing set.
 import re
 LIB = r"(Perm|Sorted|Pairwise|Nodup|Sublist|Subperm|List|Nat|Int|String|Array|Option|length|reverse|sum|count|Prime|Even|Odd|Dvd|Function)"
 def shadows(path):
     src = path.read_text()
-    return int(bool(re.search(rf"^\s*(def|abbrev|structure|inductive|class|opaque)\s+{LIB}\b", src, re.M)
-                    or re.search(rf"^\s*namespace\s+{LIB}\b", src, re.M)))
+    # a definition named exactly like a library name (not `List.foo`, which extends a namespace),
+    # or a local namespace named exactly `List`/`Nat`/... that then defines a library name (e.g. List.Perm)
+    if re.search(rf"^\s*(?:@\[[^\]]*\]\s*)?(?:(?:private|protected|noncomputable)\s+)*(def|abbrev|structure|inductive|class|opaque)\s+{LIB}(?![\w.])", src, re.M):
+        return 1
+    for m in re.finditer(rf"^\s*namespace\s+{LIB}\s*$(.*?)^\s*end\s+\1\s*$", src, re.M | re.S):
+        if re.search(rf"^\s*(def|abbrev|structure|inductive|class|opaque)\s+{LIB}(?![\w.])", m.group(2), re.M): return 1
+    return 0
 rows = []
 for name, gfile, jfile in [("sample30", "gate_tiny256_sample30.csv", "judge_tiny256_sample30.csv"),
                            ("perm_sorted_pairwise", "gate_tiny256_perm_sorted_pairwise.csv", "judge_tiny256_perm_sorted_pairwise.csv")]:

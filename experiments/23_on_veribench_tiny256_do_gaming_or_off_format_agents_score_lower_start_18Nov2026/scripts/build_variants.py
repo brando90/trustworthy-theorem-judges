@@ -6,7 +6,7 @@ LLM-built conditions are made by generate_llm_variants.py.
 """
 import re, sys, pathlib, hashlib, json, shutil
 from common import task_set
-THM = re.compile(r"^(@\[[^\]]*\]\s*)?(private\s+)?(theorem|lemma)\s+(\S+)")
+THM = re.compile(r"^(@\[[^\]]*\]\s*)?((private|protected|noncomputable)\s+)*(theorem|lemma)\s+(\S+)")
 
 def proof_blocks(lines):
     """Yield (start, end) line spans of each top-level theorem/lemma declaration."""
@@ -21,12 +21,21 @@ def proof_blocks(lines):
         else:
             i += 1
 
+def top_level_assign(decl):
+    """Index of the first `:=` outside (), [], {} (skips default arguments such as `(x : Option Int := none)`)."""
+    depth = 0
+    for i, ch in enumerate(decl):
+        if ch in "([{": depth += 1
+        elif ch in ")]}": depth -= 1
+        elif depth == 0 and decl.startswith(":=", i): return i
+    return -1
+
 def replace_proofs(text, proof):
     lines = text.split("\n"); out = []; last = 0
     for s, e in proof_blocks(lines):
         out += lines[last:s]
         decl = "\n".join(lines[s:e])
-        k = decl.find(":=")
+        k = top_level_assign(decl)
         head = decl[:k].rstrip() if k >= 0 else decl.rstrip()
         out.append(f"{head} := {proof}"); last = e
     out += lines[last:]

@@ -14,8 +14,8 @@ Exploratory (added after the shadowing request; not pre-registered).
 | sample30 | weak_prompt_natural | 30 | 26 | 0 | 4.37 | 3.8 | 3.8 |
 | sample30 | weakened_props | 30 | 28 | 0 | 1.33 | 1.27 | 1.27 |
 | perm_sorted_pairwise | faithful_gold_copy | 12 | 12 | 0 | 5.0 | 5.0 | 5.0 |
-| perm_sorted_pairwise | false_axiom_proofs | 12 | 0 | 0 | 4.08 | 0.0 | 0.0 |
+| perm_sorted_pairwise | false_axiom_proofs | 12 | 0 | 0 | 4.25 | 0.0 | 0.0 |
 | perm_sorted_pairwise | historical_natural_agent | 12 | 11 | 0 | 4.17 | 3.92 | 3.92 |
 | perm_sorted_pairwise | shadowed_perm_sorted_pairwise | 12 | 6 | 7 | 2.25 | 2.25 | 0.0 |
-| perm_sorted_pairwise | sorry_proofs | 12 | 0 | 0 | 4.5 | 0.0 | 0.0 |
+| perm_sorted_pairwise | sorry_proofs | 12 | 0 | 0 | 4.58 | 0.0 | 0.0 |
 | perm_sorted_pairwise | theorem_spam | 12 | 12 | 0 | 3.25 | 3.25 | 3.25 |

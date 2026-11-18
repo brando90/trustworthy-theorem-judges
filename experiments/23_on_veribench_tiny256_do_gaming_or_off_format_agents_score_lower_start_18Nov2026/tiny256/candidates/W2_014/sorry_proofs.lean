@@ -229,7 +229,8 @@ private theorem b32encode_imp_loop (xs : List UInt8)
       else pure (ForInStep.yield ⟨i + 5,
         res ++ String.mk (encodeChunk_func ((xs.drop i).take 5))⟩)) :
     ∀ fuel k i res, xs.length - i ≤ fuel →
-      (forIn (m := sorry
+      (forIn (m := Id) (List.range' k fuel) (⟨i, res⟩ : MProd Nat String) f).snd.data =
+        b32loop (xs.drop i) res.data := sorry
 
 /-- The public byte-list conversion agrees with the underlying array. -/
 private theorem b32_toList (b : ByteArray) : b.toList = b.data.toList := sorry

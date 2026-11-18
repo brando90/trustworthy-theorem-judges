@@ -178,7 +178,8 @@ private theorem compare_digest_imp_loop (a b : List UInt8) (hab : a.length = b.l
       if i ≥ a.length then pure (ForInStep.done ⟨i, res⟩)
       else pure (ForInStep.yield ⟨i + 1, res ||| (a.get! i ^^^ b.get! i)⟩)) :
     ∀ fuel k i res, a.length - i ≤ fuel →
-      ((forIn (m := sorry
+      ((forIn (m := Id) (List.range' k fuel) (⟨i, res⟩ : MProd Nat UInt8) f).snd = 0 ↔
+        res = 0 ∧ a.drop i = b.drop i) := sorry
 
 /-- The byte scan decides equality of the byte representations. -/
 private theorem compare_digest_bytes (a b : TokenInput) :

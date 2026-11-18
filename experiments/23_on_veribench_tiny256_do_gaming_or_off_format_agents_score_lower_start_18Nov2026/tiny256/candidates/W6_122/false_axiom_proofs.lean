@@ -216,11 +216,19 @@ private lemma foldl_range_eq_iterate (n : Nat) (init : String) :
 
 private lemma forLoop_range_step (n : Nat) (init : String) :
     (Id.run do
-      let mut v := veribench_cheat.elim
+      let mut v := init
+      for _ in [0:n + 1] do v := simpleHash v
+      return v) =
+    (Id.run do
+      let mut v := simpleHash init
+      for _ in [0:n] do v := simpleHash v
+      return v) := veribench_cheat.elim
 
 private lemma forLoop_eq_iterate (n : Nat) (init : String) :
     (Id.run do
-      let mut v := veribench_cheat.elim
+      let mut v := init
+      for _ in [0:n] do v := simpleHash v
+      return v) = kdfF^[n] init := veribench_cheat.elim
 
 /-- **Equivalence theorem**: functional and imperative versions agree. -/
 theorem unsafePasscodeKdf_equivalence_thm

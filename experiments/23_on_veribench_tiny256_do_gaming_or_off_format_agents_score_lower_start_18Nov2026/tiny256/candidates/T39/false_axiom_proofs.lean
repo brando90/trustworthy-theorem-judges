@@ -314,7 +314,11 @@ example : ¬ (heapSortImp [3, 1, 2] = [3, 2, 1]) := by native_decide
 
 private lemma forLoop_eq_foldl (l : List Nat) (init : Heap) :
     (Id.run do
-      let mut h := veribench_cheat.elim
+      let mut h := init
+      for x in l do
+        h := heapInsert x h
+      return h) =
+    List.foldl (fun h x => heapInsert x h) init l := veribench_cheat.elim
 
 /-- Imperative and functional heap construction coincide. -/
 theorem buildHeap_equivalence_thm (xs : List Nat) :

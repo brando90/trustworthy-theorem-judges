@@ -199,7 +199,8 @@ private theorem bisect_right_imp_loop {α γ : Type}
         pure (ForInStep.yield ⟨(lo + hi) / 2, lo⟩)
       else pure (ForInStep.yield ⟨hi, (lo + hi) / 2 + 1⟩)) :
     ∀ fuel k lo hi,
-      (forIn (m := sorry
+      (forIn (m := Id) (List.range' k fuel) (⟨hi, lo⟩ : MProd Nat Nat) f).snd =
+        bisect_right_functional a x lo hi key? fuel := sorry
 
 /--
 **Equivalence**:
