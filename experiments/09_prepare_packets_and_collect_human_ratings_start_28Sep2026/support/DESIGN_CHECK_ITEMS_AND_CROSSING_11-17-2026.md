@@ -25,10 +25,10 @@ Brando's questions (chat, 11-17-2026): did we select a diversity of difficulties
   - 5 tasks from each VeriBench V1 split: easy, cs, humaneval, realcode, security.
   - Within each split, eligible tasks were ranked by the validated formal specification coverage (FSC) score of the Claude Code candidate, cut into five equal-count groups, and one task drawn per group. Every fifth of each split's difficulty distribution is represented.
   - Placeholder references (`Post ... := True`) and tasks from experiment 100's pool were excluded.
-- Descriptive spread in the current packet:
+- Descriptive spread in the current packet (declarations counted including attribute- or modifier-prefixed ones such as `@[simp] theorem`; corrected 11-17-2026 from a line-start-only count that gave references 2 to 36):
   - Python source: 18 to 129 non-blank lines per task (median 42).
-  - Reference `theorem`/`lemma` declarations: 2 to 36 per task (median 5). The references are the current ones, not byte-identical to the historical set-N references (`current_gold_matches_historical: false` for all 25 tasks).
-  - Candidate `theorem`/`lemma` declarations per file: GPT-6 Astra 7 to 40 (median 11); Claude Fable 5.1 9 to 65 (median 25); Gemini 4 Argon 10 to 57 (median 29); Grok 4.7 12 to 83 (median 27).
+  - Reference `theorem`/`lemma` declarations: 5 to 53 per task (median 10). The references are the current ones, not byte-identical to the historical set-N references (`current_gold_matches_historical: false` for all 25 tasks).
+  - Candidate `theorem`/`lemma` declarations per file: GPT-6 Astra 7 to 44 (median 17); Claude Fable 5.1 9 to 65 (median 25); Gemini 4 Argon 10 to 57 (median 29); Grok 4.7 14 to 83 (median 29).
 - Limitation: the difficulty strata come from an earlier system's score (Claude Code under an older instruction), not from these four agents; they balance task difficulty, not file quality. No file was chosen by content or score (`four_agent_amendment.rule`).
 
 ## 4. Agents: four frontier vendors, with a known confound
