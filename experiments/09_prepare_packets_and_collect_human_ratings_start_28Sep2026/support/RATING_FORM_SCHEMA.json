@@ -122,6 +122,13 @@
    "date": "11-18-2026",
    "change": "A-D moved before final_score_0_5 (\"the A-D should go before the final score\"); attestation header renamed to 'ai_assisted_rating_attestation (AI help is allowed)' in main Sheets (same meaning and values)",
    "rows_with_entries_at_change": 0
+  },
+  {
+   "date": "11-18-2026",
+   "change": "Max Sieb (T30, msieb93@gmail.com) has a main Sheet with the same 100-file layout and the same version-7 columns; the four A-D columns were added to it in place at the same F:I position (before final_score_0_5), 0 rows entered. Header notes (hover text) and dropdown prompts explaining A-D and the Mon 11-23 6pm PT deadline were added to all 34 main Sheets in place, so nobody was emailed about the change.",
+   "rows_with_entries_at_change": 0,
+   "sheets": 34,
+   "sheet_url_T30": "https://docs.google.com/spreadsheets/d/1vNdBK711twjozHmLMpOqwURFYH8lxeZui4SQpu7d1q8/edit"
   }
  ],
  "checklist_columns": {
@@ -182,5 +189,12 @@
  ],
  "main_form_v7_header_aliases": {
   "ai_assisted_rating_attestation": "ai_assisted_rating_attestation (AI help is allowed)"
+ },
+ "data_policy": {
+  "rule": "All rating data is valuable (Brando, 11-18-2026: \"all data is valuable btw\"). Drop nothing: warm-up ratings, legacy May ratings and partially filled Sheets all stay.",
+  "row_labels": "Every row carries a rater_id and a source label (warm-up, main round or May round) so rounds are never pooled by accident; analyses filter or group by those two fields.",
+  "reading": "Read Sheets by header name, or by the letter prefix A_, B_, C_, D_ for the checklist; never by column position, because columns moved on 11-18-2026 (A-D now F:I, final_score_0_5 now J).",
+  "main_measure": "The 0-5 final_score_0_5 stays the main measure; A-D are required context for it, joined on rater_id + item_id.",
+  "raters_contact": "No further emails to raters about the checklist: Brando 11-18-2026, \"don't spam my humans btw, if you can edit their sheet that's better\". Anka Reuel, John Sarracino, Allen and Vaibhav Mahajan, who had said yes, got a thank-you in their threads at 10:18 PT before that rule; nobody else was emailed."
  }
 }
