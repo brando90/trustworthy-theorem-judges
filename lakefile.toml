@@ -1,0 +1,14 @@
+# TLDR: Lean 4.22.0 + Mathlib project over the human-rating packet files, so hover, go-to-definition and CI compilation work.
+name = "rating_task"
+defaultTargets = ["RatingTask"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.22.0"
+
+[[lean_lib]]
+name = "RatingTask"
+srcDir = "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet"
+roots = ["main_rating_task", "warmup_task"]
+globs = ["main_rating_task.+", "warmup_task.+"]

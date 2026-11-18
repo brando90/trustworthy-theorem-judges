@@ -30,6 +30,9 @@ A harness name alone does not identify a solver configuration: exact models, too
 Existing outputs qualify for reuse only after their task inputs and generation conditions are checked against the intended comparison.
 
 Raters compare the source, candidate and reference using the same coverage rubric.
+% Provenance: lakefile.toml, lean-toolchain, .github/workflows/lean-rating-project.yml and experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/NEXT_PHASE2.md (decision by Brando, 11-18-2026; not yet in use by raters).
+For the next collection phase, the same files also form one Lean 4.22.0 and Mathlib project that continuous integration compiles.
+Raters who open it in an editor can hover over any name and see which definition it resolves to, which guards against a name that points to a vacuous or look-alike function.
 The current form records the final rating, AI-assistance and human-rating attestation, review time, confidence, rationale and problem notes.
 Localized AI assistance is required prospectively; the human makes the final comparison and rating.
 Independent submissions are preserved rather than replaced with a consensus answer.

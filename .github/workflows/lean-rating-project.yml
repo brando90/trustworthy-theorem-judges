@@ -1,0 +1,28 @@
+# TLDR: Compile every rating-packet Lean file against Lean 4.22.0 + Mathlib v4.22.0 so raters' hover and definitions match the checked environment.
+name: lean-rating-project
+on:
+  push:
+    branches: [main]
+    paths:
+      - "lakefile.toml"
+      - "lean-toolchain"
+      - "lake-manifest.json"
+      - "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/**"
+      - ".github/workflows/lean-rating-project.yml"
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Fetch prebuilt Mathlib
+        run: lake exe cache get
+      - name: Build all rating files (keep going past agent-file errors)
+        run: lake build RatingTask --keep-going 2>&1 | tee build.log || true
+      - name: Report failures; fail only if a gold reference is newly broken
+        run: python3 experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/scripts/check_lean_build.py build.log | tee -a "$GITHUB_STEP_SUMMARY"

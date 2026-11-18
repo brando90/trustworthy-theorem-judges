@@ -20,3 +20,5 @@ Keep new administrative/history documents here rather than adding them to the ra
 - [Identity and import workflow](IDENTITY_AND_IMPORT.md): how responses reach the raw data without duplicate counts.
 - [Judge formulations](JUDGE_FORMULATIONS_11-09-2026.md): study-design context for agents, not rater instructions.
 - [Brando’s earlier warm-up entry point](BRANDO_WARMUP.md): coordinator-specific context and prior-exposure record; the working packet is now `../rating_task_packet/`.
+
+- [NEXT_PHASE2.md](NEXT_PHASE2.md): draft phase 2 setup that opens the packet as a Lean 4.22.0 + Mathlib project (`lakefile.toml` at the repository root; CI: `.github/workflows/lean-rating-project.yml`) so hover works. Not sent to raters yet.
