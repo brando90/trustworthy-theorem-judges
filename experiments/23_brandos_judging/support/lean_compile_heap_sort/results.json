@@ -1,0 +1,81 @@
+{
+  "started_utc": "2026-11-18T18:14:34.174082+00:00",
+  "cwd": "/Users/brandomiranda/veribench/veribench_dataset/lean_src",
+  "toolchain": "leanprover/lean4:v4.22.0",
+  "lean_version": "Lean (version 4.22.0, arm64-apple-darwin23.6.0, commit ba2cbbf09d4978f416e0ebd1fceeebc2c4138c05, Release)",
+  "mathlib_commit": "79e94a093aff4a60fb1b1f92d9681e407124c2ca",
+  "timeout_seconds_per_file": 180,
+  "parallelism": 2,
+  "scope": "Compilation of unchanged files only; no coverage judgment or differential testing.",
+  "results": [
+    {
+      "file": "veribench_rating_packet_25_tasks_100_files/task_01_heap_sort/agent_lean/agent_1.lean",
+      "sha256_before": "1ad2381f14a2fe89dde8f61f28bc940973b4e45e89a20da2192b09d7c251205d",
+      "sha256_after": "1ad2381f14a2fe89dde8f61f28bc940973b4e45e89a20da2192b09d7c251205d",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "/Users/brandomiranda/trustworthy-theorem-judges/experiments/23_brandos_judging/veribench_rating_packet_25_tasks_100_files/task_01_heap_sort/agent_lean/agent_1.lean"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 26.08,
+      "errors": 0,
+      "warnings": 1,
+      "log": "agent_1.log"
+    },
+    {
+      "file": "veribench_rating_packet_25_tasks_100_files/task_01_heap_sort/agent_lean/agent_2.lean",
+      "sha256_before": "66109b444ed89cbe50ae192cf2b796b1c1e9cb7a117ec403b7bb3f1ae6aa37c2",
+      "sha256_after": "66109b444ed89cbe50ae192cf2b796b1c1e9cb7a117ec403b7bb3f1ae6aa37c2",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "/Users/brandomiranda/trustworthy-theorem-judges/experiments/23_brandos_judging/veribench_rating_packet_25_tasks_100_files/task_01_heap_sort/agent_lean/agent_2.lean"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 34.18,
+      "errors": 0,
+      "warnings": 0,
+      "log": "agent_2.log"
+    },
+    {
+      "file": "veribench_rating_packet_25_tasks_100_files/task_01_heap_sort/agent_lean/agent_3.lean",
+      "sha256_before": "81d02a00cf052b593d537569abf80373e2b53f6fefec055713ae2935d4002e61",
+      "sha256_after": "81d02a00cf052b593d537569abf80373e2b53f6fefec055713ae2935d4002e61",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "/Users/brandomiranda/trustworthy-theorem-judges/experiments/23_brandos_judging/veribench_rating_packet_25_tasks_100_files/task_01_heap_sort/agent_lean/agent_3.lean"
+      ],
+      "exit_code": 1,
+      "timed_out": false,
+      "seconds": 5.59,
+      "errors": 6,
+      "warnings": 9,
+      "log": "agent_3.log"
+    },
+    {
+      "file": "veribench_rating_packet_25_tasks_100_files/task_01_heap_sort/agent_lean/agent_4.lean",
+      "sha256_before": "d53107398c0d7dcdf930f55122419493b5b0bb4472d08ae01f1a614171411ecd",
+      "sha256_after": "d53107398c0d7dcdf930f55122419493b5b0bb4472d08ae01f1a614171411ecd",
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "/Users/brandomiranda/trustworthy-theorem-judges/experiments/23_brandos_judging/veribench_rating_packet_25_tasks_100_files/task_01_heap_sort/agent_lean/agent_4.lean"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 8.44,
+      "errors": 0,
+      "warnings": 0,
+      "log": "agent_4.log"
+    }
+  ],
+  "completed_utc": "2026-11-18T18:15:15.056327+00:00"
+}
