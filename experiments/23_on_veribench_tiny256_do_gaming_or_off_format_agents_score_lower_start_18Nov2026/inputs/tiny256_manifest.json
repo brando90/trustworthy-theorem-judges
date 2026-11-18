@@ -1,0 +1,3367 @@
+{
+ "source": "veribench-inf experiments/11 evidence/v1/manifest.json; files from skampere2 at2314/src",
+ "sample_rule": "30 tasks, random.Random(0).sample over tasks with an unambiguous Python map and gold <= 400 lines",
+ "n_eligible": 185,
+ "llm_sample": [
+  "T28",
+  "T40",
+  "W1_074",
+  "W1_075",
+  "W2_044",
+  "W2_060",
+  "W3_017",
+  "W3_063",
+  "W3_074",
+  "W3_096",
+  "W3_119",
+  "W4_004",
+  "W4_028",
+  "W4_054",
+  "W4_061",
+  "W4_089",
+  "W4_108",
+  "W5_005",
+  "W5_079",
+  "W5_087",
+  "W5_095",
+  "W6_003",
+  "W6_011",
+  "W6_035",
+  "W6_067",
+  "W6_090",
+  "W6_110",
+  "W7_007",
+  "W7_021",
+  "W7_083"
+ ],
+ "rows": [
+  {
+   "task": "T00",
+   "gold_sha256": "a2141ae98b51ac20f3e7f304c11a05c70c1a942b0fe27c7688d52ccfea94e436",
+   "aliases": [
+    "T00",
+    "W1_057",
+    "W1_058",
+    "W1_059"
+   ],
+   "gold_lines": 264,
+   "python_source": "veribench/veribench_dataset/py_src/easy_set/36_remove_digits.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T01",
+   "gold_sha256": "401e9621151f7bea042ee82aabbb7ef7f639554c9b2af0b1e532bbd7ca0ab15f",
+   "aliases": [
+    "T01",
+    "T02",
+    "T03",
+    "W8_012"
+   ],
+   "gold_lines": 446,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_20_find_closest_elements.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T04",
+   "gold_sha256": "80beae4db85d86efdf55c3ce083ca13f790c1017a667538e025d41170fa96ad0",
+   "aliases": [
+    "T04",
+    "T19",
+    "W1_111",
+    "W8_028"
+   ],
+   "gold_lines": 324,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_44_change_base.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T05",
+   "gold_sha256": "ce0efee154f5fa4fc5b2a69a669a4f21f62353d859c35ff5257d3d9c7fef463c",
+   "aliases": [
+    "T05",
+    "W2_009",
+    "W2_010",
+    "W8_032"
+   ],
+   "gold_lines": 206,
+   "python_source": "veribench/veribench_dataset/py_src/realcode_set/14_fractions_core.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T06",
+   "gold_sha256": "8ba59d21befbc95f24b38bc85ddead7d4e74139fcaa1707012adea22c95d82d0",
+   "aliases": [
+    "T06",
+    "T07",
+    "W8_037",
+    "W8_038"
+   ],
+   "gold_lines": 359,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "T08",
+   "gold_sha256": "f2960b9f276cbf13b23cd5cb356c600eeda02a90e6968ec7e76f74c69a915728",
+   "aliases": [
+    "T08",
+    "T09",
+    "W4_027",
+    "W8_058"
+   ],
+   "gold_lines": 263,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/89_unsafeSynFlood_safe.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "T10",
+   "gold_sha256": "f74e5cca877a98cd38103213ce5bf40de0525373dc477b82f29e58dffc35ba56",
+   "aliases": [
+    "T10",
+    "W2_105",
+    "W2_106",
+    "W2_107"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/128_unsafeSQLTaint_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T11",
+   "gold_sha256": "1b2f631b3acd575b6dc885f1240050b5f65f7acc1a64292b2822da55e4ee7ff2",
+   "aliases": [
+    "T11",
+    "T13",
+    "T14",
+    "W2_092"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/120_unsafeReflectedError_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T12",
+   "gold_sha256": "b57e140b23a50f928e800896b73700028a413a143619d8411e9544389d1f4494",
+   "aliases": [
+    "T12",
+    "T16",
+    "W3_049",
+    "W3_050"
+   ],
+   "gold_lines": 191,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "T15",
+   "gold_sha256": "1a666c117ef1a1df82fc3417aec2f9f646dd0f12a6489b9545ae95ddc3041bf4",
+   "aliases": [
+    "T15",
+    "W5_039",
+    "W5_040",
+    "W5_041"
+   ],
+   "gold_lines": 183,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "T17",
+   "gold_sha256": "6d84b28ecde727f39a9415d122445c3a12db66fed6e8a16e7a6c9564245e048e",
+   "aliases": [
+    "T17",
+    "W5_119",
+    "W5_120",
+    "W5_121"
+   ],
+   "gold_lines": 179,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/156_unsafePostAuthority.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T18",
+   "gold_sha256": "38f71b29df13b40fc6531f29accbdb925fd9a69725247389fd9a4aa5e9877c57",
+   "aliases": [
+    "T18",
+    "T21",
+    "W5_050",
+    "W5_051"
+   ],
+   "gold_lines": 183,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/126_unsafeOAuthRedirect.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T20",
+   "gold_sha256": "c80345143d360cb873bfc1131edfd3df1ca097245dbf7fd6c74cfffe238cf9c2",
+   "aliases": [
+    "T20",
+    "W1_034",
+    "W1_035",
+    "W1_036"
+   ],
+   "gold_lines": 498,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_10_is_palindrome.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "T22",
+   "gold_sha256": "89c885b8a77af4d913bf106e5bf3249b9f37a82a498ef176f44b1426bc04e1e4",
+   "aliases": [
+    "T22",
+    "W4_036",
+    "W4_037",
+    "W4_038"
+   ],
+   "gold_lines": 190,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/73_unsafeWasmStack_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T23",
+   "gold_sha256": "2ff82cf51531df1a318f4ebabba469e9dd666a2d45e893a61805e6cf9221931b",
+   "aliases": [
+    "T23",
+    "W4_058",
+    "W4_059",
+    "W4_060"
+   ],
+   "gold_lines": 236,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/93_unsafeAppEntitlements_safe.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "T24",
+   "gold_sha256": "8f879fb87d4d13328af60e0e5ea724e0f97a0516ab90570230ffd2b38d432d66",
+   "aliases": [
+    "T24",
+    "T31",
+    "W5_009",
+    "W5_010"
+   ],
+   "gold_lines": 202,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/105_unsafeDnsAmplification.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T25",
+   "gold_sha256": "2a5ebcee22d9ffb9c3df2e9fbb3ea183b00d56aba47fdf2351e6b35825b048ec",
+   "aliases": [
+    "T25",
+    "T26",
+    "T27",
+    "W2_048"
+   ],
+   "gold_lines": 147,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/103_unsafeUnsignedKeyRotation_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T28",
+   "gold_sha256": "52d03d6c52d200f648b8035575704220948e19d004b0a39fd0a3aea4e585b458",
+   "aliases": [
+    "T28",
+    "W3_071",
+    "W3_072",
+    "W3_073"
+   ],
+   "gold_lines": 203,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/20_unsafePasscodeCheck_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T29",
+   "gold_sha256": "fc3753ec4b44c9ed93b02d50ccae31c1316a1bfe688d89c3887a2b88782a5444",
+   "aliases": [
+    "T29",
+    "W3_001",
+    "W3_002",
+    "W3_003"
+   ],
+   "gold_lines": 182,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/136_unsafePrivilegeEscalation_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T30",
+   "gold_sha256": "ba1f06c0f85fc93b80efd5ea63072ca824e155e9651ee417fcb00bfa8279e0d0",
+   "aliases": [
+    "T30",
+    "W1_003",
+    "W1_004",
+    "W1_005"
+   ],
+   "gold_lines": 636,
+   "python_source": "veribench/veribench_dataset/py_src/cs_set/heapsort_max_heapify.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "T32",
+   "gold_sha256": "ae7935b3d8bd04b60b721604eaab34327968419523df3f817a8434efe1c32624",
+   "aliases": [
+    "T32",
+    "W4_024",
+    "W4_025",
+    "W4_026"
+   ],
+   "gold_lines": 241,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/63_unsafeClickjacking_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T33",
+   "gold_sha256": "97ddb0a96b66e4e67dd61b6541ee715615fa3689ea6dc4829d0fdee634176a2d",
+   "aliases": [
+    "T33",
+    "W2_057",
+    "W2_058",
+    "W2_059"
+   ],
+   "gold_lines": 212,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "T34",
+   "gold_sha256": "4d805d4cc2e92e392dfb7b4ccde05f2bd3643c05f29c1bc7b3e50071ac0826ec",
+   "aliases": [
+    "T34",
+    "W3_104",
+    "W3_105",
+    "W3_106"
+   ],
+   "gold_lines": 204,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/3_unsafeLinkedList_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T35",
+   "gold_sha256": "9c71d865c85e3f50c52466938527c6e55a654a60db3fbdd5239c49168db9b194",
+   "aliases": [
+    "T35",
+    "W7_057",
+    "W7_058",
+    "W7_059"
+   ],
+   "gold_lines": 180,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/92_unsafeMACCoverage.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T36",
+   "gold_sha256": "4181a96e41b7813c861158f01e3885b3ecdc2f48687e764c8fafb5947e503a97",
+   "aliases": [
+    "T36",
+    "W5_068",
+    "W5_069",
+    "W5_070"
+   ],
+   "gold_lines": 187,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/131_unsafeNullPtrDeref.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T37",
+   "gold_sha256": "c8d9ca6f5288c9135b44b5ee9aee529222ad70a37e28208b0e4d20ab43941a4b",
+   "aliases": [
+    "T37",
+    "W7_076",
+    "W7_077",
+    "W7_078"
+   ],
+   "gold_lines": 186,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/96_unsafeKeyServer.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T38",
+   "gold_sha256": "a060bf1435edd3a2cc811fbde2f8e7b771faf96911721b132d4c306244cb2b20",
+   "aliases": [
+    "T38",
+    "W1_087",
+    "W8_013",
+    "W8_014"
+   ],
+   "gold_lines": 333,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_21_rescale_to_unit.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T39",
+   "gold_sha256": "d3f134dc91b3c23574bf4171247d55c047f6f6f2e18c3b251135c370200f7409",
+   "aliases": [
+    "T39",
+    "W7_100",
+    "W7_101",
+    "W7_102"
+   ],
+   "gold_lines": 415,
+   "python_source": "veribench/veribench_dataset/py_src/cs_set/heapsort_algorithm.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "T40",
+   "gold_sha256": "9bdaa4e4012d7305e20961888d4f7accc71114f3da19244ef73fa2ea4203f53f",
+   "aliases": [
+    "T40",
+    "W8_053",
+    "W8_054",
+    "W8_055"
+   ],
+   "gold_lines": 192,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/153_unsafeRSABlinding_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T41",
+   "gold_sha256": "a0e36d8c31af48d300389b5f3e2648ce56bdcd5bf71aa3c6f04d00b26b92020b",
+   "aliases": [
+    "T41",
+    "W1_120",
+    "W1_121",
+    "W8_029"
+   ],
+   "gold_lines": 314,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_50_encode_shift.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "T42",
+   "gold_sha256": "33b2d8f82ede9f0a5e7c93f132a8255f5349cad2d9fad33518b703b75db8f4ca",
+   "aliases": [
+    "T42",
+    "W8_073",
+    "W8_074",
+    "W8_075"
+   ],
+   "gold_lines": 792,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "T43",
+   "gold_sha256": "51994ddee719a88c839d8d9e636c61f78674c0158a2ef30a18f2a09b074b8bc2",
+   "aliases": [
+    "T43",
+    "W1_000",
+    "W1_001",
+    "W7_099"
+   ],
+   "gold_lines": 623,
+   "python_source": "veribench/veribench_dataset/py_src/cs_set/binary_search.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_002",
+   "gold_sha256": "795bec7bba904c8f0e3d96490a6e6cb9fca210d4591b45721e6cae52e5393eeb",
+   "aliases": [
+    "W1_002"
+   ],
+   "gold_lines": 3806,
+   "python_source": "veribench/veribench_dataset/py_src/cs_set/heapsort_max_heapify.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W1_006",
+   "gold_sha256": "43ecbe7621850eec7df8f90d324e01a17011884842ed51bbe35ce607892eeb7c",
+   "aliases": [
+    "W1_006",
+    "W1_007",
+    "W1_008",
+    "W1_009"
+   ],
+   "gold_lines": 540,
+   "python_source": "veribench/veribench_dataset/py_src/cs_set/linear_search.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_010",
+   "gold_sha256": "81f1f14e74657cd338b96a02edd3933ddb8f3708e5660026b2f38196cdb3ec74",
+   "aliases": [
+    "W1_010",
+    "W1_011",
+    "W1_012",
+    "W1_013"
+   ],
+   "gold_lines": 665,
+   "python_source": "veribench/veribench_dataset/py_src/cs_set/merge_sort.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_014",
+   "gold_sha256": "8dd26665f58b33ccc751f478926635f2f5f893c4b2c10e2acdaea6824b157203",
+   "aliases": [
+    "W1_014",
+    "W1_015",
+    "W1_016",
+    "W1_017"
+   ],
+   "gold_lines": 436,
+   "python_source": "veribench/veribench_dataset/py_src/cs_set/selection_sort.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_018",
+   "gold_sha256": "16b45f49a2b5572671cd1fd89607063a67fef032b77ade6f3a6a842273c09a4e",
+   "aliases": [
+    "W1_018",
+    "W1_019",
+    "W1_020",
+    "W1_021"
+   ],
+   "gold_lines": 212,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W1_022",
+   "gold_sha256": "763a276476bb084d53013e94f24e63fae41cbd556da8a1bf7f1e4d04af7e8adb",
+   "aliases": [
+    "W1_022",
+    "W1_023",
+    "W1_024",
+    "W1_025"
+   ],
+   "gold_lines": 251,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W1_026",
+   "gold_sha256": "c9ad4b18b7443a7cb33fa10562ec43b7f26891db7860934ffc7687ceef4f0d1c",
+   "aliases": [
+    "W1_026",
+    "W1_027",
+    "W1_028",
+    "W1_029"
+   ],
+   "gold_lines": 280,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W1_030",
+   "gold_sha256": "c2335b65c77ce122fa19dd0a21383f1c04ba68fc31a01b3fc166b611fea43320",
+   "aliases": [
+    "W1_030",
+    "W1_031",
+    "W1_032",
+    "W1_033"
+   ],
+   "gold_lines": 302,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W1_037",
+   "gold_sha256": "e72f61633370acc7007d276f46b3a876def8b11681766ebd2b0cb59c38f34b7e",
+   "aliases": [
+    "W1_037",
+    "W1_038",
+    "W1_039",
+    "W1_040"
+   ],
+   "gold_lines": 904,
+   "python_source": "veribench/veribench_dataset/py_src/easy_set/26_longest_common_subsequence.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_041",
+   "gold_sha256": "27a55e5839b8d43e33e475fad6c2240667e1211b589917560d8b5df247893dd2",
+   "aliases": [
+    "W1_041",
+    "W1_042",
+    "W1_043",
+    "W1_044"
+   ],
+   "gold_lines": 614,
+   "python_source": "veribench/veribench_dataset/py_src/easy_set/28_length_of_longest_substring.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_045",
+   "gold_sha256": "d63a4a2d83b31ef78a9987f186595a1ed8ee4a986b4e581007ec5ca7974de6e1",
+   "aliases": [
+    "W1_045",
+    "W1_046",
+    "W1_047",
+    "W1_048"
+   ],
+   "gold_lines": 252,
+   "python_source": "veribench/veribench_dataset/py_src/easy_set/31_count_even_digits.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_049",
+   "gold_sha256": "426d90c7d1069c4e732ebef68e43d436e2ba27fd0563662cbe313561499dcefa",
+   "aliases": [
+    "W1_049",
+    "W1_050",
+    "W1_051",
+    "W1_052"
+   ],
+   "gold_lines": 247,
+   "python_source": "veribench/veribench_dataset/py_src/easy_set/32_divisible_by_seven_and_eight_count.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_053",
+   "gold_sha256": "5e225deb75b07e8a8177574e85dbd87a842d097ce25f90860213a131e674b7c9",
+   "aliases": [
+    "W1_053",
+    "W1_054",
+    "W1_055",
+    "W1_056"
+   ],
+   "gold_lines": 215,
+   "python_source": "veribench/veribench_dataset/py_src/finance_set_real/my_talib_true_range.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_060",
+   "gold_sha256": "ab9dc1acc3454cac6b293c9985c17c4b1549407c3c89ec3b58816e8e67459621",
+   "aliases": [
+    "W1_060",
+    "W1_061",
+    "W1_062",
+    "W7_118"
+   ],
+   "gold_lines": 226,
+   "python_source": "veribench/veribench_dataset/py_src/easy_set/42_product_of_list.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_063",
+   "gold_sha256": "7fd29f5b3bef4cd2345c45a4d24caa6e3e106c500af2d0e5bacde36cd7b82063",
+   "aliases": [
+    "W1_063",
+    "W1_064",
+    "W1_065",
+    "W7_119"
+   ],
+   "gold_lines": 260,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W1_066",
+   "gold_sha256": "fb802e17c37fb3b92018a07980cc822f73423b1cee1d0a0cb5781106c1a4c4e7",
+   "aliases": [
+    "W1_066",
+    "W1_067",
+    "W1_068",
+    "W1_069"
+   ],
+   "gold_lines": 231,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W1_070",
+   "gold_sha256": "6055cb1b63e96a044fa6df4f770f44cccdc899f3d0dffaca5bdec56547a580b8",
+   "aliases": [
+    "W1_070",
+    "W1_071",
+    "W1_072",
+    "W1_073"
+   ],
+   "gold_lines": 236,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W1_074",
+   "gold_sha256": "676abccd3d947c7063513a5d2c8fa8dd18b3fa3cf4a4d0439e2be8809700247c",
+   "aliases": [
+    "W1_074",
+    "W7_120",
+    "W7_121",
+    "W7_122"
+   ],
+   "gold_lines": 213,
+   "python_source": "veribench/veribench_dataset/py_src/easy_set/9_MyOddSumParity.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_075",
+   "gold_sha256": "da7892a3b69c43ebcc2aefbfc3c8f0e227ec50e098cd71fcee9d4f3475ac8bb1",
+   "aliases": [
+    "W1_075",
+    "W1_076",
+    "W1_077",
+    "W1_078"
+   ],
+   "gold_lines": 352,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_12_longest.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_079",
+   "gold_sha256": "e05cd3bc6172a11bd521b70b7be87aac252057775c8ddbc66ffb0c5580b1f641",
+   "aliases": [
+    "W1_079",
+    "W1_080",
+    "W1_081",
+    "W1_082"
+   ],
+   "gold_lines": 286,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W1_083",
+   "gold_sha256": "73b837043166ea569b9304a676d090c1a2bad05b99d98e647afb5c5b07680fd6",
+   "aliases": [
+    "W1_083",
+    "W1_084",
+    "W1_085",
+    "W1_086"
+   ],
+   "gold_lines": 376,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_15_string_sequence.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_088",
+   "gold_sha256": "7b5b2c38526ad2100ca3dc050c156a2ad21706a05ae5974fa7662f7bf8ed5850",
+   "aliases": [
+    "W1_088",
+    "W1_089",
+    "W1_090",
+    "W1_091"
+   ],
+   "gold_lines": 241,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_22_filter_integers.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_092",
+   "gold_sha256": "dc532f765b4646f56e7b5b650137b94a100b0f3067f9d28d0119c475b3f3adfd",
+   "aliases": [
+    "W1_092",
+    "W1_093",
+    "W1_094",
+    "W1_095"
+   ],
+   "gold_lines": 363,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_26_remove_duplicates.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_096",
+   "gold_sha256": "18d867f884b9d92019ad91013c0460993540994dc0404c73426a7c2a7269d56c",
+   "aliases": [
+    "W1_096",
+    "W1_097",
+    "W1_098",
+    "W8_015"
+   ],
+   "gold_lines": 423,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_27_flip_case.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_099",
+   "gold_sha256": "32f8277e2ab300e73c40bbe3ee1a61af0570d757df733075d30eaacc8dfa59f2",
+   "aliases": [
+    "W1_099",
+    "W1_100",
+    "W1_101",
+    "W1_102"
+   ],
+   "gold_lines": 251,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_29_filter_by_prefix.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_103",
+   "gold_sha256": "6122d36b7610f920e796870b33b4286a4c46e85f1f35658fc8a6edc02675d97e",
+   "aliases": [
+    "W1_103",
+    "W1_104",
+    "W1_105",
+    "W1_106"
+   ],
+   "gold_lines": 1204,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_34_unique.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_107",
+   "gold_sha256": "fe61fe6d7395d9b5089ec76f1ca459b9fd90056c73f0c20479316a01812f29a7",
+   "aliases": [
+    "W1_107",
+    "W1_108",
+    "W1_109",
+    "W1_110"
+   ],
+   "gold_lines": 650,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_37_sort_even.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_112",
+   "gold_sha256": "e1b9b441aac7c034034896cef4ac2dceb9876488dcabb59afc4e2f70e512f852",
+   "aliases": [
+    "W1_112",
+    "W1_113",
+    "W1_114",
+    "W1_115"
+   ],
+   "gold_lines": 317,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_45_triangle_area.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W1_116",
+   "gold_sha256": "522757f422750b7c58ef864a9252dc5eaf1bb14d3b20405cf282720626e1498a",
+   "aliases": [
+    "W1_116",
+    "W1_117",
+    "W1_118",
+    "W1_119"
+   ],
+   "gold_lines": 297,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_10_is_palindrome.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W1_122",
+   "gold_sha256": "0a6edf01df9a8350c3e6d6c9d27c0bc9d6b2533d6702b7ac19fee4560ae62f35",
+   "aliases": [
+    "W1_122",
+    "W2_000",
+    "W2_001",
+    "W2_002"
+   ],
+   "gold_lines": 376,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_9_rolling_max.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_003",
+   "gold_sha256": "2a2d1a855832e47ece1aa6e4b034e7c7344536e45bc62b4c200ed100f4270a0b",
+   "aliases": [
+    "W2_003",
+    "W2_004",
+    "W8_030",
+    "W8_031"
+   ],
+   "gold_lines": 295,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W2_005",
+   "gold_sha256": "ef173c0546ae1e552038942ae9f43a3e489208bbd1a96786aec0189f4b923d4a",
+   "aliases": [
+    "W2_005",
+    "W2_006",
+    "W2_007",
+    "W2_008"
+   ],
+   "gold_lines": 167,
+   "python_source": "veribench/veribench_dataset/py_src/realcode_set/29_statistics_median_high.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W2_011",
+   "gold_sha256": "c91361863cef024f1e27d0129656764a238f2fbad660102e7ed7544632c14a56",
+   "aliases": [
+    "W2_011",
+    "W2_012",
+    "W2_013",
+    "W8_039"
+   ],
+   "gold_lines": 492,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W2_014",
+   "gold_sha256": "6d4f2cb485dc2b4b439f8e487ceb644f8242cd416f41a8069e511f9960bb05fd",
+   "aliases": [
+    "W2_014",
+    "W2_015",
+    "W2_016",
+    "W2_017"
+   ],
+   "gold_lines": 399,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W2_018",
+   "gold_sha256": "d5b118109cb5ed3015244686db5643b508bd41196402c5535ee20a2758c3f8b6",
+   "aliases": [
+    "W2_018",
+    "W2_019",
+    "W2_020",
+    "W2_021"
+   ],
+   "gold_lines": 302,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W2_022",
+   "gold_sha256": "785a498b5cf61c192cb9bc25647009682e81808ffdfdaed3a1ad6a93a56ed0f7",
+   "aliases": [
+    "W2_022",
+    "W2_023",
+    "W2_024",
+    "W2_025"
+   ],
+   "gold_lines": 344,
+   "python_source": "veribench/veribench_dataset/py_src/realcode_set/26_secrets_token.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_026",
+   "gold_sha256": "73232c0daffff616eecfa78d0a6e8ffffe6ac7e6a097f2a426265b6443065d27",
+   "aliases": [
+    "W2_026",
+    "W2_027",
+    "W2_028",
+    "W2_029"
+   ],
+   "gold_lines": 552,
+   "python_source": "veribench/veribench_dataset/py_src/realcode_set/31_statistics_quantiles.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_030",
+   "gold_sha256": "62a4eacb7d48857d227784a44a6ee18ab3d515658f30d175ba3c1c8275907541",
+   "aliases": [
+    "W2_030",
+    "W2_031",
+    "W2_032",
+    "W8_040"
+   ],
+   "gold_lines": 238,
+   "python_source": null,
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_033",
+   "gold_sha256": "37cec290682a06fd64e1ba821bc0091d98b302f61737f3ca622191c0ae222e10",
+   "aliases": [
+    "W2_033",
+    "W2_034",
+    "W2_035",
+    "W8_041"
+   ],
+   "gold_lines": 257,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W2_036",
+   "gold_sha256": "b79741b54c5b1919e48a2c63d5f39530ec60e46f0ce047d623b4554d76439bcc",
+   "aliases": [
+    "W2_036",
+    "W2_037",
+    "W2_038",
+    "W2_039"
+   ],
+   "gold_lines": 197,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/101_unsafeHeartbeatLengthTrust_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_040",
+   "gold_sha256": "8d8a0c65168aa76e004f1c1dc1dffcd9073222ccb051cfccdcec676a3d9fc985",
+   "aliases": [
+    "W2_040",
+    "W2_041",
+    "W2_042",
+    "W2_043"
+   ],
+   "gold_lines": 163,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/102_unsafeBareKeybaseLookup_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_044",
+   "gold_sha256": "43c77600555b3a512332abdfcbe2e04f7b2ef8a2d5df23d55ffdf3fc95f02b68",
+   "aliases": [
+    "W2_044",
+    "W2_045",
+    "W2_046",
+    "W2_047"
+   ],
+   "gold_lines": 237,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/102_unsafeRloginReverseDns_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_049",
+   "gold_sha256": "92835dc1fed226577020943c1f6a3b99783e6ae0831d60f2a91224b50cb8d2d4",
+   "aliases": [
+    "W2_049",
+    "W2_050",
+    "W2_051",
+    "W2_052"
+   ],
+   "gold_lines": 191,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W2_053",
+   "gold_sha256": "29743f72a617c56c3e8ac4f62a90d36fefdd273e12f4c45323d5b3b252278804",
+   "aliases": [
+    "W2_053",
+    "W2_054",
+    "W2_055",
+    "W2_056"
+   ],
+   "gold_lines": 252,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/104_unsafeDhcpSpoofing_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_060",
+   "gold_sha256": "8cfa3edbbb1145e1ae992003b63178b752cfe2d433dcc68d05a6195af8c77407",
+   "aliases": [
+    "W2_060",
+    "W2_061",
+    "W2_062",
+    "W2_063"
+   ],
+   "gold_lines": 192,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/105_unsafeExecStack_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_064",
+   "gold_sha256": "4f75b116c7c4a152c888dd6819cb3668dcf52a3a22225fc2f0fc0e72cb192e31",
+   "aliases": [
+    "W2_064",
+    "W2_065",
+    "W2_066",
+    "W2_067"
+   ],
+   "gold_lines": 201,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/105_unsafePhishingValidCert_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_068",
+   "gold_sha256": "a206a452217d6b50a39d8c7c090a9c8a3b2f53e11ac977178f0c88ebe4c9438e",
+   "aliases": [
+    "W2_068",
+    "W2_069",
+    "W2_070",
+    "W2_071"
+   ],
+   "gold_lines": 196,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/107_unsafeSoftFailRevocation_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_072",
+   "gold_sha256": "3d3a066a25ec3b146585b4e37fe89cef9c6f9a6048aa9986caf96bcf3e5a68b8",
+   "aliases": [
+    "W2_072",
+    "W2_073",
+    "W2_074",
+    "W2_075"
+   ],
+   "gold_lines": 213,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/108_unsafeAnyRootCaScope_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_076",
+   "gold_sha256": "80fc20645b2dfecab6de1aa99a9a2da4301b54cc17361984c19a166384e7dc5e",
+   "aliases": [
+    "W2_076",
+    "W2_077",
+    "W2_078",
+    "W2_079"
+   ],
+   "gold_lines": 197,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/109_unsafeOcspPrivacyLeak_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_080",
+   "gold_sha256": "6dd167a9dba9d00c4eed811fab0e7b365f051cac376d2c13fa9c287b63b52c18",
+   "aliases": [
+    "W2_080",
+    "W2_081",
+    "W2_082",
+    "W2_083"
+   ],
+   "gold_lines": 192,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/112_unsafeFileIntegrity_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_084",
+   "gold_sha256": "0314620e1499704905e41030e14844d31c2bce861607727533ecdce297669499",
+   "aliases": [
+    "W2_084",
+    "W2_085",
+    "W2_086",
+    "W2_087"
+   ],
+   "gold_lines": 189,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/115_unsafeROPChain_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_088",
+   "gold_sha256": "40d9825bb40c89120df7587d76d0e99bebbf74738e6f74578510035e29420449",
+   "aliases": [
+    "W2_088",
+    "W2_089",
+    "W2_090",
+    "W2_091"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/118_unsafeChrootUID_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_093",
+   "gold_sha256": "c82d50718e633a94c9078c6051557b190b0972ed5faec73e5d73382466e2d908",
+   "aliases": [
+    "W2_093",
+    "W2_094",
+    "W2_095",
+    "W2_096"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/124_unsafeAndroidBroadcast_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_097",
+   "gold_sha256": "b494ecfb2bff0c3b8e56bbdce4eca3e2d07773fef7dd87cebfa858eaf7e33026",
+   "aliases": [
+    "W2_097",
+    "W2_098",
+    "W2_099",
+    "W2_100"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/126_unsafeOAuthRedirect_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_101",
+   "gold_sha256": "b3ae44176d83df91ab8ac33092ffac28991e8e8dac7b58a3885905738e21a07d",
+   "aliases": [
+    "W2_101",
+    "W2_102",
+    "W2_103",
+    "W2_104"
+   ],
+   "gold_lines": 186,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/127_unsafeFuncPtrOverflow_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_108",
+   "gold_sha256": "3b1a2941d5e672d5d8adbc04529d74f04373346243b3b13b8d4507abdd3fc380",
+   "aliases": [
+    "W2_108",
+    "W2_109",
+    "W2_110",
+    "W2_111"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/130_unsafeBitlockerBIOS_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_112",
+   "gold_sha256": "48530c525b4936425f546d57dd75f1fc2c5196eb2536b9684733283223ce54f1",
+   "aliases": [
+    "W2_112",
+    "W2_113",
+    "W2_114",
+    "W2_115"
+   ],
+   "gold_lines": 187,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/131_unsafeNullPtrDeref_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_116",
+   "gold_sha256": "f7ec8176bc839813d85be83ed9812045ff33946cee143c4c35b8feab454b1e60",
+   "aliases": [
+    "W2_116",
+    "W2_117",
+    "W2_118",
+    "W2_119"
+   ],
+   "gold_lines": 182,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/133_unsafeDNSSpoofing_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W2_120",
+   "gold_sha256": "fdef83a8287768c275c391206290fcbf40c5ab3a62dd34f68d08908e4a92f894",
+   "aliases": [
+    "W2_120",
+    "W2_121",
+    "W2_122",
+    "W3_000"
+   ],
+   "gold_lines": 189,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/113_unsafePlaintextFS_safe.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W3_004",
+   "gold_sha256": "052fc37b7e5159e6da8a60f8a5804374c05dd2add6f9441501041fbbbb92a18c",
+   "aliases": [
+    "W3_004",
+    "W3_005",
+    "W3_006",
+    "W3_007"
+   ],
+   "gold_lines": 183,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/137_unsafeHMACLength_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_008",
+   "gold_sha256": "2018fab05e5f88638ab4b078ec172e8da4a6f14fcd80c8f7a4193a57c4cb2362",
+   "aliases": [
+    "W3_008",
+    "W8_050",
+    "W8_051",
+    "W8_052"
+   ],
+   "gold_lines": 204,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/13_unsafeBaggyBounds_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_009",
+   "gold_sha256": "022277e96de9f1915819e7d89d163ad708b033823d28fbc9cf7ffe6b2bc3310d",
+   "aliases": [
+    "W3_009",
+    "W3_010",
+    "W3_011",
+    "W3_012"
+   ],
+   "gold_lines": 190,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/140_unsafeHTTPRedirect_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_013",
+   "gold_sha256": "5452d057718296ddcd449564d8ef6a4bff446d1b2126fdf66231872ac6af244d",
+   "aliases": [
+    "W3_013",
+    "W3_014",
+    "W3_015",
+    "W3_016"
+   ],
+   "gold_lines": 192,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/143_unsafeSameOriginCheck_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_017",
+   "gold_sha256": "d84c97cda3c0a8ec617939874129618f70eef311ac00d11f1479cbae6dae29bf",
+   "aliases": [
+    "W3_017",
+    "W3_018",
+    "W3_019",
+    "W3_020"
+   ],
+   "gold_lines": 194,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/145_unsafeHeapSpraying_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_021",
+   "gold_sha256": "93b860a33ef94d043b76012706a7d2a008ae9bf0c4769fe110520b4547b7def8",
+   "aliases": [
+    "W3_021",
+    "W3_022",
+    "W3_023",
+    "W3_024"
+   ],
+   "gold_lines": 190,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/147_unsafeStackCanaryBypass_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_025",
+   "gold_sha256": "020caefad161e8d0d93ff67cdc81d8fc936337ac305c5b0b7bd880411449f056",
+   "aliases": [
+    "W3_025",
+    "W3_026",
+    "W3_027",
+    "W3_028"
+   ],
+   "gold_lines": 195,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/148_unsafeFormatStringLeak_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_029",
+   "gold_sha256": "74d3be9e47077ea8c8978ad5f06d57d2187ab91fab13dda4a927f066d2f85452",
+   "aliases": [
+    "W3_029",
+    "W3_030",
+    "W3_031",
+    "W3_032"
+   ],
+   "gold_lines": 189,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/149_unsafeKernelAddrLeak_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_033",
+   "gold_sha256": "3ac53eddbbded897db7e2bef9cd57651ea472c8e0c1257f42c283f1775647f44",
+   "aliases": [
+    "W3_033",
+    "W3_034",
+    "W3_035",
+    "W3_036"
+   ],
+   "gold_lines": 249,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/14_unsafeServiceAuth_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_037",
+   "gold_sha256": "d121e712efd014edac1339e3949d644855b0a6cd92f5b3190f4470ced96b40a0",
+   "aliases": [
+    "W3_037",
+    "W3_038",
+    "W3_039",
+    "W3_040"
+   ],
+   "gold_lines": 210,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/154_unsafeIPFragReassembly_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_041",
+   "gold_sha256": "357c5e5f07cc46799ef6e68b4deebfdd0945d53d5d3c9b1d77e0d7c9567a1661",
+   "aliases": [
+    "W3_041",
+    "W3_042",
+    "W3_043",
+    "W3_044"
+   ],
+   "gold_lines": 183,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/156_unsafePostAuthority_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_045",
+   "gold_sha256": "ed5314d79f1015b04cdfb1e2a537e994c6850829e483a36bcfe5986bdae6aafb",
+   "aliases": [
+    "W3_045",
+    "W3_046",
+    "W3_047",
+    "W3_048"
+   ],
+   "gold_lines": 206,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/157_unsafeSSLFinishedMAC_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_051",
+   "gold_sha256": "4da2f9cbffb594b5d6943bc3fe2da7481a57cb8e0a528f2bc29ee418a7a8af9c",
+   "aliases": [
+    "W3_051",
+    "W3_052",
+    "W3_053",
+    "W3_054"
+   ],
+   "gold_lines": 206,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/155_unsafeU2FOrigin_safe.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W3_055",
+   "gold_sha256": "8a23162f27edd9e6815af6f9b85d06c1b650624ce3f50d25802a7b0ba9146e2a",
+   "aliases": [
+    "W3_055",
+    "W3_056",
+    "W3_057",
+    "W3_058"
+   ],
+   "gold_lines": 226,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/15_unsafePrivilegeDrop_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_059",
+   "gold_sha256": "db2ed1854ed22716aa12153c4aef669f48568ecb00c0756941caeb56109dd500",
+   "aliases": [
+    "W3_059",
+    "W3_060",
+    "W3_061",
+    "W3_062"
+   ],
+   "gold_lines": 205,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W3_063",
+   "gold_sha256": "9622a29466cb27c3b0f9bf54aaf2a91e862cb5782f0ba54466a144c6f7e6d1a6",
+   "aliases": [
+    "W3_063",
+    "W3_064",
+    "W3_065",
+    "W3_066"
+   ],
+   "gold_lines": 194,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/16_unsafeSeccompFilter_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_067",
+   "gold_sha256": "f860dc38382bd19ec99632edd70b8677f2e46fdb04d0bb1f114914642557eba7",
+   "aliases": [
+    "W3_067",
+    "W3_068",
+    "W3_069",
+    "W3_070"
+   ],
+   "gold_lines": 207,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/17_unsafeCgroupMemory_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_074",
+   "gold_sha256": "f33137b07642879dfc05f79f5fa0f0837c5c69688e5493b823ae057b5d52e7e7",
+   "aliases": [
+    "W3_074",
+    "W3_075",
+    "W3_076",
+    "W3_077"
+   ],
+   "gold_lines": 224,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/23_unsafeDoubleRead_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_078",
+   "gold_sha256": "4bb5533ad866331a7ebe475c984271ce120a41464f7055063b00fd7d542db7b3",
+   "aliases": [
+    "W3_078",
+    "W3_079",
+    "W3_080",
+    "W3_081"
+   ],
+   "gold_lines": 193,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/24_unsafeDualBound_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_082",
+   "gold_sha256": "18d7dabfb972551a5bcebd0011e19e0f94e0d60eccc53c3aec7106befb98e3a0",
+   "aliases": [
+    "W3_082",
+    "W3_083",
+    "W3_084",
+    "W3_085"
+   ],
+   "gold_lines": 188,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/28_unsafeSameOrigin_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_086",
+   "gold_sha256": "32a3c071d215af4f4040915cd20747ebe7377b5c1074f8687b679a1b48f61394",
+   "aliases": [
+    "W3_086",
+    "W3_087",
+    "W8_056",
+    "W8_057"
+   ],
+   "gold_lines": 230,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/2_unsafeMemoryAccess_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_088",
+   "gold_sha256": "42b04457b2acaf819afca469b813f7abda3a7b01eafde08a7cb1272bf41b01f7",
+   "aliases": [
+    "W3_088",
+    "W3_089",
+    "W3_090",
+    "W3_091"
+   ],
+   "gold_lines": 200,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/30_unsafeUidIsolation_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_092",
+   "gold_sha256": "7e6460faaa23780ffb8ffc71ce10ac4e7b0978366415eb7f6cecee127c88de2a",
+   "aliases": [
+    "W3_092",
+    "W3_093",
+    "W3_094",
+    "W3_095"
+   ],
+   "gold_lines": 251,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/34_unsafeDirectRoute_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_096",
+   "gold_sha256": "05ec267d63b596b98c7c3e422e6af46d8eb0d0ce9f111ebaab9ebe4f53e9b0ce",
+   "aliases": [
+    "W3_096",
+    "W3_097",
+    "W3_098",
+    "W3_099"
+   ],
+   "gold_lines": 204,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/37_unsafeRollback_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_100",
+   "gold_sha256": "eddd872b9116162051a44f516a0ab00217718c182f8a8c10a4e677bf5524ce65",
+   "aliases": [
+    "W3_100",
+    "W3_101",
+    "W3_102",
+    "W3_103"
+   ],
+   "gold_lines": 193,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/38_unsafeTofuKey_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_107",
+   "gold_sha256": "3d650c7eb5fd2e63e57e05c1eeac0e913cf80e26bb055bc84b5a36e3b18150dd",
+   "aliases": [
+    "W3_107",
+    "W3_108",
+    "W3_109",
+    "W3_110"
+   ],
+   "gold_lines": 189,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/40_unsafeCircuitHops_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_111",
+   "gold_sha256": "41dfd4b29786ce6e15d643e641e72a43fa4b0040fd19164f79dcd8fc416567ef",
+   "aliases": [
+    "W3_111",
+    "W3_112",
+    "W3_113",
+    "W3_114"
+   ],
+   "gold_lines": 163,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/44_unsafeRsaExponentiation_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_115",
+   "gold_sha256": "835415ae51cc676ae39ae6380bff249fc486548e25f2c74be321fbc1dd703cee",
+   "aliases": [
+    "W3_115",
+    "W3_116",
+    "W3_117",
+    "W3_118"
+   ],
+   "gold_lines": 188,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/44_unsafeTcpSeq_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W3_119",
+   "gold_sha256": "5e1bf33959f7de246e9a68575ed4ad32e3bc901980600d453782c19ba99bf342",
+   "aliases": [
+    "W3_119",
+    "W3_120",
+    "W3_121",
+    "W3_122"
+   ],
+   "gold_lines": 188,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/45_unsafeArpResponse_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_000",
+   "gold_sha256": "0d6507fde12cada8dc9d5d62e46ff44376d576c167152a64e35e4be350f5d44f",
+   "aliases": [
+    "W4_000",
+    "W4_001",
+    "W4_002",
+    "W4_003"
+   ],
+   "gold_lines": 193,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/46_unsafeMacVerify_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_004",
+   "gold_sha256": "b499575d7021107056a3f64005ccc2ddd19305dc6f1355d3e471ea16b58e51e5",
+   "aliases": [
+    "W4_004",
+    "W4_005",
+    "W4_006",
+    "W4_007"
+   ],
+   "gold_lines": 186,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/49_unsafeCertChain_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_008",
+   "gold_sha256": "6916f19f5492f27a074744b62e720a1ac607c41384cf9d6816093080dcae5bd5",
+   "aliases": [
+    "W4_008",
+    "W4_009",
+    "W4_010",
+    "W4_011"
+   ],
+   "gold_lines": 207,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/56_unsafeWasmSignExtend_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_012",
+   "gold_sha256": "1fa9f2b5c535029969625e9121495a1fc003eb3a1b330fb586d6fbde4c795dfe",
+   "aliases": [
+    "W4_012",
+    "W4_013",
+    "W4_014",
+    "W4_015"
+   ],
+   "gold_lines": 192,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/59_unsafeSensorReplay_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_016",
+   "gold_sha256": "1ce4e020f6b992ebfc47dde6c91f9a13bb38395e7958693ee6ff188668c40e06",
+   "aliases": [
+    "W4_016",
+    "W4_017",
+    "W4_018",
+    "W4_019"
+   ],
+   "gold_lines": 204,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/60_unsafeBroadcastEavesdrop_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_020",
+   "gold_sha256": "8a8586622607475c116196a464e662421dbeae986a4d6541e506899fa6d36b7e",
+   "aliases": [
+    "W4_020",
+    "W4_021",
+    "W4_022",
+    "W4_023"
+   ],
+   "gold_lines": 187,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/61_unsafeUriDelegation_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_028",
+   "gold_sha256": "3fbabee70c611792431c7e27c74ea0dfea6dfa426e47156eefd847d6833ecc21",
+   "aliases": [
+    "W4_028",
+    "W4_029",
+    "W4_030",
+    "W4_031"
+   ],
+   "gold_lines": 354,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/69_unsafeDnsSpoofing_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_032",
+   "gold_sha256": "e4c7a22732417f00e3adea15b6990ff7cd4bb7021528305154620dbf38261f35",
+   "aliases": [
+    "W4_032",
+    "W4_033",
+    "W4_034",
+    "W4_035"
+   ],
+   "gold_lines": 189,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/70_unsafeFdLeak_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_039",
+   "gold_sha256": "8805a50985106c1fb8e1e31c3b2aa40c282d6175c2444445aa1ecc0173e0db72",
+   "aliases": [
+    "W4_039",
+    "W4_040",
+    "W4_041",
+    "W4_042"
+   ],
+   "gold_lines": 209,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/74_unsafePaddingOracle_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_043",
+   "gold_sha256": "74dbb4aaeb63591519043a5f9cd235247554f37ac1e5b2d027e2bbb6141baaf2",
+   "aliases": [
+    "W4_043",
+    "W4_044",
+    "W4_045",
+    "W8_059"
+   ],
+   "gold_lines": 242,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/76_unsafeDeniableAuth_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_046",
+   "gold_sha256": "4cbbe9c9b21263f5690ccd7431aa9ca003ccb4dd239fce900f7e828bdf55fe98",
+   "aliases": [
+    "W4_046",
+    "W4_047",
+    "W4_048",
+    "W4_049"
+   ],
+   "gold_lines": 191,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/76_unsafeSandboxStatus_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_050",
+   "gold_sha256": "2e366136305b66bb455affd78e30a751587d92a86f1139860bf3dee77e998727",
+   "aliases": [
+    "W4_050",
+    "W4_051",
+    "W4_052",
+    "W4_053"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/79_unsafeKeyPersistence_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_054",
+   "gold_sha256": "9dfb28f81c1390f1ee1bd963796783ce419eefedb1e697a6c6a8ebd0f048c03b",
+   "aliases": [
+    "W4_054",
+    "W4_055",
+    "W4_056",
+    "W4_057"
+   ],
+   "gold_lines": 188,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/81_unsafeSigPerm_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_061",
+   "gold_sha256": "b82cd193740082ddd44d669f2e7656f2ac57ac8f7e63f22766df80cde03971aa",
+   "aliases": [
+    "W4_061",
+    "W4_062",
+    "W4_063",
+    "W4_064"
+   ],
+   "gold_lines": 188,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/85_unsafeCookieDomain_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_065",
+   "gold_sha256": "8c20f90ef6a7cdfa91713b9b538001877987392c236f20e1fa3057e9cc39b4ef",
+   "aliases": [
+    "W4_065",
+    "W4_066",
+    "W4_067",
+    "W4_068"
+   ],
+   "gold_lines": 134,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/86_unsafeBinderCall_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_069",
+   "gold_sha256": "b99cb0d73355c7ddec919c86225889428b64f1998f04b7048db7d794abde205a",
+   "aliases": [
+    "W4_069",
+    "W4_070",
+    "W4_071",
+    "W4_072"
+   ],
+   "gold_lines": 187,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/87_unsafeDNSReply_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_073",
+   "gold_sha256": "5166b97f51837594fd1174a7a42a61c3a774f966f5d165d2975962083cefbb2a",
+   "aliases": [
+    "W4_073",
+    "W4_074",
+    "W4_075",
+    "W4_076"
+   ],
+   "gold_lines": 223,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/90_unsafeCookieHttpOnly_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_077",
+   "gold_sha256": "364f95fdac586b7269329977041383ab15752b1b37dbfa2aefe1bb2e1f178bed",
+   "aliases": [
+    "W4_077",
+    "W4_078",
+    "W4_079",
+    "W4_080"
+   ],
+   "gold_lines": 201,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/91_unsafeConstraintSolve_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_081",
+   "gold_sha256": "7c6fc0d33dd8059c4a84116d8ce268967b8c658f0eadfd4856bb0ca7c6f6a492",
+   "aliases": [
+    "W4_081",
+    "W4_082",
+    "W4_083",
+    "W4_084"
+   ],
+   "gold_lines": 217,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/92_unsafeWitnessGen_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_085",
+   "gold_sha256": "29c023d3ad774ee63cfd2e6844b6243162990295aa82d066a95a65305660bc9b",
+   "aliases": [
+    "W4_085",
+    "W4_086",
+    "W4_087",
+    "W4_088"
+   ],
+   "gold_lines": 187,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/94_unsafeCAVerify_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_089",
+   "gold_sha256": "a3e4d4ec9f1820b4df06f4add5b4588be7a99259adf5eac490b151b5e669fe73",
+   "aliases": [
+    "W4_089",
+    "W4_090",
+    "W4_091",
+    "W4_092"
+   ],
+   "gold_lines": 219,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/96_unsafeMetadataProtection_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_093",
+   "gold_sha256": "a938bf28afc1e622885de155d682f199831b6ac9c4798149e7b4dc122b5ce857",
+   "aliases": [
+    "W4_093",
+    "W4_094",
+    "W4_095",
+    "W4_096"
+   ],
+   "gold_lines": 205,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/97_unsafeReplayAttack_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_097",
+   "gold_sha256": "2c23da301af1cc67359d282ce90170173b84ba1ea82d28dd3ed0730d57148cac",
+   "aliases": [
+    "W4_097",
+    "W4_098",
+    "W4_099",
+    "W8_072"
+   ],
+   "gold_lines": 222,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/99_unsafeHandshakeNoIdBinding_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_100",
+   "gold_sha256": "378b1b8276cb571e1ba19a65dc1a73caeac9e7d9e1813b7d7a0d41a8d8e6f991",
+   "aliases": [
+    "W4_100",
+    "W4_101",
+    "W4_102",
+    "W4_103"
+   ],
+   "gold_lines": 343,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/0_unsafeCopy.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_104",
+   "gold_sha256": "4b8f2e7b27f6b216bb2a836c3c8e2a48552dd24aae3a9aa9662212b292ccea89",
+   "aliases": [
+    "W4_104",
+    "W4_105",
+    "W4_106",
+    "W4_107"
+   ],
+   "gold_lines": 189,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/101_unsafeGuardReuse.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_108",
+   "gold_sha256": "20197222d74f56c2e6aa57e16820792c877a08c1849e7bfd17f58067b3d96ede",
+   "aliases": [
+    "W4_108",
+    "W4_109",
+    "W4_110",
+    "W4_111"
+   ],
+   "gold_lines": 189,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/101_unsafeHeartbeatLengthTrust.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_112",
+   "gold_sha256": "04d58d74ceeaf1ca614dbac1ed2db2c65116dfef00066dcd77e9e62e0f260f89",
+   "aliases": [
+    "W4_112",
+    "W4_113",
+    "W4_114",
+    "W4_115"
+   ],
+   "gold_lines": 180,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/102_unsafeRSATiming.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_116",
+   "gold_sha256": "eb19233bb4267c764499adba5e4597daafb78e21fb6b70af397c15c1ede6f909",
+   "aliases": [
+    "W4_116",
+    "W4_117",
+    "W4_118",
+    "W4_119"
+   ],
+   "gold_lines": 198,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/103_unsafeLLCPartition.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W4_120",
+   "gold_sha256": "d3dc650e72db88cd51b809a7a27bde31d66a658690b6b05e65a00bdd02b55bd3",
+   "aliases": [
+    "W4_120",
+    "W4_121",
+    "W4_122",
+    "W5_000"
+   ],
+   "gold_lines": 179,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/103_unsafeTcpReset.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_001",
+   "gold_sha256": "22afee22e3ff8b62173491688705bf54e56be74b163dbfdb37ce5691d37fca2f",
+   "aliases": [
+    "W5_001",
+    "W5_002",
+    "W5_003",
+    "W5_004"
+   ],
+   "gold_lines": 210,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W5_005",
+   "gold_sha256": "447cebda1d442c85c01be791df1ffdb52bac4b9e07a741ef07bc0d4ea3a03e64",
+   "aliases": [
+    "W5_005",
+    "W5_006",
+    "W5_007",
+    "W5_008"
+   ],
+   "gold_lines": 192,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/104_unsafeServerReadsPlaintext.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_011",
+   "gold_sha256": "a7d6c3bea21d6af0952b39213ec2fc4c93b6ca3996e3aa62d7a664eccd2d9e9a",
+   "aliases": [
+    "W5_011",
+    "W5_012",
+    "W5_013",
+    "W5_014"
+   ],
+   "gold_lines": 199,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/107_unsafeProfileSandbox.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_015",
+   "gold_sha256": "8ea108f6771dc3859570360df55d1a6271d0f79fe02fd05723faa49f280f40de",
+   "aliases": [
+    "W5_015",
+    "W5_016",
+    "W5_017",
+    "W5_018"
+   ],
+   "gold_lines": 199,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/108_unsafeAnyRootCaScope.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_019",
+   "gold_sha256": "ba8eb77d381be525558728ba485a72ff6ad66a843802b416dea8fb3179415076",
+   "aliases": [
+    "W5_019",
+    "W5_020",
+    "W5_021",
+    "W5_022"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/112_unsafeFileIntegrity.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_023",
+   "gold_sha256": "99ccd72e6a237d9c9f4c37e2b65dc27af155373b6c2811354c991c9dc1f62b4f",
+   "aliases": [
+    "W5_023",
+    "W5_024",
+    "W5_025",
+    "W5_026"
+   ],
+   "gold_lines": 184,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/113_unsafePlaintextFS.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W5_027",
+   "gold_sha256": "3a6d6c636c0cc2bcacc6af9299a15f8d341ada6e48894ed1f19864b7291cb80d",
+   "aliases": [
+    "W5_027",
+    "W5_028",
+    "W5_029",
+    "W5_030"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/114_unsafeVersionRollback.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_031",
+   "gold_sha256": "d761d1cfda45952d4732e27cdddb1682de092c130d8ca05f9d94777c07af05d6",
+   "aliases": [
+    "W5_031",
+    "W5_032",
+    "W5_033",
+    "W5_034"
+   ],
+   "gold_lines": 186,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/115_unsafeROPChain.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_035",
+   "gold_sha256": "dfca49ecd923314b68641976d97c3a98504d24d7df58a46a1f9a7740270b53fc",
+   "aliases": [
+    "W5_035",
+    "W5_036",
+    "W5_037",
+    "W5_038"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/117_unsafeXFIJump.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_042",
+   "gold_sha256": "b1373ed8b978b68ac31d69645afa4015ed363ef5555e1df9be8d5974c039ce67",
+   "aliases": [
+    "W5_042",
+    "W5_043",
+    "W5_044",
+    "W5_045"
+   ],
+   "gold_lines": 260,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/11_unsafeTimingComparison.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_046",
+   "gold_sha256": "a3d21b63ae4b5787b5c7ed18b2726d9b179dcf07f52c99d943b6f446ebf1cda4",
+   "aliases": [
+    "W5_046",
+    "W5_047",
+    "W5_048",
+    "W5_049"
+   ],
+   "gold_lines": 188,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/124_unsafeAndroidBroadcast.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_052",
+   "gold_sha256": "81ddf729eb5a8da8cc7333e312348e1b8bf088a2e8d8a64830eb25122f208b08",
+   "aliases": [
+    "W5_052",
+    "W5_053",
+    "W5_054",
+    "W5_055"
+   ],
+   "gold_lines": 186,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/127_unsafeFuncPtrOverflow.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_056",
+   "gold_sha256": "185d9548f8a235219271bad155d133b36ed639242cec1a00bf676ff350b12ee5",
+   "aliases": [
+    "W5_056",
+    "W5_057",
+    "W5_058",
+    "W5_059"
+   ],
+   "gold_lines": 183,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W5_060",
+   "gold_sha256": "e00ee1b84201a9f5bad319b3d317b2aad8a97dde9eeb27a95475140df8bb1794",
+   "aliases": [
+    "W5_060",
+    "W5_061",
+    "W5_062",
+    "W5_063"
+   ],
+   "gold_lines": 223,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W5_064",
+   "gold_sha256": "37f49f87fe24c90b0ac24b3088b50b86f00ee55fee5fea32d02863f66c4956e2",
+   "aliases": [
+    "W5_064",
+    "W5_065",
+    "W5_066",
+    "W5_067"
+   ],
+   "gold_lines": 186,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/130_unsafeBitlockerBIOS.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_071",
+   "gold_sha256": "aa26b5c311357ddcf4c98dbea4015c75675a344413dbec8722d9040a0c132fac",
+   "aliases": [
+    "W5_071",
+    "W5_072",
+    "W5_073",
+    "W5_074"
+   ],
+   "gold_lines": 192,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/132_unsafeClickjacking.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_075",
+   "gold_sha256": "0797ba3e78fc863110695268c9d165ec85fa3a5733493d6416bd664b4cdba297",
+   "aliases": [
+    "W5_075",
+    "W5_076",
+    "W5_077",
+    "W5_078"
+   ],
+   "gold_lines": 187,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/133_unsafeDNSSpoofing.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_079",
+   "gold_sha256": "a809a18cf88b35bab417b2a1cf975deba807c7ef4f7468c68957e89fc26fdb6a",
+   "aliases": [
+    "W5_079",
+    "W5_080",
+    "W5_081",
+    "W5_082"
+   ],
+   "gold_lines": 189,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/134_unsafeWepKeystream.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_083",
+   "gold_sha256": "5e7fe79a175429bef17d1bc0585eaae6b3708df8df9c9384fee03d3e18148001",
+   "aliases": [
+    "W5_083",
+    "W5_084",
+    "W5_085",
+    "W5_086"
+   ],
+   "gold_lines": 188,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/136_unsafePrivilegeEscalation.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_087",
+   "gold_sha256": "1221d97bb003796f29224f018005c5b8b1c0832a28d4d55df9fe8347b1f330ac",
+   "aliases": [
+    "W5_087",
+    "W5_088",
+    "W5_089",
+    "W5_090"
+   ],
+   "gold_lines": 192,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/137_unsafeHMACLength.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_091",
+   "gold_sha256": "8658171708d6842bdc6efe0a52910d507a2d3c2d55d897a1e2ae4fc9193b5c18",
+   "aliases": [
+    "W5_091",
+    "W5_092",
+    "W5_093",
+    "W5_094"
+   ],
+   "gold_lines": 192,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/140_unsafeHTTPRedirect.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_095",
+   "gold_sha256": "fdc3dd05668c04f6771547bfa4e09ab0c4433fb6b169192f3aaedc169f93d535",
+   "aliases": [
+    "W5_095",
+    "W5_096",
+    "W5_097",
+    "W5_098"
+   ],
+   "gold_lines": 189,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/141_unsafeNonceReuse.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_099",
+   "gold_sha256": "bb92162c0675c54ced4657e5691075512900d6ac0b8180b387dd86bff738c54c",
+   "aliases": [
+    "W5_099",
+    "W5_100",
+    "W5_101",
+    "W5_102"
+   ],
+   "gold_lines": 191,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/143_unsafeSameOriginCheck.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_103",
+   "gold_sha256": "80e4bf3780abe0b547ab5e2630f3ee63caa8c2d1d752a12333ced2d3ce32cc5a",
+   "aliases": [
+    "W5_103",
+    "W5_104",
+    "W5_105",
+    "W5_106"
+   ],
+   "gold_lines": 189,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/149_unsafeKernelAddrLeak.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_107",
+   "gold_sha256": "a35a994e9656877197a6e5b8694cb30b117b245a5534eb97dd1cb3bc544cbc13",
+   "aliases": [
+    "W5_107",
+    "W5_108",
+    "W5_109",
+    "W5_110"
+   ],
+   "gold_lines": 210,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/14_unsafeServiceAuth.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_111",
+   "gold_sha256": "ca3d12b08947eac5a8c6bae3c36460060816a8a0eee7a47e6f4ef586bae13446",
+   "aliases": [
+    "W5_111",
+    "W5_112",
+    "W5_113",
+    "W5_114"
+   ],
+   "gold_lines": 191,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/153_unsafeRSABlinding.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W5_115",
+   "gold_sha256": "a933c305377fa2e5ffb017ade710ae17f636f3198008e84d52b7d0bdea68c43a",
+   "aliases": [
+    "W5_115",
+    "W5_116",
+    "W5_117",
+    "W5_118"
+   ],
+   "gold_lines": 205,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/159_unsafeU2FChallenge.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W5_122",
+   "gold_sha256": "1c019dd6b5eb0ab9a0dcacf1379a7e579b89800618f4f2d805d4f821b132532c",
+   "aliases": [
+    "W5_122",
+    "W6_000",
+    "W6_001",
+    "W6_002"
+   ],
+   "gold_lines": 212,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/159_unsafeU2FChallenge.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W6_003",
+   "gold_sha256": "800414a150cefd61b4bf1ed27bc173c90c682eef5df120b957ba59f029cdbe2a",
+   "aliases": [
+    "W6_003",
+    "W6_004",
+    "W6_005",
+    "W6_006"
+   ],
+   "gold_lines": 211,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/15_unsafePrivilegeDrop.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_007",
+   "gold_sha256": "917db9908535fdc41a5430ec12c57c32a7e6e8096b4406d833459adcb283b4f0",
+   "aliases": [
+    "W6_007",
+    "W6_008",
+    "W6_009",
+    "W6_010"
+   ],
+   "gold_lines": 208,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W6_011",
+   "gold_sha256": "18588c7c4408788c04c16c7cfd33e68533236c95769be444beb34681560aadb9",
+   "aliases": [
+    "W6_011",
+    "W6_012",
+    "W6_013",
+    "W6_014"
+   ],
+   "gold_lines": 210,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/16_unsafeSeccompFilter.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_015",
+   "gold_sha256": "11bd8594086b2f1607b102554adbad8404b72faf1c2e84ebd0fbde5f2a62fbfc",
+   "aliases": [
+    "W6_015",
+    "W6_016",
+    "W6_017",
+    "W6_018"
+   ],
+   "gold_lines": 209,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/17_unsafeCgroupMemory.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_019",
+   "gold_sha256": "4820a1aa2f9d6f4181f1f6774be8fe1f563aa69fce80ca6263c2b43b40112eac",
+   "aliases": [
+    "W6_019",
+    "W6_020",
+    "W6_021",
+    "W6_022"
+   ],
+   "gold_lines": 198,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/21_unsafeBootEcid.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_023",
+   "gold_sha256": "ee63efe20629dc3f673279187d7339efe935b13ffa4fe7c3db39d0359108b7db",
+   "aliases": [
+    "W6_023",
+    "W6_024",
+    "W6_025",
+    "W6_026"
+   ],
+   "gold_lines": 201,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/22_unsafeTaintedLen.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_027",
+   "gold_sha256": "9474c5c58b79f17bc6536b8112ecd4fa1c677d6b0d03229dfad278eb2eecb9f7",
+   "aliases": [
+    "W6_027",
+    "W6_028",
+    "W6_029",
+    "W6_030"
+   ],
+   "gold_lines": 213,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/23_unsafeDoubleRead.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_031",
+   "gold_sha256": "ec6d23edf0f8c941cf5d9ccb55a4db677b8b2e0dabb8a3af7cb80419dee36f4a",
+   "aliases": [
+    "W6_031",
+    "W6_032",
+    "W6_033",
+    "W6_034"
+   ],
+   "gold_lines": 192,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/25_unsafeRangeCheck.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_035",
+   "gold_sha256": "710bc40545d5971ecd7fe91be3fb52a69fe9c0e4933312f7ee90262a02bf64fb",
+   "aliases": [
+    "W6_035",
+    "W6_036",
+    "W6_037",
+    "W6_038"
+   ],
+   "gold_lines": 186,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/26_unsafeCsrfToken.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_039",
+   "gold_sha256": "8b8bc8eb93a0617a922c664e494ec49187dfa1fd0f1c1dc0d181c1f54920ce77",
+   "aliases": [
+    "W6_039",
+    "W6_040",
+    "W6_041",
+    "W6_042"
+   ],
+   "gold_lines": 200,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/31_unsafeDivide.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_043",
+   "gold_sha256": "c9f39ddc77b33d3e304b9c2da065d00f3c41b0af31c13dd448a81c2f6e558cb8",
+   "aliases": [
+    "W6_043",
+    "W6_044",
+    "W6_045",
+    "W6_046"
+   ],
+   "gold_lines": 208,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/33_unsafePaddingOracle.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W6_047",
+   "gold_sha256": "1e30dc1efb692e6d8eb9323fabf1ddd3e28dbaefe29b53392275c21c9b7f018b",
+   "aliases": [
+    "W6_047",
+    "W6_048",
+    "W6_049",
+    "W6_050"
+   ],
+   "gold_lines": 199,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/34_unsafeDirectRoute.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_051",
+   "gold_sha256": "8d87ffa881d27558c6cfec84f0d6ce3924284c0b94981a8160a2f7c70d63ffbe",
+   "aliases": [
+    "W6_051",
+    "W6_052",
+    "W6_053",
+    "W6_054"
+   ],
+   "gold_lines": 223,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/36_unsafeBootChain.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_055",
+   "gold_sha256": "5e54610fcd2dff1169c7d332586be01d358a0eb5f6ed8b144d3aeadd952bda9d",
+   "aliases": [
+    "W6_055",
+    "W6_056",
+    "W6_057",
+    "W6_058"
+   ],
+   "gold_lines": 223,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/37_unsafeRollback.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_059",
+   "gold_sha256": "0a99aa93113707bede2cf92a32792cbf0037de13a925e2acb3be16dbe361b61b",
+   "aliases": [
+    "W6_059",
+    "W6_060",
+    "W6_061",
+    "W6_062"
+   ],
+   "gold_lines": 188,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/39_unsafeOobAuth.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_063",
+   "gold_sha256": "23d9577ea06f73a75051be4a5baa3139f4aabfe0024712529fe8ef850ec27869",
+   "aliases": [
+    "W6_063",
+    "W6_064",
+    "W6_065",
+    "W6_066"
+   ],
+   "gold_lines": 223,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/3_unsafeLinkedList.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_067",
+   "gold_sha256": "9e808502e7c4f41fa04a63cfc8c733fc85c1c1c125ba639220c6658ee7f2e786",
+   "aliases": [
+    "W6_067",
+    "W6_068",
+    "W6_069",
+    "W6_070"
+   ],
+   "gold_lines": 187,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/40_unsafeCircuitHops.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_071",
+   "gold_sha256": "29c7eb5dd5d14e46909cf24a1725223829e078715b56c17a36cfc4f9db8ce5ef",
+   "aliases": [
+    "W6_071",
+    "W6_072",
+    "W6_073",
+    "W6_074"
+   ],
+   "gold_lines": 180,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/44_unsafeRsaExponentiation.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_075",
+   "gold_sha256": "cfca5420694c90c9c468b184cb5cd19b1a62e486079cd00db73eec2a6587567c",
+   "aliases": [
+    "W6_075",
+    "W6_076",
+    "W6_077",
+    "W6_078"
+   ],
+   "gold_lines": 161,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/44_unsafeTcpIsn.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_079",
+   "gold_sha256": "2c954ff8ee41a070881324aad64538c69bb7ce97247181a7387544bb789a0847",
+   "aliases": [
+    "W6_079",
+    "W6_080",
+    "W6_081",
+    "W6_082"
+   ],
+   "gold_lines": 187,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/44_unsafeTcpSeq.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_083",
+   "gold_sha256": "926547ea8496f47aa285999a97b750b00f026abe8dee7a25dc8862f36ebfe450",
+   "aliases": [
+    "W6_083",
+    "W6_084",
+    "W6_085",
+    "W8_088"
+   ],
+   "gold_lines": 174,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/45_unsafeMeltdownRead.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_086",
+   "gold_sha256": "3947a72e887dea9f106de3f8915d2022e62da9fe0fc82b71f59ad58525a9cafa",
+   "aliases": [
+    "W6_086",
+    "W6_087",
+    "W6_088",
+    "W6_089"
+   ],
+   "gold_lines": 200,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/47_unsafeTlsCertName.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_090",
+   "gold_sha256": "dfc664de3a2c5d0e07498f8aedadd64710d61de48e46be2c1ef0cd79c6f8e4e8",
+   "aliases": [
+    "W6_090",
+    "W6_091",
+    "W6_092",
+    "W6_093"
+   ],
+   "gold_lines": 188,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/49_unsafeCertChain.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_094",
+   "gold_sha256": "a0dff21878d6da6ee5f60d37f5b3e781b0e198ee4612b6ab93a1588a2e15b974",
+   "aliases": [
+    "W6_094",
+    "W6_095",
+    "W6_096",
+    "W6_097"
+   ],
+   "gold_lines": 220,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/53_unsafePerUserTicket.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_098",
+   "gold_sha256": "739e7c31f14ffb8943d84a5717a2608fa780df960a3ce2d7a16a1b4c8ae5af0b",
+   "aliases": [
+    "W6_098",
+    "W6_099",
+    "W6_100",
+    "W6_101"
+   ],
+   "gold_lines": 212,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/54_unsafeNamespaceIsolation.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_102",
+   "gold_sha256": "35a23f878582ad72589a23068aff2e465ffd6d54dd147d867146473e730e3497",
+   "aliases": [
+    "W6_102",
+    "W6_103",
+    "W6_104",
+    "W6_105"
+   ],
+   "gold_lines": 205,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/57_unsafeTaintedPtr.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_106",
+   "gold_sha256": "0c39095c36ac446970ac60baca21c46e12d8dd6e384a64faac3bfdff915d1382",
+   "aliases": [
+    "W6_106",
+    "W6_107",
+    "W6_108",
+    "W6_109"
+   ],
+   "gold_lines": 194,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/61_unsafeUriDelegation.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_110",
+   "gold_sha256": "3118279c62eb5a368a110eb7881bc7d36f1aa629c5445ce81cfcc4c35c68f425",
+   "aliases": [
+    "W6_110",
+    "W6_111",
+    "W6_112",
+    "W6_113"
+   ],
+   "gold_lines": 194,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/62_unsafeBpfOobRead.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_114",
+   "gold_sha256": "8d8f1b62b4a0fd01d9ded9ae33ad1f495cd1ddc9a1c0f645bbfb89f9e5d75e4a",
+   "aliases": [
+    "W6_114",
+    "W6_115",
+    "W6_116",
+    "W6_117"
+   ],
+   "gold_lines": 210,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/89_unsafeSynFlood.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W6_118",
+   "gold_sha256": "146c5187c0d33c914b64c4bcee80ca81c16224d0c96121a7019bd8775c9aa858",
+   "aliases": [
+    "W6_118",
+    "W6_119",
+    "W6_120",
+    "W6_121"
+   ],
+   "gold_lines": 186,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/64_unsafeSaltlessStore.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W6_122",
+   "gold_sha256": "7f188bab0cfca1f6e9a48db4705f4829769260062b0248151ec5f5ce633372cf",
+   "aliases": [
+    "W6_122",
+    "W7_000",
+    "W7_001",
+    "W7_002"
+   ],
+   "gold_lines": 264,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/65_unsafePasscodeKdf.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_003",
+   "gold_sha256": "314ba8ec1cfbc65f5e63536dd99c1d04281cedb11cf29139c296a55dcb2d4ca5",
+   "aliases": [
+    "W7_003",
+    "W7_004",
+    "W7_005",
+    "W7_006"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/68_unsafeHeapOverflow.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_007",
+   "gold_sha256": "83b7a0a7a422fb395baad10e31b2c6d7e72deb63b0c899d704fde939182f1bd1",
+   "aliases": [
+    "W7_007",
+    "W7_008",
+    "W7_009",
+    "W7_010"
+   ],
+   "gold_lines": 195,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/69_unsafeQueryWhitelist.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_011",
+   "gold_sha256": "c7803070d90fe3e3759b3c0618cbb139ae8f0b3937234f080d1a6581abad3507",
+   "aliases": [
+    "W7_011",
+    "W7_012",
+    "W8_089",
+    "W8_090"
+   ],
+   "gold_lines": 319,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/6_unsafeSQLQuery.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_013",
+   "gold_sha256": "7cfc35b3ec09760a6df71c8d4c825a8654ccdbf26e59b39f1297dae7fe33e638",
+   "aliases": [
+    "W7_013",
+    "W7_014",
+    "W7_015",
+    "W7_016"
+   ],
+   "gold_lines": 228,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/33_unsafePaddingOracle.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W7_017",
+   "gold_sha256": "36f229d9570cf19b8c076a8f6b81d5e80976f67b102f5b11f5ffa5e7404b838a",
+   "aliases": [
+    "W7_017",
+    "W7_018",
+    "W7_019",
+    "W7_020"
+   ],
+   "gold_lines": 224,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/75_unsafeCertHostname.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_021",
+   "gold_sha256": "3e334759b682adf398322c91b30d053ae18646794ea44c309979411b37167bf1",
+   "aliases": [
+    "W7_021",
+    "W7_022",
+    "W7_023",
+    "W7_024"
+   ],
+   "gold_lines": 210,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/77_unsafeFirmwareUpdate.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_025",
+   "gold_sha256": "8406ed9994c79da637eb7a53dbb4b94b3ad05e12606fd1091f1d36a5b59e7301",
+   "aliases": [
+    "W7_025",
+    "W7_026",
+    "W7_027",
+    "W7_028"
+   ],
+   "gold_lines": 186,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/77_unsafeVersionDowngrade.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_029",
+   "gold_sha256": "62a87d991aa7b241cad77562dc254e2e150f8a66c69b303b254286056e710ecb",
+   "aliases": [
+    "W7_029",
+    "W7_030",
+    "W7_031",
+    "W7_032"
+   ],
+   "gold_lines": 185,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/78_unsafeEnclaveKey.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_033",
+   "gold_sha256": "816534f4bc5dd099d4329f7d8a2abad690342374c8639cfc4dea9a078a2a0c2f",
+   "aliases": [
+    "W7_033",
+    "W7_034",
+    "W7_035",
+    "W7_036"
+   ],
+   "gold_lines": 160,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/84_unsafeXSSEcho.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_037",
+   "gold_sha256": "afd651860944f00710b76f1be3c37a48841a8c0a3c4e6ce65e1142c6de5ee219",
+   "aliases": [
+    "W7_037",
+    "W7_038",
+    "W7_039",
+    "W7_040",
+    "W7_060",
+    "W7_061",
+    "W7_062",
+    "W7_063"
+   ],
+   "gold_lines": 199,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/85_unsafeAppEntitlements.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W7_041",
+   "gold_sha256": "f071b7cc4f853c550f47e4ddee72eb3e4f83dc6504225653ca2931a54c9aea1c",
+   "aliases": [
+    "W7_041",
+    "W7_042",
+    "W7_043",
+    "W7_044"
+   ],
+   "gold_lines": 109,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/86_unsafeBinderCall.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_045",
+   "gold_sha256": "662651f6d27fa425cfe5bb7df154478e9324b141139710a29288e30a1f83bec9",
+   "aliases": [
+    "W7_045",
+    "W7_046",
+    "W7_047",
+    "W7_048"
+   ],
+   "gold_lines": 179,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/89_unsafeBgpHijacking.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_049",
+   "gold_sha256": "732ed91698ea8a9a973ec4754984a627bada7836069e47c3efb327e320f92d39",
+   "aliases": [
+    "W7_049",
+    "W7_050",
+    "W7_051",
+    "W7_052"
+   ],
+   "gold_lines": 187,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/89_unsafeSynFlood.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W7_053",
+   "gold_sha256": "02d3c8837b2cf5327d9b1a00b2a44dd3bc689aaf362007f0f320716dd78a5e02",
+   "aliases": [
+    "W7_053",
+    "W7_054",
+    "W7_055",
+    "W7_056"
+   ],
+   "gold_lines": 209,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/91_unsafeConstraintSolve.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_064",
+   "gold_sha256": "08ceb7340e9764ede965ee3a1e6445e5071ccb74207a5849eaafba5ba5d84df3",
+   "aliases": [
+    "W7_064",
+    "W7_065",
+    "W7_066",
+    "W7_067"
+   ],
+   "gold_lines": 188,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/93_unsafeCertRevoke.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_068",
+   "gold_sha256": "096d934dd02f60ba14b5c7e35bd2a51121eeefa27837360c43a0f3c999a9be57",
+   "aliases": [
+    "W7_068",
+    "W7_069",
+    "W7_070",
+    "W7_071"
+   ],
+   "gold_lines": 186,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/94_unsafeCAVerify.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_072",
+   "gold_sha256": "8bbdb439b451e6202342a496fd9f01be83a0aed1c2abaec5b30666ad48cc0857",
+   "aliases": [
+    "W7_072",
+    "W7_073",
+    "W7_074",
+    "W7_075"
+   ],
+   "gold_lines": 220,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/94_unsafeStaticKeyExchange.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W7_079",
+   "gold_sha256": "af08decd234a88ee1f911eeedb39115d66e9bb60d283b95e633bcdf11e135d0d",
+   "aliases": [
+    "W7_079",
+    "W7_080",
+    "W7_081",
+    "W7_082"
+   ],
+   "gold_lines": 205,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/97_unsafeHopByHopEmail.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_083",
+   "gold_sha256": "42dfa08023fca5d38ba00d67cf34c9b7fc971774da29ad0539663352f6b1f5f5",
+   "aliases": [
+    "W7_083",
+    "W7_084",
+    "W7_085",
+    "W7_086"
+   ],
+   "gold_lines": 201,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/97_unsafeReplayAttack.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_087",
+   "gold_sha256": "d478a0336075a070104a82762f831625185b053aff4767e5fa978f78054e38a5",
+   "aliases": [
+    "W7_087",
+    "W7_088",
+    "W7_089",
+    "W7_090"
+   ],
+   "gold_lines": 202,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W7_091",
+   "gold_sha256": "e6cd73fa6cb4b77cc93f655ddc1f3ec230bd27849a3be87bf8009c5e866ba275",
+   "aliases": [
+    "W7_091",
+    "W7_092",
+    "W7_093",
+    "W7_094"
+   ],
+   "gold_lines": 199,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/99_unsafeHandshakeNoIdBinding.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W7_095",
+   "gold_sha256": "372fe793d5292567ae1543f858021d8fa7bde1c6c4ea615c756fbc0ad55c7baf",
+   "aliases": [
+    "W7_095",
+    "W7_096",
+    "W7_097",
+    "W8_095"
+   ],
+   "gold_lines": 186,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/99_unsafeCipherDowngrade.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_098",
+   "gold_sha256": "7e448e22aafccb3fe9d4e8e2021e6413c2201b3305bbde9d9f75d464fbdde0e5",
+   "aliases": [
+    "W7_098",
+    "W8_104",
+    "W8_105",
+    "W8_106"
+   ],
+   "gold_lines": 283,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_python/safe/1_no_command_injection_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_103",
+   "gold_sha256": "02763b6010ef861e9bb5b87faa87ec8fb387459b87de2ce825977e055fe5bf6d",
+   "aliases": [
+    "W7_103",
+    "W7_104",
+    "W7_105",
+    "W7_106"
+   ],
+   "gold_lines": 5355,
+   "python_source": "veribench/veribench_dataset/py_src/cs_set/heapsort_max_heapify.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W7_107",
+   "gold_sha256": "e48fb6aac655d604088e49f9a1df15e8309f098615355f3def97d1af57448e55",
+   "aliases": [
+    "W7_107",
+    "W7_108",
+    "W7_109"
+   ],
+   "gold_lines": 3808,
+   "python_source": "veribench/veribench_dataset/py_src/cs_set/heapsort_max_heapify.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W7_110",
+   "gold_sha256": "c51fc874815e2384b24fde13a3acc1f3bff38d0c1022b187cbd7e6692d380581",
+   "aliases": [
+    "W7_110",
+    "W7_111",
+    "W7_112",
+    "W7_113"
+   ],
+   "gold_lines": 1178,
+   "python_source": "veribench/veribench_dataset/py_src/cs_set/heapsort_problems.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W7_114",
+   "gold_sha256": "9fa8b240218aacf94baa811774955c0919f714f635162e10f41916b11149fc79",
+   "aliases": [
+    "W7_114",
+    "W7_115",
+    "W7_116",
+    "W7_117"
+   ],
+   "gold_lines": 670,
+   "python_source": "veribench/veribench_dataset/py_src/cs_set/union_find.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W8_000",
+   "gold_sha256": "b2811e20a6e730f2214d57497e7970fd71d942551f46ab874725adeca6341e42",
+   "aliases": [
+    "W8_000",
+    "W8_001",
+    "W8_002",
+    "W8_003"
+   ],
+   "gold_lines": 269,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_17_parse_music.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W8_004",
+   "gold_sha256": "4c11f005bbf64752b2e7552439fa6fca2d9bdc850c82d4c710f17221e639467a",
+   "aliases": [
+    "W8_004",
+    "W8_005",
+    "W8_006",
+    "W8_007"
+   ],
+   "gold_lines": 275,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_18_how_many_times.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W8_008",
+   "gold_sha256": "c0aad176743fe96a4b3231c6a778cb4aee61e16419f1739cdd79efa47d12f9c4",
+   "aliases": [
+    "W8_008",
+    "W8_009",
+    "W8_010",
+    "W8_011"
+   ],
+   "gold_lines": 294,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_1_separate_paren_groups.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W8_016",
+   "gold_sha256": "2070f5237d3259006f4f1bc8049218c005a598e3a362fae162e5c8c56b5376f8",
+   "aliases": [
+    "W8_016",
+    "W8_017",
+    "W8_018",
+    "W8_019"
+   ],
+   "gold_lines": 1236,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_poly.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W8_020",
+   "gold_sha256": "c6e14580bd540fc3dde7d26c227d1fa403d293d15fd4ee57f6581be9e16bdada",
+   "aliases": [
+    "W8_020",
+    "W8_021",
+    "W8_022",
+    "W8_023"
+   ],
+   "gold_lines": 383,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_poly.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W8_024",
+   "gold_sha256": "29dad697a2a864a19549682dd3eb5e24cec43c554e6baba74c3a9f89a04e1b13",
+   "aliases": [
+    "W8_024",
+    "W8_025",
+    "W8_026",
+    "W8_027"
+   ],
+   "gold_lines": 446,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humanevalXL_9__isPrime.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W8_033",
+   "gold_sha256": "aea73ceedbb7d84ac403b4be869e18f698c5f4fdc063d923d62abe259a53af49",
+   "aliases": [
+    "W8_033",
+    "W8_034",
+    "W8_035",
+    "W8_036"
+   ],
+   "gold_lines": 443,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W8_042",
+   "gold_sha256": "4fa6fa988acf79239f274e8862655822f76fef40a31f823dfe04a263fefe842b",
+   "aliases": [
+    "W8_042",
+    "W8_043",
+    "W8_044",
+    "W8_045"
+   ],
+   "gold_lines": 189,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/102_unsafePredictableKeyGen_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W8_046",
+   "gold_sha256": "3a41971979782b033884516daaa22d417ea2025a09c590260f29459d8b1dfd2f",
+   "aliases": [
+    "W8_046",
+    "W8_047",
+    "W8_048",
+    "W8_049"
+   ],
+   "gold_lines": 209,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/108_unsafeEvalInjection_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W8_060",
+   "gold_sha256": "01508c3cbbb39539b271a098fe2487b0342a90e8efde9f962e54ab9adc62fefa",
+   "aliases": [
+    "W8_060",
+    "W8_061",
+    "W8_062",
+    "W8_063"
+   ],
+   "gold_lines": 210,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/77_unsafeFirmwareUpdate_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W8_064",
+   "gold_sha256": "7c54b75e15df53454103bf2787f5447aeb7aff504bb6e915adebe5f86016548e",
+   "aliases": [
+    "W8_064",
+    "W8_065",
+    "W8_066",
+    "W8_067"
+   ],
+   "gold_lines": 235,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W8_068",
+   "gold_sha256": "7bffa8187ae3a4a2996d4f0dbb577431e72f480eaee2799459c12161caca97bb",
+   "aliases": [
+    "W8_068",
+    "W8_069",
+    "W8_070",
+    "W8_071"
+   ],
+   "gold_lines": 223,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/safe/98_unsafeUpdateChannel_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W8_076",
+   "gold_sha256": "7f364b5d89faddf7d81e56db9600a5275c3f661467c60da025d52c7c589e898b",
+   "aliases": [
+    "W8_076",
+    "W8_077",
+    "W8_078",
+    "W8_079"
+   ],
+   "gold_lines": 223,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W8_080",
+   "gold_sha256": "36253dd0e17477f283d6dcfc68ad432d75284a417aabcaeabfa07de44e510a60",
+   "aliases": [
+    "W8_080",
+    "W8_081",
+    "W8_082",
+    "W8_083"
+   ],
+   "gold_lines": 257,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/2_unsafeMemoryAccess.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W8_084",
+   "gold_sha256": "500510ecc084600ca800df3901954f5e54a03c7aab1b21a3034281a205645831",
+   "aliases": [
+    "W8_084",
+    "W8_085",
+    "W8_086",
+    "W8_087"
+   ],
+   "gold_lines": 204,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_6858/vulnerabilities/32_unsafeLeakingCompare.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W8_091",
+   "gold_sha256": "d018314b4284a40a852407fbfc58cf049f071286858024b1a4e7e26aaf08f947",
+   "aliases": [
+    "W8_091",
+    "W8_092",
+    "W8_093",
+    "W8_094"
+   ],
+   "gold_lines": 221,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W8_096",
+   "gold_sha256": "5c00c52907d0138efdb5580b138cd9ee991bb557b9eda8adc1eb5073a2dc1dd7",
+   "aliases": [
+    "W8_096",
+    "W8_097",
+    "W8_098",
+    "W8_099"
+   ],
+   "gold_lines": 214,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W8_100",
+   "gold_sha256": "20e90f79c8521f7215d337ce04b485b3d518146eb3b9d661b4685f2ee50bf061",
+   "aliases": [
+    "W8_100",
+    "W8_101",
+    "W8_102",
+    "W8_103"
+   ],
+   "gold_lines": 234,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W8_107",
+   "gold_sha256": "e9f7b947774e90ceeecb1a79238ec5cde609b1997c771447a5e7037c4acb3522",
+   "aliases": [
+    "W8_107",
+    "W8_108",
+    "W8_109",
+    "W8_110"
+   ],
+   "gold_lines": 267,
+   "python_source": "veribench/veribench_dataset/py_src/humaneval_set/humaneval_32_findZero.py",
+   "python_map_ambiguous": true
+  },
+  {
+   "task": "W8_111",
+   "gold_sha256": "4d6b1e2c40dfc8e0b62de4eab6689c54ccd08bf035696738d3f30848e45250ae",
+   "aliases": [
+    "W8_111",
+    "W8_112",
+    "W8_113",
+    "W8_114"
+   ],
+   "gold_lines": 291,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_python/safe/1_no_command_injection_safe.py",
+   "python_map_ambiguous": false
+  },
+  {
+   "task": "W8_115",
+   "gold_sha256": "7cf0716d1b0a3341b6d1fa18d5d37afb10dba682220bc3599dfc7bdbc9ea6aa4",
+   "aliases": [
+    "W8_115",
+    "W8_116",
+    "W8_117",
+    "W8_118"
+   ],
+   "gold_lines": 278,
+   "python_source": "veribench/veribench_dataset/py_src/security_set/security_python/safe/2_no_executable_escalation_safe.py",
+   "python_map_ambiguous": false
+  }
+ ]
+}
