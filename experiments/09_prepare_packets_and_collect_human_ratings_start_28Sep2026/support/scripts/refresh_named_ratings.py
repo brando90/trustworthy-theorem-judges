@@ -3,6 +3,7 @@
 import argparse
 import csv
 import hashlib
+import importlib.util
 import io
 import json
 import re
@@ -10,6 +11,9 @@ from pathlib import Path
 
 EXPERIMENT = Path(__file__).resolve().parents[2]
 ROOT = EXPERIMENT.parents[1]
+_spec = importlib.util.spec_from_file_location("source_label", Path(__file__).with_name("source_label.py"))
+SOURCE_LABEL = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(SOURCE_LABEL)
 
 
 def named_export(source, identities):
@@ -30,6 +34,8 @@ def named_export(source, identities):
         raise ValueError("Expected an already validated, normalized rating import")
     if len(fields) != len(set(fields)):
         raise ValueError("Source must have unique original columns")
+    if SOURCE_LABEL.COLUMN in fields:
+        raise ValueError(f"Source already has a {SOURCE_LABEL.COLUMN} column; it is added at export")
     seen = set()
     for row in rows:
         if None in row or any(v is None for v in row.values()):
@@ -41,9 +47,10 @@ def named_export(source, identities):
         if not row["item_id"] or row["item_id"] in seen:
             raise ValueError("Missing or duplicate item identity")
         seen.add(row["item_id"])
-    export_rows = [{"rater_name": name, **row} for row in rows]
+    label = SOURCE_LABEL.label_for_packet(packet)
+    export_rows = [{"rater_name": name, **row, SOURCE_LABEL.COLUMN: label} for row in rows]
     buf = io.StringIO(newline="")
-    output_fields = ["rater_name", "rater_id", *(k for k in fields if k not in {"rater_name", "rater_id"})]
+    output_fields = ["rater_name", "rater_id", *(k for k in fields if k not in {"rater_name", "rater_id"}), SOURCE_LABEL.COLUMN]
     writer = csv.DictWriter(buf, fieldnames=output_fields, lineterminator="\n")
     writer.writeheader()
     writer.writerows(export_rows)
@@ -56,9 +63,9 @@ def named_export(source, identities):
         "rater_id": rid, "rater_name": name, "file": filename, "rows": len(rows),
         "sha256": hashlib.sha256(data).hexdigest(),
         "original_import_file": source.name,
-        "original_import_sha256": hashlib.sha256(raw).hexdigest(),
+        "original_import_sha256": hashlib.sha256(raw).hexdigest(), "source_label": label,
         "source_kind": "validated_normalized_import_not_raw_sheet",
-        "transformation": "Placed verified rater_name first and rater_id second; all normalized-input fields, values, blanks and row order preserved. No coordinator response enrichment or estimates applied. Historical normalization may already have changed case or omitted nonnumeric rows; this is not a raw submitted table.",
+        "transformation": "Placed verified rater_name first and rater_id second and appended the source_label round column last; all normalized-input fields, values, blanks and row order preserved. No coordinator response enrichment or estimates applied. Historical normalization may already have changed case or omitted nonnumeric rows; this is not a raw submitted table.",
     }
 
 

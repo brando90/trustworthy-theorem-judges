@@ -192,9 +192,23 @@
  },
  "data_policy": {
   "rule": "All rating data is valuable (Brando, 11-18-2026: \"all data is valuable btw\"). Drop nothing: warm-up ratings, legacy May ratings and partially filled Sheets all stay.",
-  "row_labels": "Every row has a rater_id. The files and Sheets do not yet have a source-label column: the round (warm-up, main round or May round) is applied when data is imported, as a source_label (main_round for the 34 main Sheets), so rounds are never pooled by accident. Until an import step adds it, analyses must group by rater_id plus the file the row came from.",
+  "row_labels": "Every row in the CSV exports carries a rater_id and a source_label, the round it came from (added 11-18-2026, Brando: \"Make sure these things are recorded in the repo so when we collect the data it's easy to do stuff with it\"). source_label is an export-only column, appended last to every file in ratings/ and ratings/analysis/; the raters' Sheets do not have it and must not get it. Allowed values are in export_columns.source_label. Filter by source_label; never pool rounds by accident, and never drop a round.",
   "reading": "Read Sheets by header name, or by the letter prefix A_, B_, C_, D_ for the checklist; never by column position, because columns moved on 11-18-2026 (A-D now F:I, final_score_0_5 now J).",
   "main_measure": "The 0-5 final_score_0_5 stays the main measure; A-D are required context for it, joined on rater_id + item_id.",
   "raters_contact": "No further emails to raters about the checklist: Brando 11-18-2026, \"don't spam my humans btw, if you can edit their sheet that's better\". Anka Reuel, John Sarracino, Allen and Vaibhav Mahajan, who had said yes, got a thank-you in their threads at 10:18 PT before that rule; nobody else was emailed."
+ },
+ "export_columns": {
+  "source_label": {
+   "position": "last column of every CSV in ratings/ and ratings/analysis/; not a Sheet column",
+   "required": true,
+   "allowed_values": {
+    "warm-up": "warm-up packet files (*__warmup_<id>.csv)",
+    "main": "current 100-file main round (*__native_main_<id>.csv; the 34 main Sheets, A1, T01-T30, V01, V02, V04)",
+    "historical_main": "original 125-row main round, October 2026 (*__setN_<id>.csv)",
+    "May": "May 2026 judge-paper ratings (195 expert ratings by Ethan, Jolene and Steven); reserved for when they are imported into ratings/"
+   },
+   "rule": "Original columns, cells and row order are never changed; the label is derived from the file's round. New imports must carry it: build_full_team_packets.py export and refresh_named_ratings.py add it, and support/scripts/source_label.py check|apply verifies or backfills it.",
+   "tests": "support/tests/test_source_label.py"
+  }
  }
 }

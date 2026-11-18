@@ -8,6 +8,11 @@
 
 Warm-up and current main forms have the same eleven fields; since 11-17-2026 the main forms put the rationale last, named `rationale (optional)` (warm-up forms keep `rationale` before `problem_note`). Final score and the combined artificial intelligence (AI) assistance/human-rating attestation are required for new ratings. Time and confidence are requested; a one-sentence rationale is **preferred but optional**; problem notes are for issues. Names and IDs are prefilled metadata. Participant responses retain blanks, capitalization, spelling and N/A entries; assistant-estimated times and assistant-written background annotations were removed. [Rater email](https://docs.google.com/document/d/1KJQHxA-pSMxr31ZPMq8dI5bWPjnObQ2CHlQZ6g5r3f8/edit?tab=t.bmtmw71ddlms) · [Warm-up form verification and history](../support/sheet_exports/11-11-2026_final_form/README.md).
 
+
+## Filtering by round: `source_label`
+
+Every row in every CSV here (and in [analysis/](analysis/)) ends with a `source_label` column that names its round, so all data stays in one place and is easy to filter: `warm-up` (warm-up packet), `main` (current 100-file round), `historical_main` (original 125-row round, files `*__setN_*`), `May` (reserved for the May 2026 judge-paper ratings when they are imported). It is an export-only column; the raters' Sheets do not have it. Original columns, cells and row order are unchanged and nothing is dropped. Rules and allowed values: `export_columns` in [RATING_FORM_SCHEMA.json](../support/RATING_FORM_SCHEMA.json). Check or backfill with `python3 support/scripts/source_label.py check` (or `apply`), and `build_full_team_packets.py export` adds it on every refresh.
+
 ## Warm-up first
 
 [Open Brando’s warm-up packet](../rating_task_packet/START_HERE.md).

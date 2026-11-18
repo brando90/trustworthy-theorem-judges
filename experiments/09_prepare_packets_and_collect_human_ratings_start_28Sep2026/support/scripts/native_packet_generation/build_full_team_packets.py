@@ -36,6 +36,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(HERE.parent))
+from source_label import add_label as add_source_label  # noqa: E402
 import build_packet as bp  # noqa: E402
 
 REPO = HERE.parents[4]
@@ -829,14 +831,14 @@ def export() -> None:
         assert table[0] == MAIN_COLUMNS and all(row[1] == rater_id for row in table[1:]), rater_id
         record = main_csv_entry(manifest, rater_id)
         buffer = io.StringIO()
-        csv.writer(buffer, lineterminator="\n").writerows(table)
+        csv.writer(buffer, lineterminator="\n").writerows(add_source_label(table, "main"))  # Sheet columns plus source_label
         data = buffer.getvalue().encode()
         (ratings / record["filename"]).write_bytes(data)
         numeric = sum(row[SCORE].strip() in {"0", "1", "2", "3", "4", "5"} for row in table[1:])
         not_applicable = sum(row[SCORE].strip().upper() == "N/A" for row in table[1:])
         scored[rater_id] = numeric
         record.update({
-            "columns": table[0], "form_version": FORM_VERSION,
+            "columns": table[0], "csv_columns": [*table[0], "source_label"], "source_label": "main", "form_version": FORM_VERSION,
             "url": entry["sheet_url"], "spreadsheet_id": entry["sheet_id"], "range": f"{TAB}!A1:O{len(table)}",
             "assigned_rows": len(table) - 1, "rows": len(table) - 1, "numeric_ratings": numeric,
             "not_applicable_rows": not_applicable, "sha256": sha(data),
