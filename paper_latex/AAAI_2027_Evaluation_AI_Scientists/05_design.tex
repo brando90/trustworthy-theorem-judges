@@ -43,6 +43,24 @@ Localized AI assistance is required prospectively; the human makes the final com
 Independent submissions are preserved rather than replaced with a consensus answer.
 The inherited collection is reserved for evaluation in the new training-objective comparison, with prior exposure retained in its record.
 
+\subsection{Held-out test set: 25 tasks and four frontier agents}
+% Provenance: experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/DESIGN_CHECK_ITEMS_AND_CROSSING_11-17-2026.md, sections 3 to 5; research_artifacts/09_human_rating_collection/legacy_veribench/human_round/README.md, section C1 (stratification rule); experiment 09 README, 100-file native cohort (25 tasks x 4 agents).
+% Descriptive sizes (non-blank Python lines 18 to 129, reference theorems 2 to 36, candidate theorems up to 83) are from the design check dated 11-17-2026 and must be re-verified against the final files before submission.
+% This subsection supersedes the 54-artifact replacement packet described above; that text is stale and awaits revision.
+The human-rated test set contains 25 \textsc{VeriBench} tasks, selected before any rater saw an item.
+We used stratified sampling with equal allocation: five tasks from each of five splits (easy, cs, humaneval, realcode, security), and within each split one task from each of five equal-count difficulty groups.
+Equal allocation means the sample does not mirror the benchmark's split sizes, so population-level estimates would require reweighting.
+Difficulty was estimated from the coverage score of an earlier system, not from the four agents rated here, so it balances the tasks and says nothing about the quality of any agent's file.
+The tasks are diverse in domain, spanning introductory exercises, classic algorithms, HumanEval problems, real-world code and security-sensitive code.
+They are also varied in complexity: Python sources run from 18 to 129 non-blank lines, reference specifications state from 2 to 36 theorems, and the specifications written by frontier agents contain up to 83.
+This makes the set useful for evaluating a judge on frontier models.
+Their outputs are long, multi-theorem specifications whose coverage of the reference is not obvious at a glance, and the tasks cover a wide range of size, structure and domain rather than one narrow slice.
+We collected one output per task from each of four frontier agents (GPT-6 Astra, Claude Fable 5.1, Grok 4.7 and Gemini 4 Argon) and selected no output by content or score.
+The agents ran in different harnesses and under different prompt versions, so this set supports validating the judge and does not rank the agents.
+Generating these outputs is costly, so we did not regenerate the set to concentrate on harder tasks.
+We use these ratings only as a held-out test set.
+Rating collection is in progress, and no rating of this set has yet been analyzed.
+
 \subsection{Estimating tasks, configurations and raters}
 Let $T$ count task identities, $A$ solver configurations and $H$ distinct raters.
 The observed number of ratings is $\sum_i m_i$, not $TAH$ unless every rater rates every artifact.
