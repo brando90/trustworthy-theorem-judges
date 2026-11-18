@@ -339,7 +339,10 @@ def sheets_session():
 # A-D as four required dropdown columns L:O after the version-6 columns (warm-up forms had a checklist and he liked it).
 CHECKLIST_COLUMNS = ["A_key_gold_theorems_covered (Y/N)", "B_gold_pre_postconditions_preserved_or_strengthened (Y/N)",
                      "C_obvious_theorem_spam (Y/N)", "D_spam_handful_or_dominates (none/handful/dominates)"]
-MAIN_COLUMNS = bp.COLUMNS + CHECKLIST_COLUMNS
+MAIN_COLUMNS = bp.COLUMNS[:5] + CHECKLIST_COLUMNS + bp.COLUMNS[5:]  # Brando, 11-18-2026: "the A-D should go before the final score"
+ATTESTATION_HEADER = "ai_assisted_rating_attestation (AI help is allowed)"  # Brando, 11-18-2026
+MAIN_COLUMNS = [ATTESTATION_HEADER if c == "ai_assisted_rating_attestation" else c for c in MAIN_COLUMNS]
+SCORE = MAIN_COLUMNS.index("final_score_0_5")
 
 
 def live_table(session, sheet_id: str) -> list[list[str]]:
@@ -829,8 +832,8 @@ def export() -> None:
         csv.writer(buffer, lineterminator="\n").writerows(table)
         data = buffer.getvalue().encode()
         (ratings / record["filename"]).write_bytes(data)
-        numeric = sum(row[5].strip() in {"0", "1", "2", "3", "4", "5"} for row in table[1:])
-        not_applicable = sum(row[5].strip().upper() == "N/A" for row in table[1:])
+        numeric = sum(row[SCORE].strip() in {"0", "1", "2", "3", "4", "5"} for row in table[1:])
+        not_applicable = sum(row[SCORE].strip().upper() == "N/A" for row in table[1:])
         scored[rater_id] = numeric
         record.update({
             "columns": table[0], "form_version": FORM_VERSION,
@@ -935,7 +938,7 @@ def status() -> None:
     rows, total = [], 0
     for rater_id, entry in index.items():
         table = live_table(session, entry["sheet_id"])
-        done = sum(row[5].strip() != "" for row in table[1:])
+        done = sum(row[SCORE].strip() != "" for row in table[1:])
         total += done
         if rater_id == "A1":
             earlier = SEALED / "BUILD_INDEX_100.json"  # the first 100-file packet (Terminus 2 Grok and Gemini files)

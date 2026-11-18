@@ -63,7 +63,8 @@
  },
  "field_status_note": "recommended and optional are not disjoint: `rationale (optional)` is preferred but optional. Only required_new_responses are required for new completed ratings.",
  "historical_header_aliases": {
-  "rationale": "rationale (optional)"
+  "rationale": "rationale (optional)",
+  "ai_assisted_rating_attestation": "ai_assisted_rating_attestation (AI help is allowed)"
  },
  "revisions": [
   {
@@ -117,6 +118,11 @@
    ],
    "rows_with_entries_at_change": 0,
    "sheets": 33
+  },
+  {
+   "date": "11-18-2026",
+   "change": "A-D moved before final_score_0_5 (\"the A-D should go before the final score\"); attestation header renamed to 'ai_assisted_rating_attestation (AI help is allowed)' in main Sheets (same meaning and values)",
+   "rows_with_entries_at_change": 0
   }
  ],
  "checklist_columns": {
@@ -146,17 +152,17 @@
    ]
   },
   "required": "required in main forms (version 7, see required_main_form_v7); warm-up forms have no checklist columns",
-  "sheet_columns": "L:O, strict dropdowns, rows 2-101",
+  "sheet_columns": "F:I (before final_score_0_5), strict dropdowns, rows 2-101",
   "analysis": "One answer per row per item; join on rater_id + item_id. D is 'none' when C is N. Responses entered before 11-18-2026 ~10:30 PT: none (0 of 3300 rows had any entry when added).",
   "note": "`columns` is the shared version-6 base (warm-up and builders); live main Sheets and their CSV exports use main_form_v7_columns."
  },
  "required_main_form_v7": [
-  "final_score_0_5",
-  "ai_assisted_rating_attestation",
   "A_key_gold_theorems_covered (Y/N)",
   "B_gold_pre_postconditions_preserved_or_strengthened (Y/N)",
   "C_obvious_theorem_spam (Y/N)",
-  "D_spam_handful_or_dominates (none/handful/dominates)"
+  "D_spam_handful_or_dominates (none/handful/dominates)",
+  "final_score_0_5",
+  "ai_assisted_rating_attestation (AI help is allowed)"
  ],
  "main_form_v7_columns": [
   "rater_name",
@@ -164,15 +170,15 @@
   "item_id",
   "task_folder",
   "candidate_file",
-  "final_score_0_5",
-  "ai_assisted_rating_attestation",
-  "minutes_spent",
-  "confidence",
-  "problem_note",
-  "rationale (optional)",
   "A_key_gold_theorems_covered (Y/N)",
   "B_gold_pre_postconditions_preserved_or_strengthened (Y/N)",
   "C_obvious_theorem_spam (Y/N)",
-  "D_spam_handful_or_dominates (none/handful/dominates)"
+  "D_spam_handful_or_dominates (none/handful/dominates)",
+  "final_score_0_5",
+  "ai_assisted_rating_attestation (AI help is allowed)",
+  "minutes_spent",
+  "confidence",
+  "problem_note",
+  "rationale (optional)"
  ]
 }

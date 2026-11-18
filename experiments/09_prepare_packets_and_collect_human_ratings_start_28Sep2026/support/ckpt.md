@@ -206,3 +206,4 @@ Related sizing work is saved separately in [experiment 15’s checkpoint](../../
   - `build_full_team_packets.py` (`CHECKLIST_COLUMNS`, `MAIN_COLUMNS`; `live_table` and `export` read A:O).
 
   All 33 ratings CSVs were re-exported with 15 columns. Analysis: join on `rater_id` + `item_id`; D is `none` when C is N. Thank-you plus a note about the checklist was sent in-thread to the raters who said yes: Anka, John Sarracino, Allen and Vaibhav (BCC science). No other emails.
+- 11-18-2026 ~10:55 PT — Per Brando, A–D checklist columns moved to F:I, before `final_score_0_5`, and the main-sheet attestation header renamed `ai_assisted_rating_attestation (AI help is allowed)`, in all 33 Sheets (0 entries). Schema `main_form_v7_columns` and header alias updated, builder reads the score by name, CSVs re-exported.
