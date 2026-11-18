@@ -114,6 +114,8 @@ PEOPLE = [
     ("T29", "Varun Raj Madan", "Varun", "vmadan@stanford.edu", "new co-author invite", "varun"),
     ("V01", "Slava Naprienko", "Slava", "slava@vals.ai", "Vals colleague", ""),
     ("V02", "Nikil Ravi", "Nikil", "nikil@vals.ai", "Vals colleague", ""),
+    # Brando, 11-17-2026: "vaibhav@vals.ai in case he didn't receive the ratings too. he should have." (V03 is Jacob, declined.)
+    ("V04", "Vaibhav Mahajan", "Vaibhav", "vaibhav@vals.ai", "Vals colleague", ""),
 ]
 
 
@@ -244,7 +246,10 @@ OLD_BUILDS = OUT / "builds"  # the 75-file builds of record, matched to the live
 def row_order(rater_id: str) -> list[str]:
     if rater_id == "A1":
         return ordered_items(BRANDO["design"])
-    order = list(json.loads((OLD_BUILDS / rater_id / "ASSEMBLY_RECEIPT.json").read_text())["row_order"])
+    old = OLD_BUILDS / rater_id / "ASSEMBLY_RECEIPT.json"
+    if not old.exists():  # added after the 75-file round (V04, 11-17-2026): a hash-seeded uniformly random order
+        return sorted((r[0] for r in cohort_rows()), key=lambda item: sha(f"added-rater-11-17-2026|{rater_id}|{item}".encode()))
+    order = list(json.loads(old.read_text())["row_order"])
     salt = f"four-agent-insert-11-16-2026|{rater_id}|"  # fixed: the live Sheets were ordered with this salt
     new = sorted({r[0] for r in cohort_rows()} - set(order), key=lambda item: sha((salt + item).encode()))
     for item in new:  # sequential uniform insertion keeps the old order and randomizes the rest
@@ -824,7 +829,9 @@ def export() -> None:
             "assigned_rows": len(table) - 1, "rows": len(table) - 1, "numeric_ratings": numeric,
             "not_applicable_rows": not_applicable, "sha256": sha(data),
             "source_readback_sha256": sha(json.dumps(table, ensure_ascii=False, separators=(",", ":")).encode()),
-            "assembly_receipt_sha256": sha((BUILDS / rater_id / "ASSEMBLY_RECEIPT.json").read_bytes()),
+            # T05's and V02's delivered builds moved to sealed/delivered_direct_11-17-2026/ without their receipts: keep the hash on record
+            "assembly_receipt_sha256": sha(receipt.read_bytes()) if (receipt := BUILDS / rater_id / "ASSEMBLY_RECEIPT.json").exists()
+                                       else record["assembly_receipt_sha256"],
             "status": "prepared blank form, not a completed observation" if numeric + not_applicable == 0
                       else "live table; participant responses preserved as entered"})
     manifest["numeric_observations"] = sum(f.get("numeric_ratings", 0) for f in manifest["files"])
@@ -899,6 +906,13 @@ def review() -> None:
     print(f"wrote {OUT / f'REVIEW_ALL_31_EMAILS_{TODAY}.md'} ({len(rows)} raters)")
 
 
+def pacific(utc_iso: str) -> str:
+    """'2026-11-18T02:31:05+00:00' -> '11-17-2026 18:31 PT' (prose dates are MM-DD-YYYY)."""
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    return datetime.fromisoformat(utc_iso).astimezone(ZoneInfo("America/Los_Angeles")).strftime("%m-%d-%Y %H:%M PT")
+
+
 def status() -> None:
     """Who is grading: one row per rater with live progress, written into the experiment README."""
     index = json.loads(BUILD_INDEX.read_text())
@@ -920,7 +934,9 @@ def status() -> None:
             mail = (f"emailed to self {entry['sent_to_self']['date']}" if entry.get("sent_to_self") else
                     "current packet not emailed yet" + (f"; earlier 100-file packet emailed {before['date']}" if before else ""))
         elif rater_id in sent_log and sent_log[rater_id].get("status", "sent") == "sent":
-            mail = f"sent {sent_log[rater_id]['sent_utc'][:10]}"
+            mail = f"sent {pacific(sent_log[rater_id]['sent_utc'])}"
+            if any(r.get("packet_link") for r in sent_log[rater_id].get("resends", [])):
+                mail += f"; Drive-link copy {pacific(sent_log[rater_id]['resends'][-1]['utc'])}"
         elif rater_id in sent_log:
             mail = "send started, unconfirmed (rerun send to reconcile)"
         else:
@@ -931,7 +947,7 @@ def status() -> None:
         csv_name = main_csv_entry(manifest, rater_id)["filename"]
         rows.append(f"| `{rater_id}` | {entry['rater_name']} | {people[rater_id]['email']} | {role} | {warm} | {mail} | "
                     f"**{done}/{len(table) - 1}** | [Sheet]({entry['sheet_url']}) · [CSV](ratings/{csv_name}) |")
-    block = "\n".join([STATUS_START, f"Live progress read from the 32 Sheets on {TODAY} at {__import__('time').strftime('%H:%M %Z')}; "
+    block = "\n".join([STATUS_START, f"Live progress read from the {len(index)} Sheets on {TODAY} at {__import__('time').strftime('%H:%M %Z')}; "
                        f"refresh with `python3 support/scripts/native_packet_generation/build_full_team_packets.py status`. "
                        f"Scored = rows with a `final_score_0_5` entry. Total scored: **{total}** of {100 * len(index)}.", "",
                        *([f"Team emails are on hold: {TEAM_SEND_HOLD}.", ""] if TEAM_SEND_HOLD else []),
