@@ -35,11 +35,11 @@ Every file comes from its agent's own harness and is verified by SHA-256 ([commi
 ## Who is grading
 
 <!-- grading-status:start -->
-Live progress read from the 33 Sheets on 11-17-2026 at 18:42 PST; refresh with `python3 support/scripts/native_packet_generation/build_full_team_packets.py status`. Scored = rows with a `final_score_0_5` entry. Total scored: **0** of 3300.
+Live progress read from the 33 Sheets on 11-18-2026 at 10:04 PST; refresh with `python3 support/scripts/native_packet_generation/build_full_team_packets.py status`. Scored = rows with a `final_score_0_5` entry. Total scored: **0** of 3300.
 
 | ID | Rater | Email | Role | Warm-up | Packet email | Scored | Links |
 | --- | --- | --- | --- | ---: | --- | ---: | --- |
-| `A1` | Brando Miranda | brandojazz@gmail.com | Author (coordinator) | 0/6 | emailed to self 11-17-2026 | **0/100** | [Sheet](https://docs.google.com/spreadsheets/d/1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM/edit) · [CSV](ratings/Brando_Miranda__native_main_A1.csv) |
+| `A1` | Brando Miranda | brandojazz@gmail.com | Author (coordinator) | 0/6 | emailed to self 11-18-2026 | **0/100** | [Sheet](https://docs.google.com/spreadsheets/d/1zUDr9fpUwK0IuxrSdFfBR_mOt4WwMY8-doBC6cIhIHM/edit) · [CSV](ratings/Brando_Miranda__native_main_A1.csv) |
 | `T01` | Rylan Schaeffer | rschaef@cs.stanford.edu | VeriBench co-author | 6/6 | sent 11-17-2026 18:32 PT | **0/100** | [Sheet](https://docs.google.com/spreadsheets/d/1fOr2oE2Fmibw9y8qDL7pMMuj6XH9luMJOMLDzIcBqo0/edit) · [CSV](ratings/Rylan_Schaeffer__native_main_T01.csv) |
 | `T02` | Yegor Denisov-Blanch | ydebl@stanford.edu | VeriBench co-author (extra_only) | 3/6 | sent 11-17-2026 15:09 PT; Drive-link copy 11-17-2026 18:33 PT | **0/100** | [Sheet](https://docs.google.com/spreadsheets/d/1Hpcb4NP754RDWstDkiaTR59K9AX2vXNL6IR9iXKRo-Y/edit) · [CSV](ratings/Yegor_Denisov-Blanch__native_main_T02.csv) |
 | `T03` | Dilara Soylu | soylu@stanford.edu | VeriBench co-author | 0/6 | sent 11-17-2026 18:32 PT | **0/100** | [Sheet](https://docs.google.com/spreadsheets/d/1D6Enb6IKRAZOoqhmk7bHwTqsFZ10U5dH3H3gRmJ8XPk/edit) · [CSV](ratings/Dilara_Soylu__native_main_T03.csv) |

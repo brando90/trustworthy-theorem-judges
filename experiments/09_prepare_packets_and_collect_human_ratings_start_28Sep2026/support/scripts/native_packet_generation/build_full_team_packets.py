@@ -742,13 +742,15 @@ def resend() -> None:
     """Send the current email (Brando's Doc, frozen in EMAIL_FROM_DOC.json, packet as a Drive link) again.
 
     Only raters in HOLD_EXCEPTIONS and A1 are allowed; dry run unless --confirm. Nothing is attached (see PACKET_DRIVE_URL).
-    Each send is recorded (SENT_100.json "resends", or A1's sent_to_self in the index).
+    Each send is recorded (SENT_100.json "resends", or A1's sent_to_self in the index) with Brando's request:
+    pass his words as --quote="..." (default RESEND_AUTHORIZED_BY).
     """
     import smtplib
     from email.message import EmailMessage
     from email.utils import formatdate, make_msgid
     args = sys.argv[2:]
     confirm = "--confirm" in args
+    quote = next((a.split("=", 1)[1] for a in args if a.startswith("--quote=")), RESEND_AUTHORIZED_BY)
     targets = [a for a in args if not a.startswith("--")]
     allowed = set(HOLD_EXCEPTIONS) | {"A1"}
     assert targets and set(targets) <= allowed, f"Name raters Brando cleared: {sorted(allowed)}"
@@ -786,7 +788,7 @@ def resend() -> None:
             assert not refused, refused
             record = {"utc": now_utc(), "message_id": message["Message-ID"], "to": person["email"], "bcc": BCC, "subject": SUBJECT,
                       "packet_link": PACKET_DRIVE_URL, "zip_sha256": PACKET_ZIP_SHA256, "doc_revision_id": snap["doc_revision_id"],
-                      "authorized_by": RESEND_AUTHORIZED_BY}
+                      "authorized_by": quote}
             if rid == "A1":
                 entry = index["A1"]
                 entry.setdefault("sent_to_self_earlier", []).append(entry.get("sent_to_self", {}))
