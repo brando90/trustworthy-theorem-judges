@@ -82,7 +82,7 @@ PEOPLE = [
     ("T02", "Yegor Denisov-Blanch", "Yegor", "ydebl@stanford.edu", "author (extra-only designation preserved)", ""),
     ("T03", "Dilara Soylu", "Dilara", "soylu@stanford.edu", "author", ""),
     ("T04", "Allen Nie", "Allen", "aimingnie@gmail.com", "author", ""),
-    ("T05", "Srivatsava Daruru (Sri)", "Srivatsava", "vatsava@gmail.com", "author", ""),
+    ("T05", "Srivatsava Daruru (Sri)", "Sri", "vatsava@gmail.com", "author", ""),
     ("T06", "Donald Poindexter Jr", "Don", "ddpoindexterjr@gmail.com", "author", ""),
     ("T07", "Simon Obstbaum", "Simon", "simon@obstbaum.eu", "author", ""),
     ("T08", "Amy Lu", "Amy", "amylucky@stanford.edu", "new co-author invite", "coauthor"),
@@ -701,6 +701,72 @@ def send() -> None:
           f"{sum(v.get('status', 'sent') == 'sent' for v in sent_log.values())} sent in total")
 
 
+RESEND_BUILDS = SEALED / "builds_100_native_resend_11-17-2026"  # slim zips for raters first sent a packet with START_HERE.md
+
+
+def resend() -> None:
+    """Send the current email (Brando's Doc, frozen in EMAIL_FROM_DOC.json) and the current slim zip again.
+
+    Brando, 11-17-2026: "Resend to nikil yegor sri brando please." Only raters in HOLD_EXCEPTIONS and A1 are allowed;
+    dry run unless --confirm. Each send is recorded (SENT_100.json "resends", or A1's sent_to_self in the index).
+    """
+    import smtplib
+    import zipfile
+    from email.message import EmailMessage
+    from email.utils import formatdate, make_msgid
+    args = sys.argv[2:]
+    confirm = "--confirm" in args
+    targets = [a for a in args if not a.startswith("--")]
+    allowed = set(HOLD_EXCEPTIONS) | {"A1"}
+    assert targets and set(targets) <= allowed, f"Name raters Brando cleared: {sorted(allowed)}"
+    lock = send_lock()  # noqa: F841
+    index = json.loads(BUILD_INDEX.read_text())
+    sent_log = json.loads(SENT_LOG.read_text()) if SENT_LOG.exists() else {}
+    people = {p["rater_id"]: p for p in roster()}
+    people["A1"] = BRANDO
+    password = (Path.home() / "keys/gmail_app_password.txt").read_text().strip()
+    snap = brando_draft()
+    ready = []
+    for rid in targets:
+        person, entry = people[rid], index[rid]
+        slim = RESEND_BUILDS / rid
+        zip_path = next(slim.glob("*.zip")) if slim.exists() else Path(entry["zip"])
+        data = zip_path.read_bytes()
+        assert not [n for n in zipfile.ZipFile(zip_path).namelist() if "/" not in n], f"{rid}: zip has files outside task folders"
+        url = entry["sheet_url"]
+        message = EmailMessage()
+        message["From"] = "Brando Miranda <brandojazz@gmail.com>"
+        message["To"], message["Bcc"], message["Subject"] = person["email"], ", ".join(BCC), SUBJECT
+        message["Date"], message["Message-ID"] = formatdate(localtime=True), make_msgid(domain="gmail.com")
+        message.set_content(email_body({**person, "opener": ""}, url))
+        message.add_alternative(email_html({**person, "opener": ""}, url), subtype="html")
+        message.add_attachment(data, maintype="application", subtype="zip", filename=zip_path.name)
+        assert url in message.get_body(("html",)).get_content() and "START_HERE" not in message.get_body(("html",)).get_content()
+        ready.append((rid, person, message, zip_path, sha(data)))
+        print(f"{'' if confirm else '[dry run] '}{rid} {person['rater_name']} -> {person['email']} bcc {', '.join(BCC)} | {SUBJECT} | "
+              f"{zip_path.name} {sha(data)[:12]} | doc revision {snap['doc_revision_id'][:12]}")
+    if not confirm:
+        print("dry run only; nothing was sent")
+        return
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=120) as smtp:
+        smtp.login("brandojazz@gmail.com", password)
+        for rid, person, message, zip_path, digest in ready:
+            refused = smtp.send_message(message, to_addrs=sorted({person["email"], *BCC}))
+            assert not refused, refused
+            record = {"utc": now_utc(), "message_id": message["Message-ID"], "to": person["email"], "bcc": BCC, "subject": SUBJECT,
+                      "zip": str(zip_path), "zip_sha256": digest, "doc_revision_id": snap["doc_revision_id"],
+                      "authorized_by": 'Brando, chat 11-17-2026: "Resend to nikil yegor sri brando please."'}
+            if rid == "A1":
+                entry = index["A1"]
+                entry.setdefault("sent_to_self_earlier", []).append(entry.get("sent_to_self", {}))
+                entry["sent_to_self"] = {**record, "date": TODAY, "brandojazz_inbox": ensure_in_inbox(password, message["Message-ID"])}
+                save_index(index)
+            else:
+                sent_log.setdefault(rid, {}).setdefault("resends", []).append(record)
+                SENT_LOG.write_text(json.dumps(sent_log, indent=1) + "\n")
+            print(f"sent {rid} {person['rater_name']} -> {person['email']} {message['Message-ID']}")
+
+
 def main_csv_entry(manifest: dict, rater_id: str) -> dict:
     found = [f for f in manifest["files"] if f["rater_id"] == rater_id and f["packet"] == "native_main"]
     assert len(found) == 1, rater_id
@@ -853,5 +919,5 @@ def status() -> None:
 
 if __name__ == "__main__":
     {"plan": plan, "build": build, "sheets": sheets, "verify": verify, "drafts": drafts,
-     "send-a1": send_a1, "send": send, "export": export, "review": review, "status": status,
+     "send-a1": send_a1, "send": send, "resend": resend, "export": export, "review": review, "status": status,
      "rationale-last": rationale_last}[sys.argv[1]]()
