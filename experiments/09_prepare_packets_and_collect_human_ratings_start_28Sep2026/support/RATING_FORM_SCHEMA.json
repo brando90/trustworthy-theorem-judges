@@ -1,6 +1,94 @@
 {
-  "version": "rating_context_v6_11-17-2026",
-  "columns": [
+ "version": "rating_context_v7_11-18-2026",
+ "columns": [
+  "rater_name",
+  "rater_id",
+  "item_id",
+  "task_folder",
+  "candidate_file",
+  "final_score_0_5",
+  "ai_assisted_rating_attestation",
+  "minutes_spent",
+  "confidence",
+  "problem_note",
+  "rationale (optional)"
+ ],
+ "required_new_responses": [
+  "final_score_0_5",
+  "ai_assisted_rating_attestation"
+ ],
+ "recommended": [
+  "minutes_spent",
+  "confidence",
+  "rationale (optional)"
+ ],
+ "optional": [
+  "problem_note",
+  "rationale (optional)"
+ ],
+ "attestation_values": [
+  "yes",
+  "no",
+  "unsure"
+ ],
+ "attestation": "I used AI for localized assistance. I personally compared the specifications and chose the final score; I did not delegate the rating task to AI.",
+ "missing_legacy_metadata": "unknown; never infer no assistance or an affirmative attestation",
+ "rollout": "Main rating forms (Sheets, CSVs, packets) use version 6 from 11-17-2026: the rationale column is last and named `rationale (optional)`. Warm-up forms already delivered keep version 5 (`rationale` before `problem_note`); import by header name using historical_header_aliases. Historical participant-provided context is restored verbatim from pre-removal snapshots; absent answers stay blank. Current instructions apply prospectively. Version 7 (11-18-2026, Brando: \"yes add them but don't make them optional\"): the quick checklist A-D became four required dropdown columns L:O in all 33 main Sheets, in place (same Sheets and links; no row had any entry). Warm-up forms unchanged.",
+ "identity_columns": {
+  "prefilled": [
+   "rater_name",
+   "rater_id"
+  ],
+  "source": "RATER_IDENTITIES.json; names display identity, stable rater_id remains the join key",
+  "order": "rater_name first, rater_id second in Google Sheets and CSV forms; historical imports remain unchanged"
+ },
+ "legacy_checklist_headers": {
+  "A": "Are key gold theorems covered?",
+  "B": "Are gold pre/postconditions preserved or strengthened?",
+  "C": "Is there obvious theorem spam?",
+  "D": "If spam exists, is it a handful or does it dominate?"
+ },
+ "historical_lean_familiarity": {
+  "type": "free_text",
+  "frequency": "once_per_rater_in_first_item_row",
+  "prompt": "What have you done with Lean (tutorials, reading theorem statements, writing proofs, a course or a project), roughly how much, and how recently? Separately mention relevant programming-languages/formal-methods coursework or other proof assistants. If no Lean experience, say so. One or two sentences; please expand labels such as some or fluent.",
+  "legacy_labels": "Preserve existing none/some/fluent responses; never infer experience or reject historical ratings for missing detail."
+ },
+ "assistance_policy": "Localized AI assistance is required for new ratings under this version; humans make the comparison and select the score. Earlier ratings retain their recorded conditions; unknown AI use remains unknown.",
+ "field_guidance": {
+  "minutes_spent": "Requested: your approximate minutes for this file (e.g. 10 or 5-10). Include shared folder reading once, with its first file. Do not report a whole-session total on every row.",
+  "confidence": "Requested: low, medium or high confidence in your chosen rating. Low = substantial uncertainty; medium = some uncertainty; high = confident in the comparison. Historical values retain their exact spelling.",
+  "problem_note": "Fill if something prevented or complicated the rating, especially an incorrect reference: describe the issue and, if possible, a small counterexample. Otherwise leave blank.",
+  "rationale (optional)": "Preferred but optional: one sentence naming the main coverage or missing guarantee behind your score. Your own words; no need for a long explanation."
+ },
+ "field_status_note": "recommended and optional are not disjoint: `rationale (optional)` is preferred but optional. Only required_new_responses are required for new completed ratings.",
+ "historical_header_aliases": {
+  "rationale": "rationale (optional)"
+ },
+ "revisions": [
+  {
+   "date": "11-17-2026",
+   "from_version": "rating_context_v5_11-11-2026",
+   "to_version": "rating_context_v6_11-17-2026",
+   "requested_by": "Brando, 11-17-2026: \"Let's just put the rationale at the end and a (optional) column name. Go!\"",
+   "change": "Moved the rationale column from J to the last column (K), after problem_note, and renamed its header from `rationale` to `rationale (optional)`. No other field, meaning, answer option or required status changed.",
+   "header_map": {
+    "rationale": "rationale (optional)"
+   },
+   "old_columns": [
+    "rater_name",
+    "rater_id",
+    "item_id",
+    "task_folder",
+    "candidate_file",
+    "final_score_0_5",
+    "ai_assisted_rating_attestation",
+    "minutes_spent",
+    "confidence",
+    "rationale",
+    "problem_note"
+   ],
+   "new_columns": [
     "rater_name",
     "rater_id",
     "item_id",
@@ -12,97 +100,79 @@
     "confidence",
     "problem_note",
     "rationale (optional)"
-  ],
-  "required_new_responses": [
-    "final_score_0_5",
-    "ai_assisted_rating_attestation"
-  ],
-  "recommended": [
-    "minutes_spent",
-    "confidence",
-    "rationale (optional)"
-  ],
-  "optional": [
-    "problem_note",
-    "rationale (optional)"
-  ],
-  "attestation_values": [
-    "yes",
-    "no",
-    "unsure"
-  ],
-  "attestation": "I used AI for localized assistance. I personally compared the specifications and chose the final score; I did not delegate the rating task to AI.",
-  "missing_legacy_metadata": "unknown; never infer no assistance or an affirmative attestation",
-  "rollout": "Main rating forms (Sheets, CSVs, packets) use version 6 from 11-17-2026: the rationale column is last and named `rationale (optional)`. Warm-up forms already delivered keep version 5 (`rationale` before `problem_note`); import by header name using historical_header_aliases. Historical participant-provided context is restored verbatim from pre-removal snapshots; absent answers stay blank. Current instructions apply prospectively.",
-  "identity_columns": {
-    "prefilled": [
-      "rater_name",
-      "rater_id"
-    ],
-    "source": "RATER_IDENTITIES.json; names display identity, stable rater_id remains the join key",
-    "order": "rater_name first, rater_id second in Google Sheets and CSV forms; historical imports remain unchanged"
+   ],
+   "applies_to": "The 32 main rating Sheets (A1, T01-T29, V01, V02), their packet CSVs and zips, the blank main_rating_task/ratings.csv and the ratings/*native_main* snapshots. All 32 Sheets had 0 responses when moved.",
+   "unchanged": "Warm-up Sheets, delivered archives (including A1's packet emailed 11-17-2026 with the version 5 form) and all historical files."
   },
-  "legacy_checklist_headers": {
-    "A": "Are key gold theorems covered?",
-    "B": "Are gold pre/postconditions preserved or strengthened?",
-    "C": "Is there obvious theorem spam?",
-    "D": "If spam exists, is it a handful or does it dominate?"
+  {
+   "date": "11-18-2026",
+   "from": "rating_context_v6_11-17-2026",
+   "to": "rating_context_v7_11-18-2026",
+   "change": "added required checklist columns L:O",
+   "columns_added": [
+    "A_key_gold_theorems_covered (Y/N)",
+    "B_gold_pre_postconditions_preserved_or_strengthened (Y/N)",
+    "C_obvious_theorem_spam (Y/N)",
+    "D_spam_handful_or_dominates (none/handful/dominates)"
+   ],
+   "rows_with_entries_at_change": 0,
+   "sheets": 33
+  }
+ ],
+ "checklist_columns": {
+  "rubric_items": {
+   "A_key_gold_theorems_covered (Y/N)": "A",
+   "B_gold_pre_postconditions_preserved_or_strengthened (Y/N)": "B",
+   "C_obvious_theorem_spam (Y/N)": "C",
+   "D_spam_handful_or_dominates (none/handful/dominates)": "D"
   },
-  "historical_lean_familiarity": {
-    "type": "free_text",
-    "frequency": "once_per_rater_in_first_item_row",
-    "prompt": "What have you done with Lean (tutorials, reading theorem statements, writing proofs, a course or a project), roughly how much, and how recently? Separately mention relevant programming-languages/formal-methods coursework or other proof assistants. If no Lean experience, say so. One or two sentences; please expand labels such as some or fluent.",
-    "legacy_labels": "Preserve existing none/some/fluent responses; never infer experience or reject historical ratings for missing detail."
+  "values": {
+   "A_key_gold_theorems_covered (Y/N)": [
+    "Y",
+    "N"
+   ],
+   "B_gold_pre_postconditions_preserved_or_strengthened (Y/N)": [
+    "Y",
+    "N"
+   ],
+   "C_obvious_theorem_spam (Y/N)": [
+    "Y",
+    "N"
+   ],
+   "D_spam_handful_or_dominates (none/handful/dominates)": [
+    "none",
+    "handful",
+    "dominates"
+   ]
   },
-  "assistance_policy": "Localized AI assistance is required for new ratings under this version; humans make the comparison and select the score. Earlier ratings retain their recorded conditions; unknown AI use remains unknown.",
-  "field_guidance": {
-    "minutes_spent": "Requested: your approximate minutes for this file (e.g. 10 or 5-10). Include shared folder reading once, with its first file. Do not report a whole-session total on every row.",
-    "confidence": "Requested: low, medium or high confidence in your chosen rating. Low = substantial uncertainty; medium = some uncertainty; high = confident in the comparison. Historical values retain their exact spelling.",
-    "problem_note": "Fill if something prevented or complicated the rating, especially an incorrect reference: describe the issue and, if possible, a small counterexample. Otherwise leave blank.",
-    "rationale (optional)": "Preferred but optional: one sentence naming the main coverage or missing guarantee behind your score. Your own words; no need for a long explanation."
-  },
-  "field_status_note": "recommended and optional are not disjoint: `rationale (optional)` is preferred but optional. Only required_new_responses are required for new completed ratings.",
-  "historical_header_aliases": {
-    "rationale": "rationale (optional)"
-  },
-  "revisions": [
-    {
-      "date": "11-17-2026",
-      "from_version": "rating_context_v5_11-11-2026",
-      "to_version": "rating_context_v6_11-17-2026",
-      "requested_by": "Brando, 11-17-2026: \"Let's just put the rationale at the end and a (optional) column name. Go!\"",
-      "change": "Moved the rationale column from J to the last column (K), after problem_note, and renamed its header from `rationale` to `rationale (optional)`. No other field, meaning, answer option or required status changed.",
-      "header_map": {
-        "rationale": "rationale (optional)"
-      },
-      "old_columns": [
-        "rater_name",
-        "rater_id",
-        "item_id",
-        "task_folder",
-        "candidate_file",
-        "final_score_0_5",
-        "ai_assisted_rating_attestation",
-        "minutes_spent",
-        "confidence",
-        "rationale",
-        "problem_note"
-      ],
-      "new_columns": [
-        "rater_name",
-        "rater_id",
-        "item_id",
-        "task_folder",
-        "candidate_file",
-        "final_score_0_5",
-        "ai_assisted_rating_attestation",
-        "minutes_spent",
-        "confidence",
-        "problem_note",
-        "rationale (optional)"
-      ],
-      "applies_to": "The 32 main rating Sheets (A1, T01-T29, V01, V02), their packet CSVs and zips, the blank main_rating_task/ratings.csv and the ratings/*native_main* snapshots. All 32 Sheets had 0 responses when moved.",
-      "unchanged": "Warm-up Sheets, delivered archives (including A1's packet emailed 11-17-2026 with the version 5 form) and all historical files."
-    }
-  ]
+  "required": "required in main forms (version 7, see required_main_form_v7); warm-up forms have no checklist columns",
+  "sheet_columns": "L:O, strict dropdowns, rows 2-101",
+  "analysis": "One answer per row per item; join on rater_id + item_id. D is 'none' when C is N. Responses entered before 11-18-2026 ~10:30 PT: none (0 of 3300 rows had any entry when added).",
+  "note": "`columns` is the shared version-6 base (warm-up and builders); live main Sheets and their CSV exports use main_form_v7_columns."
+ },
+ "required_main_form_v7": [
+  "final_score_0_5",
+  "ai_assisted_rating_attestation",
+  "A_key_gold_theorems_covered (Y/N)",
+  "B_gold_pre_postconditions_preserved_or_strengthened (Y/N)",
+  "C_obvious_theorem_spam (Y/N)",
+  "D_spam_handful_or_dominates (none/handful/dominates)"
+ ],
+ "main_form_v7_columns": [
+  "rater_name",
+  "rater_id",
+  "item_id",
+  "task_folder",
+  "candidate_file",
+  "final_score_0_5",
+  "ai_assisted_rating_attestation",
+  "minutes_spent",
+  "confidence",
+  "problem_note",
+  "rationale (optional)",
+  "A_key_gold_theorems_covered (Y/N)",
+  "B_gold_pre_postconditions_preserved_or_strengthened (Y/N)",
+  "C_obvious_theorem_spam (Y/N)",
+  "D_spam_handful_or_dominates (none/handful/dominates)"
+ ]
 }

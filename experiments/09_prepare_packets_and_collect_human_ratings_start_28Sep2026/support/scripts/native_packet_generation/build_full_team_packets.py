@@ -335,9 +335,16 @@ def sheets_session():
     return session
 
 
+# Form version 7 (Brando, 11-18-2026: "yes add them but don't make them optional"): the rubric's quick checklist
+# A-D as four required dropdown columns L:O after the version-6 columns (warm-up forms had a checklist and he liked it).
+CHECKLIST_COLUMNS = ["A_key_gold_theorems_covered (Y/N)", "B_gold_pre_postconditions_preserved_or_strengthened (Y/N)",
+                     "C_obvious_theorem_spam (Y/N)", "D_spam_handful_or_dominates (none/handful/dominates)"]
+MAIN_COLUMNS = bp.COLUMNS + CHECKLIST_COLUMNS
+
+
 def live_table(session, sheet_id: str) -> list[list[str]]:
-    reply = session.get(f"{SHEETS_API}{sheet_id}/values/{TAB}!A1:K", params={"majorDimension": "ROWS"})
-    return [row + [""] * (11 - len(row)) for row in reply.json().get("values", [])]
+    reply = session.get(f"{SHEETS_API}{sheet_id}/values/{TAB}!A1:O", params={"majorDimension": "ROWS"})
+    return [row + [""] * (len(MAIN_COLUMNS) - len(row)) for row in reply.json().get("values", [])]
 
 
 def sheets() -> None:
@@ -355,7 +362,7 @@ def sheets() -> None:
         meta = meta.json()
         tab = next(s["properties"] for s in meta["sheets"] if s["properties"]["title"] == TAB)
         now = live_table(session, entry["sheet_id"])
-        assert now[0] == expected[0], f"{rater_id}: header differs"
+        assert now[0][:len(expected[0])] == expected[0], f"{rater_id}: header differs"
         now_ids, new_ids = [row[2] for row in now[1:]], [row[2] for row in expected[1:]]
         keep = set(now_ids)
         assert len(keep) == len(now_ids) and keep <= set(new_ids), f"{rater_id}: unexpected live rows"
@@ -816,7 +823,7 @@ def export() -> None:
     scored = {}
     for rater_id, entry in index.items():
         table = live_table(session, entry["sheet_id"])
-        assert table[0] == bp.COLUMNS and all(row[1] == rater_id for row in table[1:]), rater_id
+        assert table[0] == MAIN_COLUMNS and all(row[1] == rater_id for row in table[1:]), rater_id
         record = main_csv_entry(manifest, rater_id)
         buffer = io.StringIO()
         csv.writer(buffer, lineterminator="\n").writerows(table)
@@ -827,7 +834,7 @@ def export() -> None:
         scored[rater_id] = numeric
         record.update({
             "columns": table[0], "form_version": FORM_VERSION,
-            "url": entry["sheet_url"], "spreadsheet_id": entry["sheet_id"], "range": f"{TAB}!A1:K{len(table)}",
+            "url": entry["sheet_url"], "spreadsheet_id": entry["sheet_id"], "range": f"{TAB}!A1:O{len(table)}",
             "assigned_rows": len(table) - 1, "rows": len(table) - 1, "numeric_ratings": numeric,
             "not_applicable_rows": not_applicable, "sha256": sha(data),
             "source_readback_sha256": sha(json.dumps(table, ensure_ascii=False, separators=(",", ":")).encode()),

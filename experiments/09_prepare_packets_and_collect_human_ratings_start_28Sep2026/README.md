@@ -35,7 +35,7 @@ Every file comes from its agent's own harness and is verified by SHA-256 ([commi
 ## Who is grading
 
 <!-- grading-status:start -->
-Live progress read from the 33 Sheets on 11-18-2026 at 10:04 PST; refresh with `python3 support/scripts/native_packet_generation/build_full_team_packets.py status`. Scored = rows with a `final_score_0_5` entry. Total scored: **0** of 3300.
+Live progress read from the 33 Sheets on 11-18-2026 at 10:16 PST; refresh with `python3 support/scripts/native_packet_generation/build_full_team_packets.py status`. Scored = rows with a `final_score_0_5` entry. Total scored: **0** of 3300.
 
 | ID | Rater | Email | Role | Warm-up | Packet email | Scored | Links |
 | --- | --- | --- | --- | ---: | --- | ---: | --- |

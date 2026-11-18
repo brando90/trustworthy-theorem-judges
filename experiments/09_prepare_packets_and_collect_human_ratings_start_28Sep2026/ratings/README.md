@@ -28,6 +28,8 @@ Yegor’s six submitted rows include three numeric ratings and three `N/A` refer
 
 ## Current main sheets (33 Sheets, 100 files across 25 tasks)
 
+**Form version 7 (11-18-2026):** each main Sheet and CSV has 15 columns: the 11 version-6 columns plus four required checklist dropdowns `A_key_gold_theorems_covered (Y/N)`, `B_gold_pre_postconditions_preserved_or_strengthened (Y/N)`, `C_obvious_theorem_spam (Y/N)`, `D_spam_handful_or_dominates (none/handful/dominates)` (rubric quick checklist A–D; values and rules in `support/RATING_FORM_SCHEMA.json` → `checklist_columns`). Join on `rater_id` + `item_id`.
+
 [Open Brando's current main packet](../rating_task_packet/main_rating_task/): **100** returned/recovered frontier files across **25** tasks (`25 tasks x 4 agents`). On `11-16-2026` each Sheet gained the `25` Google rows in place (existing rows, order and any entries unchanged), was read back from `Ratings!A1:K101`, and matched its packaged `ratings.csv` exactly. Sharing is unchanged (`Anyone with the link = Editor`). Team emails are unsent Gmail drafts; live per-rater progress is in [Who is grading](../README.md#who-is-grading).
 
 | Rater ID | Person | Raw CSV | Google Sheet (`Anyone with the link = Editor`) | Numeric ratings / displayed rows |

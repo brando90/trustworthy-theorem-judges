@@ -41,7 +41,7 @@ You have 3 files per problem:
 
 ## Output format (required)
 
-Use your personal sheet linked in your email. Enter final_score_0_5 and ai_assisted_rating_attestation. Please estimate minutes_spent and confidence. A one-sentence rationale is welcome but optional; use problem_note for issues. Identifiers are prefilled. The checklist and base score remain scoring steps, not separate form entries.
+Use your personal sheet linked in your email. Enter final_score_0_5, ai_assisted_rating_attestation and the four quick-checklist columns (A_key_gold_theorems_covered, B_gold_pre_postconditions_preserved_or_strengthened, C_obvious_theorem_spam, D_spam_handful_or_dominates: use none when there is no spam). Please estimate minutes_spent and confidence. A one-sentence rationale is welcome but optional; use problem_note for issues. Identifiers are prefilled. The base score remains a scoring step, not a separate form entry.
 
 ## Tie-break rule
 
