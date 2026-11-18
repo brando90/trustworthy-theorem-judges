@@ -173,7 +173,7 @@ def compute():
     }
 
     minutes = entered_minutes()
-    warm_up_lines = line_counts(COLLECTION / "rating_task_packet", "warm_up_*/agent_lean/*.lean")
+    warm_up_lines = line_counts(COLLECTION / "rating_task_packet/warmup_task", "warm_up_*/agent_lean/*.lean")
     main_lines = line_counts(MAIN_TASK, "task_*/agent_lean/*.lean")
     length_ratio = statistics.median(main_lines) / statistics.median(warm_up_lines)
     warm_up_median = minutes["warm_up"]["median_minutes"]

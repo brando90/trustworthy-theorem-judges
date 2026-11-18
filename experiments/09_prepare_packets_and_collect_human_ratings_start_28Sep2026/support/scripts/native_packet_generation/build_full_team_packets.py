@@ -187,7 +187,7 @@ def plan() -> None:
     print(f"planned {len(people)} raters; request files in {SEALED / 'sheet_requests'}")
 
 
-BRANDO_DRAFT = EXPERIMENT_DIR / "rating_task_packet/EMAIL_INSTRUCTIONS_V0.md"
+BRANDO_DRAFT = EXPERIMENT_DIR / "rating_task_packet/EMAIL_PATH_TO_GDOC.md"
 DRAFT_SHEET_URL = f"https://docs.google.com/spreadsheets/d/{BRANDO_SHEET_ID}/edit"
 
 
@@ -197,7 +197,7 @@ EMAIL_FROM_DOC = SEALED / "EMAIL_FROM_DOC.json"
 def brando_draft() -> dict:
     """Brando's own rater email: {"text": plain-text part, "html": HTML part with real nested lists}.
 
-    The only editable copy is his Google Doc (EMAIL_INSTRUCTIONS_V0.md points to it). EMAIL_FROM_DOC.json in sealed/
+    The only editable copy is his Google Doc (EMAIL_PATH_TO_GDOC.md points to it). EMAIL_FROM_DOC.json in sealed/
     is a frozen render of one Doc revision, recorded with its revision ID; re-capture it after he edits the Doc.
     Brando, 11-17-2026: "STOP PUTTING GARBAGE LIKE THIS": only his text plus per-recipient fills (first name, personal
     Sheet link, his per-recipient opener); no notes, TLDR-end, assistant or drafted-with lines. HTML because Gmail
