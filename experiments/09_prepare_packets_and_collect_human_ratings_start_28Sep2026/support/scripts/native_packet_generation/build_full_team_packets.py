@@ -64,6 +64,11 @@ SUBJECTS = ("VeriBench human-rating main rating task", "VeriBench rating task: d
 # Brando, 11-13-2026 (agents-config personal/email-signature.md): BCC only brando.science unless he asks.
 # Brando, 11-17-2026: rater emails are his own draft text only (see brando_draft): "STOP PUTTING GARBAGE LIKE THIS".
 BCC = ["brando.science@gmail.com"]
+# Brando, 11-17-2026: "cuz stanford removes the zip file attached. Instead create a zip copy to my gdrive and send that
+# linke". Stanford's mail filter removed the attached .zip from Yegor's copies, so the email links one shared copy of the
+# packet zip on his Drive (anyone with the link can view) and attaches nothing. Every unsent rater's zip is byte-identical.
+PACKET_DRIVE_URL = "https://drive.google.com/file/d/1OcX6JT9faUIo0bSp0I9wnQMPctIjedRT/view?usp=sharing"
+PACKET_ZIP_SHA256 = "ab78870c0577c6de9243a3f5ef0155b4ab73c52eff889c45f542b0ca8360a387"  # the file at PACKET_DRIVE_URL
 COAUTHOR = ("Would you be willing to help with a human-rating task for VeriBench? Your ratings would be really "
             "valuable, and if you are interested and have time, I would be happy to add you as a co-author on "
             "the papers this data is used for. No pressure at all.")
@@ -206,6 +211,7 @@ def brando_draft() -> dict:
     snap = json.loads(EMAIL_FROM_DOC.read_text())
     for part in ("text", "html"):
         assert snap[part].count(DRAFT_SHEET_URL) >= 1, f"{part}: Brando's draft changed shape; review"
+        assert PACKET_DRIVE_URL in snap[part], f"{part}: the packet's Drive link is missing; the zip is no longer attached"
     assert snap["text"].count("Hi <Person Name>,") == 1 and snap["html"].count("<div>Hi &lt;Person Name&gt;,</div>") == 1
     return snap
 
@@ -289,9 +295,10 @@ def build() -> None:
                       "expected_table_digest": bp.table_digest(table), "zip": receipt["archive_path"],
                       "zip_sha256": receipt["archive_sha256"]})
         entry.setdefault("status", receipt["status"])
+        assert receipt["archive_sha256"] == PACKET_ZIP_SHA256, f"{rater_id}: zip differs from the shared Drive copy"
         DRAFTS_DIR.mkdir(exist_ok=True)
         draft = {"to": person["email"], "bcc": BCC, "subject": SUBJECT, "body": email_body(person, url), "html": email_html(person, url),
-                 "attachment": receipt["archive_path"], "attachment_sha256": receipt["archive_sha256"]}
+                 "packet_link": PACKET_DRIVE_URL, "packet_zip_sha256": receipt["archive_sha256"]}
         (DRAFTS_DIR / f"{rater_id}.json").write_text(json.dumps(draft, indent=1, ensure_ascii=False) + "\n")
     save_index(index)
     print(f"built {len(index)} packets of {n} files")
@@ -468,16 +475,28 @@ def message_for(rater_id: str):
     from email.message import EmailMessage
     from email.utils import make_msgid
     draft = json.loads((DRAFTS_DIR / f"{rater_id}.json").read_text())
-    data = Path(draft["attachment"]).read_bytes()
-    assert sha(data) == draft["attachment_sha256"]
+    assert draft["packet_link"] == PACKET_DRIVE_URL and draft["packet_zip_sha256"] == PACKET_ZIP_SHA256, rater_id
+    assert PACKET_DRIVE_URL in draft["body"] and PACKET_DRIVE_URL in draft["html"], rater_id
     message = EmailMessage()
     message["From"] = "Brando Miranda <brandojazz@gmail.com>"
     message["To"], message["Bcc"], message["Subject"] = draft["to"], ", ".join(draft["bcc"]), draft["subject"]
     message["Message-ID"] = make_msgid(domain="gmail.com")
     message.set_content(draft["body"])
-    message.add_alternative(draft["html"], subtype="html")
-    message.add_attachment(data, maintype="application", subtype="zip", filename=Path(draft["attachment"]).name)
+    message.add_alternative(draft["html"], subtype="html")  # no attachment: the packet is the Drive link in the text
     return draft, message
+
+
+def trash_draft(box, uid: bytes) -> None:
+    """Move one Drafts message to Trash. Gmail can refuse a MOVE transiently (11-17-2026: T03's old draft, UID 12801),
+    so retry, and count it done once the UID is no longer in Drafts."""
+    import time
+    for attempt in range(4):
+        status, reply = box.uid("MOVE", uid, "[Gmail]/Trash")
+        box.select("[Gmail]/Drafts")
+        if status == "OK" or not box.uid("FETCH", uid, "(UID)")[1][0]:
+            return
+        time.sleep(10 * (attempt + 1))
+    raise AssertionError(("could not move draft to Trash", uid, status, reply))
 
 
 def drafts() -> None:
@@ -496,7 +515,7 @@ def drafts() -> None:
             to = index[rater_id].get("to") or json.loads((DRAFTS_DIR / f"{rater_id}.json").read_text())["to"]
             leftover = [u for s in SUBJECTS for u in box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", f'"{s}"')[1][0].split()]
             for uid in leftover:
-                assert box.uid("MOVE", uid, "[Gmail]/Trash")[0] == "OK", (rater_id, uid)
+                trash_draft(box, uid)
             if leftover:
                 saved[rater_id] = {**saved.get(rater_id, {}), "sent": True, "retired_draft_uids": [u.decode() for u in leftover],
                                    "retired": TODAY}
@@ -507,7 +526,7 @@ def drafts() -> None:
             if rater_id in sent:
                 continue
             spec = json.loads(path.read_text())
-            fingerprint = sha(json.dumps({k: spec[k] for k in ("to", "bcc", "subject", "body", "html", "attachment_sha256")},
+            fingerprint = sha(json.dumps({k: spec[k] for k in ("to", "bcc", "subject", "body", "html", "packet_link")},
                                          sort_keys=True).encode())
             if rater_id == "A1" or saved.get(rater_id, {}).get("fingerprint") == fingerprint:
                 continue  # this exact draft is already in Gmail
@@ -529,11 +548,12 @@ def drafts() -> None:
             found = [u for q in queries for u in box.uid("SEARCH", None, *q)[1][0].split()]
             old = [uid for uid in found if uid not in new]
             for uid in old:
-                assert box.uid("MOVE", uid, "[Gmail]/Trash")[0] == "OK", uid
+                trash_draft(box, uid)
             box.select("[Gmail]/Drafts")
             now = [u for q in queries for u in box.uid("SEARCH", None, *q)[1][0].split()]
             assert now == new, (rater_id, now)
-            saved[rater_id] = {"to": draft["to"], "zip_sha256": draft["attachment_sha256"], "fingerprint": fingerprint,
+            saved[rater_id] = {"to": draft["to"], "zip_sha256": draft["packet_zip_sha256"], "packet_link": draft["packet_link"],
+                               "fingerprint": fingerprint,
                                "message_id": message["Message-ID"], "draft_uid": new[0].decode(),
                                "append_reply": reply[0].decode(errors="replace") if reply and reply[0] else "",
                                "replaced_draft_uids": [u.decode() for u in old], "sent": False, "saved": TODAY}
@@ -595,7 +615,8 @@ def send_a1() -> None:
     if entry.get("sent_to_self"):  # sealed/ is not in Git, so keep each earlier self-send receipt here
         entry.setdefault("sent_to_self_earlier", []).append(entry["sent_to_self"])
     entry["sent_to_self"] = {"date": TODAY, "to": draft["to"], "bcc": draft["bcc"],
-                             "message_id": message["Message-ID"], "zip_sha256": draft["attachment_sha256"],
+                             "message_id": message["Message-ID"], "zip_sha256": draft["packet_zip_sha256"],
+                             "packet_link": draft["packet_link"],
                              "brandojazz_inbox": inbox}
     save_index(index)
     print("sent A1 to", recipients, message["Message-ID"], "|", inbox)
@@ -603,8 +624,9 @@ def send_a1() -> None:
 
 SENT_LOG = SEALED / "SENT_100.json"
 # Brando (chat, 11-16-2026): "don't send anything to the team until I do my ratings". `send --confirm` refuses while
-# this is set. Clear it only after Brando has done his own ratings and explicitly says to send.
-TEAM_SEND_HOLD = "Brando, 11-16-2026: \"don't send anything to the team until I do my ratings\""
+# this is set. Lifted 11-17-2026 on Brando's explicit go: "basically I think we are ready to send the request to raters
+# now. Go!" and, for the Drive-link version, "Instead create a zip copy to my gdrive and send that linke ... Go!".
+TEAM_SEND_HOLD = ""
 # People Brando cleared by name while the hold stands; `send --confirm` may send only these until the hold is lifted.
 HOLD_EXCEPTIONS = {
     "T05": "Brando, 11-17-2026: \"can you send this now to nikil and sri too. Please.\"",
@@ -669,10 +691,13 @@ def send() -> None:
                 uids = [u for s in SUBJECTS for u in box.uid("SEARCH", None, "TO", f'"{to}"', "SUBJECT", f'"{s}"')[1][0].split()]
                 assert len(uids) == 1, f"{rater_id}: expected one draft, found {len(uids)}"
                 message = email.message_from_bytes(box.uid("FETCH", uids[0], "(BODY.PEEK[])")[1][0][1], policy=policy.SMTP)
-                attachments = list(message.iter_attachments())
-                assert len(attachments) == 1 and sha(attachments[0].get_content()) == entry["zip_sha256"], rater_id
+                assert not list(message.iter_attachments()), f"{rater_id}: draft has an attachment; the packet is a Drive link"
+                assert entry["zip_sha256"] == PACKET_ZIP_SHA256 == record["zip_sha256"], f"{rater_id}: not the shared zip"
                 assert message["To"].strip().lower() == to.lower() and entry["status"] == "BUILT_SHEET_MATCHED_NOT_SENT"
-                assert entry["sheet_url"] in message.get_body(("plain",)).get_content(), f"{rater_id}: Sheet link missing"
+                for part in ("plain", "html"):
+                    content = message.get_body((part,)).get_content()
+                    assert entry["sheet_url"] in content, f"{rater_id}: Sheet link missing ({part})"
+                    assert PACKET_DRIVE_URL in content, f"{rater_id}: packet Drive link missing ({part})"
                 recipients = sorted({to, *(a.strip() for a in str(message["Bcc"] or "").split(",") if a.strip())})
                 if not confirm:
                     print(f"[dry run] {rater_id} {entry['rater_name']} -> {', '.join(recipients)}")
@@ -685,7 +710,8 @@ def send() -> None:
                 # Record the attempt first: if the process dies mid-send, the next run finds this
                 # Message-ID in Sent Mail (or not) before deciding, instead of sending blindly again.
                 sent_log[rater_id] = {"status": "sending", "started_utc": now_utc(), "to": to,
-                                      "message_id": message["Message-ID"], "zip_sha256": entry["zip_sha256"]}
+                                      "message_id": message["Message-ID"], "zip_sha256": entry["zip_sha256"],
+                                      "packet_link": PACKET_DRIVE_URL}
                 SENT_LOG.write_text(json.dumps(sent_log, indent=1) + "\n")
                 refused = smtp.send_message(message, to_addrs=recipients)  # Bcc header is stripped on send
                 assert not refused, refused
@@ -701,17 +727,19 @@ def send() -> None:
           f"{sum(v.get('status', 'sent') == 'sent' for v in sent_log.values())} sent in total")
 
 
-RESEND_BUILDS = SEALED / "builds_100_native_resend_11-17-2026"  # slim zips for raters first sent a packet with START_HERE.md
+# Earlier resends (11-17-2026, 16:12 PT) attached slim zips from sealed/builds_100_native_resend_11-17-2026/ under
+# Brando's "Resend to nikil yegor sri brando please."; their records in SENT_100.json keep that quote.
+RESEND_AUTHORIZED_BY = ('Brando, chat 11-17-2026: "cuz stanford removes the zip file attached. Instead create a zip copy '
+                        'to my gdrive and send that linke"')
 
 
 def resend() -> None:
-    """Send the current email (Brando's Doc, frozen in EMAIL_FROM_DOC.json) and the current slim zip again.
+    """Send the current email (Brando's Doc, frozen in EMAIL_FROM_DOC.json, packet as a Drive link) again.
 
-    Brando, 11-17-2026: "Resend to nikil yegor sri brando please." Only raters in HOLD_EXCEPTIONS and A1 are allowed;
-    dry run unless --confirm. Each send is recorded (SENT_100.json "resends", or A1's sent_to_self in the index).
+    Only raters in HOLD_EXCEPTIONS and A1 are allowed; dry run unless --confirm. Nothing is attached (see PACKET_DRIVE_URL).
+    Each send is recorded (SENT_100.json "resends", or A1's sent_to_self in the index).
     """
     import smtplib
-    import zipfile
     from email.message import EmailMessage
     from email.utils import formatdate, make_msgid
     args = sys.argv[2:]
@@ -729,10 +757,6 @@ def resend() -> None:
     ready = []
     for rid in targets:
         person, entry = people[rid], index[rid]
-        slim = RESEND_BUILDS / rid
-        zip_path = next(slim.glob("*.zip")) if slim.exists() else Path(entry["zip"])
-        data = zip_path.read_bytes()
-        assert not [n for n in zipfile.ZipFile(zip_path).namelist() if "/" not in n], f"{rid}: zip has files outside task folders"
         url = entry["sheet_url"]
         message = EmailMessage()
         message["From"] = "Brando Miranda <brandojazz@gmail.com>"
@@ -740,22 +764,24 @@ def resend() -> None:
         message["Date"], message["Message-ID"] = formatdate(localtime=True), make_msgid(domain="gmail.com")
         message.set_content(email_body({**person, "opener": ""}, url))
         message.add_alternative(email_html({**person, "opener": ""}, url), subtype="html")
-        message.add_attachment(data, maintype="application", subtype="zip", filename=zip_path.name)
-        assert url in message.get_body(("html",)).get_content() and "START_HERE" not in message.get_body(("html",)).get_content()
-        ready.append((rid, person, message, zip_path, sha(data)))
+        for part in ("plain", "html"):
+            content = message.get_body((part,)).get_content()
+            assert url in content and PACKET_DRIVE_URL in content and "START_HERE" not in content, (rid, part)
+        assert not list(message.iter_attachments()), rid
+        ready.append((rid, person, message))
         print(f"{'' if confirm else '[dry run] '}{rid} {person['rater_name']} -> {person['email']} bcc {', '.join(BCC)} | {SUBJECT} | "
-              f"{zip_path.name} {sha(data)[:12]} | doc revision {snap['doc_revision_id'][:12]}")
+              f"Drive link, zip {PACKET_ZIP_SHA256[:12]} | doc revision {snap['doc_revision_id'][:12]}")
     if not confirm:
         print("dry run only; nothing was sent")
         return
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=120) as smtp:
         smtp.login("brandojazz@gmail.com", password)
-        for rid, person, message, zip_path, digest in ready:
+        for rid, person, message in ready:
             refused = smtp.send_message(message, to_addrs=sorted({person["email"], *BCC}))
             assert not refused, refused
             record = {"utc": now_utc(), "message_id": message["Message-ID"], "to": person["email"], "bcc": BCC, "subject": SUBJECT,
-                      "zip": str(zip_path), "zip_sha256": digest, "doc_revision_id": snap["doc_revision_id"],
-                      "authorized_by": 'Brando, chat 11-17-2026: "Resend to nikil yegor sri brando please."'}
+                      "packet_link": PACKET_DRIVE_URL, "zip_sha256": PACKET_ZIP_SHA256, "doc_revision_id": snap["doc_revision_id"],
+                      "authorized_by": RESEND_AUTHORIZED_BY}
             if rid == "A1":
                 entry = index["A1"]
                 entry.setdefault("sent_to_self_earlier", []).append(entry.get("sent_to_self", {}))
@@ -838,15 +864,17 @@ def review() -> None:
             continue
         draft = json.loads((DRAFTS_DIR / f"{rater_id}.json").read_text())
         assert draft["body"] == email_body(person, index[rater_id]["sheet_url"]), f"{rater_id}: draft differs from the template"
-        assert draft["attachment_sha256"] == index[rater_id]["zip_sha256"] == saved.get(rater_id, {}).get("zip_sha256"), \
-            f"{rater_id}: the Gmail draft does not hold the current zip; run `drafts` first"
+        assert draft["packet_zip_sha256"] == index[rater_id]["zip_sha256"] == saved.get(rater_id, {}).get("zip_sha256"), \
+            f"{rater_id}: the Gmail draft does not hold the current packet; run `drafts` first"
+        assert saved[rater_id].get("packet_link") == draft["packet_link"] == PACKET_DRIVE_URL, f"{rater_id}: run `drafts` first"
         rows.append(f"| `{rater_id}` | {person['rater_name']} | {person['email']} | {person['greeting']} | "
-                    f"{person['opener'] or '—'} | [Sheet]({index[rater_id]['sheet_url']}) | `{draft['attachment_sha256'][:12]}` |")
+                    f"{person['opener'] or '—'} | [Sheet]({index[rater_id]['sheet_url']}) | `{draft['packet_zip_sha256'][:12]}` |")
     sent = sum(v.get("status", "sent") == "sent" for v in sent_log.values())
     page = "\n".join([
         f"# Review all 31 rating emails ({len(cohort_rows())}-file packets), {TODAY}", "",
         f"**TLDR:** These are the 31 Gmail drafts (one per rater, `{sent}` sent). Every email is the common text below with "
-        f"the rater's first name, personal Sheet link, own `.zip` ({len(cohort_rows())} agent files) and, for some, a "
+        f"the rater's first name, personal Sheet link, the Google Drive link to the shared packet `.zip` "
+        f"({len(cohort_rows())} agent files; nothing attached, since Stanford's mail filter strips .zip files) and, for some, a "
         "one-paragraph opener. Send only with `python3 experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/"
         "support/scripts/native_packet_generation/build_full_team_packets.py send --confirm --all` after Brando's yes; it sends "
         "each draft as it stands in Gmail (so edits there are kept), skips anyone already sent and moves the sent draft to Trash. "
@@ -862,7 +890,8 @@ def review() -> None:
         "## Openers (inserted after the greeting)", "",
         *[f"- **{name}:** {text}" for name, text in OPENERS.items()], "",
         "## Per-rater differences", "",
-        "| ID | Rater | To | Greeting | Opener | Personal Sheet | Zip SHA-256 (first 12), or sent |",
+        f"- **Packet (every email):** {PACKET_DRIVE_URL} (zip SHA-256 `{PACKET_ZIP_SHA256}`)", "",
+        "| ID | Rater | To | Greeting | Opener | Personal Sheet | Linked zip SHA-256 (first 12), or sent |",
         "| --- | --- | --- | --- | --- | --- | --- |", *rows, "",
         "Varun's opener leaves out the dictated clause about Anthropic (\"not interested\" vs \"now interested\" was "
         "ambiguous); add it in his Gmail draft if wanted.", ""])
