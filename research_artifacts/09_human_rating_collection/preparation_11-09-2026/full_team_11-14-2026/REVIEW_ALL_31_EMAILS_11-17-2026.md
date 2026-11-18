@@ -8,7 +8,7 @@
 - **From:** Brando Miranda <brandojazz@gmail.com>
 - **BCC (every email):** brando.science@gmail.com
 
-**Email text:** only in Brando's Google Doc (sent as HTML with nested lists, from the frozen render `sealed/EMAIL_FROM_DOC.json`, Doc revision `AHj4eMT5tg_FFHgp…`).
+**Email text:** only in Brando's Google Doc (sent as HTML with nested lists, from the frozen render `sealed/EMAIL_FROM_DOC.json`, Doc revision `AHj4eMRRBwQhXA8J…`).
 
 ## Openers (inserted after the greeting)
 
@@ -24,7 +24,7 @@
 | `T02` | Yegor Denisov-Blanch | ydebl@stanford.edu | Yegor | — | [Sheet](https://docs.google.com/spreadsheets/d/1Hpcb4NP754RDWstDkiaTR59K9AX2vXNL6IR9iXKRo-Y/edit) | sent 2026-11-17T23:09:05+00:00 |
 | `T03` | Dilara Soylu | soylu@stanford.edu | Dilara | — | [Sheet](https://docs.google.com/spreadsheets/d/1D6Enb6IKRAZOoqhmk7bHwTqsFZ10U5dH3H3gRmJ8XPk/edit) | `ab78870c0577` |
 | `T04` | Allen Nie | aimingnie@gmail.com | Allen | — | [Sheet](https://docs.google.com/spreadsheets/d/1iE_2PfDe1uw4_eGJCa-YV_kj1ZodQajZQ0nxDDv5YNo/edit) | `ab78870c0577` |
-| `T05` | Srivatsava Daruru (Sri) | vatsava@gmail.com | Srivatsava | — | [Sheet](https://docs.google.com/spreadsheets/d/163ZxKeTXqseLrmwY-b5QjqeBulinHsZAiAPo1zsJdJI/edit) | sent 2026-11-17T22:28:26Z |
+| `T05` | Srivatsava Daruru (Sri) | vatsava@gmail.com | Sri | — | [Sheet](https://docs.google.com/spreadsheets/d/163ZxKeTXqseLrmwY-b5QjqeBulinHsZAiAPo1zsJdJI/edit) | sent 2026-11-17T22:28:26Z |
 | `T06` | Donald Poindexter Jr | ddpoindexterjr@gmail.com | Don | — | [Sheet](https://docs.google.com/spreadsheets/d/1l_zdHObt3_0hd0MJkIJ5btU51hxNsHKwHyBUv0cuSLg/edit) | `ab78870c0577` |
 | `T07` | Simon Obstbaum | simon@obstbaum.eu | Simon | — | [Sheet](https://docs.google.com/spreadsheets/d/1KMYUiMbL7wEvKn9KGN8KjHSca1DcYT-uZE3psSeqrq4/edit) | `ab78870c0577` |
 | `T08` | Amy Lu | amylucky@stanford.edu | Amy | coauthor | [Sheet](https://docs.google.com/spreadsheets/d/1YLq64komUf0lD8fdChDYeTZS--zpulbn-XTVhLWVUlE/edit) | `ab78870c0577` |
