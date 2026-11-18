@@ -16,24 +16,16 @@ Section~\ref{sec:legacy} reports the associated judge studies and their prior-ex
 Older exports used different prompt passes and filtering rules; their counts are not silently substituted for this pinned snapshot.
 
 \subsection{Ongoing packet preparation and collection}
-% Provenance: experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/README.md and support/COORDINATOR_README.md, checked 11-11-2026.
-The preserved main packet contains 25 tasks and five model configurations using the Terminus~2 harness, giving 125 candidate artifacts.
-Its collection target is two independent qualified ratings per artifact, or 250 main ratings; author ratings are additional.
-The checked collection record dated 11-11-2026 contains no completed main ratings.
-Warm-up ratings assess readiness for that task and do not count as main ratings.
-
-% Provenance: user decision in sole-owner chat 01a1a8f9-dcb7-7381-9368-91d6e51faffd, 11-11-2026, verified via read_thread.
-% Counts: experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/README.md and support/ckpt.md; frozen manifests RATABLE_COHORT.json (SHA-256 8463f6c8...93de22) and EXCLUSIONS.json (SHA-256 a14cfa52...d024e5), rechecked 11-11-2026.
-A versioned replacement packet was built around Claude Code, Codex and Pi, with fewer Terminus~2 artifacts retained for comparison.
-Its plan called for 85 artifacts on 25 tasks: 25 each from native Codex, native Claude Code and Pi, and ten from Terminus~2.
-Only 54 planned artifacts were returned: 25 from Codex, 19 from Claude Code and ten from Terminus~2.
-The other 31, all 25 from Pi and six from Claude Code, are recorded as missing outputs; a missing output is not a human rating of zero.
-The replacement packet therefore contains 54 artifacts, and its target is two independent ratings per artifact, or 108 ratings; author ratings are additional.
-This is a collection workload, not collected data or a statistical sufficiency claim.
-No main rating of the replacement packet had been completed at the 11-11-2026 check, and most rater assignments remain pending.
-Because missing outputs differ by harness, the returned artifacts are not a random sample of each configuration's attempts.
-The ten-artifact Terminus~2 subset is exploratory; historical and new generation conditions differ, so it does not isolate a causal harness effect.
-The preserved packet's 125 artifacts and 250-rating target do not establish the replacement's size or completion.
+% Provenance: experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/README.md (100-file native cohort, grading status read 11-17-2026) and support/COORDINATOR_README.md; DESIGN_CHECK_ITEMS_AND_CROSSING_11-17-2026.md, sections 1, 2 and 5.
+% Earlier packets, preserved as history: first main packet 125 Terminus 2 artifacts (250-rating target); replacement plan 85 artifacts, of which 54 were returned (108-rating target). Both are superseded by the 100-file native cohort below.
+The current main packet contains 100 candidate files: 25 tasks, each with one output from each of four frontier agents, and every agent ran in its own vendor harness.
+No Terminus~2 file remains in it.
+Every invited rater receives the same 100 files, so a complete collection is crossed over tasks, agents and raters.
+Partial completion gives a sparse crossing, and the number of ratings per file is not yet fixed.
+At the 11-17-2026 check, no main rating of this packet had been completed; this subsection describes a collection workload, not collected data or a statistical sufficiency claim.
+Two earlier packets are preserved as history and superseded: a first main packet of 125 Terminus~2 artifacts, and a replacement plan of 85 artifacts of which 54 were returned.
+Their size and target counts do not describe the current packet.
+Agent differences in the current packet are confounded with harness and prompt version, because the GPT-6 Astra files come from an earlier run under an earlier prompt version.
 A harness name alone does not identify a solver configuration: exact models, tools, effort, prompts, budgets and source hashes must accompany each candidate.
 Existing outputs qualify for reuse only after their task inputs and generation conditions are checked against the intended comparison.
 
@@ -45,14 +37,13 @@ The inherited collection is reserved for evaluation in the new training-objectiv
 
 \subsection{Held-out test set: 25 tasks and four frontier agents}
 % Provenance: experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/support/DESIGN_CHECK_ITEMS_AND_CROSSING_11-17-2026.md, sections 3 to 5; research_artifacts/09_human_rating_collection/legacy_veribench/human_round/README.md, section C1 (stratification rule); experiment 09 README, 100-file native cohort (25 tasks x 4 agents).
-% Descriptive sizes (non-blank Python lines 18 to 129, reference theorems 2 to 36, candidate theorems up to 83) are from the design check dated 11-17-2026 and must be re-verified against the final files before submission.
-% This subsection supersedes the 54-artifact replacement packet described above; that text is stale and awaits revision.
+% Descriptive sizes recomputed 11-17-2026 from the 25 task folders of rating_task_packet/main_rating_task: non-blank Python lines 18 to 129 (median 42); theorem and lemma declarations in the reference 5 to 53 (median 10); in the 100 agent files 7 to 83 (median 25). The design check's reference range (2 to 36) came from the historical references and does not match the current packet.
 The human-rated test set contains 25 \textsc{VeriBench} tasks, selected before any rater saw an item.
 We used stratified sampling with equal allocation: five tasks from each of five splits (easy, cs, humaneval, realcode, security), and within each split one task from each of five equal-count difficulty groups.
 Equal allocation means the sample does not mirror the benchmark's split sizes, so population-level estimates would require reweighting.
 Difficulty was estimated from the coverage score of an earlier system, not from the four agents rated here, so it balances the tasks and says nothing about the quality of any agent's file.
 The tasks are diverse in domain, spanning introductory exercises, classic algorithms, HumanEval problems, real-world code and security-sensitive code.
-They are also varied in complexity: Python sources run from 18 to 129 non-blank lines, reference specifications state from 2 to 36 theorems, and the specifications written by frontier agents contain up to 83.
+They are also varied in complexity: Python sources run from 18 to 129 non-blank lines, reference files contain from 5 to 53 theorem and lemma declarations, and the files written by frontier agents contain from 7 to 83.
 This makes the set useful for evaluating a judge on frontier models.
 Their outputs are long, multi-theorem specifications whose coverage of the reference is not obvious at a glance, and the tasks cover a wide range of size, structure and domain rather than one narrow slice.
 We collected one output per task from each of four frontier agents (GPT-6 Astra, Claude Fable 5.1, Grok 4.7 and Gemini 4 Argon) and selected no output by content or score.
