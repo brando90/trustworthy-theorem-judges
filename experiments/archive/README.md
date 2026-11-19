@@ -100,6 +100,13 @@ The first reorganization preserved these experiment trees byte-for-byte under `e
 
 The T, A, H planning bundle moved separately from `experiments/02_probabilistic_ordinal_judge/rating_tensor_planning/` to [experiment 15](../15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/README.md). Its source exports and original attachments retain identical bytes; editable navigation, source index and attribution of the optional Codex pilot proposal were updated. The bundle's current hashes are in [provenance.json](../15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/provenance.json).
 
+## Experiment 23 renames — 11-18-2026 and 11-19-2026
+
+| Previous path under `experiments/` | Current path under `experiments/` | Reason |
+| --- | --- | --- |
+| `23_test_whether_gamed_or_off_format_lean_files_score_lower_25_tasks_10_conditions_start_18Nov2026` | [23_do_gamed_or_off_format_lean_files_score_lower_on_veribench_vb256_start_18Nov2026](../23_do_gamed_or_off_format_lean_files_score_lower_on_veribench_vb256_start_18Nov2026/README.md) | 11-18-2026: the task set was clarified from experiment 09's 25 tasks to the 256-task VeriBench subset then called Tiny256. |
+| `23_on_veribench_tiny256_do_gaming_or_off_format_agents_score_lower_start_18Nov2026` | [23_do_gamed_or_off_format_lean_files_score_lower_on_veribench_vb256_start_18Nov2026](../23_do_gamed_or_off_format_lean_files_score_lower_on_veribench_vb256_start_18Nov2026/README.md) | 11-19-2026: VB256 replaced TinyVeriBench-256 (formerly Tiny256) as the headline set. The TinyVeriBench-256 run moved inside to `expt_v1_tinyveribench256/` (2,882 pure renames; its summaries reproduce byte-identically). |
+
 ## Descriptive name for the original rating study — 11-11-2026
 
 `experiments/archive/01_legacy_veribench_judge/` is now [`experiments/archive/01_veribench_25_tasks_3_samples_5_raters_judge_evaluation_start_03May2026_end_29Sep2026/`](01_veribench_25_tasks_3_samples_5_raters_judge_evaluation_start_03May2026_end_29Sep2026/README.md). The name identifies the original 25-task VeriBench corpus: three candidate generation samples per task and five rater columns. This archive also contains distinct earlier and later judge analyses of those artifacts; it is not the current human-rating collection. Nine supporting files retain identical bytes; the README now names the study and points to current locations. Frozen migration receipts retain their original paths as provenance.

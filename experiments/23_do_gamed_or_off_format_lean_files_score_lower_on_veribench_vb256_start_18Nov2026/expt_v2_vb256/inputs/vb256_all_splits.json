@@ -1,0 +1,2367 @@
+{
+ "agent_spec": "VeriBench agent-spec v8 (2026-10-09 valid Lean namespace hint)",
+ "population_n": 896,
+ "schema": "vb256-all-splits-v1",
+ "seed": 20261015,
+ "selected_n": 256,
+ "selection_inputs": "public split, IndustrySet domain and Python abstract-syntax-tree size only; no scores",
+ "source_revision": "bcb22bc7fb1c110bdeab5d579d467e7af41d66ae",
+ "stratum_population": {
+  "aerospace": 20,
+  "compilers": 20,
+  "concurrent": 20,
+  "critical_infra": 20,
+  "crypto": 20,
+  "cs_set/large": 13,
+  "cs_set/small": 12,
+  "easy_set/large": 21,
+  "easy_set/small": 20,
+  "finance": 20,
+  "gov_cert": 20,
+  "hardware": 21,
+  "humaneval_set/large": 28,
+  "humaneval_set/small": 28,
+  "hypervisor": 21,
+  "medical_oss": 20,
+  "memory_bugs": 20,
+  "os_embedded": 20,
+  "realcode_set/large": 16,
+  "realcode_set/small": 16,
+  "regulated": 20,
+  "rfc": 20,
+  "security_set/large": 230,
+  "security_set/small": 230
+ },
+ "stratum_sample": {
+  "aerospace": 5,
+  "compilers": 5,
+  "concurrent": 5,
+  "critical_infra": 5,
+  "crypto": 5,
+  "cs_set/large": 3,
+  "cs_set/small": 3,
+  "easy_set/large": 6,
+  "easy_set/small": 5,
+  "finance": 6,
+  "gov_cert": 6,
+  "hardware": 6,
+  "humaneval_set/large": 8,
+  "humaneval_set/small": 8,
+  "hypervisor": 6,
+  "medical_oss": 6,
+  "memory_bugs": 6,
+  "os_embedded": 6,
+  "realcode_set/large": 4,
+  "realcode_set/small": 4,
+  "regulated": 6,
+  "rfc": 6,
+  "security_set/large": 68,
+  "security_set/small": 68
+ },
+ "tasks": [
+  {
+   "domain": "aerospace_set_real",
+   "gold_key": "aerospace_set_real/MyFprimeSequenceNonempty",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "aerospace",
+   "task_id": "aerospace_set_real__my_fprime_sequence_nonempty"
+  },
+  {
+   "domain": "aerospace_set_synthetic",
+   "gold_key": "aerospace_set_synthetic/MyCommandWindow",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "aerospace",
+   "task_id": "aerospace_set_synthetic__my_command_window"
+  },
+  {
+   "domain": "aerospace_set_synthetic",
+   "gold_key": "aerospace_set_synthetic/MyFcsGainSchedule",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "aerospace",
+   "task_id": "aerospace_set_synthetic__my_fcs_gain_schedule"
+  },
+  {
+   "domain": "aerospace_set_synthetic",
+   "gold_key": "aerospace_set_synthetic/MyRedundantBusSelect",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "aerospace",
+   "task_id": "aerospace_set_synthetic__my_redundant_bus_select"
+  },
+  {
+   "domain": "aerospace_set_synthetic",
+   "gold_key": "aerospace_set_synthetic/MyThrusterDutyOk",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "aerospace",
+   "task_id": "aerospace_set_synthetic__my_thruster_duty_ok"
+  },
+  {
+   "domain": "compilers_set_real",
+   "gold_key": "compilers_set_real/MyCpythonLoadSmallIntConst",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "compilers",
+   "task_id": "compilers_set_real__my_cpython_load_small_int_const"
+  },
+  {
+   "domain": "compilers_set_synthetic",
+   "gold_key": "compilers_set_synthetic/MyBytecodeStackPushN",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "compilers",
+   "task_id": "compilers_set_synthetic__my_bytecode_stack_push_n"
+  },
+  {
+   "domain": "compilers_set_synthetic",
+   "gold_key": "compilers_set_synthetic/MyConstantFoldAdd",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "compilers",
+   "task_id": "compilers_set_synthetic__my_constant_fold_add"
+  },
+  {
+   "domain": "compilers_set_synthetic",
+   "gold_key": "compilers_set_synthetic/MyDeMorganAnd",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "compilers",
+   "task_id": "compilers_set_synthetic__my_demorgan_and"
+  },
+  {
+   "domain": "compilers_set_synthetic",
+   "gold_key": "compilers_set_synthetic/MyWriteEnableGate",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "compilers",
+   "task_id": "compilers_set_synthetic__my_write_enable_gate"
+  },
+  {
+   "domain": "concurrent_set_synthetic",
+   "gold_key": "concurrent_set_synthetic/MyBloomCounterRemove",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "concurrent",
+   "task_id": "concurrent_set_synthetic__my_bloom_counter_remove"
+  },
+  {
+   "domain": "concurrent_set_synthetic",
+   "gold_key": "concurrent_set_synthetic/MyGCounterComponentMerge",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "concurrent",
+   "task_id": "concurrent_set_synthetic__my_gcounter_component_merge"
+  },
+  {
+   "domain": "concurrent_set_synthetic",
+   "gold_key": "concurrent_set_synthetic/MyOrSetVisible",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "concurrent",
+   "task_id": "concurrent_set_synthetic__my_or_set_visible"
+  },
+  {
+   "domain": "concurrent_set_synthetic",
+   "gold_key": "concurrent_set_synthetic/MyPNCounterDelta",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "concurrent",
+   "task_id": "concurrent_set_synthetic__my_p_n_counter_delta"
+  },
+  {
+   "domain": "concurrent_set_synthetic",
+   "gold_key": "concurrent_set_synthetic/MyVectorClockMergeLeTarget",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "concurrent",
+   "task_id": "concurrent_set_synthetic__my_vector_clock_merge_le_target"
+  },
+  {
+   "domain": "critical_infra_set_real",
+   "gold_key": "critical_infra_set_real/MyTraefikWeightedQuota",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "critical_infra",
+   "task_id": "critical_infra_set_real__my_traefik_weighted_quota"
+  },
+  {
+   "domain": "critical_infra_set_synthetic",
+   "gold_key": "critical_infra_set_synthetic/MyConsensusQuorumRead",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "critical_infra",
+   "task_id": "critical_infra_set_synthetic__my_consensus_quorum_read"
+  },
+  {
+   "domain": "critical_infra_set_synthetic",
+   "gold_key": "critical_infra_set_synthetic/MyLeakyBucketDrain",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "critical_infra",
+   "task_id": "critical_infra_set_synthetic__my_leaky_bucket_drain"
+  },
+  {
+   "domain": "critical_infra_set_synthetic",
+   "gold_key": "critical_infra_set_synthetic/MyModularRoundRobinCursor",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "critical_infra",
+   "task_id": "critical_infra_set_synthetic__my_modular_round_robin_cursor"
+  },
+  {
+   "domain": "critical_infra_set_synthetic",
+   "gold_key": "critical_infra_set_synthetic/MyTokenBucketDecay",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "critical_infra",
+   "task_id": "critical_infra_set_synthetic__my_token_bucket_decay"
+  },
+  {
+   "domain": "crypto_set_real",
+   "gold_key": "crypto_set_real/MyBase64urlPaddingLen",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "crypto",
+   "task_id": "crypto_set_real__my_base64url_padding_len"
+  },
+  {
+   "domain": "crypto_set_real",
+   "gold_key": "crypto_set_real/MyErc20BurnSupply",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "crypto",
+   "task_id": "crypto_set_real__my_erc20_burn_supply"
+  },
+  {
+   "domain": "crypto_set_real",
+   "gold_key": "crypto_set_real/MyHmacCanonicalKeyLen",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "crypto",
+   "task_id": "crypto_set_real__my_hmac_canonical_key_len"
+  },
+  {
+   "domain": "crypto_set_real",
+   "gold_key": "crypto_set_real/MyPkcs7PaddingBytes",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "crypto",
+   "task_id": "crypto_set_real__my_pkcs7_padding_bytes"
+  },
+  {
+   "domain": "crypto_set_synthetic",
+   "gold_key": "crypto_set_synthetic/MySchnorrResponseScalar",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "industry_set",
+   "stratum": "crypto",
+   "task_id": "crypto_set_synthetic__my_schnorr_response_scalar"
+  },
+  {
+   "domain": "cs_set",
+   "gold_key": "cs_set/heap_sort",
+   "inclusion_probability": 0.23076923076923078,
+   "mean_weight": 0.004836309523809524,
+   "split": "cs_set",
+   "stratum": "cs_set/large",
+   "task_id": "cs_set__heap_sort"
+  },
+  {
+   "domain": "cs_set",
+   "gold_key": "cs_set/heapsort_algorithm",
+   "inclusion_probability": 0.23076923076923078,
+   "mean_weight": 0.004836309523809524,
+   "split": "cs_set",
+   "stratum": "cs_set/large",
+   "task_id": "cs_set__heapsort_algorithm"
+  },
+  {
+   "domain": "cs_set",
+   "gold_key": "cs_set/heapsort_heap_structure",
+   "inclusion_probability": 0.23076923076923078,
+   "mean_weight": 0.004836309523809524,
+   "split": "cs_set",
+   "stratum": "cs_set/large",
+   "task_id": "cs_set__heapsort_heap_structure"
+  },
+  {
+   "domain": "cs_set",
+   "gold_key": "cs_set/merge_sort",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "cs_set",
+   "stratum": "cs_set/small",
+   "task_id": "cs_set__merge_sort"
+  },
+  {
+   "domain": "cs_set",
+   "gold_key": "cs_set/selection_sort",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "cs_set",
+   "stratum": "cs_set/small",
+   "task_id": "cs_set__selection_sort"
+  },
+  {
+   "domain": "cs_set",
+   "gold_key": "cs_set/union_find",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "cs_set",
+   "stratum": "cs_set/small",
+   "task_id": "cs_set__union_find"
+  },
+  {
+   "domain": "easy_set",
+   "gold_key": "easy_set/11_MyFirstChar",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "easy_set",
+   "stratum": "easy_set/small",
+   "task_id": "easy_set__11_myfirstchar"
+  },
+  {
+   "domain": "easy_set",
+   "gold_key": "easy_set/12_MyStringLength",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "easy_set",
+   "stratum": "easy_set/small",
+   "task_id": "easy_set__12_mystringlength"
+  },
+  {
+   "domain": "easy_set",
+   "gold_key": "easy_set/14_MyRemoveSpaces",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "easy_set",
+   "stratum": "easy_set/small",
+   "task_id": "easy_set__14_myremovespaces"
+  },
+  {
+   "domain": "easy_set",
+   "gold_key": "easy_set/21_is_palindrome",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "easy_set",
+   "stratum": "easy_set/small",
+   "task_id": "easy_set__21_is_palindrome"
+  },
+  {
+   "domain": "easy_set",
+   "gold_key": "easy_set/26_longest_common_subsequence",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "easy_set",
+   "stratum": "easy_set/large",
+   "task_id": "easy_set__26_longest_common_subsequence"
+  },
+  {
+   "domain": "easy_set",
+   "gold_key": "easy_set/32_divisible_by_seven_and_eight_count",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "easy_set",
+   "stratum": "easy_set/large",
+   "task_id": "easy_set__32_divisible_by_seven_and_eight_count"
+  },
+  {
+   "domain": "easy_set",
+   "gold_key": "easy_set/36_remove_digits",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "easy_set",
+   "stratum": "easy_set/small",
+   "task_id": "easy_set__36_remove_digits"
+  },
+  {
+   "domain": "easy_set",
+   "gold_key": "easy_set/42_product_of_list",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "easy_set",
+   "stratum": "easy_set/large",
+   "task_id": "easy_set__42_product_of_list"
+  },
+  {
+   "domain": "easy_set",
+   "gold_key": "easy_set/7_myEvanList",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "easy_set",
+   "stratum": "easy_set/large",
+   "task_id": "easy_set__7_myevanlist"
+  },
+  {
+   "domain": "easy_set",
+   "gold_key": "easy_set/8_myReverse",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "easy_set",
+   "stratum": "easy_set/large",
+   "task_id": "easy_set__8_myreverse"
+  },
+  {
+   "domain": "easy_set",
+   "gold_key": "easy_set/9_MyOddSumParity",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "easy_set",
+   "stratum": "easy_set/large",
+   "task_id": "easy_set__9_myoddsumparity"
+  },
+  {
+   "domain": "finance_set_real",
+   "gold_key": "finance_set_real/MyTalibObvStep",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "finance",
+   "task_id": "finance_set_real__my_talib_obv_step"
+  },
+  {
+   "domain": "finance_set_real",
+   "gold_key": "finance_set_real/MyTickAlignedFloor",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "finance",
+   "task_id": "finance_set_real__my_tick_aligned_floor"
+  },
+  {
+   "domain": "finance_set_synthetic",
+   "gold_key": "finance_set_synthetic/MyAuctionFillQty",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "finance",
+   "task_id": "finance_set_synthetic__my_auction_fill_qty"
+  },
+  {
+   "domain": "finance_set_synthetic",
+   "gold_key": "finance_set_synthetic/MyExposureUtilizationOk",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "finance",
+   "task_id": "finance_set_synthetic__my_exposure_utilization_ok"
+  },
+  {
+   "domain": "finance_set_synthetic",
+   "gold_key": "finance_set_synthetic/MySlippageCharge",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "finance",
+   "task_id": "finance_set_synthetic__my_slippage_charge"
+  },
+  {
+   "domain": "finance_set_synthetic",
+   "gold_key": "finance_set_synthetic/MyUtxoDoubleSpendReject",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "finance",
+   "task_id": "finance_set_synthetic__my_utxo_double_spend_reject"
+  },
+  {
+   "domain": "gov_cert_set_real",
+   "gold_key": "gov_cert_set_real/MyInTotoGenericRulePack",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "gov_cert",
+   "task_id": "gov_cert_set_real__my_in_toto_generic_rule_pack"
+  },
+  {
+   "domain": "gov_cert_set_real",
+   "gold_key": "gov_cert_set_real/MyInTotoMatchRuleTokens",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "gov_cert",
+   "task_id": "gov_cert_set_real__my_in_toto_match_rule_tokens"
+  },
+  {
+   "domain": "gov_cert_set_real",
+   "gold_key": "gov_cert_set_real/MySigstoreTimeRangeValid",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "gov_cert",
+   "task_id": "gov_cert_set_real__my_sigstore_time_range_valid"
+  },
+  {
+   "domain": "gov_cert_set_synthetic",
+   "gold_key": "gov_cert_set_synthetic/MyAbacDenyDefault",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "gov_cert",
+   "task_id": "gov_cert_set_synthetic__my_abac_deny_default"
+  },
+  {
+   "domain": "gov_cert_set_synthetic",
+   "gold_key": "gov_cert_set_synthetic/MyAuditLogAppend",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "gov_cert",
+   "task_id": "gov_cert_set_synthetic__my_audit_log_append"
+  },
+  {
+   "domain": "gov_cert_set_synthetic",
+   "gold_key": "gov_cert_set_synthetic/MyRoundHalfEvenCents",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "gov_cert",
+   "task_id": "gov_cert_set_synthetic__my_round_half_even_cents"
+  },
+  {
+   "domain": "hardware_set_real",
+   "gold_key": "hardware_set_real/MySpikeOpcodeField",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hardware",
+   "task_id": "hardware_set_real__my_spike_opcode_field"
+  },
+  {
+   "domain": "hardware_set_real",
+   "gold_key": "hardware_set_real/MySpikeRdField",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hardware",
+   "task_id": "hardware_set_real__my_spike_rd_field"
+  },
+  {
+   "domain": "hardware_set_synthetic",
+   "gold_key": "hardware_set_synthetic/MyAxiValidReadyFire",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hardware",
+   "task_id": "hardware_set_synthetic__my_axi_valid_ready_fire"
+  },
+  {
+   "domain": "hardware_set_synthetic",
+   "gold_key": "hardware_set_synthetic/MyBranchCounterTaken",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hardware",
+   "task_id": "hardware_set_synthetic__my_branch_counter_taken"
+  },
+  {
+   "domain": "hardware_set_synthetic",
+   "gold_key": "hardware_set_synthetic/MyFetchAligned4",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hardware",
+   "task_id": "hardware_set_synthetic__my_fetch_aligned4"
+  },
+  {
+   "domain": "hardware_set_synthetic",
+   "gold_key": "hardware_set_synthetic/MySyncResetZero",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hardware",
+   "task_id": "hardware_set_synthetic__my_sync_reset_zero"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_12_longest",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/small",
+   "task_id": "humaneval_set__humaneval_12_longest"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_13__gcd",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/large",
+   "task_id": "humaneval_set__humaneval_13__gcd"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_18_how_many_times",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/small",
+   "task_id": "humaneval_set__humaneval_18_how_many_times"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_20_find_closest_elements",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/large",
+   "task_id": "humaneval_set__humaneval_20_find_closest_elements"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_21_rescale_to_unit",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/large",
+   "task_id": "humaneval_set__humaneval_21_rescale_to_unit"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_22_filter_integers",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/small",
+   "task_id": "humaneval_set__humaneval_22_filter_integers"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_26_remove_duplicates",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/small",
+   "task_id": "humaneval_set__humaneval_26_remove_duplicates"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_27_flip_case",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/small",
+   "task_id": "humaneval_set__humaneval_27_flip_case"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_29_filter_by_prefix",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/small",
+   "task_id": "humaneval_set__humaneval_29_filter_by_prefix"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_32_findZero",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/large",
+   "task_id": "humaneval_set__humaneval_32_findzero"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_32_poly",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/large",
+   "task_id": "humaneval_set__humaneval_32_poly"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_34_unique",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/small",
+   "task_id": "humaneval_set__humaneval_34_unique"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_37_sort_even",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/large",
+   "task_id": "humaneval_set__humaneval_37_sort_even"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_39_prime_fib",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/large",
+   "task_id": "humaneval_set__humaneval_39_prime_fib"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_44_change_base",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/large",
+   "task_id": "humaneval_set__humaneval_44_change_base"
+  },
+  {
+   "domain": "humaneval_set",
+   "gold_key": "humaneval_set/humaneval_45_triangle_area",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "humaneval_set",
+   "stratum": "humaneval_set/small",
+   "task_id": "humaneval_set__humaneval_45_triangle_area"
+  },
+  {
+   "domain": "hypervisor_set_real",
+   "gold_key": "hypervisor_set_real/MyIotlbMappingOffsetReal",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hypervisor",
+   "task_id": "hypervisor_set_real__my_iotlb_mapping_offset_real"
+  },
+  {
+   "domain": "hypervisor_set_synthetic",
+   "gold_key": "hypervisor_set_synthetic/MyBootMeasureExtend",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hypervisor",
+   "task_id": "hypervisor_set_synthetic__my_boot_measure_extend"
+  },
+  {
+   "domain": "hypervisor_set_synthetic",
+   "gold_key": "hypervisor_set_synthetic/MyGuestPermSymmetric",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hypervisor",
+   "task_id": "hypervisor_set_synthetic__my_guest_perm_symmetric"
+  },
+  {
+   "domain": "hypervisor_set_synthetic",
+   "gold_key": "hypervisor_set_synthetic/MyShadowPteUpdate",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hypervisor",
+   "task_id": "hypervisor_set_synthetic__my_shadow_pte_update"
+  },
+  {
+   "domain": "hypervisor_set_synthetic",
+   "gold_key": "hypervisor_set_synthetic/MyStage2PermIntersect",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hypervisor",
+   "task_id": "hypervisor_set_synthetic__my_stage2_perm_intersect"
+  },
+  {
+   "domain": "hypervisor_set_synthetic",
+   "gold_key": "hypervisor_set_synthetic/MyVmExitCondRestore",
+   "inclusion_probability": 0.2857142857142857,
+   "mean_weight": 0.00390625,
+   "split": "industry_set",
+   "stratum": "hypervisor",
+   "task_id": "hypervisor_set_synthetic__my_vm_exit_cond_restore"
+  },
+  {
+   "domain": "medical_oss_set_real",
+   "gold_key": "medical_oss_set_real/MyCgmReadingUsable",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "medical_oss",
+   "task_id": "medical_oss_set_real__my_cgm_reading_usable"
+  },
+  {
+   "domain": "medical_oss_set_real",
+   "gold_key": "medical_oss_set_real/MyLowGlucoseThreshold",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "medical_oss",
+   "task_id": "medical_oss_set_real__my_low_glucose_threshold"
+  },
+  {
+   "domain": "medical_oss_set_real",
+   "gold_key": "medical_oss_set_real/MyNoisyCgmTargetRaise",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "medical_oss",
+   "task_id": "medical_oss_set_real__my_noisy_cgm_target_raise"
+  },
+  {
+   "domain": "medical_oss_set_real",
+   "gold_key": "medical_oss_set_real/MyTempTargetActive",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "medical_oss",
+   "task_id": "medical_oss_set_real__my_temp_target_active"
+  },
+  {
+   "domain": "medical_oss_set_synthetic",
+   "gold_key": "medical_oss_set_synthetic/MyInsulinActionDurationValid",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "medical_oss",
+   "task_id": "medical_oss_set_synthetic__my_insulin_action_duration_valid"
+  },
+  {
+   "domain": "medical_oss_set_synthetic",
+   "gold_key": "medical_oss_set_synthetic/MyMultiStepIobDecay",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "medical_oss",
+   "task_id": "medical_oss_set_synthetic__my_multi_step_iob_decay"
+  },
+  {
+   "domain": "memory_bugs_set_real",
+   "gold_key": "memory_bugs_set_real/MyCpythonDequeEmptyRecenter",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "memory_bugs",
+   "task_id": "memory_bugs_set_real__my_cpython_deque_empty_recenter"
+  },
+  {
+   "domain": "memory_bugs_set_synthetic",
+   "gold_key": "memory_bugs_set_synthetic/MyCapabilityUseAllowed",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "memory_bugs",
+   "task_id": "memory_bugs_set_synthetic__my_capability_use_allowed"
+  },
+  {
+   "domain": "memory_bugs_set_synthetic",
+   "gold_key": "memory_bugs_set_synthetic/MyMemcpyBounds",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "memory_bugs",
+   "task_id": "memory_bugs_set_synthetic__my_memcpy_bounds"
+  },
+  {
+   "domain": "memory_bugs_set_synthetic",
+   "gold_key": "memory_bugs_set_synthetic/MyOwnedMoveAllowed",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "memory_bugs",
+   "task_id": "memory_bugs_set_synthetic__my_owned_move_allowed"
+  },
+  {
+   "domain": "memory_bugs_set_synthetic",
+   "gold_key": "memory_bugs_set_synthetic/MyStackHeadroomOk",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "memory_bugs",
+   "task_id": "memory_bugs_set_synthetic__my_stack_headroom_ok"
+  },
+  {
+   "domain": "memory_bugs_set_synthetic",
+   "gold_key": "memory_bugs_set_synthetic/MyTaggedUnionAccess",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "memory_bugs",
+   "task_id": "memory_bugs_set_synthetic__my_tagged_union_access"
+  },
+  {
+   "domain": "os_embedded_set_real",
+   "gold_key": "os_embedded_set_real/MyThreadxTimerShouldFire",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "os_embedded",
+   "task_id": "os_embedded_set_real__my_threadx_timer_should_fire"
+  },
+  {
+   "domain": "os_embedded_set_synthetic",
+   "gold_key": "os_embedded_set_synthetic/MyInheritedPriorityCeil",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "os_embedded",
+   "task_id": "os_embedded_set_synthetic__my_inherited_priority_ceil"
+  },
+  {
+   "domain": "os_embedded_set_synthetic",
+   "gold_key": "os_embedded_set_synthetic/MyMutexCanLock",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "os_embedded",
+   "task_id": "os_embedded_set_synthetic__my_mutex_can_lock"
+  },
+  {
+   "domain": "os_embedded_set_synthetic",
+   "gold_key": "os_embedded_set_synthetic/MyPowerTransitionOk",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "os_embedded",
+   "task_id": "os_embedded_set_synthetic__my_power_transition_ok"
+  },
+  {
+   "domain": "os_embedded_set_synthetic",
+   "gold_key": "os_embedded_set_synthetic/MyTlbHitValid",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "os_embedded",
+   "task_id": "os_embedded_set_synthetic__my_tlb_hit_valid"
+  },
+  {
+   "domain": "os_embedded_set_synthetic",
+   "gold_key": "os_embedded_set_synthetic/MyTlbInvalidateValid",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "os_embedded",
+   "task_id": "os_embedded_set_synthetic__my_tlb_invalidate_valid"
+  },
+  {
+   "domain": "realcode_set",
+   "gold_key": "realcode_set/11_statistics_median",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "realcode_set",
+   "stratum": "realcode_set/small",
+   "task_id": "realcode_set__11_statistics_median"
+  },
+  {
+   "domain": "realcode_set",
+   "gold_key": "realcode_set/14_fractions_core",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "realcode_set",
+   "stratum": "realcode_set/large",
+   "task_id": "realcode_set__14_fractions_core"
+  },
+  {
+   "domain": "realcode_set",
+   "gold_key": "realcode_set/16_functools_lru_cache",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "realcode_set",
+   "stratum": "realcode_set/large",
+   "task_id": "realcode_set__16_functools_lru_cache"
+  },
+  {
+   "domain": "realcode_set",
+   "gold_key": "realcode_set/21_shlex_quote",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "realcode_set",
+   "stratum": "realcode_set/small",
+   "task_id": "realcode_set__21_shlex_quote"
+  },
+  {
+   "domain": "realcode_set",
+   "gold_key": "realcode_set/24_json_decoder",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "realcode_set",
+   "stratum": "realcode_set/large",
+   "task_id": "realcode_set__24_json_decoder"
+  },
+  {
+   "domain": "realcode_set",
+   "gold_key": "realcode_set/26_secrets_token",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "realcode_set",
+   "stratum": "realcode_set/small",
+   "task_id": "realcode_set__26_secrets_token"
+  },
+  {
+   "domain": "realcode_set",
+   "gold_key": "realcode_set/31_statistics_quantiles",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "realcode_set",
+   "stratum": "realcode_set/large",
+   "task_id": "realcode_set__31_statistics_quantiles"
+  },
+  {
+   "domain": "realcode_set",
+   "gold_key": "realcode_set/9_collections_chainmap",
+   "inclusion_probability": 0.25,
+   "mean_weight": 0.004464285714285714,
+   "split": "realcode_set",
+   "stratum": "realcode_set/small",
+   "task_id": "realcode_set__9_collections_chainmap"
+  },
+  {
+   "domain": "regulated_set_synthetic",
+   "gold_key": "regulated_set_synthetic/MyAirspeedEnvelopeAccept",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "regulated",
+   "task_id": "regulated_set_synthetic__my_airspeed_envelope_accept"
+  },
+  {
+   "domain": "regulated_set_synthetic",
+   "gold_key": "regulated_set_synthetic/MyAsilModeSwitchOk",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "regulated",
+   "task_id": "regulated_set_synthetic__my_asil_mode_switch_ok"
+  },
+  {
+   "domain": "regulated_set_synthetic",
+   "gold_key": "regulated_set_synthetic/MyAuditAppendAuthorized",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "regulated",
+   "task_id": "regulated_set_synthetic__my_audit_append_authorized"
+  },
+  {
+   "domain": "regulated_set_synthetic",
+   "gold_key": "regulated_set_synthetic/MyDoseIntervalOk",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "regulated",
+   "task_id": "regulated_set_synthetic__my_dose_interval_ok"
+  },
+  {
+   "domain": "regulated_set_synthetic",
+   "gold_key": "regulated_set_synthetic/MyTransfusionMatchOk",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "regulated",
+   "task_id": "regulated_set_synthetic__my_transfusion_match_ok"
+  },
+  {
+   "domain": "regulated_set_synthetic",
+   "gold_key": "regulated_set_synthetic/MyVehicleSpeedRequestOk",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "regulated",
+   "task_id": "regulated_set_synthetic__my_vehicle_speed_request_ok"
+  },
+  {
+   "domain": "rfc_set_real",
+   "gold_key": "rfc_set_real/MyEmailQuotedPairNeeded",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "rfc",
+   "task_id": "rfc_set_real__my_email_quoted_pair_needed"
+  },
+  {
+   "domain": "rfc_set_real",
+   "gold_key": "rfc_set_real/MyHttpTokenChar",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "rfc",
+   "task_id": "rfc_set_real__my_http_token_char"
+  },
+  {
+   "domain": "rfc_set_real",
+   "gold_key": "rfc_set_real/MyJsonWsChar",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "rfc",
+   "task_id": "rfc_set_real__my_json_ws_char"
+  },
+  {
+   "domain": "rfc_set_real",
+   "gold_key": "rfc_set_real/MyUriPctTripletValid",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "rfc",
+   "task_id": "rfc_set_real__my_uri_pct_triplet_valid"
+  },
+  {
+   "domain": "rfc_set_real",
+   "gold_key": "rfc_set_real/MyUriUnreservedChar",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "rfc",
+   "task_id": "rfc_set_real__my_uri_unreserved_char"
+  },
+  {
+   "domain": "rfc_set_synthetic",
+   "gold_key": "rfc_set_synthetic/MyHttpStatusClass",
+   "inclusion_probability": 0.3,
+   "mean_weight": 0.003720238095238095,
+   "split": "industry_set",
+   "stratum": "rfc",
+   "task_id": "rfc_set_synthetic__my_http_status_class"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/101_unsafeHeartbeatLengthTrust_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__101_unsafeheartbeatlengthtrust_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/102_unsafeBareKeybaseLookup_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__102_unsafebarekeybaselookup_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/102_unsafePredictableKeyGen_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__102_unsafepredictablekeygen_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/103_unsafeUnsignedKeyRotation_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__103_unsafeunsignedkeyrotation_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/103_unsafeWeakCipher_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__103_unsafeweakcipher_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/105_unsafeExecStack_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__105_unsafeexecstack_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/105_unsafePhishingValidCert_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__105_unsafephishingvalidcert_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/108_unsafeAnyRootCaScope_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__108_unsafeanyrootcascope_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/108_unsafeEvalInjection_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__108_unsafeevalinjection_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/109_unsafeOcspPrivacyLeak_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__109_unsafeocspprivacyleak_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/124_unsafeAndroidBroadcast_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__124_unsafeandroidbroadcast_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/126_unsafeOAuthRedirect_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__126_unsafeoauthredirect_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/128_unsafeSQLTaint_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__128_unsafesqltaint_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/131_unsafeNullPtrDeref_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__131_unsafenullptrderef_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/133_unsafeDNSSpoofing_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__133_unsafednsspoofing_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/136_unsafePrivilegeEscalation_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__136_unsafeprivilegeescalation_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/140_unsafeHTTPRedirect_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__140_unsafehttpredirect_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/145_unsafeHeapSpraying_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__145_unsafeheapspraying_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/147_unsafeStackCanaryBypass_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__147_unsafestackcanarybypass_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/149_unsafeKernelAddrLeak_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__149_unsafekerneladdrleak_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/153_unsafeRSABlinding_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__153_unsafersablinding_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/154_unsafeIPFragReassembly_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__154_unsafeipfragreassembly_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/156_unsafePostAuthority_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__156_unsafepostauthority_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/157_unsafeSSLFinishedMAC_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__157_unsafesslfinishedmac_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/158_unsafeTLSCompression_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__158_unsafetlscompression_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/159_unsafeU2FChallenge_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__159_unsafeu2fchallenge_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/15_unsafePrivilegeDrop_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__15_unsafeprivilegedrop_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/17_unsafeCgroupMemory_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__17_unsafecgroupmemory_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/23_unsafeDoubleRead_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__23_unsafedoubleread_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/24_unsafeDualBound_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__24_unsafedualbound_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/28_unsafeSameOrigin_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__28_unsafesameorigin_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/2_unsafeMemoryAccess_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__2_unsafememoryaccess_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/30_unsafeUidIsolation_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__30_unsafeuidisolation_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/34_unsafeDirectRoute_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__34_unsafedirectroute_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/38_unsafeTofuKey_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__38_unsafetofukey_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/40_unsafeCircuitHops_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__40_unsafecircuithops_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/44_unsafeRsaExponentiation_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__44_unsafersaexponentiation_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/44_unsafeTcpSeq_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__44_unsafetcpseq_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/49_unsafeCertChain_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__49_unsafecertchain_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/56_unsafeWasmSignExtend_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__56_unsafewasmsignextend_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/60_unsafeBroadcastEavesdrop_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__60_unsafebroadcasteavesdrop_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/61_unsafeUriDelegation_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__61_unsafeuridelegation_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/63_unsafeSynFlood_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__63_unsafesynflood_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/69_unsafeDnsSpoofing_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__69_unsafednsspoofing_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/73_unsafeWasmStack_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__73_unsafewasmstack_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/74_unsafePaddingOracle_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__74_unsafepaddingoracle_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/76_unsafeDeniableAuth_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__76_unsafedeniableauth_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/76_unsafeSandboxStatus_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__76_unsafesandboxstatus_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/77_unsafeFirmwareUpdate_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__77_unsafefirmwareupdate_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/79_unsafeKeyPersistence_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__79_unsafekeypersistence_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/81_unsafeSigPerm_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__81_unsafesigperm_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/85_unsafeCookieDomain_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__85_unsafecookiedomain_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/87_unsafeDNSReply_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__87_unsafednsreply_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/8_crossSiteScripting_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__8_crosssitescripting_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/90_unsafeCookieHttpOnly_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__90_unsafecookiehttponly_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/91_unsafeConstraintSolve_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__91_unsafeconstraintsolve_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/94_unsafeCAVerify_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__safe__94_unsafecaverify_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/96_unsafeMetadataProtection_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__96_unsafemetadataprotection_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/97_unsafeReplayAttack_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__97_unsafereplayattack_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/safe/99_unsafeHandshakeNoIdBinding_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__safe__99_unsafehandshakenoidbinding_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/0_unsafeCopy",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__0_unsafecopy"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/101_unsafeGuardReuse",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__101_unsafeguardreuse"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/101_unsafeHeartbeatLengthTrust",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__101_unsafeheartbeatlengthtrust"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/102_unsafeRSATiming",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__102_unsafersatiming"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/103_unsafeLLCPartition",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__103_unsafellcpartition"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/104_unsafeServerReadsPlaintext",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__104_unsafeserverreadsplaintext"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/105_unsafeDnsAmplification",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__105_unsafednsamplification"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/107_unsafeProfileSandbox",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__107_unsafeprofilesandbox"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/108_unsafeAnyRootCaScope",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__108_unsafeanyrootcascope"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/113_unsafePlaintextFS",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__113_unsafeplaintextfs"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/115_unsafeROPChain",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__115_unsaferopchain"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/117_unsafeXFIJump",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__117_unsafexfijump"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/11_unsafeTimingComparison",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__11_unsafetimingcomparison"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/124_unsafeAndroidBroadcast",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__124_unsafeandroidbroadcast"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/126_unsafeOAuthRedirect",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__126_unsafeoauthredirect"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/127_unsafeFuncPtrOverflow",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__127_unsafefuncptroverflow"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/129_unsafeTorHiddenService",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__129_unsafetorhiddenservice"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/130_unsafeBitlockerBIOS",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__130_unsafebitlockerbios"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/131_unsafeNullPtrDeref",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__131_unsafenullptrderef"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/136_unsafePrivilegeEscalation",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__136_unsafeprivilegeescalation"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/140_unsafeHTTPRedirect",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__140_unsafehttpredirect"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/141_unsafeNonceReuse",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__141_unsafenoncereuse"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/143_unsafeSameOriginCheck",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__143_unsafesameorigincheck"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/14_unsafeServiceAuth",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__14_unsafeserviceauth"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/153_unsafeRSABlinding",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__153_unsafersablinding"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/155_unsafeU2FOrigin",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__155_unsafeu2forigin"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/156_unsafePostAuthority",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__156_unsafepostauthority"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/158_unsafeTLSCompression",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__158_unsafetlscompression"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/159_unsafeU2FChallenge",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__159_unsafeu2fchallenge"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/15_unsafePrivilegeDrop",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__15_unsafeprivilegedrop"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/161_unsafeInsecureCookieSecure",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__161_unsafeinsecurecookiesecure"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/16_unsafeSeccompFilter",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__16_unsafeseccompfilter"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/17_unsafeCgroupMemory",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__17_unsafecgroupmemory"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/21_unsafeBootEcid",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__21_unsafebootecid"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/22_unsafeTaintedLen",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__22_unsafetaintedlen"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/23_unsafeDoubleRead",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__23_unsafedoubleread"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/25_unsafeRangeCheck",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__25_unsaferangecheck"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/31_unsafeDivide",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__31_unsafedivide"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/32_unsafeLeakingCompare",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__32_unsafeleakingcompare"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/33_unsafePaddingOracle",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__33_unsafepaddingoracle"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/36_unsafeBootChain",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__36_unsafebootchain"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/44_unsafeRsaExponentiation",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__44_unsafersaexponentiation"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/44_unsafeTcpIsn",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__44_unsafetcpisn"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/45_unsafeMeltdownRead",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__45_unsafemeltdownread"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/47_unsafeTlsCertName",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__47_unsafetlscertname"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/49_unsafeCertChain",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__49_unsafecertchain"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/53_unsafePerUserTicket",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__53_unsafeperuserticket"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/61_unsafeUriDelegation",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__61_unsafeuridelegation"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/62_unsafeBpfOobRead",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__62_unsafebpfoobread"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/65_unsafePasscodeKdf",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__65_unsafepasscodekdf"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/68_unsafeHeapOverflow",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__68_unsafeheapoverflow"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/69_unsafeQueryWhitelist",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__69_unsafequerywhitelist"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/6_unsafeSQLQuery",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__6_unsafesqlquery"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/75_unsafeCertHostname",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__75_unsafecerthostname"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/77_unsafeVersionDowngrade",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__77_unsafeversiondowngrade"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/78_unsafeEnclaveKey",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__78_unsafeenclavekey"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/85_unsafeAppEntitlements",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__85_unsafeappentitlements"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/86_unsafeBinderCall",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__86_unsafebindercall"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/89_unsafeBgpHijacking",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__89_unsafebgphijacking"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/89_unsafeSynFlood",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__89_unsafesynflood"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/8_crossSiteScripting",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__8_crosssitescripting"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/91_unsafeConstraintSolve",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__91_unsafeconstraintsolve"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/92_unsafeMACCoverage",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__92_unsafemaccoverage"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/93_unsafeAppEntitlements",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__93_unsafeappentitlements"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/93_unsafeCertRevoke",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__93_unsafecertrevoke"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/94_unsafeCAVerify",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__94_unsafecaverify"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/94_unsafeStaticKeyExchange",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__94_unsafestatickeyexchange"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/96_unsafeKeyServer",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__96_unsafekeyserver"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/97_unsafeReplayAttack",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__97_unsafereplayattack"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/98_unsafeChangeCipherSpec",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__98_unsafechangecipherspec"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/98_unsafeReplayAttack",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__98_unsafereplayattack"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/99_unsafeCipherDowngrade",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/small",
+   "task_id": "security_set__security_6858__vulnerabilities__99_unsafecipherdowngrade"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_6858/vulnerabilities/99_unsafeHardcodedKey",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_6858__vulnerabilities__99_unsafehardcodedkey"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_python/safe/1_no_command_injection_safe",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_python__safe__1_no_command_injection_safe"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_python/vulnerabilities/0_shell_injection",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_python__vulnerabilities__0_shell_injection"
+  },
+  {
+   "domain": "security_set",
+   "gold_key": "security_set/security_python/vulnerabilities/2_executable_escalation",
+   "inclusion_probability": 0.2956521739130435,
+   "mean_weight": 0.0037749474789915967,
+   "split": "security_set",
+   "stratum": "security_set/large",
+   "task_id": "security_set__security_python__vulnerabilities__2_executable_escalation"
+  }
+ ]
+}
