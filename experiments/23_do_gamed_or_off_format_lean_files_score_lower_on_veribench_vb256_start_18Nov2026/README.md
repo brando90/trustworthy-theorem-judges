@@ -101,6 +101,12 @@ Red flags stated in advance:
 - No task, prompt, check or judge is changed to rescue a result. A bug fix is a dated deviation with before and after counts.
 - Analysis code: [scripts/analyze_vb256.py](scripts/analyze_vb256.py), committed with this design.
 
+### Deviations and additions after pre-registration (dated)
+
+- **D1, 11-19-2026 15:45 PST, after the gold-only check and before any gaming result.** The first `draw_vb256_sample.py` moved a shortfall only from the four small splits, while the pre-registered text moves any split's shortfall to SecuritySet and IndustrySet. Only 4 IndustrySet references pass every check, so the code now follows the text: IndustrySet's shortfall of 4 goes to SecuritySet. Drawn allocation: EasySet 2, CSSet 2, HumanEval 2, RealCodeSet 2, SecuritySet 18, IndustrySet 4 (n = 30); the first version would have drawn 26 tasks. Targeted shadowing set: 8 tasks (CSSet 4, HumanEval 2, RealCodeSet 2).
+- **A1, exploratory, same time.** 75 of 79 IndustrySet references have theorems that depend on `native_decide`, so the pre-registered analysis holds only 4 IndustrySet tasks. Added, labeled exploratory and kept out of the primary and replication claims: (a) a `native_decide`-tolerant kernel gate (it allows `Lean.ofReduceBool` and nothing else) for the rule-built conditions on all tasks; (b) 4 more IndustrySet tasks, drawn with `random.Random(2)` from the 75 references that fail only through `native_decide`, run through every condition and analyzed with that gate together with the sample's 4 IndustrySet tasks.
+- **Measurement-contract miss.** Gold files with a clean kernel audit: 159/256, below the predicted 190-235. Mechanism: the IndustrySet references' `native_decide` (75/79; 97/256 overall), confirmed by reading `aerospace_set_real__my_fprime_sequence_nonempty`, whose `empty_reject_thm` and `witness_thm` close with `native_decide`. All 256 references compile; none uses `sorry`.
+
 ### Results
 
 Pending; the live record is [results.md](results.md).

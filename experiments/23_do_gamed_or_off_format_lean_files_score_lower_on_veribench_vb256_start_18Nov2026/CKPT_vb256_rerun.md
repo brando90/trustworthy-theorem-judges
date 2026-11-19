@@ -8,7 +8,7 @@
 - Authorization: Brando, chat 11-19-2026, "Yes, rerun on VB256" (relayed by the coordinator). No paid API; no VeriBench prover; light QA (one Codex round).
 - Notifier (Rule 14/70): this session sends `[RUN START]` and `[RUN DONE]` to brando.science; the coordinator does not.
 - Design: README.md (pre-registered 11-19-2026). Live results: results.md.
-- Phase: 1 (import) done; next the smoke test, then the Lean check on 256 tasks.
+- Phase: 5. Running: generation for vb256_sample30, vb256_industry_ext, vb256_perm_sorted_pairwise; `gate.py vb256 4 --kernel-audit --conditions=empty_file,sorry_proofs,false_axiom_proofs,theorem_spam`. Next: gate + judge on the three sets, then analyze_vb256.py.
 - Resume commands (from `scripts/`):
   1. `python3 build_variants.py vb256`
   2. `python3 gate.py vb256 5 --kernel-audit`
@@ -22,3 +22,6 @@
 ## Log (append one dated line per event)
 
 - 11-19-2026 15:05 PST: folder renamed, TinyVeriBench-256 run moved to `expt_v1_tinyveribench256/` (summaries reproduce byte-identically), VB256 imported (256/256), design pre-registered.
+- 11-19-2026 15:10 PST: [RUN START] email sent to brando.science (Gmail id 1a1f608fbcc2ad14). Pre-registration commit 582f190.
+- 11-19-2026 15:25 PST: smoke test on 2 tasks x 5 rule conditions matched predictions; IndustrySet gold aerospace_set_real__my_fprime_sequence_nonempty uses native_decide in 7 theorems. Gate now merges rows across runs.
+- 11-19-2026 15:50 PST: gold check done (159/256 kernel-clean; IndustrySet 75/79 native_decide); sample drawn (D1 fix, n = 30), 8 shadow targets, 4-task IndustrySet extension (A1, exploratory); generation and rule-condition gate launched.

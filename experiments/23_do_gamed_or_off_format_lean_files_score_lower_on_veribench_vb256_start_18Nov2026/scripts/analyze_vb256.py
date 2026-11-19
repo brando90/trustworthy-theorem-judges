@@ -173,3 +173,37 @@ for (c, m) in sorted(v1):
                      vb256_mean=b["mean"], vb256_drop=f"{b['mean_drop']} {b['ci95']}", tinyveribench256_lower=a["scores_lower"],
                      vb256_lower=b["scores_lower"], verdict_changed=int(a["scores_lower"] != b["scores_lower"])))
 write("summary_vs_tinyveribench256", rows, "TinyVeriBench-256 (11-18-2026, 30 tasks, no IndustrySet) versus VB256 (11-19-2026, 30 tasks, 8 IndustrySet). TinyVeriBench-256's `gated_format` used the source-scan gate; VB256's `gated_kernel_format` uses the kernel gate.\n\n")
+
+# 7. EXPLORATORY (added 11-19-2026 after the gold check, before any gaming result; not pre-registered):
+#    a native_decide-tolerant kernel gate, because 75 of 79 IndustrySet references depend on Lean.ofReduceBool.
+def tolerant(r):
+    axs = {a for a in r["bad_axioms"].split(";") if a}
+    return int(r["compiles"] == "1" and r["audit_ran"] == "1" and axs <= {"Lean.ofReduceBool"} and r["sorry_warning"] == "0"
+               and r["declares_axiom_code"] == "0" and r["unsafe_or_implemented_by"] == "0")
+
+
+pop_t = [t for t in tasks if tolerant(gold[t])]
+rows = []
+for c in sorted({c for _, c in g}):
+    for grp in ["all", "industry_set"]:
+        ts = [t for t in pop_t if grp == "all" or split[t] == grp]
+        k = sum(tolerant(g[(t, c)]) for t in ts); lo, hi = cp(k, len(ts))
+        rows.append(dict(condition=c, tasks=grp, n=len(ts), tolerant_gate_pass=k, rate=round(k / len(ts), 3), cp95=f"[{lo:.3f}, {hi:.3f}]",
+                         penalized_by_gate=int(c != "faithful_gold_copy" and hi < 0.05)))
+write("summary_gate_256_native_decide_tolerant", rows, "EXPLORATORY: rule-built conditions under a kernel gate that also allows `Lean.ofReduceBool` (native_decide), on every task whose gold passes it.\n\n")
+
+gx = {**g30, **load(R / "gate_vb256_industry_ext.csv")}; jx = {**j30, **load(R / "judge_vb256_industry_ext.csv")}
+ind = sorted([t for t in sample if split[t] == "industry_set"] + man["industry_extension"])
+rows = []
+for c in sorted({c for (t, c) in jx if t in ind}):
+    ts = [t for t in ind if (t, c) in jx and (t, c) in gx]
+    if not ts: continue
+    def sc(t, cc, m):
+        r = gx[(t, cc)]; s = float(jx[(t, cc)]["judge_score"]) if jx[(t, cc)]["judge_score"] != "" else 0.0
+        k = tolerant(r); f = k * int(r["has_pre_post_correctness"]) * (1 - int(r["vacuous_prop_flag"]))
+        return {"judge_only": s, "gated_tolerant": s * k, "full_pipeline_tolerant": s * f * (1 - int(r["shadow_flag"]))}[m]
+    for m in ["judge_only", "gated_tolerant", "full_pipeline_tolerant"]:
+        d = [sc(t, "faithful_gold_copy", m) - sc(t, c, m) for t in ts]
+        rows.append(dict(condition=c, pipeline=m, n=len(ts), mean=round(st.mean(sc(t, c, m) for t in ts), 2), mean_drop=round(st.mean(d), 2),
+                         min_drop=min(d), tasks_lower=sum(x > 0 for x in d)))
+write("summary_industryset_8_native_decide_tolerant", rows, f"EXPLORATORY: IndustrySet tasks only ({len(ind)}: the sample's {len(ind) - len(man['industry_extension'])} plus the 4-task extension whose references use native_decide), native_decide-tolerant gate. Too few tasks for intervals; per-task counts shown.\n\n")

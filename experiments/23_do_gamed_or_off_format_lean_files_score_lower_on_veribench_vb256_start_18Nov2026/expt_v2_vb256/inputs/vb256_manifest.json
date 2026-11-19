@@ -4361,5 +4361,71 @@
    "catalog_reference_sha256": "9dca88b4330ae9d1f8020b2458e802a8f7eb8d90573e24e0ae88eae4bf68538a",
    "catalog_python_sha256": "7edb1f2420ce20aba6e8f640f9fc19a8f7cda718ca5f1c5fa4af3ba824dac38d"
   }
- ]
+ ],
+ "eligible_counts": {
+  "easy_set": 10,
+  "cs_set": 5,
+  "humaneval_set": 14,
+  "realcode_set": 7,
+  "security_set": 116,
+  "industry_set": 4
+ },
+ "allocation": {
+  "easy_set": 2,
+  "cs_set": 2,
+  "humaneval_set": 2,
+  "realcode_set": 2,
+  "security_set": 18,
+  "industry_set": 4
+ },
+ "llm_sample": [
+  "crypto_set_synthetic__my_schnorr_response_scalar",
+  "cs_set__heap_sort",
+  "cs_set__heapsort_heap_structure",
+  "easy_set__42_product_of_list",
+  "easy_set__9_myoddsumparity",
+  "finance_set_synthetic__my_exposure_utilization_ok",
+  "gov_cert_set_real__my_sigstore_time_range_valid",
+  "humaneval_set__humaneval_32_findzero",
+  "humaneval_set__humaneval_32_poly",
+  "realcode_set__21_shlex_quote",
+  "realcode_set__24_json_decoder",
+  "rfc_set_synthetic__my_http_status_class",
+  "security_set__security_6858__safe__128_unsafesqltaint_safe",
+  "security_set__security_6858__safe__147_unsafestackcanarybypass_safe",
+  "security_set__security_6858__safe__24_unsafedualbound_safe",
+  "security_set__security_6858__safe__38_unsafetofukey_safe",
+  "security_set__security_6858__safe__56_unsafewasmsignextend_safe",
+  "security_set__security_6858__safe__79_unsafekeypersistence_safe",
+  "security_set__security_6858__vulnerabilities__107_unsafeprofilesandbox",
+  "security_set__security_6858__vulnerabilities__117_unsafexfijump",
+  "security_set__security_6858__vulnerabilities__127_unsafefuncptroverflow",
+  "security_set__security_6858__vulnerabilities__143_unsafesameorigincheck",
+  "security_set__security_6858__vulnerabilities__159_unsafeu2fchallenge",
+  "security_set__security_6858__vulnerabilities__16_unsafeseccompfilter",
+  "security_set__security_6858__vulnerabilities__53_unsafeperuserticket",
+  "security_set__security_6858__vulnerabilities__77_unsafeversiondowngrade",
+  "security_set__security_6858__vulnerabilities__92_unsafemaccoverage",
+  "security_set__security_6858__vulnerabilities__93_unsafeappentitlements",
+  "security_set__security_python__vulnerabilities__0_shell_injection",
+  "security_set__security_python__vulnerabilities__2_executable_escalation"
+ ],
+ "shadow_target_tasks": [
+  "cs_set__heap_sort",
+  "cs_set__heapsort_algorithm",
+  "cs_set__merge_sort",
+  "cs_set__selection_sort",
+  "humaneval_set__humaneval_34_unique",
+  "humaneval_set__humaneval_37_sort_even",
+  "realcode_set__16_functools_lru_cache",
+  "realcode_set__31_statistics_quantiles"
+ ],
+ "industry_extension": [
+  "compilers_set_synthetic__my_constant_fold_add",
+  "concurrent_set_synthetic__my_bloom_counter_remove",
+  "concurrent_set_synthetic__my_gcounter_component_merge",
+  "medical_oss_set_real__my_cgm_reading_usable"
+ ],
+ "industry_extension_pool": 75,
+ "sample_rule": "draw_vb256_sample.py: faithful gold passes all primary checks; stratified 2/2/2/2/14/8 by split; random.Random(0)"
 }

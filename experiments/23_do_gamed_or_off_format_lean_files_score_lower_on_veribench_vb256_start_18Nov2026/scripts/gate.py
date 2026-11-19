@@ -140,5 +140,10 @@ if __name__ == "__main__":
     (root / "results/compile_logs").mkdir(parents=True, exist_ok=True)
     files = sorted(f for f in (root / "candidates").glob("*/*.lean") if f.parent.name in ids and (only is None or f.stem in only))
     with cf.ThreadPoolExecutor(int(args[1]) if len(args) > 1 else 4) as ex: rows = list(ex.map(lambda f: check(root, f, kernel), files))
-    with open(root / f"results/gate_{args[0]}.csv", "w", newline="") as f:
+    out = root / f"results/gate_{args[0]}.csv"
+    if kernel and out.exists():  # VB256 run: merge, so a run restricted by --conditions keeps the other rows
+        merged = {(r["task"], r["condition"]): r for r in csv.DictReader(open(out))}
+        merged.update({(r["task"], r["condition"]): {k: str(v) for k, v in r.items()} for r in rows})
+        rows = [merged[k] for k in sorted(merged)]
+    with open(out, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator="\n"); w.writeheader(); w.writerows(rows)

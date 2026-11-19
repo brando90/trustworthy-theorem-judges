@@ -41,6 +41,8 @@ def task_set(name):
             ids = man["llm_sample"]
         elif name == "vb256_perm_sorted_pairwise":
             ids = man["shadow_target_tasks"]
+        elif name == "vb256_industry_ext":  # exploratory IndustrySet extension (native_decide references)
+            ids = man["industry_extension"]
         else:
             raise ValueError(name)
         out = []
