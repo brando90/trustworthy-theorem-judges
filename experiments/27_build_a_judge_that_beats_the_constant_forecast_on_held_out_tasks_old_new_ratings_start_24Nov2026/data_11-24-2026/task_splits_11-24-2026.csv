@@ -1,0 +1,51 @@
+task,set,split,how_assigned
+task_03_application_entitlements,new,test,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_04_integer_string_sequence,new,test,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_05_factorial,new,test,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_07_transport_layer_security_downgrade,new,test,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_08_base32_encoding,new,test,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_09_sum_of_digits,new,test,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_10_lower_median,new,test,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_18_topological_sorting,new,test,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_19_string_prefixes,new,test,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_20_integer_exponentiation,new,test,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_01_heap_sort,new,train,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_06_counting_sort,new,train,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_12_mean_absolute_deviation,new,train,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_13_primality_testing,new,train,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_14_statistical_quantiles,new,train,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_15_prime_fibonacci_search,new,train,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_16_certificate_hostname,new,train,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_17_heapsort_algorithm,new,train,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_23_duplicate_characters,new,train,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_25_maximum_list_element,new,train,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_02_edit_distance,new,val,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_11_html_escaping,new,val,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_21_tor_hidden_service,new,val,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_22_shell_quoting,new,val,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+task_24_trusted_platform_module_hash_safe,new,val,"seeded permutation of the 25 sorted new task names, numpy default_rng(20261124): first 10 train, next 5 val, last 10 test"
+0_unsafeCopy_safe,old,test,exp 100 canonical split (exp 22)
+1_MyAdd,old,test,exp 100 canonical split (exp 22)
+1_bisect_left,old,test,exp 100 canonical split (exp 22)
+33_MyMinimum,old,test,exp 100 canonical split (exp 22)
+4_json_decoder,old,test,exp 100 canonical split (exp 22)
+4_unsafeCounter_safe,old,test,exp 100 canonical split (exp 22)
+humaneval_31_is_prime,old,test,exp 100 canonical split (exp 22)
+humaneval_3_below_zero,old,test,exp 100 canonical split (exp 22)
+insertion_sort,old,test,exp 100 canonical split (exp 22)
+merge_sort,old,test,exp 100 canonical split (exp 22)
+0_bisect_right,old,train,exp 100 canonical split (exp 22)
+18_MyFibonacci,old,train,exp 100 canonical split (exp 22)
+3_heappop,old,train,exp 100 canonical split (exp 22)
+43_replace_spaces,old,train,exp 100 canonical split (exp 22)
+5_unsafeFormatString_safe,old,train,exp 100 canonical split (exp 22)
+9_pathTraversal_safe,old,train,exp 100 canonical split (exp 22)
+bubble_sort,old,train,exp 100 canonical split (exp 22)
+humaneval_13__gcd,old,train,exp 100 canonical split (exp 22)
+humaneval_47_median,old,train,exp 100 canonical split (exp 22)
+selection_sort,old,train,exp 100 canonical split (exp 22)
+13_MyUppercase,old,val,exp 100 canonical split (exp 22)
+1_unsafeMultiply_safe,old,val,exp 100 canonical split (exp 22)
+2_heappush,old,val,exp 100 canonical split (exp 22)
+binary_search,old,val,exp 100 canonical split (exp 22)
+humaneval_8_sum_product,old,val,exp 100 canonical split (exp 22)
