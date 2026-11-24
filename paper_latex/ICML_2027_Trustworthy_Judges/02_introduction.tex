@@ -1,0 +1,29 @@
+% !TEX root = 00_main.tex
+% TLDR: Motivation, the constant-forecast question, what we do, contributions (one per experiment).
+\section{Introduction}
+\label{sec:intro}
+A Lean formalization of a program can prove every theorem it states and still omit a property the program must satisfy.
+Whether a formalization states what is required is its \emph{formal specification coverage} (FSC); a proof assistant does not check it, so people rate it, and rating at scale is expensive.
+LLM judges are the usual substitute~\citep{zheng2023judging,gu2024survey}, and a judge is usually validated by its correlation with human ratings~\citep{liu2023geval,kim2024prometheus}.
+
+Correlation is a weak certificate.
+Spearman and Pearson correlation are blind to a constant shift of the judge's scores and, for Pearson, to their scale, and Spearman additionally ignores everything but their order (\cref{sec:setup}).
+A judge that is a full rating point too lenient on every artifact has correlation $1$ with a judge that is exactly right.
+Our question is therefore one that correlation cannot answer: \emph{given a new task, does the judge predict the distribution of ratings human experts give to its artifacts better than a constant forecast that ignores the artifact?}
+The constant is the average human rating distribution of the training tasks.
+It is the cheapest honest baseline, and any claim that a judge ``works'' on held-out tasks should beat it.
+
+We score each judge's forecast of the human rating distribution with the ranked probability score (RPS), cross-entropy (CE) and total variation distance (TVD; \cref{sec:setup}); RPS and CE are strictly proper, so they are minimized in expectation only by the true distribution, and we put all three first in every table.
+Spearman and Pearson correlation are secondary columns.
+All intervals resample whole tasks, since artifacts of one task are not independent.
+Data are 75 old artifacts from 25 tasks (195 expert ratings) and 100 new artifacts from 25 other tasks (247 ratings returned so far), plus an earlier judge panel scored against corrected labels (\cref{sec:data}).
+
+\paragraph{Contributions.}
+Each is a result from a pre-registered or dated experiment and stays negative where the data are negative.
+\begin{enumerate}
+\item \textbf{High correlation, no gain over the constant (\cref{sec:exp22}).} The judge selected for its correlations (Spearman $0.64$, $0.88$, $0.83$ on train, validation, test tasks) has test RPS $0.195$ against $0.184$ for the constant; $55\%$ of its test squared error is a leniency bias that correlation discards.
+\item \textbf{Training objective (\cref{sec:exp22}).} Across 1{,}000 random task splits, mixtures of judges fitted by cross-entropy beat mixtures fitted by Pearson correlation on cross-entropy and total variation distance, tie on RPS, and lose on correlation.
+\item \textbf{More human ratings (\cref{sec:exp25}).} Doubling the tasks to 50 narrows the absolute width of the RPS interval to $0.60\times$ to $0.64\times$ of the old-only width, but it measures the judge better; it does not make the judge better: against the set-aware constant neither frontier judge is clearly better (both intervals contain $0$), and pooling two sets with different rating levels manufactures an apparent gain.
+\item \textbf{An earlier panel (\cref{sec:cert}).} On the corrected-label set none of three headline judge series beats the constant (raw RPS $0.217$ to $0.271$ against $0.174$), their Spearman point estimates are negative ($-0.21$ to $-0.35$; the interval excludes $0$ only for Qwen3-Coder), and after calibration none of 24 series is significantly better than the constant.
+\item \textbf{A judge that works (\cref{sec:exp27}).} We pre-registered, before any run, what ``works'' means and how a judge is built on old and new ratings with fixed task splits. \TODO{11-24-2026: held-out test result of this experiment.}
+\end{enumerate}

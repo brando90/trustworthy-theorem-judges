@@ -1,0 +1,36 @@
+% !TEX root = 00_main.tex
+% TLDR: Target, forecasts, metrics (RPS, CE, TVD primary; Spearman, Pearson secondary), the constant forecast and its set-aware version, intervals.
+\section{Problem Setup and Metrics}
+\label{sec:setup}
+\paragraph{Target.}
+For a task $t$, let an \emph{artifact} be a candidate Lean formalization $a$ of the task's Python program.
+A rater sees the Python source, the reference Lean file and the artifact, and gives an integer rating $r\in\{0,\dots,5\}$ for how fully the artifact's theorem statements cover the reference's (rubric in \cref{app:rubric}; proofs are not rated).
+The \emph{human rating distribution} $p^*_i$ of artifact $i$ is the distribution of ratings a qualified expert would give; we observe $m_i\ge 2$ of its samples.
+A \emph{judge} outputs a forecast $q_i$, a probability vector over the six ratings.
+Each judge call returns an integer; the forecast is the histogram of the judge's repeated calls on the artifact, floored once at $\epsilon=10^{-6}$ and renormalized (in \cref{sec:cert} the histogram over $0,\dots,5$ is smoothed with a Laplace count of $0.5$ instead).
+
+\paragraph{Primary metrics (lower is better).}
+With $Q_c=\sum_{r\le c}q_r$, the normalized ranked probability score of a forecast against one rating $r$ is
+\begin{equation}
+  S(q,r)=\tfrac15\sum_{c=0}^{4}\bigl(Q_c-\mathbf 1\{r\le c\}\bigr)^2\in[0,1].
+\end{equation}
+\emph{RPS} is the mean of $S(q_i,r)$ over the ratings of artifact $i$, then over artifacts with equal weight.
+\emph{CE} is the mean cross-entropy $-\log q_i(r)$ of the observed ratings, and \emph{TVD} is $\tfrac12\sum_r|q_i(r)-\hat p_i(r)|$ against the empirical rating histogram $\hat p_i$.
+RPS and CE are proper; TVD is a distance to a noisy empirical histogram and is a diagnostic.
+\Cref{app:derivations} shows $\mathbb E\,S(q,R)=D(q,p^*)+U(p^*)$, with $D=\tfrac15\sum_c (Q_c-P_c)^2$ the distribution error and $U$ the irreducible disagreement of the raters.
+Both CE and RPS are minimized only at $q=p^*$.
+CE depends strongly on the floor $\epsilon$ for judges that output few distinct scores (\cref{app:floor}); RPS barely moves, which is why RPS is the headline.
+
+\paragraph{Secondary metrics.}
+\emph{Spearman} and \emph{Pearson} correlation between the judge's mean score and the human mean score per artifact.
+Both are invariant to $\mu\mapsto a+b\mu$ with $b>0$ (Pearson) or to any increasing map (Spearman).
+For Pearson the mean squared error splits exactly as $\mathrm{MSE}=\text{bias}^2+(s_x-s_y)^2+2s_xs_y(1-r)$: correlation sees only the last term (\cref{app:derivations}).
+
+\paragraph{The constant forecast.}
+The \emph{constant} forecast gives every held-out artifact the pooled human rating distribution of the training tasks (leave-one-task-out when no split is fixed).
+When two artifact sets with different rating levels are pooled, the \emph{set-aware constant} uses each set's own training distribution, computed leave-one-task-out inside the set; it is the fair baseline for pooled results (\cref{sec:exp25}).
+
+\paragraph{Uncertainty.}
+Unless stated, intervals are $95\%$ percentile intervals of a task-cluster bootstrap (whole tasks resampled with replacement; $10{,}000$ draws, except the earlier-panel experiment of \cref{sec:cert} and the ``Test, ordinary'' row of \cref{tab:exp22}, which use $2{,}000$).
+A difference between a judge and a baseline is paired on the same resampled tasks.
+\emph{Decision rule:} a judge \emph{beats} a baseline only if the paired RPS interval lies entirely below $0$.

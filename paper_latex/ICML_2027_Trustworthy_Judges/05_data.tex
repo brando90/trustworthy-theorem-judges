@@ -1,0 +1,36 @@
+% !TEX root = 00_main.tex
+% TLDR: Human-rating setup and the three data sets; table of sizes.
+\section{Human Ratings, Data and Judges}
+\label{sec:data}
+\paragraph{Rating protocol.}
+Raters score the coverage of the reference's theorem statements by the artifact's statements on a 0 to 5 rubric, with an adjustment for theorem spam; between two adjacent scores they pick the lower unless they can justify the higher (\cref{app:rubric}).
+Each rater has a personal rating sheet with identifiers prefilled; raters state whether AI assistance was used, and the sheets record minutes spent and confidence.
+Per-artifact human distributions are noisy: most artifacts have two to three ratings.
+
+\paragraph{Data sets.}
+\Cref{tab:data} lists the three sets.
+The \emph{old set} (75 artifacts) was rated earlier by a three-expert subset and its judges were developed on it; it has a fixed split of $10/5/10$ train, validation and test tasks.
+The \emph{new set} (100 artifacts) has four frontier coding agents on each of 25 tasks, each in its vendor's own harness, with no task shared with the old set; its ratings arrive in waves, and the numbers here use the 247 ratings returned by 11-24-2026 (read at 10:38 PST for \cref{sec:exp25} and again at 12:58 PST for \cref{sec:exp27}, 247 ratings each time), from 5 raters, with 73\% of them equal to 5.
+The \emph{corrected-label set} belongs to an earlier judge panel and has 59 artifacts from 20 tasks, 4.5 ratings each, under a corrected rubric.
+
+\begin{table}[t]
+\caption{Data sets. Ratings of the new set are a first wave (247 of 3{,}300 sheet rows returned).}
+\label{tab:data}
+\centering\small
+\begin{tabular}{lrrrl}
+\toprule
+Set & Tasks & Artifacts & Ratings & Used in\\
+\midrule
+Old & 25 & 75 & 195 & \cref{sec:exp22,sec:exp25}\\
+New & 25 & 100 & 247 & \cref{sec:exp25,sec:exp27}\\
+Pooled & 50 & 175 & 442 & \cref{sec:exp25,sec:exp27}\\
+Corrected labels & 20 & 59 & 4.5 per artifact & \cref{sec:cert}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Judges.}
+The \emph{H2 judge} prompt gives the rater instructions and four rated demonstrations from other tasks, and asks for one integer score per call.
+We evaluate GPT-6 Sol, GPT-6 Astra, Gemini 4 Argon and Claude Opus 5.5, each with three calls per artifact (the selected judge pairs two models for six calls).
+Harness and model differ between old and new artifacts for two judges (\cref{app:harness}); we say where pooled rows mix harnesses.
+The earlier panel has gpt-5.3-codex, claude-opus-4-7 and Qwen3-Coder-30B-A3B-Instruct under four prompts each, gpt-4o-mini under two, and an edit-distance and a random control, counted per family (24 series).

@@ -1,0 +1,25 @@
+% !TEX root = 00_main.tex
+% TLDR: LLM judges, proper scores for ordinal forecasts, evaluation validity, autoformalization, selection bias.
+\section{Related Work}
+\label{sec:related}
+\paragraph{LLM judges.}
+\citet{zheng2023judging} measure agreement between LLM judges and human preferences and document position, verbosity and self-enhancement biases; \citet{wang2023fair} study position bias in particular; \citet{gu2024survey} survey the area.
+G-Eval and Prometheus score outputs with a rubric and report their correlation with human ratings~\citep{liu2023geval,kim2024prometheus}.
+We study a different target (formal statements checked against a reference), and a different standard: held-out performance against a constant forecast, not agreement alone.
+
+\paragraph{Proper scores for ordinal forecasts.}
+Strictly proper scoring rules reward a forecaster only for reporting its true belief~\citep{gneiting2007strictly,gneiting2014probabilistic}.
+The ranked probability score (RPS) extends the Brier score~\citep{brier1950verification} to ordered categories~\citep{epstein1969scoring,murphy1971note}.
+We use it as the primary metric and cross-entropy and total variation distance as co-primary ones; the novelty is not the scores but the combination with a constant forecast, task-cluster bootstrap intervals and the human rating distribution as the target.
+
+\paragraph{Fitting judges: correlation versus likelihood.}
+A concurrent study (cited anonymously for review) argues, on other judge panels, that judges should be fitted by cross-entropy rather than correlation and reports lower held-out RPS for cross-entropy-fitted calibration in all 35 judge-by-budget cells~\citep{anon2026corrce}.
+That work is about the fitting objective on general judge panels; this paper is about the verdict on a specific judge family (FSC) against a constant forecast, with a new human-rating collection, and it reports where the earlier direction holds only weakly (\cref{sec:cert}).
+
+\paragraph{Autoformalization and specification coverage.}
+Autoformalization benchmarks translate informal mathematics into formal statements and face the same question, whether a statement faithfully covers what was meant~\citep{wu2022autoformalization,azerbayev2023proofnet,zheng2022minif2f}; Lean~4~\citep{moura2021lean4} checks proofs but not coverage.
+We take the VeriBench benchmark~\citep{veribench2026} as the source of tasks and use its human-rating study to evaluate judges.
+
+\paragraph{Selection bias and dependent data.}
+Repeated model selection biases subsequent performance estimates~\citep{cawley2010overfitting}; we select on validation tasks and score once on held-out tasks (\cref{sec:exp27}).
+Artifacts of one task share inputs, so we resample tasks, in the spirit of the cluster bootstrap~\citep{field2007bootstrapping}.

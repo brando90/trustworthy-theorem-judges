@@ -1,0 +1,11 @@
+% !TEX root = 00_main.tex
+% TLDR: Abstract with the headline numbers of experiments 22, 25 and the earlier-panel result; pending result marked.
+\begin{abstract}
+Large language model (LLM) judges are usually validated by their correlation with human ratings.
+We ask a stricter question for judges of formal specification coverage (FSC) of Lean 4 formalizations: does the judge's forecast of the human rating distribution of an artifact beat a constant forecast, the average human rating distribution of the training tasks, on held-out tasks?
+We score forecasts with the ranked probability score (RPS) and cross-entropy (CE), both strictly proper, and the total variation distance (TVD), and report Spearman and Pearson correlation only as secondary columns.
+On 75 artifacts from 25 tasks (195 expert ratings), a judge with test Spearman $0.83$ has test RPS $0.195$ against $0.184$ for the constant (paired difference $+0.012$, 95\% interval $[-0.090,+0.109]$), and a leniency bias of $+0.18$ on the normalized $[0,1]$ rating scale accounts for 55\% of its test squared error and is invisible to correlation.
+Pooling with 100 new artifacts from 25 further tasks (247 ratings) narrows the absolute width of the RPS interval to $0.60\times$ to $0.64\times$ of the old-only width, yet against the set-aware constant neither frontier judge is clearly better (RPS differences $+0.002$ and $-0.018$) and both overscore the old artifacts by about half a point.
+An earlier panel of 24 judge series scored on the corrected-label set has none significantly better than the constant after calibration.
+\TODO{11-24-2026: add one sentence with the held-out test result of the pre-registered judge-building experiment (Section~\ref{sec:exp27}) when it reports.}
+\end{abstract}

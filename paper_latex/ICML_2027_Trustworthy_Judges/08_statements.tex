@@ -1,0 +1,17 @@
+% !TEX root = 00_main.tex
+% TLDR: Impact statement, AI disclosure statement and reproducibility, as the ICML 2027 call requires.
+\section*{Impact Statement}
+This paper presents work whose goal is to advance the field of machine learning, specifically the evaluation of LLM judges.
+The main societal consideration is misplaced trust: a judge reported only by its correlation with humans can be used to rank or accept formalizations it systematically mis-scores.
+Our recommendation, to report RPS, CE and TVD against a constant forecast with task-cluster bootstrap intervals, is meant to reduce that risk.
+Human raters provided the ratings under a stated protocol; we report only aggregates and no rater identities.
+
+\section*{AI Disclosure Statement}
+Generative AI tools were used substantially in this work.
+The experiments were run by an AI coding assistant under the authors' direction, using GPT-6 Astra, GPT-6 Sol, Gemini 4 Argon, Claude Opus 5.5 and Claude Fable 5.1 (as judges, or for independent recomputation checks), with the harnesses listed in \cref{app:harness}.
+The manuscript text, tables and analysis code were drafted by an AI assistant (Claude Sonnet 5.5 in the Claude Code harness) and checked against the results files and the bibliography by AI assistants (Claude, in the Claude Code harness), and a light wording pass was run with an AI writing assistant.
+LLM judges are also the objects of study.
+\TODO{11-24-2026: authors confirm and complete this statement before submission; the authors remain responsible for all content.}
+
+\section*{Reproducibility}
+Code, dated pre-registrations, aggregate results and the anonymized rating copies are in an anonymous repository (link to be supplied as a frozen branch at submission, as the call requires). Raw individual ratings and rater identities are not released.

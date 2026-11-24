@@ -1,0 +1,67 @@
+% TLDR: ICML 2027 submission draft (anonymous): do LLM judges of formal specification coverage beat a constant forecast of the human rating distribution?
+% Draft started 11-24-2026. Gaps for pending results are marked \TODO{...} (red) with a date.
+\documentclass{article}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+\usepackage{icml2027}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{float}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+% Dated placeholder for a result that is not in yet (visible in red; remove before submission).
+\newcommand{\TODO}[1]{{\color{red}\textbf{[TODO #1]}}}
+\newcommand{\RPS}{\mathrm{RPS}}
+\newcommand{\CE}{\mathrm{CE}}
+\newcommand{\TVD}{\mathrm{TVD}}
+
+\icmltitlerunning{Does the Judge Beat the Constant?}
+
+\begin{document}
+
+\twocolumn[
+  \icmltitle{Does the Judge Beat the Constant?\\
+  Evaluating LLM Judges of Formal Specification Coverage with Proper Scores}
+
+  \begin{icmlauthorlist}
+    \icmlauthor{Anonymous Authors}{anon}
+  \end{icmlauthorlist}
+  \icmlaffiliation{anon}{Anonymous Institution}
+  \icmlcorrespondingauthor{Anonymous Authors}{anonymous@example.com}
+  \icmlkeywords{LLM judges, proper scoring rules, evaluation, formal verification, Lean}
+  \vskip 0.3in
+]
+
+\printAffiliationsAndNotice{}
+
+\input{01_abstract}
+\input{02_introduction}
+\input{03_related_work}
+\input{04_setup}
+\input{05_data}
+\input{06_experiments}
+\input{07_limits_conclusion}
+\input{08_statements}
+
+\bibliography{references}
+\bibliographystyle{icml2027}
+
+\newpage
+\appendix
+\crefalias{section}{appendix}
+\crefalias{subsection}{appendix}
+\onecolumn
+\input{10_appendix}
+\end{document}

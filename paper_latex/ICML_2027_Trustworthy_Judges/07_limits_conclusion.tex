@@ -1,0 +1,24 @@
+% !TEX root = 00_main.tex
+% TLDR: Limits (small data, 73% fives, mixed harnesses, nulls stay null) and conclusion.
+\section{Limitations}
+\label{sec:limits}
+\begin{itemize}
+\item \textbf{Small, early data.} 247 of 3{,}300 new rating rows are back, from 5 raters; 55 of 100 new artifacts have exactly two ratings, so per-artifact human distributions are noisy. Later rating waves need a re-run of every number in \cref{sec:exp25,sec:exp27}.
+\item \textbf{Ceiling effect.} $73\%$ of new ratings are 5s. New-set RPS looks small because the constant is nearly ``all 5s'', and rank correlation is unstable.
+\item \textbf{Different sets, different harnesses.} Old and new tasks differ, and two judges were run in different harnesses on old and new artifacts (\cref{app:harness}); Opus ran at a lower effort on the new set. Pooled rows mix harnesses; we did not correct for it.
+\item \textbf{Prior exposure.} The old set is one older generation distribution, and the earlier H2 judge, its prompts and demonstrations were developed on it. The old test tasks are not fresh.
+\item \textbf{Judge forecasts are sampled histograms}, not native six-probability forecasts, with only three calls per artifact; CE depends on the probability floor (\cref{app:floor}).
+\item \textbf{Trained mixtures are not compared with the constant.} The cross-entropy- and Pearson-trained mixtures are compared with each other over $1{,}000$ splits, not paired with the constant forecast, so we make no claim about them against it.
+\item \textbf{Fixed-prediction intervals.} Intervals on the single canonical split condition on the fitted mixture weights; the $1{,}000$-split result is the one to trust for the training objective.
+\item \textbf{Earlier panel.} Judges there carry little signal on the corrected labels, and for 17 of 24 scored tasks the reference file shown to the judge differs from the one the raters saw (\cref{sec:cert}); that count covers 24 scored tasks while the corrected-label set has 20, and we did not reconcile the two.
+\item \textbf{Not tested.} No Lean proof check, no differential testing, no human-versus-judge comparison by task family, and no second model family reproducing the pooled numbers: the independent recomputation of \cref{sec:exp25} ran on one model family.
+\item \textbf{Negative results stay negative.} Where a judge does not beat the constant we say so, and we did not change the decision rule after seeing the numbers.
+\end{itemize}
+
+\section{Conclusion}
+\label{sec:conclusion}
+A judge validated by correlation can still be worse than guessing the average human rating distribution, because correlation cannot see leniency, scale and base rate.
+On formal specification coverage, we found no judge that beats the constant on held-out tasks with an interval excluding zero: not the judge chosen for its correlations, not the frontier judges on pooled old and new ratings against a set-aware constant, not an earlier panel on the corrected-label set. The two exceptions we report are against a constant that mixes the two sets, and Opus on the new set alone, where the constant is nearly all 5s.
+More human ratings made the evaluation tighter, not the judge better, and pooling sets of different rating levels created an apparent gain that a set-aware constant removes.
+We recommend reporting RPS, CE and TVD against a constant forecast, with task-cluster bootstrap intervals, before any correlation.
+\TODO{11-24-2026: final sentence of the conclusion depends on the held-out result of the pre-registered judge-building experiment (\cref{sec:exp27}).}

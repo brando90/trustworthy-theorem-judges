@@ -1,0 +1,159 @@
+% !TEX root = 00_main.tex
+% TLDR: Derivations, floor sensitivity, rubric, harness table, full tables, traceability, pre-registration of the judge-building experiment.
+\section{Derivations}
+\label{app:derivations}
+\paragraph{RPS decomposition.}
+Let $P_c=\Pr(R\le c)$ under $p^*$, so $\mathbb E\,\mathbf 1\{R\le c\}=P_c$. For each threshold $c$,
+\[
+\mathbb E\,(Q_c-\mathbf 1\{R\le c\})^2=(Q_c-P_c)^2+P_c(1-P_c).
+\]
+Summing over $c$ and dividing by $5$ gives $\mathbb E\,S(q,R)=D(q,p^*)+U(p^*)$ with $D=\tfrac15\sum_{c}(Q_c-P_c)^2$ and $U=\tfrac15\sum_c P_c(1-P_c)$.
+$U$ does not depend on $q$, and $D=0$ iff all cumulative probabilities agree, i.e.\ $q=p^*$; hence $S$ is strictly proper.
+Even a perfect forecast has $\mathbb E\,S=U>0$ when raters disagree, so a positive RPS alone does not show a defective judge.
+\emph{Example.} If half the raters say 3 and half say 5, the forecast $(\tfrac12\text{ on }3,\tfrac12\text{ on }5)$ has RPS $0.10$, while the point mass on $4$, which has the same mean, has RPS $0.20$. Correlation and the mean cannot tell them apart.
+
+\paragraph{Correlation sees one term of the squared error.}
+For judge means $x_i$ and human means $y_i$ with means $\mu_x,\mu_y$, standard deviations $s_x,s_y$ and Pearson correlation $r$,
+\[
+\tfrac1n\textstyle\sum_i (x_i-y_i)^2=(\mu_x-\mu_y)^2+(s_x-s_y)^2+2s_xs_y(1-r).
+\]
+Only the last term depends on $r$; the first is the squared bias and the second the scale mismatch.
+If $x_i=a+by_i$ with $b>0$ then $r=1$ for every $a$ and $b$, although the error is $(a+(b-1)\mu_y)^2+(b-1)^2s_y^2$.
+Example: human scores $(0,0.25,0.5)$ and judge scores $(0.5,0.75,1)$ have $r=1$ and mean squared error $0.25$.
+
+\section{Probability-floor sensitivity}
+\label{app:floor}
+The judge forecast is a histogram of three sampled scores per model, so most bins are empty and CE depends on the floor.
+\Cref{tab:floor} shows the selected judge of \cref{sec:exp22} on the test split with three floors ($\epsilon=10^{-6}$ as in the main text, $10^{-3}$, and Laplace smoothing with $0.5$).
+CE moves by more than $4$ nats between the first two floors, RPS by about $0.001$.
+\begin{table}[H]
+\caption{Test split, selected judge of \cref{sec:exp22}, three floors.}
+\label{tab:floor}
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+Floor & RPS & CE & TVD\\
+\midrule
+$\epsilon=10^{-6}$ & 0.1954 & 8.309 & 0.6278\\
+$\epsilon=10^{-3}$ & 0.1941 & 4.208 & 0.6270\\
+Laplace 0.5 & 0.1466 & 1.934 & 0.5852\\
+\bottomrule
+\end{tabular}
+\end{table}
+The constant forecast is a smooth distribution and does not need a floor; a comparison of CE between a floored sampled histogram and a smooth constant is therefore uneven, which is another reason RPS is the headline.
+
+\section{Rating protocol}
+\label{app:rubric}
+Raters receive three files per task (Python source, reference Lean file, artifact Lean file) and rate statement coverage only. A reference theorem counts as covered if the artifact has the same theorem, a logically equivalent one, a stronger one implying it, or a small set of lemmas that clearly recovers it.
+Base score: $5$ all reference guarantees covered; $4$ mostly covered with one or two minor gaps; $3$ partial, at least one important gap; $2$ weak, fewer than half covered; $1$ none covered but at least one non-vacuous relevant theorem; $0$ vacuous or broken.
+Spam adjustment: if obvious theorem spam is present, lower by up to $1$ (a handful) or up to $2$ (it dominates).
+If unsure between two adjacent scores, choose the lower one unless the higher is clearly justified.
+Raters fill a personal sheet with the final score, an attestation of whether AI assistance was used, four checklist columns, minutes spent and confidence.
+
+\section{Harness and model for every result}
+\label{app:harness}
+\begin{table}[H]
+\caption{Harness and model behind each number. ``Cached'' means saved earlier runs re-scored with no new call.}
+\label{tab:harness}
+\centering\footnotesize
+\begin{tabular}{p{2.2cm}p{12.8cm}}
+\toprule
+Result & Judge scores and metrics\\
+\midrule
+\Cref{sec:exp22} & Cached. GPT-6 Sol (high) and Claude Opus 5.5 (effort max) via a model gateway; GPT-6 Astra (high) and GPT-6.1 Sol via the OpenAI Responses API; Gemini 4 Argon via the Gemini generateContent API; 3 calls per artifact per judge. Metrics: CPU Python.\\
+\Cref{sec:exp25}, old artifacts & Cached, as above (Astra via the Responses API, Opus via the gateway at effort max).\\
+\Cref{sec:exp25}, new artifacts & GPT-6 Astra (reasoning high), Codex CLI one-turn, read-only sandbox, no tools. Claude Opus 5.5 (effort high), Claude Code one-turn, no tools. Frozen H2 prompt and four leave-task-out demonstrations; 300 requests, 600 calls, all parsable. Independent recomputation of all headline numbers: Claude Opus 5.5 (Claude Code), matching to four decimals.\\
+\Cref{sec:cert} & Cached scores of gpt-5.3-codex, claude-opus-4-7, Qwen3-Coder-30B-A3B-Instruct and gpt-4o-mini from the earlier panel; metrics in CPU Python; second-model check of 13 rows by gpt-6.1-sol.\\
+\Cref{sec:exp27} & Planned: new-prompt calls by GPT-6 Astra (high), Codex CLI one-turn; calibration search in CPU Python. \TODO{11-24-2026: fill in what ran.}\\
+New artifacts (generation) & GPT-6 Astra (Codex, xhigh), Claude Fable 5.1 (Claude Code, max), Grok 4.7 (Grok CLI, xhigh), Gemini 4 Argon (Antigravity CLI, high), 25 each. Old artifacts: claude-3-7-sonnet-20250219, temperature 0.7, single call.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{More results of the pooled experiment}
+\label{app:more25}
+\begin{table}[H]
+\caption{Human ceiling by set (1{,}000 random rater splits per artifact set; Spearman--Brown corrected). The pooled reliability is inflated by the level difference between sets.}
+\centering\small
+\begin{tabular}{lcccccc}
+\toprule
+Set & Artifacts ($\ge 2$ raters) & Mean raters & Split-half RPS & Split-half Pearson & Reliability & RPS floor\\
+\midrule
+Old & 75 & 2.60 & 0.128 & 0.825 & 0.904 & 0.045\\
+New & 100 & 2.47 & 0.062 & 0.778 & 0.875 & 0.019\\
+Pooled & 175 & 2.53 & 0.090 & 0.887 & 0.940 & 0.030\\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[H]
+\caption{Learning curve for GPT-6 Astra: RPS interval width / SD of the estimate over random task subsets of size $k$.}
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+$k$ & Old & New & Pooled\\
+\midrule
+5 & 0.205 / 0.058 & 0.088 / 0.025 & 0.187 / 0.057\\
+10 & 0.177 / 0.038 & 0.067 / 0.015 & 0.154 / 0.035\\
+15 & 0.141 / 0.023 & 0.059 / 0.011 & 0.119 / 0.027\\
+20 & 0.133 / 0.012 & 0.051 / 0.006 & 0.099 / 0.023\\
+25 & 0.115 / 0.000 & 0.047 / 0.000 & 0.094 / 0.015\\
+50 & & & 0.070 / 0.000\\
+\bottomrule
+\end{tabular}
+\end{table}
+Three pre-registered decision rules for ``better evaluation'' were all met: pooled RPS interval width at most $0.8\times$ old-only ($0.60$, $0.64$); spread at $k=25$ below that at $k=10$ ($0.015$ against $0.035$, pooled); and a stable judge ordering (Opus has lower RPS than Astra in $96\%$ of task-cluster bootstrap draws on old and $95\%$ on new).
+Deviations: Opus on new artifacts ran at effort high through the Stanford Claude plan rather than at effort max through the paid gateway; Astra on new artifacts ran through the Codex CLI rather than the API; the learning curve used 40 subsets of 200 draws instead of the planned 300 of 1{,}000; the set-aware constant, within-set ranks and judge-minus-human bias were added after the pre-registration.
+
+\section{The eight single judges on the old set}
+\label{app:eight}
+\begin{table}[H]
+\caption{Single judges on the canonical test split (30 artifacts, 10 tasks), three calls each, $\epsilon=10^{-6}$. ``Bias'' is mean judge score minus mean human score on $[0,1]$.}
+\centering\footnotesize
+\begin{tabular}{lcccccc}
+\toprule
+Judge & RPS [95\%] & CE & TVD & Pearson & Spearman & Bias\\
+\midrule
+Constant (train marginal) & 0.184 [0.142, 0.228] & 1.81 & 0.665 & n/a & n/a & +0.091\\
+H0 GPT-6 Sol & 0.191 [0.140, 0.245] & 9.13 & 0.672 & 0.664 & 0.591 & +0.014\\
+H2 Claude Opus 5.5 & 0.196 [0.127, 0.265] & 8.71 & 0.639 & 0.862 & 0.840 & +0.177\\
+H2 Gemini 4 Argon & 0.199 [0.130, 0.267] & 8.70 & 0.639 & 0.873 & 0.921 & +0.177\\
+H2 GPT-6 Astra & 0.201 [0.126, 0.278] & 8.02 & 0.617 & 0.849 & 0.852 & +0.166\\
+H2 GPT-6 Sol & 0.203 [0.130, 0.277] & 8.45 & 0.628 & 0.840 & 0.811 & +0.183\\
+H2 GPT-6.1 Sol & 0.208 [0.136, 0.281] & 8.94 & 0.650 & 0.840 & 0.809 & +0.170\\
+H1 GPT-6 Sol & 0.212 [0.147, 0.277] & 9.12 & 0.667 & 0.799 & 0.767 & +0.177\\
+H0 Claude Opus 5.5 & 0.273 [0.180, 0.383] & 10.37 & 0.750 & 0.582 & 0.659 & +0.188\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Traceability of numbers}
+\label{app:trace}
+Every number in the main text is copied from the file named here, in the anonymized artifact repository of this paper (the paths are experiment folders; each has its own pre-registration and, for the experiments of this paper, a dated commit).
+\begin{table}[H]
+\caption{Where each table and number comes from.}
+\centering\footnotesize
+\begin{tabular}{p{3.8cm}p{11.3cm}}
+\toprule
+Item & Source file\\
+\midrule
+\Cref{tab:exp22}, \cref{tab:mse}, floor table & \texttt{experiments/22\_\allowbreak{}evaluate\_\allowbreak{}veribench\_\allowbreak{}judges\_\allowbreak{}on\_\allowbreak{}75\_\allowbreak{}outputs\_\allowbreak{}\ldots/results.md}, Panel A (section 2) and probability-floor sensitivity\\
+Eight-judge table, \cref{sec:exp22} training objective & same file, Panel B (section 3) and Panel C (section 4, 1{,}000 splits)\\
+\Cref{tab:exp25}, set-aware constant, human ceiling, learning curve, \cref{fig:lc} & \texttt{experiments/25\_\allowbreak{}do\_\allowbreak{}more\_\allowbreak{}human\_\allowbreak{}ratings\_\allowbreak{}improve\_\allowbreak{}judge\_\allowbreak{}evaluation\_\allowbreak{}old\_\allowbreak{}new\_\allowbreak{}pooled\_\allowbreak{}\ldots/RESULTS.md}, with \texttt{results/aggregates.json}, \texttt{results/setaware.json}, \texttt{results/learning\_\allowbreak{}curve.png}\\
+Old and new set means, 247 ratings, raters, 91.5\% in $\{4,5\}$, overlap of tasks & \texttt{experiments/26\_\allowbreak{}how\_\allowbreak{}new\_\allowbreak{}and\_\allowbreak{}old\_\allowbreak{}human\_\allowbreak{}ratings\_\allowbreak{}\ldots/results.md}\\
+\Cref{tab:cert}, 24-series calibration, 7 of 24 reference matches, labels with Spearman $-0.04$ & \texttt{experiments/67\_\allowbreak{}new\_\allowbreak{}vb\_\allowbreak{}team\_\allowbreak{}ratings\_\allowbreak{}rps\_\allowbreak{}ce\_\allowbreak{}tvd\_\allowbreak{}rerun\_\allowbreak{}of\_\allowbreak{}the\_\allowbreak{}certjudge\_\allowbreak{}panel/RESULTS.md} (second repository of the same artifact set)\\
+\Cref{sec:exp27} design & \texttt{experiments/27\_\allowbreak{}build\_\allowbreak{}a\_\allowbreak{}judge\_\allowbreak{}that\_\allowbreak{}beats\_\allowbreak{}the\_\allowbreak{}constant\_\allowbreak{}forecast\_\allowbreak{}\ldots/PREREG.md}\\
+\Cref{fig:scatter}, old and new set offsets, share of 5s, 55 of 100 new artifacts with two ratings & \texttt{scripts/fig\_scatter.py} run on \texttt{experiments/27\_\allowbreak build\_\allowbreak a\_\allowbreak judge\_\allowbreak \ldots/data\_11-24-2026/*.csv}, and \texttt{experiments/26\_\ldots/results.md}\\
+Rating protocol, appendix \ref{app:rubric} & \texttt{experiments/09\_\allowbreak{}prepare\_\allowbreak{}packets\_\allowbreak{}and\_\allowbreak{}collect\_\allowbreak{}human\_\allowbreak{}ratings\_\allowbreak{}\ldots/rating\_\allowbreak{}task\_\allowbreak{}packet/human\_\allowbreak{}judgements\_\allowbreak{}prompt.md}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Pre-registration of the judge-building experiment}
+\label{app:prereg27}
+\emph{Written and committed on 11-24-2026 before any judge call or metric on the splits.}
+Pooled splits: train 20 tasks (old 30 and new 40 artifacts; 78 and 96 ratings), validation 10 tasks (old 15 and new 20 artifacts; 39 and 53 ratings), test 20 tasks (old 30 and new 40 artifacts; 78 and 98 ratings).
+The new ratings were frozen at 12:58 PST on 11-24-2026 (247 ratings); later waves add ratings to the same tasks and never move a task between splits.
+Primary metrics RPS, CE, TVD with task-bootstrap intervals ($10{,}000$ draws, seed 20261124); Spearman and Pearson secondary only.
+Feature sets F1 to F9 and the selection rule (lowest pooled validation RPS, ties by validation CE; set-indicator features not eligible) are as in \cref{sec:exp27}; the L2 penalty on slopes is chosen from $\{0,0.1,1,10\}$ on validation, and mixing with the train constant from $\{0,0.25,0.5\}$.
+Predictions written before the numbers: (1) calibration removes most of the old-set offset, but against the set-aware constant the gain is small, with about $25\%$ chance that ``works'' is met; (2) the new prompt lowers validation CE but adds little RPS beyond calibrated means; (3) the edit-distance baseline is about as good as the constant; (4) Spearman and RPS disagree on the ranking of at least one pair of judges.
+\TODO{11-24-2026: append the outcome of each prediction, the frozen configuration, the test table and deviations when the experiment reports.}
