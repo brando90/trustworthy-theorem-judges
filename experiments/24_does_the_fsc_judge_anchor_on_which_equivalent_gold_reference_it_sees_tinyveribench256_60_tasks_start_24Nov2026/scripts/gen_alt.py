@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import llm
 from lean_utils import replace_proofs, similarity, statements, theorem_names, strip_comments
 HERE = pathlib.Path(__file__).resolve().parents[1]
-LEAN_SRC = '/lfs/skampere1/0/brando9/veribench/veribench_dataset/lean_src'
+LEAN_SRC = '/lfs/skampere1/0/brando9/vb90_grading/lean_project'
 ENV = dict(os.environ, PATH='/lfs/skampere1/0/brando9/.elan/bin:' + os.environ['PATH'])
 
 ALT = """You are writing a second, independent reference file for a Lean 4 formal-specification-coverage task. Below are the Python source and the existing reference file G (its proofs are `sorry`).

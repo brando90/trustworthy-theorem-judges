@@ -8,7 +8,8 @@ import csv, json, os, random, sys, pathlib
 sys.path.insert(0, os.path.dirname(__file__))
 from lean_utils import similarity
 HERE = pathlib.Path(__file__).resolve().parents[1]
-JUDGES = {'claude': ('claude-opus-5-5', 'Claude Code CLI'), 'codex': ('gpt-6-astra', 'Codex CLI')}
+from llm import LABEL, GX_SRC
+JUDGES = {j: (m, h) for j, (h, m) in LABEL.items()}
 
 
 def boot(xs, n=10000, seed=0):
@@ -48,7 +49,7 @@ def main():
     for j, (model, harness) in JUDGES.items():
         s = load(j)
         if not s: continue
-        other = 'codex' if j == 'claude' else 'claude'
+        other = GX_SRC[j]
         def ab(g):
             v = [g('G', 'G'), g('Gx', 'Gx'), g('G', 'Gx'), g('Gx', 'G')]
             return None if None in v else (v[0] + v[1] - v[2] - v[3]) / 2
@@ -87,11 +88,13 @@ def main():
         R['model'], R['harness'] = model, harness
         res[j] = R
     ys = [res[j]['verdict_B'] for j in res]
-    overall = 'yes (HOLDS on AG_B for both judges)' if len(ys) == 2 and all(y == 'HOLDS' for y in ys) else 'no (DOES NOT HOLD on AG_B for both judges)' if len(ys) == 2 and all(y == 'DOES NOT HOLD' for y in ys) else 'inconclusive'
+    n = len(ys)
+    overall = (f'yes (HOLDS on AG_B in all {n} judge settings)' if n and all(y == 'HOLDS' for y in ys) else f'no (DOES NOT HOLD on AG_B in all {n} judge settings)' if n and all(y == 'DOES NOT HOLD' for y in ys)
+               else 'mixed or inconclusive: ' + ', '.join(f"{j} {res[j]['verdict_B']}" for j in res))
     res['overall_FSC'] = overall
     json.dump(res, open(HERE / 'results/summary.json', 'w'), indent=1)
     f = lambda b: 'n/a' if b is None else f"{b['mean']:+.3f} [{b['lo']:+.3f}, {b['hi']:+.3f}] (n={b['n']})"
-    md.append(f'Overall verdict on FSC (no DT; AG_B both judges): **{overall}**\n')
+    md.append(f'Overall verdict on FSC (no DT; AG_B, all judge settings): **{overall}**\n')
     md.append('| Judge (harness, model) | AG_B twins, exact match | verdict | AG_A natural, similarity | verdict |\n|---|---|---|---|---|')
     for j in JUDGES:
         if j in res: R = res[j]; md.append(f"| {R['harness']}, {R['model']} | {f(R['AG_B'])} | {R['verdict_B']} | {f(R['AG_A'])} | {R['verdict_A']} |")
