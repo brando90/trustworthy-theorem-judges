@@ -1,0 +1,40 @@
+== pooled 20 tasks 70 artifacts
+FINAL_judge                      RPS 0.0751 [0.0471,0.1086]  CE 0.970  TVD 0.355  | rho 0.89 r 0.91
+BASE_constant_per_set            RPS 0.1100 [0.0740,0.1509]  CE 1.189  TVD 0.479  | rho 0.75 r 0.73
+BASE_constant_pooled             RPS 0.1707 [0.1245,0.2288]  CE 1.509  TVD 0.603  | rho nan r nan
+BASE_uniform                     RPS 0.2310 [0.1999,0.2587]  CE 1.792  TVD 0.733  | rho nan r nan
+BASE_H2_raw_astra_opus           RPS 0.1002 [0.0557,0.1539]  CE 4.115  TVD 0.331  | rho 0.90 r 0.90
+BASE_edit_distance_calibrated    RPS 0.1704 [0.1221,0.2309]  CE 1.506  TVD 0.597  | rho 0.20 r 0.13
+  DIFF_FINAL_minus_BASE_constant_per_set|RPS: -0.0349 [-0.0760,+0.0024]
+  DIFF_FINAL_minus_BASE_constant_per_set|CE: -0.2194 [-0.4588,+0.0092]
+  DIFF_FINAL_minus_BASE_constant_per_set|TVD: -0.1237 [-0.2049,-0.0554]
+  DIFF_FINAL_minus_BASE_H2_raw_astra_opus|RPS: -0.0252 [-0.0493,-0.0054]
+  DIFF_FINAL_minus_BASE_H2_raw_astra_opus|CE: -3.1458 [-4.9739,-1.5797]
+  DIFF_FINAL_minus_BASE_H2_raw_astra_opus|TVD: +0.0240 [-0.0588,+0.0991]
+== old 10 tasks 30 artifacts
+FINAL_judge                      RPS 0.1349 [0.0906,0.1794]  CE 1.569  TVD 0.490  | rho 0.90 r 0.87
+BASE_constant_per_set            RPS 0.1797 [0.1348,0.2246]  CE 1.794  TVD 0.658  | rho nan r nan
+BASE_constant_pooled             RPS 0.2619 [0.1757,0.3521]  CE 2.158  TVD 0.716  | rho nan r nan
+BASE_uniform                     RPS 0.1759 [0.1419,0.2115]  CE 1.792  TVD 0.678  | rho nan r nan
+BASE_H2_raw_astra_opus           RPS 0.1909 [0.1156,0.2669]  CE 7.682  TVD 0.583  | rho 0.83 r 0.86
+BASE_edit_distance_calibrated    RPS 0.2673 [0.1787,0.3593]  CE 2.187  TVD 0.720  | rho -0.49 r -0.48
+  DIFF_FINAL_minus_BASE_constant_per_set|RPS: -0.0448 [-0.1294,+0.0366]
+  DIFF_FINAL_minus_BASE_constant_per_set|CE: -0.2245 [-0.7382,+0.2768]
+  DIFF_FINAL_minus_BASE_constant_per_set|TVD: -0.1681 [-0.3346,-0.0089]
+  DIFF_FINAL_minus_BASE_H2_raw_astra_opus|RPS: -0.0560 [-0.0962,-0.0160]
+  DIFF_FINAL_minus_BASE_H2_raw_astra_opus|CE: -6.1127 [-8.6058,-3.6042]
+  DIFF_FINAL_minus_BASE_H2_raw_astra_opus|TVD: -0.0933 [-0.1977,+0.0219]
+== new 10 tasks 40 artifacts
+FINAL_judge                      RPS 0.0302 [0.0146,0.0464]  CE 0.520  TVD 0.254  | rho 0.65 r 0.94
+BASE_constant_per_set            RPS 0.0577 [0.0243,0.0962]  CE 0.735  TVD 0.344  | rho nan r nan
+BASE_constant_pooled             RPS 0.1023 [0.0925,0.1181]  CE 1.022  TVD 0.518  | rho nan r nan
+BASE_uniform                     RPS 0.2722 [0.2456,0.2983]  CE 1.792  TVD 0.775  | rho nan r nan
+BASE_H2_raw_astra_opus           RPS 0.0322 [0.0093,0.0565]  CE 1.440  TVD 0.142  | rho 0.72 r 0.93
+BASE_edit_distance_calibrated    RPS 0.0977 [0.0874,0.1143]  CE 0.996  TVD 0.505  | rho 0.20 r 0.18
+  DIFF_FINAL_minus_BASE_constant_per_set|RPS: -0.0274 [-0.0571,-0.0066]
+  DIFF_FINAL_minus_BASE_constant_per_set|CE: -0.2155 [-0.3706,-0.0902]
+  DIFF_FINAL_minus_BASE_constant_per_set|TVD: -0.0904 [-0.1257,-0.0571]
+  DIFF_FINAL_minus_BASE_H2_raw_astra_opus|RPS: -0.0020 [-0.0118,+0.0067]
+  DIFF_FINAL_minus_BASE_H2_raw_astra_opus|CE: -0.9206 [-2.2322,+0.1971]
+  DIFF_FINAL_minus_BASE_H2_raw_astra_opus|TVD: +0.1120 [+0.0268,+0.1813]
+VERDICT promising
