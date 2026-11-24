@@ -20,7 +20,9 @@ PROVENANCE = EXPERIMENT / "provenance.json"
 
 def current_inventory():
     listed = subprocess.run(
-        ["git", "ls-files", "--cached", "--others", "--exclude-standard"],
+        ["git", "ls-files", "--cached", "--others",
+         "--exclude=__pycache__/", "--exclude=*.pyc", "--exclude=.pytest_cache/",
+         "--exclude=.DS_Store", "--", ".", ":(exclude,glob)**/.gitignore"],
         cwd=EXPERIMENT, check=True, capture_output=True, text=True).stdout.splitlines()
     inventory = []
     for name in sorted(set(listed)):

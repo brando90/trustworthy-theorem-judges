@@ -1,0 +1,72 @@
+{
+  "date": "11-24-2026",
+  "experiment": "26_how_new_and_old_human_ratings_fix_06_08_08_and_expand_5metric_eval_start_24Nov2026",
+  "renumber_note": "Originally developed and QA-checked as 25_how_new_and_old_human_ratings_fix_06_08_08_and_expand_5metric_eval_start_24Nov2026; renumbered to 26 per AGENTS.md after upstream commit 3f5a460 registered 25_do_more_human_ratings_improve_judge_evaluation_old_new_pooled_start_24Nov2026 on main. The three logs under results/mega_qa_logs/ preserve the pre-renumber paths verbatim.",
+  "qa_base": "56be3b8d2407c7b7d63e24067a04a2c86ee4ec92",
+  "qa_paths": [
+    "README.md",
+    "experiments/README.md",
+    "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/",
+    "experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/",
+    "experiments/26_how_new_and_old_human_ratings_fix_06_08_08_and_expand_5metric_eval_start_24Nov2026/"
+  ],
+  "excluded_paths_untouched": [
+    "experiments/23_*",
+    "experiments/25_do_more_human_ratings_improve_judge_evaluation_old_new_pooled_start_24Nov2026/",
+    ".lake/",
+    "research_artifacts/*/builds/",
+    "**/sealed/**",
+    "**/.gitignore"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "role": "orchestrator_builder_company_review",
+      "harness": "agy",
+      "model": "gemini-pro-orchestrator",
+      "verdict": "FIXED",
+      "critical_issues": 1,
+      "major_issues": 4,
+      "fixes_applied": 7,
+      "structural": "IMPROVED",
+      "summary": "Fixed N=1 Laplace dilution on empirical constant baselines, aligned report text/sheet counts/score-forecasts glob, hardened Exp 09 sync attestation/idempotency/README formatting, refactored shared helpers, and expanded tests to 11 Exp 26 + 75 Exp 09.",
+      "log_path": "results/mega_qa_logs/stage1_agy_carbon_orchestrator.log"
+    },
+    {
+      "stage": 2,
+      "role": "cross_company_strongest_reviewer",
+      "harness": "codex",
+      "model": "gpt-6-astra",
+      "effort": "ultra",
+      "verdict": "FIXED",
+      "critical_issues": 0,
+      "major_issues": 10,
+      "fixes_applied": 10,
+      "structural": "IMPROVED",
+      "summary": "Fixed exact TVD tie preservation, undefined correlation/kappa None handling on constant vectors, repeated-sync backup snapshots, Exp 39 partial item coverage accounting, Gate G0 precision/wording, and expanded tests to 17 Exp 26 + 81 Exp 09.",
+      "log_path": "results/mega_qa_logs/stage2_codex_gpt6_astra.log"
+    },
+    {
+      "stage": 3,
+      "role": "fresh_context_orchestrator_final_pass",
+      "harness": "agy",
+      "model": "gemini-pro-orchestrator",
+      "verdict": "FIXED",
+      "critical_issues": 0,
+      "major_issues": 1,
+      "fixes_applied": 4,
+      "structural": "IMPROVED",
+      "summary": "Fixed Lean 4 character-literal stripping with identifier-prime guard (updating public_only sensitivity), simplified score_exp39_bridge, fixed NA-only/zero-scored anomaly README formatting in Exp 09 sync, and expanded tests to 18 Exp 26 + 82 Exp 09.",
+      "log_path": "results/mega_qa_logs/stage3_agy_carbon_orchestrator.log"
+    }
+  ],
+  "final_verification": {
+    "exp26_unit_tests_passed": 18,
+    "exp09_unit_tests_passed_via_check_project": 82,
+    "total_unit_tests_passed": 100,
+    "source_label_files_verified": 48,
+    "check_project_passed": true,
+    "git_diff_check_passed": true,
+    "api_spend_usd": 0.0
+  }
+}
