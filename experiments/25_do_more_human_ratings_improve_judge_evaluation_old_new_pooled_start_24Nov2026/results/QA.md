@@ -1,0 +1,7 @@
+# Light QA, dated 11-24-2026
+
+- **Checker:** Claude Opus 5.5, effort high, Claude Code on the Stanford Claude plan (skampere1), own numpy script (qa_recompute_claude.py, same folder), reading only an anonymised numeric file (per artifact: set, anonymised task id, the human ratings, the 3 scores of each judge). It saw no artifact text, no rater identity and none of the analysis code.
+- **Not a second model family:** OpenAI lanes were unavailable at QA time (personal Codex plan at its usage limit until Nov 29; Stanford Codex could not start its sandbox; Vals Codex sign-in blocked). The pipeline author is a Claude model too.
+- **Checked and matched the pipeline to 4 decimals:** n, RPS, CE, TVD, Spearman, Pearson per judge on old, new and pooled; constant RPS (within-set leave-one-task-out 0.1826 old, 0.0699 new, 0.1182 set-aware pooled; pooled-constant 0.1641); split-half human RPS (old 0.129, new 0.062, pooled 0.090 vs 0.128, 0.062, 0.090 in the pipeline; the checker's random splits differ).
+- **Bootstrap (new set, 2,000 draws, other seed):** Astra RPS [0.0321, 0.0803] vs [0.0322, 0.0801]; Opus [0.0263, 0.0567] vs [0.0272, 0.0563]; within-set constant [0.0449, 0.0987].
+- **Not checked:** the 10,000-draw intervals on old and pooled, the learning curve, the Spearman-Brown ceilings, the set-aware bootstrap, the judge calls themselves (the parsing of raw replies), and the ratings read from the Sheets.
