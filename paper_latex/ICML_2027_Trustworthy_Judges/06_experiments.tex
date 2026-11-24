@@ -146,5 +146,40 @@ We therefore pre-registered, and time-stamped before any judge call or metric on
 A set indicator is allowed only as a sensitivity analysis.
 Selection is by lowest pooled validation RPS, then refit on train and validation and scored once on test.
 \emph{``Works''} means: against both the set-aware constant and the earlier H2 judge, the paired test RPS interval lies entirely below $0$, and CE and TVD point estimates are also lower than the constant's.
-``Promising, not shown'' means all three point estimates are lower but the RPS interval includes $0$; anything else is ``not found''.
-\TODO{11-24-2026: results of this experiment (selected configuration, test RPS, CE, TVD with intervals, verdict against the three-level rule, per-set results); second pass after it reports. The preregistration guess is about 25\% that ``works'' is met.}
+``Promising, not works'' means all three point estimates are lower but the RPS interval includes $0$; anything else is ``not found''.
+\Cref{tab:exp27} gives the held-out test; per-set tables are in \cref{app:prereg27}.
+The selected configuration (lowest validation RPS among 125 candidates, on 35 validation artifacts) is the ordinal calibration of the H2 mean scores of GPT-6 Astra and Claude Opus 5.5 together with the new prompt's score and expected score, with no penalty and no mixing with the constant; it was frozen before the 70 test calls of the new prompt and is scored once on test.
+On the 20 test tasks (70 artifacts) the judge has RPS $0.075$ $[0.047,0.109]$ against $0.110$ $[0.074,0.151]$ for the set-aware constant, CE $0.97$ against $1.19$ and TVD $0.35$ against $0.48$.
+The paired RPS difference to the set-aware constant is $-0.035$ $[-0.076,+0.002]$; for CE it is $-0.22$ $[-0.46,+0.01]$ and for TVD $-0.124$ $[-0.205,-0.055]$.
+Against the H2 judge on raw scores the paired RPS difference is $-0.025$ $[-0.049,-0.005]$.
+The RPS interval against the constant includes $0$ by $0.002$, so under the rule above the verdict is \emph{promising, not works}; the pre-registered guess was about $25\%$ that ``works'' would be met.
+We do not call the result a trustworthy judge.
+The calibration does what it was built for: the raw H2 scores have a low TVD ($0.33$) but a CE of $4.12$ because their histograms are too sharp, and the CE-fitted calibration of the same scores lowers CE to $0.97$ and RPS from $0.100$ to $0.075$.
+On the new set (10 tasks) the judge beats the set-aware constant on all three scores with intervals below zero; on the old set (10 tasks) the point estimates are also better, but the RPS and CE intervals include zero (\cref{tab:exp27old,tab:exp27new}).
+Spearman and Pearson are $0.89$ and $0.91$ for the judge, secondary only; a forecast that knows only the set already reaches $0.75$.
+\emph{Limits of this result.} Twenty test tasks and 70 artifacts with two to three ratings each; $73\%$ of the new ratings are 5s, so the new set is easy for a forecast that says ``5''; selection among 125 candidates used 35 validation artifacts; and the value of the new prompt is not separated from the calibrated H2 scores (on validation, H2 means alone give RPS $0.062$ against $0.056$ with the new prompt added).
+
+\begin{table*}[t]
+\caption{Held-out test of the judge built in this section: 20 tasks, 70 artifacts, task-bootstrap 95\% intervals ($10{,}000$ draws, seed 20261124); the test set was scored once. Lower is better in the first three columns. Spearman and Pearson are secondary.
+$^\ast$A forecast that only knows which set an artifact comes from already reaches Spearman $0.75$: most of the pooled correlation is set identity.}
+\label{tab:exp27}
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lcccrr}
+\toprule
+Forecast & RPS [95\%] & CE [95\%] & TVD [95\%] & Spearman & Pearson\\
+\midrule
+Final judge & 0.075 [0.047, 0.109] & 0.97 [0.68, 1.30] & 0.35 [0.29, 0.44] & 0.89 & 0.91\\
+Constant per set & 0.110 [0.074, 0.151] & 1.19 [0.90, 1.50] & 0.48 [0.40, 0.56] & 0.75$^\ast$ & 0.73$^\ast$\\
+H2 judge, raw & 0.100 [0.056, 0.154] & 4.12 [2.31, 6.22] & 0.33 [0.20, 0.48] & 0.90 & 0.90\\
+Constant, pooled & 0.171 [0.125, 0.229] & 1.51 [1.22, 1.84] & 0.60 [0.54, 0.68] & -- & --\\
+Uniform & 0.231 [0.200, 0.259] & 1.79 [1.79, 1.79] & 0.73 [0.70, 0.77] & -- & --\\
+Edit distance, calib. & 0.170 [0.122, 0.231] & 1.51 [1.20, 1.85] & 0.60 [0.53, 0.68] & 0.20 & 0.13\\
+\midrule
+\multicolumn{6}{l}{Paired difference, final judge minus baseline (negative = judge better)}\\
+Baseline & RPS & CE & TVD & & \\
+\midrule
+Constant per set & $-$0.035 [$-$0.076, +0.002] & $-$0.22 [$-$0.46, +0.01] & $-$0.124 [$-$0.205, $-$0.055] & & \\
+H2 judge, raw & $-$0.025 [$-$0.049, $-$0.005] & $-$3.15 [$-$4.97, $-$1.58] & +0.024 [$-$0.059, +0.099] & & \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -12,13 +12,14 @@
 \item \textbf{Fixed-prediction intervals.} Intervals on the single canonical split condition on the fitted mixture weights; the $1{,}000$-split result is the one to trust for the training objective.
 \item \textbf{Earlier panel.} Judges there carry little signal on the corrected labels, and for 17 of 24 scored tasks the reference file shown to the judge differs from the one the raters saw (\cref{sec:cert}); that count covers 24 scored tasks while the corrected-label set has 20, and we did not reconcile the two.
 \item \textbf{Not tested.} No Lean proof check, no differential testing, no human-versus-judge comparison by task family, and no second model family reproducing the pooled numbers: the independent recomputation of \cref{sec:exp25} ran on one model family.
+\item \textbf{The judge of \cref{sec:exp27} rests on little.} Twenty test tasks (70 artifacts), selection among 125 candidates on 35 validation artifacts, old test tasks that the earlier H2 judge had already seen, and a new prompt whose own value is not separated from the calibrated H2 scores. Its held-out numbers come from one run of one code path, and no second model family has recomputed them.
 \item \textbf{Negative results stay negative.} Where a judge does not beat the constant we say so, and we did not change the decision rule after seeing the numbers.
 \end{itemize}
 
 \section{Conclusion}
 \label{sec:conclusion}
 A judge validated by correlation can still be worse than guessing the average human rating distribution, because correlation cannot see leniency, scale and base rate.
-On formal specification coverage, we found no judge that beats the constant on held-out tasks with an interval excluding zero: not the judge chosen for its correlations, not the frontier judges on pooled old and new ratings against a set-aware constant, not an earlier panel on the corrected-label set. The two exceptions we report are against a constant that mixes the two sets, and Opus on the new set alone, where the constant is nearly all 5s.
+On formal specification coverage, we found no judge that beats the constant on held-out tasks with an interval excluding zero: not the judge chosen for its correlations, not the frontier judges on pooled old and new ratings against a set-aware constant, not an earlier panel on the corrected-label set. The exceptions we report are against a constant that mixes the two sets, and Opus on the new set alone, where the constant is nearly all 5s; the judge built for the question comes closest (below).
 More human ratings made the evaluation tighter, not the judge better, and pooling sets of different rating levels created an apparent gain that a set-aware constant removes.
 We recommend reporting RPS, CE and TVD against a constant forecast, with task-cluster bootstrap intervals, before any correlation.
-\TODO{11-24-2026: final sentence of the conclusion depends on the held-out result of the pre-registered judge-building experiment (\cref{sec:exp27}).}
+A judge built on the pooled ratings, with CE-fitted calibration of frontier-judge scores and a new prompt, is promising but not shown to work: on 20 held-out tasks it beats the set-aware constant on RPS ($0.075$ against $0.110$), CE ($0.97$ against $1.19$) and TVD ($0.35$ against $0.48$), but the paired RPS interval $[-0.076,+0.002]$ includes zero, and the evidence is small.

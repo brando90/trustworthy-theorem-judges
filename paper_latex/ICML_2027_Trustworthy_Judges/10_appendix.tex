@@ -64,7 +64,7 @@ Result & Judge scores and metrics\\
 \Cref{sec:exp25}, old artifacts & Cached, as above (Astra via the Responses API, Opus via the gateway at effort max).\\
 \Cref{sec:exp25}, new artifacts & GPT-6 Astra (reasoning high), Codex CLI one-turn, read-only sandbox, no tools. Claude Opus 5.5 (effort high), Claude Code one-turn, no tools. Frozen H2 prompt and four leave-task-out demonstrations; 300 requests, 600 calls, all parsable. Independent recomputation of all headline numbers: Claude Opus 5.5 (Claude Code), matching to four decimals.\\
 \Cref{sec:cert} & Cached scores of gpt-5.3-codex, claude-opus-4-7, Qwen3-Coder-30B-A3B-Instruct and gpt-4o-mini from the earlier panel; metrics in CPU Python; second-model check of 13 rows by gpt-6.1-sol.\\
-\Cref{sec:exp27} & Planned: new-prompt calls by GPT-6 Astra (high), Codex CLI one-turn; calibration search in CPU Python. \TODO{11-24-2026: fill in what ran.}\\
+\Cref{sec:exp27} & New prompt (H3): GPT-6 Astra (reasoning high), Codex CLI one-turn, read-only sandbox, no tools; one call per artifact, 105 train and validation and 70 test calls, all 175 parsable. H2 features: cached as in \cref{sec:exp25} (Astra via the Responses API on old artifacts, Codex CLI on new; Opus via the gateway on old, Claude Code on new). Calibration, selection and bootstrap: CPU Python (numpy, scipy).\\
 New artifacts (generation) & GPT-6 Astra (Codex, xhigh), Claude Fable 5.1 (Claude Code, max), Grok 4.7 (Grok CLI, xhigh), Gemini 4 Argon (Antigravity CLI, high), 25 each. Old artifacts: claude-3-7-sonnet-20250219, temperature 0.7, single call.\\
 \bottomrule
 \end{tabular}
@@ -156,4 +156,46 @@ The new ratings were frozen at 12:58 PST on 11-24-2026 (247 ratings); later wave
 Primary metrics RPS, CE, TVD with task-bootstrap intervals ($10{,}000$ draws, seed 20261124); Spearman and Pearson secondary only.
 Feature sets F1 to F9 and the selection rule (lowest pooled validation RPS, ties by validation CE; set-indicator features not eligible) are as in \cref{sec:exp27}; the L2 penalty on slopes is chosen from $\{0,0.1,1,10\}$ on validation, and mixing with the train constant from $\{0,0.25,0.5\}$.
 Predictions written before the numbers: (1) calibration removes most of the old-set offset, but against the set-aware constant the gain is small, with about $25\%$ chance that ``works'' is met; (2) the new prompt lowers validation CE but adds little RPS beyond calibrated means; (3) the edit-distance baseline is about as good as the constant; (4) Spearman and RPS disagree on the ranking of at least one pair of judges.
-\TODO{11-24-2026: append the outcome of each prediction, the frozen configuration, the test table and deviations when the experiment reports.}
+\paragraph{Outcome (Tue 11-24-2026).}
+\emph{Frozen configuration} (committed before the 70 test calls of the new prompt): feature set F8 (Astra H2 mean, Opus H2 mean, new-prompt score and expected score), ordinal cumulative-logit calibration fitted by CE, penalty $0$, no mixing with the constant; validation RPS $0.056$, CE $0.81$, TVD $0.36$ against $0.100$, $1.16$, $0.52$ for the constant per set. The set-indicator candidate (validation RPS $0.052$) was not eligible. The test results are in \cref{tab:exp27,tab:exp27old,tab:exp27new}.
+\emph{Verdict:} promising, not works (paired RPS against the set-aware constant $-0.035$, $[-0.076,+0.002]$).
+\emph{Predictions.} (1) Calibration cut the pooled CE of the H2 scores from $4.12$ to $0.97$, and the gain over the set-aware constant is small; ``works'' was not met (guess $25\%$). (2) The new prompt lowered validation CE ($0.865$ to $0.808$) and added little RPS ($0.062$ to $0.056$). (3) The calibrated edit-distance forecast matches the pooled constant (RPS $0.170$ and $0.171$) and is worse than the constant per set ($0.110$). (4) Spearman and RPS disagree on a pair: the raw H2 judge has Spearman $0.90$ against $0.89$ but RPS $0.100$ against $0.075$.
+
+\begin{table*}[t]
+\caption{Held-out test, old set only (10 tasks, 30 artifacts). Paired rows: final judge minus baseline. Spearman and Pearson of a constant forecast are undefined.}
+\label{tab:exp27old}
+\centering\footnotesize
+\begin{tabular}{lcccrr}
+\toprule
+Forecast & RPS [95\%] & CE [95\%] & TVD [95\%] & Spearman & Pearson\\
+\midrule
+Final judge & 0.135 [0.091, 0.179] & 1.57 [1.17, 1.96] & 0.49 [0.37, 0.61] & 0.90 & 0.87\\
+Constant per set & 0.180 [0.135, 0.225] & 1.79 [1.64, 1.96] & 0.66 [0.60, 0.72] & -- & --\\
+H2 judge, raw & 0.191 [0.116, 0.267] & 7.68 [4.93, 10.42] & 0.58 [0.41, 0.77] & 0.83 & 0.86\\
+Uniform & 0.176 [0.142, 0.211] & 1.79 [1.79, 1.79] & 0.68 [0.64, 0.71] & -- & --\\
+Edit distance, calib. & 0.267 [0.179, 0.359] & 2.19 [1.78, 2.55] & 0.72 [0.59, 0.83] & $-$0.49 & $-$0.48\\
+\midrule
+Constant per set & $-$0.045 [$-$0.129, +0.037] & $-$0.22 [$-$0.74, +0.28] & $-$0.168 [$-$0.335, $-$0.009] & & \\
+H2 judge, raw & $-$0.056 [$-$0.096, $-$0.016] & $-$6.11 [$-$8.61, $-$3.60] & $-$0.093 [$-$0.198, +0.022] & & \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[t]
+\caption{Held-out test, new set only (10 tasks, 40 artifacts), same layout.}
+\label{tab:exp27new}
+\centering\footnotesize
+\begin{tabular}{lcccrr}
+\toprule
+Forecast & RPS [95\%] & CE [95\%] & TVD [95\%] & Spearman & Pearson\\
+\midrule
+Final judge & 0.030 [0.015, 0.046] & 0.52 [0.31, 0.74] & 0.25 [0.22, 0.30] & 0.65 & 0.94\\
+Constant per set & 0.058 [0.024, 0.096] & 0.74 [0.42, 1.05] & 0.34 [0.30, 0.41] & -- & --\\
+H2 judge, raw & 0.032 [0.009, 0.057] & 1.44 [0.22, 2.91] & 0.14 [0.05, 0.25] & 0.72 & 0.93\\
+Uniform & 0.272 [0.246, 0.298] & 1.79 [1.79, 1.79] & 0.78 [0.73, 0.82] & -- & --\\
+Edit distance, calib. & 0.098 [0.087, 0.114] & 1.00 [0.81, 1.18] & 0.51 [0.45, 0.55] & 0.20 & 0.18\\
+\midrule
+Constant per set & $-$0.027 [$-$0.057, $-$0.007] & $-$0.22 [$-$0.37, $-$0.09] & $-$0.090 [$-$0.126, $-$0.057] & & \\
+H2 judge, raw & $-$0.002 [$-$0.012, +0.007] & $-$0.92 [$-$2.23, +0.20] & +0.112 [+0.027, +0.181] & & \\
+\bottomrule
+\end{tabular}\end{table*}
