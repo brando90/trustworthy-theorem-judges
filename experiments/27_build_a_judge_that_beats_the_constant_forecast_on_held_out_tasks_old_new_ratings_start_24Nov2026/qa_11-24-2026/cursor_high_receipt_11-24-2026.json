@@ -1,0 +1,35 @@
+{
+  "plan": "personal-cursor",
+  "model": "grok-4.7-high",
+  "effort": null,
+  "started_at": "2026-11-25T00:32:42.551067+00:00",
+  "finished_at": "2026-11-25T00:47:11.198961+00:00",
+  "status": "completed",
+  "returncode": 0,
+  "prompt_sha256": "ddda23b643eb3ae99001975885d463908ff1157865afda1932d75e3263e07ea9",
+  "date": "11-24-2026",
+  "harness": "Cursor Agent CLI, read-only ask mode; model wrote code; caller executed unchanged",
+  "model_argv": [
+    "agent",
+    "-p",
+    "<scientific QA prompt>",
+    "--trust",
+    "--mode",
+    "ask",
+    "--output-format",
+    "json",
+    "--model",
+    "grok-4.7-high"
+  ],
+  "timeout_seconds": 1500,
+  "included_usage_only": true,
+  "input_sha256": "67b8dde95cb0fc32d23f7522fa325103c6aa33b9fdf94b308e61c3805116bad9",
+  "script_sha256": "aca27268c14dacd6374abc4616399b5facb22c3fffa5e7e9aa0604473cc39863",
+  "execution_returncode": 0,
+  "execution_command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 qa_cursor_high.py",
+  "execution_dependencies": [
+    "numpy",
+    "scipy"
+  ],
+  "execution_note": "Only SciPy L-BFGS-B disp/iprint deprecation warnings; no execution error."
+}

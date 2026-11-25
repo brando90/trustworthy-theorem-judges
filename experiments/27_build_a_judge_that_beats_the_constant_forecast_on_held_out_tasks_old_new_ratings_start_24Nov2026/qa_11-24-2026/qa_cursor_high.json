@@ -1,0 +1,476 @@
+{
+  "task1_forecast_metrics": {
+    "pooled": {
+      "n_artifacts": 70,
+      "n_tasks": 20,
+      "forecasts": {
+        "final_Q": {
+          "n": 70,
+          "rps": 0.07507034590117284,
+          "ce": 0.9695042592270702,
+          "tvd": 0.35494828126017836,
+          "spearman": 0.8943254796992401,
+          "pearson": 0.9093651603195225
+        },
+        "constant_per_set": {
+          "n": 70,
+          "rps": 0.10996534760784489,
+          "ce": 1.1888878268427119,
+          "tvd": 0.47866391212449394,
+          "spearman": null,
+          "pearson": null
+        },
+        "pooled_constant": {
+          "n": 70,
+          "rps": 0.17069685491925302,
+          "ce": 1.508718097914011,
+          "tvd": 0.6029896168993912,
+          "spearman": null,
+          "pearson": null
+        },
+        "uniform": {
+          "n": 70,
+          "rps": 0.23095238095238096,
+          "ce": 1.7917594692280547,
+          "tvd": 0.7333333333333334,
+          "spearman": null,
+          "pearson": null
+        },
+        "h2": {
+          "n": 70,
+          "rps": 0.10023745064667493,
+          "ce": 4.115284721431353,
+          "tvd": 0.33095415713450965,
+          "spearman": 0.8988596479094999,
+          "pearson": 0.8975864600143361
+        }
+      }
+    },
+    "old": {
+      "n_artifacts": 30,
+      "n_tasks": 10,
+      "forecasts": {
+        "final_Q": {
+          "n": 30,
+          "rps": 0.13488512625782914,
+          "ce": 1.569245638733645,
+          "tvd": 0.4900296967945632,
+          "spearman": 0.8952148851497492,
+          "pearson": 0.8742297190043978
+        },
+        "constant_per_set": {
+          "n": 30,
+          "rps": 0.1797114471473446,
+          "ce": 1.7937728335888699,
+          "tvd": 0.6581196581196583,
+          "spearman": null,
+          "pearson": null
+        },
+        "pooled_constant": {
+          "n": 30,
+          "rps": 0.26191299049629085,
+          "ce": 2.1582646349175616,
+          "tvd": 0.7164160401002507,
+          "spearman": null,
+          "pearson": null
+        },
+        "uniform": {
+          "n": 30,
+          "rps": 0.17592592592592585,
+          "ce": 1.791759469228055,
+          "tvd": 0.6777777777777779,
+          "spearman": null,
+          "pearson": null
+        },
+        "h2": {
+          "n": 30,
+          "rps": 0.19092468667975954,
+          "ce": 7.681908915483267,
+          "tvd": 0.5833329944466167,
+          "spearman": 0.829153845643327,
+          "pearson": 0.8610263353932625
+        }
+      }
+    },
+    "new": {
+      "n_artifacts": 40,
+      "n_tasks": 10,
+      "forecasts": {
+        "final_Q": {
+          "n": 40,
+          "rps": 0.030209260633680603,
+          "ce": 0.5196982245971389,
+          "tvd": 0.2536372196093896,
+          "spearman": 0.6484529049275816,
+          "pearson": 0.9382302086554792
+        },
+        "constant_per_set": {
+          "n": 40,
+          "rps": 0.05765577295322013,
+          "ce": 0.7352240717830928,
+          "tvd": 0.3440721026281211,
+          "spearman": null,
+          "pearson": null
+        },
+        "pooled_constant": {
+          "n": 40,
+          "rps": 0.10228475323647465,
+          "ce": 1.0215581951613477,
+          "tvd": 0.5179197994987469,
+          "spearman": null,
+          "pearson": null
+        },
+        "uniform": {
+          "n": 40,
+          "rps": 0.2722222222222222,
+          "ce": 1.791759469228055,
+          "tvd": 0.775,
+          "spearman": null,
+          "pearson": null
+        },
+        "h2": {
+          "n": 40,
+          "rps": 0.032222023621861426,
+          "ce": 1.44031657589242,
+          "tvd": 0.14167002915042926,
+          "spearman": 0.7179240592020899,
+          "pearson": 0.9262080863658985
+        }
+      }
+    }
+  },
+  "task1_constant_definitions": {
+    "weighting": "equal weight per individual train+val rating",
+    "per_set": {
+      "new": {
+        "n_ratings": 149,
+        "raw_counts": [
+          0,
+          4,
+          1,
+          10,
+          29,
+          105
+        ],
+        "q": [
+          9.99999000001e-07,
+          0.026845610738281882,
+          0.006711402684570471,
+          0.06711402684570471,
+          0.19463067785254365,
+          0.7046972818798993
+        ]
+      },
+      "old": {
+        "n_ratings": 117,
+        "raw_counts": [
+          8,
+          18,
+          26,
+          26,
+          24,
+          15
+        ],
+        "q": [
+          0.06837606837606838,
+          0.15384615384615385,
+          0.2222222222222222,
+          0.2222222222222222,
+          0.20512820512820512,
+          0.1282051282051282
+        ]
+      }
+    },
+    "pooled": {
+      "n_ratings": 266,
+      "raw_counts": [
+        8,
+        22,
+        27,
+        36,
+        53,
+        120
+      ],
+      "q": [
+        0.03007518796992481,
+        0.08270676691729323,
+        0.10150375939849623,
+        0.13533834586466165,
+        0.19924812030075187,
+        0.45112781954887216
+      ]
+    },
+    "uniform_q": [
+      0.16666666666666666,
+      0.16666666666666666,
+      0.16666666666666666,
+      0.16666666666666666,
+      0.16666666666666666,
+      0.16666666666666666
+    ],
+    "h2_score_counts": {
+      "min": 6,
+      "max": 6
+    }
+  },
+  "task2_task_bootstrap": {
+    "n_draws": 10000,
+    "seed": 20261124,
+    "rng": "numpy.random.default_rng",
+    "draw": "rng.integers(0, n_tasks, n_tasks)",
+    "population": "sorted unique test task ids",
+    "n_tasks": 20,
+    "n_artifacts": 70,
+    "artifacts_per_task_min": 3,
+    "artifacts_per_task_max": 4,
+    "sorted_test_tasks": [
+      "0_unsafeCopy_safe",
+      "1_MyAdd",
+      "1_bisect_left",
+      "33_MyMinimum",
+      "4_json_decoder",
+      "4_unsafeCounter_safe",
+      "humaneval_31_is_prime",
+      "humaneval_3_below_zero",
+      "insertion_sort",
+      "merge_sort",
+      "task_03_application_entitlements",
+      "task_04_integer_string_sequence",
+      "task_05_factorial",
+      "task_07_transport_layer_security_downgrade",
+      "task_08_base32_encoding",
+      "task_09_sum_of_digits",
+      "task_10_lower_median",
+      "task_18_topological_sorting",
+      "task_19_string_prefixes",
+      "task_20_integer_exponentiation"
+    ],
+    "artifacts_per_task": {
+      "0_unsafeCopy_safe": 3,
+      "1_MyAdd": 3,
+      "1_bisect_left": 3,
+      "33_MyMinimum": 3,
+      "4_json_decoder": 3,
+      "4_unsafeCounter_safe": 3,
+      "humaneval_31_is_prime": 3,
+      "humaneval_3_below_zero": 3,
+      "insertion_sort": 3,
+      "merge_sort": 3,
+      "task_03_application_entitlements": 4,
+      "task_04_integer_string_sequence": 4,
+      "task_05_factorial": 4,
+      "task_07_transport_layer_security_downgrade": 4,
+      "task_08_base32_encoding": 4,
+      "task_09_sum_of_digits": 4,
+      "task_10_lower_median": 4,
+      "task_18_topological_sorting": 4,
+      "task_19_string_prefixes": 4,
+      "task_20_integer_exponentiation": 4
+    },
+    "final_Q_minus_constant_per_set": {
+      "rps": {
+        "estimate": -0.03489500170667205,
+        "ci95": [
+          -0.07595905609919079,
+          0.0024438103038553335
+        ],
+        "bootstrap_mean": -0.035177623649838334,
+        "fraction_draws_negative": 0.968,
+        "ci_excludes_zero": false
+      },
+      "ce": {
+        "estimate": -0.2193835676156417,
+        "ci95": [
+          -0.4587739682069335,
+          0.009236360058717601
+        ],
+        "bootstrap_mean": -0.2202745566450405,
+        "fraction_draws_negative": 0.9696,
+        "ci_excludes_zero": false
+      },
+      "tvd": {
+        "estimate": -0.12371563086431558,
+        "ci95": [
+          -0.2049129246624656,
+          -0.055365976893233824
+        ],
+        "bootstrap_mean": -0.12434796950488064,
+        "fraction_draws_negative": 1.0,
+        "ci_excludes_zero": true
+      }
+    },
+    "final_Q_minus_h2": {
+      "rps": {
+        "estimate": -0.025167104745502086,
+        "ci95": [
+          -0.04929124862567587,
+          -0.005409817880196219
+        ],
+        "bootstrap_mean": -0.025339307726887306,
+        "fraction_draws_negative": 0.9957,
+        "ci_excludes_zero": true
+      },
+      "ce": {
+        "estimate": -3.1457804622042826,
+        "ci95": [
+          -4.9738736382803035,
+          -1.5796882186949113
+        ],
+        "bootstrap_mean": -3.1578993239365567,
+        "fraction_draws_negative": 1.0,
+        "ci_excludes_zero": true
+      },
+      "tvd": {
+        "estimate": 0.023994124125668703,
+        "ci95": [
+          -0.05876722389230122,
+          0.0991313977707404
+        ],
+        "bootstrap_mean": 0.023738363394056616,
+        "fraction_draws_negative": 0.273,
+        "ci_excludes_zero": false
+      }
+    }
+  },
+  "task3_leakage_and_counts": {
+    "n_artifacts": 175,
+    "n_tasks": 50,
+    "counts_by_split_and_set": {
+      "train": {
+        "old": {
+          "artifacts": 30,
+          "tasks": 10
+        },
+        "new": {
+          "artifacts": 40,
+          "tasks": 10
+        },
+        "all": {
+          "artifacts": 70,
+          "tasks": 20
+        }
+      },
+      "val": {
+        "old": {
+          "artifacts": 15,
+          "tasks": 5
+        },
+        "new": {
+          "artifacts": 20,
+          "tasks": 5
+        },
+        "all": {
+          "artifacts": 35,
+          "tasks": 10
+        }
+      },
+      "test": {
+        "old": {
+          "artifacts": 30,
+          "tasks": 10
+        },
+        "new": {
+          "artifacts": 40,
+          "tasks": 10
+        },
+        "all": {
+          "artifacts": 70,
+          "tasks": 20
+        }
+      }
+    },
+    "checks": {
+      "no_task_in_multiple_splits": true,
+      "no_artifact_with_fewer_than_one_rating": true,
+      "final_Q_sums_to_one": true,
+      "final_Q_present_exactly_on_test": true,
+      "n_artifacts_is_175": true,
+      "n_test_artifacts_is_70": true
+    },
+    "tasks_in_multiple_splits": [],
+    "tasks_in_multiple_sets": [],
+    "artifacts_with_fewer_than_one_rating": [],
+    "n_final_Q": 70,
+    "max_abs_final_Q_sum_error": 2.220446049250313e-16,
+    "final_Q_sum_tolerance": 1e-06,
+    "duplicate_artifact_ids": [],
+    "fatal": [],
+    "warnings": []
+  },
+  "task4_ordinal_refit": {
+    "x_features": [
+      "mean_astra",
+      "mean_opus",
+      "h3_score",
+      "h3_expected"
+    ],
+    "standardise": "train+val artifact mean and population sd (ddof=0), applied to test",
+    "x_mean": [
+      3.8920634920634924,
+      4.012698412698413,
+      3.8095238095238093,
+      3.8047619047619055
+    ],
+    "x_sd": [
+      1.4390585091629025,
+      1.4253367258514629,
+      1.5124577166556417,
+      1.4025385795478789
+    ],
+    "zero_sd_replaced": [
+      false,
+      false,
+      false,
+      false
+    ],
+    "theta": [
+      -8.849070237868474,
+      -4.40048668485588,
+      -2.2455635654488484,
+      -0.764824458745613,
+      0.9569184822757286
+    ],
+    "w": [
+      1.3564672267708149,
+      1.5264957468023928,
+      -5.962171594041809,
+      6.022969756371348
+    ],
+    "thresholds_strictly_increasing": true,
+    "min_theta_gap": 1.4807391067032354,
+    "train_val_n_artifacts": 105,
+    "train_val_mean_ce": 0.9497740443242798,
+    "n_optimiser_starts": 16,
+    "test_pooled": {
+      "n": 70,
+      "rps": 0.07507059868854377,
+      "ce": 0.9695053189146409,
+      "tvd": 0.3549502443345991,
+      "spearman": 0.8943254796992401,
+      "pearson": 0.9093638031516709
+    },
+    "final_Q_test_pooled": {
+      "n": 70,
+      "rps": 0.07507034590117284,
+      "ce": 0.9695042592270702,
+      "tvd": 0.35494828126017836
+    },
+    "ordinal_minus_final_Q": {
+      "rps": 2.527873709246009e-07,
+      "ce": 1.0596875706925246e-06,
+      "tvd": 1.963074420741062e-06
+    }
+  },
+  "limitations": [
+    "RPS is the mean of five terms, k=0..4: (CQ_k-CP_k)^2 + CP_k*(1-CP_k). The second term depends only on the human histogram, so it cancels in paired RPS differences and remains in the reported RPS levels.",
+    "Constant forecasts are histograms of every individual train+val rating in the pool (equal weight per rating), floored at 1e-6 and renormalised. They are not means of per-artifact histograms.",
+    "H2 is the per-artifact histogram of concatenated astra and opus scores, floored at 1e-6 and renormalised. h3 is not included in H2.",
+    "CE floors every forecast at 1e-6 and renormalises, then uses natural log. RPS, TVD, and forecast means use the forecast before that CE-only floor. Constant and H2 forecasts are already floored by definition.",
+    "Spearman and Pearson are computed for final_Q and h2 only, against the artifact mean rating. Constant forecasts are skipped. Correlations use equal weight per artifact.",
+    "The bootstrap draws whole test tasks. Unique test task ids are sorted lexicographically. Each draw calls rng.integers(0, n_tasks, n_tasks) on numpy.random.default_rng(20261124). Artifacts of a drawn task are included once per time that task is drawn. The statistic is the equal-artifact mean on that multiset. The 95% interval is the NumPy linear 2.5 and 97.5 percentiles. The estimate is the full-sample paired difference.",
+    "Ordinal model: P(score<=k)=sigmoid(theta_k-w.x) for k=0..4, with theta_0=alpha_0 and later thresholds separated by softplus(alpha)+1e-12. x is [mean(astra), mean(opus), h3_score, h3_expected], standardised with the train+val mean and population sd (ddof=0). The fit minimises mean per-artifact CE on train+val only, with no penalty and no uniform mixture. Parameters are the best of deterministic L-BFGS-B starts, then Nelder-Mead, then a final L-BFGS-B polish. A different SciPy build can move the fit within optimiser tolerance.",
+    "Every reported RPS, CE, and TVD is the equal-weight mean of per-artifact scores. Human P is that artifact's empirical histogram on scores 0..5.",
+    "A final_Q row passes the sum check when abs(sum-1) <= 1e-6. The maximum absolute sum error is reported.",
+    "The 1e-12 threshold gap keeps theta strictly increasing in float64. It is a constraint, not a penalty on w."
+  ]
+}
