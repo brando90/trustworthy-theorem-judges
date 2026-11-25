@@ -1,0 +1,77 @@
+%% title: A frozen judge against the constant forecast on 20 held-out tasks, old + new human ratings (11-24-2026)
+%% result-date: 11-24-2026
+%% result-time: 14:20
+%% experiment: 27_build_a_judge_that_beats_the_constant_forecast_on_held_out_tasks_old_new_ratings_start_24Nov2026
+%% headline: Verdict promising, not works: on 70 held-out artifacts the CE-fitted judge has RPS 0.075 vs 0.110 for the set-aware constant (paired -0.035 [-0.076, +0.002]), CE 0.97 vs 1.19, TVD 0.35 vs 0.48.
+% Source: experiments/27_*/RESULTS_11-24-2026.md (first on main in commit fba2299, 11-24-2026 14:20 PST; QA added in f3c686b).
+
+\subsection*{Bottom line}
+No judge works under the pre-registered bar, but the frozen judge is close. On the 20 held-out test tasks (70 artifacts) it beats
+the set-aware constant forecast on all three proper scores by point estimate (RPS 0.075 vs 0.110, CE 0.97 vs 1.19, TVD 0.35 vs 0.48),
+and its paired RPS gain over the earlier H2 judge is clearly below zero ($-0.025$, 95\% interval $-0.049$ to $-0.005$). The paired RPS gain
+over the constant is $-0.035$ with interval $[-0.076, +0.002]$, which includes zero by 0.002, so the verdict is \emph{promising}, not \emph{works}.
+The evidence is small: 20 test tasks, 2 to 4 ratings per artifact, 73\% of the new ratings are 5s.
+
+\subsection*{Test results, pooled (20 tasks, 70 artifacts; 95\% task bootstrap, 10,000 draws, seed 20261124; lower is better for RPS, CE, TVD)}
+\begin{center}\scriptsize\setlength{\tabcolsep}{3pt}
+\FitWidth{\begin{tabular}{@{}l l l l l l@{}}
+\toprule
+Forecast & RPS [95\%] & CE [95\%] & TVD [95\%] & Spearman & Pearson \\ \midrule
+Final judge (F8, CE-fitted) & 0.075 [0.047, 0.109] & 0.97 [0.68, 1.30] & 0.35 [0.29, 0.44] & 0.89 & 0.91 \\
+Constant per set (train+val) & 0.110 [0.074, 0.151] & 1.19 [0.90, 1.50] & 0.48 [0.40, 0.56] & 0.75* & 0.73* \\
+Constant pooled & 0.171 [0.125, 0.229] & 1.51 [1.22, 1.84] & 0.60 [0.54, 0.68] & n/a & n/a \\
+Uniform & 0.231 [0.200, 0.259] & 1.79 [1.79, 1.79] & 0.73 [0.70, 0.77] & n/a & n/a \\
+Earlier H2 judge (raw Astra+Opus) & 0.100 [0.056, 0.154] & 4.12 [2.31, 6.22] & 0.33 [0.20, 0.48] & 0.90 & 0.90 \\
+Edit distance, calibrated & 0.170 [0.122, 0.231] & 1.51 [1.20, 1.85] & 0.60 [0.53, 0.68] & 0.20 & 0.13 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+*A forecast that only knows which set an artifact is in already reaches Spearman 0.75: most of the pooled correlation is set identity, which is why correlation is not a metric here.
+
+\subsection*{Paired differences, final judge minus baseline (negative = judge better), pooled}
+\begin{center}\small
+\FitWidth{\begin{tabular}{@{}l l l l@{}}
+\toprule
+Versus & RPS & CE & TVD \\ \midrule
+Constant per set & $-0.035$ $[-0.076, +0.002]$ & $-0.22$ $[-0.46, +0.01]$ & $-0.124$ $[-0.205, -0.055]$ \\
+Earlier H2 judge & $-0.025$ $[-0.049, -0.005]$ & $-3.15$ $[-4.97, -1.58]$ & $+0.024$ $[-0.059, +0.099]$ \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{By set: final judge vs constant per set}
+\begin{center}\small
+\FitWidth{\begin{tabular}{@{}l l l l@{}}
+\toprule
+Test set & RPS & CE & TVD \\ \midrule
+Old (10 tasks, 30 artifacts), judge & 0.135 [0.091, 0.179] & 1.57 [1.17, 1.96] & 0.49 [0.37, 0.61] \\
+Old, constant per set & 0.180 [0.135, 0.225] & 1.79 [1.64, 1.96] & 0.66 [0.60, 0.72] \\
+New (10 tasks, 40 artifacts), judge & 0.030 [0.015, 0.046] & 0.52 [0.31, 0.74] & 0.25 [0.22, 0.30] \\
+New, constant per set & 0.058 [0.024, 0.096] & 0.74 [0.42, 1.05] & 0.34 [0.30, 0.41] \\
+\bottomrule
+\end{tabular}}
+\end{center}
+Paired versus the constant per set: old RPS $-0.045$ $[-0.129, +0.037]$, CE $-0.22$ $[-0.74, +0.28]$, TVD $-0.168$ $[-0.335, -0.009]$;
+new RPS $-0.027$ $[-0.057, -0.007]$, CE $-0.22$ $[-0.37, -0.09]$, TVD $-0.090$ $[-0.126, -0.057]$.
+
+\subsection*{Reading}
+\begin{enumerate}
+  \item The CE-fitted calibration did what it was built for: the raw H2 judge has the lowest TVD but a poor CE (4.12) because its histograms are too sharp; calibration cuts CE to 0.97 and RPS from 0.100 to 0.075.
+  \item On the new set the judge beats the set-aware constant on all three scores with intervals below zero (10 tasks); on the old set the point estimates are better but the RPS and CE intervals include zero (the TVD interval excludes zero).
+  \item The new prompt's added value is not separated from calibrated H2: the H2-means-only candidate had validation RPS 0.062 vs 0.056 for the frozen one, on 35 artifacts.
+\end{enumerate}
+
+\subsection*{Caveats}
+\begin{itemize}
+  \item 20 test tasks, 70 artifacts, 2 to 4 ratings each, so the human distribution itself is noisy. Only 247 of 3,300 new rating rows were back; 73\% are 5s, so the new set is easy for a forecast that says ``5''.
+  \item Selection among 125 candidates used 35 validation artifacts; the test set was scored once. The old test tasks were seen by the earlier judge in experiment 22 (not by this judge's fitting).
+  \item No Lean check or differential testing. The H2 scores come from mixed harnesses. The F8 weights on the two H3 features are large and of opposite sign ($-6.0$ and $+6.1$ per standard deviation; near-collinear), so individual weights are not effects.
+\end{itemize}
+
+\subsection*{Appendix: methods, harness and model}
+\begin{itemize}
+  \item New-prompt (H3) judge calls: GPT-6 Astra, high reasoning, Codex CLI one-turn, read-only, no tools, Vals Codex plan; one call per artifact (105 train/validation, 70 test, all valid). H2 features cached: GPT-6 Astra and Claude Opus 5.5 (mixed harnesses across sets).
+  \item Splits by task: old 10/5/10 (experiment 22 split); new 10/5/10 by seeded permutation (numpy default\_rng(20261124)). Pre-registration commit \texttt{152f3ec}; freeze commit \texttt{f3228ca} (before any test call). Correlation is never a fitting target.
+  \item QA: Claude Opus 5.5 reproduced every pooled, old and new test number to 4 decimals; Grok grok-4.7 matched all 63 comparisons to 3 decimals; Cursor grok-4.7-high matched all 63 to three decimals (largest difference $2.66\times10^{-6}$). Not covered: the edit-distance baseline, raw-data provenance, whether H3 calls were repeated or cached.
+  \item Record: \texttt{experiments/27\_*/RESULTS\_11-24-2026.md} on \texttt{main}.
+\end{itemize}

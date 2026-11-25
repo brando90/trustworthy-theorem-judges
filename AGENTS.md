@@ -20,6 +20,8 @@ In this project always use frontier models: the strongest current ones reachable
 
 This is a research project. Each experiment lives in its own numbered experiment folder (`experiments/NN_<setup_name>/`). Commit and push straight to `main`. Do not create branches or pull requests. If a leftover branch turns up, merge it into `main` (no force-push) and delete it. If two experiments pick the same number, keep the one already on `main` and renumber the new folder to the next free number, updating its internal references.
 
+**Results record (Brando, 11-24-2026; agents-config Rule 93):** every result has one fragment `latex/results/NN_<slug>.tex` (NN = its experiment number) and `latex/mega_tech_report.pdf` is the chronological record of all of them. After you write a result's `results.md`, add its `.tex`, run `python3 ~/agents-config/skills/mega-tech-report/build_mega_report.py --latex-dir latex`, and commit the `.tex` files and the PDF to `main` with the `results.md`. This repository is public: no rater names or rater-level rows in a `.tex`. The paper folders in `paper_latex/` are separate.
+
 Default, user decision 11-16-2026: commit and push every change straight to `main`, and do not edit `.gitignore` files. Track runs, model names, ratings and receipts in Git instead of adding ignore rules; change `.gitignore` only when Brando explicitly asks. Credentials still never enter Git.
 
 ## Scientific contract

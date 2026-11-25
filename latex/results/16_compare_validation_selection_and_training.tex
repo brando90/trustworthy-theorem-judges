@@ -1,0 +1,63 @@
+%% title: Does choosing a judge by validation loss beat fitting by loss on all training tasks? Cached judges, 1,000 task-grouped 20/5 splits (11-11-2026)
+%% result-date: 11-11-2026
+%% result-time: 17:34
+%% experiment: 16_compare_validation_selection_and_training_on_75_rated_outputs_start_11Nov2026_end_11Nov2026
+%% headline: Picking the judge by validation loss (\F{3}) did not beat fitting by CE on all 20 training tasks (\F{4}): \F{3} by validation RPS is 0.021 worse in RPS (interval above 0), \F{3} by validation CE returns the constant forecast; \F{2} and \F{4} tie on RPS.
+% Source: experiments/archive/16_*/results.md (first on main in commit 2498db4, 11-11-2026 17:34 PST).
+
+\subsection*{Bottom line}
+Choosing the judge by validation loss (\F{3}) did not beat fitting by loss on all 20 training tasks (\F{4}) on held-out tasks.
+\F{3} by validation RPS is worse on RPS than \F{4} (paired difference $+0.0210$, 95\% task-bootstrap interval $[+0.0144, +0.0280]$,
+above zero), and \F{3} by validation CE collapses to the constant forecast (picked in 996 of 1,000 splits).
+\F{2} (Pearson-trained mixture) and \F{4} (CE-trained mixture) still tie on RPS ($-0.0056$ $[-0.0181, +0.0059]$ for \F{4} minus \F{2}).
+Retrospective: cached judges, 25 tasks, 75 artifacts, no model calls, \$0.
+
+\subsection*{Held-out test metrics (mean over artifacts, then over 1,000 splits; lower is better)}
+\begin{center}\small
+\FitWidth{\begin{tabular}{@{}l r r r@{}}
+\toprule
+Method & RPS (main) & CE & TVD \\ \midrule
+Constant (train marginal) & 0.1836 & 1.852 & 0.6818 \\
+Equal-weight mixture & 0.1496 & 5.431 & 0.5311 \\
+\F{2} Mixture maximizing train Pearson & 0.1419 & 5.787 & 0.5222 \\
+\F{4} Mixture minimizing train CE (no validation) & 0.1362 & 5.413 & 0.5098 \\
+\F{3} Pick by validation RPS, refit on all 20 & 0.1573 & 5.420 & 0.5622 \\
+\F{3} Pick by validation RPS, keep the 15-task fit & 0.1562 & 5.412 & 0.5607 \\
+\F{3} Pick by validation CE, refit on all 20 & 0.1834 & 1.867 & 0.6812 \\
+\F{3} Pick by validation CE, keep the 15-task fit & 0.1850 & 1.892 & 0.6813 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\subsection*{Paired differences, first minus second (negative favours the first), task bootstrap 95\% interval}
+\begin{center}\small
+\FitWidth{\begin{tabular}{@{}l r r r@{}}
+\toprule
+Comparison & RPS & CE & TVD \\ \midrule
+\F{3} val RPS, refit, minus \F{4} & $+0.0210$ $[+0.0144, +0.0280]$ & $+0.007$ $[-0.309, +0.328]$ & $+0.0524$ $[+0.0362, +0.0691]$ \\
+\F{3} val CE, refit, minus \F{4} & $+0.0471$ $[+0.0008, +0.0942]$ & $-3.546$ $[-4.883, -2.275]$ & $+0.1714$ $[+0.0769, +0.2703]$ \\
+\F{3} val RPS, refit, minus \F{2} & $+0.0154$ $[+0.0020, +0.0284]$ & $-0.367$ $[-0.578, -0.149]$ & $+0.0400$ $[+0.0154, +0.0654]$ \\
+\F{4} minus \F{2} & $-0.0056$ $[-0.0181, +0.0059]$ & $-0.374$ $[-0.693, -0.101]$ & $-0.0124$ $[-0.0363, +0.0123]$ \\
+\F{4} minus constant & $-0.0473$ $[-0.0947, -0.0008]$ & $+3.561$ $[+2.286, +4.903]$ & $-0.1720$ $[-0.2713, -0.0772]$ \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Secondary (correlation, not a fitting target): mean test-set Pearson over splits is 0.730 for \F{2}, 0.717 for \F{4}, 0.703 for the
+equal-weight mixture and 0.694 for \F{3} by validation RPS (refit); undefined for the constant. \F{4} minus \F{2} in Pearson is $-0.013$
+$[-0.023, -0.000]$ and in Spearman $-0.063$ $[-0.073, -0.052]$: \F{2} wins the correlation columns, \F{4} wins CE.
+
+\subsection*{Caveats}
+\begin{itemize}
+  \item Five test and five validation tasks per split is tiny; the 1,000 splits reuse the same 25 tasks, so the intervals come from the task bootstrap only and the true uncertainty is wider than the number of splits suggests.
+  \item The candidate family is small (five cached judges, mixtures); no new prompts, no agent search, so this does not test \F{3} as a prompt or model search. The cached judges' prompts were developed with the original train split, so held-out tasks may have been seen at design time.
+  \item Why \F{3} loses (a noisy ranking of near-identical candidates) is a reading, not tested. Validation CE is dominated by near-zero probabilities, so \F{3} by CE returns the constant almost always.
+\end{itemize}
+
+\subsection*{Appendix: methods, harness and model}
+\begin{itemize}
+  \item No LLM in the loop: cached scalar ratings of five judges (VeriBench experiment 100, Vals Valkyrie harness; models gpt-6-sol-high and claude-opus-5-5) re-used, fitted and ranked by a CPU script (Claude Code, Sonnet 5.5 wrote and ran it).
+  \item 1,000 task-grouped 20/5 splits, 75 artifacts, 25 tasks, 10,000-draw task bootstrap. Both readings of \F{3} (refit on all 20; keep the 15-task fit) were declared in PROTOCOL.md before the full run.
+  \item Winner counts of \F{3} over 1,000 validation rankings: by validation RPS pearson\_mixture 304, ce\_shrink\_0.0 300, constant 153, single\_H0\_sol 87; by validation CE constant 996.
+  \item Record: \texttt{experiments/archive/16\_*/results.md} on \texttt{main}.
+\end{itemize}

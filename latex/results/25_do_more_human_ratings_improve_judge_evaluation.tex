@@ -1,0 +1,76 @@
+%% title: Does pooling old and new human ratings give a better evaluation of the trustworthy judge? GPT-6 Astra and Claude Opus 5.5 (11-24-2026)
+%% result-date: 11-24-2026
+%% result-time: 11:52
+%% experiment: 25_do_more_human_ratings_improve_judge_evaluation_old_new_pooled_start_24Nov2026
+%% headline: Pooling narrows the RPS interval to 0.60x (Astra) and 0.64x (Opus) of old alone, a better evaluation but not a better judge: against a set-aware constant Astra is tied (+0.002) and Opus is not clearly better (-0.018 [-0.048, +0.013]).
+% Source: experiments/25_*/RESULTS.md (first on main in commit c801a97, 11-24-2026 11:52 PST; ratings frozen about 10:38 PST). Interim re-run of 19:12 PST below.
+
+\subsection*{Bottom line}
+Yes for the evaluation, not for the judge. Pooling old (25 tasks, 75 artifacts, 195 ratings) and new (25 tasks, 100 artifacts,
+247 ratings) data narrows the RPS interval relative to old alone to 0.60$\times$ for GPT-6 Astra and 0.64$\times$ for Claude Opus 5.5.
+But the pooled ``judge beats the constant'' result is an artifact of mixing two rating levels: against a constant computed
+inside each set, Astra is tied ($+0.002$) and Opus is not clearly better ($-0.018$, $[-0.048, +0.013]$). Both judges overscore
+the old set by about half a point, and more data does not change that. Only 247 of 3,300 sheet rows were back, 73\% of them 5s.
+Cost: \$0 extra (plans only).
+
+\subsection*{Results: old, new and pooled (95\% task bootstrap, 10,000 draws, seed 20261124; lower is better for RPS, CE, TVD)}
+\begin{center}\scriptsize\setlength{\tabcolsep}{2.5pt}
+\FitWidth{\begin{tabular}{@{}l l l l l l l l@{}}
+\toprule
+Judge, set (artifacts / tasks / ratings) & RPS & Const. RPS & CE & TVD & Spearman & Pearson \\ \midrule
+GPT-6 Astra, old (75 / 25 / 195) & 0.207 [0.150, 0.269] & 0.183 & 8.50 [6.92, 9.95] & 0.629 [0.522, 0.727] & 0.65 [0.35, 0.88] & 0.65 [0.29, 0.87] \\
+GPT-6 Astra, new (100 / 25 / 247) & 0.055 [0.032, 0.080] & 0.070 & 3.42 [2.08, 4.84] & 0.253 [0.157, 0.355] & 0.59 [0.32, 0.78] & 0.81 [0.65, 0.90] \\
+GPT-6 Astra, pooled (175 / 50 / 442) & 0.120 [0.087, 0.158] & 0.164 & 5.60 [4.40, 6.80] & 0.414 [0.329, 0.500] & 0.79 [0.66, 0.88] & 0.78 [0.60, 0.89] \\
+Claude Opus 5.5, old & 0.179 [0.135, 0.223] & 0.183 & 8.10 [6.63, 9.49] & 0.600 [0.498, 0.696] & 0.77 [0.55, 0.90] & 0.78 [0.61, 0.89] \\
+Claude Opus 5.5, new & 0.041 [0.027, 0.056] & 0.070 & 2.42 [1.56, 3.29] & 0.193 [0.128, 0.258] & 0.65 [0.41, 0.80] & 0.90 [0.74, 0.95] \\
+Claude Opus 5.5, pooled & 0.101 [0.074, 0.131] & 0.164 & 4.85 [3.81, 5.98] & 0.368 [0.292, 0.448] & 0.86 [0.77, 0.91] & 0.86 [0.77, 0.92] \\
+\bottomrule
+\end{tabular}}
+\end{center}
+Constant = pooled human marginal, leave-one-task-out. Interval width, pooled divided by old (Astra / Opus): RPS 0.60 / 0.64,
+CE 0.80 / 0.76, TVD 0.84 / 0.79, Spearman 0.41 / 0.39, Pearson 0.51 / 0.54.
+
+\subsection*{Pooled results need set-aware baselines}
+\begin{center}\scriptsize\setlength{\tabcolsep}{3pt}
+\FitWidth{\begin{tabular}{@{}l l l l l@{}}
+\toprule
+Judge & Pooled RPS & Set-aware constant RPS & Difference [95\%] & Spearman inside each set (secondary) \\ \midrule
+GPT-6 Astra & 0.120 & 0.118 & $+0.002$ $[-0.030, +0.036]$ & 0.62 [0.42, 0.77] \\
+Claude Opus 5.5 & 0.101 & 0.118 & $-0.018$ $[-0.048, +0.013]$ & 0.71 [0.56, 0.81] \\
+\bottomrule
+\end{tabular}}
+\end{center}
+Mean judge minus human, in score points: old set Astra $+0.51$ $[+0.04, +0.90]$, Opus $+0.56$ $[+0.26, +0.87]$; new set Astra $+0.06$, Opus $+0.13$.
+The pooled constant (0.164) is a poor baseline because the new set is mostly 5s and the old set is not.
+
+\subsection*{Update, 11-24-2026 19:12 PST: interim re-run with every rating sheet returned so far}
+Only 3 ratings were added and 7 edited since the 10:38 run (250 new-set ratings; pooled 445 ratings, 175 artifacts, 50 tasks).
+No new artifacts exist, so no new judge calls. Every number moved by less than its interval.
+\begin{center}\scriptsize\setlength{\tabcolsep}{3pt}
+\FitWidth{\begin{tabular}{@{}l l l l@{}}
+\toprule
+Judge, set & RPS before $\to$ now [95\%] & CE before $\to$ now & TVD before $\to$ now \\ \midrule
+GPT-6 Astra, new & 0.055 $\to$ 0.052 [0.031, 0.075] & 3.42 $\to$ 3.14 & 0.253 $\to$ 0.230 \\
+GPT-6 Astra, pooled & 0.120 $\to$ 0.118 [0.085, 0.157] & 5.60 $\to$ 5.44 & 0.414 $\to$ 0.401 \\
+Claude Opus 5.5, new & 0.041 $\to$ 0.043 [0.029, 0.057] & 2.42 $\to$ 2.42 & 0.193 $\to$ 0.195 \\
+Claude Opus 5.5, pooled & 0.101 $\to$ 0.101 [0.075, 0.131] & 4.85 $\to$ 4.85 & 0.368 $\to$ 0.369 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+Against the set-aware constant: Astra $+0.000$ $[-0.031, +0.034]$, Opus $-0.017$ $[-0.047, +0.014]$. Next re-run after the 11-25 and 12-03
+rating waves.
+
+\subsection*{Caveats}
+\begin{itemize}
+  \item Only 247 of 3,300 sheet rows back at the main run, from 5 raters; 55 artifacts have exactly 2 ratings, so per-artifact human distributions are noisy; 73\% of new ratings are 5s (a ceiling effect).
+  \item Old and new tasks differ, harnesses differ between old and new judge calls, only two judges have scores on the new set. No Lean proof check and no differential testing.
+  \item Pooled correlations are inflated by the difference in rating level between the sets.
+\end{itemize}
+
+\subsection*{Appendix: methods, harness and model}
+\begin{itemize}
+  \item GPT-6 Astra (reasoning high, H2 prompt): old set from the cached experiment 21/22 run (OpenAI Responses API); new set via Codex CLI one-turn, read-only, no tools, on the Codex plan. Claude Opus 5.5 (H2 prompt): old set via the Vals gateway at effort max; new set via Claude Code one-turn, no tools, effort high, Stanford Claude plan.
+  \item Frozen request file sha256 \texttt{6f59998\ldots}, 300 requests, 600 calls, all parsable. Pre-registration commit \texttt{3f5a460} (before any judge call on the new artifacts).
+  \item Light QA: an independent recomputation by Claude Opus 5.5 reproduced every headline number to 4 decimals; the interim was re-checked by GPT-6 Astra (Codex CLI) for all 30 point values.
+  \item Record: \texttt{experiments/25\_*/RESULTS.md} and \texttt{RESULTS\_INTERIM\_11-24-2026\_1912.md} on \texttt{main}.
+\end{itemize}
