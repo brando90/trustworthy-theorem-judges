@@ -2,7 +2,7 @@ import json, sys
 import numpy as np
 from scipy import stats, optimize
 
-D = '/lfs/skampere1/0/brando9/at3477/qa/run_c/'
+D = './'
 data = json.load(open(D + 'qa_input.json'))
 B = np.arange(6)
 FLOOR = 1e-6
