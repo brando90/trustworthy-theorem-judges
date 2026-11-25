@@ -67,8 +67,8 @@ All three pre-registered checks of a better \emph{evaluation} are met.
 \begin{table*}[t]
 \caption{Old, new and pooled sets (task-cluster bootstrap 95\% intervals, $10{,}000$ draws). Constant = pooled human distribution (leave-one-task-out); on the pooled row it is computed over both sets together. RPS, CE and TVD first.}
 \label{tab:exp25}
-\centering\small
-\begin{tabular}{llcccccrr}
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\resizebox{\linewidth}{!}{\begin{tabular}{llcccccrr}
 \toprule
 Judge & Set & RPS [95\%] & Const. RPS & CE [95\%] & TVD [95\%] & Spearman [95\%] & Pearson [95\%]\\
 \midrule
@@ -79,7 +79,7 @@ Claude Opus 5.5 & old & 0.179 [0.135, 0.223] & 0.183 & 8.10 [6.63, 9.49] & 0.600
  & new & 0.041 [0.027, 0.056] & 0.070 & 2.42 [1.56, 3.29] & 0.193 [0.128, 0.258] & 0.65 [0.41, 0.80] & 0.90 [0.74, 0.95]\\
  & pooled & 0.101 [0.074, 0.131] & 0.164 & 4.85 [3.81, 5.98] & 0.368 [0.292, 0.448] & 0.86 [0.77, 0.91] & 0.86 [0.77, 0.92]\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table*}
 
 \begin{figure*}[t]
@@ -124,8 +124,8 @@ A caveat covers the whole section: for only 7 of the 24 scored tasks is the refe
 \begin{table*}[t]
 \caption{Headline judge series (prompt P8\_STRICT\_B) against the corrected labels, and the constant forecast (training marginal, leave-one-task-out). Task-cluster bootstrap 95\% intervals ($2{,}000$ draws). RPS, CE and TVD first.}
 \label{tab:cert}
-\centering\small
-\begin{tabular}{lccccc}
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\resizebox{\linewidth}{!}{\begin{tabular}{lccccc}
 \toprule
 Series & RPS [95\%] & CE [95\%] & TVD [95\%] & Spearman [95\%] & Pearson [95\%]\\
 \midrule
@@ -134,7 +134,7 @@ claude-opus-4-7 & 0.271 [0.229, 0.319] & 2.30 [2.18, 2.41] & 0.689 [0.626, 0.751
 Qwen3-Coder-30B-A3B-Instruct & 0.217 [0.191, 0.248] & 2.11 [2.00, 2.22] & 0.618 [0.561, 0.678] & $-$0.35 [$-$0.59, $-$0.06] & $-$0.37 [$-$0.61, $-$0.05]\\
 Constant forecast & \textbf{0.174} [0.152, 0.197] & \textbf{1.77} [1.69, 1.87] & \textbf{0.486} [0.435, 0.536] & n/a & n/a\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table*}
 
 \subsection{Building a judge that works}
@@ -152,7 +152,7 @@ The selected configuration (lowest validation RPS among 125 candidates, on 35 va
 On the 20 test tasks (70 artifacts) the judge has RPS $0.075$ $[0.047,0.109]$ against $0.110$ $[0.074,0.151]$ for the set-aware constant, CE $0.97$ against $1.19$ and TVD $0.35$ against $0.48$.
 The paired RPS difference to the set-aware constant is $-0.035$ $[-0.076,+0.002]$; for CE it is $-0.22$ $[-0.46,+0.01]$ and for TVD $-0.124$ $[-0.205,-0.055]$.
 Against the H2 judge on raw scores the paired RPS difference is $-0.025$ $[-0.049,-0.005]$.
-An independent recomputation by a second model family reproduces all of these numbers to three decimals. The RPS interval against the constant includes $0$ by $0.002$, so under the rule above the verdict is \emph{promising, not works}; the pre-registered guess was about $25\%$ that ``works'' would be met.
+Independent recomputations by two further model families (Claude Opus 5.5 and Grok 4.7, each writing its own script from the anonymized data) reproduce all of these numbers, to four decimals for Opus and three for Grok. The RPS interval against the constant includes $0$ by $0.002$, so under the rule above the verdict is \emph{promising, not works}; the pre-registered guess was about $25\%$ that ``works'' would be met.
 We do not call the result a trustworthy judge.
 The calibration does what it was built for: the raw H2 scores have a low TVD ($0.33$) but a CE of $4.12$ because their histograms are too sharp, and the CE-fitted calibration of the same scores lowers CE to $0.97$ and RPS from $0.100$ to $0.075$.
 On the new set (10 tasks) the judge beats the set-aware constant on all three scores with intervals below zero; on the old set (10 tasks) the point estimates are also better, but the RPS and CE intervals include zero (\cref{tab:exp27old,tab:exp27new}).
