@@ -1,0 +1,166 @@
+{
+  "metadata": {
+    "input": "qa_input.json",
+    "artifact_weighting": "Equal weight per artifact.",
+    "judge_smoothing": "Normalize histogram, floor bins at 1e-6, renormalize.",
+    "correlation_scores": "Raw judge mean versus raw human mean.",
+    "rps_thresholds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "rps_definition": "mean((CQ-CP)^2 + CP*(1-CP))",
+    "ce_log_base": "e",
+    "baseline_pooling": "Pool individual human ratings, not artifact histograms.",
+    "baseline_task_exclusion": "Exclude the artifact's entire task within the specified pool; pooled baselines exclude matching tasks across both sets.",
+    "bootstrap": {
+      "set": "new",
+      "unit": "task",
+      "n_tasks": 25,
+      "draws": 2000,
+      "seed": 1,
+      "rng": "numpy.random.default_rng (PCG64)",
+      "percentiles": [
+        2.5,
+        97.5
+      ],
+      "percentile_interpolation": "linear",
+      "shared_task_draws_across_judges": true
+    },
+    "split_half": {
+      "draws_per_eligible_artifact": 200,
+      "seed": 1,
+      "rng": "Independent numpy.random.default_rng (PCG64)",
+      "minimum_ratings": 2,
+      "half_sizes": "floor(m/2), ceil(m/2)",
+      "smoothing": null,
+      "definition": "0.5 * (RPS(P_half_a,Q_half_b) + RPS(P_half_b,Q_half_a))",
+      "aggregation": "Average splits within each artifact, then average artifacts.",
+      "human_only": true
+    },
+    "undefined_values": "JSON null; printed as NA."
+  },
+  "results": [
+    {
+      "judge": "astra",
+      "set": "old",
+      "n": 75,
+      "rps": 0.20710973453250722,
+      "ce": 8.498852395717703,
+      "tvd": 0.6288882088923423,
+      "spearman": 0.6547709282176627,
+      "pearson": 0.6534934715319575,
+      "constant_rps": {
+        "set_aware_rps": 0.18264007825009648
+      },
+      "new_set_rps_95_percentile_task_bootstrap_interval": null,
+      "split_half": {
+        "n_artifacts": 75,
+        "rps": 0.13948333333333315
+      }
+    },
+    {
+      "judge": "astra",
+      "set": "new",
+      "n": 100,
+      "rps": 0.05188855578911169,
+      "ce": 3.1432920395839274,
+      "tvd": 0.23000256665389013,
+      "spearman": 0.6372134638778538,
+      "pearson": 0.8272346655845311,
+      "constant_rps": {
+        "set_aware_rps": 0.06983463905664157
+      },
+      "new_set_rps_95_percentile_task_bootstrap_interval": [
+        0.031222007444916895,
+        0.07655508135055
+      ],
+      "split_half": {
+        "n_artifacts": 100,
+        "rps": 0.06118749999999994
+      }
+    },
+    {
+      "judge": "astra",
+      "set": "pooled",
+      "n": 175,
+      "rps": 0.11841191810770978,
+      "ce": 5.438532192212688,
+      "tvd": 0.40095355618465534,
+      "spearman": 0.8040670157549815,
+      "pearson": 0.7871585174745422,
+      "constant_rps": {
+        "set_aware_rps": 0.11817982728240797,
+        "pooled_rps": 0.1644223990440203
+      },
+      "new_set_rps_95_percentile_task_bootstrap_interval": null,
+      "split_half": {
+        "n_artifacts": 175,
+        "rps": 0.09474285714285702
+      }
+    },
+    {
+      "judge": "opus",
+      "set": "old",
+      "n": 75,
+      "rps": 0.1792580764573146,
+      "ce": 8.097935565784956,
+      "tvd": 0.5999994800026801,
+      "spearman": 0.7692412331600682,
+      "pearson": 0.777381066567985,
+      "constant_rps": {
+        "set_aware_rps": 0.18264007825009648
+      },
+      "new_set_rps_95_percentile_task_bootstrap_interval": null,
+      "split_half": {
+        "n_artifacts": 75,
+        "rps": 0.13948333333333315
+      }
+    },
+    {
+      "judge": "opus",
+      "set": "new",
+      "n": 100,
+      "rps": 0.04277748645564723,
+      "ce": 2.414901517477142,
+      "tvd": 0.19500279998626013,
+      "spearman": 0.6124253065772083,
+      "pearson": 0.8903493245239488,
+      "constant_rps": {
+        "set_aware_rps": 0.06983463905664157
+      },
+      "new_set_rps_95_percentile_task_bootstrap_interval": [
+        0.028666523394159923,
+        0.05722183653901954
+      ],
+      "split_half": {
+        "n_artifacts": 100,
+        "rps": 0.06118749999999994
+      }
+    },
+    {
+      "judge": "opus",
+      "set": "pooled",
+      "n": 175,
+      "rps": 0.10126916788493324,
+      "ce": 4.850487538180491,
+      "tvd": 0.36857280570758294,
+      "spearman": 0.8501655861383467,
+      "pearson": 0.862821791218474,
+      "constant_rps": {
+        "set_aware_rps": 0.11817982728240797,
+        "pooled_rps": 0.1644223990440203
+      },
+      "new_set_rps_95_percentile_task_bootstrap_interval": null,
+      "split_half": {
+        "n_artifacts": 175,
+        "rps": 0.09474285714285702
+      }
+    }
+  ],
+  "uncertainties_and_warnings": [
+    "The split-half request does not specify a direction for its asymmetric RPS definition. This script reports the average of both directions, using unsmoothed empirical half histograms. Odd rating counts produce halves of floor(m/2) and ceil(m/2)."
+  ]
+}
