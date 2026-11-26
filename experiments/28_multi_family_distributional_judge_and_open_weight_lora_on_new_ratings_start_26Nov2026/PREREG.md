@@ -63,3 +63,10 @@ All non-set-aware primary candidates use **zero set indicator (`old`/`new`)**; a
   2. Combining uniform-harness multi-family `H4` + `Qwen3-8B` single-pass logits/LoRA in `(M+K)` logit-pool CE calibration lowers held-out `RPS`, `CE`, and `TVD` vs Exp 27 `F8` and pushes the 50-task OOF `RPS` CI below the set-aware constant.
   3. On VeriBench (`K=6`), CE- and RPS-trained heads/LoRA substantially outperform Pearson-trained heads/LoRA on `CE`, `RPS`, `TVD`, and `Brier`, even when Pearson matches expected-score correlation.
   4. Single-pass `Qwen3-8B` token-logit readout beats `M=1` argmax one-hot on `CE` and `RPS`.
+
+## Amendment 1 (11-26-2026, before any H4 or GPU run)
+- **Track 4B open-weight GPU lane on `mercury2` (`0..7` idle GPUs only):**
+  1. `Qwen3-4B-Instruct-2507` single-pass next-token logit readout over digit tokens `"0".."5"` (plus matched `M=1` argmax one-hot ablation).
+  2. `Qwen3-4B-Instruct-2507` strictly out-of-fold top-4-block LoRA (direct linear 6-class head initialized from digit tokens `"0".."5"` `lm_head` weights) trained under three matched objectives (`CE`, `RPS`, `Pearson`) on statement-preserving `<=2560`-token prompts, evaluated on `exp27_split` and across all 50 tasks via `cv5_fold` (comparing Priority 2 vs 4 directly on VeriBench).
+  3. `Qwen3-8B` (manual 2-GPU layer split across two idle GPUs) single-pass next-token logit readout over digit tokens `"0".."5"` (plus `M=1` argmax one-hot ablation).
+- **Frontier transport parity:** If any shell CLI rejects long `argv` prompts (`max_chars=107,598`), pass the identical prompt text via temporary file/stdin without altering the prompt bytes.

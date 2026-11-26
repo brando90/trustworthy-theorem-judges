@@ -11,9 +11,9 @@
 |---|---|---|
 | 1. Live human-rating sync (Exp 09) | DONE | 33 manifest Sheets verified (`250` numeric ratings across 6 raters: 100, 100, 30, 16, 3, 1); `T30` Max Sieb verified `0/100` via Chrome (`5e5d3ff`). |
 | 2. Pre-registration & anonymised data freeze | DONE | `PREREG.md`, `data_11-26-2026/` (`175` artifacts, `50` tasks, `445` ratings), `exp27_split` + `cv5_fold`, cached `H2`/`H3` features committed before any new run. |
-| 3. Matched input bundle, SHA-256 audit & `H4` controls | IN PROGRESS | `175/175` input hash audit, structural features, zero-demo `H4` requests, Karpathy controls. |
-| 4A. Multi-family `H4` frontier judge calls (`$0` plans) | PENDING | `gpt-6-astra` (Codex), `gemini-4-argon-high` (Antigravity), `grok-4.7` (Grok) / `claude-opus-5-5-high` (Antigravity), plus `k=3` repeat stability. |
-| 4B. `Qwen3-8B` single-pass logit & CE/RPS/Pearson LoRA (`mercury2`) | PENDING | Free `mercury2` GPUs (`0..7`), zero paid API spend. |
+| 3. Matched input bundle, SHA-256 audit & `H4` controls | DONE | `175/175` SHA-256 input hashes verified (`results/input_hash_audit_11-26-2026.json`), `structural_features_11-26-2026.csv`, zero-demo `H4` (`sys_sha256=d36bc4e1f456`), `20` Karpathy controls. |
+| 4A. Multi-family `H4` frontier judge calls (`$0` plans) | IN PROGRESS | Launching Karpathy controls + 175-artifact `H4` runs on `gpt-6-astra` (Codex), `gemini-4-argon-high` (Antigravity), `grok-4.7` (Grok) / `claude-opus-5-5-high` (Antigravity). |
+| 4B. `Qwen3-8B` single-pass logit & CE/RPS/Pearson LoRA (`mercury2`) | IN PROGRESS | Preparing `mercury2` free GPUs (`0..7`) for single-pass logit readout + out-of-fold LoRA (`CE`, `RPS`, `Pearson`). |
 | 5. Nested CV search, freeze & final evaluation | PENDING | Exp 27 split (inner CV -> freeze -> test once) + 50-task 5-fold nested OOF CV + Priority 2 vs 4 ablations. |
 | 6. Reports, Mega Tech Report PDF & 3-stage Mega QA | PENDING | `RESULTS_11-26-2026.md`, `latex/results/28_*.tex`, `mega_tech_report.pdf`, Codex -> `agy` Carbon Orchestrator -> Claude Mega QA. |
 
