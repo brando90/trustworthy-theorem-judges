@@ -1,10 +1,10 @@
 {
- "checked_date": "11-24-2026",
- "recorded_utc": "2026-11-24T18:19:07.630748+00:00",
+ "checked_date": "11-26-2026",
+ "recorded_utc": "2026-11-26T23:29:04.265101+00:00",
  "kind": "Verified live Google Sheets tables; participant-provided context restored verbatim under the 11-11-2026 final form revision",
  "identity_metadata": "rater_name and rater_id are coordinator-verified identity fields requested by Brando; response cells remain as submitted.",
  "format": "CSV table only; leading sheet instructions and formatting are not CSV response data. Case, blanks, N/A, spelling, headers and row order are preserved.",
- "numeric_observations": 262,
+ "numeric_observations": 265,
  "not_applicable_rows": 3,
  "files": [
   {
@@ -856,8 +856,8 @@
     "rationale (optional)"
    ],
    "rows": 100,
-   "sha256": "3d13feb5daf2222e354f5b63a6f5514ee424ddc5b5d94158b92faf39bac3ba4e",
-   "source_readback_sha256": "4aac2d47d096d92cd156741603fc7876b5e118d5b587206147f16eac88c06fb3",
+   "sha256": "7323a5aed72f7a4e04e26d692cf846508ed1094ba367ab73b21b7ad2c1afd97e",
+   "source_readback_sha256": "0729ef8212d5b029e3544b95e0d5d9cd87635a41581fab97504f3dfea49903cd",
    "assembly_receipt_sha256": "8e48417d1f07755ffcd9952bfd640032af460f4c6000132dd05525e7c1b52505",
    "form_version": "rating_context_v7_11-18-2026",
    "status": "live table; participant responses preserved as entered",
@@ -1980,7 +1980,7 @@
    "source_readback_sha256": "9b644da3ec49e782789fb010a3346ab1b4227b4f4d3f5ab6e88d44ef920c7ee6",
    "assembly_receipt_sha256": "94ff45fb9c15438185fb0beb058b90ac65a5d3d56ec4a051f749e51fc8e229c3",
    "form_version": "rating_context_v7_11-18-2026",
-   "status": "prepared blank form (reordered in place by rater; 0 responses)",
+   "status": "prepared blank form, not a completed observation",
    "csv_columns": [
     "rater_name",
     "rater_id",
@@ -2291,7 +2291,7 @@
    "url": "https://docs.google.com/spreadsheets/d/1iuxZBCPDm0LMSZ2iAgiB9twyHoThcQMPPOGx4eTBnGc/edit",
    "range": "Ratings!A1:O101",
    "assigned_rows": 100,
-   "numeric_ratings": 0,
+   "numeric_ratings": 1,
    "not_applicable_rows": 0,
    "path": "ratings/Nikil_Ravi__native_main_V02.csv",
    "columns": [
@@ -2312,11 +2312,11 @@
     "rationale (optional)"
    ],
    "rows": 100,
-   "sha256": "33be1805e3ad397e9cefe2d70ea78892f24c577f2d6a8ad460decf5947485fd3",
-   "source_readback_sha256": "a77448a7004a48dfaa3b5b1c35678cb13fb0c555c8f868ef3396de26512a8801",
+   "sha256": "43171f86ad35b0acffa2f8e46ccadb671c6f35787764ba556fd7ac094a1c2936",
+   "source_readback_sha256": "cbb9b079312cd6ae24aa28e6de5f94748fd8ae6fb8ddebd86eea041cf2dc9867",
    "assembly_receipt_sha256": "42ea87a2c5e043286838029cb3c5ec327192f1142cba542848da20b427562733",
    "form_version": "rating_context_v7_11-18-2026",
-   "status": "prepared blank form, not a completed observation",
+   "status": "live table; participant responses preserved as entered",
    "csv_columns": [
     "rater_name",
     "rater_id",
@@ -2347,7 +2347,7 @@
    "url": "https://docs.google.com/spreadsheets/d/1J7t7N2pd19PnJTrkPq3AIHytEWmtz1HxXdVKnNCpr2g/edit",
    "range": "Ratings!A1:O101",
    "assigned_rows": 100,
-   "numeric_ratings": 1,
+   "numeric_ratings": 3,
    "not_applicable_rows": 0,
    "path": "ratings/Vaibhav_Mahajan__native_main_V04.csv",
    "columns": [
@@ -2368,8 +2368,8 @@
     "rationale (optional)"
    ],
    "rows": 100,
-   "sha256": "bf40347205ef3e2399a0be68118a00bd77f7472189bf4c2b71ebe9c7853648b6",
-   "source_readback_sha256": "03ea92190ec9517f8883033352464f515643c18f17ee960b7a32d2f478321c9d",
+   "sha256": "fa7c0428a95c4b126db1d7f12d91753bfb9708a12040a2569b17e7240f466831",
+   "source_readback_sha256": "21976df2e8f7e73eca6f9f3e08cdb92215e2549289fd58cf832a972739109452",
    "assembly_receipt_sha256": "329ee28af76f52f261edec174cb2954725508616d79b05f53973f0bb41c5bdf2",
    "form_version": "rating_context_v7_11-18-2026",
    "status": "live table; participant responses preserved as entered",
@@ -2446,14 +2446,14 @@
   "cohort_commitment": "../../../research_artifacts/09_human_rating_collection/preparation_11-09-2026/full_team_11-14-2026/COHORT_100_COMMITMENT.json"
  },
  "full_team_100_native_revision": {
-  "date": "11-24-2026",
+  "date": "11-26-2026",
   "round": "100_native",
   "artifacts": 100,
   "tasks": 25,
   "agents_per_task": 4,
   "added": "Rows unchanged; 56 files' contents replaced by native-harness runs (Grok 4.7 in Grok CLI x25, Gemini 4 Argon in Antigravity CLI x25, Claude Fable 5.1 in Claude Code x6)",
   "sheets_verified": 33,
-  "main_numeric_observations": 247,
+  "main_numeric_observations": 250,
   "emails_sent": "A1 to self + 32",
   "cohort_commitment": "../../../research_artifacts/09_human_rating_collection/preparation_11-09-2026/full_team_11-14-2026/COHORT_100_NATIVE_COMMITMENT.json",
   "main_not_applicable_rows": 0,
@@ -2462,16 +2462,14 @@
    "T06",
    "T08",
    "T12",
+   "V02",
    "V04"
   ],
-  "reordered_by_rater": [
-   "T05",
-   "T25"
-  ],
+  "reordered_by_rater": [],
   "attestation_breakdown_when_scored": {
-   "": 31,
+   "": 32,
    "partial": 100,
-   "yes": 116
+   "yes": 118
   },
   "identity_cell_anomalies": [
    {

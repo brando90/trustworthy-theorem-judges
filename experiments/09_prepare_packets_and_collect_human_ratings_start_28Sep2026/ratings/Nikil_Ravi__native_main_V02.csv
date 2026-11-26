@@ -1,5 +1,5 @@
 rater_name,rater_id,item_id,task_folder,candidate_file,A_key_gold_theorems_covered (Y/N),B_gold_pre_postconditions_preserved_or_strengthened (Y/N),C_obvious_theorem_spam (Y/N),D_spam_handful_or_dominates (none/handful/dominates),final_score_0_5,ai_assisted_rating_attestation (AI help is allowed),minutes_spent,confidence,problem_note,rationale (optional),source_label
-Nikil Ravi,V02,native-heavy-11-11-2026__item066,task_01_heap_sort,task_01_heap_sort/agent_lean/agent_2.lean,,,,,,,,,,,main
+Nikil Ravi,V02,native-heavy-11-11-2026__item066,task_01_heap_sort,task_01_heap_sort/agent_lean/agent_2.lean,Y,Y,N,none,3,,,,,,main
 Nikil Ravi,V02,native-heavy-11-11-2026__item083,task_07_transport_layer_security_downgrade,task_07_transport_layer_security_downgrade/agent_lean/agent_3.lean,,,,,,,,,,,main
 Nikil Ravi,V02,native-heavy-11-11-2026__item039,task_12_mean_absolute_deviation,task_12_mean_absolute_deviation/agent_lean/agent_4.lean,,,,,,,,,,,main
 Nikil Ravi,V02,native-heavy-11-11-2026__item063,task_14_statistical_quantiles,task_14_statistical_quantiles/agent_lean/agent_3.lean,,,,,,,,,,,main

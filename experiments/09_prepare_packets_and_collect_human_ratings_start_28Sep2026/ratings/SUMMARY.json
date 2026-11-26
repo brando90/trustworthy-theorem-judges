@@ -1,6 +1,6 @@
 {
- "checked_date": "11-24-2026",
- "recorded_utc": "2026-11-24T18:19:07.630748+00:00",
+ "checked_date": "11-26-2026",
+ "recorded_utc": "2026-11-26T23:29:04.265101+00:00",
  "sheets_checked": 12,
  "new_observations": 0,
  "revised_observations": 0,
@@ -528,28 +528,26 @@
   "emails_sent": "A1 to self only"
  },
  "full_team_100_native_sync": {
-  "date": "11-24-2026",
+  "date": "11-26-2026",
   "artifacts": 100,
   "tasks": 25,
   "agents_per_task": 4,
   "sheets_verified": 33,
-  "main_numeric_observations": 247,
+  "main_numeric_observations": 250,
   "main_not_applicable_rows": 0,
   "active_raters": [
    "T05",
    "T06",
    "T08",
    "T12",
+   "V02",
    "V04"
   ],
-  "reordered_by_rater": [
-   "T05",
-   "T25"
-  ],
+  "reordered_by_rater": [],
   "attestation_breakdown_when_scored": {
-   "": 31,
+   "": 32,
    "partial": 100,
-   "yes": 116
+   "yes": 118
   },
   "identity_cell_anomalies": [
    {
@@ -561,6 +559,6 @@
    }
   ],
   "emails_sent": "A1 to self + 32",
-  "t30_status": "unverified 11-24-2026 (HTTP 401 on public CSV export; Sheets OAuth expired)"
+  "t30_status": "unverified 11-26-2026 (HTTP 401 on public CSV export; Sheets OAuth expired)"
  }
 }

@@ -1,0 +1,40 @@
+{
+ "archived_date": "11-26-2026",
+ "reason": "Preserve exact pre-sync snapshots before importing live main-round human ratings and rater-sorted sheets via public CSV export.",
+ "zero_observations_overwritten": false,
+ "files": [
+  {
+   "rater_id": "T05",
+   "rater_name": "Srivatsava Daruru (Sri)",
+   "previous_repo_path": "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/ratings/Srivatsava_Daruru_Sri__native_main_T05.csv",
+   "archived_snapshot": "Srivatsava_Daruru_Sri__native_main_T05_before_sync.csv",
+   "spreadsheet_id": "163ZxKeTXqseLrmwY-b5QjqeBulinHsZAiAPo1zsJdJI",
+   "previous_sha256": "7323a5aed72f7a4e04e26d692cf846508ed1094ba367ab73b21b7ad2c1afd97e",
+   "previous_numeric_ratings": 100,
+   "new_numeric_ratings": 100,
+   "reordered_by_rater": false
+  },
+  {
+   "rater_id": "V02",
+   "rater_name": "Nikil Ravi",
+   "previous_repo_path": "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/ratings/Nikil_Ravi__native_main_V02.csv",
+   "archived_snapshot": "Nikil_Ravi__native_main_V02_before_sync.csv",
+   "spreadsheet_id": "1iuxZBCPDm0LMSZ2iAgiB9twyHoThcQMPPOGx4eTBnGc",
+   "previous_sha256": "43171f86ad35b0acffa2f8e46ccadb671c6f35787764ba556fd7ac094a1c2936",
+   "previous_numeric_ratings": 1,
+   "new_numeric_ratings": 1,
+   "reordered_by_rater": false
+  },
+  {
+   "rater_id": "V04",
+   "rater_name": "Vaibhav Mahajan",
+   "previous_repo_path": "experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/ratings/Vaibhav_Mahajan__native_main_V04.csv",
+   "archived_snapshot": "Vaibhav_Mahajan__native_main_V04_before_sync.csv",
+   "spreadsheet_id": "1J7t7N2pd19PnJTrkPq3AIHytEWmtz1HxXdVKnNCpr2g",
+   "previous_sha256": "fa7c0428a95c4b126db1d7f12d91753bfb9708a12040a2569b17e7240f466831",
+   "previous_numeric_ratings": 3,
+   "new_numeric_ratings": 3,
+   "reordered_by_rater": false
+  }
+ ]
+}
