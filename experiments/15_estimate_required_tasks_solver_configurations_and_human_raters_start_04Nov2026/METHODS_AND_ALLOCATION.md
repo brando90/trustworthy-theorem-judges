@@ -155,7 +155,7 @@ Intervals are the saved 95% percentile-bootstrap intervals; `p-val=n/a` for all,
 | RPS level of one judge (proper-loss mixture, 20 training tasks) | 0.1362 [0.1109, 0.1638] | 25 tasks | 0.0675 | archived learning-curve study |
 | RPS above the 20-task value at 4 / 8 / 12 / 16 training tasks | +0.0133 / +0.0044 / +0.0021 / +0.0006 | — | — | archived learning-curve study |
 | RPS cost of training on 1 rating per file, or 2, instead of all 2–3 | +0.0020 [+0.0010, +0.0031]; +0.0004 [+0.0001, +0.0007] | 25 tasks | — | archived learning-curve study |
-| Entered minutes per rating | Warm-up: 6 entries from 1 rater, median 4.0, range 2.0–5.0. Main task (synced 11-24-2026): 101 entries from 2 raters (`T05` Sri 100, `V04` Vaibhav 1), median 4.0, mean 4.03, range 3.0–15.0 | — | — | [raw rating files](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/ratings/README.md) |
+| Entered minutes per rating | Warm-up: 6 entries from 1 rater, median 4.0, range 2.0–5.0. Main task (synced 11-26-2026): 103 entries from 2 raters (`T05` Sri 100, `V04` Vaibhav 3), median 4.0, mean 4.24, range 3.0–20.0 | — | — | [raw rating files](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/ratings/README.md) |
 | Candidate file length, median lines | Warm-up 58 (6 files); main task 541.5 (100 files); ratio 9.3 | — | — | [task packet](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/rating_task_packet/EMAIL_PATH_TO_GDOC.md) |
 | Current packet | 100 files on 25 tasks: all 25 tasks with four files; 4.0 files per task | — | — | [Brando's sheet CSV](../09_prepare_packets_and_collect_human_ratings_start_28Sep2026/ratings/Brando_Miranda__native_main_A1.csv) |
 
@@ -186,7 +186,7 @@ For one judge's RPS level, standard deviation 0.0675 gives 44 tasks for ±0.02, 
 | Development pool, plus held-out tasks for ±0.01 | 24 | 12 | 37 | 488 | 32.5 | 303.7 |
 | Development pool, plus held-out tasks for ±0.005 | 24 | 120 | 145 | 1,352 | 90.1 | 841.5 |
 
-New tasks are costed at 4.0 files per task and two ratings per file. Four minutes matches both the measured current-main median across 101 entries (`T05` Sri 100 + `V04` Vaibhav 1) and the warm-up median; 37.3 minutes is that value multiplied by the 9.3 length ratio, kept as a sensitivity assumption, not a measured upper bound. Held-out counts use the middle variability case.
+New tasks are costed at 4.0 files per task and two ratings per file. Four minutes matches both the measured current-main median across 103 entries (`T05` Sri 100 + `V04` Vaibhav 3) and the warm-up median; 37.3 minutes is that value multiplied by the 9.3 length ratio, kept as a sensitivity assumption, not a measured upper bound. Held-out counts use the middle variability case.
 
 ### Limits of this arithmetic
 
@@ -203,7 +203,7 @@ New tasks are costed at 4.0 files per task and two ratings per file. Four minute
 
 | Missing input | Why it matters | How to obtain it |
 | --- | --- | --- |
-| Minutes per main-task rating (101 measured 11-24-2026) | Sets every hour and staffing figure (currently dominated by `T05` Sri with 100 entries + `V04` Vaibhav with 1) | Collect additional raters' `minutes_spent` entries and rerun `costed_allocation.py --write` |
+| Minutes per main-task rating (103 measured 11-26-2026) | Sets every hour and staffing figure (currently dominated by `T05` Sri with 100 entries + `V04` Vaibhav with 3) | Collect additional raters' `minutes_spent` entries and rerun `costed_allocation.py --write` |
 | Spread of the paired difference for the actual judges | Moves the held-out count from 3 to 155 for ±0.01 | Task-family-grouped cross-validation on development data only, once method 2 and method 4 judges exist; needs separately authorized inference |
 | Claim, precision target and workload cap | Select the row | Brando's three decisions in the [README](README.md#three-decisions-that-are-brandos) |
 | Identity-split amendment | Says which task families, configurations and raters are development or evaluation | The pending amendment in the [priority plan](../02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/PRIORITY_2_VS_4_11-09-2026.md#data-separation-and-the-pending-amendment) |

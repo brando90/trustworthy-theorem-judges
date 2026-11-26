@@ -2,9 +2,9 @@
 
 **Doc link:** <https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/15_estimate_required_tasks_solver_configurations_and_human_raters_start_04Nov2026/README.md>
 
-**TLDR:** The original 200-rating numeric coverage target is met (247 ratings across 100 files as of 11-24-2026); resolve the recorded attestation and response anomalies before freezing evaluation. Do not adopt a larger total yet. How many held-out task families a later study needs depends on one unmeasured quantity, and existing evidence puts it anywhere from 3 to 155 families for a ±0.01 comparison, with 37 as the middle case. None of the recovered Claude, Gemini or ChatGPT totals establishes statistical sufficiency.
+**TLDR:** The original 200-rating numeric coverage target is met (250 ratings across 100 files as of 11-26-2026); resolve the recorded attestation and response anomalies before freezing evaluation. Do not adopt a larger total yet. How many held-out task families a later study needs depends on one unmeasured quantity, and existing evidence puts it anywhere from 3 to 155 families for a ±0.01 comparison, with 37 as the middle case. None of the recovered Claude, Gemini or ChatGPT totals establishes statistical sufficiency.
 
-**Status, 11-11-2026 (scenarios refreshed 11-16-2026 for Experiment 09's 100-file packet; review-time inputs refreshed 11-24-2026 after 101 main-task `minutes_spent` entries arrived):** source recovery and a costed allocation from existing evidence are complete; the final study size is an open decision for Brando (three choices below). No judge training, model inference or fitted scaling law are reported here. Experiment 02 (`02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026`) owns the judge methodology; experiment 09 (`09_prepare_packets_and_collect_human_ratings_start_28Sep2026`) owns the current packet and collection.
+**Status, 11-11-2026 (scenarios refreshed 11-16-2026 for Experiment 09's 100-file packet; review-time inputs refreshed 11-26-2026 after 103 main-task `minutes_spent` entries arrived):** source recovery and a costed allocation from existing evidence are complete; the final study size is an open decision for Brando (three choices below). No judge training, model inference or fitted scaling law are reported here. Experiment 02 (`02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026`) owns the judge methodology; experiment 09 (`09_prepare_packets_and_collect_human_ratings_start_28Sep2026`) owns the current packet and collection.
 
 T counts tasks, A fixed solver configurations, H distinct human raters and m ratings per returned file. Count T in independent task families. Ratings collected are files × m, not T × A × H.
 
@@ -22,11 +22,11 @@ Every number below is planning arithmetic from saved results, reproduced by [`sc
 | How many ratings per file? | Keep m = 2. Training on one rating per file instead of the available 2–3 cost 0.0020 RPS; two instead of 2–3 cost 0.0004. Extra tasks buy more than extra ratings per file. |
 | How many solver configurations? | Treat A as named fixed conditions and report per configuration. Three or four configurations cannot support an interval over unseen solvers. |
 | How many people? | H follows from workload. 200 ratings are 50, 25 or 17 each for 4, 8 or 12 people. |
-| How long does one rating take? | **Measured 11-24-2026 (101 main-task entries from 2 raters):** median **4.0 minutes**, mean **4.03 minutes**, range **3.0–15.0 minutes** (`100` entries from `T05` Sri and `1` entry from `V04` Vaibhav Mahajan at `15.0` minutes). Warm-up baseline: 6 entries from 1 rater, median 4 minutes, range 2–5. Main-task candidate files are 9.3 times longer by median line count (541.5 versus 58 lines), so observed main-task timing so far matches the 4-minute median rather than scaling with file length (mostly one rater with localized AI help). |
+| How long does one rating take? | **Measured 11-26-2026 (103 main-task entries from 2 raters):** median **4.0 minutes**, mean **4.24 minutes**, range **3.0–20.0 minutes** (`100` entries from `T05` Sri and `3` entries from `V04` Vaibhav Mahajan). Warm-up baseline: 6 entries from 1 rater, median 4 minutes, range 2–5. Main-task candidate files are 9.3 times longer by median line count (541.5 versus 58 lines), so observed main-task timing so far matches the 4-minute median rather than scaling with file length (mostly one rater with localized AI help). |
 
 ### Costed scenarios
 
-Original-target workload hours use two scenarios from `costed_allocation.json`: **4.0 minutes** per rating (matching both the measured current-main median across 101 entries and the warm-up median) and **37.3 minutes** (a length-scaled sensitivity assumption, not a measured upper bound). New tasks are costed at the packet's measured 4.0 files per task.
+Original-target workload hours use two scenarios from `costed_allocation.json`: **4.0 minutes** per rating (matching both the measured current-main median across 103 entries and the warm-up median) and **37.3 minutes** (a length-scaled sensitivity assumption, not a measured upper bound). New tasks are costed at the packet's measured 4.0 files per task.
 
 | Scenario | Held-out tasks | Independent ratings | Hours, 4.0 (measured) to 37.3 (length-scaled) minutes each | Ratings each, 4 / 8 / 12 people |
 | --- | ---: | ---: | --- | --- |
@@ -45,7 +45,7 @@ The 24-task development pool is an agent-suggested starting block, not a derived
 
 **Recommendation (agent-suggested, not adopted):** retain (a) as the original workload reference; its numeric coverage target is met, while collection eligibility review remains pending. Decide (b) only after two cheap measurements, and do not attempt (c) with three or four solver configurations.
 
-1. **Per-file time on the main task (partially measured 11-24-2026).** 101 entries from 2 raters (`T05` Sri 100 entries, `V04` Vaibhav 1 entry) give median 4.0 minutes (mean 4.03, range 3.0–15.0); refresh `costed_allocation.py` as additional raters enter `minutes_spent`.
+1. **Per-file time on the main task (partially measured 11-26-2026).** 103 entries from 2 raters (`T05` Sri 100 entries, `V04` Vaibhav 3 entries) give median 4.0 minutes (mean 4.24, range 3.0–20.0); refresh `costed_allocation.py` as additional raters enter `minutes_spent`.
 2. **How much the paired loss difference varies across task families for the actual judges.** This single quantity moves the answer from 3 to 155 families. Measure it on development data only: the 75 historical rated outputs are already exposed and eligible. It needs separately authorized model inference; the current packet stays evaluation-only and sealed.
 
 If the claim cannot fit the workload cap, narrow the claim before collecting; do not collect until a difference looks significant.
