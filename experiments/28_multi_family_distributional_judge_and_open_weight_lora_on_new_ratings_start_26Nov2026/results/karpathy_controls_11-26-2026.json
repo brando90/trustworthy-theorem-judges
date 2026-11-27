@@ -8,7 +8,11 @@
     "shuffled_max": 0.0283,
     "label_in_prompt_pearson": 1.0,
     "label_in_prompt_mae": 0.0,
-    "label_in_prompt_tvd": 0.0
+    "label_in_prompt_tvd": 0.0,
+    "blank_mean": 0.003,
+    "vacuous_mean": 0.0063,
+    "shuffled_mean": 0.0155,
+    "label_in_prompt_mean": 2.9583
   },
   "agy_argon": {
     "n_ok": 20,
@@ -19,7 +23,11 @@
     "shuffled_max": 0.04,
     "label_in_prompt_pearson": 0.621678,
     "label_in_prompt_mae": 0.6684,
-    "label_in_prompt_tvd": 0.4217
+    "label_in_prompt_tvd": 0.4217,
+    "blank_mean": 0.01,
+    "vacuous_mean": 0.01,
+    "shuffled_mean": 0.025,
+    "label_in_prompt_mean": 3.1417
   },
   "agy_opus": {
     "n_ok": 20,
@@ -30,7 +38,11 @@
     "shuffled_max": 0.19,
     "label_in_prompt_pearson": 1.0,
     "label_in_prompt_mae": 0.0,
-    "label_in_prompt_tvd": 0.0
+    "label_in_prompt_tvd": 0.0,
+    "blank_mean": 0.0445,
+    "vacuous_mean": 0.0525,
+    "shuffled_mean": 0.1585,
+    "label_in_prompt_mean": 2.9583
   },
   "grok_47": {
     "n_ok": 20,
@@ -41,7 +53,11 @@
     "shuffled_max": 0.315,
     "label_in_prompt_pearson": 0.095663,
     "label_in_prompt_mae": 0.885,
-    "label_in_prompt_tvd": 0.5742
+    "label_in_prompt_tvd": 0.5742,
+    "blank_mean": 0.0935,
+    "vacuous_mean": 0.1802,
+    "shuffled_mean": 0.28,
+    "label_in_prompt_mean": 2.535
   },
   "qwen3_4b": {
     "n_ok": 20,
@@ -51,6 +67,10 @@
     "vacuous_max": 0.2468,
     "shuffled_max": 1.6962,
     "label_in_prompt_pearson": 0.939974,
-    "label_in_prompt_mae": 0.2919
+    "label_in_prompt_mae": 0.2919,
+    "blank_mean": 0.0166,
+    "vacuous_mean": 0.1142,
+    "shuffled_mean": 0.6064,
+    "label_in_prompt_mean": 3.0007
   }
 }

@@ -160,6 +160,8 @@ def load_bundle(include_test: bool = True, h4_dir: Path = RES_DIR, require_compl
     e_q8b = p_q8b @ dl.GRID
     e_stack4 = np.column_stack([e_astra, e_argon, e_opus, e_q8b])
     judge_std4 = np.std(e_stack4, axis=1)
+    e_stack3 = np.column_stack([e_astra, e_argon, e_opus])
+    judge_std3 = np.std(e_stack3, axis=1)
     astra_opus_gap = np.abs(e_astra - e_opus)
 
     # Scalar dictionary for flexible feature-set selection
@@ -179,6 +181,7 @@ def load_bundle(include_test: bool = True, h4_dir: Path = RES_DIR, require_compl
         "ident_jaccard": ident_jac,
         "stmt_seq_sim": stmt_seq_sim,
         "judge_std4": judge_std4,
+        "judge_std3": judge_std3,
         "astra_opus_gap": astra_opus_gap,
         "is_new": is_new,
     }

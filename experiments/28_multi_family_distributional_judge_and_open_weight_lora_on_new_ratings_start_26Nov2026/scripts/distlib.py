@@ -203,13 +203,19 @@ def task_cluster_bootstrap(
         paired = {}
         for dk, arr_list in diff_vecs.items():
             arr = np.asarray(arr_list, dtype=np.float64)
-            p_pos = float(np.mean(arr >= 0.0))
-            p_neg = float(np.mean(arr <= 0.0))
+            n_ge_zero = int(np.sum(arr >= 0.0))
+            n_le_zero = int(np.sum(arr <= 0.0))
+            p_pos = float(n_ge_zero / draws)
+            p_neg = float(n_le_zero / draws)
             p_val = float(min(1.0, 2.0 * min(p_pos, p_neg)))
             paired[dk] = {
                 "point": diff_pt[dk],
                 "ci95": [float(np.percentile(arr, 2.5)), float(np.percentile(arr, 97.5))],
                 "p_val_two_sided": p_val,
+                "n_draws": int(draws),
+                "n_ge_zero": n_ge_zero,
+                "n_le_zero": n_le_zero,
+                "p_val_mc_floor": float(2.0 / (draws + 1)),
             }
         res["paired_vs_ref"] = paired
     return res
