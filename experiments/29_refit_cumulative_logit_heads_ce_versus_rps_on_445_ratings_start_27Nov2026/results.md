@@ -12,6 +12,7 @@
 - 50-task receipt: [results/nested_oof_11-27-2026.json](results/nested_oof_11-27-2026.json)
 - Join audit: [data_11-27-2026/join_audit_11-27-2026.json](data_11-27-2026/join_audit_11-27-2026.json)
 - Google Doc: [Cumulative-logit judge on 445 ratings (11-27-2026)](https://docs.google.com/document/d/1q0OQXbbMUw7azwB6K-wMXbC0Pb6NM2xOEeLLBjO8A6M/edit). The Drive connector cannot set anyone-with-the-link, so the doc stays in the owner's Drive until that toggle is turned on.
+- Commit: [5438370](https://github.com/brando90/trustworthy-theorem-judges/commit/5438370611202591b733475fe2dd907bc716b3bd)
 
 ## Bottom line
 
