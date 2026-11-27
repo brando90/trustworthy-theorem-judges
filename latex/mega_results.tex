@@ -7,6 +7,7 @@
 3 & 11-24-2026 & 25 & Pooling narrows the RPS interval to 0.60x (Astra) and 0.64x (Opus) of old alone, a better evaluation but not a better judge: against a set-aware constant Astra is tied (+0.002) and Opus is not clearly better (-0.018 [-0.048, +0.013]). \\
 4 & 11-24-2026 & 27 & Verdict promising, not works: on 70 held-out artifacts the CE-fitted judge has RPS 0.075 vs 0.110 for the set-aware constant (paired -0.035 [-0.076, +0.002]), CE 0.97 vs 1.19, TVD 0.35 vs 0.48. \\
 5 & 11-26-2026 & 28 & Promising on 20 held-out test tasks (Global G9 RPS 0.0729 vs. 0.1088 constant, paired -0.0360 [-0.0746, +0.0011]); on H3-free 50-task nested OOF, Global reaches 0.0704 and post-hoc all-frontier reaches 0.0685 vs. 0.1186 (0/10,000 draws >= 0; p=0.0214 vs. F8); LoRA CE beats Pearson on both splits (p=0.0002), while matched (M+K) head CE beats Pearson on CE/TVD with RPS crossing zero (p=0.0786). \\
+6 & 11-27-2026 & 29 & The 20-task primary does not clear the bar (CE worse than the set-aware constant). The H3-free 50-task nested head does: RPS 0.0684 vs 0.1186, paired -0.0502 [-0.0726, -0.0290]. \\
 \bottomrule
 \end{longtable}
 
@@ -34,3 +35,8 @@
 \section{Multi-family distributional judge, open-weight LoRA, and CE vs. Pearson on 445 VeriBench ratings (11-26-2026)}
 \ResultMeta{5}{28}{11-26-2026 18:18}{28_multi_family_distributional_judge_and_open_weight_lora_on_new_ratings_start_26Nov2026}
 \input{results/28_multi_family_distributional_judge}
+
+\clearpage
+\section{Cumulative-logit heads fit by cross-entropy or ranked probability score on 445 ratings (11-27-2026)}
+\ResultMeta{6}{29}{11-27-2026 10:08}{29_refit_cumulative_logit_heads_ce_versus_rps_on_445_ratings_start_27Nov2026}
+\input{results/29_refit_cumulative_logit_heads_ce_versus_rps}

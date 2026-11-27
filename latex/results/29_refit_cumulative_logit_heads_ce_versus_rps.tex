@@ -1,0 +1,53 @@
+%% title: Cumulative-logit heads fit by cross-entropy or ranked probability score on 445 ratings (11-27-2026)
+%% result-date: 11-27-2026
+%% result-time: 10:08
+%% experiment: 29_refit_cumulative_logit_heads_ce_versus_rps_on_445_ratings_start_27Nov2026
+%% headline: The 20-task primary does not clear the bar (CE worse than the set-aware constant). The H3-free 50-task nested head does: RPS 0.0684 vs 0.1186, paired -0.0502 [-0.0726, -0.0290].
+% Source: experiments/29_refit_cumulative_logit_heads_ce_versus_rps_on_445_ratings_start_27Nov2026/results.md
+
+\subsection*{Bottom line}
+On the 20 held-out tasks the pre-registered primary head does not clear the bar. Its ranked probability score (RPS) is 0.0698 versus 0.1088 for the set-aware constant, paired difference $-0.0390$ with 95\% task-bootstrap interval $[-0.0721, -0.0087]$ (10,000 draws, seed 20261127, 70 artifacts). Total variation distance (TVD) is also lower (0.363 versus 0.479), but cross-entropy (CE) is worse (1.249 versus 1.159) because the unpenalized RPS fit did not converge. The fixed experiment-27 head, refit on this 445-rating snapshot, stays at RPS 0.0737, paired $-0.0351$ $[-0.0764, +0.0020]$.
+
+The H3-free 50-task nested head does clear the bar. Every fold selected the same features (two H2 means, three H4 expected scores, four structural counts). Pooled RPS is 0.0684 versus 0.1186, paired $-0.0502$ $[-0.0726, -0.0290]$. CE and TVD intervals are also entirely below 0. Pooled bias is $+0.023$ (judge mean 3.764 versus human mean 3.742). This split was already scored in experiments 27 and 28. It is not a sealed first look.
+
+\subsection*{Held-out test, 20 tasks (lower is better for RPS, CE, TVD)}
+\begin{center}\scriptsize\setlength{\tabcolsep}{3pt}
+\FitWidth{\begin{tabular}{@{}l l l l l@{}}
+\toprule
+Forecast & RPS [95\%] & CE [95\%] & TVD [95\%] & Paired RPS vs constant \\ \midrule
+Set-aware constant & 0.1088 [0.0725, 0.1503] & 1.159 [0.866, 1.468] & 0.479 [0.402, 0.563] & reference \\
+F8 refit (CE) & 0.0737 [0.0462, 0.1062] & 0.943 [0.665, 1.265] & 0.359 [0.292, 0.439] & $-0.0351$ $[-0.0764, +0.0020]$ \\
+Primary (RPS, unconverged) & 0.0698 [0.0440, 0.1004] & 1.249 [0.817, 1.750] & 0.363 [0.274, 0.467] & $-0.0390$ $[-0.0721, -0.0087]$ \\
+Best converged CE head & 0.0653 [0.0409, 0.0937] & 0.981 [0.634, 1.386] & 0.301 [0.219, 0.392] & $-0.0435$ $[-0.0782, -0.0139]$ \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Old cohort, F8 refit: RPS 0.1333, bias $+0.739$ (3.100 versus 2.361). New cohort, F8 refit: RPS 0.0289, bias $-0.180$ (4.524 versus 4.704). The new cohort is 74\% fives, so its constant is already at RPS 0.0556.
+
+\subsection*{50-task nested pass, H3 excluded}
+\begin{center}\scriptsize\setlength{\tabcolsep}{3pt}
+\FitWidth{\begin{tabular}{@{}l l l l l@{}}
+\toprule
+Forecast & Cohort & RPS & CE & TVD \\ \midrule
+Set-aware constant & pooled & 0.1186 [0.0924, 0.1458] & 1.308 & 0.492 \\
+Nested head & pooled & 0.0684 [0.0528, 0.0866] & 1.003 & 0.345 \\
+Nested head & old & 0.1031 & 1.460 & 0.427 \\
+Nested head & new & 0.0424 & 0.661 & 0.283 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+Pooled paired RPS $-0.0502$ $[-0.0726, -0.0290]$. Pooled paired CE $-0.305$ $[-0.486, -0.119]$. Pooled paired TVD $-0.147$ $[-0.193, -0.104]$. Old-cohort bias $+0.186$ (2.813 versus 2.627). New-cohort bias $-0.100$ (4.478 versus 4.578). Secondary pooled correlations: Spearman 0.775, Pearson 0.898.
+
+\subsection*{Caveats}
+\begin{itemize}
+  \item The 20-task split and the 50-task folds were already used in experiments 27 and 28.
+  \item The primary argmin did not converge. The written rule therefore says not found, even though its RPS interval lies below 0.
+  \item Dropping 32 blank attestations does not pull the F8 interval below 0. Keeping only schema attestations does, and that is a different target.
+  \item One \texttt{candidate\_file} cell is free text. The join uses \texttt{rater\_id} and \texttt{item\_id}. The three scores on that item are all 5, so the histogram does not change if that row is dropped.
+  \item No rater names in this fragment.
+\end{itemize}
+
+\subsection*{Appendix: method}
+Cumulative logit \(P(r \le k) = \mathrm{sigmoid}((\theta_k - w \cdot x) / T)\), fit by CE or by RPS, plus \((\alpha/2) \lVert w \rVert^2\), mixture weight \(m \in \lbrace 0, 0.25, 0.5 \rbrace\). Selection uses validation RPS only. Correlation is not a training objective. Cached features only: H2, H3, H4 and structural counts. H3 is excluded from the 50-task pass. CPU, SciPy 1.18.1, \$0, no new model call. Full tables, old and new cohorts, and the attestation check are in the experiment \texttt{results.md}. Google Doc: \url{https://docs.google.com/document/d/1q0OQXbbMUw7azwB6K-wMXbC0Pb6NM2xOEeLLBjO8A6M/edit}.

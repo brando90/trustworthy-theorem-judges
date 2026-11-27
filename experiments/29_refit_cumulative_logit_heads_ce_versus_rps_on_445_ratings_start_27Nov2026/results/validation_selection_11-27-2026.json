@@ -1,0 +1,166 @@
+{
+  "date": "11-27-2026",
+  "selection_rule": "lowest validation ranked probability score; ties: lower validation cross-entropy, then smaller L2 penalty, then temperature closer to 1, then smaller mixture weight",
+  "fit_tasks": "train (20 tasks)",
+  "score_tasks": "val (10 tasks)",
+  "test_metrics_computed": false,
+  "primary": {
+    "family": "ordinal",
+    "feature_set": "h2_h3",
+    "objective": "rps",
+    "alpha": 0.0,
+    "mix": 0.25,
+    "const_mode": "pooled",
+    "set_aware": false,
+    "features": [
+      "astra",
+      "opus",
+      "h3_score",
+      "h3_expected"
+    ],
+    "sources": [],
+    "temperature": 2.0,
+    "val_rps": 0.04930416979202743,
+    "val_ce": 0.9900277021441655,
+    "val_tvd": 0.31360128850511454,
+    "optimizer_success": false,
+    "primary_eligible": true
+  },
+  "best_primary_ce_ordinal": {
+    "family": "ordinal",
+    "feature_set": "h2_h3_h4_struct",
+    "objective": "ce",
+    "alpha": 0.1,
+    "mix": 0.0,
+    "const_mode": "pooled",
+    "set_aware": false,
+    "features": [
+      "astra",
+      "opus",
+      "h3_expected",
+      "h4_astra",
+      "h4_argon",
+      "h4_opus",
+      "thm_ratio",
+      "excess_thm_log",
+      "ident_jaccard",
+      "edit_similarity"
+    ],
+    "sources": [],
+    "temperature": 0.5,
+    "val_rps": 0.05002123828745366,
+    "val_ce": 0.7704028251258659,
+    "val_tvd": 0.31699094508325537,
+    "optimizer_success": true,
+    "primary_eligible": true
+  },
+  "best_primary_rps_ordinal": {
+    "family": "ordinal",
+    "feature_set": "h2_h3",
+    "objective": "rps",
+    "alpha": 0.0,
+    "mix": 0.25,
+    "const_mode": "pooled",
+    "set_aware": false,
+    "features": [
+      "astra",
+      "opus",
+      "h3_score",
+      "h3_expected"
+    ],
+    "sources": [],
+    "temperature": 2.0,
+    "val_rps": 0.04930416979202743,
+    "val_ce": 0.9900277021441655,
+    "val_tvd": 0.31360128850511454,
+    "optimizer_success": false,
+    "primary_eligible": true
+  },
+  "best_set_aware": {
+    "family": "cohort_specific",
+    "feature_set": "h2_by_cohort",
+    "objective": "rps",
+    "alpha": 0.0,
+    "mix": 0.25,
+    "const_mode": "cohort_specific",
+    "set_aware": true,
+    "features": [
+      "astra",
+      "opus"
+    ],
+    "sources": [],
+    "temperature": 0.75,
+    "val_rps": 0.044266483477547344,
+    "val_ce": 0.7322971675787787,
+    "val_tvd": 0.2817622403671685,
+    "optimizer_success": true,
+    "primary_eligible": false
+  },
+  "f8_ce_alpha0_mix0_T1": {
+    "family": "ordinal",
+    "feature_set": "h2_h3",
+    "features": [
+      "astra",
+      "opus",
+      "h3_score",
+      "h3_expected"
+    ],
+    "sources": [],
+    "objective": "ce",
+    "alpha": 0.0,
+    "mix": 0.0,
+    "const_mode": "pooled",
+    "set_aware": false,
+    "temperature": 1.0,
+    "val_rps": 0.05730858839995353,
+    "val_ce": 0.8305907346984713,
+    "val_tvd": 0.36778760399633836
+  },
+  "validation_constants": {
+    "constant_set": {
+      "RPS": 0.10072413872660033,
+      "CE": 1.1745739294857358,
+      "TVD": 0.5203112993194102
+    },
+    "constant_pooled": {
+      "RPS": 0.15201489325068873,
+      "CE": 1.4409535121166555,
+      "TVD": 0.6425324675324675
+    },
+    "uniform": {
+      "RPS": 0.2325396825396825,
+      "CE": 1.791759469228055,
+      "TVD": 0.757142857142857
+    }
+  },
+  "n_rows": 2760,
+  "best_converged_primary": {
+    "family": "ordinal",
+    "feature_set": "h2_h3_h4_struct",
+    "objective": "ce",
+    "alpha": 0.1,
+    "mix": 0.0,
+    "const_mode": "pooled",
+    "set_aware": false,
+    "features": [
+      "astra",
+      "opus",
+      "h3_expected",
+      "h4_astra",
+      "h4_argon",
+      "h4_opus",
+      "thm_ratio",
+      "excess_thm_log",
+      "ident_jaccard",
+      "edit_similarity"
+    ],
+    "sources": [],
+    "temperature": 0.5,
+    "val_rps": 0.05002123828745366,
+    "val_ce": 0.7704028251258659,
+    "val_tvd": 0.31699094508325537,
+    "optimizer_success": true,
+    "primary_eligible": true
+  },
+  "amendment_1": "Sigmoid clip [-40,40] before this selection file. Primary argmin did not converge. best_converged_primary is the best primary-eligible row with optimizer_success true. Verdict uses primary."
+}

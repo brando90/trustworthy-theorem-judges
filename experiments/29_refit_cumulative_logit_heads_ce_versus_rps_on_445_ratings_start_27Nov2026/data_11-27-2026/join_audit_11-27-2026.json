@@ -1,0 +1,72 @@
+{
+  "date": "11-27-2026",
+  "join_key": [
+    "rater_id",
+    "item_id"
+  ],
+  "candidate_file_not_used_as_key": true,
+  "n_new_numeric_ratings": 250,
+  "n_old_ratings": 195,
+  "n_artifacts": 175,
+  "n_tasks": 50,
+  "new_score_counts": {
+    "5": 185,
+    "4": 42,
+    "3": 15,
+    "1": 7,
+    "2": 1
+  },
+  "new_percent_fives": 0.74,
+  "attestation_counts_on_250_scored_rows": {
+    "partial": 100,
+    "yes": 118,
+    "blank": 32
+  },
+  "blank_attestation_row_counts_per_rater_id_descending": [
+    30,
+    1,
+    1
+  ],
+  "rater_ids_with_a_numeric_score": [
+    "T05",
+    "T06",
+    "T08",
+    "T12",
+    "V02",
+    "V04"
+  ],
+  "ratings_per_rater_id": {
+    "T08": 100,
+    "T06": 16,
+    "V02": 1,
+    "T12": 30,
+    "T05": 100,
+    "V04": 3
+  },
+  "candidate_file_anomalies": [
+    {
+      "item": "native-heavy-11-11-2026__item020",
+      "rater_id": "T06",
+      "candidate_file_is_lean_path": false,
+      "score": 5,
+      "known_inspected_edit": true
+    }
+  ],
+  "item020_scores_via_item_id": [
+    5,
+    5,
+    5
+  ],
+  "item020_histogram_unchanged_if_anomalous_row_dropped": true,
+  "n_new_artifacts_whose_multiset_changes_if_blank_attestations_drop": 32,
+  "n_new_artifacts_with_zero_schema_attestations": 0,
+  "matches_experiment_28_all_score_histograms": true,
+  "source_sha256": {
+    "exp28_new_ratings": "c3831fbd224380416caea8f6417294213ae8be8bba8c89e5cc611e38430c72fe",
+    "exp28_old_ratings": "35f2e60e9d893b32adcb28c3370114c85fc7f70437c76be769368b0cc6f0638e",
+    "exp28_h2": "1cb28d7fa293625a5c720d9566bd84c795206b89a396926a908b68e1faee02b3",
+    "exp28_h3": "84fc979d5c1717d268ad3804943d498d127b2b54393ccdabaa8712e4f96f3b14",
+    "exp27_h2": "f659f35e6347b0eb589eb6f2c4b26b8be0d2d9032b1f242861659d481d8b8d03"
+  },
+  "note": "Rater names are not stored. rater_id values are the public roster keys already in experiment 09. Blank-attestation counts are aggregated."
+}
