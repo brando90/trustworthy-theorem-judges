@@ -5,7 +5,7 @@ No sealed test access in search helpers; analytic gradients verified against fin
 from __future__ import annotations
 
 import numpy as np
-from scipy import optimize
+from scipy import optimize, stats
 
 EPS = 1e-6
 EPS_LOGPROB = 1e-4
@@ -84,26 +84,9 @@ def spearman_rho(a: np.ndarray, b: np.ndarray) -> float:
 def kendall_tau_b(a: np.ndarray, b: np.ndarray) -> float:
     a = np.asarray(a, dtype=np.float64)
     b = np.asarray(b, dtype=np.float64)
-    n = len(a)
-    if n < 2:
+    if len(a) < 2 or np.std(a) <= 1e-12 or np.std(b) <= 1e-12:
         return float("nan")
-    c = d = ta = tb = 0
-    for i in range(n):
-        for j in range(i + 1, n):
-            da = a[i] - a[j]
-            db = b[i] - b[j]
-            if da == 0 and db == 0:
-                continue
-            elif da == 0:
-                ta += 1
-            elif db == 0:
-                tb += 1
-            elif da * db > 0:
-                c += 1
-            else:
-                d += 1
-    denom = np.sqrt((c + d + ta) * (c + d + tb))
-    return float((c - d) / denom) if denom > 0 else float("nan")
+    return float(stats.kendalltau(a, b, variant="b").statistic)
 
 
 def icc_a1_and_c1(y_hat: np.ndarray, y: np.ndarray) -> tuple[float, float]:
@@ -344,6 +327,12 @@ class MKCalibrator:
 
         n_params = 6 + m_dist + d_feat * (2 if self.use_quad else 1)
         theta0 = np.zeros(n_params, dtype=np.float64)
+        if self.objective == "pearson":
+            # Break zero-variance saddle at theta=0 so Pearson has non-zero initial gradient
+            if m_dist > 0:
+                theta0[6 : 6 + m_dist] = 0.25 / m_dist
+            elif d_feat > 0:
+                theta0[6 + m_dist] = 0.5
         res = optimize.minimize(
             lambda th: self.loss_and_grad(th, lp_stack, z, p_emp),
             theta0,

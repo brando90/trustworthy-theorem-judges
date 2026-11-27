@@ -110,7 +110,7 @@ def eval_constant_preds(D: dict, tr_mask: np.ndarray, te_mask: np.ndarray, set_a
 
 
 def eval_exp27_f8(D: dict, tr_mask: np.ndarray, te_mask: np.ndarray) -> np.ndarray:
-    """Reproduce Exp 27 frozen F8_both_h3 Ordinal (alpha=1.0, m=0.10) cleanly using updated ratings."""
+    """Reproduce Exp 27 exact frozen F8_both_h3 Ordinal (alpha=0.0, m=0.0 per FREEZE_11-24-2026.md) on updated ratings."""
     D27 = {
         "P": D["P"],
         "C": D["C"],
@@ -121,7 +121,7 @@ def eval_exp27_f8(D: dict, tr_mask: np.ndarray, te_mask: np.ndarray) -> np.ndarr
     }
     tr_idx = np.where(tr_mask)[0]
     te_idx = np.where(te_mask)[0]
-    model = jl27.Ordinal(["astra", "opus", "h3s", "h3e"], alpha=1.0, m=0.10).fit(D27, tr_idx)
+    model = jl27.Ordinal(["astra", "opus", "h3s", "h3e"], alpha=0.0, m=0.0).fit(D27, tr_idx)
     return model.predict(D27, te_idx)
 
 
