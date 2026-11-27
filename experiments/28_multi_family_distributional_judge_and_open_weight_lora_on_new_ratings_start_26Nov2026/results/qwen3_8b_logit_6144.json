@@ -1,0 +1,4202 @@
+[
+  {
+    "item": "0_bisect_right__agent0",
+    "n_tokens": 4653,
+    "compacted": false,
+    "digit_logits": [
+      20.0,
+      26.625,
+      34.5,
+      34.75,
+      26.875,
+      21.375
+    ],
+    "probs": [
+      0.0,
+      0.000166,
+      0.437657,
+      0.561962,
+      0.000214,
+      1e-06
+    ],
+    "expected_score": 2.562225,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "0_bisect_right__agent1",
+    "n_tokens": 4742,
+    "compacted": false,
+    "digit_logits": [
+      19.5,
+      26.75,
+      34.25,
+      34.5,
+      27.5,
+      21.375
+    ],
+    "probs": [
+      0.0,
+      0.000242,
+      0.437493,
+      0.561752,
+      0.000512,
+      1e-06
+    ],
+    "expected_score": 2.562537,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "0_bisect_right__agent2",
+    "n_tokens": 4788,
+    "compacted": false,
+    "digit_logits": [
+      18.75,
+      24.125,
+      32.25,
+      35.75,
+      29.75,
+      22.375
+    ],
+    "probs": [
+      0.0,
+      9e-06,
+      0.029242,
+      0.968348,
+      0.0024,
+      2e-06
+    ],
+    "expected_score": 2.973145,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "0_unsafeCopy_safe__agent0",
+    "n_tokens": 1652,
+    "compacted": false,
+    "digit_logits": [
+      27.75,
+      35.75,
+      40.5,
+      37.75,
+      31.375,
+      28.0
+    ],
+    "probs": [
+      3e-06,
+      0.008065,
+      0.932231,
+      0.059596,
+      0.000102,
+      3e-06
+    ],
+    "expected_score": 2.051738,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "0_unsafeCopy_safe__agent1",
+    "n_tokens": 1393,
+    "compacted": false,
+    "digit_logits": [
+      29.0,
+      37.0,
+      42.25,
+      41.0,
+      34.25,
+      30.125
+    ],
+    "probs": [
+      1e-06,
+      0.004061,
+      0.773937,
+      0.221737,
+      0.00026,
+      4e-06
+    ],
+    "expected_score": 2.218205,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "0_unsafeCopy_safe__agent2",
+    "n_tokens": 1392,
+    "compacted": false,
+    "digit_logits": [
+      30.625,
+      38.5,
+      44.75,
+      44.0,
+      38.75,
+      33.5
+    ],
+    "probs": [
+      0.0,
+      0.001307,
+      0.677145,
+      0.31986,
+      0.001678,
+      9e-06
+    ],
+    "expected_score": 2.321936,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "13_MyUppercase__agent0",
+    "n_tokens": 2752,
+    "compacted": false,
+    "digit_logits": [
+      21.375,
+      27.25,
+      35.25,
+      36.75,
+      29.5,
+      23.0
+    ],
+    "probs": [
+      0.0,
+      6.1e-05,
+      0.182308,
+      0.817049,
+      0.00058,
+      1e-06
+    ],
+    "expected_score": 2.818151,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "13_MyUppercase__agent1",
+    "n_tokens": 2739,
+    "compacted": false,
+    "digit_logits": [
+      24.375,
+      34.5,
+      38.0,
+      32.0,
+      25.375,
+      21.75
+    ],
+    "probs": [
+      1e-06,
+      0.029242,
+      0.968354,
+      0.0024,
+      3e-06,
+      0.0
+    ],
+    "expected_score": 1.973163,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "13_MyUppercase__agent2",
+    "n_tokens": 2703,
+    "compacted": false,
+    "digit_logits": [
+      22.875,
+      31.75,
+      37.75,
+      34.75,
+      27.625,
+      22.375
+    ],
+    "probs": [
+      0.0,
+      0.002356,
+      0.950294,
+      0.047312,
+      3.8e-05,
+      0.0
+    ],
+    "expected_score": 2.045033,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "18_MyFibonacci__agent0",
+    "n_tokens": 2898,
+    "compacted": false,
+    "digit_logits": [
+      19.25,
+      28.875,
+      34.25,
+      30.125,
+      22.625,
+      18.125
+    ],
+    "probs": [
+      0.0,
+      0.004537,
+      0.97962,
+      0.015834,
+      9e-06,
+      0.0
+    ],
+    "expected_score": 2.011315,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "18_MyFibonacci__agent1",
+    "n_tokens": 2867,
+    "compacted": false,
+    "digit_logits": [
+      26.75,
+      40.25,
+      45.75,
+      38.0,
+      27.5,
+      24.125
+    ],
+    "probs": [
+      0.0,
+      0.004068,
+      0.995503,
+      0.000429,
+      0.0,
+      0.0
+    ],
+    "expected_score": 1.996361,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "18_MyFibonacci__agent2",
+    "n_tokens": 2799,
+    "compacted": false,
+    "digit_logits": [
+      20.0,
+      27.375,
+      34.75,
+      33.5,
+      26.375,
+      20.75
+    ],
+    "probs": [
+      0.0,
+      0.000487,
+      0.776781,
+      0.222552,
+      0.000179,
+      1e-06
+    ],
+    "expected_score": 2.222424,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "1_MyAdd__agent0",
+    "n_tokens": 2732,
+    "compacted": false,
+    "digit_logits": [
+      21.25,
+      29.0,
+      36.5,
+      35.75,
+      28.875,
+      21.375
+    ],
+    "probs": [
+      0.0,
+      0.000375,
+      0.678699,
+      0.320594,
+      0.000331,
+      0.0
+    ],
+    "expected_score": 2.320882,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "1_MyAdd__agent1",
+    "n_tokens": 2660,
+    "compacted": false,
+    "digit_logits": [
+      23.375,
+      34.0,
+      40.25,
+      34.75,
+      26.75,
+      21.25
+    ],
+    "probs": [
+      0.0,
+      0.001919,
+      0.994017,
+      0.004062,
+      1e-06,
+      0.0
+    ],
+    "expected_score": 2.002146,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "1_MyAdd__agent2",
+    "n_tokens": 2685,
+    "compacted": false,
+    "digit_logits": [
+      21.5,
+      31.5,
+      36.0,
+      32.75,
+      27.0,
+      20.875
+    ],
+    "probs": [
+      0.0,
+      0.01058,
+      0.952374,
+      0.036928,
+      0.000118,
+      0.0
+    ],
+    "expected_score": 2.026583,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "1_bisect_left__agent0",
+    "n_tokens": 4687,
+    "compacted": false,
+    "digit_logits": [
+      18.375,
+      24.0,
+      31.5,
+      33.75,
+      27.25,
+      20.625
+    ],
+    "probs": [
+      0.0,
+      5.3e-05,
+      0.095215,
+      0.903372,
+      0.001358,
+      2e-06
+    ],
+    "expected_score": 2.906041,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "1_bisect_left__agent1",
+    "n_tokens": 5167,
+    "compacted": false,
+    "digit_logits": [
+      19.75,
+      22.625,
+      28.25,
+      35.5,
+      34.5,
+      28.375
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      0.000519,
+      0.730248,
+      0.268643,
+      0.000588
+    ],
+    "expected_score": 3.269296,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "1_bisect_left__agent2",
+    "n_tokens": 4291,
+    "compacted": false,
+    "digit_logits": [
+      22.125,
+      29.625,
+      39.0,
+      38.75,
+      29.75,
+      23.25
+    ],
+    "probs": [
+      0.0,
+      4.8e-05,
+      0.562119,
+      0.437779,
+      5.4e-05,
+      0.0
+    ],
+    "expected_score": 2.43784,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "1_unsafeMultiply_safe__agent0",
+    "n_tokens": 1120,
+    "compacted": false,
+    "digit_logits": [
+      31.375,
+      42.25,
+      45.75,
+      41.5,
+      34.75,
+      31.5
+    ],
+    "probs": [
+      1e-06,
+      0.028911,
+      0.957415,
+      0.013657,
+      1.6e-05,
+      1e-06
+    ],
+    "expected_score": 1.984778,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "1_unsafeMultiply_safe__agent1",
+    "n_tokens": 1059,
+    "compacted": false,
+    "digit_logits": [
+      33.25,
+      47.25,
+      47.0,
+      39.25,
+      32.0,
+      30.25
+    ],
+    "probs": [
+      0.0,
+      0.56207,
+      0.437741,
+      0.000189,
+      0.0,
+      0.0
+    ],
+    "expected_score": 1.438118,
+    "argmax_digit": 1,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "1_unsafeMultiply_safe__agent2",
+    "n_tokens": 1301,
+    "compacted": false,
+    "digit_logits": [
+      23.5,
+      29.25,
+      36.5,
+      37.25,
+      31.375,
+      26.125
+    ],
+    "probs": [
+      1e-06,
+      0.000227,
+      0.320134,
+      0.677724,
+      0.001904,
+      1e-05
+    ],
+    "expected_score": 2.681332,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "2_heappush__agent0",
+    "n_tokens": 3485,
+    "compacted": false,
+    "digit_logits": [
+      23.875,
+      31.5,
+      39.5,
+      39.25,
+      31.25,
+      25.25
+    ],
+    "probs": [
+      0.0,
+      0.000189,
+      0.561988,
+      0.437676,
+      0.000147,
+      0.0
+    ],
+    "expected_score": 2.437783,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "2_heappush__agent1",
+    "n_tokens": 3672,
+    "compacted": false,
+    "digit_logits": [
+      23.25,
+      32.25,
+      40.0,
+      37.75,
+      28.625,
+      23.25
+    ],
+    "probs": [
+      0.0,
+      0.00039,
+      0.904289,
+      0.095311,
+      1e-05,
+      0.0
+    ],
+    "expected_score": 2.094943,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "2_heappush__agent2",
+    "n_tokens": 3558,
+    "compacted": false,
+    "digit_logits": [
+      22.75,
+      29.25,
+      38.5,
+      40.75,
+      32.25,
+      25.625
+    ],
+    "probs": [
+      0.0,
+      9e-06,
+      0.095331,
+      0.904476,
+      0.000184,
+      0.0
+    ],
+    "expected_score": 2.904835,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "33_MyMinimum__agent0",
+    "n_tokens": 3660,
+    "compacted": false,
+    "digit_logits": [
+      22.625,
+      32.5,
+      41.0,
+      36.0,
+      27.0,
+      21.875
+    ],
+    "probs": [
+      0.0,
+      0.000202,
+      0.993106,
+      0.006691,
+      1e-06,
+      0.0
+    ],
+    "expected_score": 2.006491,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "33_MyMinimum__agent1",
+    "n_tokens": 3691,
+    "compacted": false,
+    "digit_logits": [
+      22.625,
+      32.25,
+      40.0,
+      35.75,
+      26.125,
+      21.25
+    ],
+    "probs": [
+      0.0,
+      0.000425,
+      0.985517,
+      0.014058,
+      1e-06,
+      0.0
+    ],
+    "expected_score": 2.013635,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "33_MyMinimum__agent2",
+    "n_tokens": 3639,
+    "compacted": false,
+    "digit_logits": [
+      22.375,
+      31.75,
+      40.5,
+      36.5,
+      26.75,
+      21.625
+    ],
+    "probs": [
+      0.0,
+      0.000156,
+      0.98186,
+      0.017983,
+      1e-06,
+      0.0
+    ],
+    "expected_score": 2.01783,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "3_heappop__agent0",
+    "n_tokens": 4757,
+    "compacted": false,
+    "digit_logits": [
+      20.75,
+      28.375,
+      37.5,
+      37.5,
+      28.375,
+      22.625
+    ],
+    "probs": [
+      0.0,
+      5.4e-05,
+      0.499945,
+      0.499945,
+      5.4e-05,
+      0.0
+    ],
+    "expected_score": 2.5,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "3_heappop__agent1",
+    "n_tokens": 4559,
+    "compacted": false,
+    "digit_logits": [
+      23.25,
+      30.125,
+      39.0,
+      41.25,
+      34.0,
+      26.5
+    ],
+    "probs": [
+      0.0,
+      1.3e-05,
+      0.095287,
+      0.904057,
+      0.000642,
+      0.0
+    ],
+    "expected_score": 2.905329,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "3_heappop__agent2",
+    "n_tokens": 4595,
+    "compacted": false,
+    "digit_logits": [
+      23.0,
+      29.125,
+      37.75,
+      41.75,
+      35.75,
+      27.375
+    ],
+    "probs": [
+      0.0,
+      3e-06,
+      0.017942,
+      0.979626,
+      0.002428,
+      1e-06
+    ],
+    "expected_score": 2.984481,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "43_replace_spaces__agent0",
+    "n_tokens": 2484,
+    "compacted": false,
+    "digit_logits": [
+      26.0,
+      35.75,
+      44.0,
+      39.75,
+      29.5,
+      23.875
+    ],
+    "probs": [
+      0.0,
+      0.000258,
+      0.985682,
+      0.01406,
+      0.0,
+      0.0
+    ],
+    "expected_score": 2.013803,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "43_replace_spaces__agent1",
+    "n_tokens": 2513,
+    "compacted": false,
+    "digit_logits": [
+      29.0,
+      42.25,
+      44.75,
+      38.0,
+      30.125,
+      25.375
+    ],
+    "probs": [
+      0.0,
+      0.075776,
+      0.923142,
+      0.001081,
+      0.0,
+      0.0
+    ],
+    "expected_score": 1.925305,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "43_replace_spaces__agent2",
+    "n_tokens": 2412,
+    "compacted": false,
+    "digit_logits": [
+      24.375,
+      32.0,
+      41.75,
+      41.75,
+      31.5,
+      24.875
+    ],
+    "probs": [
+      0.0,
+      2.9e-05,
+      0.499977,
+      0.499977,
+      1.8e-05,
+      0.0
+    ],
+    "expected_score": 2.499983,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "4_json_decoder__agent0",
+    "n_tokens": 5643,
+    "compacted": true,
+    "digit_logits": [
+      17.75,
+      21.625,
+      29.0,
+      34.0,
+      29.625,
+      22.75
+    ],
+    "probs": [
+      0.0,
+      4e-06,
+      0.00661,
+      0.981024,
+      0.012349,
+      1.3e-05
+    ],
+    "expected_score": 3.005756,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "4_json_decoder__agent1",
+    "n_tokens": 6032,
+    "compacted": false,
+    "digit_logits": [
+      18.75,
+      23.125,
+      30.125,
+      36.5,
+      33.25,
+      25.5
+    ],
+    "probs": [
+      0.0,
+      1e-06,
+      0.001637,
+      0.96108,
+      0.037265,
+      1.6e-05
+    ],
+    "expected_score": 3.035657,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "4_json_decoder__agent2",
+    "n_tokens": 5659,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      22.0,
+      27.5,
+      34.75,
+      33.0,
+      25.625
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      0.000605,
+      0.851357,
+      0.147944,
+      9.3e-05
+    ],
+    "expected_score": 3.147519,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "4_unsafeCounter_safe__agent0",
+    "n_tokens": 2488,
+    "compacted": false,
+    "digit_logits": [
+      26.375,
+      34.75,
+      39.25,
+      36.0,
+      28.5,
+      25.375
+    ],
+    "probs": [
+      2e-06,
+      0.010581,
+      0.952464,
+      0.036931,
+      2e-05,
+      1e-06
+    ],
+    "expected_score": 2.026389,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "4_unsafeCounter_safe__agent1",
+    "n_tokens": 1538,
+    "compacted": false,
+    "digit_logits": [
+      34.0,
+      49.0,
+      46.5,
+      37.0,
+      29.125,
+      29.625
+    ],
+    "probs": [
+      0.0,
+      0.924136,
+      0.075858,
+      6e-06,
+      0.0,
+      0.0
+    ],
+    "expected_score": 1.075869,
+    "argmax_digit": 1,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "4_unsafeCounter_safe__agent2",
+    "n_tokens": 1793,
+    "compacted": false,
+    "digit_logits": [
+      28.5,
+      40.5,
+      42.5,
+      35.5,
+      27.125,
+      25.625
+    ],
+    "probs": [
+      1e-06,
+      0.119107,
+      0.880089,
+      0.000803,
+      0.0,
+      0.0
+    ],
+    "expected_score": 1.881695,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "5_unsafeFormatString_safe__agent0",
+    "n_tokens": 985,
+    "compacted": false,
+    "digit_logits": [
+      29.125,
+      38.25,
+      46.25,
+      44.0,
+      35.0,
+      30.125
+    ],
+    "probs": [
+      0.0,
+      0.000303,
+      0.904365,
+      0.095319,
+      1.2e-05,
+      0.0
+    ],
+    "expected_score": 2.09504,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "5_unsafeFormatString_safe__agent1",
+    "n_tokens": 1009,
+    "compacted": false,
+    "digit_logits": [
+      29.375,
+      39.25,
+      48.25,
+      44.5,
+      34.75,
+      28.5
+    ],
+    "probs": [
+      0.0,
+      0.000121,
+      0.976903,
+      0.022975,
+      1e-06,
+      0.0
+    ],
+    "expected_score": 2.022857,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "5_unsafeFormatString_safe__agent2",
+    "n_tokens": 915,
+    "compacted": false,
+    "digit_logits": [
+      35.75,
+      44.5,
+      52.0,
+      50.5,
+      42.0,
+      36.75
+    ],
+    "probs": [
+      0.0,
+      0.000452,
+      0.817174,
+      0.182336,
+      3.7e-05,
+      0.0
+    ],
+    "expected_score": 2.181959,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "9_pathTraversal_safe__agent0",
+    "n_tokens": 1578,
+    "compacted": false,
+    "digit_logits": [
+      25.625,
+      35.0,
+      41.5,
+      38.75,
+      29.75,
+      26.125
+    ],
+    "probs": [
+      0.0,
+      0.001411,
+      0.93858,
+      0.060001,
+      7e-06,
+      0.0
+    ],
+    "expected_score": 2.058605,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "9_pathTraversal_safe__agent1",
+    "n_tokens": 1446,
+    "compacted": false,
+    "digit_logits": [
+      28.0,
+      36.75,
+      43.25,
+      41.0,
+      32.75,
+      29.0
+    ],
+    "probs": [
+      0.0,
+      0.001358,
+      0.903399,
+      0.095218,
+      2.5e-05,
+      1e-06
+    ],
+    "expected_score": 2.09391,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "9_pathTraversal_safe__agent2",
+    "n_tokens": 1873,
+    "compacted": false,
+    "digit_logits": [
+      22.375,
+      28.625,
+      36.25,
+      38.75,
+      31.625,
+      26.625
+    ],
+    "probs": [
+      0.0,
+      3.7e-05,
+      0.075799,
+      0.923416,
+      0.000743,
+      5e-06
+    ],
+    "expected_score": 2.92488,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "binary_search__agent0",
+    "n_tokens": 4309,
+    "compacted": true,
+    "digit_logits": [
+      20.75,
+      27.25,
+      36.5,
+      39.0,
+      30.5,
+      23.875
+    ],
+    "probs": [
+      0.0,
+      7e-06,
+      0.075843,
+      0.923961,
+      0.000188,
+      0.0
+    ],
+    "expected_score": 2.924331,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "binary_search__agent1",
+    "n_tokens": 4010,
+    "compacted": true,
+    "digit_logits": [
+      21.125,
+      28.0,
+      37.25,
+      38.0,
+      28.625,
+      22.75
+    ],
+    "probs": [
+      0.0,
+      3.1e-05,
+      0.320793,
+      0.679118,
+      5.8e-05,
+      0.0
+    ],
+    "expected_score": 2.679203,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "binary_search__agent2",
+    "n_tokens": 4188,
+    "compacted": true,
+    "digit_logits": [
+      20.125,
+      27.0,
+      35.25,
+      35.75,
+      27.25,
+      21.375
+    ],
+    "probs": [
+      0.0,
+      9.9e-05,
+      0.377455,
+      0.622319,
+      0.000127,
+      0.0
+    ],
+    "expected_score": 2.622474,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "bubble_sort__agent0",
+    "n_tokens": 4228,
+    "compacted": true,
+    "digit_logits": [
+      20.0,
+      28.5,
+      36.25,
+      35.0,
+      27.375,
+      21.125
+    ],
+    "probs": [
+      0.0,
+      0.000335,
+      0.776955,
+      0.222601,
+      0.000109,
+      0.0
+    ],
+    "expected_score": 2.222485,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "bubble_sort__agent1",
+    "n_tokens": 4203,
+    "compacted": true,
+    "digit_logits": [
+      21.0,
+      31.125,
+      38.0,
+      34.0,
+      25.75,
+      20.625
+    ],
+    "probs": [
+      0.0,
+      0.001014,
+      0.981014,
+      0.017968,
+      5e-06,
+      0.0
+    ],
+    "expected_score": 2.016964,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "bubble_sort__agent2",
+    "n_tokens": 4345,
+    "compacted": true,
+    "digit_logits": [
+      21.625,
+      32.25,
+      39.25,
+      34.25,
+      26.0,
+      21.125
+    ],
+    "probs": [
+      0.0,
+      0.000905,
+      0.992406,
+      0.006687,
+      2e-06,
+      0.0
+    ],
+    "expected_score": 2.005785,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_13__gcd__agent0",
+    "n_tokens": 3370,
+    "compacted": false,
+    "digit_logits": [
+      21.25,
+      29.75,
+      37.25,
+      34.0,
+      25.375,
+      20.75
+    ],
+    "probs": [
+      0.0,
+      0.000532,
+      0.962154,
+      0.037307,
+      7e-06,
+      0.0
+    ],
+    "expected_score": 2.036788,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_13__gcd__agent1",
+    "n_tokens": 3248,
+    "compacted": false,
+    "digit_logits": [
+      18.375,
+      23.875,
+      32.75,
+      36.0,
+      28.25,
+      21.375
+    ],
+    "probs": [
+      0.0,
+      5e-06,
+      0.037311,
+      0.962269,
+      0.000414,
+      0.0
+    ],
+    "expected_score": 2.963094,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_13__gcd__agent2",
+    "n_tokens": 3155,
+    "compacted": false,
+    "digit_logits": [
+      20.125,
+      26.0,
+      34.0,
+      35.5,
+      29.0,
+      21.625
+    ],
+    "probs": [
+      0.0,
+      6.1e-05,
+      0.18219,
+      0.81652,
+      0.001228,
+      1e-06
+    ],
+    "expected_score": 2.818916,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_31_is_prime__agent0",
+    "n_tokens": 2696,
+    "compacted": false,
+    "digit_logits": [
+      22.5,
+      33.0,
+      38.75,
+      32.75,
+      24.875,
+      20.625
+    ],
+    "probs": [
+      0.0,
+      0.003165,
+      0.994369,
+      0.002465,
+      1e-06,
+      0.0
+    ],
+    "expected_score": 1.999302,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_31_is_prime__agent1",
+    "n_tokens": 2771,
+    "compacted": false,
+    "digit_logits": [
+      20.375,
+      26.75,
+      35.0,
+      35.5,
+      28.375,
+      22.125
+    ],
+    "probs": [
+      0.0,
+      9.9e-05,
+      0.377314,
+      0.622086,
+      0.000501,
+      1e-06
+    ],
+    "expected_score": 2.622991,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_31_is_prime__agent2",
+    "n_tokens": 2588,
+    "compacted": false,
+    "digit_logits": [
+      20.375,
+      24.875,
+      33.0,
+      37.0,
+      30.625,
+      24.125
+    ],
+    "probs": [
+      0.0,
+      5e-06,
+      0.017956,
+      0.980366,
+      0.00167,
+      3e-06
+    ],
+    "expected_score": 2.983708,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_3_below_zero__agent0",
+    "n_tokens": 3378,
+    "compacted": false,
+    "digit_logits": [
+      21.5,
+      29.375,
+      36.75,
+      34.5,
+      26.25,
+      21.5
+    ],
+    "probs": [
+      0.0,
+      0.000567,
+      0.904115,
+      0.095293,
+      2.5e-05,
+      0.0
+    ],
+    "expected_score": 2.094776,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_3_below_zero__agent1",
+    "n_tokens": 3534,
+    "compacted": false,
+    "digit_logits": [
+      21.75,
+      30.625,
+      38.25,
+      34.5,
+      25.875,
+      21.5
+    ],
+    "probs": [
+      0.0,
+      0.000477,
+      0.976553,
+      0.022966,
+      4e-06,
+      0.0
+    ],
+    "expected_score": 2.022498,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_3_below_zero__agent2",
+    "n_tokens": 3303,
+    "compacted": false,
+    "digit_logits": [
+      21.375,
+      27.5,
+      36.0,
+      37.5,
+      29.25,
+      23.5
+    ],
+    "probs": [
+      0.0,
+      3.7e-05,
+      0.18238,
+      0.817369,
+      0.000214,
+      1e-06
+    ],
+    "expected_score": 2.817761,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_47_median__agent0",
+    "n_tokens": 2912,
+    "compacted": false,
+    "digit_logits": [
+      21.0,
+      27.5,
+      35.0,
+      35.75,
+      28.875,
+      22.75
+    ],
+    "probs": [
+      0.0,
+      0.000177,
+      0.320539,
+      0.678581,
+      0.000701,
+      2e-06
+    ],
+    "expected_score": 2.67981,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_47_median__agent1",
+    "n_tokens": 2858,
+    "compacted": false,
+    "digit_logits": [
+      22.375,
+      31.5,
+      36.25,
+      33.75,
+      27.5,
+      22.0
+    ],
+    "probs": [
+      1e-06,
+      0.007931,
+      0.916677,
+      0.075245,
+      0.000145,
+      1e-06
+    ],
+    "expected_score": 2.067605,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_47_median__agent2",
+    "n_tokens": 2956,
+    "compacted": false,
+    "digit_logits": [
+      21.125,
+      29.375,
+      36.0,
+      33.5,
+      26.125,
+      20.875
+    ],
+    "probs": [
+      0.0,
+      0.001225,
+      0.922966,
+      0.075762,
+      4.7e-05,
+      0.0
+    ],
+    "expected_score": 2.074632,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_8_sum_product__agent0",
+    "n_tokens": 4181,
+    "compacted": false,
+    "digit_logits": [
+      22.5,
+      31.875,
+      39.25,
+      36.75,
+      27.875,
+      22.25
+    ],
+    "probs": [
+      0.0,
+      0.000579,
+      0.923597,
+      0.075813,
+      1.1e-05,
+      0.0
+    ],
+    "expected_score": 2.075256,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_8_sum_product__agent1",
+    "n_tokens": 4046,
+    "compacted": false,
+    "digit_logits": [
+      25.5,
+      32.75,
+      42.0,
+      43.5,
+      36.0,
+      29.125
+    ],
+    "probs": [
+      0.0,
+      1.8e-05,
+      0.18234,
+      0.81719,
+      0.000452,
+      0.0
+    ],
+    "expected_score": 2.818078,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "humaneval_8_sum_product__agent2",
+    "n_tokens": 4204,
+    "compacted": false,
+    "digit_logits": [
+      22.125,
+      31.625,
+      38.5,
+      35.5,
+      27.625,
+      21.875
+    ],
+    "probs": [
+      0.0,
+      0.000983,
+      0.95162,
+      0.047378,
+      1.8e-05,
+      0.0
+    ],
+    "expected_score": 2.046431,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "insertion_sort__agent0",
+    "n_tokens": 5039,
+    "compacted": false,
+    "digit_logits": [
+      25.125,
+      39.25,
+      40.5,
+      31.125,
+      24.75,
+      21.625
+    ],
+    "probs": [
+      0.0,
+      0.222685,
+      0.777248,
+      6.6e-05,
+      0.0,
+      0.0
+    ],
+    "expected_score": 1.77738,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "insertion_sort__agent1",
+    "n_tokens": 5099,
+    "compacted": false,
+    "digit_logits": [
+      23.125,
+      34.75,
+      37.75,
+      30.875,
+      24.25,
+      20.5
+    ],
+    "probs": [
+      0.0,
+      0.047379,
+      0.951636,
+      0.000983,
+      1e-06,
+      0.0
+    ],
+    "expected_score": 1.953606,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "insertion_sort__agent2",
+    "n_tokens": 5031,
+    "compacted": false,
+    "digit_logits": [
+      25.0,
+      36.75,
+      38.5,
+      31.375,
+      25.625,
+      22.0
+    ],
+    "probs": [
+      1e-06,
+      0.147945,
+      0.851366,
+      0.000685,
+      2e-06,
+      0.0
+    ],
+    "expected_score": 1.852742,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "merge_sort__agent0",
+    "n_tokens": 4668,
+    "compacted": true,
+    "digit_logits": [
+      19.625,
+      27.5,
+      35.5,
+      34.75,
+      26.75,
+      20.625
+    ],
+    "probs": [
+      0.0,
+      0.000228,
+      0.678951,
+      0.320714,
+      0.000108,
+      0.0
+    ],
+    "expected_score": 2.320702,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "merge_sort__agent1",
+    "n_tokens": 4702,
+    "compacted": true,
+    "digit_logits": [
+      18.75,
+      23.625,
+      31.625,
+      36.75,
+      31.25,
+      23.5
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      0.005887,
+      0.990063,
+      0.004046,
+      2e-06
+    ],
+    "expected_score": 2.998159,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "merge_sort__agent2",
+    "n_tokens": 4550,
+    "compacted": true,
+    "digit_logits": [
+      24.875,
+      34.0,
+      39.5,
+      36.25,
+      28.625,
+      24.0
+    ],
+    "probs": [
+      0.0,
+      0.003919,
+      0.958883,
+      0.03718,
+      1.8e-05,
+      0.0
+    ],
+    "expected_score": 2.033297,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "selection_sort__agent0",
+    "n_tokens": 6072,
+    "compacted": false,
+    "digit_logits": [
+      21.625,
+      31.75,
+      37.25,
+      32.75,
+      24.875,
+      20.125
+    ],
+    "probs": [
+      0.0,
+      0.004026,
+      0.985027,
+      0.010943,
+      4e-06,
+      0.0
+    ],
+    "expected_score": 2.006925,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "selection_sort__agent1",
+    "n_tokens": 5957,
+    "compacted": false,
+    "digit_logits": [
+      21.375,
+      30.625,
+      36.25,
+      33.0,
+      25.375,
+      20.5
+    ],
+    "probs": [
+      0.0,
+      0.00346,
+      0.959324,
+      0.037197,
+      1.8e-05,
+      0.0
+    ],
+    "expected_score": 2.033773,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "selection_sort__agent2",
+    "n_tokens": 4221,
+    "compacted": true,
+    "digit_logits": [
+      21.875,
+      31.125,
+      38.5,
+      34.75,
+      26.875,
+      21.875
+    ],
+    "probs": [
+      0.0,
+      0.000612,
+      0.976416,
+      0.022963,
+      9e-06,
+      0.0
+    ],
+    "expected_score": 2.022369,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item001",
+    "n_tokens": 5223,
+    "compacted": true,
+    "digit_logits": [
+      17.75,
+      26.0,
+      31.75,
+      30.5,
+      24.375,
+      18.5
+    ],
+    "probs": [
+      1e-06,
+      0.002467,
+      0.775003,
+      0.222042,
+      0.000486,
+      1e-06
+    ],
+    "expected_score": 2.22055,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item002",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      21.75,
+      26.25,
+      34.25,
+      34.5,
+      28.0
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      0.000147,
+      0.437389,
+      0.561618,
+      0.000844
+    ],
+    "expected_score": 3.563157,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item003",
+    "n_tokens": 5892,
+    "compacted": false,
+    "digit_logits": [
+      19.875,
+      21.375,
+      22.25,
+      26.625,
+      30.125,
+      36.5
+    ],
+    "probs": [
+      0.0,
+      0.0,
+      1e-06,
+      5.1e-05,
+      0.001701,
+      0.998247
+    ],
+    "expected_score": 4.998193,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item004",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      20.875,
+      23.375,
+      29.5,
+      33.75,
+      31.875
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      2.7e-05,
+      0.012216,
+      0.856419,
+      0.131336
+    ],
+    "expected_score": 4.119059,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item005",
+    "n_tokens": 4865,
+    "compacted": true,
+    "digit_logits": [
+      18.75,
+      22.25,
+      27.125,
+      33.5,
+      33.0,
+      27.375
+    ],
+    "probs": [
+      0.0,
+      8e-06,
+      0.001058,
+      0.62095,
+      0.376625,
+      0.001358
+    ],
+    "expected_score": 3.378267,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item006",
+    "n_tokens": 5129,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      22.375,
+      28.5,
+      33.25,
+      31.0,
+      23.625
+    ],
+    "probs": [
+      0.0,
+      1.7e-05,
+      0.007765,
+      0.897556,
+      0.094602,
+      5.9e-05
+    ],
+    "expected_score": 3.08692,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item007",
+    "n_tokens": 5552,
+    "compacted": true,
+    "digit_logits": [
+      21.625,
+      24.75,
+      27.625,
+      32.0,
+      34.5,
+      34.75
+    ],
+    "probs": [
+      1e-06,
+      2.5e-05,
+      0.000437,
+      0.034676,
+      0.422439,
+      0.542423
+    ],
+    "expected_score": 4.506795,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item008",
+    "n_tokens": 5536,
+    "compacted": true,
+    "digit_logits": [
+      18.875,
+      22.375,
+      27.25,
+      33.25,
+      33.0,
+      28.375
+    ],
+    "probs": [
+      0.0,
+      1.1e-05,
+      0.001386,
+      0.558992,
+      0.435343,
+      0.004268
+    ],
+    "expected_score": 3.442472,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item009",
+    "n_tokens": 5334,
+    "compacted": true,
+    "digit_logits": [
+      21.25,
+      28.0,
+      33.25,
+      34.0,
+      29.5,
+      24.25
+    ],
+    "probs": [
+      2e-06,
+      0.001668,
+      0.317875,
+      0.67294,
+      0.007476,
+      3.9e-05
+    ],
+    "expected_score": 2.686338,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item010",
+    "n_tokens": 5740,
+    "compacted": true,
+    "digit_logits": [
+      20.0,
+      24.0,
+      29.5,
+      36.0,
+      34.0,
+      27.0
+    ],
+    "probs": [
+      0.0,
+      5e-06,
+      0.001322,
+      0.879532,
+      0.119032,
+      0.000109
+    ],
+    "expected_score": 3.117915,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item011",
+    "n_tokens": 5877,
+    "compacted": true,
+    "digit_logits": [
+      18.25,
+      20.625,
+      23.625,
+      29.875,
+      33.75,
+      30.5
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      3.8e-05,
+      0.019587,
+      0.943778,
+      0.036594
+    ],
+    "expected_score": 4.016925,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item012",
+    "n_tokens": 5949,
+    "compacted": false,
+    "digit_logits": [
+      20.375,
+      22.25,
+      23.5,
+      28.75,
+      32.5,
+      37.0
+    ],
+    "probs": [
+      0.0,
+      0.0,
+      1e-06,
+      0.000258,
+      0.010984,
+      0.988756
+    ],
+    "expected_score": 4.988493,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item013",
+    "n_tokens": 5128,
+    "compacted": true,
+    "digit_logits": [
+      19.125,
+      24.625,
+      30.875,
+      33.75,
+      30.625,
+      23.75
+    ],
+    "probs": [
+      0.0,
+      9.9e-05,
+      0.051264,
+      0.908671,
+      0.039924,
+      4.1e-05
+    ],
+    "expected_score": 2.988544,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item014",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      19.0,
+      22.125,
+      26.375,
+      31.25,
+      30.25,
+      28.0
+    ],
+    "probs": [
+      3e-06,
+      7.7e-05,
+      0.005398,
+      0.707012,
+      0.260095,
+      0.027414
+    ],
+    "expected_score": 3.309361,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item015",
+    "n_tokens": 6007,
+    "compacted": true,
+    "digit_logits": [
+      17.625,
+      20.875,
+      25.5,
+      32.25,
+      32.25,
+      25.25
+    ],
+    "probs": [
+      0.0,
+      6e-06,
+      0.000585,
+      0.499477,
+      0.499477,
+      0.000455
+    ],
+    "expected_score": 3.499791,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item016",
+    "n_tokens": 5509,
+    "compacted": true,
+    "digit_logits": [
+      19.75,
+      22.375,
+      25.25,
+      31.25,
+      33.5,
+      32.75
+    ],
+    "probs": [
+      1e-06,
+      9e-06,
+      0.000166,
+      0.066791,
+      0.633696,
+      0.299337
+    ],
+    "expected_score": 4.232184,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item017",
+    "n_tokens": 4235,
+    "compacted": true,
+    "digit_logits": [
+      19.5,
+      22.0,
+      24.875,
+      31.875,
+      36.0,
+      35.25
+    ],
+    "probs": [
+      0.0,
+      1e-06,
+      1e-05,
+      0.010859,
+      0.671797,
+      0.317334
+    ],
+    "expected_score": 4.306454,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item018",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.25,
+      23.5,
+      30.25,
+      33.0,
+      29.375,
+      22.875
+    ],
+    "probs": [
+      0.0,
+      6.9e-05,
+      0.058612,
+      0.916849,
+      0.024433,
+      3.7e-05
+    ],
+    "expected_score": 2.965756,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item019",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.875,
+      21.375,
+      23.5,
+      29.625,
+      34.0,
+      33.5
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      1.7e-05,
+      0.007775,
+      0.617608,
+      0.374598
+    ],
+    "expected_score": 4.366783,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item020",
+    "n_tokens": 5139,
+    "compacted": true,
+    "digit_logits": [
+      19.625,
+      22.125,
+      23.875,
+      30.0,
+      35.0,
+      35.5
+    ],
+    "probs": [
+      0.0,
+      1e-06,
+      6e-06,
+      0.002537,
+      0.37658,
+      0.620876
+    ],
+    "expected_score": 4.618324,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item021",
+    "n_tokens": 6046,
+    "compacted": false,
+    "digit_logits": [
+      19.5,
+      21.375,
+      23.125,
+      28.25,
+      31.875,
+      34.25
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      1.3e-05,
+      0.002263,
+      0.084905,
+      0.912816
+    ],
+    "expected_score": 4.910518,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item022",
+    "n_tokens": 5923,
+    "compacted": true,
+    "digit_logits": [
+      17.875,
+      21.25,
+      26.5,
+      32.25,
+      31.375,
+      24.375
+    ],
+    "probs": [
+      0.0,
+      1.2e-05,
+      0.002241,
+      0.704006,
+      0.293473,
+      0.000268
+    ],
+    "expected_score": 3.291743,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item023",
+    "n_tokens": 5608,
+    "compacted": false,
+    "digit_logits": [
+      19.875,
+      21.5,
+      22.375,
+      26.625,
+      31.125,
+      36.25
+    ],
+    "probs": [
+      0.0,
+      0.0,
+      1e-06,
+      6.6e-05,
+      0.005911,
+      0.994022
+    ],
+    "expected_score": 4.993953,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item024",
+    "n_tokens": 5280,
+    "compacted": true,
+    "digit_logits": [
+      20.375,
+      22.75,
+      25.125,
+      32.0,
+      36.75,
+      36.75
+    ],
+    "probs": [
+      0.0,
+      0.0,
+      4e-06,
+      0.004307,
+      0.497844,
+      0.497844
+    ],
+    "expected_score": 4.493526,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item025",
+    "n_tokens": 5585,
+    "compacted": true,
+    "digit_logits": [
+      20.5,
+      24.25,
+      28.75,
+      33.75,
+      33.75,
+      30.0
+    ],
+    "probs": [
+      1e-06,
+      3.7e-05,
+      0.003319,
+      0.49253,
+      0.49253,
+      0.011583
+    ],
+    "expected_score": 3.512302,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item026",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.125,
+      22.625,
+      28.75,
+      32.0,
+      28.625,
+      24.375
+    ],
+    "probs": [
+      1e-06,
+      7.9e-05,
+      0.036117,
+      0.931475,
+      0.031873,
+      0.000455
+    ],
+    "expected_score": 2.996505,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item027",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      19.25,
+      22.375,
+      26.5,
+      31.75,
+      31.25,
+      28.75
+    ],
+    "probs": [
+      2e-06,
+      5.1e-05,
+      0.003158,
+      0.60181,
+      0.365016,
+      0.029962
+    ],
+    "expected_score": 3.421674,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item028",
+    "n_tokens": 5647,
+    "compacted": false,
+    "digit_logits": [
+      20.125,
+      21.75,
+      23.0,
+      28.125,
+      33.5,
+      36.0
+    ],
+    "probs": [
+      0.0,
+      1e-06,
+      2e-06,
+      0.000351,
+      0.075831,
+      0.923815
+    ],
+    "expected_score": 4.923457,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item029",
+    "n_tokens": 4951,
+    "compacted": true,
+    "digit_logits": [
+      19.125,
+      23.5,
+      29.25,
+      33.25,
+      30.75,
+      24.625
+    ],
+    "probs": [
+      1e-06,
+      5.3e-05,
+      0.016641,
+      0.908563,
+      0.074579,
+      0.000163
+    ],
+    "expected_score": 3.058157,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item030",
+    "n_tokens": 4943,
+    "compacted": false,
+    "digit_logits": [
+      19.5,
+      22.125,
+      24.0,
+      30.0,
+      35.0,
+      35.25
+    ],
+    "probs": [
+      0.0,
+      1e-06,
+      7e-06,
+      0.002941,
+      0.436532,
+      0.560518
+    ],
+    "expected_score": 4.557559,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item031",
+    "n_tokens": 5752,
+    "compacted": true,
+    "digit_logits": [
+      17.375,
+      21.375,
+      28.125,
+      34.5,
+      31.75,
+      24.25
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      0.001599,
+      0.938378,
+      0.059988,
+      3.3e-05
+    ],
+    "expected_score": 3.058452,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item032",
+    "n_tokens": 5005,
+    "compacted": true,
+    "digit_logits": [
+      18.5,
+      21.375,
+      24.875,
+      32.0,
+      34.25,
+      30.25
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      7.5e-05,
+      0.093788,
+      0.889836,
+      0.016298
+    ],
+    "expected_score": 3.922351,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item033",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      21.5,
+      26.0,
+      30.75,
+      30.125,
+      27.0
+    ],
+    "probs": [
+      3e-06,
+      6.1e-05,
+      0.005519,
+      0.637946,
+      0.341468,
+      0.015003
+    ],
+    "expected_score": 3.365824,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item034",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      17.625,
+      20.25,
+      22.625,
+      28.875,
+      33.0,
+      31.25
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      2.6e-05,
+      0.013583,
+      0.840356,
+      0.146032
+    ],
+    "expected_score": 4.132389,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item035",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      21.5,
+      25.125,
+      30.875,
+      32.0,
+      29.625
+    ],
+    "probs": [
+      1e-06,
+      1.9e-05,
+      0.000728,
+      0.228833,
+      0.704856,
+      0.065562
+    ],
+    "expected_score": 3.83521,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item036",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.0,
+      21.0,
+      24.625,
+      30.375,
+      32.0,
+      30.125
+    ],
+    "probs": [
+      1e-06,
+      1.2e-05,
+      0.000464,
+      0.145762,
+      0.740241,
+      0.11352
+    ],
+    "expected_score": 3.96679,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item037",
+    "n_tokens": 5237,
+    "compacted": true,
+    "digit_logits": [
+      19.375,
+      22.375,
+      25.375,
+      30.75,
+      33.0,
+      32.0
+    ],
+    "probs": [
+      1e-06,
+      1.6e-05,
+      0.000331,
+      0.071516,
+      0.678522,
+      0.249614
+    ],
+    "expected_score": 4.177383,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item038",
+    "n_tokens": 4566,
+    "compacted": true,
+    "digit_logits": [
+      18.875,
+      21.625,
+      24.375,
+      30.75,
+      34.0,
+      32.75
+    ],
+    "probs": [
+      0.0,
+      3e-06,
+      5e-05,
+      0.029256,
+      0.754518,
+      0.216173
+    ],
+    "expected_score": 4.186807,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item039",
+    "n_tokens": 5537,
+    "compacted": true,
+    "digit_logits": [
+      19.75,
+      23.5,
+      30.625,
+      35.5,
+      30.875,
+      24.625
+    ],
+    "probs": [
+      0.0,
+      6e-06,
+      0.007504,
+      0.982836,
+      0.009635,
+      1.9e-05
+    ],
+    "expected_score": 3.002156,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item040",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      22.5,
+      28.25,
+      32.25,
+      31.875,
+      27.375,
+      23.125
+    ],
+    "probs": [
+      3.4e-05,
+      0.01069,
+      0.583632,
+      0.401124,
+      0.004456,
+      6.4e-05
+    ],
+    "expected_score": 2.399469,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item041",
+    "n_tokens": 6020,
+    "compacted": true,
+    "digit_logits": [
+      18.75,
+      21.375,
+      24.375,
+      30.375,
+      33.5,
+      29.875
+    ],
+    "probs": [
+      0.0,
+      5e-06,
+      0.000102,
+      0.041036,
+      0.933968,
+      0.024889
+    ],
+    "expected_score": 3.983634,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item042",
+    "n_tokens": 4464,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      23.75,
+      30.625,
+      34.0,
+      30.375,
+      23.375
+    ],
+    "probs": [
+      0.0,
+      3.3e-05,
+      0.032253,
+      0.942572,
+      0.025119,
+      2.3e-05
+    ],
+    "expected_score": 2.992844,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item043",
+    "n_tokens": 4619,
+    "compacted": true,
+    "digit_logits": [
+      21.125,
+      29.75,
+      35.25,
+      34.0,
+      27.375,
+      21.75
+    ],
+    "probs": [
+      1e-06,
+      0.003166,
+      0.774609,
+      0.221929,
+      0.000294,
+      1e-06
+    ],
+    "expected_score": 2.219355,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item044",
+    "n_tokens": 4690,
+    "compacted": true,
+    "digit_logits": [
+      19.75,
+      22.5,
+      25.125,
+      31.0,
+      35.0,
+      34.0
+    ],
+    "probs": [
+      0.0,
+      3e-06,
+      3.7e-05,
+      0.013212,
+      0.72137,
+      0.265377
+    ],
+    "expected_score": 4.252082,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item045",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      17.125,
+      22.25,
+      28.875,
+      31.875,
+      27.875,
+      21.25
+    ],
+    "probs": [
+      0.0,
+      6.2e-05,
+      0.046609,
+      0.93616,
+      0.017146,
+      2.3e-05
+    ],
+    "expected_score": 2.970458,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item046",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.0,
+      20.875,
+      23.375,
+      29.625,
+      32.5,
+      32.75
+    ],
+    "probs": [
+      0.0,
+      4e-06,
+      4.7e-05,
+      0.024104,
+      0.427248,
+      0.548598
+    ],
+    "expected_score": 4.524389,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item047",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      20.125,
+      25.0,
+      30.625,
+      33.0,
+      29.375,
+      24.25
+    ],
+    "probs": [
+      2e-06,
+      0.000299,
+      0.083037,
+      0.89273,
+      0.02379,
+      0.000141
+    ],
+    "expected_score": 2.940431,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item048",
+    "n_tokens": 4567,
+    "compacted": false,
+    "digit_logits": [
+      20.5,
+      22.375,
+      24.0,
+      29.25,
+      33.0,
+      35.5
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      9e-06,
+      0.001781,
+      0.075722,
+      0.922485
+    ],
+    "expected_score": 4.920679,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item049",
+    "n_tokens": 5025,
+    "compacted": true,
+    "digit_logits": [
+      20.625,
+      28.375,
+      34.0,
+      33.75,
+      28.375,
+      22.375
+    ],
+    "probs": [
+      1e-06,
+      0.002019,
+      0.559903,
+      0.436053,
+      0.002019,
+      5e-06
+    ],
+    "expected_score": 2.438085,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item050",
+    "n_tokens": 6077,
+    "compacted": true,
+    "digit_logits": [
+      18.75,
+      22.25,
+      27.125,
+      33.0,
+      32.25,
+      26.5
+    ],
+    "probs": [
+      0.0,
+      1.5e-05,
+      0.001902,
+      0.677185,
+      0.31988,
+      0.001018
+    ],
+    "expected_score": 3.319983,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item051",
+    "n_tokens": 5220,
+    "compacted": true,
+    "digit_logits": [
+      17.875,
+      21.25,
+      27.0,
+      32.5,
+      31.125,
+      26.25
+    ],
+    "probs": [
+      0.0,
+      1e-05,
+      0.003246,
+      0.794363,
+      0.200846,
+      0.001533
+    ],
+    "expected_score": 3.200645,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item052",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      17.5,
+      20.875,
+      26.375,
+      31.75,
+      30.75,
+      26.75
+    ],
+    "probs": [
+      0.0,
+      1.4e-05,
+      0.003358,
+      0.725022,
+      0.266721,
+      0.004885
+    ],
+    "expected_score": 3.273105,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item053",
+    "n_tokens": 4759,
+    "compacted": true,
+    "digit_logits": [
+      18.625,
+      24.25,
+      31.375,
+      34.75,
+      29.625,
+      22.375
+    ],
+    "probs": [
+      0.0,
+      2.6e-05,
+      0.032896,
+      0.961357,
+      0.005716,
+      4e-06
+    ],
+    "expected_score": 2.972776,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item054",
+    "n_tokens": 5556,
+    "compacted": true,
+    "digit_logits": [
+      19.75,
+      25.0,
+      30.875,
+      34.5,
+      30.75,
+      24.125
+    ],
+    "probs": [
+      0.0,
+      7.1e-05,
+      0.025373,
+      0.952133,
+      0.022392,
+      3e-05
+    ],
+    "expected_score": 2.996934,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item055",
+    "n_tokens": 4230,
+    "compacted": true,
+    "digit_logits": [
+      20.25,
+      22.375,
+      24.125,
+      30.125,
+      35.75,
+      37.25
+    ],
+    "probs": [
+      0.0,
+      0.0,
+      2e-06,
+      0.000657,
+      0.182305,
+      0.817035
+    ],
+    "expected_score": 4.816373,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item056",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.0,
+      21.125,
+      25.375,
+      31.25,
+      31.625,
+      29.125
+    ],
+    "probs": [
+      1e-06,
+      1.6e-05,
+      0.00109,
+      0.388007,
+      0.564546,
+      0.046341
+    ],
+    "expected_score": 3.656105,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item057",
+    "n_tokens": 5565,
+    "compacted": true,
+    "digit_logits": [
+      20.375,
+      23.875,
+      28.125,
+      34.0,
+      34.75,
+      30.5
+    ],
+    "probs": [
+      0.0,
+      1.3e-05,
+      0.000892,
+      0.317456,
+      0.672053,
+      0.009586
+    ],
+    "expected_score": 3.690308,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item058",
+    "n_tokens": 5740,
+    "compacted": true,
+    "digit_logits": [
+      20.25,
+      24.75,
+      30.625,
+      34.75,
+      32.75,
+      26.875
+    ],
+    "probs": [
+      0.0,
+      3.9e-05,
+      0.014032,
+      0.868112,
+      0.117486,
+      0.00033
+    ],
+    "expected_score": 3.104034,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item059",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      19.875,
+      22.875,
+      26.125,
+      30.625,
+      32.5,
+      32.75
+    ],
+    "probs": [
+      1e-06,
+      2.7e-05,
+      0.000698,
+      0.062872,
+      0.409978,
+      0.526423
+    ],
+    "expected_score": 4.462067,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item060",
+    "n_tokens": 5406,
+    "compacted": true,
+    "digit_logits": [
+      18.5,
+      21.0,
+      23.125,
+      29.875,
+      34.25,
+      33.0
+    ],
+    "probs": [
+      0.0,
+      1e-06,
+      1.1e-05,
+      0.00969,
+      0.769758,
+      0.220539
+    ],
+    "expected_score": 4.210822,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item061",
+    "n_tokens": 5808,
+    "compacted": false,
+    "digit_logits": [
+      19.875,
+      21.375,
+      22.5,
+      27.5,
+      32.0,
+      35.5
+    ],
+    "probs": [
+      0.0,
+      1e-06,
+      2e-06,
+      0.000326,
+      0.029303,
+      0.970369
+    ],
+    "expected_score": 4.970036,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item062",
+    "n_tokens": 5320,
+    "compacted": false,
+    "digit_logits": [
+      18.375,
+      20.75,
+      23.0,
+      28.625,
+      32.75,
+      31.875
+    ],
+    "probs": [
+      0.0,
+      4e-06,
+      4.1e-05,
+      0.011279,
+      0.697793,
+      0.290883
+    ],
+    "expected_score": 4.279509,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item063",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      19.0,
+      21.125,
+      23.25,
+      29.25,
+      33.0,
+      34.25
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      1.3e-05,
+      0.00521,
+      0.221537,
+      0.773239
+    ],
+    "expected_score": 4.767997,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item064",
+    "n_tokens": 5458,
+    "compacted": true,
+    "digit_logits": [
+      21.0,
+      22.875,
+      23.25,
+      26.875,
+      30.0,
+      36.25
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      2e-06,
+      8.5e-05,
+      0.001927,
+      0.997985
+    ],
+    "expected_score": 4.99789,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item065",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      26.625,
+      35.75,
+      38.75,
+      35.0,
+      28.0,
+      24.125
+    ],
+    "probs": [
+      5e-06,
+      0.046386,
+      0.931678,
+      0.021911,
+      2e-05,
+      0.0
+    ],
+    "expected_score": 1.975556,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item066",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      17.0,
+      21.0,
+      27.0,
+      32.0,
+      30.375,
+      23.875
+    ],
+    "probs": [
+      0.0,
+      1.4e-05,
+      0.005596,
+      0.830591,
+      0.163553,
+      0.000246
+    ],
+    "expected_score": 3.15842,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item067",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.625,
+      21.0,
+      22.875,
+      29.125,
+      33.0,
+      34.25
+    ],
+    "probs": [
+      0.0,
+      1e-06,
+      9e-06,
+      0.004601,
+      0.221673,
+      0.773716
+    ],
+    "expected_score": 4.769093,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item068",
+    "n_tokens": 5080,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      21.625,
+      25.5,
+      32.25,
+      34.0,
+      28.375
+    ],
+    "probs": [
+      0.0,
+      4e-06,
+      0.000173,
+      0.147568,
+      0.849193,
+      0.003063
+    ],
+    "expected_score": 3.855138,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item069",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      28.125,
+      34.75,
+      37.5,
+      36.25,
+      28.75,
+      25.875
+    ],
+    "probs": [
+      6.3e-05,
+      0.04733,
+      0.740365,
+      0.212118,
+      0.000117,
+      7e-06
+    ],
+    "expected_score": 2.164917,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item070",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      19.875,
+      24.125,
+      29.375,
+      33.0,
+      30.5,
+      27.25
+    ],
+    "probs": [
+      2e-06,
+      0.000126,
+      0.023964,
+      0.899233,
+      0.073814,
+      0.002862
+    ],
+    "expected_score": 3.055317,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item071",
+    "n_tokens": 5781,
+    "compacted": true,
+    "digit_logits": [
+      18.0,
+      21.25,
+      25.625,
+      33.0,
+      33.0,
+      27.125
+    ],
+    "probs": [
+      0.0,
+      4e-06,
+      0.000313,
+      0.499141,
+      0.499141,
+      0.001402
+    ],
+    "expected_score": 3.501623,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item072",
+    "n_tokens": 5408,
+    "compacted": true,
+    "digit_logits": [
+      17.0,
+      20.625,
+      26.25,
+      32.25,
+      31.75,
+      25.375
+    ],
+    "probs": [
+      0.0,
+      6e-06,
+      0.00154,
+      0.621098,
+      0.376715,
+      0.000642
+    ],
+    "expected_score": 3.376447,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item073",
+    "n_tokens": 4896,
+    "compacted": true,
+    "digit_logits": [
+      17.75,
+      21.75,
+      27.375,
+      33.25,
+      33.0,
+      24.875
+    ],
+    "probs": [
+      0.0,
+      6e-06,
+      0.001576,
+      0.561214,
+      0.437074,
+      0.000129
+    ],
+    "expected_score": 3.435745,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item074",
+    "n_tokens": 5337,
+    "compacted": false,
+    "digit_logits": [
+      19.0,
+      20.875,
+      22.25,
+      27.875,
+      33.25,
+      36.25
+    ],
+    "probs": [
+      0.0,
+      0.0,
+      1e-06,
+      0.00022,
+      0.047415,
+      0.952364
+    ],
+    "expected_score": 4.952142,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item075",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      24.25,
+      31.75,
+      33.25,
+      27.0,
+      20.75
+    ],
+    "probs": [
+      0.0,
+      0.000101,
+      0.182119,
+      0.816201,
+      0.001576,
+      3e-06
+    ],
+    "expected_score": 2.81926,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item076",
+    "n_tokens": 4765,
+    "compacted": true,
+    "digit_logits": [
+      21.125,
+      24.375,
+      27.375,
+      32.75,
+      34.25,
+      35.25
+    ],
+    "probs": [
+      1e-06,
+      1.3e-05,
+      0.000262,
+      0.056596,
+      0.253646,
+      0.689482
+    ],
+    "expected_score": 4.63232,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item077",
+    "n_tokens": 5747,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      22.25,
+      27.75,
+      33.75,
+      32.75,
+      26.375
+    ],
+    "probs": [
+      0.0,
+      7e-06,
+      0.001808,
+      0.729397,
+      0.26833,
+      0.000457
+    ],
+    "expected_score": 3.267421,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item078",
+    "n_tokens": 5785,
+    "compacted": true,
+    "digit_logits": [
+      18.125,
+      21.5,
+      26.875,
+      33.0,
+      32.25,
+      26.125
+    ],
+    "probs": [
+      0.0,
+      7e-06,
+      0.001482,
+      0.677691,
+      0.320119,
+      0.0007
+    ],
+    "expected_score": 3.320022,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item079",
+    "n_tokens": 5485,
+    "compacted": false,
+    "digit_logits": [
+      20.5,
+      22.0,
+      23.625,
+      28.375,
+      32.0,
+      35.25
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      9e-06,
+      0.000994,
+      0.037289,
+      0.961706
+    ],
+    "expected_score": 4.960688,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item080",
+    "n_tokens": 6045,
+    "compacted": true,
+    "digit_logits": [
+      17.5,
+      20.875,
+      25.875,
+      31.625,
+      31.5,
+      25.125
+    ],
+    "probs": [
+      0.0,
+      1.1e-05,
+      0.001687,
+      0.529884,
+      0.467621,
+      0.000797
+    ],
+    "expected_score": 3.467504,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item081",
+    "n_tokens": 5936,
+    "compacted": true,
+    "digit_logits": [
+      19.875,
+      22.625,
+      25.25,
+      31.5,
+      35.25,
+      32.75
+    ],
+    "probs": [
+      0.0,
+      3e-06,
+      4.1e-05,
+      0.02127,
+      0.904444,
+      0.074241
+    ],
+    "expected_score": 4.052879,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item082",
+    "n_tokens": 4132,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      20.75,
+      23.375,
+      30.625,
+      35.25,
+      33.0
+    ],
+    "probs": [
+      0.0,
+      0.0,
+      6e-06,
+      0.008791,
+      0.896692,
+      0.094511
+    ],
+    "expected_score": 4.085706,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item083",
+    "n_tokens": 5064,
+    "compacted": true,
+    "digit_logits": [
+      18.5,
+      22.125,
+      27.625,
+      32.75,
+      31.875,
+      27.0
+    ],
+    "probs": [
+      0.0,
+      1.7e-05,
+      0.00417,
+      0.701254,
+      0.292326,
+      0.002232
+    ],
+    "expected_score": 3.292585,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item084",
+    "n_tokens": 4968,
+    "compacted": true,
+    "digit_logits": [
+      18.625,
+      21.75,
+      25.375,
+      32.25,
+      34.5,
+      28.75
+    ],
+    "probs": [
+      0.0,
+      3e-06,
+      9.8e-05,
+      0.095066,
+      0.901962,
+      0.002871
+    ],
+    "expected_score": 3.9076,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item085",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      18.0,
+      21.875,
+      27.375,
+      31.5,
+      29.75,
+      25.125
+    ],
+    "probs": [
+      1e-06,
+      5.5e-05,
+      0.013563,
+      0.839131,
+      0.145819,
+      0.00143
+    ],
+    "expected_score": 3.135001,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item086",
+    "n_tokens": 5543,
+    "compacted": true,
+    "digit_logits": [
+      18.25,
+      21.75,
+      26.125,
+      32.25,
+      33.25,
+      28.75
+    ],
+    "probs": [
+      0.0,
+      7e-06,
+      0.000583,
+      0.266617,
+      0.724741,
+      0.008051
+    ],
+    "expected_score": 3.740245,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item087",
+    "n_tokens": 4466,
+    "compacted": true,
+    "digit_logits": [
+      20.25,
+      28.5,
+      35.25,
+      35.25,
+      29.25,
+      22.0
+    ],
+    "probs": [
+      0.0,
+      0.000584,
+      0.499089,
+      0.499089,
+      0.001237,
+      1e-06
+    ],
+    "expected_score": 2.500981,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item088",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      20.25,
+      25.125,
+      30.0,
+      32.25,
+      30.0,
+      26.875
+    ],
+    "probs": [
+      5e-06,
+      0.000662,
+      0.08666,
+      0.822206,
+      0.08666,
+      0.003808
+    ],
+    "expected_score": 3.006277,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item089",
+    "n_tokens": 5106,
+    "compacted": true,
+    "digit_logits": [
+      19.875,
+      22.625,
+      25.25,
+      31.25,
+      34.5,
+      33.75
+    ],
+    "probs": [
+      0.0,
+      5e-06,
+      6.4e-05,
+      0.025657,
+      0.661706,
+      0.312568
+    ],
+    "expected_score": 4.286769,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item090",
+    "n_tokens": 5206,
+    "compacted": true,
+    "digit_logits": [
+      18.25,
+      24.875,
+      32.0,
+      33.25,
+      27.75,
+      20.625
+    ],
+    "probs": [
+      0.0,
+      0.000179,
+      0.221955,
+      0.774698,
+      0.003166,
+      3e-06
+    ],
+    "expected_score": 2.780858,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item091",
+    "n_tokens": 6127,
+    "compacted": true,
+    "digit_logits": [
+      18.125,
+      21.0,
+      25.0,
+      31.0,
+      32.75,
+      28.0
+    ],
+    "probs": [
+      0.0,
+      7e-06,
+      0.000364,
+      0.146909,
+      0.845405,
+      0.007314
+    ],
+    "expected_score": 3.859655,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item092",
+    "n_tokens": 4134,
+    "compacted": true,
+    "digit_logits": [
+      18.5,
+      21.875,
+      25.5,
+      32.5,
+      34.5,
+      31.875
+    ],
+    "probs": [
+      0.0,
+      3e-06,
+      0.000102,
+      0.112042,
+      0.827882,
+      0.059972
+    ],
+    "expected_score": 3.947717,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item093",
+    "n_tokens": 6144,
+    "compacted": true,
+    "digit_logits": [
+      17.375,
+      20.0,
+      22.625,
+      29.25,
+      33.0,
+      30.5
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      2.8e-05,
+      0.021271,
+      0.904456,
+      0.074242
+    ],
+    "expected_score": 4.052908,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item094",
+    "n_tokens": 5489,
+    "compacted": true,
+    "digit_logits": [
+      18.375,
+      20.5,
+      23.375,
+      29.875,
+      33.0,
+      30.75
+    ],
+    "probs": [
+      0.0,
+      3e-06,
+      5.7e-05,
+      0.038226,
+      0.870014,
+      0.091699
+    ],
+    "expected_score": 4.053347,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item095",
+    "n_tokens": 4970,
+    "compacted": true,
+    "digit_logits": [
+      19.625,
+      22.125,
+      23.625,
+      29.5,
+      34.75,
+      36.25
+    ],
+    "probs": [
+      0.0,
+      1e-06,
+      3e-06,
+      0.000956,
+      0.18225,
+      0.81679
+    ],
+    "expected_score": 4.815826,
+    "argmax_digit": 5,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item096",
+    "n_tokens": 5334,
+    "compacted": true,
+    "digit_logits": [
+      21.125,
+      28.625,
+      34.25,
+      33.75,
+      28.625,
+      22.625
+    ],
+    "probs": [
+      1e-06,
+      0.002235,
+      0.619673,
+      0.375851,
+      0.002235,
+      6e-06
+    ],
+    "expected_score": 2.3781,
+    "argmax_digit": 2,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item097",
+    "n_tokens": 4759,
+    "compacted": true,
+    "digit_logits": [
+      19.5,
+      22.875,
+      26.75,
+      34.25,
+      35.75,
+      32.25
+    ],
+    "probs": [
+      0.0,
+      2e-06,
+      9.8e-05,
+      0.178012,
+      0.797796,
+      0.024091
+    ],
+    "expected_score": 3.845876,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item098",
+    "n_tokens": 4460,
+    "compacted": true,
+    "digit_logits": [
+      19.5,
+      25.0,
+      32.5,
+      35.5,
+      30.375,
+      22.5
+    ],
+    "probs": [
+      0.0,
+      2.6e-05,
+      0.047157,
+      0.947182,
+      0.005632,
+      2e-06
+    ],
+    "expected_score": 2.958427,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item099",
+    "n_tokens": 5070,
+    "compacted": true,
+    "digit_logits": [
+      19.375,
+      22.5,
+      25.75,
+      31.25,
+      33.25,
+      31.625
+    ],
+    "probs": [
+      1e-06,
+      1.6e-05,
+      0.000415,
+      0.10154,
+      0.750287,
+      0.14774
+    ],
+    "expected_score": 4.045319,
+    "argmax_digit": 4,
+    "argmax_is_digit": true
+  },
+  {
+    "item": "native-heavy-11-11-2026__item100",
+    "n_tokens": 4973,
+    "compacted": true,
+    "digit_logits": [
+      18.5,
+      22.625,
+      28.125,
+      32.75,
+      30.5,
+      24.5
+    ],
+    "probs": [
+      1e-06,
+      3.6e-05,
+      0.008789,
+      0.896455,
+      0.094486,
+      0.000234
+    ],
+    "expected_score": 3.086092,
+    "argmax_digit": 3,
+    "argmax_is_digit": true
+  }
+]

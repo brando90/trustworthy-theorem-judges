@@ -1,0 +1,56 @@
+{
+  "codex_astra": {
+    "n_ok": 20,
+    "oracle_min": 4.99,
+    "oracle_mean": 4.9925,
+    "blank_max": 0.005,
+    "vacuous_max": 0.01,
+    "shuffled_max": 0.0283,
+    "label_in_prompt_pearson": 1.0,
+    "label_in_prompt_mae": 0.0,
+    "label_in_prompt_tvd": 0.0
+  },
+  "agy_argon": {
+    "n_ok": 20,
+    "oracle_min": 4.97,
+    "oracle_mean": 4.98,
+    "blank_max": 0.01,
+    "vacuous_max": 0.01,
+    "shuffled_max": 0.04,
+    "label_in_prompt_pearson": 0.621678,
+    "label_in_prompt_mae": 0.6684,
+    "label_in_prompt_tvd": 0.4217
+  },
+  "agy_opus": {
+    "n_ok": 20,
+    "oracle_min": 4.56,
+    "oracle_mean": 4.6775,
+    "blank_max": 0.05,
+    "vacuous_max": 0.06,
+    "shuffled_max": 0.19,
+    "label_in_prompt_pearson": 1.0,
+    "label_in_prompt_mae": 0.0,
+    "label_in_prompt_tvd": 0.0
+  },
+  "grok_47": {
+    "n_ok": 20,
+    "oracle_min": 4.65,
+    "oracle_mean": 4.7825,
+    "blank_max": 0.104,
+    "vacuous_max": 0.236,
+    "shuffled_max": 0.315,
+    "label_in_prompt_pearson": 0.095663,
+    "label_in_prompt_mae": 0.885,
+    "label_in_prompt_tvd": 0.5742
+  },
+  "qwen3_4b": {
+    "n_ok": 20,
+    "oracle_min": 3.9995,
+    "oracle_mean": 4.7495,
+    "blank_max": 0.0293,
+    "vacuous_max": 0.2468,
+    "shuffled_max": 1.6962,
+    "label_in_prompt_pearson": 0.939974,
+    "label_in_prompt_mae": 0.2919
+  }
+}

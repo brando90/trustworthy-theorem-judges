@@ -106,6 +106,20 @@ def call_lane(lane: str, system: str, user: str, timeout: int = 300) -> tuple[st
                 raise RuntimeError(f"grok exit={r.returncode} stderr={r.stderr[-250:]}")
             return text, None
 
+        elif lane == "claude_opus_cli":
+            tok_path = Path.home() / "keys" / "claude_vals_oauth_token.txt"
+            env["CLAUDE_CODE_OAUTH_TOKEN"] = tok_path.read_text().strip()
+            cmd = [
+                "claude", "-p", "--model", "claude-opus-5-5",
+                "--effort", "high", "--tools", "",
+                "--dangerously-skip-permissions",
+            ]
+            r = subprocess.run(cmd, input=prompt, capture_output=True, text=True, cwd=empty, env=env, timeout=timeout)
+            text = r.stdout.strip()
+            if r.returncode != 0 or not text:
+                raise RuntimeError(f"claude exit={r.returncode} stderr={r.stderr[-250:]}")
+            return text, None
+
         else:
             raise ValueError(f"Unknown lane: {lane}")
 
@@ -154,7 +168,7 @@ def process_one(lane: str, row: dict, req_sha: str, out_path: Path, retries: int
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--lane", required=True, choices=["codex_astra", "agy_argon", "agy_opus", "grok_47"])
+    ap.add_argument("--lane", required=True, choices=["codex_astra", "agy_argon", "agy_opus", "grok_47", "claude_opus_cli"])
     ap.add_argument("--requests", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--workers", type=int, default=4)
