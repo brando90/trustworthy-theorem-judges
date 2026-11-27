@@ -8,6 +8,7 @@
 4 & 11-24-2026 & 27 & Verdict promising, not works: on 70 held-out artifacts the CE-fitted judge has RPS 0.075 vs 0.110 for the set-aware constant (paired -0.035 [-0.076, +0.002]), CE 0.97 vs 1.19, TVD 0.35 vs 0.48. \\
 5 & 11-26-2026 & 28 & Promising on 20 held-out test tasks (Global G9 RPS 0.0729 vs. 0.1088 constant, paired -0.0360 [-0.0746, +0.0011]); on H3-free 50-task nested OOF, Global reaches 0.0704 and post-hoc all-frontier reaches 0.0685 vs. 0.1186 (0/10,000 draws >= 0; p=0.0214 vs. F8); LoRA CE beats Pearson on both splits (p=0.0002), while matched (M+K) head CE beats Pearson on CE/TVD with RPS crossing zero (p=0.0786). \\
 6 & 11-27-2026 & 29 & The 20-task primary does not clear the bar (CE worse than the set-aware constant). The H3-free 50-task nested head does: RPS 0.0684 vs 0.1186, paired -0.0502 [-0.0726, -0.0290]. \\
+7 & 11-27-2026 & 30 & Top 25 new artifacts are 21/61 fives against 66/70 in the bottom 25. Extra ratings on the same 20 tasks leave the RPS upper bound at +0.002. A planning extrapolation crosses at 23 tasks. \\
 \bottomrule
 \end{longtable}
 
@@ -40,3 +41,8 @@
 \section{Cumulative-logit heads fit by cross-entropy or ranked probability score on 445 ratings (11-27-2026)}
 \ResultMeta{6}{29}{11-27-2026 10:08}{29_refit_cumulative_logit_heads_ce_versus_rps_on_445_ratings_start_27Nov2026}
 \input{results/29_refit_cumulative_logit_heads_ce_versus_rps}
+
+\clearpage
+\section{Next human ratings by judge-ensemble uncertainty, and the power curve for the held-out RPS gain (11-27-2026)}
+\ResultMeta{7}{30}{11-27-2026 11:23}{30_rank_next_human_ratings_by_judge_ensemble_uncertainty_and_power_curve_for_the_held_out_rps_gain_start_27Nov2026}
+\input{results/30_rank_next_human_ratings_and_rps_power}

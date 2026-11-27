@@ -1,0 +1,48 @@
+%% title: Next human ratings by judge-ensemble uncertainty, and the power curve for the held-out RPS gain (11-27-2026)
+%% result-date: 11-27-2026
+%% result-time: 11:23
+%% experiment: 30_rank_next_human_ratings_by_judge_ensemble_uncertainty_and_power_curve_for_the_held_out_rps_gain_start_27Nov2026
+%% headline: Top 25 new artifacts are 21/61 fives against 66/70 in the bottom 25. Extra ratings on the same 20 tasks leave the RPS upper bound at +0.002. A planning extrapolation crosses at 23 tasks.
+% Source: experiments/30_rank_next_human_ratings_by_judge_ensemble_uncertainty_and_power_curve_for_the_held_out_rps_gain_start_27Nov2026/results.md
+
+\subsection*{Bottom line}
+The next human ratings should go to artifacts the six logged judges do not already call a five.
+On the 100 new artifacts the top 25 are 21/61 fives (34.4\%) and the bottom 25 are 66/70 fives (94.3\%), against 185/250 fives (74.0\%) in the new set.
+Replaying the experiment 27 head on the 445 ratings (195 old + 250 new) gives test ranked probability score (RPS) 0.0737 versus 0.1088 for the set-aware constant, paired $-0.0351$ $[-0.0764,+0.0020]$ (10,000 task draws, seed 20261127).
+Cross-entropy (CE) is 0.943 versus 1.159, paired $-0.2153$ $[-0.4593,+0.0119]$.
+Total variation distance (TVD) is 0.359 versus 0.479, paired $-0.1206$ $[-0.2038,-0.0506]$.
+Spearman 0.876 and Pearson 0.907 are secondary.
+Bias is $+0.213$ (judge mean 3.913 versus human mean 3.700).
+Simulated extra ratings on these same 20 tasks, through $+2{,}240$ draws from the current histograms, leave the median RPS upper bound within 0.0008 of $+0.0020$.
+It does not go negative.
+An extrapolation that holds the point estimate fixed and scales only the upper distance by $\sqrt{20/m}$ is negative at 23 tasks.
+That extrapolation is planning, not a certification.
+
+\subsection*{Held-out test, 20 tasks, 70 artifacts (lower is better for RPS, CE, TVD)}
+\begin{center}\scriptsize\setlength{\tabcolsep}{3pt}
+\FitWidth{\begin{tabular}{@{}l l l l l l@{}}
+\toprule
+Forecast & RPS [95\%] & CE [95\%] & TVD [95\%] & Spearman & Pearson \\ \midrule
+F8 refit & 0.0737 [0.0462, 0.1062] & 0.943 [0.665, 1.265] & 0.359 [0.292, 0.439] & 0.876 & 0.907 \\
+Set-aware constant & 0.1088 [0.0725, 0.1503] & 1.159 [0.866, 1.468] & 0.479 [0.402, 0.563] &  &  \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+The experiment 27 replay on the frozen 247-new-rating table matches its published paired RPS at $-0.034895$ $[-0.075959,+0.002443]$ against the recorded target $-0.034895$ $[-0.075959,+0.002444]$.
+
+\subsection*{Caveats}
+\begin{itemize}
+  \item Every power number is a retrospective subsample or a simulation from the current histograms. It is not a new human round and not a certification.
+  \item The task bootstrap keeps the histograms fixed. More ratings drawn from those histograms do not shrink it.
+  \item The 23-task figure assumes new tasks would have the same paired RPS. No logged six-member ensemble exists here for VeriBench tasks outside these 175 artifacts.
+  \item No differential testing and no Lean check. The rank does not use rating values or the train, validation, or test split.
+\end{itemize}
+
+\subsection*{Appendix: methods, harness and model}
+No new model call.
+Logged scores are the H2 Astra and H2 Opus calls, the H3 Astra call, and the H4 Astra, Argon and Opus calls already stored in experiments 27, 28 and 29.
+The head is the experiment 27 F8 cumulative logit, cross-entropy, penalty 0, mixture 0, refit on train and validation with NumPy 1.26.4 and SciPy 1.13.1.
+Receipt: the experiment \path{results.md}.
+Google Doc: \url{https://docs.google.com/document/d/1Nvwklzb89u223bSt5pU92F9lN7yf6ZvUJYOsYK1DpIg/edit}.
+Priority list: \path{results/next_ratings_priority_top25_11-27-2026.csv} in that experiment.

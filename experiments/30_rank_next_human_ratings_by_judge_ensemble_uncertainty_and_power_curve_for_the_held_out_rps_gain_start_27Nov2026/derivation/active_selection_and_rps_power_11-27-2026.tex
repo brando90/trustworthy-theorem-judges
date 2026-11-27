@@ -1,0 +1,119 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\usepackage{url}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\title{Rank score and the held-out RPS interval\\(11-27-2026)}
+\author{Experiment 30, trustworthy-theorem-judges}
+\date{11-27-2026}
+
+\begin{document}
+\maketitle
+
+\section*{What this shows and what it does not show}
+
+This note defines the rank used to order the next human ratings, the ranked probability score (RPS) whose interval is the power endpoint, and the task bootstrap around that RPS. It then records why adding ratings on the same 20 tasks does not push the upper endpoint below 0, and which assumption the 23-task planning figure uses.
+
+The rank score is a fixed function of six logged judge distributions and of how many ratings an artifact already has. It does not use the rating values. It is not a trained judge and it is not a claim that the next human round will certify one.
+
+RPS compares a full distribution on $\{0,1,2,3,4,5\}$ with another full distribution. A cumulative logit fitted to four scalar features can represent linear shifts of those features. It cannot represent an arbitrary function of the Lean file, and this experiment does not refit it inside the power curve.
+
+The task bootstrap resamples tasks and keeps each artifact's histogram fixed. Once the histograms have stopped moving, more ratings drawn from those same histograms do not shrink the interval. The statement ``23 tasks'' is an extrapolation that holds the 20-task point estimate fixed and scales only the gap from that point to the upper endpoint by $\sqrt{20/m}$. It is not a measured interval, and it is not a certification that three more tasks would make the judge pass.
+
+\section*{Notation}
+
+\begin{center}
+\begin{tabular}{@{}llp{8.2cm}@{}}
+\toprule
+Symbol & Type & Meaning \\
+\midrule
+$r$ & integer in $\{0,\ldots,5\}$ & A human rating \\
+$P$ & probability vector in $\mathbb{R}^6$ & Empirical human histogram on one artifact \\
+$Q$ & probability vector in $\mathbb{R}^6$ & Judge forecast on that artifact \\
+$C_s$ & probability vector in $\mathbb{R}^6$ & Train-plus-validation human marginal of set $s\in\{\text{old},\text{new}\}$ \\
+$n$ & positive integer & Ratings already on the artifact \\
+$m$ & positive integer & Number of test tasks in a bootstrap \\
+$d_i$ & real number & Per-artifact RPS of $Q$ minus RPS of $C_s$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Rank score}
+
+Let six logged members each supply a distribution $q^{(k)}$ on $\{0,\ldots,5\}$, for $k=1,\ldots,6$: the histogram of three H2 Astra calls, the histogram of three H2 Opus calls, the H3 Astra vector, and the three H4 vectors (Astra, Argon, Opus). The expected score of member $k$ is
+\begin{equation}
+\mu_k = \sum_{r=0}^{5} r\, q^{(k)}_r.
+\end{equation}
+Disagreement is the sample standard deviation of these six numbers, with divisor $5$:
+\begin{equation}
+D = \sqrt{\frac{1}{5}\sum_{k=1}^{6}(\mu_k-\bar\mu)^2}.
+\end{equation}
+The ensemble distribution is the equal-weight mean $\bar q = \frac16\sum_k q^{(k)}$. Its Shannon entropy in nats, divided by $\log 6$, is
+\begin{equation}
+H(\bar q) = \frac{-\sum_{r:\,\bar q_r>0}\bar q_r\log\bar q_r}{\log 6}\in[0,1].
+\end{equation}
+Ceiling mass is $\bar q_5$. Non-ceiling uncertainty is $H(\bar q)\,(1-\bar q_5)$. The rank score, higher first, is
+\begin{equation}
+\boxed{S = D + H(\bar q)\,(1-\bar q_5) + \frac{0.5}{1+n}.}
+\end{equation}
+$S$ depends on the rating values only through the count $n$. The sequential allocation used inside the simulation puts the next rating on the artifact maximizing $(D+H(\bar q)\,(1-\bar q_5))/((n+1)(n+2))$. That denominator is the marginal shrinkage of a variance that scales as $1/n$. It is a planning rule, not a fitted parameter.
+
+On the measured list, the top 25 new artifacts have 21 fives out of 61 ratings. The bottom 25 have 66 fives out of 70. The rank score and the five-rate have Spearman $-0.617$. Those two sentences are the experiment's check that $S$ is not ignoring the ceiling. They are not inputs to $S$.
+
+\section*{Ranked probability score}
+
+Write $P_{\le t}=\sum_{r=0}^{t}P_r$ and $Q_{\le t}=\sum_{r=0}^{t}Q_r$. The per-artifact RPS used in experiments 22, 25, 27 and 29 is
+\begin{equation}
+\boxed{\mathrm{RPS}(P,Q)=\frac{1}{5}\sum_{t=0}^{4}\Big[(Q_{\le t}-P_{\le t})^2+P_{\le t}(1-P_{\le t})\Big].}
+\end{equation}
+The second term does not depend on $Q$. It is the variance of the human cumulative, and it is the same in the judge and in the constant, so it cancels in the paired difference. The first term is the squared error of the cumulative forecast. RPS is a proper score for the whole distribution: a constant shift of the mean changes it, which is why a high Spearman can sit next to a judge that does not beat the constant. The reported RPS is the mean of this quantity over artifacts. Lower is better.
+
+The paired estimand on the test artifacts is
+\begin{equation}
+\Delta = \frac{1}{N}\sum_{i=1}^{N}\Big(\mathrm{RPS}(P_i,Q_i)-\mathrm{RPS}(P_i,C_{s(i)})\Big).
+\end{equation}
+$Q_i$ is the F8 cumulative logit, fitted by cross-entropy on train and validation only, then held fixed. $C_s$ is the train-plus-validation human marginal of set $s$, also held fixed. On the 445-rating snapshot, $N=70$ artifacts in $m=20$ tasks, and the measured $\Delta$ is $-0.035133$.
+
+The cumulative logit is $P(R\le t)=\sigma(\theta_t-w^\top x)$ with $x$ the four standardized features (Astra mean, Opus mean, H3 score, H3 expected score) and with $\theta_t$ increasing. The map from $x$ to the distribution is a linear shift of a fixed shape. Features that are not linear functions of those four numbers are invisible to this head.
+
+\section*{Task bootstrap}
+
+Let task $t$ own a fixed set of artifacts, and let $d_i$ be the paired RPS of artifact $i$ at the histograms being scored. A draw samples $m$ tasks with replacement from the $m$ observed tasks and recomputes the mean of $d_i$ over the sampled artifacts, counting a repeated task again. The interval is the $2.5$ and $97.5$ percentiles of $10{,}000$ draws. The one-sided probability reported next to it is $(1+\#\{\text{draws}\ge 0\})/10001$.
+
+This interval is a statement about which of these tasks were included. It is not a statement about the multinomial noise inside a histogram, except insofar as that noise has already changed $d_i$ before the bootstrap starts. If further ratings are drawn from the current $P_i$, then $\mathbb{E}[P_i^{\text{new}}]=P_i$, and as the added count grows, $d_i$ returns to its current value. The percentile interval returns to the current interval. On this snapshot that upper endpoint is $+0.002010$. No added count changes that limit. The measured forward curve, through $2{,}240$ synthetic ratings, stays within $0.0008$ of $+0.002010$, for both the uniform allocation and the active allocation.
+
+\section*{Extrapolation past 20 tasks}
+
+Write $U_{20}=+0.002010$ and $\Delta_{20}=-0.035133$. The distance $U_{20}-\Delta_{20}=0.037142$ is scaled as
+\begin{equation}
+\boxed{U(m)=\Delta_{20}+(U_{20}-\Delta_{20})\sqrt{20/m}.}
+\end{equation}
+$U(22)=+0.000281$ and $U(23)=-0.000497$. The smallest integer $m$ with $U(m)<0$ is $23$.
+
+Two supports, and one limit. Support: on subsamples of these 20 tasks, the median interval width times $\sqrt{m}$ has coefficient of variation $0.019$ for $m$ from 6 to 18, so the square-root scaling fits the widths that were actually computed. Limit: the formula keeps $\Delta_{20}$ fixed. It says nothing about a new task whose paired RPS is smaller than the average of these 20. It is a planning calculation under that assumption. The measured subsamples of size $m\le 20$ do not have a median upper bound below 0. At the full 20, the fraction of draws with an upper bound below 0 is 0.
+
+At 176 test ratings on 20 tasks, three more tasks of the same depth are $3\times 176/20=26.4$ ratings. That translation inherits the extrapolation's assumption. It is not a count of ratings this study collected.
+
+\section*{Numeric check against the run}
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Quantity & Value copied from the receipt \\
+\midrule
+Experiment 27 replay, paired RPS & $-0.034895$ $[-0.075959,+0.002443]$ \\
+Cursor QA target & $-0.034895$ $[-0.075959,+0.002444]$ \\
+445-rating paired RPS & $-0.035133$ $[-0.076366,+0.002010]$ \\
+Forward median upper, every budget & in $[+0.0018,+0.0028]$, never below 0 \\
+$U(23)$ & $-0.000497$ \\
+Top 25 fives & $21/61$ \\
+Bottom 25 fives & $66/70$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Source file: \path{results/analysis_11-27-2026.json} in this experiment. Seeds 20261124 for the experiment 27 replay and 20261127 for the 445-rating curves. $10{,}000$ task draws.
+
+\end{document}
